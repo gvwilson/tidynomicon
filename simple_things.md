@@ -266,7 +266,7 @@ rather than from zero.
 If you dare know the truth,
 [Mike Hoye has it for you](http://exple.tive.org/blarg/2013/10/22/citation-needed/).)
 
-## How do I index a list---sorry, a vector?
+## How do I index a ~~list~~ vector?
 
 Python's rules are simple once you understand them
 (a statement which is also true of quantum mechanics).
@@ -436,3 +436,168 @@ let's try indexing with 0 and 1 together:
 
 This unfortunate behavior is fertile ground for breeding bugs.
 Be on guard against it.
+
+## How do I choose and repeat things?
+
+We cherish the illusion of free will so much that we embed a pretence of it in our machines
+in the form of conditional statements.
+We then instruct those same machines to make the same decisions over and over,
+often for no discernible purpose.
+For example,
+we could write the following in Python:
+
+```py
+values = [-1, 0, 1]
+for v in values:
+    if v < 0:
+        sign = -1
+    elif v == 0:
+        sign = 0
+    else:
+        sign = 1
+    print("The sign of", v, "is", sign)
+```
+```output
+The sign of -1 is -1
+The sign of 0 is 0
+The sign of 1 is 1
+```
+
+and then create something equivalent in R:
+
+```r
+values <- c(-1, 0, 1)
+for (v in values) {
+  if (v < 0) {
+    sign <- -1
+  }
+  else if (v == 0) {
+    sign <- 0
+  }
+  else {
+    sign <- 1
+  }
+  print(paste("The sign of", v, "is", sign))
+}
+```
+```output
+[1] "The sign of -1 is -1"
+[1] "The sign of 0 is 0"
+[1] "The sign of 1 is 1"
+```
+
+There are a few things to note here:
+
+1.  The parentheses in the loop header are required:
+    we cannot simply write `for v in values`.
+2.  The curly braces around the bodies of the loop and the conditional branches are optional,
+    but should always be there to help readability.
+3.  `paste` converts its arguments to strings and then concatenates those,
+    placing a single space between each unless instructed to do otherwise.
+    `print` then prints the resulting (single) string.
+   The functions `cat` and `message` can also be used for text output.
+4. By calling our temporary variable `sign`
+   we risk collision with the rather useful built-in R function of the same name.
+
+Explicit loops in R programs are generally regarded with the same sort of suspicion
+as hearty claims by over-confident graduate students that
+the text they are about to read aloud is purely metaphorical,
+as are the dire warnings scrawled in the margins of the ancient tome in which it was found.
+If we wish to get the signs of some values in R,
+we can more idiomatically do this:
+
+```r
+result <- sign(c(-1, 0, 1))
+```
+
+Vectors being ubiquitous in R,
+almost every function will operate on multiple values.
+And as sequences such as (-1, 0, 1) are also very common,
+R provides a notation for expressing them:
+
+or even:
+
+```r
+result <- sign(-1:1)
+```
+
+Where Python only allows ranges such as `-1:1` to be used as indices,
+R considers them first-class entities.
+Their most common use is as indices to vectors:
+
+```r
+colors <- c("eburnean", "glaucous", "squamous", "wenge")
+colors[1:3]
+```
+```output
+[1] "eburnean" "glaucous" "squamous"
+```
+```r
+colors[-1:-3]
+```
+```output
+[1] "wenge"
+```
+
+What we *cannot* do is use vectors directly as conditions in `if` statements:
+
+```r
+numbers <- c(0, 1, 2)
+if (numbers) {
+  print("This should not have worked.")
+}
+```
+```error
+Warning message:
+In if (numbers) { :
+  the condition has length > 1 and only the first element will be used
+```
+
+Instead,
+we must collapse them into a single logical (Boolean) value:
+
+```r
+numbers <- c(0, 1, 2)
+if (all(numbers >= 0)) {
+  print("This, on the other hand, should work.")
+}
+```
+```output
+[1] "This, on the other hand, should work."
+```
+
+When evaluating the expression `numbers >= 0`,
+R automatically replicates or *recycles* the shorter vector
+(in this case, the vector of length 1 containing the value 0)
+and then performs element-by-element comparison to construct a vector of logical values:
+
+```r
+> numbers >= 0
+```
+```output
+[1] TRUE TRUE TRUE
+```
+
+The function `all` then checks if they are all `TRUE`.
+We could use a corresponding function `any` to check if at least one was `TRUE`;
+these two functions therefore correspond to "and" and "or" across the whole vector.
+
+Logical vectors have a special place in the R universe,
+just as human beings don't in the larger one.
+If a vector is indexed with a logical vector,
+the result is a vector containing only the values at locations where the index vector is `TRUE`.
+This is easier to show than to describe:
+
+```r
+both <- -2:2         # c(-2, -1, 0, 1, 2)
+mask <- both > 0     # c(FALSE, FALSE, FALSE, TRUE, TRUE)
+result <- both[mask] # c(1, 2)
+```
+
+We can of course make the code shorter by eliminating the `mask` variable:
+
+```r
+result <- both[both > 0]
+```
+
+Subsetting in this way is a very common operation.
