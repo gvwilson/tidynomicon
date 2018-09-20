@@ -38,6 +38,10 @@ Derived constraints:
   both because they understand the utility and as a safety blanket,
   but will then be impatient to start tackling real tasks.
 
+## Other Pages
+
+- [Simple Things in Python and R](simple_things.md)
+
 ## Explorations
 
 Here is a sample of data from `infant_hiv/raw/infant_hiv.csv`,
@@ -131,8 +135,8 @@ tidy <- arrange(all_data, country, year)
 write_csv(tidy, tidy_file)
 ```
 
-Here are some of the issues I encountered along the way that this training will need to cover,
-and some questions that I still have.
+Here are some of the issues I encountered along the way that this training will need to cover
+and questions I still have:
 
 - Since the first few lines of the CSV aren't tidy, I ignore them, then select rows using row number based on inspection of the raw CSV.
   Is there a better way to get the data I want to tidy?
@@ -175,6 +179,14 @@ and some questions that I still have.
   (I get a similar complaint about uses of `year`.)
 - I've committed the `tidynomicon.Rproj` file to my Git repository.
   Have I sinned?
+
+Here are some answers:
+
+- "Did you use the IDE data importer?  It's *really* helpful, especially when getting started."
+  No: most people coming from Python will already be overwhelmed with detail,
+  so my bet is that they will (a) not explore long enough to find it or
+  (b) try to do everything by hand anyway (since they're not used to working with full-featured IDEs).
+  Showing them the importer (and a breakpointing/single-stepping debugger) is now on the list of things to teach.
 
 ## Learners' Questions
 
@@ -226,7 +238,7 @@ This section explores some of the differences between the features of R and Pyth
 
 ### Selecting, Filtering, and Aggregating Data
 
-Read the CSV data set `infant_hiv/solution/infant-hiv.csv` into a tibble.
+Read the CSV data set `infant_hiv/solution/infant_hiv.csv` into a tibble.
 Use tidyverse functions to answer the following questions:
 
 1. How many distinct countries are in the data?
@@ -239,10 +251,16 @@ Use tidyverse functions to answer the following questions:
 
 ### Tidying Data
 
-Look at the CSV file `infant_hiv/raw/infant-hiv.csv`
+Look at the CSV file `infant_hiv/raw/infant_hiv.csv`
 (which are taken from the Excel spreadsheet located in the same directory).
-Write an R script that tidies this data and store the results in `infant_hiv/tidy/infant-hiv.csv`.
+Write an R script that tidies this data and store the results in `infant_hiv/tidy/infant_hiv.csv`.
 Compare your result to the file used in previous exercises.
+
+### Using RStudio
+
+Use RStudio's data importer to read `infant_hiv/raw/infant_hiv.csv`.
+Using both it and the interactive debugger,
+rebuild your previous import script from scratch.
 
 ### Making Reusable Code
 
