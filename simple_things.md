@@ -777,3 +777,74 @@ R's lists are complex enough that we will devote an entire section to exploring 
 until then,
 suffice to say that they can be iterated over,
 but that indexing them may surprise you.
+
+## How do I live without loops?
+
+Modern Python encourages programmers to use list comprehensions instead of loops,
+e.g.,
+to write:
+
+```py
+doubled = [2 * x for x in original]
+```
+
+instead of:
+
+```py
+doubled = []
+for x in original:
+  double.append(2 * x)
+```
+
+If `original` is a NumPy array,
+we can shorten this to:
+
+```py
+doubled = 2 * original
+```
+
+As we have already seen,
+R provides the same capability in the language itself:
+
+```r
+doubled <- 2 * original
+```
+
+If we want to perform more complex calculations,
+R encourages us to use a functional style of programming,
+in which data is transformed by successive operations
+much as reality itself is transformed by the will of the Great Old Ones.
+We begin by defining a function that does what we want:
+
+```r
+double <- function(x) {
+  2 * x
+}
+```
+
+and then pass this function to `sapply` along with the data on which we want to operate:
+
+```r
+sapply(1:10, double)
+```
+```output
+[1]  2  4  6  8 10 12 14 16 18 20
+```
+
+This is clumsier than simply multiplying our values by two,
+but it illustrates the way in which *higher-order functions* work.
+We can use other higher-order functions to perform other operations,
+such as conditionals:
+
+```r
+values <- -5:5
+ifelse(values > 0, values, NA)
+```
+```output
+[1] NA NA NA NA NA NA  1  2  3  4  5
+```
+
+R provides many other higher-order functions,
+but their semantics are sometimes confusing.
+We therefore encourage programmers to use the functions provided by the tidyverse instead;
+these will be discussed in [the next lesson](tidyverse.md).
