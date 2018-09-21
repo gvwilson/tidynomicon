@@ -1,9 +1,6 @@
 # Simple Things in Python and R
 
 Let's try some simple things at an interactive prompt.
-(We will show Python's `>>>` prompt
-and its R equivalent `>`
-whenever we use the languages interactively.)
 
 ## How do I greet the world?
 
@@ -14,7 +11,7 @@ Or does it?
 
 ```py
 # Python
->>> "Hello, world!"
+"Hello, world!"
 ```
 ```output
 'Hello, world!'
@@ -22,7 +19,7 @@ Or does it?
 
 ```r
 # R
-> "Hello, world!"
+"Hello, world!"
 ```
 ```output
 [1] "Hello, world!"
@@ -41,7 +38,7 @@ Let's display a second string and see:
 
 ```r
 # R
-> 'This is in single quotes.'
+'This is in single quotes.'
 ```
 ```output
 [1] "This is in single quotes."
@@ -58,7 +55,8 @@ In Python,
 I add numbers using `+`:
 
 ```py
->>> 1 + 2 + 3
+# Python
+1 + 2 + 3
 ```
 ```output
 6
@@ -68,7 +66,8 @@ I can check the type of the result using the built-in `type` function,
 which in this case tells me that my `6` is an integer:
 
 ```py
->>> type(6)
+# Python
+type(6)
 ```
 ```output
 <class 'int'>
@@ -77,13 +76,15 @@ which in this case tells me that my `6` is an integer:
 What does R do?
 
 ```r
-> 1 + 2 + 3
+# R
+1 + 2 + 3
 ```
 ```output
 [1] 6
 ```
 ```r
-> typeof(6)
+# R
+typeof(6)
 ```
 ```output
 [1] "double"
@@ -97,7 +98,7 @@ but it does seem odd for integer addition to produce a double-precision floating
 Let's try an experiment:
 
 ```r
-> typeof(6)
+typeof(6)
 ```
 ```output
 [1] "double"
@@ -110,7 +111,7 @@ even if they look like integers when written.
 We can force a literal value to be an integer by putting an upper-case L after it:
 
 ```r
-> typeof(6L)
+typeof(6L)
 ```
 ```output
 [1] "integer"
@@ -119,13 +120,13 @@ We can force a literal value to be an integer by putting an upper-case L after i
 Arithmetic on integers produces integers:
 
 ```r
-> 1L + 2L + 3L
+1L + 2L + 3L
 ```
 ```output
 [1] 6
 ```
 ```r
-> typeof(1L + 2L + 3L)
+typeof(1L + 2L + 3L)
 ```
 ```output
 [1] "integer"
@@ -135,13 +136,13 @@ and if we want to convert a "normal" (floating-point) number to an integer
 we can do so:
 
 ```r
-> as.integer(6)
+as.integer(6)
 ```
 ```output
 [1] 6
 ```
 ```r
-> typeof(as.integer(6))
+typeof(as.integer(6))
 ```
 ```output
 [1] "integer"
@@ -170,7 +171,7 @@ and assign that list to a variable using `=`.
 If the variable does not exist, it is created:
 
 ```py
->>> primes = [3, 5, 7, 11]
+primes = [3, 5, 7, 11]
 ```
 
 Since assignment is a statement rather than an expression,
@@ -194,13 +195,13 @@ To begin with,
 let's have a look at the lengths of various things in Python:
 
 ```py
->>> len(primes)
+len(primes)
 ```
 ```output
 4
 ```
 ```py
->>> len(4)
+len(4)
 ```
 ```err
 TypeError: object of type 'int' has no len()
@@ -215,7 +216,7 @@ Now,
 what of R?
 
 ```r
-> length(primes)
+length(primes)
 ```
 ```output
 [1] 4
@@ -224,7 +225,7 @@ what of R?
 Good.
 
 ```r
-> length(4)
+length(4)
 ```
 ```output
 [1] 1
@@ -234,7 +235,7 @@ That's unexpected.
 Let's have a closer look:
 
 ```r
-> typeof(primes)
+typeof(primes)
 ```
 ```output
 [1] "double"
@@ -249,8 +250,8 @@ the `[1]` is the index of its first value.
 We can prove this by creating and displaying a much longer vector:
 
 ```r
-> longer <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-> longer
+longer <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+longer
 ```
 ```output
  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5
@@ -274,26 +275,26 @@ To avoid confusing indices with values,
 let's create a list of color names and index that:
 
 ```py
->>> colors = ["eburnean", "glaucous", "wenge"]
->>> colors[0]
+colors = ["eburnean", "glaucous", "wenge"]
+colors[0]
 ```
 ```output
 'eburnean'
 ```
 ```py
->>> colors[2]
+colors[2]
 ```
 ```output
 'wenge'
 ```
 ```py
->>> colors[3]
+colors[3]
 ```
 ```err
 IndexError: list index out of range
 ```
 ```py
->>> colors[-1]
+colors[-1]
 ```
 ```output
 'wenge'
@@ -302,14 +303,14 @@ IndexError: list index out of range
 Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprising results:
 
 ```r
-> colors <- c("eburnean", "glaucous", "wenge")
-> colors[1]
+colors <- c("eburnean", "glaucous", "wenge")
+colors[1]
 ```
 ```output
 [1] "eburnean"
 ```
 ```r
-> colors[3]
+colors[3]
 ```
 ```output
 [1] "wenge"
@@ -318,7 +319,7 @@ Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprisin
 What happens if we go off the end?
 
 ```r
-> colors[4]
+colors[4]
 ```
 ```output
 [1] NA
@@ -340,7 +341,7 @@ In R,
 we use a negative index to indicate a value that we don't want:
 
 ```r
-> colors[-1]
+colors[-1]
 ```
 ```output
 [1] "glaucous" "wenge"   
@@ -353,7 +354,7 @@ we're actually using a vector to index another one.
 What happens if the index itself contains more than one value?
 
 ```r
-> colors[1, 2]
+colors[1, 2]
 ```
 ```err
 Error in colors[-1, -2] : incorrect number of dimensions
@@ -363,25 +364,25 @@ All right, that didn't work.
 What if we make the vector subscript explicit using `c`?
 
 ```r
-> colors[c(3, 1, 2)]
+colors[c(3, 1, 2)]
 ```
 ```output
 [1] "wenge"    "eburnean" "glaucous"
 ```
 ```r
-> colors[c(1, 1, 1)]
+colors[c(1, 1, 1)]
 ```
 ```output
 [1] "eburnean" "eburnean" "eburnean"
 ```
 ```r
-> colors[c(-1, -2)]
+colors[c(-1, -2)]
 ```
 ```output
 [1] "wenge"
 ```
 ```r
-> colors[c(1, -1)]
+colors[c(1, -1)]
 ```
 ```err
 Error in colors[c(1, -1)] : 
@@ -400,7 +401,7 @@ presumably because an index like `c(1, -1)` is ambiguous.
 What of zero?
 
 ```r
-> colors[0]
+colors[0]
 ```
 ```output
 character(0)
@@ -411,7 +412,7 @@ we can try calling the function `character` ourselves
 with a positive argument:
 
 ```r
-> character(3)
+character(3)
 ```
 ```output
 [1] "" "" ""
@@ -428,7 +429,7 @@ As a check,
 let's try indexing with 0 and 1 together:
 
 ```r
-> colors[c(0, 1)]
+colors[c(0, 1)]
 ```
 ```output
 [1] "eburnean"
@@ -439,7 +440,7 @@ Be on guard against it.
 
 ## How do I choose and repeat things?
 
-We cherish the illusion of free will so much that we embed a pretence of it in our machines
+We cherish the illusion of free will so much that we embed a pretense of it in our machines
 in the form of conditional statements.
 We then instruct those same machines to make the same decisions over and over,
 often for no discernible purpose.
@@ -539,6 +540,26 @@ colors[-1:-3]
 [1] "wenge"
 ```
 
+R does not allow tripartite expressions of the form `start:end:stride`;
+for that,
+we must use the `seq` function:
+
+```r
+seq(1, 10, 3)
+```
+```output
+[1]  1  4  7 10
+```
+
+This example also shows that ranges in R are inclusive at both ends,
+i.e.,
+they run up to *and including* the upper bound.
+As is traditional among programming language advocates,
+we claim that this is more natural,
+and then cite as proof some supportive anecdote such as,
+"Most people do not interpret the expression 'from one to five'
+to mean 'one, two, three, or four'."
+
 What we *cannot* do is use vectors directly as conditions in `if` statements:
 
 ```r
@@ -572,7 +593,7 @@ R automatically replicates or *recycles* the shorter vector
 and then performs element-by-element comparison to construct a vector of logical values:
 
 ```r
-> numbers >= 0
+numbers >= 0
 ```
 ```output
 [1] TRUE TRUE TRUE
@@ -594,10 +615,165 @@ mask <- both > 0     # c(FALSE, FALSE, FALSE, TRUE, TRUE)
 result <- both[mask] # c(1, 2)
 ```
 
-We can of course make the code shorter by eliminating the `mask` variable:
+We can of course make the code shorter by eliminating `mask`:
 
 ```r
 result <- both[both > 0]
 ```
 
-Subsetting in this way is a very common operation.
+## How do I create and call functions?
+
+As we have already seen,
+we call functions in R much as we do in Python:
+
+```r
+max(1, 3, 5) + min(1, 3, 5)
+```
+```output
+[1] 6
+```
+
+We can define a new function using the `function` keyword.
+Doing so does not name the function;
+to accomplish that,
+we assign the newly-created function to a variable:
+
+```r
+swap <- function(pair) {
+  c(pair[2], pair[1])
+}
+swap(c("left", "right"))
+```
+```output
+[1] "right" "left"
+```
+
+As this example shows,
+the result of a function is the value of the last expression evaluated within it.
+A function can return a value earlier using the `return` function;
+we can use `return` for the final value as well,
+but most R programmers do not.
+
+```r
+swap <- function(pair) {
+  if (length(pair) != 2) {
+    return(NULL) # This is very bad practice.
+  }
+  c(pair[2], pair[1])
+}
+swap(c("one"))
+```
+```output
+NULL
+```
+```r
+swap(c("left", "right"))
+```
+```output
+[1] "right" "left"
+```
+
+We pause now to answer some questions that may have occurred to attentive readers.
+First,
+the special value `NULL` represents the absence of a vector.
+It is not the same as a vector of zero length,
+though testing that statement produces a rather odd result:
+
+```r
+NULL == integer(0)
+```
+```output
+logical(0)
+```
+
+To test for nullity,
+use the function `is.null`:
+
+```r
+is.null(NULL)
+```
+```output
+[1] TRUE
+```
+
+Second,
+and more importantly,
+returning `NULL` when our function's inputs are invalid is an express route to madness,
+as doing so means that `swap` can fail without telling us that it has done so.
+Consider:
+
+```r
+NULL[1]  # Try to access an element of the vector that does not exist.
+```
+```output
+NULL
+```
+```r
+values <- 5:10          # More than two values.
+result <- swap(values)  # Attempting to swap the values produces NULL.
+result[1]               # But we can operate on the result without error.
+```
+```output
+NULL
+```
+
+The next section will explore what we ought to do instead.
+Before then,
+however,
+we can offer some slight comfort.
+If the number of arguments given to a function is not the number expected,
+R will complain:
+
+
+```r
+swap("one", "two", "three")
+```
+```error
+Error in swap("one", "two", "three") : unused arguments ("two", "three")
+```
+
+Note that in this example we as passing three values,
+not a single vector containing three values.
+If we want a function to handle a varying number of arguments,
+we represent the "extra" arguments with an ellipsis `...` (three dots),
+which serves the same purpose as Python's `*args`:
+
+```r
+print_with_title <- function(title, ...) {
+  title <- paste("==", title, "==\n")
+  items <- paste(..., sep = "\n")
+  cat(title)
+  cat(items)
+  cat("\n")
+}
+print_with_title("to-do", "Monday", "Tuesday", "Wednesday")
+```
+```output
+== to-do ==
+Monday
+Tuesday
+Wednesday
+```
+
+If we want to work with the extra arguments one by one,
+we must first convert `...` to a list:
+
+```r
+add <- function(...) {
+  result <- 0
+  for (value in list(...)) {
+    result <- result + value
+  }
+  result
+}
+add(1, 3, 5, 7)
+```
+```output
+16
+```
+
+A list in R is a vector that can contain values of many different types.
+R's lists are complex enough that we will devote an entire section to exploring them;
+until then,
+suffice to say that they can be iterated over,
+but that indexing them may surprise you.
