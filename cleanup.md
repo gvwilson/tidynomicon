@@ -65,7 +65,7 @@ chunks <- vector("list", num_years)
 for (i in 1:num_years) {
 
   # Get the three-year chunk.
-  start_loc = left_padding + (width * (i - 1))
+  start_loc = 1 + left_padding + (width * (i - 1))
   end_loc <- start_loc + width - 1
   chunk <- select(of_interest, start_loc:end_loc)
   
@@ -85,11 +85,10 @@ for (i in 1:num_years) {
 
 # Combine all the tibbles and sort by country and year.
 tidy <- bind_rows(chunks)
-tidy <- arrange(all_data, country, year)
+tidy <- arrange(tidy, country, year)
 
 # Save.
-write_csv(tidy, tidy_file)
-```
+write_csv(tidy, tidy_file)```
 
 Here are some of the issues I encountered along the way that this training will need to cover
 and questions I still have:
