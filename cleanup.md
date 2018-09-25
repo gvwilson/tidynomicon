@@ -37,7 +37,7 @@ There are comments mixed with data,
 values' actual indices have to be synthesized by combining column headings from two rows
 (two thirds of which have to be carried forward from previous columns),
 and so on.
-We want to create the tidy data found in `infant_hiv//tidy/infant_hiv.csv':
+We want to create the tidy data found in `infant_hiv//tidy/infant_hiv.csv`:
 
 ```
 country,year,estimate,hi,lo
@@ -61,7 +61,7 @@ We will begin by reading the data into a tibble:
 # tidy-01.R
 library(tidyverse)
 
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv')
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv")
 head(raw)
 ```
 ```output
@@ -99,7 +99,7 @@ let's skip the first two rows.
 
 ```r
 # tidy-02.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2)
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2)
 head(raw)
 ```
 ```output
@@ -134,7 +134,7 @@ We'll tackle the first problem first by setting `na = c("-")` in our `read_csv` 
 
 ```r
 # tidy-03.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 head(raw)
 ```
 ```output
@@ -164,7 +164,7 @@ but which we don't want to reveal just yet).
 
 ```r
 # tidy-04.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
   filter(-ISO3, -Countries)
@@ -183,7 +183,7 @@ we make progress once again:
 
 ```r
 # tidy-05.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
@@ -210,7 +210,7 @@ What happened to them?
 # tidy-06.R
 library(tidyverse)
 
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 tail(countries, n = 25)
 ```
@@ -254,7 +254,7 @@ let's revisit the problem once we have our data in place.
 
 ```r
 # tidy-07.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 tail(countries, n = 5)
@@ -271,8 +271,7 @@ We will revisit the problem of slicing data without counting rows manually, we p
 (And notice also that we are slicing, *then* extracting the column containing the countries.
 We did, in a temporary version of this script,
 peel off the countries, slice those, and then wonder why our main data table still had unwanted data at the end.
-igilance, my friends.
-Vigilance shall be our watchword,
+Vigilance, my friends---vigilance shall be our watchword,
 and in light of that,
 we shall first test our plan for converting our strings to numbers:
 
@@ -304,7 +303,7 @@ So here is our updated conversion script:
 
 ```r
 # tidy-09.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -364,7 +363,7 @@ we can use `map` to apply the function `str_replace` to each column in turn to g
 
 ```r
 # tidy-10.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -394,7 +393,7 @@ which maps a function across the columns of a tibble and returns a tibble as a r
 
 ```r
 # tidy-11.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -424,7 +423,7 @@ which earlier inspection informed us had at least one `">95%"` in it:
 ```r
 # tidy-12.R
 
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -446,7 +445,7 @@ We can now use `map_dfc` to convert the columns to numeric percentages using an 
 ```r
 # tidy-13.R
 
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -525,7 +524,7 @@ in which we check *both* the head and the tail:
 
 ```r
 # tidy-17.R
-raw <- read_csv('infant_hiv/raw/infant_hiv.csv', skip = 2, na = c("-"))
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- sliced %>%
@@ -561,60 +560,293 @@ tail(percents)
 ```
 
 Comparing this to the raw data file convinces us that yes,
-we are now converting our data.
-We are halfway home.
+we are now converting the numeric data properly,
+which means we are halfway home.
 
----
+## Cut, Pad, and Stitch
 
-Here are some of the issues I encountered along the way that this training will need to cover
-and questions I still have:
+We now have numeric values in `percents` and corresponding ISO3 codes in `countries`.
+What we do *not* have is tidy data:
+countries are not associated with records,
+years are not recorded at all,
+and the column headers for `percents` have mostly been manufactured for us by R.
+We must now sew these parts together like Dr. Frankenstein's trusty assistant Igor
+(who, like all in his trade, did most of the actual work but was given only crumbs of credit).
 
-- Since the first few lines of the CSV aren't tidy, I ignore them, then select rows using row number based on inspection of the raw CSV.
-  Is there a better way to get the data I want to tidy?
-  For example, should I filter to get the row numbers of Afghanistan and Zimbabwe and pull out everything in between?
-  Should I skip the first *three* lines when reading,
-  accept X1, X2, and so on as column headers,
-  and start from there?
-- Once this script was working and I sorted by country and year,
-  I discovered that Kosovo's ISO3 country code is empty,
-  so I went back and patched it using the provisional "XKX" code used by NATO.
-  - I should include some checks during development of this script on empty/missing fields.
-    What's the preferred way to do this?
-  - What's a better way to write the expression that fills in "XKX" where it's needed?
-- In order to construct a tidy tibble,
-  I pull out three-column chunks corresponding to particular years,
-  clean them up,
-  and attach the year and country code.
-  Once the loop is done,
-  I stitch the partial tibbles together.
-  - Is `mutate_if` the right function to use to get rid of the % signs in my raw data?
-  - Is there a cleaner way to replace the ">95%" text with "95%"?
-  - Is there a better thing to do than make this replacement?
-  - I shouldn't need to use two `map` calls to convert data to numeric and then divide by 100,
-    but `map(chunk, as.numeric)/100` didn't work
-    (presumably because arithmetic operations only work on vectors, not tables,
-    but then why does the masked assignment that replaces ">95%" work?).
-  - I also don't think I should have to `as_tibble` after `map`:
-    is there a better way to apply a function to every column while leaving things as tibbles?
-- The assignment to `chunk$year` feels like it ought to work without `rep`,
-  i.e., that there ought to be a way to recycle the (scalar) value of year when creating a new column.
-- Is there a clean way to make the country and year the first columns in the chunk
-  rather than attaching them to the end and then rearranging with `select`?
-- I constantly trip over `[...]` versus `[[...]]`,
-  and am going to go back and review the differences between the two kinds of subscripting.
-- I keep typing `select` when I should type `filter`.
-- The IDE editor complains "no symbol named 'country' in scope" for the statement
-  `chunk <- select(chunk, country, year, everything())`.
-  This is fair (there actually *isn't* a variable called `country`),
-  but it surprises me that the IDE would be upset by common tidyverse usage.
-  (I get a similar complaint about uses of `year`.)
-- I've committed the `tidynomicon.Rproj` file to my Git repository.
-  Have I sinned?
+Our starting point is this:
 
-Here are some answers:
+1. Each row in `percents` corresponds positionally to an ISO3 code in `countries`.
+2. Each group of three consecutive columns in `percents` has the estimate, high, and low values
+   for a single year.
+3. The years themselves are not stored in `percents`,
+   but we know from inspection that they start at 2009 and run without interruption to 2017.
 
-- "Did you use the IDE data importer?  It's *really* helpful, especially when getting started."
-  No: most people coming from Python will already be overwhelmed with detail,
-  so my bet is that they will (a) not explore long enough to find it or
-  (b) try to do everything by hand anyway (since they're not used to working with full-featured IDEs).
-  Showing them the importer (and a breakpointing/single-stepping debugger) is now on the list of things to teach.
+Our strategy is to make a list of temporary tables:
+
+1. Take three columns at a time from `percents` to create a temporary tibble.
+2. Join `countries` to it.
+3. Create a column holding the year in each row and join that as well.
+
+and then join those temporary tables row-wise to create our final tidy table.
+We might,
+through clever use of `scatter` and `gather`,
+be able to do this without a loop,
+but at this point on our journey,
+a loop is probably simpler.
+Here is the addition to our script:
+
+```r
+# tidy-18.R
+
+first_year <- 2009
+last_year <- 2017
+num_years <- (last_year - first_year) + 1
+chunks <- vector("list", num_years)
+for (year in 1:num_years) {
+  end <- year + 2
+  temp <- select(percents, year:end)
+  names(temp) <- c("estimate", "hi", "lo")
+  temp$country <- countries
+  temp$year <- rep((first_year + year) - 1, num_rows)
+  temp <- select(temp, country, year, everything())
+  chunks[[year]] <- temp
+}
+```
+
+We start by giving names to our years;
+if or when we decide to use this script for other data files,
+we should extract the years from the data itself.
+We then use `vector` to create the storage we are going to need to hold our temporary tables.
+We could grow the list one item at a time,
+but allocating storage in advance is more efficient
+and serves as a check on our logic:
+if our loop doesn't run for the right number of iterations,
+we will either overflow our list or have empty entries,
+either of which should draw our attention.
+
+Within the loop we figure out the bounds on the next three-column stripe,
+select that,
+and then give those three columns meaningful names.
+This ensures that when we join all the sub-tables together,
+the columns of the result will also be sensibly named.
+Attaching the ISO3 country codes is as easy as assigning to `temp$country`,
+and replicating the year for each row is easily done using the `rep` function.
+We then reorder the columns to put country and year first
+(the call to `everything` inside `select` selects all columns that aren't specifically selected),
+and then we assign the temporary table to the appropriate slot in `chunks` using `[[..]]`.
+
+Now comes the payoff for all that hard work:
+
+```r
+# tidy-18.R
+
+tidy <- bind_rows(chunks)
+tidy <- arrange(tidy, country, year)
+```
+
+As its name suggests,
+`bind_rows` takes a list of tables and concatenates their rows in order.
+Since we have taken care to give all of those tables the same column names,
+no subsequent renaming is necessary.
+We do,
+however,
+use `arrange` to order entries by country and year.
+Let's have a look at the result:
+
+```r
+tidy
+```
+```output
+# A tibble: 1,728 x 5
+   country  year estimate    hi    lo
+   <chr>   <dbl>    <dbl> <dbl> <dbl>
+ 1 ""       2009       NA    NA    NA
+ 2 ""       2010       NA    NA    NA
+ 3 ""       2011       NA    NA    NA
+ 4 ""       2012       NA    NA    NA
+ 5 ""       2013       NA    NA    NA
+ 6 ""       2014       NA    NA    NA
+ 7 ""       2015       NA    NA    NA
+ 8 ""       2016       NA    NA    NA
+ 9 ""       2017       NA    NA    NA
+10 AFG      2009       NA    NA    NA
+```
+
+What fresh hell is this?
+Why do some rows have empty strings where country codes should be
+and `NA`s for the three percentages?
+Is our indexing off?
+Have we somehow created one extra row for each year with nonsense values?
+
+No.
+It is not our tools that have failed us, or our reason, but our data.
+("These parts are not fresh, Igor---I must have *fresh* parts to work with!")
+Let us do this:
+
+```r
+# tidy-19.R
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+missing <- raw %>%
+  filter(is.na(Countries) | (Countries == "") | is.na(ISO3) | (ISO3 == "")) %>%
+  select(Countries, ISO3)
+missing
+```
+```output
+# A tibble: 21 x 2
+   Countries                       ISO3 
+   <chr>                           <chr>
+ 1 Kosovo                          ""   
+ 2 ""                              ""   
+ 3 ""                              ""   
+ 4 ""                              ""   
+ 5 Eastern and Southern Africa     ""   
+ 6 Eastern Europe and Central Asia ""   
+ 7 Latin America and the Caribbean ""   
+ 8 Middle East and North Africa    ""   
+ 9 North America                   ""   
+10 South Asia                      "" 
+# ... with 11 more rows
+```
+
+The lack of ISO3 country code for the region names doesn't bother us,
+but Kosovo is definitely a problem.
+[According to Wikipedia](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3),
+UNK is used for Kosovo residents whose travel documents were issued by the United Nations,
+so we will fill that in with an ugly hack immediately after loading the data:
+
+```r
+# tidy-20.R
+raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
+missing <- raw %>%
+  filter(is.na(Countries) | (Countries == "") | is.na(ISO3) | (ISO3 == "")) %>%
+  select(Countries, ISO3)
+missing
+```
+```output
+# A tibble: 20 x 2
+   Countries                ISO3                                               
+   <chr>                    <chr>                                              
+ 1 ""                       ""                                                 
+ 2 ""                       ""                                                 
+ 3 ""                       ""                                                 
+ 4 Eastern and Southern Af… ""                                                 
+ 5 Eastern Europe and Cent… ""                                                 
+ 6 Latin America and the C… ""                                                 
+ 7 Middle East and North A… ""                                                 
+ 8 North America            ""    
+```
+
+All right.
+Let's add that hack to our script,
+then save the result to a file.
+The whole thing is now 38 lines long:
+
+```r
+# tidy-21.R
+library(tidyverse)
+
+# Constants.
+raw_filename <- "infant_hiv/raw/infant_hiv.csv"
+tidy_filename <- "infant_hiv/tidy/infant_hiv.csv"
+num_rows <- 192
+
+# Get and clean percentages.
+raw <- read_csv(raw_filename, skip = 2, na = c("-"))
+raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
+sliced <- slice(raw, 1:num_rows)
+countries <- sliced$ISO3
+body <- sliced %>%
+  select(-ISO3, -Countries)
+trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
+percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
+
+# Separate three-column chunks and add countries and years.
+first_year <- 2009
+last_year <- 2017
+num_years <- (last_year - first_year) + 1
+chunks <- vector("list", num_years)
+for (year in 1:num_years) {
+  end <- year + 2
+  temp <- select(percents, year:end)
+  names(temp) <- c("estimate", "hi", "lo")
+  temp$country <- countries
+  temp$year <- rep((first_year + year) - 1, num_rows)
+  temp <- select(temp, country, year, everything())
+  chunks[[year]] <- temp
+}
+
+# Combine chunks and order by country and year.
+tidy <- bind_rows(chunks)
+tidy <- arrange(tidy, country, year)
+
+# Save.
+write_csv(tidy, tidy_filename)
+```
+
+It works ("It's alive!"),
+but we can do better.
+Let's start by using a pipeline for the code that extracts and formats the percentages:
+
+```r
+# Constants...
+
+# Get and clean percentages.
+raw <- read_csv(raw_filename, skip = 2, na = c("-"))
+raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
+sliced <- slice(raw, 1:num_rows)
+countries <- sliced$ISO3
+percents <- sliced %>%
+  select(-ISO3, -Countries) %>%
+  map_dfr(str_replace, pattern = ">?(\\d+)%", replacement = "\\1") %>%
+  map_dfr(function(col) as.numeric(col) / 100)
+
+# Separate three-column chunks and add countries and years...
+
+# Combine chunks and order by country and year...
+
+# Check.
+write_csv(tidy, "temp.csv")
+```
+
+The two changes are:
+
+1. We use a `%>%` pipe for the various transformations involved in creating percentages.
+2. We write the result to `temp.csv` so that we can compare it to the file created by our previous script.
+   We should always do this sort of comparison when refactoring code in ways that isn't meant to change output;
+   if the file is small enough to store in version control,
+   we could overwrite it and use `git diff` or something similar to check whether it has changed.
+   However,
+   we would then have to trust ourselves to be careful enough not to accidentally commit changes,
+   and frankly,
+   we are no longer sure how trustworthy we are...
+
+After checking that this has not changed the output,
+we pipeline the computation in the loop:
+
+```
+# tidy-23.R
+# Constants...
+
+# Get and clean percentages...
+
+# Separate three-column chunks and add countries and years.
+num_years <- (last_year - first_year) + 1
+chunks <- vector("list", num_years)
+for (year in 1:num_years) {
+  chunks[[year]] <- select(percents, year:(year + 2)) %>%
+    rename(estimate = 1, hi = 2, lo = 3) %>%
+    mutate(country = countries,
+           year = rep((first_year + year) - 1, num_rows)) %>%
+    select(country, year, everything())
+}
+
+# Combine chunks and order by country and year.
+tidy <- bind_rows(chunks) %>%
+  arrange(country, year)
+```
+
+We have introduced a call to `rename` here to give the columns of each sub-table the right names,
+and used `mutate` instead of assigning to named columns one by one.
+The lack of intermediate variables may make the code harder to debug using print statements,
+but certainly makes this incantation easier to read aloud.

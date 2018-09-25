@@ -11,6 +11,7 @@ commands :
 ## spelling    : check spelling against words in 'spelling.txt'.
 spelling :
 	@cat ${ALL_MD} \
+	| uncode.py \
 	| aspell list \
 	| sort \
 	| uniq \
