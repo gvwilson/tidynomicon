@@ -850,3 +850,47 @@ We have introduced a call to `rename` here to give the columns of each sub-table
 and used `mutate` instead of assigning to named columns one by one.
 The lack of intermediate variables may make the code harder to debug using print statements,
 but certainly makes this incantation easier to read aloud.
+
+So we run it and inspect the output and it's the same as what we had
+and we're about to commit to version control
+when we decide to double check against the original data and guess what?
+The values for Argentina are wrong.
+In fact,
+the values for most countries and years are wrong:
+only the ones in the first three columns are right.
+The problem,
+it turns out,
+is that our loop index `year` is going up in ones,
+while each year's data is three columns wide.
+Here's the final, *final*, __*final*__ version:
+
+```r
+# tidy-24.R
+
+# Constants...
+
+# Get and clean percentages...
+
+# Separate three-column chunks and add countries and years...
+num_years <- (last_year - first_year) + 1
+chunks <- vector("list", num_years)
+for (year in 1:num_years) {
+  start = 3 * (year - 1) + 1
+  chunks[[year]] <- select(percents, start:(start + 2)) %>%
+    rename(estimate = 1, hi = 2, lo = 3) %>%
+    mutate(country = countries,
+           year = rep((first_year + year) - 1, num_rows)) %>%
+    select(country, year, everything())
+}
+
+# Combine chunks and order by country and year...
+
+# Save..
+```
+
+We're done,
+and we have learned a lot of R,
+but what we have also learned is that we make mistakes,
+and that those mistakes can easily slip past us.
+If people are going to use our cleaned-up data in their analyses,
+we need a better way to develop and check our scripts.
