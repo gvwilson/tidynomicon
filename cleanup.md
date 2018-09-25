@@ -894,3 +894,6 @@ but what we have also learned is that we make mistakes,
 and that those mistakes can easily slip past us.
 If people are going to use our cleaned-up data in their analyses,
 we need a better way to develop and check our scripts.
+Before tackling that,
+though,
+let's give ourselves a bit of a break and do some plotting.

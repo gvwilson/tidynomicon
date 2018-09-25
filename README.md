@@ -45,6 +45,7 @@ Each of these lessons will take about an hour to go through in class.
 - [Simple Things in Python and R](simple_things.md)
 - [The Tidyverse](tidyverse.md)
 - [Cleaning Up Data](cleanup.md)
+- [Plotting](plotting.md)
 
 ## Learners' Questions
 

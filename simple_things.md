@@ -456,7 +456,7 @@ for v in values:
         sign = 0
     else:
         sign = 1
-    print("The sign of", v, "is", sign)
+    print(paste("The sign of", v, "is", sign))
 ```
 ```output
 The sign of -1 is -1
