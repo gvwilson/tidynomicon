@@ -2,8 +2,8 @@
 library(tidyverse)
 
 # Constants.
-raw_filename <- "infant_hiv/raw/infant_hiv.csv"
-tidy_filename <- "infant_hiv/tidy/infant_hiv.csv"
+raw_filename <- "raw/infant_hiv.csv"
+tidy_filename <- "tidy/infant_hiv.csv"
 num_rows <- 192
 
 # Get and clean percentages.

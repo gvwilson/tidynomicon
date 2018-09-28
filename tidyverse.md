@@ -28,7 +28,7 @@ ZWE,2017,0.65,0.81,0.57
 ```py
 import pandas as pd
 
-data = pd.read_csv('infant_hiv/tidy/infant_hiv.csv')
+data = pd.read_csv('tidy/infant_hiv.csv')
 data
 ```
 ```output
@@ -71,7 +71,7 @@ library(tidyverse)
 - Reading the file looks remarkably like reading the file
 
 ```r
-data <- read_csv('infant_hiv/tidy/infant_hiv.csv')
+data <- read_csv('tidy/infant_hiv.csv')
 ```
 ```output
 Parsed with column specification:
@@ -938,7 +938,7 @@ data %>%
   - Group by year and aggregate, again using strings for column names
 
 ```py
-data = pd.read_csv('infant_hiv/tidy/infant_hiv.csv')
+data = pd.read_csv('tidy/infant_hiv.csv')
 data = data.query('(estimate != 0.95) & (lo > 0.5) & (hi <= (lo + 0.2))')
 data = data.assign(difference = (data.hi - data.lo))
 grouped = data.groupby('year').agg({'difference' : {'ave_diff' : 'mean', 'count' : 'count'}})

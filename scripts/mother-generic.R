@@ -1,4 +1,4 @@
-data <- read_csv("maternal_health/raw/at_health_facilities.csv", skip = 7)
+data <- read_csv("raw/at_health_facilities.csv", skip = 7)
 firstlast <- data %>%
   mutate(rownum = row_number()) %>%
   filter(iso3 %in% c("AFG", "ZWE")) %>%

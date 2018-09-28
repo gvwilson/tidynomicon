@@ -97,7 +97,7 @@ This section explores some of the differences between the features of R and Pyth
 
 ### Selecting, Filtering, and Aggregating Data
 
-Read the CSV data set `infant_hiv/solution/infant_hiv.csv` into a tibble.
+Read the CSV data set `solution/infant_hiv.csv` into a tibble.
 Use tidyverse functions to answer the following questions:
 
 1. How many distinct countries are in the data?
@@ -110,14 +110,14 @@ Use tidyverse functions to answer the following questions:
 
 ### Tidying Data
 
-Look at the CSV file `infant_hiv/raw/infant_hiv.csv`
+Look at the CSV file `raw/infant_hiv.csv`
 (which are taken from the Excel spreadsheet located in the same directory).
-Write an R script that tidies this data and store the results in `infant_hiv/tidy/infant_hiv.csv`.
+Write an R script that tidies this data and store the results in `tidy/infant_hiv.csv`.
 Compare your result to the file used in previous exercises.
 
 ### Using RStudio
 
-Use RStudio's data importer to read `infant_hiv/raw/infant_hiv.csv`.
+Use RStudio's data importer to read `raw/infant_hiv.csv`.
 Using both it and the interactive debugger,
 rebuild your previous import script from scratch.
 

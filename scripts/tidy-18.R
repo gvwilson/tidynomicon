@@ -4,7 +4,7 @@ library(tidyverse)
 num_rows <- 192
 
 # Get and clean percentages.
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:num_rows)
 countries <- sliced$ISO3
 body <- sliced %>%

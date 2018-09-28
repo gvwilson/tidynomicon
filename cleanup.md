@@ -1,6 +1,6 @@
 # Cleaning Up Data
 
-Here is a sample of data from `infant_hiv/raw/infant_hiv.csv`,
+Here is a sample of data from `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
 
 ```
@@ -37,7 +37,7 @@ There are comments mixed with data,
 values' actual indices have to be synthesized by combining column headings from two rows
 (two thirds of which have to be carried forward from previous columns),
 and so on.
-We want to create the tidy data found in `infant_hiv//tidy/infant_hiv.csv`:
+We want to create the tidy data found in `/tidy/infant_hiv.csv`:
 
 ```
 country,year,estimate,hi,lo
@@ -61,7 +61,7 @@ We will begin by reading the data into a tibble:
 # tidy-01.R
 library(tidyverse)
 
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv")
+raw <- read_csv("raw/infant_hiv.csv")
 head(raw)
 ```
 ```output
@@ -99,7 +99,7 @@ let's skip the first two rows.
 
 ```r
 # tidy-02.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2)
+raw <- read_csv("raw/infant_hiv.csv", skip = 2)
 head(raw)
 ```
 ```output
@@ -134,7 +134,7 @@ We'll tackle the first problem first by setting `na = c("-")` in our `read_csv` 
 
 ```r
 # tidy-03.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 head(raw)
 ```
 ```output
@@ -164,7 +164,7 @@ but which we don't want to reveal just yet).
 
 ```r
 # tidy-04.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
   filter(-ISO3, -Countries)
@@ -183,7 +183,7 @@ we make progress once again:
 
 ```r
 # tidy-05.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
@@ -210,7 +210,7 @@ What happened to them?
 # tidy-06.R
 library(tidyverse)
 
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 tail(countries, n = 25)
 ```
@@ -254,7 +254,7 @@ let's revisit the problem once we have our data in place.
 
 ```r
 # tidy-07.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 tail(countries, n = 5)
@@ -303,7 +303,7 @@ So here is our updated conversion script:
 
 ```r
 # tidy-09.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -363,7 +363,7 @@ we can use `map` to apply the function `str_replace` to each column in turn to g
 
 ```r
 # tidy-10.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -393,7 +393,7 @@ which maps a function across the columns of a tibble and returns a tibble as a r
 
 ```r
 # tidy-11.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -423,7 +423,7 @@ which earlier inspection informed us had at least one `">95%"` in it:
 ```r
 # tidy-12.R
 
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -445,7 +445,7 @@ We can now use `map_dfc` to convert the columns to numeric percentages using an 
 ```r
 # tidy-13.R
 
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -524,7 +524,7 @@ in which we check *both* the head and the tail:
 
 ```r
 # tidy-17.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- sliced %>%
@@ -685,7 +685,7 @@ Let us do this:
 
 ```r
 # tidy-19.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 missing <- raw %>%
   filter(is.na(Countries) | (Countries == "") | is.na(ISO3) | (ISO3 == "")) %>%
   select(Countries, ISO3)
@@ -716,7 +716,7 @@ so we will fill that in with an ugly hack immediately after loading the data:
 
 ```r
 # tidy-20.R
-raw <- read_csv("infant_hiv/raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
 missing <- raw %>%
   filter(is.na(Countries) | (Countries == "") | is.na(ISO3) | (ISO3 == "")) %>%
@@ -747,8 +747,8 @@ The whole thing is now 38 lines long:
 library(tidyverse)
 
 # Constants.
-raw_filename <- "infant_hiv/raw/infant_hiv.csv"
-tidy_filename <- "infant_hiv/tidy/infant_hiv.csv"
+raw_filename <- "raw/infant_hiv.csv"
+tidy_filename <- "tidy/infant_hiv.csv"
 num_rows <- 192
 
 # Get and clean percentages.

@@ -2,8 +2,8 @@
 library(tidyverse)
 
 # Constants.
-raw_filename <- "infant_hiv/raw/infant_hiv.csv"
-tidy_filename <- "infant_hiv/tidy/infant_hiv.csv"
+raw_filename <- "raw/infant_hiv.csv"
+tidy_filename <- "tidy/infant_hiv.csv"
 first_year <- 2009
 last_year <- 2017
 num_rows <- 192
