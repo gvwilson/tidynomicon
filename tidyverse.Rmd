@@ -1,14 +1,28 @@
-# The Tidyverse
+---
+title: The Tidyverse
+output:
+  html_document:
+    css: "languages.css"
+---
 
-See <https://pandas.pydata.org/pandas-docs/stable/comparison_with_r.html>
+```{r setup}
+knitr::opts_chunk$set(engine.path = list(python = '/Users/gvwilson/anaconda3/bin/python'))
+```
+
+There is no point in becoming fluent in Akkadian if you do not then summon a Dweller Beneath
+at the time of the new moon.
+Similarly,
+there is no point learning a language designed for data manipulation if you do not then bend data to your will.
 
 ## Reading Data
 
-- Import Pandas as `pd` (not required but conventional)
-- Use `read_csv` with a path
-- Start by looking at the file itself
+We begin by looking at the file `tidy/infant_hiv.csv`,
+a tidied version of data on the percentage of infants born to women with HIV
+who received an HIV test themselves within two months of birth.
+The original data comes from the UNICEF site at <https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/>,
+and this file contains:
 
-```output
+```
 country,year,estimate,hi,lo
 AFG,2009,NA,NA,NA
 AFG,2010,NA,NA,NA
@@ -22,536 +36,300 @@ AGO,2012,0.06,0.08,0.05
 ZWE,2016,0.71,0.88,0.62
 ZWE,2017,0.65,0.81,0.57
 ```
-- Actual file has many more rows and no ellipses
-- `NA` to show missing data rather than (for example) `-` or a space or empty column
 
-```py
+The actual file has many more rows and no ellipses.
+It uses `NA` to show missing data rather than (for example) `-`, a space, or a blank,
+and its values are interpreted as follows:
+
+| Header | Datatype | Description |
+|---|---|---|
+| country | char | ISO3 country code of country reporting data |
+| year | integer | year CE for which data reported |
+| estimate | double/NA | estimated percentage of measurement |
+| hi | double/NA | high end of range |
+| lo | double/NA | low end of range |
+
+```{python}
 import pandas as pd
 
 data = pd.read_csv('tidy/infant_hiv.csv')
-data
-```
-```output
-     country  year  estimate    hi    lo
-0        AFG  2009       NaN   NaN   NaN
-1        AFG  2010       NaN   NaN   NaN
-...      ...   ...       ...   ...   ...
-8        AFG  2017       NaN   NaN   NaN
-9        AGO  2009       NaN   NaN   NaN
-10       AGO  2010      0.03  0.04  0.02
-...      ...   ...       ...   ...   ...
-1726     ZWE  2016      0.71  0.88  0.62
-1727     ZWE  2017      0.65  0.81  0.57
-
-[1728 rows x 5 columns]
+print(data)
 ```
 
-- Again, actual output has many more rows and only one row of ellipses
-- Equivalent in R is to load the tidyverse collection of libraries and then call the `read_csv` function
-- Go through this in stages, since each produces output
+The equivalent in R is to load the tidyverse collection of libraries and then call the `read_csv` function.
+We will go through this in stages, since each produces output.
 
-```r
+```{r}
 library(tidyverse)
 ```
-```output
-── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
-✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-✔ tibble  1.4.2     ✔ dplyr   0.7.6
-✔ tidyr   0.8.1     ✔ stringr 1.3.1
-✔ readr   1.1.1     ✔ forcats 0.3.0
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-```
 
-- Asking for the tidyverse gives us eight libraries (or *packages*)
-- One of those libraries, dplyr, defines functions that mask standard functions
-- This is deliberate, and if we need the originals, we can get them with their fully-qualified names
-  - `package::function`
-- Reading the file looks remarkably like reading the file
+Asking for the tidyverse gives us eight libraries (or *packages*).
+One of those, dplyr, defines two functions that mask standard functions in R with the same names.
+This is deliberate, and if we need the originals, we can get them with their fully-qualified names
+`stats::filter` and `stats::lag`.
+(Note that R uses `::` to get functions out of packages rather than Python's `.`.)
 
-```r
+Once we have the tidyverse loaded,
+reading the file looks remarkably like reading the file:
+
+```{r}
 data <- read_csv('tidy/infant_hiv.csv')
 ```
-```output
-Parsed with column specification:
-cols(
-  country = col_character(),
-  year = col_integer(),
-  estimate = col_double(),
-  hi = col_double(),
-  lo = col_double()
-)
-```
 
-- R's `read_csv` tells us more about what it's done than Pandas does
-  - Guesses at columns' data types based on the first thousand values
-  - In a better universe, people used the first *two* rows of their spreadsheets for name *and units*
-- Now have a look at the *tibble*
-  - The tidyverse replacement for R's `data.frame`
+R's `read_csv` tells us more about what it has done than Pandas does.
+In particular, it guesses at columns' data types based on the first thousand values,
+and then tells us what types it has inferred.
+(In a better universe,
+people habitually use the first *two* rows of their spreadsheets for name *and units*,
+but we do not live there.)
 
-```r
+We can now look at what `read_csv` has produced.
+
+```{r}
 data
 ```
-```output
-# A tibble: 1,728 x 5
-   country  year estimate    hi    lo
-   <chr>   <int>    <dbl> <dbl> <dbl>
- 1 AFG      2009       NA    NA    NA
- 2 AFG      2010       NA    NA    NA
- 3 AFG      2011       NA    NA    NA
- 4 AFG      2012       NA    NA    NA
- 5 AFG      2013       NA    NA    NA
- 6 AFG      2014       NA    NA    NA
- 7 AFG      2015       NA    NA    NA
- 8 AFG      2016       NA    NA    NA
- 9 AFG      2017       NA    NA    NA
-10 AGO      2009       NA    NA    NA
-# ... with 1,718 more rows
-```
+
+This is a *tibble*,
+which is the tidyverse's enhanced version of R's `data.frame`.
+It organizes data into named columns,
+each having one value for each row.
 
 ## Data Inspection
 
-- Often have a quick look at the content of a table to remind ourselves what it contains
+We often have a quick look at the content of a table to remind ourselves what it contains.
+Pandas does this using methods whose names are borrowed from the Unix shell's `head` and `tail` commands:
 
-```py
-data.head()
+```{python}
+print(data.head())
 ```
-```output
-  country  year  estimate  hi  lo
-0     AFG  2009       NaN NaN NaN
-1     AFG  2010       NaN NaN NaN
-2     AFG  2011       NaN NaN NaN
-3     AFG  2012       NaN NaN NaN
-4     AFG  2013       NaN NaN NaN
-```
-```py
-data.tail()
-```
-```output
-     country  year  estimate    hi    lo
-1723     ZWE  2013      0.57  0.70  0.49
-1724     ZWE  2014      0.54  0.67  0.47
-1725     ZWE  2015      0.59  0.73  0.51
-1726     ZWE  2016      0.71  0.88  0.62
-1727     ZWE  2017      0.65  0.81  0.57
+```{python}
+print(data.tail())
 ```
 
-- Equivalent in R
+R has similarly-named functions (not methods):
 
-```r
+```{r}
 head(data)
 ```
-```output
-# A tibble: 6 x 5
-  country  year estimate    hi    lo
-  <chr>   <int>    <dbl> <dbl> <dbl>
-1 AFG      2009       NA    NA    NA
-2 AFG      2010       NA    NA    NA
-3 AFG      2011       NA    NA    NA
-4 AFG      2012       NA    NA    NA
-5 AFG      2013       NA    NA    NA
-6 AFG      2014       NA    NA    NA
-```
-```r
+```{r}
 tail(data)
 ```
-```output
-# A tibble: 6 x 5
-  country  year estimate    hi    lo
-  <chr>   <int>    <dbl> <dbl> <dbl>
-1 ZWE      2012    0.38   0.47 0.33 
-2 ZWE      2013    0.570  0.7  0.49 
-3 ZWE      2014    0.54   0.67 0.47 
-4 ZWE      2015    0.59   0.73 0.51 
-5 ZWE      2016    0.71   0.88 0.62 
-6 ZWE      2017    0.65   0.81 0.570
+
+Let's have a closer look at that last command's output:
+
+```{r paged.print=FALSE}
+tail(data)
 ```
 
-- Note that the row numbers printed by R's `tail()` are relative to the output, not absolute to the table
-- And that numbering starts from 1
-- What about overall information?
+Note that the row numbers printed by `tail` are relative to the output, not absolute to the table.
+This is different from Pandas,
+which retains the original row numbers.
+(Notice also that R starts numbering from 1.)
+What about overall information?
 
-```py
-data.info()
-```
-```output
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1728 entries, 0 to 1727
-Data columns (total 5 columns):
-country     1728 non-null object
-year        1728 non-null int64
-estimate    638 non-null float64
-hi          728 non-null float64
-lo          728 non-null float64
-dtypes: float64(3), int64(1), object(1)
-memory usage: 67.6+ KB
+```{python}
+print(data.info())
 ```
 
-```r
+```{r}
 summary(data)
 ```
-```output
-   country               year         estimate           hi        
- Length:1728        Min.   :2009   Min.   :0.000   Min.   :0.0000  
- Class :character   1st Qu.:2011   1st Qu.:0.100   1st Qu.:0.1400  
- Mode  :character   Median :2013   Median :0.340   Median :0.4350  
-                    Mean   :2013   Mean   :0.387   Mean   :0.4614  
-                    3rd Qu.:2015   3rd Qu.:0.620   3rd Qu.:0.7625  
-                    Max.   :2017   Max.   :0.950   Max.   :0.9500  
-                                   NA's   :1000    NA's   :1000    
-       lo        
- Min.   :0.0000  
- 1st Qu.:0.0800  
- Median :0.2600  
- Mean   :0.3221  
- 3rd Qu.:0.5100  
- Max.   :0.9500  
- NA's   :1000
-```
 
-- Your display may or may not wrap, depending on how large a screen the older acolytes have allowed you
+Your display of R's summary may or may not wrap,
+depending on how large a screen the older acolytes have allowed you.
 
 ## Indexing
 
-- A DataFrame is a collection of series (also called columns), each containing the values of a single observed variable
-- Columns in R tibbles are, not coincidentally, conceptually the same
+A Pandas DataFrame is a collection of series (also called columns),
+each containing the values of a single observed variable.
+Columns in R tibbles are, not coincidentally, the same.
 
-```py
+```{python}
+print(data['estimate'])
+```
+
+We would get exactly the same output in Python with `data.estimate`,
+i.e.,
+with an attribute name rather than a string subscript.
+The same tricks work in R:
+
+```{r}
 data['estimate']
 ```
-```output
-0        NaN
-1        NaN
-2        NaN
-...      ...
-1726    0.51
-1727    0.62
-Name: estimate, Length: 1728, dtype: float64
-```
 
-- Get exactly the same output in Python with `data.estimate`
-  - Column names can be accessed using string indices or as attribute names
-- Same works in R
+However, `data$estimate` provides all the data
 
-```r
-data['estimate']
-```
-```output
-# A tibble: 1,728 x 1
-   estimate
-      <dbl>
- 1       NA
- 2       NA
- 3       NA
- 4       NA
- 5       NA
- 6       NA
- 7       NA
- 8       NA
- 9       NA
-10       NA
-# ... with 1,718 more rows
-```
-
-- However, `data$estimate` provides all the data
-
-```r
+```{r}
 data$estimate
 ```
-```output
-data$estimate
-   [1]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.02 0.04 0.05
-  [15] 0.12 0.08 0.05 0.01   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-  [29]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-...
-[1709] 0.95 0.67   NA 0.53 0.24 0.63 0.67 0.57 0.81 0.39 0.39   NA   NA 0.10
-[1723] 0.20 0.33 0.49 0.47 0.51 0.62
-```
 
-- Again, note that the boxed number on the left is the start index of that row
+Again, note that the boxed number on the left is the start index of that row.
 
-- What about single values?
-  - Remember to offset the indices (count from zero, count from one)
+What about single values?
+Remembering to count from zero from Python and as humans do for R,
+we have:
 
-```py
-data.estimate[11]
+```{python}
+print(data.estimate[11])
 ```
-```output
-0.02
-```
-```r
+```{r}
 data$estimate[12]
 ```
-```output
-[1] 0.02
-```
 
-- But remember that everything in R is a vector!
+Ah—everything in R is a vector,
+so we get a vector of one value as an output rather than a single value.
 
-```py
-len(data.estimate[11])
+```{python error=TRUE}
+print(len(data.estimate[11]))
 ```
-```error
-TypeError: object of type 'numpy.float64' has no len()
-```
-```r
+```{r}
 length(data$estimate[12])
 ```
-```output
-[1] 1
-```
 
-- And yes, ranges work
+And yes, ranges work:
 
-```py
-data.estimate[5:15]
+```{python}
+print(data.estimate[5:15])
 ```
-```output
-5      NaN
-6      NaN
-7      NaN
-8      NaN
-9      NaN
-10     NaN
-11    0.02
-12    0.04
-13    0.05
-14    0.12
-Name: estimate, dtype: float64
-```
-```r
+```{r}
 data$estimate[6:15]
 ```
-```output
-[1]   NA   NA   NA   NA   NA   NA 0.02 0.04 0.05 0.12
+
+Note that the upper bound is the same, because it's inclusive in R and exclusive in Python.
+Note also that neither library prevents us from selecting a range of data that spans logical groups such as countries,
+which is why selecting by row number is usually a sign of innocence, insouciance, or desperation.
+
+We can select by column number as well.
+Pandas uses the rather clumsy `object.iloc[rows, columns]`, with the usual `:` shortcut for "entire range":
+
+```{python}
+print(data.iloc[:, 0])
 ```
 
-- Note that the upper bound is the same, because it's inclusive in R and exclusive in Python
-- Note also that neither library prevents us from selecting a range of data that spans logical groups (such as countries)
-  - Which is why selecting by row number is usually a sign of innocence, insouciance, or desperation
+Since this is a column, it can be indexed:
 
-- Can select by column number as well
-  - Pandas uses the rather clumsy `object.iloc[rows, columns]`, with the usual `:` shortcut for "entire range"
-
-```py
-data.iloc[:, 0]
-```
-```output
-0       AFG
-1       AFG
-2       AFG
-...     ...
-1726    ZWE
-1727    ZWE
-Name: country, Length: 1728, dtype: object
+```{python}
+print(data.iloc[:, 0][0])
 ```
 
-- Since this is a column, it can be indexed
+In R, a single index is interpreted as the column index:
 
-```py
-data.iloc[:, 0][0]
-```
-```output
-'AFG'
-```
-
-- In R, a single index is interpreted as the column index
-
-```r
+```{r}
 data[1]
 ```
-```output
-# A tibble: 1,728 x 1
-   country
-   <chr>
- 1 AFG
- 2 AFG
- 3 AFG
- 4 AFG
- 5 AFG
- 6 AFG
- 7 AFG
- 8 AFG
- 9 AFG
-10 AGO
-# ... with 1,718 more rows
-```
 
-- But notice that the output is not a vector, but another tibble (i.e., an N-row, 1-column structure)
-- Which means that adding another index does column-wise indexing on that tibble
+But notice that the output is not a vector, but another tibble (i.e., an N-row, 1-column structure).
+This means that adding another index does column-wise indexing on that tibble:
 
-```r
+```{r}
 data[1][1]
 ```
-```output
-# A tibble: 1,728 x 1
-   country
-   <chr>
- 1 AFG
- 2 AFG
- 3 AFG
- 4 AFG
- 5 AFG
- 6 AFG
- 7 AFG
- 8 AFG
- 9 AFG
-10 AGO
-# ... with 1,718 more rows
-```
 
-- How then to get the first mention of Afghanistan?
-- Use double square brackets to strip away one level of structure
+How then are we to get the first mention of Afghanistan?
+The answer is to use double square brackets to strip away one level of structure:
 
-```r
+```{r}
 data[[1]]
 ```
-```output
-   [1] "AFG" "AFG" "AFG" "AFG" "AFG" "AFG" "AFG" "AFG" "AFG" "AGO" "AGO" "AGO"
-  [13] "AGO" "AGO" "AGO" "AGO" "AGO" "AGO" "AIA" "AIA" "AIA" "AIA" "AIA" "AIA"
-  ...  ...
-[1717] "ZMB" "ZMB" "ZMB" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE"
-```
 
-- That is now a plain old vector, so it can be indexed with single square brackets
+This is now a plain old vector, so it can be indexed with single square brackets:
 
-```r
+```{r}
 data[[1]][1]
 ```
-```output
-[1] "AFG"
-```
 
-- Of course, that result is a vector and can be subscripted
-  - For some value of "of course", of course...
+But that too is a vector, so it can of course be indexed as well (for some value of "of course"):
 
-```r
+```{r}
 data[[1]][1][1]
 ```
-```output
-[1] "AFG"
-```
 
-- Note that `data[1][[1]]` produces a tibble, then selects the first column vector from it, so still gives us a vector
-- *This is not madness* - it is merely...differently sane
+Thus,
+`data[1][[1]]` produces a tibble,
+then selects the first column vector from it,
+so it still gives us a vector.
+*This is not madness.*
+It is merely…differently sane.
 
 ## Basic Statistics
 
-- What is the average estimate?
-- Start by grabbing that column for convenience
+What is the average estimate?
+We start by grabbing that column for convenience:
 
-```py
+```{python}
 estimates = data.estimate
-len(estimates)
+print(len(estimates))
 ```
-```output
-1728
-```
-```py
-estimates.mean()
-```
-```output
-0.3144200626959248
+```{python}
+print(estimates.mean())
 ```
 
-- In R:
+This translates almost directly to R:
 
-```r
+```{r}
 estimates <- data$estimate
 length(estimates)
 ```
-```output
-[1] 1728
-```
-```r
+```{r}
 mean(estimates)
 ```
-```output
-[1] NA
-```
 
-- All right, let's try that again
-- In R first:
+It seems that the void is always there, waiting for us…
+Let's fix this in R first:
 
-```r
+```{r}
 mean(estimates, na.rm=TRUE)
 ```
-```output
-[1] 0.3144201
+
+And then try to get the statistically correct behavior in Pandas:
+
+```{python}
+print(estimates.mean(skipna=False))
 ```
 
-- And now with Pandas, trying to get the statistically correct behavior:
+Many functions in R use `na.rm` to control whether `NA`s are removed or not.
+(Remember, the `.` character is just another part of the name)
+R's default behavior is to leave `NA`s in, and then to include them in aggregate computations.
+Python's is to get rid of missing values early and work with what's left,
+which makes translating code from one language to the next much more interesting than it might otherwise be.
+But other than that, the statistics works the same way in Python:
 
-```py
-estimates.mean(skipna=False)
+```{python}
+print(estimates.min())
 ```
-```output
-nan
+```{python}
+print(estimates.max())
 ```
-
-- Many functions in R use `na.rm` to control whether `NA`s are removed or not
-  - Remember, the `.` character is just another part of the name
-- R's default behavior is to leave `NA`s in, and then to include them in aggregate computations
-- Python's is to get rid of missing values early
-- Other than that, the statistics works the same way in Python:
-
-```py
-estimates.min()
-```
-```output
-0.0
-```
-```py
-estimates.max()
-```
-```output
-0.95
-```
-```py
-estimates.std()
-```
-```output
-0.2748172945892118
+```{python}
+print(estimates.std())
 ```
 
-- And in R:
+Here are the equivalent computations in R:
 
-```r
+```{r}
 min(estimates, na.rm=TRUE)
 ```
-```output
-[1] 0
-```
-```r
+```{r}
 max(estimates, na.rm=TRUE)
 ```
-```output
-[1] 0.95
-```
-```r
+```{r}
 sd(estimates, na.rm=TRUE)
 ```
-```output
-[1] 0.2748173
+
+A good use of aggregation is to check the quality of the data.
+For example,
+we can ask if there are any records where some of the estimate, the low value, or the high value are missing,
+but not all of them:
+
+```{python}
+print((data.hi.isnull() != data.lo.isnull()).any())
 ```
 
-- A good use of aggregation is to check the quality of the data
-- Are there any records where some of the estimate, the low value, or the high value are missing, but not all of them?
-
-```py
-(data.hi.isnull() != data.lo.isnull()).any()
-```
-```output
-False
-```
-
-```r
+```{r}
 any(is.na(data$hi) != is.na(data$lo))
 ```
-```output
-[1] FALSE
-```
+
+---HERE---
 
 ## Filtering
 
