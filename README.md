@@ -7,34 +7,29 @@
 
 ## Audience
 
-**Padma**, 28, has been using Python and Pandas for the last four years to analyze agricultural production in southeast Asia.
-She has just completed her PhD and accepted a job with a development bank whose staff use R instead.
-Padma wants learn how do the things she has been doing in Python:
-read data, clean it, explore it, model it, and present it.
-
-**Dafydd**, 37, has been building performance dashboards for a logistics company using Django and D3.
+**Padma**, 27, has been building performance dashboards for a logistics company using Django and D3.
 The company has just hired some data scientists who use R,
-and Dafydd would like to try building some dashboards in Shiny.
-He doesn't need to know much about statistics---the analysts will take care of that---but
-he wants to learn enough of the language to tidy up their packages.
+and she would like to try building some dashboards in Shiny.
+She isn't a statistical expert,
+but she's comfortable doing linear regression and basic time series analysis on web traffic,
+and now wants to learn enough about R to tidy up the analysts' code and make them shine.
 
 Derived constraints:
 
 - Learners understand loops, conditionals, writing and calling functions, lists, and dictionaries,
   can load and use libraries,
-  and can use classes and objects,
-  but do not know how to create new classes
-  or how to use higher-order functions.
+  can use classes and objects,
+  but have never used generic functions and will need a refresher on higher-order functions.
 - Learners understand mean, variation, correlation, and other basic statistical concepts,
-  but are not familiar with statistical tests.
+  but are not familiar with advanced machine learning tools.
 - Learners are comfortable creating and interpreting plots of various kinds.
-- Learners have experience with spreadsheets and with writing database queries that use filtering, aggregation, and joins,
+- Learners have experience with spreadsheets
+  and with writing database queries that use filtering, aggregation, and joins,
   but have not designed database schemas.
-- Learners have no experience building web applications
-  and are not familiar with version control systems or unit testing.
-- Learners know how to use a text editor
-  but have never used an IDE.
-- Learners are willing to spend half an hour on the basics of the language,
+- Learners have built web applications
+  and are familiar with version control systems and unit testing.
+- Learners currently use a text editor like Emacs or Sublime rather than an IDE.
+- Learners are willing to spend an hour on the basics of the language,
   both because they understand the utility and as a safety blanket,
   but will then be impatient to start tackling real tasks.
 
@@ -60,6 +55,8 @@ Each of these lessons will take about an hour to go through in class.
 - How do I filter, aggregate, and join datasets?
 - How do I create plots?
 - How do I write readable programs in R?
+- How do I test R programs?
+- How do I create packages that other people can install?
 
 ## Exercises
 
