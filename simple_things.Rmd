@@ -670,4 +670,4 @@ ifelse(values > 0, values, NA)
 R provides many other higher-order functions,
 but their semantics are sometimes confusing.
 We therefore encourage programmers to use the functions provided by the tidyverse instead;
-these will be discussed in [the next lesson](tidyverse.md).
+these will be discussed in [the next lesson](tidyverse.Rmd).
