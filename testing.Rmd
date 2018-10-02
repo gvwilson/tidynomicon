@@ -74,9 +74,9 @@ the problems we need to solve to do this are:
 These two requirements will make our program significantly more complicated,
 so we should tackle each with its own testable function.
 
-## The Tools at Hand
+## Testing
 
-The standard testing library for R is called [testthat](https://github.com/r-lib/testthat).
+The standard testing library for R is [testthat](https://github.com/r-lib/testthat).
 Like Python's [unittest](https://docs.python.org/3/library/unittest.html) library,
 it is a member of the [xUnit](https://en.wikipedia.org/wiki/XUnit) family of testing libraries:
 
@@ -84,7 +84,126 @@ it is a member of the [xUnit](https://en.wikipedia.org/wiki/XUnit) family of tes
 2.  Tests are collected into files with prescribed names that can be found by a *test runner*.
 3.  Shared setup and teardown operations are put in functions of their own.
 
-To explore its operation,
+Let's load it and write our first test:
+
+```{r}
+library(testthat)
+
+test_that("Zero equals itself", { expect_equal(0, 0) })
+```
+
+As is conventional with xUnit-style testing libraries,
+no news is good news:
+if a test passes,
+it doesn't produce output because it doesn't need our attention.
+Let's try something that ought to fail:
+
+```{r error=TRUE}
+test_that("Zero equals one", { expect_equal(0, 1) })
+```
+
+Good:
+we can draw some comfort from the fact that They have not yet changed the fundamental rules of arithmetic.
+But what are the curly braces around `expect_equal` for?
+The answer is that they create a code block of some sort for `test_that` to run.
+We can run `expect_equal` on its own:
+
+```{r error=TRUE}
+expect_equal(0, 1)
+```
+
+but that doesn't produce a summary of how many tests passed or failed.
+Passing a block of code to `test_that` also allows us to check several things in one test:
+
+```{r error=TRUE}
+test_that("Testing two things", {
+  expect_equal(0, 0)
+  expect_equal(0, 1)
+})
+```
+
+Note that a block of code is *not* the same thing as an anonymous function,
+which is why running this block of code does nothing:
+
+```{r}
+test_that("Using an anonymous function", function(){
+  print("In our anonymous function")
+  expect_equal(0, 1)
+})
+```
+
+But running blocks of tests by hand is a bad practice no matter what is in them.
+What we should do instead is put related tests in files,
+then put those files in a directory called `tests`.
+We can then run some or all of those tests with a single command.
+
+To start,
+let's create `tests/test_example.R`:
+
+```{r code=readLines("tests/test_example.R"), eval=FALSE}
+```
+
+The first line loads the testthat package,
+which gives us our tools.
+The call to `context` on the second line gives this set of tests a name for reporting purposes.
+After that,
+we add as many calls to `test_that` as we want,
+each with a name and a block of code.
+We can now run this file from within RStudio:
+
+```{r}
+test_dir("tests")
+```
+
+A bit of care is needed when interpreting these results.
+There are four `test_that` calls,
+but eight actual checks,
+and the number of successes and failures is counted by recording the results of the latter,
+not the former.
+
+What then is the purpose of `test_that`?
+Why not just use `expect_equal` and its kin,
+such as `expect_true`, `expect_false`, `expect_length`, and so on?
+The answer is that it allows us to do one operation and then check several things afterward.
+Let's create another file called `tests/test_tibble.R`:
+
+```{r code=readLines("tests/test_tibble.R")}
+```
+
+(We don't actually have to call our test files `test_something.R`,
+but `test_dir` and the rest of R's testing infrastructure expect us to.
+Similarly,
+we don't have to put them in a `tests` directory,
+but gibbering incoherence is likely to ensue if we do not.)
+Now let's run all of our tests:
+```{r}
+test_dir("tests")
+```
+
+That's rather a lot of output.
+Happily,
+we can provide a `filter` argument to `test_dir`:
+
+```{r error=TRUE}
+test_dir("tests", filter = "test_tibble.R")
+```
+
+Oh dear.
+Oh.
+Ah.
+It turns out that `filter` is applied to filenames *after* the leading `test_` and the trailing `.R` have been removed.
+Let's try again:
+
+```{r}
+test_dir("tests", filter = "tibble")
+```
+
+That's better,
+and it illustrates our earlier point about the importance of following conventions.
+
+## Warming Up
+
+To give ourselves something to test,
 let's create a file called `scripts/find_empty_01.R`
 that defines a single function `find_empty_rows` that identifies all the empty rows in a CSV file.
 Our first implementation is:
@@ -140,26 +259,58 @@ This is then passed to `read_csv`,
 which (according to documentation that only took us 15 minutes to realize we had already seen)
 interprets its first argument as *either* a filename *or* the actual text to be parsed
 depending on whether it contains a newline character.
-This allows us to write code like this:
+This allows us to write put the text fixture
+(i.e., the thing on which the test is being run)
+right there in the code as a literal string,
+which experience shows is to understand and maintain
+than having test data in separate files.
 
-```{r}
-inputs <- list("a\n1", "a,b\n1,2", "a,b\n,", "a,b\n1,2\n,\n5,6")
-outputs <- list(c(), c(), c(1), c(2))
-map2(inputs, outputs, function(x, y) find_empty_rows(x) == y)
+Our function seems to work,
+but we can make it more pipelinesque:
+
+```{r code=readLines("scripts/find_empty_02.R")}
 ```
 
-Hm.
-On the one hand, nothing crashed.
-On the other hand,
-the comparison inside `map2` is sometimes producing `TRUE` and sometimes producing…
-an empty logical vector?
-Let's have a closer look:
+Going line by line once again:
+
+1.  Define a function with one argument called `source`, from which we shall once again read.
+2.  Read from that source to fill the pipeline.
+3.  Map our test for emptiness across each row, returning a logical vector as a result.
+    (`pmap_lgl` is a derivative of `pmap` that always casts its result to logical.
+    Similar functions like `pmap_dbl` return vectors of other types,
+    and many other tidyverse functions have strongly-typed variants as well.)
+4.  Turn that logical vector into a single-column tibble,
+    giving that column the name "empty".
+    FIXME: explain what `.` means in this context.
+5.  Add a second column with row numbers.
+6.  Discard rows that aren't empty.
+7.  Return a vector of the remaining row IDs.
+
+Here's our first batch of tests:
+
+```{r code=readLines("tests/test_find_empty_a.R"), eval=FALSE}
+```
+
+And here's what happens when we run this file with `test_dir`:
 
 ```{r}
-print("find_empty_rows with a single non-empty row")
+test_dir("tests", "find_empty_a")
+```
+
+This is perplexing:
+we expected that if there were no empty rows,
+our function would return `NULL`.
+Let's look more closely:
+
+```{r}
 find_empty_rows("a\n1")
-print("an empty column")
-c()
+```
+
+Ah:
+we are being given an integer vector of zero length rather than `NULL`.
+Let's have a closer look at the properties of this strange beast:
+
+```{r}
 print("is integer(0) equal to NULL")
 integer(0) == NULL
 print("any(logical(0))")
@@ -168,10 +319,13 @@ print("all(logical(0))")
 all(logical(0))
 ```
 
-The fact that `any` of an empty logical vector is `FALSE` may not be surprising,
-but `all` of an empty vector being `TRUE` is unexpected.
-It's tempting to explore the reasons,
-but we must resist.
-Our chosen mission is to test this function,
-and luckily for us,
-the next tool we will use has already grappled with the question of truth.
+All right.
+If we compare `c(1L, 2L)` to `NULL`, we expect `c(FALSE, FALSE)`,
+so it's reasonable to get a zero-length logical vector as a result when we compare `NULL` to an integer vector with no elements.
+The fact that `any` of an empty logical vector is `FALSE` isn't really surprising either---none of the elements are `TRUE`,
+so it would be hard to say that any of them are.
+But `all` of an empty vector being `TRUE` is…unexpected.
+The logic behind it is apparently that none of the (nonexistent) elements are `FALSE`,
+but honestly,
+at this point we are veering dangerously close to [JavaScript Logic](https://www.destroyallsoftware.com/talks/wat).
+Speak not to me of madness, you who use languages designed by computer scientists.
