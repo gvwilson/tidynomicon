@@ -13,3 +13,9 @@ navbar:
       href: cleanup.html
     - text: "Testing"
       href: testing.html
+    - text: "License"
+      href: LICENSE.html
+    - text: "Code of Conduct"
+      href: CONDUCT.html
+    - text: "CITATION"
+      href: CITATION.html

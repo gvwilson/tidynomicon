@@ -1,4 +1,9 @@
-# Citation
+---
+title: "Citation"
+output:
+  html_document:
+    css: "languages.css"
+---
 
 Please cite this work as:
 

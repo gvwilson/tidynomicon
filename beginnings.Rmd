@@ -5,6 +5,10 @@ output:
     css: "languages.css"
 ---
 
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(engine.path = list(python = '/Users/gvwilson/anaconda3/bin/python'))
+```
+
 Let's try some simple things at an interactive prompt.
 
 ## How do I greet the world?

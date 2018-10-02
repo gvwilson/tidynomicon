@@ -196,6 +196,15 @@ $(document).ready(function () {
 <li>
   <a href="testing.html">Testing</a>
 </li>
+<li>
+  <a href="LICENSE.html">License</a>
+</li>
+<li>
+  <a href="CONDUCT.html">Code of Conduct</a>
+</li>
+<li>
+  <a href="CITATION.html">CITATION</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -235,7 +244,7 @@ $(document).ready(function () {
 <pre><code>## 6</code></pre>
 <p>I can check the type of the result using the built-in <code>type</code> function, which in this case tells me that my <code>6</code> is an integer:</p>
 <pre class="python"><code>print(type(6))</code></pre>
-<pre><code>## &lt;type &#39;int&#39;&gt;</code></pre>
+<pre><code>## &lt;class &#39;int&#39;&gt;</code></pre>
 <p>What does R do?</p>
 <pre class="r"><code>1 + 2 + 3</code></pre>
 <pre><code>## [1] 6</code></pre>
@@ -357,9 +366,9 @@ for v in values:
     else:
         sign = 1
     print(&quot;The sign of&quot;, v, &quot;is&quot;, sign)</code></pre>
-<pre><code>## (&#39;The sign of&#39;, -1, &#39;is&#39;, -1)
-## (&#39;The sign of&#39;, 0, &#39;is&#39;, 0)
-## (&#39;The sign of&#39;, 1, &#39;is&#39;, 1)</code></pre>
+<pre><code>## The sign of -1 is -1
+## The sign of 0 is 0
+## The sign of 1 is 1</code></pre>
 <p>and then create something equivalent in R:</p>
 <pre class="r"><code>values &lt;- c(-1, 0, 1)
 for (v in values) {

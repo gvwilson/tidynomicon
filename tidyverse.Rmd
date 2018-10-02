@@ -5,7 +5,7 @@ output:
     css: "languages.css"
 ---
 
-```{r setup}
+```{r setup, echo=FALSE}
 knitr::opts_chunk$set(engine.path = list(python = '/Users/gvwilson/anaconda3/bin/python'))
 ```
 

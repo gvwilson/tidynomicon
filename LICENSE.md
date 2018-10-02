@@ -1,4 +1,9 @@
-# License
+---
+title: "License"
+output:
+  html_document:
+    css: "languages.css"
+---
 
 *This is a human-readable summary of (and not a substitute for) the license.
 Please see <https://creativecommons.org/licenses/by/4.0/legalcode> for the full legal text.*

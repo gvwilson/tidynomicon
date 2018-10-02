@@ -196,6 +196,15 @@ $(document).ready(function () {
 <li>
   <a href="testing.html">Testing</a>
 </li>
+<li>
+  <a href="LICENSE.html">License</a>
+</li>
+<li>
+  <a href="CONDUCT.html">Code of Conduct</a>
+</li>
+<li>
+  <a href="CITATION.html">CITATION</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -213,7 +222,6 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>knitr::opts_chunk$set(engine.path = list(python = &#39;/Users/gvwilson/anaconda3/bin/python&#39;))</code></pre>
 <p>There is no point in becoming fluent in Akkadian if you do not then summon a Dweller Beneath at the time of the new moon. Similarly, there is no point learning a language designed for data manipulation if you do not then bend data to your will.</p>
 <div id="reading-data" class="section level2">
 <h2>Reading Data</h2>
@@ -336,14 +344,6 @@ print(data)</code></pre>
 ## [1728 rows x 5 columns]</code></pre>
 <p>The equivalent in R is to load the tidyverse collection of libraries and then call the <code>read_csv</code> function. We will go through this in stages, since each produces output.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Asking for the tidyverse gives us eight libraries (or <em>packages</em>). One of those, dplyr, defines two functions that mask standard functions in R with the same names. This is deliberate, and if we need the originals, we can get them with their fully-qualified names <code>stats::filter</code> and <code>stats::lag</code>. (Note that R uses <code>::</code> to get functions out of packages rather than Python’s <code>.</code>.)</p>
 <p>Once we have the tidyverse loaded, reading the file looks remarkably like reading the file:</p>
 <pre class="r"><code>data &lt;- read_csv(&#39;tidy/infant_hiv.csv&#39;)</code></pre>
