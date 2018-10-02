@@ -281,10 +281,24 @@ Going line by line once again:
     and many other tidyverse functions have strongly-typed variants as well.)
 4.  Turn that logical vector into a single-column tibble,
     giving that column the name "empty".
-    FIXME: explain what `.` means in this context.
+    We explain the use of `.` below.
 5.  Add a second column with row numbers.
 6.  Discard rows that aren't empty.
 7.  Return a vector of the remaining row IDs.
+
+> **Wat?**
+>
+> Buried in the middle of the pipe shown above is the expression:
+>
+> `tibble(empty = .)`
+>
+> In this context, `.` means "whatever is on the left side of the `%>%` operator",
+> i.e., whatever would normally be passed as the first argument to this function.
+> Without this,
+> we have no easy way to give the sole column of our newly-constructed tibble a name.
+> This use of `.` takes advantage of a feature left over from the formula syntax
+> created in the early days of R's predecessor, S;
+> in other contexts, `.` is just a very poorly named variable.
 
 Here's our first batch of tests:
 

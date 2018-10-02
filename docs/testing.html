@@ -270,16 +270,9 @@ Contact us:,data@unicef.org,,,,,,,,,,,,,,</code></pre>
 <li>Shared setup and teardown operations are put in functions of their own.</li>
 </ol>
 <p>Let’s load it and write our first test:</p>
-<pre class="r"><code>library(testthat)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;testthat&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     matches</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     is_null</code></pre>
-<pre class="r"><code>test_that(&quot;Zero equals itself&quot;, { expect_equal(0, 0) })</code></pre>
+<pre class="r"><code>library(testthat)
+
+test_that(&quot;Zero equals itself&quot;, { expect_equal(0, 0) })</code></pre>
 <p>As is conventional with xUnit-style testing libraries, no news is good news: if a test passes, it doesn’t produce output because it doesn’t need our attention. Let’s try something that ought to fail:</p>
 <pre class="r"><code>test_that(&quot;Zero equals one&quot;, { expect_equal(0, 1) })</code></pre>
 <pre><code>## Error: Test failed: &#39;Zero equals one&#39;
@@ -343,7 +336,7 @@ test_that(&quot;Testing character vectors&quot;, {
 ⠦ |  4 3     | Demonstrating the testing library
 ⠧ |  4 4     | Demonstrating the testing library
 ✖ |  4 4     | Demonstrating the testing library
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## test_example.R:11: failure: Testing different numbers
 ## 0 not equal to 1.
 ## 1/1 mismatches
@@ -365,14 +358,14 @@ test_that(&quot;Testing character vectors&quot;, {
 ## 1/1 mismatches
 ## x[1]: &quot;abc&quot;
 ## y[1]: &quot;ABC&quot;
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | Finding empty rows
 ⠋ |  0 1     | Finding empty rows
 ⠙ |  0 2     | Finding empty rows
 ⠹ |  1 2     | Finding empty rows
 ✖ |  1 2     | Finding empty rows
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
@@ -380,14 +373,14 @@ test_that(&quot;Testing character vectors&quot;, {
 ## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | Testing properties of tibbles
 ⠋ |  1       | Testing properties of tibbles
 ✔ |  1       | Testing properties of tibbles
 ## 
-## ══ Results ═════════════════════════════════════════════════════════════
-## Duration: 0.2 s
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Duration: 1.1 s
 ## 
 ## OK:       6
 ## Failed:   6
@@ -417,7 +410,7 @@ test_that(&quot;Tibble columns are given the name &#39;value&#39;&quot;, {
 ⠦ |  4 3     | Demonstrating the testing library
 ⠧ |  4 4     | Demonstrating the testing library
 ✖ |  4 4     | Demonstrating the testing library
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## test_example.R:11: failure: Testing different numbers
 ## 0 not equal to 1.
 ## 1/1 mismatches
@@ -439,14 +432,14 @@ test_that(&quot;Tibble columns are given the name &#39;value&#39;&quot;, {
 ## 1/1 mismatches
 ## x[1]: &quot;abc&quot;
 ## y[1]: &quot;ABC&quot;
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | Finding empty rows
 ⠋ |  0 1     | Finding empty rows
 ⠙ |  0 2     | Finding empty rows
 ⠹ |  1 2     | Finding empty rows
 ✖ |  1 2     | Finding empty rows
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
@@ -454,17 +447,19 @@ test_that(&quot;Tibble columns are given the name &#39;value&#39;&quot;, {
 ## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | Testing properties of tibbles
 ⠋ |  1       | Testing properties of tibbles
 ✔ |  1       | Testing properties of tibbles
 ## 
-## ══ Results ═════════════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ## OK:       6
 ## Failed:   6
 ## Warnings: 0
-## Skipped:  0</code></pre>
+## Skipped:  0
+## 
+## Frustration is a natural part of programming :)</code></pre>
 <p>That’s rather a lot of output. Happily, we can provide a <code>filter</code> argument to <code>test_dir</code>:</p>
 <pre class="r"><code>test_dir(&quot;tests&quot;, filter = &quot;test_tibble.R&quot;)</code></pre>
 <pre><code>## Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir</code></pre>
@@ -476,7 +471,7 @@ test_that(&quot;Tibble columns are given the name &#39;value&#39;&quot;, {
 ⠋ |  1       | Testing properties of tibbles
 ✔ |  1       | Testing properties of tibbles
 ## 
-## ══ Results ═════════════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ## OK:       1
 ## Failed:   0
 ## Warnings: 0
@@ -540,11 +535,17 @@ find_empty_rows(&quot;a,b\n1,2\n,\n5,6&quot;)</code></pre>
 <li>Define a function with one argument called <code>source</code>, from which we shall once again read.</li>
 <li>Read from that source to fill the pipeline.</li>
 <li>Map our test for emptiness across each row, returning a logical vector as a result. (<code>pmap_lgl</code> is a derivative of <code>pmap</code> that always casts its result to logical. Similar functions like <code>pmap_dbl</code> return vectors of other types, and many other tidyverse functions have strongly-typed variants as well.)</li>
-<li>Turn that logical vector into a single-column tibble, giving that column the name “empty”. FIXME: explain what <code>.</code> means in this context.</li>
+<li>Turn that logical vector into a single-column tibble, giving that column the name “empty”. We explain the use of <code>.</code> below.</li>
 <li>Add a second column with row numbers.</li>
 <li>Discard rows that aren’t empty.</li>
 <li>Return a vector of the remaining row IDs.</li>
 </ol>
+<blockquote>
+<p><strong>Wat?</strong></p>
+<p>Buried in the middle of the pipe shown above is the expression:</p>
+<p><code>tibble(empty = .)</code></p>
+<p>In this context, <code>.</code> means “whatever is on the left side of the <code>%&gt;%</code> operator”, i.e., whatever would normally be passed as the first argument to this function. Without this, we have no easy way to give the sole column of our newly-constructed tibble a name. This use of <code>.</code> takes advantage of a feature left over from the formula syntax created in the early days of R’s predecessor, S; in other contexts, <code>.</code> is just a very poorly named variable.</p>
+</blockquote>
 <p>Here’s our first batch of tests:</p>
 <pre class="r"><code>library(tidyverse)
 library(testthat)
@@ -575,7 +576,7 @@ test_that(&quot;An empty row in the middle is found&quot;, {
 ⠙ |  0 2     | Finding empty rows
 ⠹ |  1 2     | Finding empty rows
 ✖ |  1 2     | Finding empty rows
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
@@ -583,9 +584,9 @@ test_that(&quot;An empty row in the middle is found&quot;, {
 ## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
-## ══ Results ═════════════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ## OK:       1
 ## Failed:   2
 ## Warnings: 0
