@@ -37,10 +37,10 @@ Derived constraints:
 
 Each of these lessons will take about an hour to go through in class.
 
-- [Simple Things in Python and R](simple_things.md)
-- [The Tidyverse](tidyverse.md)
-- [Cleaning Up Data](cleanup.md)
-- [Testing](testing.md)
+- [Simple Things in Python and R](beginnings.Rmd)
+- [The Tidyverse](tidyverse.Rmd)
+- [Cleaning Up Data](cleanup.Rmd)
+- [Testing](testing.Rmd)
 
 ## Learners' Questions
 

@@ -332,7 +332,7 @@ any(is.na(data$hi) != is.na(data$lo))
 ## Filtering
 
 By "filtering", we mean "selecting records by value".
-As discussed [earlier](simple_things.Rmd),
+As discussed [earlier](beginnings.Rmd),
 the simplest approach is to use a vector of logical values to keep only the values corresponding to `TRUE`.
 In Python, this is:
 
