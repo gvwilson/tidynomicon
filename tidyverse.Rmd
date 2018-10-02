@@ -49,7 +49,7 @@ and its values are interpreted as follows:
 | hi | double/NA | high end of range |
 | lo | double/NA | low end of range |
 
-```{python}
+```{python python-read-csv}
 import pandas as pd
 
 data = pd.read_csv('tidy/infant_hiv.csv')
@@ -59,7 +59,7 @@ print(data)
 The equivalent in R is to load the tidyverse collection of libraries and then call the `read_csv` function.
 We will go through this in stages, since each produces output.
 
-```{r}
+```{r load-tidyverse}
 library(tidyverse)
 ```
 
@@ -72,7 +72,7 @@ This is deliberate, and if we need the originals, we can get them with their ful
 Once we have the tidyverse loaded,
 reading the file looks remarkably like reading the file:
 
-```{r}
+```{r r-read-csv}
 data <- read_csv('tidy/infant_hiv.csv')
 ```
 

@@ -1,0 +1,15 @@
+name: "The Tidynomicon"
+output_dir: "docs"
+navbar:
+  title: "The Tidynomicon"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Simple Things"
+      href: beginnings.html
+    - text: "The Tidyverse"
+      href: tidyverse.html
+    - text: "Cleaning Up Data"
+      href: cleanup.html
+    - text: "Testing"
+      href: testing.html

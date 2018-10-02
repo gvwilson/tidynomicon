@@ -1,4 +1,9 @@
-# Cleaning Up Data
+---
+title: "Cleaning Up Data"
+output:
+  html_document:
+    css: "languages.css"
+---
 
 Here is a sample of data from `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
@@ -57,7 +62,7 @@ which we will do in stages.
 
 We will begin by reading the data into a tibble:
 
-```{r}
+```{r first-read-attempt}
 library(tidyverse)
 raw <- read_csv("raw/infant_hiv.csv")
 head(raw)
@@ -77,7 +82,7 @@ so we're going to have to do some work no matter which we skip or keep.
 Since we want the ISO3 code and the country name,
 let's skip the first two rows.
 
-```{r}
+```{r read-skip-2}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2)
 head(raw)
 ```
@@ -92,7 +97,7 @@ This happens because:
 We will tackle the first problem first by setting `na = c("-")` in our `read_csv` call
 (since we should never do ourselves what a library function will do for us):
 
-```{r}
+```{r read-specify-na}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 head(raw)
 ```
@@ -105,7 +110,7 @@ We will save the ISO3 values for later use
 (and because it will illustrate a point about data hygiene that we know we're going to want to make,
 but which we don't want to reveal just yet).
 
-```{r}
+```{r read-filter-countries, error=TRUE}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
