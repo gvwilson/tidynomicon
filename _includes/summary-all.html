@@ -12,9 +12,16 @@ Note:
 {% for toc in site.lessons %}
   {% for page in site.en %}
     {% if toc == page.permalink %}
+      {%- if include.which == "questions" -%}
+        {%- assign which = page.questions -%}
+      {%- elsif include.which == "objectives" -%}
+        {%- assign which = page.objectives -%}
+      {%- elsif include.which == "keypoints" -%}
+        {%- assign which = page.keypoints -%}
+      {% endif %}
 <h2><a href="{{page.permalink | relative_url}}">{{page.title}}</a></h2>
 <ul>
-{% for obj in page.objectives %}<li>{{obj | markdownify | replace: "<p>", "" | replace: "</p>", ""}}</li>{% endfor %}
+{% for obj in which %}<li>{{obj | markdownify | replace: "<p>", "" | replace: "</p>", ""}}</li>{% endfor %}
 </ul>
     {% endif %}
   {% endfor %}

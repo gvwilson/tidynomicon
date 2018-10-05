@@ -2,12 +2,68 @@
 title: The Tidyverse
 output: md_document
 permalink: /tidyverse/
+questions:
+  - "How do I install packages in R?"
+  - "How do I load packages in R?"
+  - "How do a read a CSV file in R?"
+  - "How does R store tabular data?"
+  - "How does R decide what data types to use for columns in CSV data?"
+  - "How can I inspect tabular data that I have loaded or created?"
+  - "How can I select sections of tabular data?"
+  - "How can I extract vectors from tables?"
+  - "How can I calculate basic statistics on tabular data?"
+  - "How does R treat missing data when calculating aggregate statistics?"
+  - "How can I control how R treats missing data when calculating aggregate statistics?"
+  - "What tools does the tidyverse provide for selecting, rearranging, changing, and summarizing tabular data?"
+  - "How should I combine tidyverse operations?"
+objectives:
+  - "Install and load packages in R."
+  - "Read CSV data with R."
+  - "Explain what a tibble is and how tibbles related to data frames and matrices."
+  - "Describe how `read_csv` infers data types for columns in tabular datasets."
+  - "Name and use three functions for inspects tibbles."
+  - "Select subsets of tabular data using column names, scalar indices, ranges, and logical expressions."
+  - "Explain the difference between indexing with `[` and with `[[`."
+  - "Name and use four functions for calculating aggregate statistics on tabular data."
+  - "Explain how these functions treat `NA` by default, and how to change that behavior."
+  - "Name, describe, and use a tidyverse function for choosing rows by value from tabular data."
+  - "Name, describe, and use a tidyverse function for reordering rows of tabular data."
+  - "Name, describe, and use a tidyverse function for selecting columns of tabular data."
+  - "Name, describe, and use a tidyverse function for calculating new columns from existing ones."
+  - "Name, describe, and use a tidyverse function for grouping rows of tabular data."
+  - "Name, describe, and use a tidyverse function for aggregating grouped or ungrouped rows of tabular data."
+keypoints:
+  - "`install.packages('name')` installs packages."
+  - "`library(name)` (without quoting the name) loads a package."
+  - "`library(tidyverse)` loads the entire collection of tidyverse libraries at once."
+  - "`read_csv(filename)` reads CSV files that use the string 'NA' to represent missing values."
+  - "`read_csv` infers each column's data types based on the first thousand values it reads."
+  - "A tibble is the tidyverse's version of a data frame, which represents tabular data."
+  - "`head(tibble)` and `tail(tibble)` inspect the first and last few rows of a tibble."
+  - "`summary(tibble)` displays a summary of a tibble's structure and values."
+  - "`tibble$column` selects a column from a tibble, returning a vector as a result."
+  - "`tibble['column']` selects a column from a tibble, returning a tibble as a result."
+  - "`tibble[,c]` selects column `c` from a tibble, returning a tibble as a result."
+  - "`tibble[r,]` selects row `r` from a tibble, returning a tibble as a result."
+  - "Use ranges and logical vectors as indices to select multiple rows/columns or specific rows/columns from a tibble."
+  - "`tibble[[c]]` selects column `c` from a tibble, returning a vector as a result."
+  - "`min(...)`, `mean(...)`, `max(...)`, and `std(...)` calculates the minimum, mean, maximum, and standard deviation of data."
+  - "These aggregate functions include `NA`s in their calculations, and so will produce `NA` if the input data contains any."
+  - "Use `func(data, na.rm = TRUE)` to remove `NA`s from data before calculations are done (but make sure this is statistically justified)."
+  - "`filter(tibble, condition)` selects rows from a tibble that pass a logical test on their values."
+  - "`arrange(tibble, column)` or `arrange(desc(column))` arrange rows according to values in a column (the latter in descending order)."
+  - "`select(tibble, column, column, ...)` selects columns from a tibble."
+  - "`select(tibble, -column)` selects *out* a column from a tibble."
+  - "`mutate(tibble, name = expression, name = expression, ...)` adds new columns to a tibble using values from existing columns."
+  - "`group_by(tibble, column, column, ...)` groups rows that have the same values in the specified columns."
+  - "`summarize(tibble, name = expression, name = expression)` aggregates tibble values (by groups if the rows have been grouped)."
+  - "`tibble %>% function(arguments)` performs the same operation as `function(tibble, arguments)`."
+  - "Use `%>%` to create pipelines in which the left side of each `%>%` becomes the first argument of the next stage."
 ---
 
 
 
-There is no point in becoming fluent in Akkadian if you do not then summon a Dweller Beneath
-at the time of the new moon.
+There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.
 
@@ -126,6 +182,44 @@ We will go through this in stages, since each produces output.
 
 ```r
 library(tidyverse)
+```
+```
+Error in library(tidyverse) : there is no package called ‘tidyverse’
+```
+
+Ah.
+We must install this (which we only need to do once per machine) and then load it.
+Note that to install, we give `install.packages` a string,
+but to use,
+we simply give the name of the library we want:
+
+
+```r
+install.packages("tidyverse")
+```
+
+```
+## Error in contrib.url(repos, "source"): trying to use CRAN without setting a mirror
+```
+
+```r
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
 ```
 
 Asking for the tidyverse gives us eight libraries (or *packages*).
