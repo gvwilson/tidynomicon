@@ -1,0 +1,18 @@
+body {
+  width: 70em;
+  margin-left: 1em;
+}
+div.objectives {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
+  margin-bottom: 1em;
+}
+div.language-python {
+  background-color: #e0e0ff;
+}
+div.language-r {
+  background-color: #e0ffe0;
+}

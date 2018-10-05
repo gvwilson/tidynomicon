@@ -1,8 +1,7 @@
 ---
 title: "License"
-output:
-  html_document:
-    css: "languages.css"
+output: md_document
+permalink: /license/
 ---
 
 *This is a human-readable summary of (and not a substitute for) the license.

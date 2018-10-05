@@ -1,8 +1,7 @@
 ---
 title: "Citation"
-output:
-  html_document:
-    css: "languages.css"
+output: md_document
+permalink: /citation/
 ---
 
 Please cite this work as:

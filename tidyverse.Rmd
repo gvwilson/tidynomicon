@@ -1,8 +1,7 @@
 ---
 title: The Tidyverse
-output:
-  html_document:
-    css: "languages.css"
+output: md_document
+permalink: /tidyverse/
 ---
 
 ```{r setup, echo=FALSE}
@@ -332,7 +331,7 @@ any(is.na(data$hi) != is.na(data$lo))
 ## Filtering
 
 By "filtering", we mean "selecting records by value".
-As discussed [earlier](beginnings.Rmd),
+As discussed [earlier](../beginnings/),
 the simplest approach is to use a vector of logical values to keep only the values corresponding to `TRUE`.
 In Python, this is:
 

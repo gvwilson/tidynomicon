@@ -1,0 +1,156 @@
+<div align="center">
+  <h1><em>The Tidynomicon</em></h1>
+  <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
+  <img src="https://raw.githubusercontent.com/gvwilson/tidynomicon/master/files/cthulhu.png" width="400" />
+  <p><em>"Speak not to me of madness, you who count from zero."</em></p>
+</div>
+
+<h2 id="audience">Audience</h2>
+
+<p><strong>Padma</strong>, 27, has been building performance dashboards for a logistics company using Django and D3.
+The company has just hired some data scientists who use R,
+and she would like to try building some dashboards in Shiny.
+She isn’t a statistical expert,
+but she’s comfortable doing linear regression and basic time series analysis on web traffic,
+and now wants to learn enough about R to tidy up the analysts’ code and make them shine.</p>
+
+<p>Derived constraints:</p>
+
+<ul>
+  <li>Learners understand loops, conditionals, writing and calling functions, lists, and dictionaries,
+can load and use libraries,
+can use classes and objects,
+but have never used generic functions and will need a refresher on higher-order functions.</li>
+  <li>Learners understand mean, variation, correlation, and other basic statistical concepts,
+but are not familiar with advanced machine learning tools.</li>
+  <li>Learners are comfortable creating and interpreting plots of various kinds.</li>
+  <li>Learners have experience with spreadsheets
+and with writing database queries that use filtering, aggregation, and joins,
+but have not designed database schemas.</li>
+  <li>Learners have built web applications
+and are familiar with version control systems and unit testing.</li>
+  <li>Learners currently use a text editor like Emacs or Sublime rather than an IDE.</li>
+  <li>Learners are willing to spend an hour on the basics of the language,
+both because they understand the utility and as a safety blanket,
+but will then be impatient to start tackling real tasks.</li>
+</ul>
+
+<h2 id="lessons">Lessons</h2>
+
+<p>Each of these lessons will take about an hour to go through in class.</p>
+
+<ul>
+  <li><a href="./beginnings/">Simple Things in Python and R</a></li>
+  <li><a href="./tidyverse/">The Tidyverse</a></li>
+  <li><a href="./cleanup/">Cleaning Up Data</a></li>
+  <li><a href="./testing/">Testing</a></li>
+</ul>
+
+<h2 id="learners-questions">Learners’ Questions</h2>
+
+<ul>
+  <li>What are R’s basic data types and how do they compare to Python’s?</li>
+  <li>How do conditionals and loops work in R compared to Python?</li>
+  <li>How do indexing and attribute access work in R?</li>
+  <li>How do I create functions and libraries?</li>
+  <li>How do I find and install libraries and get help on them?</li>
+  <li>How do I process text with regular expressions?</li>
+  <li>How do I store and manipulate tabular data?</li>
+  <li>How do I load a tabular dataset and calculate simple statistics for each column?</li>
+  <li>How do I filter, aggregate, and join datasets?</li>
+  <li>How do I create plots?</li>
+  <li>How do I write readable programs in R?</li>
+  <li>How do I test R programs?</li>
+  <li>How do I create packages that other people can install?</li>
+</ul>
+
+<h2 id="exercises">Exercises</h2>
+
+<h3 id="warming-up">Warming Up</h3>
+
+<p>These exercises will familiarize you with some of the core features of R.
+Do all of the work interactively in RStudio until told to do otherwise.</p>
+
+<ol>
+  <li>Create a vector <code class="highlighter-rouge">small</code> containing the numbers 1 to 5.</li>
+  <li>Use it to create another vector <code class="highlighter-rouge">large</code> containing numbers ten times as large.</li>
+  <li>Use these two vectors to create a third vector <code class="highlighter-rouge">combined</code> with the sum of the two vectors.</li>
+  <li>Assign the average and standard deviation of <code class="highlighter-rouge">combined</code> to <code class="highlighter-rouge">combined_ave</code> and <code class="highlighter-rouge">combined_std</code>.</li>
+  <li>Create a vector <code class="highlighter-rouge">shifted</code> by subtracting the mean of <code class="highlighter-rouge">combined</code> from each value of <code class="highlighter-rouge">combined</code>.</li>
+  <li>Create a logical vector <code class="highlighter-rouge">mask</code> showing where values of <code class="highlighter-rouge">shifted</code> are within one standard deviation of zero.</li>
+  <li>Increase the magnitude of the values in <code class="highlighter-rouge">shifted</code> that are within one standard deviation of zero by 10%.</li>
+  <li>Write a function <code class="highlighter-rouge">fiddle</code> that takes a non-empty numeric vector as input and performs Steps 2-7 above.</li>
+  <li>Save your function in a file called <code class="highlighter-rouge">fiddle.R</code>.</li>
+  <li>Restart RStudio, load the saved function <code class="highlighter-rouge">fiddle</code>, and apply it to a vector containing the numbers 3 to 7.</li>
+  <li>Apply <code class="highlighter-rouge">fiddle</code> to an empty vector.</li>
+  <li>Modify the saved version of <code class="highlighter-rouge">fiddle</code> so that it returns <code class="highlighter-rouge">NULL</code> if its input is not a non-empty numeric vector.</li>
+  <li>Test your changes by giving <code class="highlighter-rouge">fiddle</code> a vector with the strings (“3”, “4”, “5”, “6”, “7”).</li>
+</ol>
+
+<h3 id="thats-odd">That’s Odd</h3>
+
+<p>This section explores some of the differences between the features of R and Python.</p>
+
+<ol>
+  <li>Explain the difference between <code class="highlighter-rouge">[...]</code> and <code class="highlighter-rouge">[[...]]</code>
+and give examples of situations in which they return different results.</li>
+  <li>Explain what a factor is,
+create factors,
+and loop over the names of the columns in a tibble.</li>
+  <li>Create a data structure holding the type of each column in a tibble.
+What data structure do you have to use to hold this information and why?</li>
+  <li>Explain what <code class="highlighter-rouge">matrix(rnorm(n * length(mu), mean = mu), ncol = n)</code> does and how it does it.</li>
+</ol>
+
+<h3 id="selecting-filtering-and-aggregating-data">Selecting, Filtering, and Aggregating Data</h3>
+
+<p>Read the CSV data set <code class="highlighter-rouge">solution/infant_hiv.csv</code> into a tibble.
+Use tidyverse functions to answer the following questions:</p>
+
+<ol>
+  <li>How many distinct countries are in the data?</li>
+  <li>Which countries reported an estimate for 2009?</li>
+  <li>Which countries reported an estimate for every year from 2009 to 2017?</li>
+  <li>What were the average estimates for 2014, 2015, and 2016?</li>
+  <li>How many countries didn’t report estimates for one or more years?</li>
+  <li>Which countries never reported a low figure less than 50%?</li>
+  <li>Which countries reported a low figure greater than or equal to the estimate, and in which year(s)?</li>
+</ol>
+
+<h3 id="tidying-data">Tidying Data</h3>
+
+<p>Look at the CSV file <code class="highlighter-rouge">raw/infant_hiv.csv</code>
+(which are taken from the Excel spreadsheet located in the same directory).
+Write an R script that tidies this data and store the results in <code class="highlighter-rouge">tidy/infant_hiv.csv</code>.
+Compare your result to the file used in previous exercises.</p>
+
+<h3 id="using-rstudio">Using RStudio</h3>
+
+<p>Use RStudio’s data importer to read <code class="highlighter-rouge">raw/infant_hiv.csv</code>.
+Using both it and the interactive debugger,
+rebuild your previous import script from scratch.</p>
+
+<h3 id="making-reusable-code">Making Reusable Code</h3>
+
+<p>Look at the three CSV files <code class="highlighter-rouge">maternal_health/raw/*.csv</code>
+(which are taken from the Excel spreadsheet located in the same directory).
+Using your solution to the previous exercise as a starting point,
+write some helper functions to help you tidy up CSV files that are formatted this way,
+and then use those functions in an R script that tidies these three files
+and stores the results in <code class="highlighter-rouge">maternal_health/tidy/*.csv</code>.</p>
+
+<h3 id="combining-data">Combining Data</h3>
+
+<p>Using the tidied <code class="highlighter-rouge">maternal_health</code> data files from the previous exercise,
+create and save a single tidy data set that has fraction of birth at health facilities,
+fraction that have skilled attendants present,
+and fraction of Caesarean sections
+by country and year.</p>
+
+<h3 id="plotting">Plotting</h3>
+
+<p>Using the combined data set created in the previous exercise,
+create a scatter plot showing the relationship in each country
+between the fraction of births at health facilities
+and the fraction that have skilled attendants present,
+coloring points according to the fraction of Caesarean sections.</p>

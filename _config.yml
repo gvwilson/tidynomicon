@@ -1,0 +1,28 @@
+title: "The Tidynomicon"
+author: "Greg Wilson"
+
+toc:
+- /beginnings/
+- /tidyverse/
+- /cleanup/
+- /testing/
+- /license/
+- /conduct/
+- /citation/
+
+collections:
+  en:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: en
+    values:
+      language: "en"
+      layout: "default"
+
+exclude:
+- bin
+- "*.Rmd"
+- "*.Rproj"
+- README.md

@@ -1,0 +1,833 @@
+<html>
+  <head>
+    <title>Simple Things in Python and R</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/tango.css" />
+    <link rel="stylesheet" href="/css/site.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1>Simple Things in Python and R</h1>
+
+    
+
+    <p>Let’s try some simple things at an interactive prompt.</p>
+
+<h2 id="how-do-i-greet-the-world">How do I greet the world?</h2>
+
+<p>Let us begin as is traditional,
+using blue to show Python and green to show R:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Hello, world!"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Hello, world!
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print</span><span class="p">(</span><span class="s2">"Hello, world!"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "Hello, world!"
+</code></pre></div></div>
+
+<p>A sense of weariness settles over us immediately.
+Python prints exactly what we have asked for,
+but what is that <code class="highlighter-rouge">[1]</code> in R’s output?
+Is it perhaps something akin to a line number?
+Let’s take a closer look by simply evaluating an expression without bothering with <code class="highlighter-rouge">print</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'This is in single quotes.'</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "This is in single quotes."
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"This is in double quotes."</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "This is in double quotes."
+</code></pre></div></div>
+
+<p>Oh dear.
+It appears that R uses double quotes to display strings even when we give it a single-quoted string
+(which is no worse than Python using single quotes when we’ve given it doubles).
+The bad news is that the mysterious <code class="highlighter-rouge">[1]</code> doesn’t appear to be a line number.
+Let’s ignore it for now and do a little more exploring.</p>
+
+<h2 id="how-do-i-add-numbers">How do I add numbers?</h2>
+
+<p>In Python,
+I add numbers using <code class="highlighter-rouge">+</code>.
+(Note that, as above, we use <code class="highlighter-rouge">print</code> to display the output instead of simply typing in the expression.
+This is a feature of the current version of RStudio.)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 6
+</code></pre></div></div>
+
+<p>I can check the type of the result using the built-in <code class="highlighter-rouge">type</code> function,
+which in this case tells me that my <code class="highlighter-rouge">6</code> is an integer:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## &lt;class 'int'&gt;
+</code></pre></div></div>
+
+<p>What does R do?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 6
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="m">6</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "double"
+</code></pre></div></div>
+
+<p>Hm.
+Calling the type-checking function <code class="highlighter-rouge">typeof</code> rather than <code class="highlighter-rouge">type</code> isn’t frightening,
+and having it return the name of a type rather than a class can also be excused,
+but it does seem odd for integer addition to produce a double-precision floating-point result
+(which is what the type <code class="highlighter-rouge">"double"</code> means).
+Let’s try an experiment:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="m">6</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "double"
+</code></pre></div></div>
+
+<p>Ah ha.
+By default,
+R represents numbers as floating-point values,
+even if they look like integers when written.
+We can force a literal value to be an integer by putting an upper-case L after it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="m">6L</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "integer"
+</code></pre></div></div>
+
+<p>Arithmetic on integers produces integers:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3L</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 6
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="m">1L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2L</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3L</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "integer"
+</code></pre></div></div>
+
+<p>and if we want to convert a “normal” (floating-point) number to an integer
+we can do so:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.integer</span><span class="p">(</span><span class="m">6</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 6
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="nf">as.integer</span><span class="p">(</span><span class="m">6</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "integer"
+</code></pre></div></div>
+
+<p>But wait:
+what is that dot doing in that function’s name?
+Is there an object called <code class="highlighter-rouge">as</code> with a method called <code class="highlighter-rouge">integer</code>?
+No.
+In R,
+<code class="highlighter-rouge">.</code> is just another character.
+Like the underscore <code class="highlighter-rouge">_</code>,
+it is used to make names more readable,
+but it has no special meaning.</p>
+
+<h2 id="how-do-i-store-many-numbers-together">How do I store many numbers together?</h2>
+
+<p>The Elder Gods do not bother to learn most of our names because there are so many of us and we are so…ephemeral.
+Similarly, we only give proper names to a handful of values in our programs;
+we lump the rest together into lists and matrices and more esoteric structure so that
+we too can create, manipulate, and dispose of multitudes with a single dark command.</p>
+
+<p>In Python,
+we create a list using square brackets,
+and assign that list to a variable using <code class="highlighter-rouge">=</code>.
+If the variable does not exist, it is created:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Since assignment is a statement rather than an expression,
+it has no result,
+so Python does not display anything when this command is run.</p>
+
+<p>The equivalent operation in R uses a function called <code class="highlighter-rouge">c</code>,
+which stands for “column”:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">11</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Assignment is done using a left-pointing arrow <code class="highlighter-rouge">&lt;-</code>.
+Like Python,
+R does not display a value after an assignment statement.</p>
+
+<p>Now that we can create vectors in R,
+we can explain that errant <code class="highlighter-rouge">[1]</code> in our previous examples.
+To begin with,
+let’s have a look at the lengths of various things in Python:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">primes</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 4
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## TypeError: object of type 'int' has no len()
+## 
+## Detailed traceback: 
+##   File "&lt;string&gt;", line 1, in &lt;module&gt;
+</code></pre></div></div>
+
+<p>Fair enough:
+the length of a list is the number of elements it contains,
+and since a scalar value like the integer 4 doesn’t contain elements,
+we are committing a minor sin by asking for its length.</p>
+
+<p>Now,
+what of R?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">primes</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 4
+</code></pre></div></div>
+
+<p>Good.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 1
+</code></pre></div></div>
+
+<p>That’s unexpected.
+Let’s have a closer look:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">primes</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "double"
+</code></pre></div></div>
+
+<p>That’s also unexpected,
+but all becomes clear once we realize that <em>there are no scalars in R</em>.
+<code class="highlighter-rouge">4</code> is not a single lonely integer,
+but rather a vector of length one containing the value 4.
+When we display its value,
+the <code class="highlighter-rouge">[1]</code> is the index of its first value.
+We can prove this by creating and displaying a much longer vector:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">longer</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
+</span><span class="n">longer</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
+## [24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10
+</code></pre></div></div>
+
+<p>In order to help us find out way in our data,
+R automatically breaks long lines
+and displays the starting index of each line.
+These index values also show us that R counts from 1 as humans do,
+rather than from zero.
+(There are a great many myths about why programming languages do the latter.
+If you dare know the truth,
+<a href="http://exple.tive.org/blarg/2013/10/22/citation-needed/">Mike Hoye has it for you</a>.)</p>
+
+<h2 id="how-do-i-index-a-list-vector">How do I index a <del>list</del> vector?</h2>
+
+<p>Python’s rules are simple once you understand them
+(a statement which is also true of quantum mechanics).
+To avoid confusing indices with values,
+let’s create a list of color names and index that:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">"eburnean"</span><span class="p">,</span> <span class="s">"glaucous"</span><span class="p">,</span> <span class="s">"wenge"</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## eburnean
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## wenge
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## IndexError: list index out of range
+## 
+## Detailed traceback: 
+##   File "&lt;string&gt;", line 1, in &lt;module&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## wenge
+</code></pre></div></div>
+
+<p>Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprising results:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"eburnean"</span><span class="p">,</span><span class="w"> </span><span class="s2">"glaucous"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wenge"</span><span class="p">)</span><span class="w">
+</span><span class="n">colors</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "eburnean"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "wenge"
+</code></pre></div></div>
+
+<p>What happens if we go off the end?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="m">4</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] NA
+</code></pre></div></div>
+
+<p>Our understanding of the universe is unavoidably incomplete:
+limited as they are to three dimensions of space and one of time,
+our minds simply cannot grasp reality without shattering into a million gibbering pieces.
+In statistics,
+this is often reflected by gaps in data.
+R uses the special value <code class="highlighter-rouge">NA</code> (short for “not available”) to represent these gaps,
+and tries to shield us from the full horror of the unknowable by returning <code class="highlighter-rouge">NA</code>
+when we ask for knowledge that does not exist.</p>
+
+<p>R does more than this—much more.
+In Python,
+a negative index counts backward from the end of a list.
+In R,
+we use a negative index to indicate a value that we don’t want:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="m">-1</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "glaucous" "wenge"
+</code></pre></div></div>
+
+<p>But wait.
+If every value in R is a vector,
+then when we use 1 or -1 as an index,
+we’re actually using a vector to index another one.
+What happens if the index itself contains more than one value?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Error in colors[1, 2]: incorrect number of dimensions
+</code></pre></div></div>
+
+<p>All right, that didn’t work.
+What if we make the vector subscript explicit using <code class="highlighter-rouge">c</code>?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "wenge"    "eburnean" "glaucous"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "eburnean" "eburnean" "eburnean"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="m">-2</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "wenge"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">-1</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Error in colors[c(1, -1)]: only 0's may be mixed with negative subscripts
+</code></pre></div></div>
+
+<p>This looks promising.
+If we provide a vector of positive indices,
+we get the elements they identify in their order,
+with elements duplicated if an index was used multiple times.
+The same thing happens if we use negative indices,
+and if we try to mix them,
+R heaves a heavy sigh and chides us for our mistake,
+presumably because an index like <code class="highlighter-rouge">c(1, -1)</code> is ambiguous.</p>
+
+<p>What of zero?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## character(0)
+</code></pre></div></div>
+
+<p>In order to understand this rather cryptic response,
+we can try calling the function <code class="highlighter-rouge">character</code> ourselves
+with a positive argument:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">character</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "" "" ""
+</code></pre></div></div>
+
+<p>Ah—it appears that <code class="highlighter-rouge">character</code> constructs a vector of character strings of the specified length
+and fills it with empty strings.
+The expression <code class="highlighter-rouge">character(0)</code> presumably therefore means
+“an empty character vector”.
+From this,
+we conclude that the index 0 doesn’t correspond to any elements,
+so R gives us back something of the right type but with no content.
+As a check,
+let’s try indexing with 0 and 1 together:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "eburnean"
+</code></pre></div></div>
+
+<p>This unfortunate behavior is fertile ground for breeding bugs.
+Be on guard against it.</p>
+
+<h2 id="how-do-i-choose-and-repeat-things">How do I choose and repeat things?</h2>
+
+<p>We cherish the illusion of free will so much that we embed a pretense of it in our machines
+in the form of conditional statements.
+We then instruct those same machines to make the same decisions over and over,
+often for no discernible purpose.
+For example,
+we could write the following in Python:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"The sign of"</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s">"is"</span><span class="p">,</span> <span class="n">sign</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## The sign of -1 is -1
+## The sign of 0 is 0
+## The sign of 1 is 1
+</code></pre></div></div>
+
+<p>and then create something equivalent in R:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">values</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">sign</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">sign</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">sign</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"The sign of"</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="s2">"is"</span><span class="p">,</span><span class="w"> </span><span class="n">sign</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "The sign of -1 is -1"
+## [1] "The sign of 0 is 0"
+## [1] "The sign of 1 is 1"
+</code></pre></div></div>
+
+<p>There are a few things to note here:</p>
+
+<ol>
+  <li>The parentheses in the loop header are required:
+we cannot simply write <code class="highlighter-rouge">for v in values</code>.</li>
+  <li>The curly braces around the bodies of the loop and the conditional branches are optional,
+but should always be there to help readability.</li>
+  <li><code class="highlighter-rouge">paste</code> converts its arguments to strings and then concatenates those,
+placing a single space between each unless instructed to do otherwise.
+<code class="highlighter-rouge">print</code> then prints the resulting (single) string.
+The functions <code class="highlighter-rouge">cat</code> and <code class="highlighter-rouge">message</code> can also be used for text output.</li>
+  <li>By calling our temporary variable <code class="highlighter-rouge">sign</code>
+we risk collision with the rather useful built-in R function of the same name.</li>
+</ol>
+
+<p>Explicit loops in R programs are generally regarded with the same sort of suspicion
+as hearty claims by over-confident graduate students that
+the text they are about to read aloud is purely metaphorical,
+as are the dire warnings scrawled in the margins of the ancient tome in which it was found.
+If we wish to get the signs of some values in R,
+we can more idiomatically do this:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sign</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Vectors being ubiquitous in R,
+almost every function will operate on multiple values.
+And as sequences such as (-1, 0, 1) are also very common,
+R provides a notation for expressing them:</p>
+
+<p>or even:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sign</span><span class="p">(</span><span class="m">-1</span><span class="o">:</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Where Python only allows ranges such as <code class="highlighter-rouge">-1:1</code> to be used as indices,
+R considers them first-class entities.
+Their most common use is as indices to vectors:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"eburnean"</span><span class="p">,</span><span class="w"> </span><span class="s2">"glaucous"</span><span class="p">,</span><span class="w"> </span><span class="s2">"squamous"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wenge"</span><span class="p">)</span><span class="w">
+</span><span class="n">colors</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "eburnean" "glaucous" "squamous"
+</code></pre></div></div>
+<p>We can similarly subtract a range of colors by index:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span><span class="p">[</span><span class="m">-1</span><span class="o">:</span><span class="m">-3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "wenge"
+</code></pre></div></div>
+
+<p>R does not allow tripartite expressions of the form <code class="highlighter-rouge">start:end:stride</code>;
+for that,
+we must use the <code class="highlighter-rouge">seq</code> function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1]  1  4  7 10
+</code></pre></div></div>
+
+<p>This example also shows that ranges in R are inclusive at both ends,
+i.e.,
+they run up to <em>and including</em> the upper bound.
+As is traditional among programming language advocates,
+we claim that this is more natural,
+and then cite as proof some supportive anecdote such as,
+“Most people do not interpret the expression ‘from one to five’
+to mean ‘one, two, three, or four’.”</p>
+
+<p>What we <em>cannot</em> do is use vectors directly as conditions in <code class="highlighter-rouge">if</code> statements:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="s2">"This should not have worked."</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning in if (numbers) {: the condition has length &gt; 1 and only the first
+## element will be used
+</code></pre></div></div>
+
+<p>Instead,
+we must collapse them into a single logical (Boolean) value:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">all</span><span class="p">(</span><span class="n">numbers</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="s2">"This, on the other hand, should work."</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "This, on the other hand, should work."
+</code></pre></div></div>
+
+<p>When evaluating the expression <code class="highlighter-rouge">numbers &gt;= 0</code>,
+R automatically replicates or <em>recycles</em> the shorter vector
+(in this case, the vector of length 1 containing the value 0)
+and then performs element-by-element comparison to construct a vector of logical values:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] TRUE TRUE TRUE
+</code></pre></div></div>
+
+<p>The function <code class="highlighter-rouge">all</code> then checks if they are all <code class="highlighter-rouge">TRUE</code>.
+We could use a corresponding function <code class="highlighter-rouge">any</code> to check if at least one was <code class="highlighter-rouge">TRUE</code>;
+these two functions therefore correspond to “and” and “or” across the whole vector.</p>
+
+<p>Logical vectors have a special place in the R universe,
+just as human beings don’t in the larger one.
+If a vector is indexed with a logical vector,
+the result is a vector containing only the values at locations where the index vector is <code class="highlighter-rouge">TRUE</code>.
+This is easier to show than to describe:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">both</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-2</span><span class="o">:</span><span class="m">2</span><span class="w">         </span><span class="c1"># c(-2, -1, 0, 1, 2)</span><span class="w">
+</span><span class="n">mask</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w">     </span><span class="c1"># c(FALSE, FALSE, FALSE, TRUE, TRUE)</span><span class="w">
+</span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">both</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="w"> </span><span class="c1"># c(1, 2)</span><span class="w">
+</span><span class="n">result</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 1 2
+</code></pre></div></div>
+
+<p>We can of course make the code shorter by eliminating <code class="highlighter-rouge">mask</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">both</span><span class="p">[</span><span class="n">both</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">]</span><span class="w">
+</span><span class="n">result</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 1 2
+</code></pre></div></div>
+
+<h2 id="how-do-i-create-and-call-functions">How do I create and call functions?</h2>
+
+<p>As we have already seen,
+we call functions in R much as we do in Python:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">max</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 6
+</code></pre></div></div>
+
+<p>We can define a new function using the <code class="highlighter-rouge">function</code> keyword.
+Doing so does not name the function;
+to accomplish that,
+we assign the newly-created function to a variable:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">swap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="n">pair</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">swap</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"right"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "right" "left"
+</code></pre></div></div>
+
+<p>As this example shows,
+the result of a function is the value of the last expression evaluated within it.
+A function can return a value earlier using the <code class="highlighter-rouge">return</code> function;
+we can use <code class="highlighter-rouge">return</code> for the final value as well,
+but most R programmers do not.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">swap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="kc">NULL</span><span class="p">)</span><span class="w"> </span><span class="c1"># This is very bad practice.</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="n">pair</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">swap</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"one"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## NULL
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">swap</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"right"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "right" "left"
+</code></pre></div></div>
+
+<p>We pause now to answer some questions that may have occurred to attentive readers.
+First,
+the special value <code class="highlighter-rouge">NULL</code> represents the absence of a vector.
+It is not the same as a vector of zero length,
+though testing that statement produces a rather odd result:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">NULL</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">integer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## logical(0)
+</code></pre></div></div>
+
+<p>To test for nullity,
+use the function <code class="highlighter-rouge">is.null</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">is.null</span><span class="p">(</span><span class="kc">NULL</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] TRUE
+</code></pre></div></div>
+
+<p>Second,
+and more importantly,
+returning <code class="highlighter-rouge">NULL</code> when our function’s inputs are invalid is an express route to madness,
+as doing so means that <code class="highlighter-rouge">swap</code> can fail without telling us that it has done so.
+Consider:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">NULL</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">  </span><span class="c1"># Try to access an element of the vector that does not exist.</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## NULL
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">values</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">10</span><span class="w">          </span><span class="c1"># More than two values.</span><span class="w">
+</span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="w">  </span><span class="c1"># Attempting to swap the values produces NULL.</span><span class="w">
+</span><span class="n">result</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">               </span><span class="c1"># But we can operate on the result without error.</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## NULL
+</code></pre></div></div>
+
+<p>The next section will explore what we ought to do instead.
+Before then,
+however,
+we can offer some slight comfort.
+If the number of arguments given to a function is not the number expected,
+R will complain:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">swap</span><span class="p">(</span><span class="s2">"one"</span><span class="p">,</span><span class="w"> </span><span class="s2">"two"</span><span class="p">,</span><span class="w"> </span><span class="s2">"three"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Error in swap("one", "two", "three"): unused arguments ("two", "three")
+</code></pre></div></div>
+
+<p>Note that in this example we as passing three values,
+not a single vector containing three values.
+If we want a function to handle a varying number of arguments,
+we represent the “extra” arguments with an ellipsis <code class="highlighter-rouge">...</code> (three dots),
+which serves the same purpose as Python’s <code class="highlighter-rouge">*args</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_with_title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="s2">"=="</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="s2">"==\n"</span><span class="p">)</span><span class="w">
+  </span><span class="n">items</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="n">...</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\n"</span><span class="p">)</span><span class="w">
+  </span><span class="n">cat</span><span class="p">(</span><span class="n">title</span><span class="p">)</span><span class="w">
+  </span><span class="n">cat</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="w">
+  </span><span class="n">cat</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">print_with_title</span><span class="p">(</span><span class="s2">"to-do"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Monday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Tuesday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Wednesday"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## == to-do ==
+## Monday
+## Tuesday
+## Wednesday
+</code></pre></div></div>
+
+<p>If we want to work with the extra arguments one by one,
+we must first convert <code class="highlighter-rouge">...</code> to a list:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">add</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">...</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">...</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">result</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">add</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 16
+</code></pre></div></div>
+
+<p>A list in R is a vector that can contain values of many different types.
+R’s lists are complex enough that we will devote an entire section to exploring them;
+until then,
+suffice to say that they can be iterated over,
+but that indexing them may surprise you.</p>
+
+<h2 id="how-do-i-live-without-loops">How do I live without loops?</h2>
+
+<p>Modern Python encourages programmers to use list comprehensions instead of loops,
+e.g.,
+to write:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">original</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">doubled</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">original</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">doubled</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [6, 10, 14, 18]
+</code></pre></div></div>
+
+<p>instead of:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">doubled</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">original</span><span class="p">:</span>
+  <span class="n">doubled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">doubled</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [6, 10, 14, 18]
+</code></pre></div></div>
+
+<p>If <code class="highlighter-rouge">original</code> is a NumPy array,
+we can shorten this to:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">doubled</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">original</span>
+</code></pre></div></div>
+
+<p>As we have already seen,
+R provides the same capability in the language itself:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">original</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">)</span><span class="w">
+</span><span class="n">doubled</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">original</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If we want to perform more complex calculations,
+R encourages us to use a functional style of programming,
+in which data is transformed by successive operations
+much as reality itself is transformed by the will of the Great Old Ones.
+We begin by defining a function that does what we want:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">double</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>and then pass this function to <code class="highlighter-rouge">sapply</code> along with the data on which we want to operate:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">double</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1]  2  4  6  8 10 12 14 16 18 20
+</code></pre></div></div>
+
+<p>This is clumsier than simply multiplying our values by two,
+but it illustrates the way in which <em>higher-order functions</em> work.
+We can use other higher-order functions to perform other operations,
+such as conditionals:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">values</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-5</span><span class="o">:</span><span class="m">5</span><span class="w">
+</span><span class="n">ifelse</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1] NA NA NA NA NA NA  1  2  3  4  5
+</code></pre></div></div>
+
+<p>R provides many other higher-order functions,
+but their semantics are sometimes confusing.
+We therefore encourage programmers to use the functions provided by the tidyverse instead;
+these will be discussed in <a href="../tidyverse/">the next lesson</a>.</p>
+
+
+  </body>
+</html>

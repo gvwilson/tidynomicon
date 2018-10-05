@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>{% if page.title %}{{page.title}}{% else %}{{site.title}}{% endif %}</title>
+    <link rel="stylesheet" href="{{'/css/bootstrap.min.css' | relative_url}}" />
+    <link rel="stylesheet" href="{{'/css/tango.css' | relative_url}}" />
+    <link rel="stylesheet" href="{{'/css/site.css' | relative_url}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+    <script src="{{'/js/jquery.min.js' | relative_url}}"></script>
+    <script src="{{'/js/bootstrap.min.js' | relative_url}}"></script>
+  </head>
+  <body>
+    <h1>{% if page.title %}{{page.title}}{% else %}{{site.title}}{% endif %}</h1>
+
+    {% if page.objectives %}
+    <div class="objectives">
+      <p><strong>Objectives</strong></p>
+      <ul>
+        {% for item in page.objectives %}
+        <li>{{item | markdownify}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {{content}}
+
+  </body>
+</html>

@@ -1,8 +1,7 @@
 ---
 title: "Code of Conduct"
-output:
-  html_document:
-    css: "languages.css"
+output: md_document
+permalink: /conduct/
 ---
 
 In the interest of fostering an open and welcoming environment, we as

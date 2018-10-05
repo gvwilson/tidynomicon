@@ -1,7 +1,3 @@
----
-permalink: "/"
----
-
 <div align="center">
   <h1><em>The Tidynomicon</em></h1>
   <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
