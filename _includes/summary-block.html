@@ -10,7 +10,7 @@ Note:
 
 {% if include.items %}
 <div class="summary">
-  <p><strong>{{include.title}}</strong></p>
+  <h2>{{include.title}}</h2>
   <ul>
     {% for item in include.items %}<li>{{item | markdownify | replace: "<p>", "" | replace: "</p>", ""}}</li>{% endfor %}
   </ul>

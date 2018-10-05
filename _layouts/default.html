@@ -2,8 +2,16 @@
   {% include header.html %}
   <body>
 
-    {% if page.title %}<div align="center"><h1>{{page.title}}</h1></div>{% endif %}
-    {% include summary-block.html title="Learners' Questions" items=page.questions %}
+    {% if page.title %}
+    <div align="center">
+      <h1>
+        {% include elder-sign.html %}
+        {{page.title}}
+        {% include elder-sign.html %}
+      </h1>
+    </div>
+    {% endif %}
+    {% include summary-block.html title="Questions Answered" items=page.questions %}
     {{content}}
     {% include summary-block.html title="Key Points" items=page.keypoints %}
 

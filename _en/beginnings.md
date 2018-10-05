@@ -2,6 +2,55 @@
 title: "Simple Things in Python and R"
 output: md_document
 permalink: /beginnings/
+questions:
+  - "How do I print things?"
+  - "What are R's basic data types?"
+  - "How do I find out what type something is?"
+  - "How do I name variables in R?"
+  - "How do I create and index lists in R?"
+  - "How do I write conditionals and loops in R?"
+  - "What should I use instead of loops in R?"
+  - "How do ranges in R differ from ranges in Python?"
+  - "What special values does R use to represent things that aren't there?"
+  - "How do I create functions in R?"
+objectives:
+  - "Name and describe R's atomic data types and create objects of those types."
+  - "Explain what 'scalar' values actually are in R."
+  - "Identify correct and incorrect variable names in R."
+  - "Create vectors in R and index them to select single values, ranges of values, and selected values."
+  - "Create `for` loops and `if`/`else` statements in R."
+  - "Explain why vectors cannot be used directly in conditional expressions and correctly use `all` and `any` to aggregate their values."
+  - "Define functions taking a fixed number of named arguments and/or a variable number of arguments."
+  - "Explain the difference between `NA` and `NULL` and correctly use tests for each."
+  - "Explain what vectorization is and create vectorized equivalents of unnested loops containing simple conditional tests."
+keypoints:
+  - "Use `print(expression)` to print the value of a single expression."
+  - "Variable names may include letters, digits, `.`, and `_`, but `.` should be avoided, as it sometimes has special meaning."
+  - "R's atomic data types include logical, integer, double (also called numeric), and character."
+  - "R stores collections in homogeneous vectors of atomic types, or in heterogeneous lists."
+  - "'Scalars' in R are actually vectors of length 1."
+  - "Vectors and lists are created using the function `c(...)`."
+  - "Vector indices from 1 to length(vector) select single elements."
+  - "Negative indices to vectors deselect elements from the result."
+  - "The index 0 on its own selects no elements, creating a vector or list of length 0."
+  - "The expression `low:high` creates the vector of integers from `low` to `high` inclusive."
+  - "Subscripting a vector with a vector of numbers selects the elements at those locations (possibly with repeats)."
+  - "Subscripting a vector with a vector of logicals selects elements where the indexing vector is `TRUE`."
+  - "Values from short vectors (such as 'scalars') are repeated to match the lengths of longer vectors."
+  - "The special value `NA` represents missing values, and (almost all) operations involving `NA` produce `NA`."
+  - "The special values `NULL` represents a nonexistent vector, which is not the same as a vector of length 0."
+  - "Use `for (loop_variable in collection){ ...body... }` to create a loop."
+  - "Use `if (expression) { ...body... } else if (expression) { ...body... } else { ...body... }` to create conditionals."
+  - "Expression conditions must have length 1; use `any(...)` and `all(...)` to collapse logical vectors to single values."
+  - "Most operators and functions in R work on corresponding elements of vectors, and should be used in preference to loops."
+  - "Use `ifelse(vector_condition, values_if_true, values_if_false)` in place of conditionals inside loops."
+  - "Use `function(...arguments...) { ...body... }` to create a function."
+  - "Use variable <- function(...arguments...) { ...body... }` to create a function and give it a name."
+  - "The body of a function can be a single expression or a block in curly braces."
+  - "The last expression evaluated in a function is returned as its result."
+  - "Use `return(expression)` to return a result early from a function."
+  - "Use `sapply(vector, function)` to apply a function to each value in a vector in turn, returning a vector of results."
+  - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
 
@@ -11,7 +60,7 @@ Let's try some simple things at an interactive prompt.
 ## How do I greet the world?
 
 Let us begin as is traditional,
-using blue to show Python and green to show R:
+using pink to show Python code and green to show R:
 
 
 ```python
