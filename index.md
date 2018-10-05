@@ -6,25 +6,11 @@ permalink: /
 <div align="center">
   <h1><em>{{site.title}}</em></h1>
   <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
-  <img src="{{'/files/cthulhu.png' | relative_url}}" width="400" />
+  <img src="{{'/files/cthulhu-200x177.png' | relative_url}}" />
   <p><em>"Speak not to me of madness, you who count from zero."</em></p>
 </div>
 
-**Lessons**
-{%- for toc in site.lessons -%}
-  {%- for page in site.en -%}
-    {% if toc == page.permalink %}
-- [{{page.title}}]({{page.permalink}})
-    {%- endif -%}
-  {%- endfor -%}
-{% endfor %}
-
-**Appendices**
-
-- [Learning Objectives]({{'/objectives/' | relative_url}})
-- [License]({{'/license/' | relative_url}})
-- [Code of Conduct]({{'/conduct/' | relative_url}})
-- [Citation]({{'/citation/' | relative_url}})
+{% include toc.html %}
 
 ## Audience
 

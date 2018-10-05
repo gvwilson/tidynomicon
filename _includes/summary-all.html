@@ -1,0 +1,21 @@
+{% comment %}
+Display a block of points such as learners' questions, learning objectives, or key points.
+
+title: block title.
+items: list to display.
+
+Note:
+- This strips off the extra 'p' tag that "markdownify" wraps around each item.
+- This is hard-wired to display the English language lessons.
+{% endcomment %}
+
+{% for toc in site.lessons %}
+  {% for page in site.en %}
+    {% if toc == page.permalink %}
+<h2><a href="{{page.permalink | relative_url}}">{{page.title}}</a></h2>
+<ul>
+{% for obj in page.objectives %}<li>{{obj | markdownify | replace: "<p>", "" | replace: "</p>", ""}}</li>{% endfor %}
+</ul>
+    {% endif %}
+  {% endfor %}
+{% endfor %}

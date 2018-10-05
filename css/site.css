@@ -2,7 +2,8 @@ body {
   width: 70em;
   margin-left: 1em;
 }
-div.objectives {
+
+div.summary {
   border-style: solid;
   border-width: 1px;
   border-color: #000000;
@@ -10,12 +11,15 @@ div.objectives {
   padding-top: 0.5em;
   margin-bottom: 1em;
 }
-div.language-python {
-  background-color: #e0e0ff;
+
+div.language-python div.highlight pre.highlight {
+  background-color: #ffe0e0;
 }
-div.language-r {
+
+div.language-r div.highlight pre.highlight {
   background-color: #e0ffe0;
 }
+
 footer {
   text-align: center;
 }
