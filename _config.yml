@@ -19,7 +19,8 @@ defaults:
       layout: "default"
 
 exclude:
-- bin
 - "*.Rmd"
 - "*.Rproj"
 - README.md
+- bin
+- spelling.txt
