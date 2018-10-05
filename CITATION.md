@@ -1,6 +1,6 @@
 ---
 title: "Citation"
-output: md_document
+layout: default
 permalink: /citation/
 ---
 

@@ -1,15 +1,30 @@
 ---
-title: "The Tidynomicon"
-output: md_document
+layout: default
 permalink: /
 ---
 
 <div align="center">
-  <h1><em>The Tidynomicon</em></h1>
+  <h1><em>{{site.title}}</em></h1>
   <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
-  <img src="https://raw.githubusercontent.com/gvwilson/tidynomicon/master/files/cthulhu.png" width="400" />
+  <img src="{{'/files/cthulhu.png' | relative_url}}" width="400" />
   <p><em>"Speak not to me of madness, you who count from zero."</em></p>
 </div>
+
+**Lessons**
+{%- for toc in site.lessons -%}
+  {%- for page in site.en -%}
+    {% if toc == page.permalink %}
+- [{{page.title}}]({{page.permalink}})
+    {%- endif -%}
+  {%- endfor -%}
+{% endfor %}
+
+**Appendices**
+
+- [Learning Objectives]({{'/objectives/' | relative_url}})
+- [License]({{'/license/' | relative_url}})
+- [Code of Conduct]({{'/conduct/' | relative_url}})
+- [Citation]({{'/citation/' | relative_url}})
 
 ## Audience
 
@@ -38,15 +53,6 @@ Derived constraints:
 - Learners are willing to spend an hour on the basics of the language,
   both because they understand the utility and as a safety blanket,
   but will then be impatient to start tackling real tasks.
-
-## Lessons
-
-Each of these lessons will take about an hour to go through in class.
-
-- [Simple Things in Python and R](./beginnings/)
-- [The Tidyverse](./tidyverse/)
-- [Cleaning Up Data](./cleanup/)
-- [Testing](./testing/)
 
 ## Learners' Questions
 

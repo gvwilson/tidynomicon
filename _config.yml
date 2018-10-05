@@ -1,14 +1,11 @@
 title: "The Tidynomicon"
 author: "Greg Wilson"
 
-toc:
+lessons:
 - /beginnings/
 - /tidyverse/
 - /cleanup/
 - /testing/
-- /license/
-- /conduct/
-- /citation/
 
 collections:
   en:

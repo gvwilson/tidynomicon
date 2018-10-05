@@ -1,6 +1,6 @@
 ---
 title: "Code of Conduct"
-output: md_document
+layout: default
 permalink: /conduct/
 ---
 

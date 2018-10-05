@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{% if page.title %}{{page.title}}{% else %}{{site.title}}{% endif %}</title>
+    <title>{{site.title}}{% if page.title %}: {{page.title}}{% endif %}</title>
     <link rel="stylesheet" href="{{'/css/bootstrap.min.css' | relative_url}}" />
     <link rel="stylesheet" href="{{'/css/tango.css' | relative_url}}" />
     <link rel="stylesheet" href="{{'/css/site.css' | relative_url}}">
@@ -9,7 +9,7 @@
     <script src="{{'/js/bootstrap.min.js' | relative_url}}"></script>
   </head>
   <body>
-    <h1>{% if page.title %}{{page.title}}{% else %}{{site.title}}{% endif %}</h1>
+    {% if page.title %}<div align="center"><h1>{{page.title}}</h1></div>{% endif %}
 
     {% if page.objectives %}
     <div class="objectives">
@@ -24,5 +24,15 @@
 
     {{content}}
 
+    <footer>
+      <hr/>
+      <p>
+	<a href="{{'/license/' | relative_url}})">License</a>
+	-
+	<a href="{{'/conduct/' | relative_url}})">Code of Conduct</a>
+	-
+	<a href="{{'/citation/' | relative_url}}">Citation</a>
+      </p>
+    </footer>
   </body>
 </html>

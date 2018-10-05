@@ -1,6 +1,6 @@
 ---
 title: "License"
-output: md_document
+layout: default
 permalink: /license/
 ---
 
