@@ -18,6 +18,8 @@ extras:
   title: "Learning Objectives"
 - url: "/keypoints/"
   title: "Key Points"
+- url: "/glossary/"
+  title: "Glossary"
 
 collections:
   en:

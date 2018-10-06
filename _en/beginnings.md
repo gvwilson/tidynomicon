@@ -103,7 +103,6 @@ Let's take a closer look by simply evaluating an expression without bothering wi
 ## [1] "This is in double quotes."
 ```
 
-Oh dear.
 It appears that R uses double quotes to display strings even when we give it a single-quoted string
 (which is no worse than Python using single quotes when we've given it doubles).
 The bad news is that the mysterious `[1]` doesn't appear to be a line number.
@@ -125,8 +124,8 @@ print(1 + 2 + 3)
 ## 6
 ```
 
-I can check the type of the result using the built-in `type` function,
-which in this case tells me that my `6` is an integer:
+I can check the [type](../glossary/#type) of the result using the built-in `type` function,
+which in this case tells me that my `6` is an [integer](../glossary/#integer):
 
 
 ```python
@@ -159,7 +158,7 @@ typeof(6)
 Hm.
 Calling the type-checking function `typeof` rather than `type` isn't frightening,
 and having it return the name of a type rather than a class can also be excused,
-but it does seem odd for integer addition to produce a double-precision floating-point result
+but it does seem odd for integer addition to produce a double-precision [floating-point](../glossary/#floating-point) result
 (which is what the type `"double"` means).
 Let's try an experiment:
 
@@ -176,7 +175,7 @@ Ah ha.
 By default,
 R represents numbers as floating-point values,
 even if they look like integers when written.
-We can force a literal value to be an integer by putting an upper-case L after it:
+We can force a [literal value](../glossary/#literal) to be an integer by putting an upper-case L after it:
 
 
 ```r
@@ -228,7 +227,7 @@ typeof(as.integer(6))
 
 But wait:
 what is that dot doing in that function's name?
-Is there an object called `as` with a method called `integer`?
+Is there an object called `as` with a [method](../glossary/#method) called `integer`?
 No.
 In R,
 `.` is just another character.
@@ -244,8 +243,8 @@ we lump the rest together into lists and matrices and more esoteric structure so
 we too can create, manipulate, and dispose of multitudes with a single dark command.
 
 In Python,
-we create a list using square brackets,
-and assign that list to a variable using `=`.
+we create a [list](../glossary/#list) using square brackets,
+and [assign](../glossary/#assignment) that list to a [variable](../glossary/#variable) using `=`.
 If the variable does not exist, it is created:
 
 
@@ -258,7 +257,7 @@ it has no result,
 so Python does not display anything when this command is run.
 
 The equivalent operation in R uses a function called `c`,
-which stands for "column":
+which stands for "column" and which creates a [vector](../glossary/#vector):
 
 
 ```r
@@ -269,7 +268,7 @@ Assignment is done using a left-pointing arrow `<-`.
 Like Python,
 R does not display a value after an assignment statement.
 
-Now that we can create vectors in R,
+Now that we can create vector in R,
 we can explain that errant `[1]` in our previous examples.
 To begin with,
 let's have a look at the lengths of various things in Python:
@@ -297,11 +296,11 @@ print(len(4))
 
 Fair enough:
 the length of a list is the number of elements it contains,
-and since a scalar value like the integer 4 doesn't contain elements,
+and since a [scalar](../glossary/#scalar) value like the integer 4 doesn't contain elements,
 we are committing a minor sin by asking for its length.
 
 Now,
-what of R?
+what of R and its vectors?
 
 
 ```r
@@ -357,7 +356,7 @@ longer
 In order to help us find out way in our data,
 R automatically breaks long lines
 and displays the starting index of each line.
-These index values also show us that R counts from 1 as humans do,
+These indices also show us that R counts from 1 as humans do,
 rather than from zero.
 (There are a great many myths about why programming languages do the latter.
 If you dare know the truth,
@@ -365,7 +364,7 @@ If you dare know the truth,
 
 ## How do I index a ~~list~~ vector?
 
-Python's rules are simple once you understand them
+Python's rules for [indexing](../glossary/#indexing) are simple once you understand them
 (a statement which is also true of quantum mechanics).
 To avoid confusing indices with values,
 let's create a list of color names and index that:
@@ -442,8 +441,8 @@ Our understanding of the universe is unavoidably incomplete:
 limited as they are to three dimensions of space and one of time,
 our minds simply cannot grasp reality without shattering into a million gibbering pieces.
 In statistics,
-this is often reflected by gaps in data.
-R uses the special value `NA` (short for "not available") to represent these gaps,
+this lack of omniscience is often reflected by gaps in data.
+R uses the special value [`NA`](../glossary/#NA) (short for "not available") to represent these gaps,
 and tries to shield us from the full horror of the unknowable by returning `NA`
 when we ask for knowledge that does not exist.
 
@@ -549,7 +548,7 @@ character(3)
 Ah—it appears that `character` constructs a vector of character strings of the specified length
 and fills it with empty strings.
 The expression `character(0)` presumably therefore means
-"an empty character vector".
+"an [empty vector](../glossary/#empty-vector) of type character".
 From this,
 we conclude that the index 0 doesn't correspond to any elements,
 so R gives us back something of the right type but with no content.
@@ -566,16 +565,16 @@ colors[c(0, 1)]
 ```
 
 This unfortunate behavior is fertile ground for breeding bugs.
-Be on guard against it.
+Guard against it as you would against the Hounds of Tindalos.
 
 ## How do I choose and repeat things?
 
 We cherish the illusion of free will so much that we embed a pretense of it in our machines
-in the form of conditional statements.
+in the form of [conditional statements](../glossary/#conditional).
 We then instruct those same machines to make the same decisions over and over,
 often for no discernible purpose.
 For example,
-we could write the following in Python:
+we could write the following [for loop](../glossary/#for-loop) in Python:
 
 
 ```python
@@ -625,19 +624,19 @@ There are a few things to note here:
 
 1.  The parentheses in the loop header are required:
     we cannot simply write `for v in values`.
-2.  The curly braces around the bodies of the loop and the conditional branches are optional,
+2.  The curly braces around the [body](../glossary/#loop-body) of the loop
+    and the [conditional branches](../glossary/#conditional-branch) are optional,
     but should always be there to help readability.
 3.  `paste` converts its arguments to strings and then concatenates those,
     placing a single space between each unless instructed to do otherwise.
     `print` then prints the resulting (single) string.
     The functions `cat` and `message` can also be used for text output.
 4.  By calling our temporary variable `sign`
-    we risk collision with the rather useful built-in R function of the same name.
+    we risk [collision](../glossary/#name-collision) with the rather useful built-in R function of the same name.
 
 Explicit loops in R programs are generally regarded with the same sort of suspicion
 as hearty claims by over-confident graduate students that
-the text they are about to read aloud is purely metaphorical,
-as are the dire warnings scrawled in the margins of the ancient tome in which it was found.
+the text they are about to read aloud is purely metaphorical.
 If we wish to get the signs of some values in R,
 we can more idiomatically do this:
 
@@ -658,7 +657,7 @@ or even:
 result <- sign(-1:1)
 ```
 
-Where Python only allows ranges such as `-1:1` to be used as indices,
+Where Python only allows [ranges](../glossary/#range-expression) such as `-1:1` to be used as indices,
 R considers them first-class entities.
 Their most common use is as indices to vectors:
 
@@ -719,7 +718,8 @@ if (numbers) {
 ```
 
 Instead,
-we must collapse them into a single logical (Boolean) value:
+we must collapse them into a single [logical value](../glossary/#Boolean-value)
+(often called a Boolean in honor of a logician who did not go mad contemplating the nature of truth):
 
 
 ```r
@@ -734,7 +734,7 @@ if (all(numbers >= 0)) {
 ```
 
 When evaluating the expression `numbers >= 0`,
-R automatically replicates or *recycles* the shorter vector
+R automatically replicates or [recycles](../glossary/#recycling) the shorter vector
 (in this case, the vector of length 1 containing the value 0)
 and then performs element-by-element comparison to construct a vector of logical values:
 
@@ -752,8 +752,8 @@ We could use a corresponding function `any` to check if at least one was `TRUE`;
 these two functions therefore correspond to "and" and "or" across the whole vector.
 
 Logical vectors have a special place in the R universe,
-just as human beings don't in the larger one.
-If a vector is indexed with a logical vector,
+just as human beings do not in the larger one.
+If a vector is [indexed with a logical vector](../glossary/#logical-indexing),
 the result is a vector containing only the values at locations where the index vector is `TRUE`.
 This is easier to show than to describe:
 
@@ -784,7 +784,7 @@ result
 ## How do I create and call functions?
 
 As we have already seen,
-we call functions in R much as we do in Python:
+we call [functions](../glossary/#function) in R much as we do in Python:
 
 
 ```r
@@ -843,7 +843,7 @@ swap(c("left", "right"))
 
 We pause now to answer some questions that may have occurred to attentive readers.
 First,
-the special value `NULL` represents the absence of a vector.
+the special value [`NULL`](../glossary/#null) represents the absence of a vector.
 It is not the same as a vector of zero length,
 though testing that statement produces a rather odd result:
 
@@ -911,7 +911,7 @@ swap("one", "two", "three")
 
 Note that in this example we as passing three values,
 not a single vector containing three values.
-If we want a function to handle a varying number of arguments,
+If we want a function to handle a [varying number of arguments](../glossary/#variable-arguments),
 we represent the "extra" arguments with an ellipsis `...` (three dots),
 which serves the same purpose as Python's `*args`:
 
@@ -954,14 +954,12 @@ add(1, 3, 5, 7)
 ```
 
 A list in R is a vector that can contain values of many different types.
-R's lists are complex enough that we will devote an entire section to exploring them;
-until then,
-suffice to say that they can be iterated over,
-but that indexing them may surprise you.
+(The technical term for this is [heterogeneous](../glossary/#heterogeneous),
+in contrast with the [homogeneous](../glossary/#homogeneous) nature of vectors' values.)
 
 ## How do I live without loops?
 
-Modern Python encourages programmers to use list comprehensions instead of loops,
+Modern Python encourages programmers to use [list comprehensions](../glossary/#list-comprehension) instead of loops,
 e.g.,
 to write:
 
@@ -1008,7 +1006,7 @@ doubled <- 2 * original
 ```
 
 If we want to perform more complex calculations,
-R encourages us to use a functional style of programming,
+R encourages us to use a [functional](../glossary/#functional-programming) style of programming,
 in which data is transformed by successive operations
 much as reality itself is transformed by the will of the Great Old Ones.
 We begin by defining a function that does what we want:
@@ -1032,7 +1030,7 @@ sapply(1:10, double)
 ```
 
 This is clumsier than simply multiplying our values by two,
-but it illustrates the way in which *higher-order functions* work.
+but it illustrates the way in which [higher-order functions](../glossary/#higher-order-function) work.
 We can use other higher-order functions to perform other operations,
 such as conditionals:
 
