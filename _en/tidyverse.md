@@ -176,7 +176,8 @@ print(data)
 ## [1728 rows x 5 columns]
 ```
 
-The equivalent in R is to load the tidyverse collection of libraries and then call the `read_csv` function.
+The equivalent in R is to load the [tidyverse](../glossary/#tidyverse) collection of libraries
+and then call the `read_csv` function.
 We will go through this in stages, since each produces output.
 
 
@@ -206,25 +207,9 @@ install.packages("tidyverse")
 library(tidyverse)
 ```
 
-```
-## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-```
-
-```
-## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
-```
-
-```
-## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
-
-Asking for the tidyverse gives us eight libraries (or *packages*).
+Asking for the tidyverse gives us eight libraries (or packages](../glossary/#package)).
 One of those, dplyr, defines two functions that mask standard functions in R with the same names.
-This is deliberate, and if we need the originals, we can get them with their fully-qualified names
+This is deliberate, and if we need the originals, we can get them with their [fully-qualified names](../glossary/#fully-qualified-name)
 `stats::filter` and `stats::lag`.
 (Note that R uses `::` to get functions out of packages rather than Python's `.`.)
 
@@ -278,7 +263,7 @@ data
 ## # ... with 1,718 more rows
 ```
 
-This is a *tibble*,
+This is a [tibble](../glossary/#tibble),
 which is the tidyverse's enhanced version of R's `data.frame`.
 It organizes data into named columns,
 each having one value for each row.
@@ -369,7 +354,8 @@ tail(data)
 ## 6 ZWE      2017    0.65   0.81 0.570
 ```
 
-Note that the row numbers printed by `tail` are relative to the output, not absolute to the table.
+Note that the row numbers printed by `tail` are [relative](../glossary/#relative-line-number) to the output,
+not [absolute](../glossary/#absolute-line-number) to the table.
 This is different from Pandas,
 which retains the original row numbers.
 (Notice also that R starts numbering from 1.)
@@ -524,7 +510,7 @@ data['estimate']
 ## # ... with 1,718 more rows
 ```
 
-However, `data$estimate` provides all the data
+However, R's `data$estimate` provides all the data:
 
 
 ```r
@@ -880,7 +866,7 @@ data[1][1]
 ```
 
 How then are we to get the first mention of Afghanistan?
-The answer is to use double square brackets to strip away one level of structure:
+The answer is to use [double square brackets](../glossary/#double-square-brackets) to strip away one level of structure:
 
 
 ```r
@@ -1048,7 +1034,7 @@ data[[1]]
 ## [1728] "ZWE"
 ```
 
-This is now a plain old vector, so it can be indexed with single square brackets:
+This is now a plain old vector, so it can be indexed with [single square brackets](../glossary/#single-square-brackets):
 
 
 ```r
@@ -1145,7 +1131,7 @@ print(estimates.mean(skipna=False))
 
 Many functions in R use `na.rm` to control whether `NA`s are removed or not.
 (Remember, the `.` character is just another part of the name)
-R's default behavior is to leave `NA`s in, and then to include them in aggregate computations.
+R's default behavior is to leave `NA`s in, and then to include them in [aggregate](../glossary/#aggregation) computations.
 Python's is to get rid of missing values early and work with what's left,
 which makes translating code from one language to the next much more interesting than it might otherwise be.
 But other than that, the statistics works the same way in Python:
@@ -1227,7 +1213,7 @@ any(is.na(data$hi) != is.na(data$lo))
 
 ## Filtering
 
-By "filtering", we mean "selecting records by value".
+By "[filtering](../glossary/#filter)", we mean "selecting records by value".
 As discussed [earlier](../beginnings/),
 the simplest approach is to use a vector of logical values to keep only the values corresponding to `TRUE`.
 In Python, this is:
@@ -1505,7 +1491,7 @@ But wait:
 how is it that `lo` can be used on its own?
 It is the name of a column, but there is no variable called `lo`.
 
-The answer is that R uses *lazy evaluation* of arguments.
+The answer is that R uses [lazy evaluation](../glossary/#lazy-evaluation) of arguments.
 Arguments aren't evaluated until they're needed,
 so the function `filter` actually gets the expression `lo > 0.5`,
 which allows it to check that there's a column called `lo` and then use it appropriately.
@@ -1515,7 +1501,7 @@ Many languages rely on lazy evaluation,
 and when used circumspectly,
 it allows us to produce code that is easier to read.
 
-But we can do even better by using the pipe operator `%>%`,
+But we can do even better by using the [pipe operator](../glossary/#pipe-operator) `%>%`,
 which is about to become your new best friend:
 
 
@@ -1628,7 +1614,7 @@ data %>%
 ## # ... with 45 more rows
 ```
 
-We can now add a `select` call to keep only the three columns we care about:
+We can now [select](../glossary/#selection) the three columns we care about:
 
 
 ```r
@@ -1662,7 +1648,7 @@ we are using the unquoted column names `year`, `lo`, and `hi`
 and letting R's lazy evaluation take care of the details for us.
 
 Rather than selecting these three columns,
-we can select *out* the columns we're not interested in by negating their names.
+we can [select *out*](../glossary/#negative-selection) the columns we're not interested in by negating their names.
 This leaves the columns that are kept in their original order,
 rather than putting `lo` before `hi`,
 which won't matter if we later select by name,
@@ -1734,11 +1720,10 @@ data %>%
 
 Does the difference between high and low estimates vary by year?
 To answer that question,
-we use `group_by` to put data into groups
-and then `summarize` to summarize within groups.
-Might as well get rid of the `arrange` and `select` calls in our pipeline at this point,
-since we're not using them.
-Oh,
+we use `group_by` to [group](../glossary/#grouping) records by value
+and then `summarize` to aggregate within groups.
+We might as well get rid of the `arrange` and `select` calls in our pipeline at this point,
+since we're not using them,
 and count how many records contributed to each aggregation using `n()`:
 
 

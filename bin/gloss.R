@@ -3,17 +3,29 @@
 library(readr)
 library(stringr)
 
+USAGE = "Find missing and redundant entries in glossary.
+
+Usage: gloss.R /path/to/glossary.md [optional list of .Rmd and .md files]
+
+If no filenames are given after the first (which must be the path to the
+glossary), this script processes all files matching './*md' that start with
+the three dashes of a YAML header."
+
 main <- function() {
   args <- commandArgs(trailingOnly = TRUE)
   stopifnot(length(args) >= 1)
+  if (args[1] %in% c("-h", "--help")) {
+    message(USAGE)
+    quit(status = 0)
+  }
   glossary <- args[1]
   if (length(args) == 1) {
-    sources <- dir(".", "*.md$")
+    sources <- dir(".", "*md$")
   } else {
     sources <- args[2:length(args)]
   }
   defined <- get_defined(glossary)
-  required <-get_required(sources)
+  required <- get_required(sources)
   show("required but not defined", required, defined)
   show("defined but not required", defined, required)
 }
@@ -37,7 +49,11 @@ show <- function(title, have, need) {
 }
 
 extract <- function(filename, pattern) {
-  str_match_all(read_file(filename), pattern)[[1]][,2]
+  text <- read_file(filename)
+  if (! startsWith(text, "---")) {
+    return(NULL)
+  }
+  str_match_all(text, pattern)[[1]][,2]
 }
 
 main()

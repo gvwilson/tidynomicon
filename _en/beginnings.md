@@ -19,7 +19,7 @@ objectives:
   - "Identify correct and incorrect variable names in R."
   - "Create vectors in R and index them to select single values, ranges of values, and selected values."
   - "Create `for` loops and `if`/`else` statements in R."
-  - "Explain why vectors cannot be used directly in conditional expressions and correctly use `all` and `any` to aggregate their values."
+  - "Explain why vectors cannot be used directly in conditional expressions and correctly use `all` and `any` to combine their values."
   - "Define functions taking a fixed number of named arguments and/or a variable number of arguments."
   - "Explain the difference between `NA` and `NULL` and correctly use tests for each."
   - "Explain what vectorization is and create vectorized equivalents of unnested loops containing simple conditional tests."
