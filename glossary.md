@@ -44,6 +44,10 @@ permalink: "/glossary/"
 
 *Integer*{:#integer}: FIXME.
 
+*Intermediate variable*{:#intermediate-variable}: FIXME.
+
+*ISO3 country code*{:#iso3-country-code}: FIXME.
+
 *Lazy evaluation*{:#lazy-evaluation}: FIXME.
 
 *List comprehension*{:#list-comprehension}: FIXME.
@@ -74,6 +78,8 @@ permalink: "/glossary/"
 
 *Recycling*{:#recycling}: FIXME.
 
+*Regular expression*{:#regular-expression}: FIXME.
+
 *Relative line number*{:#relative-line-number}: FIXME.
 
 *Scalar*{:#scalar}: FIXME.
@@ -81,6 +87,8 @@ permalink: "/glossary/"
 *Selection*{:#selection}: FIXME.
 
 *Single Square brackets*{:#single-square-brackets}: FIXME.
+
+*Storage allocation*{:#storage-allocation}: FIXME.
 
 *Tibble*{:#tibble}: FIXME.
 

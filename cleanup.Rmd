@@ -55,7 +55,7 @@ ZWE,2017,0.65,0.81,0.57
 ```
 
 To bring this data to a state of grace will take some trial and effort,
-which we will do in stages.
+which we shall do in stages.
 
 ## Show Me the Numbers
 
@@ -73,7 +73,7 @@ so it uses the entire first comment string as a very long column name
 and then makes up names for the other columns.
 Looking at the file,
 the second row has years (spaced at three-column intervals)
-and the column after that has the ISO3 country code,
+and the column after that has the [ISO3 country code](../glossary/#iso3-country-code),
 the country's name,
 and then "Estimate", "hi", and "lo" repeated for every year.
 We are going to have to combine what's in the second and third rows,
@@ -93,7 +93,7 @@ This happens because:
 1.  our CSV file uses `-` (a single dash) to show missing data, and
 2.  all of our numbers end with `%`, which means those values actually *are* character strings.
 
-We will tackle the first problem first by setting `na = c("-")` in our `read_csv` call
+We will tackle the first problem by setting `na = c("-")` in our `read_csv` call
 (since we should never do ourselves what a library function will do for us):
 
 ```{r read-specify-na}
@@ -106,7 +106,7 @@ We now need to strip the percentage signs and convert what's left to numeric val
 To simplify our lives,
 let's get the `ISO3` and `Countries` columns out of the way.
 We will save the ISO3 values for later use
-(and because it will illustrate a point about data hygiene that we know we're going to want to make,
+(and because it will illustrate a point about data hygiene that we want to make later,
 but which we don't want to reveal just yet).
 
 ```{r read-filter-countries, error=TRUE}
@@ -137,7 +137,7 @@ What happened to them?
 tail(countries, n = 25)
 ```
 
-Once again the actor playing us sighs heavily.
+Once again the actor playing our part on screen sighs heavily.
 How are we to trim this?
 Since there is only one file,
 we can manually count the number of rows we are interested in
@@ -159,8 +159,9 @@ Notice that we're counting rows *not including* the two we're skipping,
 which means that the 192 in the call to `slice` above corresponds to row 195 of our original data:
 195, not 194, because we're using the first row of unskipped data as headers and yes,
 you are in fact making a faint whimpering sound.
-We promise that we will revisit the problem of slicing data without counting rows manually
+We promise we will revisit the problem of slicing data without counting rows manually
 so as to reduce the frequency with which that sound is heard.
+
 And notice also that we are slicing, *then* extracting the column containing the countries.
 We did, in a temporary version of this script,
 peel off the countries, slice those, and then wonder why our main data table still had unwanted data at the end.
@@ -201,8 +202,8 @@ not a tibble.
 It worked for our test case because that was a character vector,
 but tibbles have more structure than that.
 
-The second complaint is that `NA`s were introduced.
-That's troubling because we didn't get a complaint when we had actual `NA`s in our data.
+The second complaint is that `NA`s were introduced,
+which is troubling because we didn't get a complaint when we had actual `NA`s in our data.
 However,
 `is.numeric` tells us that all of our results are numbers.
 Let's take a closer look:
@@ -220,10 +221,11 @@ we realize that some entries are `">95%"`,
 i.e.,
 there is a greater-than sign as well as a percentage in the text.
 We will need to regularize those before we do any conversions.
+
 Before that,
 however,
 let's see if we can get rid of the percent signs.
-The obvious way is is to use `str_replace(body, "%", "")` to get rid of the percent signs,
+The obvious way is is to use `str_replace(body, "%", "")`,
 but that doesn't work:
 `str_replace` works on vectors,
 but a tibble is a list of vectors.
@@ -257,7 +259,7 @@ head(trimmed)
 ```
 
 Now to tackle those `">95%"` values.
-It turns out that `str_replace` uses *regular expressions*,
+It turns out that `str_replace` uses [regular expressions](../glossary/#regular-expression),
 not just direct string matches,
 so we can get rid of the `>` at the same time as we get rid of the `%`.
 We will check by looking at the first `Estimate` column,
@@ -314,7 +316,7 @@ Empty strings.
 Why'd it have to be empty strings?
 More importantly,
 where are they coming from?
-Let's backtrack by displaying the `hi` column of each of our intermediate variables…
+Let's backtrack by displaying the `hi` column of each of our [intermediate variables](../glossary/#intermediate-variable)…
 
 …and there's our bug.
 We are creating a variable called `sliced` that has only the rows we care about,
@@ -367,11 +369,11 @@ Our strategy is to make a list of temporary tables:
 3.  Create a column holding the year in each row and join that as well.
 
 and then join those temporary tables row-wise to create our final tidy table.
-We might,
+(We might,
 through clever use of `scatter` and `gather`,
 be able to do this without a loop,
 but at this point on our journey,
-a loop is probably simpler.
+a loop is probably simpler.)
 Here is the addition to our script:
 
 ```{r}
@@ -396,7 +398,7 @@ if or when we decide to use this script for other data files,
 we should extract the years from the data itself.
 We then use `vector` to create the storage we are going to need to hold our temporary tables.
 We could grow the list one item at a time,
-but allocating storage in advance is more efficient
+but [allocating storage in advance](../glossary/#storage-allocation) is more efficient
 and serves as a check on our logic:
 if our loop doesn't run for the right number of iterations,
 we will either overflow our list or have empty entries,
@@ -507,7 +509,8 @@ tidy <- arrange(tidy, country, year)
 write_csv(tidy, tidy_filename)
 ```
 
-It works ("It's alive!"),
+"It's alive!",
+we exclaim,
 but we can do better.
 Let's start by using a pipeline for the code that extracts and formats the percentages:
 
