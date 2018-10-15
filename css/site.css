@@ -23,3 +23,15 @@ div.language-r div.highlight pre.highlight {
 footer {
   text-align: center;
 }
+
+blockquote {
+  margin-left: 2em;
+  margin-right: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background-color: #f0f0f0;
+}
+
+a[href*="glossary"] {
+  font-weight: bold;
+}
