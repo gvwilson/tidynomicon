@@ -5,7 +5,7 @@ permalink: /testing/
 ---
 
 Mistakes were made in [the previous tutorial](../cleanup/).
-It would be hubris to believe that we will not make more as we continue to clean this data.
+It would be [hubris](../glossary/#hubris) to believe that we will not make more as we continue to clean this data.
 What will guide us safely through these dark caverns and back into the light of day?
 
 The answer is testing.
@@ -77,11 +77,12 @@ so we should tackle each with its own testable function.
 
 The standard testing library for R is [testthat](https://github.com/r-lib/testthat).
 Like Python's [unittest](https://docs.python.org/3/library/unittest.html) library,
-it is a member of the [xUnit](https://en.wikipedia.org/wiki/XUnit) family of testing libraries:
+it is a member of the [xUnit](https://en.wikipedia.org/wiki/XUnit) family
+of [unit testing](../glossary/#unit-test) libraries:
 
 1.  Each test consists of a single function that tests a single property or behavior of the system.
-2.  Tests are collected into files with prescribed names that can be found by a *test runner*.
-3.  Shared setup and teardown operations are put in functions of their own.
+2.  Tests are collected into files with prescribed names that can be found by a [test runner](../glossary/#test-runner).
+3.  Shared [setup](../glossary/#testing-setup) and [teardown](../glossary/#testing-teardown) steps are put in functions of their own.
 
 Let's load it and write our first test:
 
@@ -164,7 +165,7 @@ test_that("Testing two things", {
 ## [1] 0 - 1 == -1
 ```
 
-Note that a block of code is *not* the same thing as an anonymous function,
+Note that a block of code is *not* the same thing as an [anonymous function](../glossary/#anonymous-function),
 which is why running this block of code does nothing:
 
 
@@ -298,6 +299,7 @@ we don't have to put them in a `tests` directory,
 but gibbering incoherence is likely to ensue if we do not.)
 Now let's run all of our tests:
 
+
 ```r
 test_dir("tests")
 ```
@@ -360,8 +362,6 @@ test_dir("tests", filter = "test_tibble.R")
 ## Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir
 ```
 
-Oh dear.
-Oh.
 Ah.
 It turns out that `filter` is applied to filenames *after* the leading `test_` and the trailing `.R` have been removed.
 Let's try again:
@@ -431,7 +431,8 @@ This is complex enough to merit line-by-line exegesis:
 
 There is a lot going on here,
 particularly if you are (as I am at the time of writing)
-new to R.
+new to R
+and needed help to figure out that `pmap` is the function this problem wants.
 But now that we have it,
 we can do this:
 
@@ -459,10 +460,9 @@ Instead of giving it the name of a file,
 we have given it the text of the CSV we want parsed.
 This is then passed to `read_csv`,
 which (according to documentation that only took us 15 minutes to realize we had already seen)
-interprets its first argument as *either* a filename *or* the actual text to be parsed
-depending on whether it contains a newline character.
-This allows us to write put the text fixture
-(i.e., the thing on which the test is being run)
+interprets its first argument as a filename *or*
+as the actual text to be parsed if it contains a newline character.
+This allows us to write put the [test fixture](../glossary/#test-fixture)
 right there in the code as a literal string,
 which experience shows is to understand and maintain
 than having test data in separate files.
@@ -565,6 +565,8 @@ test_dir("tests", "find_empty_a")
 ## Failed:   2
 ## Warnings: 0
 ## Skipped:  0
+## 
+## I believe in you!
 ```
 
 This is perplexing:
@@ -640,7 +642,7 @@ so it's reasonable to get a zero-length logical vector as a result when we compa
 The fact that `any` of an empty logical vector is `FALSE` isn't really surprising either---none of the elements are `TRUE`,
 so it would be hard to say that any of them are.
 But `all` of an empty vector being `TRUE` is…unexpected.
-The logic behind it is apparently that none of the (nonexistent) elements are `FALSE`,
+The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
-at this point we are veering dangerously close to [JavaScript Logic](https://www.destroyallsoftware.com/talks/wat).
-Speak not to me of madness, you who use languages designed by computer scientists.
+at this point we are veering dangerously close to [JavaScript Logic](https://www.destroyallsoftware.com/talks/wat),
+so we will accept this behavior and move on.

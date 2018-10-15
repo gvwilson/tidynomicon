@@ -8,6 +8,8 @@ permalink: "/glossary/"
 
 *Aggregation*{:#aggregation}: FIXME.
 
+*Anonymous function*{:#anonymous-function}: FIXME.
+
 *Assignment*{:#assignment}: FIXME.
 
 *Boolean-value*{:#Boolean-value}: FIXME.
@@ -39,6 +41,8 @@ permalink: "/glossary/"
 *Higher-order function*{:#higher-order-function}: FIXME.
 
 *Homogeneous*{:#homogeneous}: FIXME.
+
+*Hubris*{:#hubris}: FIXME.
 
 *Indexing*{:#indexing}: FIXME.
 
@@ -86,15 +90,25 @@ permalink: "/glossary/"
 
 *Selection*{:#selection}: FIXME.
 
+*Setup (testing)*{:#testing-setup}: FIXME.
+
 *Single Square brackets*{:#single-square-brackets}: FIXME.
 
 *Storage allocation*{:#storage-allocation}: FIXME.
+
+*Teardown (testing)*{:#testing-teardown}: FIXME.
+
+*Test fixture*{:#test-fixture}: FIXME.
+
+*Test runner*{:#test-runner}: FIXME.
 
 *Tibble*{:#tibble}: FIXME.
 
 *Tidyverse*{:#tidyverse}: FIXME.
 
 *Type*{:#type}: FIXME.
+
+*Unit testing*{:#unit-test}: FIXME.
 
 *Variable arguments*{:#variable-arguments}: FIXME.
 
