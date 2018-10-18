@@ -532,7 +532,7 @@ data %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.
 ```
 
 And then order by `lo` in descending order,
-breaking the line the way the [tidyverse style guide](http://style.tidyverse.org/) recommends:
+breaking the line the way the [tidyverse style guide][tidyverse-style] recommends:
 
 ```{r}
 data %>%
@@ -643,3 +643,5 @@ print(grouped)
 
 There are other ways to tackle this problem with Pandas,
 but the tidyverse approach produces code that I find more readable.
+
+{% include links.md %}

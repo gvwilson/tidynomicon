@@ -15,7 +15,7 @@ filenames <- function(args) {
   if (length(args) > 0) {
     return(args)
   }
-  dir(".", "*.Rmd")
+  dir(".", "*.Rmd$")
 }
 
 process <- function(sources, out_dir) {

@@ -2,6 +2,12 @@
 title: "Cleaning Up Data"
 output: md_document
 permalink: /cleanup/
+questions:
+  - "FIXME"
+objectives:
+  - "FIXME"
+keypoints:
+  - "FIXME"
 ---
 
 Here is a sample of data from `raw/infant_hiv.csv`,
@@ -1636,7 +1642,7 @@ missing
 
 The lack of ISO3 country code for the region names doesn't bother us,
 but Kosovo is definitely a problem.
-[According to Wikipedia](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3),
+[According to Wikipedia][wikipedia-iso3],
 UNK is used for Kosovo residents whose travel documents were issued by the United Nations,
 so we will fill that in with an ugly hack immediately after loading the data:
 
@@ -1969,3 +1975,5 @@ but what we have also learned is that we make mistakes,
 and that those mistakes can easily slip past us.
 If people are going to use our cleaned-up data in their analyses,
 we need a better way to develop and check our scripts.
+
+{% include links.md %}

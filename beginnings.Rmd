@@ -254,7 +254,7 @@ These indices also show us that R counts from 1 as humans do,
 rather than from zero.
 (There are a great many myths about why programming languages do the latter.
 If you dare know the truth,
-[Mike Hoye has it for you](http://exple.tive.org/blarg/2013/10/22/citation-needed/).)
+[Mike Hoye has it for you][hoye-zero].)
 
 ## How do I index a ~~list~~ vector?
 
@@ -721,3 +721,5 @@ R provides many other higher-order functions,
 but their semantics are sometimes confusing.
 We therefore encourage programmers to use the functions provided by the tidyverse instead;
 these will be discussed in [the next lesson](../tidyverse/).
+
+{% include links.md %}

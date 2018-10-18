@@ -2,6 +2,12 @@
 title: "Testing"
 output: md_document
 permalink: /testing/
+questions:
+  - "FIXME"
+objectives:
+  - "FIXME"
+keypoints:
+  - "FIXME"
 ---
 
 Mistakes were made in [the previous tutorial](../cleanup/).
@@ -75,9 +81,9 @@ so we should tackle each with its own testable function.
 
 ## Testing
 
-The standard testing library for R is [testthat](https://github.com/r-lib/testthat).
-Like Python's [unittest](https://docs.python.org/3/library/unittest.html) library,
-it is a member of the [xUnit](https://en.wikipedia.org/wiki/XUnit) family
+The standard testing library for R is [testthat][testthat].
+Like Python's [unittest][unittest] library,
+it is a member of the [xUnit][xunit] family
 of [unit testing](../glossary/#unit-test) libraries:
 
 1.  Each test consists of a single function that tests a single property or behavior of the system.
@@ -565,8 +571,6 @@ test_dir("tests", "find_empty_a")
 ## Failed:   2
 ## Warnings: 0
 ## Skipped:  0
-## 
-## I believe in you!
 ```
 
 This is perplexing:
@@ -644,5 +648,7 @@ so it would be hard to say that any of them are.
 But `all` of an empty vector being `TRUE` is…unexpected.
 The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
-at this point we are veering dangerously close to [JavaScript Logic](https://www.destroyallsoftware.com/talks/wat),
+at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],
 so we will accept this behavior and move on.
+
+{% include links.md %}
