@@ -1,7 +1,7 @@
 ---
-title: "Testing"
+title: "Projects"
 output: md_document
-permalink: /testing/
+permalink: /projects/
 questions:
   - "FIXME"
 objectives:
@@ -18,6 +18,9 @@ The answer is testing.
 We must test our assumptions, test our code, test our very *being* if we are to advance.
 Luckily for us,
 R provides tools for this purpose not unlike those available in Python.
+In using them,
+we will be drawn into the greater realm of packaging in R,
+and thence into understanding the features of a fully-formed R project.
 
 ## The Problem
 
@@ -92,9 +95,29 @@ of [unit testing](../glossary/#unit-test) libraries:
 
 Let's load it and write our first test:
 
-```{r}
-library(testthat)
 
+```r
+library(testthat)
+```
+
+```
+## 
+## Attaching package: 'testthat'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     matches
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     is_null
+```
+
+```r
 test_that("Zero equals itself", { expect_equal(0, 0) })
 ```
 
@@ -104,8 +127,16 @@ if a test passes,
 it doesn't produce output because it doesn't need our attention.
 Let's try something that ought to fail:
 
-```{r error=TRUE}
+
+```r
 test_that("Zero equals one", { expect_equal(0, 1) })
+```
+
+```
+## Error: Test failed: 'Zero equals one'
+## * 0 not equal to 1.
+## 1/1 mismatches
+## [1] 0 - 1 == -1
 ```
 
 Good:
@@ -114,24 +145,40 @@ But what are the curly braces around `expect_equal` for?
 The answer is that they create a code block of some sort for `test_that` to run.
 We can run `expect_equal` on its own:
 
-```{r error=TRUE}
+
+```r
 expect_equal(0, 1)
+```
+
+```
+## Error: 0 not equal to 1.
+## 1/1 mismatches
+## [1] 0 - 1 == -1
 ```
 
 but that doesn't produce a summary of how many tests passed or failed.
 Passing a block of code to `test_that` also allows us to check several things in one test:
 
-```{r error=TRUE}
+
+```r
 test_that("Testing two things", {
   expect_equal(0, 0)
   expect_equal(0, 1)
 })
 ```
 
+```
+## Error: Test failed: 'Testing two things'
+## * 0 not equal to 1.
+## 1/1 mismatches
+## [1] 0 - 1 == -1
+```
+
 Note that a block of code is *not* the same thing as an [anonymous function](../glossary/#anonymous-function),
 which is why running this block of code does nothing:
 
-```{r}
+
+```r
 test_that("Using an anonymous function", function(){
   print("In our anonymous function")
   expect_equal(0, 1)
@@ -146,7 +193,30 @@ We can then run some or all of those tests with a single command.
 To start,
 let's create `tests/test_example.R`:
 
-```{r code=readLines("tests/test_example.R"), eval=FALSE}
+
+```r
+library(testthat)
+context("Demonstrating the testing library")
+
+test_that("Testing a number with itself", {
+  expect_equal(0, 0)
+  expect_equal(-1, -1)
+  expect_equal(Inf, Inf)
+})
+
+test_that("Testing different numbers", {
+  expect_equal(0, 1)
+})
+
+test_that("Testing with a tolerance", {
+  expect_equal(0, 0.01, tolerance = 0.05, scale = 1)
+  expect_equal(0, 0.01, tolerance = 0.005, scale = 1)
+})
+
+test_that("Testing character vectors", {
+  expect_equal("abc", "XYZ")
+  expect_equal("abc", "ABC")
+})
 ```
 
 The first line loads the testthat package,
@@ -157,8 +227,54 @@ we add as many calls to `test_that` as we want,
 each with a name and a block of code.
 We can now run this file from within RStudio:
 
-```{r}
+
+```r
 test_dir("tests")
+```
+
+```
+## ✔ | OK F W S | Context
+## ⠏ |  0       | Demonstrating the testing library⠋ |  1       | Demonstrating the testing library⠙ |  2       | Demonstrating the testing library⠹ |  3       | Demonstrating the testing library⠸ |  3 1     | Demonstrating the testing library⠼ |  4 1     | Demonstrating the testing library⠴ |  4 2     | Demonstrating the testing library⠦ |  4 3     | Demonstrating the testing library⠧ |  4 4     | Demonstrating the testing library✖ |  4 4     | Demonstrating the testing library
+## ───────────────────────────────────────────────────────────────────────────
+## test_example.R:11: failure: Testing different numbers
+## 0 not equal to 1.
+## 1/1 mismatches
+## [1] 0 - 1 == -1
+## 
+## test_example.R:16: failure: Testing with a tolerance
+## 0 not equal to 0.01.
+## 1/1 mismatches
+## [1] 0 - 0.01 == -0.01
+## 
+## test_example.R:20: failure: Testing character vectors
+## "abc" not equal to "XYZ".
+## 1/1 mismatches
+## x[1]: "abc"
+## y[1]: "XYZ"
+## 
+## test_example.R:21: failure: Testing character vectors
+## "abc" not equal to "ABC".
+## 1/1 mismatches
+## x[1]: "abc"
+## y[1]: "ABC"
+## ───────────────────────────────────────────────────────────────────────────
+## ⠏ |  0       | Finding empty rows⠋ |  0 1     | Finding empty rows⠙ |  0 2     | Finding empty rows⠹ |  1 2     | Finding empty rows✖ |  1 2     | Finding empty rows
+## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
+## `result` not equal to NULL.
+## Types not compatible: integer is not NULL
+## 
+## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
+## `result` not equal to NULL.
+## Types not compatible: integer is not NULL
+## ───────────────────────────────────────────────────────────────────────────
+## ⠏ |  0       | Testing properties of tibbles⠋ |  1       | Testing properties of tibbles✔ |  1       | Testing properties of tibbles
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## OK:       6
+## Failed:   6
+## Warnings: 0
+## Skipped:  0
 ```
 
 A bit of care is needed when interpreting these results.
@@ -173,7 +289,16 @@ such as `expect_true`, `expect_false`, `expect_length`, and so on?
 The answer is that it allows us to do one operation and then check several things afterward.
 Let's create another file called `tests/test_tibble.R`:
 
-```{r code=readLines("tests/test_tibble.R")}
+
+```r
+library(tidyverse)
+library(testthat)
+context("Testing properties of tibbles")
+
+test_that("Tibble columns are given the name 'value'", {
+  t <- c(TRUE, FALSE) %>% as.tibble()
+  expect_equal(names(t), "value")
+})
 ```
 
 (We don't actually have to call our test files `test_something.R`,
@@ -183,24 +308,87 @@ we don't have to put them in a `tests` directory,
 but gibbering incoherence is likely to ensue if we do not.)
 Now let's run all of our tests:
 
-```{r}
+
+```r
 test_dir("tests")
+```
+
+```
+## ✔ | OK F W S | Context
+## ⠏ |  0       | Demonstrating the testing library⠋ |  1       | Demonstrating the testing library⠙ |  2       | Demonstrating the testing library⠹ |  3       | Demonstrating the testing library⠸ |  3 1     | Demonstrating the testing library⠼ |  4 1     | Demonstrating the testing library⠴ |  4 2     | Demonstrating the testing library⠦ |  4 3     | Demonstrating the testing library⠧ |  4 4     | Demonstrating the testing library✖ |  4 4     | Demonstrating the testing library
+## ───────────────────────────────────────────────────────────────────────────
+## test_example.R:11: failure: Testing different numbers
+## 0 not equal to 1.
+## 1/1 mismatches
+## [1] 0 - 1 == -1
+## 
+## test_example.R:16: failure: Testing with a tolerance
+## 0 not equal to 0.01.
+## 1/1 mismatches
+## [1] 0 - 0.01 == -0.01
+## 
+## test_example.R:20: failure: Testing character vectors
+## "abc" not equal to "XYZ".
+## 1/1 mismatches
+## x[1]: "abc"
+## y[1]: "XYZ"
+## 
+## test_example.R:21: failure: Testing character vectors
+## "abc" not equal to "ABC".
+## 1/1 mismatches
+## x[1]: "abc"
+## y[1]: "ABC"
+## ───────────────────────────────────────────────────────────────────────────
+## ⠏ |  0       | Finding empty rows⠋ |  0 1     | Finding empty rows⠙ |  0 2     | Finding empty rows⠹ |  1 2     | Finding empty rows✖ |  1 2     | Finding empty rows
+## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
+## `result` not equal to NULL.
+## Types not compatible: integer is not NULL
+## 
+## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
+## `result` not equal to NULL.
+## Types not compatible: integer is not NULL
+## ───────────────────────────────────────────────────────────────────────────
+## ⠏ |  0       | Testing properties of tibbles⠋ |  1       | Testing properties of tibbles✔ |  1       | Testing properties of tibbles
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## OK:       6
+## Failed:   6
+## Warnings: 0
+## Skipped:  0
 ```
 
 That's rather a lot of output.
 Happily,
 we can provide a `filter` argument to `test_dir`:
 
-```{r error=TRUE}
+
+```r
 test_dir("tests", filter = "test_tibble.R")
+```
+
+```
+## Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir
 ```
 
 Ah.
 It turns out that `filter` is applied to filenames *after* the leading `test_` and the trailing `.R` have been removed.
 Let's try again:
 
-```{r}
+
+```r
 test_dir("tests", filter = "tibble")
+```
+
+```
+## ✔ | OK F W S | Context
+## ⠏ |  0       | Testing properties of tibbles⠋ |  1       | Testing properties of tibbles✔ |  1       | Testing properties of tibbles
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## OK:       1
+## Failed:   0
+## Warnings: 0
+## Skipped:  0
 ```
 
 That's better,
@@ -213,7 +401,20 @@ let's create a file called `scripts/find_empty_01.R`
 that defines a single function `find_empty_rows` that identifies all the empty rows in a CSV file.
 Our first implementation is:
 
-```{r code=readLines("scripts/find_empty_01.R")}
+
+```r
+find_empty_rows <- function(source) {
+  data <- read_csv(source)
+  empty <- data %>%
+    pmap(function(...) {
+      args <- list(...)
+      all(is.na(args) | (args == ""))
+    })
+  data %>%
+    transmute(id = row_number()) %>%
+    filter(as.logical(empty)) %>%
+    pull(id)
+}
 ```
 
 This is complex enough to merit line-by-line exegesis:
@@ -244,10 +445,15 @@ and needed help to figure out that `pmap` is the function this problem wants.
 But now that we have it,
 we can do this:
 
-```{r}
+
+```r
 library(tidyverse)
 source("scripts/find_empty_01.R")
 find_empty_rows("a,b\n1,2\n,\n5,6")
+```
+
+```
+## [1] 2
 ```
 
 The `source` function reads R code from the given source.
@@ -273,7 +479,19 @@ than having test data in separate files.
 Our function seems to work,
 but we can make it more pipelinesque:
 
-```{r code=readLines("scripts/find_empty_02.R")}
+
+```r
+find_empty_rows <- function(source) {
+  read_csv(source) %>%
+    pmap_lgl(function(...) {
+      args <- list(...)
+      all(is.na(args) | (args == ""))
+    }) %>%
+    tibble(empty = .) %>%
+    mutate(id = row_number()) %>%
+    filter(empty) %>%
+    pull(id)
+}
 ```
 
 Going line by line once again:
@@ -307,13 +525,55 @@ Going line by line once again:
 
 Here's our first batch of tests:
 
-```{r code=readLines("tests/test_find_empty_a.R"), eval=FALSE}
+
+```r
+library(tidyverse)
+library(testthat)
+context("Finding empty rows")
+
+source("../scripts/find_empty_02.R")
+
+test_that("A single non-empty row is not mistakenly detected", {
+  result <- find_empty_rows("a\n1")
+  expect_equal(result, NULL)
+})
+
+test_that("Half-empty rows are not mistakenly detected", {
+  result <- find_empty_rows("a,b\n,2")
+  expect_equal(result, NULL)
+})
+
+test_that("An empty row in the middle is found", {
+  result <- find_empty_rows("a,b\n1,2\n,\n5,6")
+  expect_equal(result, c(2L))
+})
 ```
 
 And here's what happens when we run this file with `test_dir`:
 
-```{r}
+
+```r
 test_dir("tests", "find_empty_a")
+```
+
+```
+## ✔ | OK F W S | Context
+## ⠏ |  0       | Finding empty rows⠋ |  0 1     | Finding empty rows⠙ |  0 2     | Finding empty rows⠹ |  1 2     | Finding empty rows✖ |  1 2     | Finding empty rows
+## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
+## `result` not equal to NULL.
+## Types not compatible: integer is not NULL
+## 
+## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
+## `result` not equal to NULL.
+## Types not compatible: integer is not NULL
+## ───────────────────────────────────────────────────────────────────────────
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## OK:       1
+## Failed:   2
+## Warnings: 0
+## Skipped:  0
 ```
 
 This is perplexing:
@@ -321,21 +581,66 @@ we expected that if there were no empty rows,
 our function would return `NULL`.
 Let's look more closely:
 
-```{r}
+
+```r
 find_empty_rows("a\n1")
+```
+
+```
+## integer(0)
 ```
 
 Ah:
 we are being given an integer vector of zero length rather than `NULL`.
 Let's have a closer look at the properties of this strange beast:
 
-```{r}
+
+```r
 print("is integer(0) equal to NULL")
+```
+
+```
+## [1] "is integer(0) equal to NULL"
+```
+
+```r
 integer(0) == NULL
+```
+
+```
+## logical(0)
+```
+
+```r
 print("any(logical(0))")
+```
+
+```
+## [1] "any(logical(0))"
+```
+
+```r
 any(logical(0))
+```
+
+```
+## [1] FALSE
+```
+
+```r
 print("all(logical(0))")
+```
+
+```
+## [1] "all(logical(0))"
+```
+
+```r
 all(logical(0))
+```
+
+```
+## [1] TRUE
 ```
 
 All right.

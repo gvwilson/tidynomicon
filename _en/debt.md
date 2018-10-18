@@ -187,7 +187,7 @@ inspect(circular)
 ```
 
 ```
-## <VECSXP 0x7f8bd7632318>
+## <VECSXP 0x7fd0b821d7e0>
 ```
 
 ```r
@@ -195,7 +195,7 @@ tracemem(circular)
 ```
 
 ```
-## [1] "<0x7f8bd7632318>"
+## [1] "<0x7fd0b821d7e0>"
 ```
 
 ```r
@@ -203,7 +203,7 @@ circular[[1]] <- circular
 ```
 
 ```
-## tracemem[0x7f8bd7632318 -> 0x7f8bd7750820]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7fd0b821d7e0 -> 0x7fd0b833bce8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -220,8 +220,8 @@ inspect(circular)
 ```
 
 ```
-## <VECSXP 0x7f8bd7bc7b98>
-##   <VECSXP 0x7f8bd7632318>
+## <VECSXP 0x7fd0ba4c8cf0>
+##   <VECSXP 0x7fd0b821d7e0>
 ```
 
 ## Conditions
