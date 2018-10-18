@@ -159,4 +159,123 @@ but R programs manipulate enviroments explicitly more often than programs in mos
 To learn more about this,
 see the discussion in *[Advanced R][advanced-r]*.
 
+FIXME: talk about promises from Functions.Rmd
+
+## Copy-on-Modify
+
+FIXME
+
+
+```r
+library(pryr)
+```
+
+```
+## 
+## Attaching package: 'pryr'
+```
+
+```
+## The following objects are masked from 'package:purrr':
+## 
+##     compose, partial
+```
+
+```r
+circular <- list()
+inspect(circular)
+```
+
+```
+## <VECSXP 0x7f8bd7632318>
+```
+
+```r
+tracemem(circular)
+```
+
+```
+## [1] "<0x7f8bd7632318>"
+```
+
+```r
+circular[[1]] <- circular
+```
+
+```
+## tracemem[0x7f8bd7632318 -> 0x7f8bd7750820]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+```
+
+```r
+circular
+```
+
+```
+## [[1]]
+## list()
+```
+
+```r
+inspect(circular)
+```
+
+```
+## <VECSXP 0x7f8bd7bc7b98>
+##   <VECSXP 0x7f8bd7632318>
+```
+
+## Conditions
+
+FIXME: how R and the tidyverse handle conditions.
+
+## A Few Minor Things
+
+What the hell is `~`?
+
+`..1` and `.` and `.f` and the like in tidyverse functions
+
+`c(c(1, 2), c(3, 4))` is `c(1, 2, 3, 4)` (it flattens).
+
+`[` simplifies results to lowest possible dimensionality unless `drop=FALSE`.
+
+After `a <- matrix(1:9, nrow = 3)`, `a[1,1]` is a vector of length 1, while `a[1,]` is also a vector, though of length 3.
+
+With data frames, subsetting with a single vector selects columns (not rows), and `df[1:2]` selects columns, but in `df[2:3, 1:2]`, the first index selects rows, while the second selects columns.
+
+`x[[5]]` (object in car) to `x[5]` (train with one car)
+
+using `[[` with a vector subsets recursively: `b <- list(a = list(b = list(c = list(d = 1))))` and then `b[[c("a", "b", "c", "d")]]`
+
+```
+x <- c("m", "f", "u", "f", "f", "m", "m")
+lookup <- c(m = "Male", f = "Female", u = NA)
+lookup[x]
+```
+
+introduce the `match` function
+
+introduce `order`: these are 'pull' indices: `order(x)[i]` is the index in `x` of the element that belongs at location `i`
+
+point out that `rep(vec1, vec2)` repeats each element of `vec1` exactly `vec2` times
+
+When you use a name in a function call, R ignores non-function objects when looking for that value. For example, in the code below, `g09` takes on two different values:
+
+
+```r
+g09 <- function(x) x + 100
+g10 <- function() {
+  g09 <- 10
+  g09(g09)
+}
+g10()
+```
+
+```
+## [1] 110
+```
+
+Invisible values
+
+`<<-` operator
+
 {% include links.md %}
