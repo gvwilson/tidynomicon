@@ -10,4 +10,192 @@ keypoints:
   - "FIXME"
 ---
 
+```{r}
+library(tidyverse)
+```
+
+
+Programmers spend a great deal of their time trying to create order out of chaos,
+and the rest of their time inventing new ways to create more chaos.
+Object-oriented programming serves both needs well:
+it allows good software designers to create marvels,
+and less conscientious or experienced ones to create horrors.
+
+R has not one, not two, but at least three different frameworks for object-oriented programming.
+By far the most widely used is known as S3
+(because it was first introduced with Version 3 of S,
+the language from which R is derived).
+Unlike the approaches used in Java, Python, and similarly pedestrian languages,
+S3 does not require users to define classes.
+Instead,
+they add [attributes](../glossary/#attribute) to data,
+then write specialized version of [generic functions](../glossary/#generic-function)
+to process data identified by those attributes.
+Since attributes can be used in other ways as well,
+we will start by exploring them.
+
+## Attributes
+
+Let's begin by creating a matrix containing the first few hundreds:
+
+```{r}
+values <- 100 * 1:9 # creates c(100, 200, ..., 900)
+m <- matrix(values, nrow = 3, ncol = 3)
+m
+```
+
+Behind the scenes,
+R continues to store our nine values as a vector.
+However,
+it adds an attribute called `class` to the vector to identify it as a matrix:
+
+```{r}
+class(m)
+```
+
+and another attribute called `dim` to store its dimensions as a 2-element vector:
+
+```{r}
+dim(m)
+```
+
+An object's attributes are simply a set of name-value pairs;
+we can find out what attributes are present using `attributes`,
+and show or set individual attributes using `attr`:
+
+```{r}
+attr(m, "prospects") <- "dismal"
+attributes(m)
+```
+
+What are the type and attributes of a tibble?
+
+```{r}
+t <- tribble(
+  ~a, ~b,
+  1, 2,
+  3, 4)
+typeof(t)
+attributes(t)
+```
+
+This tells us that a tibble is stored as a list (the first line of output),
+that it has an attribute called `names` that stores the names of its columns,
+another called `row.names` that stores the names of its rows (a feature we should ignore),
+and finally three classes.
+These classes tell R what functions to search for when we are (for example)
+asking for the length of a tibble (which is the number of rows it contains):
+
+```{r}
+length(t)
+```
+
+## Classes
+
+To show how classes and generic functions work together,
+let's customize the printing of character vectors that have a `prospects` property.
+First,
+we'll create two such vectors:
+
+```{r}
+first <- "dismal"
+class(first) <- "prospects"
+print(first)
+second <- "hopeful"
+class(second) <- "prospects"
+print(second)
+```
+
+Separately, let's define the behavior of `print` for such objects:
+
+```{r}
+print.prospects <- function(obj){
+  cat("prospects:", obj, "\n")
+}
+print(first)
+print(second)
+```
+
+S3's protocol is simple:
+given a function F and an object whose class is C,
+it looks for a function named F.C.
+If it doesn't find one,
+it looks at the object's next class (assuming it has more than one);
+once its user-assigned classes are exhausted,
+it uses whatever function the system has defined for its base type (in this case, character vector).
+We can trace this process by importing the sloop package and calling `s3_dispatch`:
+
+```{r}
+library(sloop)
+s3_dispatch(print(first))
+```
+
+Compare this with calling `print` on a plain old character vector:
+
+```{r}
+s3_dispatch(print("indifferent"))
+```
+
+The specialized functions associated with a generic function like `print` are called [methods](../glossary/#method).
+Unlike languages that require methods to be defined all together as part of a class,
+S3 allows us to add methods when and as we see fit.
+But that doesn't mean we should:
+minds confined to three dimensions of space and one of time are simply not capable of comprehending
+the staggering complexity that can result from doing so.
+Instead,
+we should always write three functions that work together for a class like `prospects`:
+
+- A [constructor](../glossary/#constructor) called `new_prospects`
+  that creates objects of our class.
+- An optional [validator](../glossary/#validator) called `validate_prospects`
+  that checks the consistency and correctness of an object's values.
+- An optional [helper](../glossary/#helper), simply called `prospects`,
+  that most users will call to create and validate objects.
+
+The constructor's first argument should always be the base object (in our case, the prospect's actual string value).
+It should also have one argument for each attribute the object is to have, if any.
+Unlike matrices, our prospects don't have any extra arguments, so our constructor needs no extra arguments.
+Crucially,
+the constructor checks the type of its arguments to ensure that the object has at least some chance of being valid.
+
+```{r}
+new_prospects <- function(text){
+  stopifnot(typeof(text) == "character")
+  class(text) <- "prospects"
+  text
+}
+
+example <- new_prospects("perilous")
+example
+```
+
+Validators are only needed when checks on data correctness and consistency are expensive.
+For example,
+if we were to define a class to represent sorted vectors,
+checking that each element is no less than its predecessor could take a long time for very long vectors.
+Our prospects are simple enough that we'll skip definition of a validator.
+
+The third and final function in our trio is the helper that provides a user-friendly interface to construction of our class.
+It should call the constructor and the validator (if one exists),
+but should also provide a richer set of defaults,
+better error messages,
+and so on.
+Purely for illustrative purposes,
+we shall allow the user to provide as many strings as they want when describing our prospects,
+which we shall then concatenate:
+
+```{r}
+prospects <- function(...){
+  args <- unlist(list(...))
+  if (!all(is.character(args))) {
+    stop("All arguments must be character vectors.")
+  }
+  new_prospects(paste(args))
+}
+
+example <- prospects("truly", "disappointing")
+print(example)
+```
+
+
 {% include links.md %}
