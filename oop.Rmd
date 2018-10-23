@@ -93,27 +93,27 @@ length(t)
 ## Classes
 
 To show how classes and generic functions work together,
-let's customize the printing of character vectors that have a `prospects` property.
+let's customize the way that 2D coordinates are converted to strings.
 First,
-we'll create two such vectors:
+we'll create two coordinate vectors:
 
 ```{r}
-first <- "dismal"
-class(first) <- "prospects"
+first <- c(0.5, 0.7)
+class(first) <- "two_d"
 print(first)
-second <- "hopeful"
-class(second) <- "prospects"
+second <- c(1.3, 3.1)
+class(second) <- "two_d"
 print(second)
 ```
 
-Separately, let's define the behavior of `print` for such objects:
+Separately, let's define the behavior of `toString` for such objects:
 
 ```{r}
-print.prospects <- function(obj){
-  cat("prospects:", obj, "\n")
+as.character.two_d <- function(obj){
+  paste0("<", obj[1], ", ", obj[2], ">")
 }
-print(first)
-print(second)
+as.character(first)
+as.character(second)
 ```
 
 S3's protocol is simple:
@@ -127,16 +127,16 @@ We can trace this process by importing the sloop package and calling `s3_dispatc
 
 ```{r}
 library(sloop)
-s3_dispatch(print(first))
+s3_dispatch(as.character(first))
 ```
 
-Compare this with calling `print` on a plain old character vector:
+Compare this with calling `as.character` on a plain old character vector:
 
 ```{r}
-s3_dispatch(print("indifferent"))
+s3_dispatch(as.character(c(7.1, 7.2)))
 ```
 
-The specialized functions associated with a generic function like `print` are called [methods](../glossary/#method).
+The specialized functions associated with a generic function like `as.character` are called [methods](../glossary/#method).
 Unlike languages that require methods to be defined all together as part of a class,
 S3 allows us to add methods when and as we see fit.
 But that doesn't mean we should:
@@ -145,35 +145,50 @@ the staggering complexity that can result from doing so.
 Instead,
 we should always write three functions that work together for a class like `prospects`:
 
-- A [constructor](../glossary/#constructor) called `new_prospects`
+- A [constructor](../glossary/#constructor) called `new_two_d`
   that creates objects of our class.
-- An optional [validator](../glossary/#validator) called `validate_prospects`
+- An optional [validator](../glossary/#validator) called `validate_two_d`
   that checks the consistency and correctness of an object's values.
-- An optional [helper](../glossary/#helper), simply called `prospects`,
+- An optional [helper](../glossary/#helper), simply called `two_d`,
   that most users will call to create and validate objects.
 
-The constructor's first argument should always be the base object (in our case, the prospect's actual string value).
+The constructor's first argument should always be the base object (in our case, the two-element vector).
 It should also have one argument for each attribute the object is to have, if any.
-Unlike matrices, our prospects don't have any extra arguments, so our constructor needs no extra arguments.
+Unlike matrices, our 2D points don't have any extra arguments, so our constructor needs no extra arguments.
 Crucially,
 the constructor checks the type of its arguments to ensure that the object has at least some chance of being valid.
 
 ```{r}
-new_prospects <- function(text){
-  stopifnot(typeof(text) == "character")
-  class(text) <- "prospects"
-  text
+new_two_d <- function(coordinates){
+  cat("typeof(coordinates)", typeof(coordinates), "\n")
+  stopifnot(is.numeric(coordinates))
+  class(coordinates) <- "two_d"
+  coordinates
 }
 
-example <- new_prospects("perilous")
-example
+example <- new_two_d(c(4.4, -2.2))
+as.character(example)
 ```
 
 Validators are only needed when checks on data correctness and consistency are expensive.
 For example,
 if we were to define a class to represent sorted vectors,
 checking that each element is no less than its predecessor could take a long time for very long vectors.
-Our prospects are simple enough that we'll skip definition of a validator.
+To illustrate this,
+we will check that we have exactly two coordinates;
+in real code,
+we would probably include this (inexpensive) check in the constructor.
+
+```{r, error = TRUE}
+validate_two_d <- function(coordinates) {
+  stopifnot(length(coordinates) == 2)
+  stopifnot(class(coordinates) == "two_d")
+}
+
+validate_two_d(example)    # should succeed silently
+validate_two_d(c(1, 3))    # should fail
+validate_two_d(c(2, 2, 2)) # should also fail
+```
 
 The third and final function in our trio is the helper that provides a user-friendly interface to construction of our class.
 It should call the constructor and the validator (if one exists),
@@ -181,21 +196,35 @@ but should also provide a richer set of defaults,
 better error messages,
 and so on.
 Purely for illustrative purposes,
-we shall allow the user to provide as many strings as they want when describing our prospects,
-which we shall then concatenate:
+we shall allow the user to provide either one argument (which must be a two-element vector)
+or two (which must each be numeric):
 
 ```{r}
-prospects <- function(...){
-  args <- unlist(list(...))
-  if (!all(is.character(args))) {
-    stop("All arguments must be character vectors.")
+two_d <- function(...){
+  args <- list(...)
+  if (length(args) == 1) {
+    args <- args[[1]]    # extract original value
   }
-  new_prospects(paste(args))
+  else if (length(args) == 2) {
+    args <- unlist(args) # convert list to vector
+  }
+  result <- new_two_d(args)
+  validate_two_d(result)
+  result
 }
 
-example <- prospects("truly", "disappointing")
-print(example)
+here <- two_d(10.1, 11.2)
+as.character(here)
+there <- two_d(c(15.6, 16.7))
+as.character(there)
 ```
 
+## Inheritance
+
+We said above that an object can have more than one class,
+and that S3 searches the classes in order when it wants to find a method to call.
+Methods can also trigger invocation of other methods explicitly in order to supplement,
+rather than replace,
+the behavior of other classes.
 
 {% include links.md %}
