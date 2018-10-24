@@ -362,4 +362,6 @@ table4a %>% gather(key = "year", value = "cases", one_of(c("1999", "2000")))
 
 Difference between `summarize(..., total = sum(n()))` and `summarize(..., total = sum(n))` (without a function call) in babynames data.
 
+The `here` package https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
+
 {% include links.md %}

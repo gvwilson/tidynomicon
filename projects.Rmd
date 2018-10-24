@@ -354,4 +354,86 @@ but honestly,
 at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],
 so we will accept this behavior and move on.
 
+## Packaging
+
+Unlike Python,
+with its confusing plethora of packaging tools,
+R has one way to do it.
+Before converting our project into a package,
+we will explore what a package should contain.
+
+### `DESCRIPTION`
+
+The text file `DESCRIPTION` (with no suffix) holds most of the package's metadata,
+including a description of what it,
+who wrote it,
+and what other packages it requires to run.
+
+### NAMESPACE
+
+This file, whose name also has no extension, contains the names of everything exported from the package
+(i.e., everything that is visible to the outside world).
+RStudio does a good job of creating and managing it,
+so we will not discuss it further.
+
+### `.Rbuildignore`
+
+Just as `.gitignore` tells Git what files in a project to ignore,
+`.Rbuildignore` tells RStudio which files it doesn't need to worry about
+when building a package from source.
+
+### The `R` Directory
+
+The R source for the package should all go in this directory.
+
+Explain that packages are bytecode (unlike Python).
+
+This is why we put functions in the `R` directory, not scripts.
+When an R script (or an RMarkdown file) is run in the console or the IDE, its code is executed as you'd expect.
+In an R package, the code is only run when the package is built.
+
+But then how to load other libraries?
+`library(tidyverse)` won't work because that's executed during build,
+so we can't be sure the libraries will be loaded when our package is used.
+The solution is to use `package::function` to refer to things.
+
+And no, you can't use sub-directories...
+
+### The `data` Directory
+
+As you would expect, this is where data goes.
+In order for it to be loadable, it must be saved in `.rda` format.
+Use `write_rds` and `read_rds`
+(and expect to eventually use `write_feather` and `read_feather`).
+
+Use `LazyData: TRUE` in `DESCRIPTION` so that datasets are only loaded on demand.
+
+Put raw data in `inst/extdata` (`inst` is for extra files that you want installed).
+Use `system.file("extdata", "2012.csv", package = "testdat", mustWork = TRUE)` to get the filename after installation.
+
+### The `man` Directory
+
+This is where manual pages go.
+The bad news is, they have to be in a sort-of-LaTeX format.
+The good news is,
+we can embed comments in our source code and use roxygen2 to extract these and format them as `.Rd` files.
+
+### The `tests` Directory
+
+We've already met this:
+it should contain files called `test_group.R`,
+each of which should contain functions called `test_feature`,
+where "group" and "feature" are memorable names for the group of tests in the file
+and the specific aspect of the code that's probably going to fail in an unanticipated way when it matters most.
+
+## Creating a Package
+
+If we want our package to require other packages, we can run:
+
+```{r, eval=FALSE}
+devtools::use_package("NameOfPackage")
+```
+
+to insert the right lines in `DESCRIPTION`.
+
 {% include links.md %}
