@@ -10,13 +10,13 @@ keypoints:
   - "FIXME"
 ---
 
-We have accumulated some intellectual debt in the previous four lessons,
-and we should clear some of before we go on to new topics.
-
-```{r}
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(engine.path = list(python = '/Users/gvwilson/anaconda3/bin/python'))
 library(tidyverse)
 ```
 
+We have accumulated some intellectual debt in the previous four lessons,
+and we should clear some of before we go on to new topics.
 
 ## Lazy Evaluation
 
@@ -226,7 +226,7 @@ in order of increasing severity,
 We can signal conditions of these three kinds using the functions `message`, `warning`, and `stop`,
 each of which takes an error message as a parameter.
 
-```{r, error = TRUE}
+```{r error=TRUE}
 message("This is a message.")
 warning("This is a warning.\n")
 stop("This is an error.")
@@ -361,5 +361,7 @@ table4a %>% gather(key = "year", value = "cases", one_of(c("1999", "2000")))
 ```
 
 Difference between `summarize(..., total = sum(n()))` and `summarize(..., total = sum(n))` (without a function call) in babynames data.
+
+The `here` package https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
 
 {% include links.md %}

@@ -67,7 +67,7 @@ which we shall do in stages.
 
 We will begin by reading the data into a tibble:
 
-```{r first-read-attempt}
+```{r}
 library(tidyverse)
 raw <- read_csv("raw/infant_hiv.csv")
 head(raw)
@@ -87,7 +87,7 @@ so we're going to have to do some work no matter which we skip or keep.
 Since we want the ISO3 code and the country name,
 let's skip the first two rows.
 
-```{r read-skip-2}
+```{r}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2)
 head(raw)
 ```
@@ -102,7 +102,7 @@ This happens because:
 We will tackle the first problem by setting `na = c("-")` in our `read_csv` call
 (since we should never do ourselves what a library function will do for us):
 
-```{r read-specify-na}
+```{r}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 head(raw)
 ```
@@ -115,7 +115,7 @@ We will save the ISO3 values for later use
 (and because it will illustrate a point about data hygiene that we want to make later,
 but which we don't want to reveal just yet).
 
-```{r read-filter-countries, error=TRUE}
+```{r error=TRUE}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%

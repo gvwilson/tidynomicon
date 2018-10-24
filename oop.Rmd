@@ -10,10 +10,9 @@ keypoints:
   - "FIXME"
 ---
 
-```{r}
+```{r echo=FALSE}
 library(tidyverse)
 ```
-
 
 Programmers spend a great deal of their time trying to create order out of chaos,
 and the rest of their time inventing new ways to create more chaos.
@@ -178,7 +177,7 @@ we will check that we have exactly two coordinates;
 in real code,
 we would probably include this (inexpensive) check in the constructor.
 
-```{r, error = TRUE}
+```{r error = TRUE}
 validate_two_d <- function(coordinates) {
   stopifnot(length(coordinates) == 2)
   stopifnot(class(coordinates) == "two_d")

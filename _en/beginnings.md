@@ -53,6 +53,26 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
+Years ago,
+Patrick Burns wrote *[The R Inferno][r-infero]*,
+which is a guide to R for those who think they are in hell.
+Upon first encountering the language after two decades of using Python,
+I thought Burns was an optimist—after all,
+hell has rules.
+
+I have since realized that R does too,
+and that they are no more confusing or contradictory than those of many other programming languages.
+They only appear so because R draws on a tradition that is unfamiliar to those of us raised with derivatives of C.
+Counting from one,
+copying data rather than modifying it,
+and a host of other features are
+(to quote the bard)
+not mad, just differently sane.
+
+Welcome, then, to a universe where everything strange will become familiar,
+and everything familiar, strange.
+Welcome, thrice welcome, to R.
+
 
 
 Let's try some simple things at an interactive prompt.
@@ -64,11 +84,7 @@ using pink to show Python code and green to show R:
 
 
 ```python
-print("Hello, world!")
-```
-
-```
-## Hello, world!
+"Hello, world!"
 ```
 
 
