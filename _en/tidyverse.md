@@ -1627,6 +1627,12 @@ data %>%
 ```
 
 ```
+## Warning: `overscope_eval_next()` is soft-deprecated as of rlang 0.2.0.
+## Please use `eval_tidy()` with a data mask instead
+## This warning is displayed once per session.
+```
+
+```
 ## # A tibble: 55 x 3
 ##     year    lo    hi
 ##    <int> <dbl> <dbl>

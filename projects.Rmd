@@ -10,6 +10,10 @@ keypoints:
   - "FIXME"
 ---
 
+```{r echo=FALSE}
+library(tidyverse)
+```
+
 Mistakes were made in [the previous tutorial](../cleanup/).
 It would be [hubris](../glossary/#hubris) to believe that we will not make more as we continue to clean this data.
 What will guide us safely through these dark caverns and back into the light of day?
@@ -248,7 +252,6 @@ But now that we have it,
 we can do this:
 
 ```{r}
-library(tidyverse)
 source("scripts/find_empty_01.R")
 find_empty_rows("a,b\n1,2\n,\n5,6")
 ```
@@ -428,9 +431,21 @@ and the specific aspect of the code that's probably going to fail in an unantici
 
 ## Creating a Package
 
+We cannot turn this tutorial into an R package because we're building as a website, not as a package.
+Instead, we will create an R package called `unicefdata`.
+
+- Run wizard
+
+```{r echo=FALSE, fig.cap="RStudio Project Creation Wizard"}
+knitr::include_graphics("../files/rstudio-project-creation-wizard.png")
+```
+
+
+- Then add `README.md`, `LICENSE.md`, `CONDUCT.md`, and `CITATION.md`
+
 If we want our package to require other packages, we can run:
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 devtools::use_package("NameOfPackage")
 ```
 

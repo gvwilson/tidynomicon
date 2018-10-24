@@ -10,6 +10,8 @@ keypoints:
   - "FIXME"
 ---
 
+
+
 Mistakes were made in [the previous tutorial](../cleanup/).
 It would be [hubris](../glossary/#hubris) to believe that we will not make more as we continue to clean this data.
 What will guide us safely through these dark caverns and back into the light of day?
@@ -103,6 +105,12 @@ library(testthat)
 ```
 ## 
 ## Attaching package: 'testthat'
+```
+
+```
+## The following objects are masked from 'package:rlang':
+## 
+##     is_false, is_null, is_true
 ```
 
 ```
@@ -258,8 +266,17 @@ test_dir("tests")
 ## x[1]: "abc"
 ## y[1]: "ABC"
 ## ───────────────────────────────────────────────────────────────────────────
-## ⠏ |  0       | Finding empty rows⠋ |  0 1     | Finding empty rows⠙ |  0 2     | Finding empty rows⠹ |  1 2     | Finding empty rows✖ |  1 2     | Finding empty rows
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0   2   | Finding empty rows⠹ |  0 1 2   | Finding empty rows⠸ |  0 2 2   | Finding empty rows⠼ |  1 2 2   | Finding empty rows✖ |  1 2 2   | Finding empty rows
 ## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_a.R:8: warning: A single non-empty row is not mistakenly detected
+## `list_len()` is soft-deprecated as of rlang 0.2.0.
+## Please use `new_list()` instead
+## This warning is displayed once per session.
+## 
+## test_find_empty_a.R:8: warning: A single non-empty row is not mistakenly detected
+## The `printer` argument is soft-deprecated as of rlang 0.3.0.
+## This warning is displayed once per session.
+## 
 ## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 ## `result` not equal to NULL.
 ## Types not compatible: integer is not NULL
@@ -273,7 +290,7 @@ test_dir("tests")
 ## ══ Results ════════════════════════════════════════════════════════════════
 ## OK:       6
 ## Failed:   6
-## Warnings: 0
+## Warnings: 2
 ## Skipped:  0
 ```
 
@@ -447,9 +464,20 @@ we can do this:
 
 
 ```r
-library(tidyverse)
 source("scripts/find_empty_01.R")
 find_empty_rows("a,b\n1,2\n,\n5,6")
+```
+
+```
+## Warning: `lang()` is soft-deprecated as of rlang 0.2.0.
+## Please use `call2()` instead
+## This warning is displayed once per session.
+```
+
+```
+## Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
+## Please use `new_data_mask()` instead
+## This warning is displayed once per session.
 ```
 
 ```
@@ -467,7 +495,7 @@ the stain on our soul is excusable.
 The more interesting part of this example is the call to `find_empty_rows`.
 Instead of giving it the name of a file,
 we have given it the text of the CSV we want parsed.
-This is then passed to `read_csv`,
+This string is passed to `read_csv`,
 which (according to documentation that only took us 15 minutes to realize we had already seen)
 interprets its first argument as a filename *or*
 as the actual text to be parsed if it contains a newline character.
@@ -515,13 +543,15 @@ Going line by line once again:
 >
 > `tibble(empty = .)`
 >
-> In this context, `.` means "whatever is on the left side of the `%>%` operator",
-> i.e., whatever would normally be passed as the first argument to this function.
+> Quoting from *[Advanced R][advanced-r]*,
+> "The function arguments look a little quirky
+> but allow you to refer to `.` for one argument functions,
+> `.x` and `.y.` for two argument functions,
+> and `..1`, `..2`, `..3`, etc, for functions with an arbitrary number of arguments."
+> In other words, `.` in tidyverse functions usually means "whatever is on the left side of the `%>%` operator",
+> i.e., whatever would normally be passed as the function's first argument.
 > Without this,
 > we have no easy way to give the sole column of our newly-constructed tibble a name.
-> This use of `.` takes advantage of a feature left over from the formula syntax
-> created in the early days of R's predecessor, S;
-> in other contexts, `.` is just a very poorly named variable.
 
 Here's our first batch of tests:
 
@@ -653,5 +683,98 @@ The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
 at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],
 so we will accept this behavior and move on.
+
+## Packaging
+
+Unlike Python,
+with its confusing plethora of packaging tools,
+R has one way to do it.
+Before converting our project into a package,
+we will explore what a package should contain.
+
+### `DESCRIPTION`
+
+The text file `DESCRIPTION` (with no suffix) holds most of the package's metadata,
+including a description of what it,
+who wrote it,
+and what other packages it requires to run.
+
+### NAMESPACE
+
+This file, whose name also has no extension, contains the names of everything exported from the package
+(i.e., everything that is visible to the outside world).
+RStudio does a good job of creating and managing it,
+so we will not discuss it further.
+
+### `.Rbuildignore`
+
+Just as `.gitignore` tells Git what files in a project to ignore,
+`.Rbuildignore` tells RStudio which files it doesn't need to worry about
+when building a package from source.
+
+### The `R` Directory
+
+The R source for the package should all go in this directory.
+
+Explain that packages are bytecode (unlike Python).
+
+This is why we put functions in the `R` directory, not scripts.
+When an R script (or an RMarkdown file) is run in the console or the IDE, its code is executed as you'd expect.
+In an R package, the code is only run when the package is built.
+
+But then how to load other libraries?
+`library(tidyverse)` won't work because that's executed during build,
+so we can't be sure the libraries will be loaded when our package is used.
+The solution is to use `package::function` to refer to things.
+
+And no, you can't use sub-directories...
+
+### The `data` Directory
+
+As you would expect, this is where data goes.
+In order for it to be loadable, it must be saved in `.rda` format.
+Use `write_rds` and `read_rds`
+(and expect to eventually use `write_feather` and `read_feather`).
+
+Use `LazyData: TRUE` in `DESCRIPTION` so that datasets are only loaded on demand.
+
+Put raw data in `inst/extdata` (`inst` is for extra files that you want installed).
+Use `system.file("extdata", "2012.csv", package = "testdat", mustWork = TRUE)` to get the filename after installation.
+
+### The `man` Directory
+
+This is where manual pages go.
+The bad news is, they have to be in a sort-of-LaTeX format.
+The good news is,
+we can embed comments in our source code and use roxygen2 to extract these and format them as `.Rd` files.
+
+### The `tests` Directory
+
+We've already met this:
+it should contain files called `test_group.R`,
+each of which should contain functions called `test_feature`,
+where "group" and "feature" are memorable names for the group of tests in the file
+and the specific aspect of the code that's probably going to fail in an unanticipated way when it matters most.
+
+## Creating a Package
+
+We cannot turn this tutorial into an R package because we're building as a website, not as a package.
+Instead, we will create an R package called `unicefdata`.
+
+- Run wizard
+
+![RStudio Project Creation Wizard](../files/rstudio-project-creation-wizard.png)
+
+
+- Then add `README.md`, `LICENSE.md`, `CONDUCT.md`, and `CITATION.md`
+
+If we want our package to require other packages, we can run:
+
+
+```r
+devtools::use_package("NameOfPackage")
+```
+
+to insert the right lines in `DESCRIPTION`.
 
 {% include links.md %}
