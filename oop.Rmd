@@ -109,11 +109,11 @@ print(second)
 Separately, let's define the behavior of `toString` for such objects:
 
 ```{r}
-as.character.two_d <- function(obj){
+toString.two_d <- function(obj){
   paste0("<", obj[1], ", ", obj[2], ">")
 }
-as.character(first)
-as.character(second)
+toString(first)
+toString(second)
 ```
 
 S3's protocol is simple:
@@ -127,16 +127,16 @@ We can trace this process by importing the sloop package and calling `s3_dispatc
 
 ```{r}
 library(sloop)
-s3_dispatch(as.character(first))
+s3_dispatch(toString(first))
 ```
 
-Compare this with calling `as.character` on a plain old character vector:
+Compare this with calling `toString` on a plain old character vector:
 
 ```{r}
-s3_dispatch(as.character(c(7.1, 7.2)))
+s3_dispatch(toString(c(7.1, 7.2)))
 ```
 
-The specialized functions associated with a generic function like `as.character` are called [methods](../glossary/#method).
+The specialized functions associated with a generic function like `toString` are called [methods](../glossary/#method).
 Unlike languages that require methods to be defined all together as part of a class,
 S3 allows us to add methods when and as we see fit.
 But that doesn't mean we should:
@@ -160,14 +160,13 @@ the constructor checks the type of its arguments to ensure that the object has a
 
 ```{r}
 new_two_d <- function(coordinates){
-  cat("typeof(coordinates)", typeof(coordinates), "\n")
   stopifnot(is.numeric(coordinates))
   class(coordinates) <- "two_d"
   coordinates
 }
 
 example <- new_two_d(c(4.4, -2.2))
-as.character(example)
+toString(example)
 ```
 
 Validators are only needed when checks on data correctness and consistency are expensive.
@@ -214,9 +213,9 @@ two_d <- function(...){
 }
 
 here <- two_d(10.1, 11.2)
-as.character(here)
+toString(here)
 there <- two_d(c(15.6, 16.7))
-as.character(there)
+toString(there)
 ```
 
 ## Inheritance
@@ -226,5 +225,56 @@ and that S3 searches the classes in order when it wants to find a method to call
 Methods can also trigger invocation of other methods explicitly in order to supplement,
 rather than replace,
 the behavior of other classes.
+To explore this,
+we shall look at that classic of object-oriented design, shapes---the safe kind, of course,
+not those whose non-Euclidean angles have placed such intolerable stress on the minds of so many of our colleagues over the years.
+
+```{r}
+new_polygon <- function(coords, name) {
+  points <- map(coords, two_d)
+  class(points) <- "polygon"
+  attr(points, "name") <- name
+  points
+}
+
+toString.polygon <- function(poly) {
+  paste0(attr(poly, "name"), ": ", paste0(map(poly, toString), collapse = ", "))
+}
+
+right <- new_polygon(list(c(0, 0), c(1, 0), c(0, 1)), "triangle")
+toString(right)
+```
+
+Now we will add colored shapes:
+
+```{r}
+new_colored_polygon <- function(coords, name, color) {
+  object <- new_polygon(coords, name)
+  attr(object, "color") <- color
+  class(object) <- c("colored_polygon", class(object))
+  object
+}
+
+pinkish <- new_colored_polygon(list(c(0, 0), c(1, 0), c(1, 1)), "triangle", "roseate")
+class(pinkish)
+toString(pinkish)
+```
+
+So far so good:
+since we have not defined a method to handle colored polygons specifically,
+we get the behavior for a regular polygon.
+Let's add another method:
+
+```{r}
+toString.colored_polygon <- function(poly) {
+  paste0(toString.polygon(poly), "+ color = ", attr(poly, "color"))
+}
+
+toString(pinkish)
+```
+
+In practice,
+we will almost always place all of the methods associated with a class in the same file as its constructor, validator, and helper.
+The time has finally come for us to explore projects and packages.
 
 {% include links.md %}
