@@ -314,6 +314,8 @@ see *[Advanced R][advanced-r]* for details.
 ## A Few Minor Things
 
 What the hell is `~`?
+- http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf
+- https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html
 
 `..1` and `.` and `.f` and the like in tidyverse functions
 
@@ -363,5 +365,7 @@ table4a %>% gather(key = "year", value = "cases", one_of(c("1999", "2000")))
 Difference between `summarize(..., total = sum(n()))` and `summarize(..., total = sum(n))` (without a function call) in babynames data.
 
 The `here` package https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
+
+Named vectors `c(one = 1, two = 2, three = 3)`
 
 {% include links.md %}
