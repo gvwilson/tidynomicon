@@ -368,4 +368,12 @@ The `here` package https://www.tidyverse.org/articles/2017/12/workflow-vs-script
 
 Named vectors `c(one = 1, two = 2, three = 3)`
 
+Lists as recursive vectors.
+
+All vectors are column vectors: use `t()` to transpose to row.
+
+`~last(.x) - first(.x)`
+
+Make sure you have devtools 2.0.0 or later and then devtools::build_manual()
+
 {% include links.md %}
