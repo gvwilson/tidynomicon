@@ -22,11 +22,313 @@ The answer is testing.
 We must test our assumptions, test our code, test our very *being* if we are to advance.
 Luckily for us,
 R provides tools for this purpose not unlike those available in Python.
-In using them,
-we will be drawn into the greater realm of packaging in R,
-and thence into understanding the features of a fully-formed R project.
+In order to use them,
+we must first venture into the greater realm of packaging in R.
 
-## The Problem
+## Packaging
+
+Unlike Python,
+with its confusing plethora of packaging tools,
+R has one way to do it.
+Before converting our project into a package,
+we will explore what a package should contain.
+
+### `DESCRIPTION`
+
+The text file `DESCRIPTION` (with no suffix) holds most of the package's metadata,
+including a description of what it,
+who wrote it,
+and what other packages it requires to run.
+
+### NAMESPACE
+
+This file, whose name also has no extension, contains the names of everything exported from the package
+(i.e., everything that is visible to the outside world).
+RStudio does a good job of creating and managing it,
+so we will not discuss it further.
+
+### `.Rbuildignore`
+
+Just as `.gitignore` tells Git what files in a project to ignore,
+`.Rbuildignore` tells RStudio which files it doesn't need to worry about
+when building a package from source.
+
+### The `R` Directory
+
+The R source for the package should all go in this directory.
+
+Explain that packages are bytecode (unlike Python).
+
+This is why we put functions in the `R` directory, not scripts.
+When an R script (or an RMarkdown file) is run in the console or the IDE, its code is executed as you'd expect.
+In an R package, the code is only run when the package is built.
+
+But then how to load other libraries?
+`library(tidyverse)` won't work because that's executed during build,
+so we can't be sure the libraries will be loaded when our package is used.
+The solution is to use `package::function` to refer to things.
+
+And no, you can't use sub-directories...
+
+### The `data` Directory
+
+As you would expect, this is where data goes.
+In order for it to be loadable, it must be saved in `.rda` format.
+(and expect to eventually use `.feather` format).
+Use `save` and `load`,
+or better yet,
+`usethis::use_data(object, overwrite = TRUE)` to save objects
+and then load them with the package.
+
+Use `LazyData: TRUE` in `DESCRIPTION` so that datasets are only loaded on demand.
+
+Put raw data in `inst/extdata` (`inst` is for extra files that you want installed).
+Use `system.file("extdata", "2012.csv", package = "testdat", mustWork = TRUE)` to get the filename after installation.
+
+### The `man` Directory
+
+This is where manual pages go.
+The bad news is, they have to be in a sort-of-LaTeX format.
+The good news is,
+we can embed comments in our source code and use roxygen2 to extract these and format them as `.Rd` files.
+
+### The `tests` Directory
+
+We've already met this:
+it should contain files called `test_group.R`,
+each of which should contain functions called `test_feature`,
+where "group" and "feature" are memorable names for the group of tests in the file
+and the specific aspect of the code that's probably going to fail in an unanticipated way when it matters most.
+
+## Creating a Package
+
+We cannot turn this tutorial into an R package because we're building as a website, not as a package.
+Instead, we will create an R package called `unicefdata`.
+
+- Run wizard
+
+```{r echo=FALSE, fig.cap="RStudio Project Creation Wizard"}
+knitr::include_graphics("../files/rstudio-project-creation-wizard.png")
+```
+
+- Then add the same `README.md`, `LICENSE.md`, `CONDUCT.md`, and `CITATION.md` used for all projects
+- And remove `R/hello.R` and `man/hello.Rd` (documentation)
+
+Copy our data tidying script into `R/tidy_datasets_start.R`
+- Actually copied it into `R/tidy_datasets.R`, then had to make so many changes that we want to show several versions
+
+FIXME: show file here
+
+Edit `DESCRIPTION`:
+- change the `Title`, `Author`, `Maintainer`, and `Description`
+- change `License` to `MIT`
+- go to the `Build` tab in RStudio and run 'Check
+
+```
+* checking top-level files ... NOTE
+Non-standard files/directories found at top level:
+  ‘CITATION.md’ ‘CONDUCT.md’ ‘LICENSE.md’
+...
+Found the following CITATION file in a non-standard place:
+  CITATION.md
+Most likely ‘inst/CITATION’ should be used instead.
+```
+
+- A bit of searching and we rearrange as follows:
+  - `LICENSE.md` becomes `LICENSE` with no extension
+  - `DESCRIPTION` entry updated to `License: MIT + file LICENSE`
+  - add a line to `.Rbuildignore` for `CITATION.md` and `CONDUCT.md`
+
+- Solves that problem but now:
+
+```
+checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘tidy_infant_hiv’
+All user-level objects in a package should have documentation entries.
+```
+
+Put the following at the head of `tidy_datasets_documented.R`
+
+```
+#' Clean up and share some data from UNICEF on infant HIV rates and maternal mortality.
+#'
+#' @author Greg Wilson, \email{greg.wilson@rstudio.com}
+
+#' Tidy up the infant HIV data set.
+#'
+#' @param src_path path to source file
+#'
+#' @return a tibble of tidy data
+#'
+#' @export
+```
+
+- The first block documents the file.
+- The second documents the function.
+- `@export` says "make this visible to the outside world"
+- But still get the warning
+- Google...
+- Need to run `devtools::document()` to regenerate the documentation
+- Try this
+- Good news and bad news:
+
+```
+Updating unicefdata documentation
+Loading unicefdata
+First time using roxygen2. Upgrading automatically...
+Updating roxygen version in /Users/gvwilson/unicefdata/DESCRIPTION
+Warning: The existing 'NAMESPACE' file was not generated by roxygen2, and will not be overwritten.
+Writing tidy_infant_hiv.Rd
+```
+
+- Google...
+- Delete `NAMESPACE` and overwrite
+
+```
+# Generated by roxygen2: do not edit by hand
+
+export(tidy_infant_hiv)
+```
+
+- Go into "Build...More...Configure build tools" and check "Generate documentation with Roxygen"
+- Better, but still getting these warnings:
+
+```
+tidy_infant_hiv: no visible global function definition for ‘read_csv’
+tidy_infant_hiv: no visible global function definition for ‘slice’
+tidy_infant_hiv: no visible global function definition for ‘%>%’
+tidy_infant_hiv: no visible global function definition for ‘select’
+...several more...
+tidy_infant_hiv: no visible global function definition for ‘bind_rows’
+tidy_infant_hiv: no visible global function definition for ‘arrange’
+Undefined global functions or variables:
+  %>% Countries ISO3 arrange bind_rows country everything map_dfr
+  mutate read_csv rename select slice str_replace year
+```
+
+- FIXME: explain when and how libraries loaded
+- Use fully-qualified names
+- Import functions
+- We'll do a mix to show all three options
+- Add this to source file
+
+```
+#' @import dplyr
+#' @importFrom magrittr %>%
+```
+
+- Change various calls to use package prefix, e.g.:
+
+```
+  raw <- readr::read_csv(src_path, skip = 2, na = c("-"))
+  ...
+  percents <- sliced %>%
+    select(ISO3, Countries) %>%
+    purrr::map_dfr(stringr::str_replace, pattern = ">?(\\d+)%", replacement = "\\1") %>%
+    purrr::map_dfr(function(col) as.numeric(col) / 100)
+```
+
+- Get this error:
+
+```
+* checking package dependencies ... ERROR
+Namespace dependencies not required: ‘dplyr’ ‘magrittr’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+checking package dependencies ... ERROR
+Namespace dependencies not required: ‘dplyr’ ‘magrittr’
+```
+
+- Add this to `DESCRIPTION` (getting version numbers with `packageVersion("package")`
+
+```
+Imports:
+    readr (>= 1.1.0),
+    dplyr (>= 0.7.0),
+    magrittr (>= 1.5.0),
+    purrr (>= 0.2.0),
+    rlang (>= 0.3.0),
+    stringr (>= 1.3.0)
+```
+
+- Still get a warning:
+
+```
+checking R code for possible problems ... NOTE
+tidy_infant_hiv: no visible binding for global variable ‘ISO3’
+tidy_infant_hiv: no visible binding for global variable ‘Countries’
+tidy_infant_hiv: no visible binding for global variable ‘country’
+tidy_infant_hiv: no visible binding for global variable ‘year’
+```
+
+- and if we choose "Build...Install and Restart", then run `tidy_infant_hiv("inst/extdata/infant_hiv.csv")`, we get:
+
+```
+Error in read_csv(src_path, skip = 2, na = c("-")) : 
+  could not find function "read_csv"
+```
+
+- Look at `NAMESPACE`: no entries for the qualified names
+- We need to add this:
+
+```
+#' @importFrom purrr map_dfr
+#' @importFrom readr read_csv
+#' @importFrom rlang .data
+#' @importFrom stringr str_replace
+```
+
+- after check (which runs documentation) we have these extra lines in `NAMESPACE`
+
+```
+importFrom(purrr,map_dfr)
+importFrom(readr,read_csv)
+importFrom(rlang,.data)
+importFrom(stringr,str_replace)
+```
+
+- But *still* getting errors
+
+```
+tidy_infant_hiv: no visible binding for global variable ‘ISO3’
+tidy_infant_hiv: no visible binding for global variable ‘Countries’
+tidy_infant_hiv: no visible binding for global variable ‘country’
+tidy_infant_hiv: no visible binding for global variable ‘year’
+Undefined global functions or variables:
+  Countries ISO3 country year
+```
+
+- This required a bit more effort...
+- Base R doesn't understand the way that tidyverse functions handle column names
+- So add this to the header:
+
+```
+#' @importFrom rlang .data
+```
+
+and modify calls that use naked column names:
+
+```
+    select(-.data$ISO3, -.data$Countries) %>%
+...
+    select(.data$country, .data$year, everything())
+...
+    arrange(.data$country, .data$year)
+```
+
+- Clean build!
+- Install and restart
+
+- Then go back to the docs
+  - `infant_hiv.R` and `unicefdata.R` to document dataset and package
+  - The former "documents" a string
+  - The latter "documents" `NULL`
+
+## The Larger Problem
 
 We have been given several more CSV files to clean up.
 The first,
