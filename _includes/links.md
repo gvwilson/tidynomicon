@@ -1,8 +1,16 @@
 [advanced-r]: http://adv-r.had.co.nz/
+[broman-packages]: https://kbroman.org/pkg_primer/
+[choose-a-license]: https://choosealicense.com/
+[cran]: https://cran.r-project.org/
 [hoye-zero]: http://exple.tive.org/blarg/2013/10/22/citation-needed/
 [javascript-wat]: https://www.destroyallsoftware.com/talks/wat
+[mit-license]: https://choosealicense.com/licenses/mit/
+[pypi]: https://pypi.org/
 [testthat]: https://github.com/r-lib/testthat
 [tidyverse-style]: http://style.tidyverse.org/
+[unicef-hiv]: https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/
+[unicef-maternal]: https://data.unicef.org/resources/dataset/maternal-health-data/
 [unittest]: https://docs.python.org/3/library/unittest.html
+[wickham-packages]: http://r-pkgs.had.co.nz/
 [wikipedia-iso3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
 [xunit]: https://en.wikipedia.org/wiki/XUnit
