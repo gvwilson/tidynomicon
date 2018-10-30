@@ -641,4 +641,8 @@ and that those mistakes can easily slip past us.
 If people are going to use our cleaned-up data in their analyses,
 we need a better way to develop and check our scripts.
 
+## Exercises
+
+FIXME: Rewrite to use <https://www.rdocumentation.org/packages/readr/versions/1.1.1/topics/parse_number>
+
 {% include links.md %}
