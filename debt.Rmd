@@ -18,6 +18,10 @@ library(tidyverse)
 We have accumulated some intellectual debt in the previous four lessons,
 and we should clear some of before we go on to new topics.
 
+## `setwd`
+
+Don't use `setwd`.
+
 ## Lazy Evaluation
 
 The biggest difference between Python and R is not that the latter starts counting from 1,
