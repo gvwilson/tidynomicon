@@ -15,6 +15,10 @@ keypoints:
 We have accumulated some intellectual debt in the previous four lessons,
 and we should clear some of before we go on to new topics.
 
+## `setwd`
+
+Don't use `setwd`.
+
 ## Lazy Evaluation
 
 The biggest difference between Python and R is not that the latter starts counting from 1,
@@ -258,7 +262,7 @@ tracemem(first)
 ```
 
 ```
-## [1] "<0x7fb701c3cdc8>"
+## [1] "<0x7f8649c19a08>"
 ```
 
 ```r
@@ -266,10 +270,10 @@ first$left[[1]] <- 999
 ```
 
 ```
-## tracemem[0x7fb701c3cdc8 -> 0x7fb6fdeda348]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fb6fdeda348 -> 0x7fb6fdeb8ec8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fb6fdeb8ec8 -> 0x7fb6f879f248]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fb6f879f248 -> 0x7fb6f879f688]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7f8649c19a08 -> 0x7f86418f1288]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7f86418f1288 -> 0x7f863ffa4d88]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7f863ffa4d88 -> 0x7f863ff9ae88]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7f863ff9ae88 -> 0x7f863fe8eac8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -287,7 +291,7 @@ cat("left column is initially at", address(left), "\n")
 ```
 
 ```
-## left column is initially at 0x7fb6fdec3c48
+## left column is initially at 0x7f86418ebd88
 ```
 
 ```r
@@ -296,7 +300,7 @@ cat("after modification, the original column is still at", address(left), "\n")
 ```
 
 ```
-## after modification, the original column is still at 0x7fb6fdec3c48
+## after modification, the original column is still at 0x7f86418ebd88
 ```
 
 ```r
@@ -305,7 +309,7 @@ cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
 ```
-## but the first column of the tibble is at 0x7fb700b04fc8
+## but the first column of the tibble is at 0x7f8648d72488
 ```
 
 (We need to uses aliases because `address(first$left)` doesn't work:

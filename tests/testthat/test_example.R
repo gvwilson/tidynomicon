@@ -15,8 +15,3 @@ test_that("Testing with a tolerance", {
   expect_equal(0, 0.01, tolerance = 0.05, scale = 1)
   expect_equal(0, 0.01, tolerance = 0.005, scale = 1)
 })
-
-test_that("Testing character vectors", {
-  expect_equal("abc", "XYZ")
-  expect_equal("abc", "ABC")
-})

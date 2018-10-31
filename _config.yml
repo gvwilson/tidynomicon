@@ -5,9 +5,9 @@ lessons:
 - /beginnings/
 - /tidyverse/
 - /cleanup/
+- /projects/
 - /debt/
 - /oop/
-- /projects/
 
 extras:
 - url: "/license/"
