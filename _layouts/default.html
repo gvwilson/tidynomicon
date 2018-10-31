@@ -11,8 +11,12 @@
       </h1>
     </div>
     {% endif %}
+
     {% include summary-block.html title="Questions Answered" items=page.questions %}
+    <div id="headings" class="summary"></div>
+
     {{content}}
+
     {% include summary-block.html title="Key Points" items=page.keypoints %}
 
     {% include footer.html %}

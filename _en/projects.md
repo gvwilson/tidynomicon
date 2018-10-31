@@ -150,8 +150,8 @@ this is what the file looks like at this point:
 library(tidyverse)
 
 # Constants.
-raw_filename <- "raw/infant_hiv.csv"
-tidy_filename <- "tidy/infant_hiv.csv"
+raw_filename <- "inst/extdata/infant_hiv.csv"
+tidy_filename <- "/tmp/infant_hiv.csv"
 first_year <- 2009
 last_year <- 2017
 num_rows <- 192
@@ -520,66 +520,6 @@ which is one of the few times R uses call-by-value.
 but honestly,
 who among us is at our best at times like these?)
 
-## The Larger Problem
-
-We have been given several more CSV files to clean up.
-The first,
-`raw/at_health_facilities.csv`,
-shows the percentage of births at health facilities by country, year, and mother's age.
-It comes from the same UNICEF website as our previous data,
-but has a different set of problems.
-Here are its first few lines:
-
-```
-,,GLOBAL DATABASES,,,,,,,,,,,,,
-,,[data.unicef.org],,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-Indicator:,Delivered in health facilities,,,,,,,,,,,,,,
-Unit:,Percentage,,,,,,,,,,,,,,
-,,,,Mother's age,,,,,,,,,,,
-iso3,Country/areas,year,Total ,age 15-17,age 18-19,age less than 20,age more than 20,age 20-34,age 35-49,Source,Source year,,,,
-AFG,Afghanistan,2010, 	33 , 	25 , 	29 , 	28 , 	31 , 	31 , 	31 ,MICS,2010,,,,
-ALB,Albania,2005, 	98 , 	100 , 	96 , 	97 , 	98 , 	99 , 	92 ,MICS,2005,,,,
-ALB,Albania,2008, 	98 , 	94 , 	98 , 	97 , 	98 , 	98 , 	99 ,DHS,2008,,,,
-...
-```
-
-and its last:
-
-```
-ZWE,Zimbabwe,2005, 	66 , 	64 , 	64 , 	64 , 	67 , 	69 , 	53 ,DHS,2005,,,,
-ZWE,Zimbabwe,2009, 	58 , 	49 , 	59 , 	55 , 	59 , 	60 , 	52 ,MICS,2009,,,,
-ZWE,Zimbabwe,2010, 	64 , 	56 , 	66 , 	62 , 	64 , 	65 , 	60 ,DHS,2010,,,,
-ZWE,Zimbabwe,2014, 	80 , 	82 , 	82 , 	82 , 	79 , 	80 , 	77 ,MICS,2014,,,,
-,,,,,,,,,,,,,,,
-Definition:,Percentage of births delivered in a health facility.,,,,,,,,,,,,,,
-,"The indicator refers to women who had a live birth in a recent time period, generally two years for MICS and five years for DHS.",,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-Note:,"Database include reanalyzed data from DHS and MICS, using a reference period of two years before the survey.",,,,,,,,,,,,,,
-,Includes surveys which microdata were available as of April 2016. ,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-Source:,"UNICEF global databases 2016 based on DHS, MICS .",,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,
-Contact us:,data@unicef.org,,,,,,,,,,,,,,
-```
-
-There are three files in this collection,
-all exported from the same Excel spreadsheet.
-Rather than writing a separate script for each,
-we should create a tool that will handle them all.
-At first glance,
-the problems we need to solve to do this are:
-
-1.  Each file may contain a different number of records,
-    so our tool should select rows by content rather than by absolute row number.
-2.  Each file may contain a different set of columns,
-    so our tool should select those that always appear by name
-    and somehow infer the location of the rest.
-
-These two requirements will make our program significantly more complicated,
-so we should tackle each with its own testable function.
-
 ## Testing
 
 The standard testing library for R is [testthat][testthat].
@@ -622,7 +562,7 @@ library(testthat)
 ```
 
 ```r
-test_that("Zero equals itself", { expect_equal(0, 0) })
+test_that("Zero equals itself", {expect_equal(0, 0)})
 ```
 
 As is conventional with xUnit-style testing libraries,
@@ -633,7 +573,7 @@ Let's try something that ought to fail:
 
 
 ```r
-test_that("Zero equals one", { expect_equal(0, 1) })
+test_that("Zero equals one", {expect_equal(0, 1)})
 ```
 
 ```
@@ -691,7 +631,7 @@ test_that("Using an anonymous function", function(){
 
 But running blocks of tests by hand is a bad practice no matter what is in them.
 What we should do instead is put related tests in files,
-then put those files in a directory called `tests`.
+then put those files in a directory called `tests/testthat`.
 We can then run some or all of those tests with a single command.
 
 To start,
@@ -716,11 +656,6 @@ test_that("Testing with a tolerance", {
   expect_equal(0, 0.01, tolerance = 0.05, scale = 1)
   expect_equal(0, 0.01, tolerance = 0.005, scale = 1)
 })
-
-test_that("Testing character vectors", {
-  expect_equal("abc", "XYZ")
-  expect_equal("abc", "ABC")
-})
 ```
 
 The first line loads the testthat package,
@@ -733,12 +668,12 @@ We can now run this file from within RStudio:
 
 
 ```r
-test_dir("tests")
+test_dir("tests/testthat")
 ```
 
 ```
 ## ✔ | OK F W S | Context
-## ⠏ |  0       | Demonstrating the testing library⠋ |  1       | Demonstrating the testing library⠙ |  2       | Demonstrating the testing library⠹ |  3       | Demonstrating the testing library⠸ |  3 1     | Demonstrating the testing library⠼ |  4 1     | Demonstrating the testing library⠴ |  4 2     | Demonstrating the testing library⠦ |  4 3     | Demonstrating the testing library⠧ |  4 4     | Demonstrating the testing library✖ |  4 4     | Demonstrating the testing library
+## ⠏ |  0       | Demonstrating the testing library⠋ |  1       | Demonstrating the testing library⠙ |  2       | Demonstrating the testing library⠹ |  3       | Demonstrating the testing library⠸ |  3 1     | Demonstrating the testing library⠼ |  4 1     | Demonstrating the testing library⠴ |  4 2     | Demonstrating the testing library✖ |  4 2     | Demonstrating the testing library
 ## ───────────────────────────────────────────────────────────────────────────
 ## test_example.R:11: failure: Testing different numbers
 ## 0 not equal to 1.
@@ -749,43 +684,32 @@ test_dir("tests")
 ## 0 not equal to 0.01.
 ## 1/1 mismatches
 ## [1] 0 - 0.01 == -0.01
-## 
-## test_example.R:20: failure: Testing character vectors
-## "abc" not equal to "XYZ".
-## 1/1 mismatches
-## x[1]: "abc"
-## y[1]: "XYZ"
-## 
-## test_example.R:21: failure: Testing character vectors
-## "abc" not equal to "ABC".
-## 1/1 mismatches
-## x[1]: "abc"
-## y[1]: "ABC"
 ## ───────────────────────────────────────────────────────────────────────────
-## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0   2   | Finding empty rows⠹ |  0 1 2   | Finding empty rows⠸ |  0 2 2   | Finding empty rows⠼ |  1 2 2   | Finding empty rows✖ |  1 2 2   | Finding empty rows
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0 1 1   | Finding empty rows✖ |  0 1 1   | Finding empty rows
 ## ───────────────────────────────────────────────────────────────────────────
-## test_find_empty_a.R:8: warning: A single non-empty row is not mistakenly detected
-## `list_len()` is soft-deprecated as of rlang 0.2.0.
-## Please use `new_list()` instead
-## This warning is displayed once per session.
+## test_find_empty_a.R:5: warning: (unknown)
+## cannot open file '../scripts/find_empty_02.R': No such file or directory
 ## 
-## test_find_empty_a.R:8: warning: A single non-empty row is not mistakenly detected
-## The `printer` argument is soft-deprecated as of rlang 0.3.0.
-## This warning is displayed once per session.
+## test_find_empty_a.R:5: error: (unknown)
+## cannot open the connection
+## 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
+## 2: file(filename, "r", encoding = encoding)
+## ───────────────────────────────────────────────────────────────────────────
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0 1 1   | Finding empty rows✖ |  0 1 1   | Finding empty rows
+## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_b.R:5: warning: (unknown)
+## cannot open file '../scripts/find_empty_02.R': No such file or directory
 ## 
-## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
-## `result` not equal to NULL.
-## Types not compatible: integer is not NULL
-## 
-## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
-## `result` not equal to NULL.
-## Types not compatible: integer is not NULL
+## test_find_empty_b.R:5: error: (unknown)
+## cannot open the connection
+## 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
+## 2: file(filename, "r", encoding = encoding)
 ## ───────────────────────────────────────────────────────────────────────────
 ## ⠏ |  0       | Testing properties of tibbles⠋ |  1       | Testing properties of tibbles✔ |  1       | Testing properties of tibbles
 ## 
 ## ══ Results ════════════════════════════════════════════════════════════════
-## OK:       6
-## Failed:   6
+## OK:       5
+## Failed:   4
 ## Warnings: 2
 ## Skipped:  0
 ```
@@ -823,12 +747,12 @@ Now let's run all of our tests:
 
 
 ```r
-test_dir("tests")
+test_dir("tests/testthat")
 ```
 
 ```
 ## ✔ | OK F W S | Context
-## ⠏ |  0       | Demonstrating the testing library⠋ |  1       | Demonstrating the testing library⠙ |  2       | Demonstrating the testing library⠹ |  3       | Demonstrating the testing library⠸ |  3 1     | Demonstrating the testing library⠼ |  4 1     | Demonstrating the testing library⠴ |  4 2     | Demonstrating the testing library⠦ |  4 3     | Demonstrating the testing library⠧ |  4 4     | Demonstrating the testing library✖ |  4 4     | Demonstrating the testing library
+## ⠏ |  0       | Demonstrating the testing library⠋ |  1       | Demonstrating the testing library⠙ |  2       | Demonstrating the testing library⠹ |  3       | Demonstrating the testing library⠸ |  3 1     | Demonstrating the testing library⠼ |  4 1     | Demonstrating the testing library⠴ |  4 2     | Demonstrating the testing library✖ |  4 2     | Demonstrating the testing library
 ## ───────────────────────────────────────────────────────────────────────────
 ## test_example.R:11: failure: Testing different numbers
 ## 0 not equal to 1.
@@ -839,35 +763,33 @@ test_dir("tests")
 ## 0 not equal to 0.01.
 ## 1/1 mismatches
 ## [1] 0 - 0.01 == -0.01
-## 
-## test_example.R:20: failure: Testing character vectors
-## "abc" not equal to "XYZ".
-## 1/1 mismatches
-## x[1]: "abc"
-## y[1]: "XYZ"
-## 
-## test_example.R:21: failure: Testing character vectors
-## "abc" not equal to "ABC".
-## 1/1 mismatches
-## x[1]: "abc"
-## y[1]: "ABC"
 ## ───────────────────────────────────────────────────────────────────────────
-## ⠏ |  0       | Finding empty rows⠋ |  0 1     | Finding empty rows⠙ |  0 2     | Finding empty rows⠹ |  1 2     | Finding empty rows✖ |  1 2     | Finding empty rows
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0 1 1   | Finding empty rows✖ |  0 1 1   | Finding empty rows
 ## ───────────────────────────────────────────────────────────────────────────
-## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
-## `result` not equal to NULL.
-## Types not compatible: integer is not NULL
+## test_find_empty_a.R:5: warning: (unknown)
+## cannot open file '../scripts/find_empty_02.R': No such file or directory
 ## 
-## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
-## `result` not equal to NULL.
-## Types not compatible: integer is not NULL
+## test_find_empty_a.R:5: error: (unknown)
+## cannot open the connection
+## 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
+## 2: file(filename, "r", encoding = encoding)
+## ───────────────────────────────────────────────────────────────────────────
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0 1 1   | Finding empty rows✖ |  0 1 1   | Finding empty rows
+## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_b.R:5: warning: (unknown)
+## cannot open file '../scripts/find_empty_02.R': No such file or directory
+## 
+## test_find_empty_b.R:5: error: (unknown)
+## cannot open the connection
+## 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
+## 2: file(filename, "r", encoding = encoding)
 ## ───────────────────────────────────────────────────────────────────────────
 ## ⠏ |  0       | Testing properties of tibbles⠋ |  1       | Testing properties of tibbles✔ |  1       | Testing properties of tibbles
 ## 
 ## ══ Results ════════════════════════════════════════════════════════════════
-## OK:       6
-## Failed:   6
-## Warnings: 0
+## OK:       5
+## Failed:   4
+## Warnings: 2
 ## Skipped:  0
 ```
 
@@ -877,7 +799,7 @@ we can provide a `filter` argument to `test_dir`:
 
 
 ```r
-test_dir("tests", filter = "test_tibble.R")
+test_dir("tests/testthat", filter = "test_tibble.R")
 ```
 
 ```
@@ -890,7 +812,7 @@ Let's try again:
 
 
 ```r
-test_dir("tests", filter = "tibble")
+test_dir("tests/testthat", filter = "tibble")
 ```
 
 ```
@@ -962,22 +884,6 @@ we can do this:
 ```r
 source("scripts/find_empty_01.R")
 find_empty_rows("a,b\n1,2\n,\n5,6")
-```
-
-```
-## Warning: `lang()` is soft-deprecated as of rlang 0.2.0.
-## Please use `call2()` instead
-## This warning is displayed once per session.
-```
-
-```
-## Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
-## Please use `new_data_mask()` instead
-## This warning is displayed once per session.
-```
-
-```
-## [1] 2
 ```
 
 The `source` function reads R code from the given source.
@@ -1079,26 +985,26 @@ And here's what happens when we run this file with `test_dir`:
 
 
 ```r
-test_dir("tests", "find_empty_a")
+test_dir("tests/testthat", "find_empty_a")
 ```
 
 ```
 ## ✔ | OK F W S | Context
-## ⠏ |  0       | Finding empty rows⠋ |  0 1     | Finding empty rows⠙ |  0 2     | Finding empty rows⠹ |  1 2     | Finding empty rows✖ |  1 2     | Finding empty rows
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0 1 1   | Finding empty rows✖ |  0 1 1   | Finding empty rows
 ## ───────────────────────────────────────────────────────────────────────────
-## test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
-## `result` not equal to NULL.
-## Types not compatible: integer is not NULL
+## test_find_empty_a.R:5: warning: (unknown)
+## cannot open file '../scripts/find_empty_02.R': No such file or directory
 ## 
-## test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
-## `result` not equal to NULL.
-## Types not compatible: integer is not NULL
+## test_find_empty_a.R:5: error: (unknown)
+## cannot open the connection
+## 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
+## 2: file(filename, "r", encoding = encoding)
 ## ───────────────────────────────────────────────────────────────────────────
 ## 
 ## ══ Results ════════════════════════════════════════════════════════════════
-## OK:       1
-## Failed:   2
-## Warnings: 0
+## OK:       0
+## Failed:   1
+## Warnings: 1
 ## Skipped:  0
 ```
 
@@ -1126,11 +1032,11 @@ print("is integer(0) equal to NULL")
 ```
 
 ```r
-integer(0) == NULL
+is.null(integer(0))
 ```
 
 ```
-## logical(0)
+## [1] FALSE
 ```
 
 ```r
@@ -1175,5 +1081,398 @@ The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
 at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],
 so we will accept this behavior and move on.
+
+So what *should* our function return when there aren't any empty rows: `NULL` or `integer(0)`?
+After a bit of thought,
+we decide on the latter,
+which means it's the tests that we need to rewrite,
+not the code:
+
+
+```r
+library(tidyverse)
+library(testthat)
+context("Finding empty rows")
+
+source("../scripts/find_empty_02.R")
+
+test_that("A single non-empty row is not mistakenly detected", {
+  result <- find_empty_rows("a\n1")
+  expect_equal(result, integer(0))
+})
+
+test_that("Half-empty rows are not mistakenly detected", {
+  result <- find_empty_rows("a,b\n,2")
+  expect_equal(result, integer(0))
+})
+
+test_that("An empty row in the middle is found", {
+  result <- find_empty_rows("a,b\n1,2\n,\n5,6")
+  expect_equal(result, c(2L))
+})
+```
+
+And here's what happens when we run this file with `test_dir`:
+
+
+```r
+test_dir("tests/testthat", "find_empty_b")
+```
+
+```
+## ✔ | OK F W S | Context
+## ⠏ |  0       | Finding empty rows⠋ |  0   1   | Finding empty rows⠙ |  0 1 1   | Finding empty rows✖ |  0 1 1   | Finding empty rows
+## ───────────────────────────────────────────────────────────────────────────
+## test_find_empty_b.R:5: warning: (unknown)
+## cannot open file '../scripts/find_empty_02.R': No such file or directory
+## 
+## test_find_empty_b.R:5: error: (unknown)
+## cannot open the connection
+## 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
+## 2: file(filename, "r", encoding = encoding)
+## ───────────────────────────────────────────────────────────────────────────
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## OK:       0
+## Failed:   1
+## Warnings: 1
+## Skipped:  0
+```
+
+## Checking Data Transformation
+
+People normally write unit tests for the code in packages,
+not to check the steps taken to clean up particular datasets,
+but the latter are just as useful as the former.
+To illustrate,
+we have been given several more CSV files to clean up.
+The first,
+`at_health_facilities.csv`,
+shows the percentage of births at health facilities by country, year, and mother's age.
+It comes from the same UNICEF website as our previous data,
+but has a different set of problems.
+Here are its first few lines:
+
+```
+,,GLOBAL DATABASES,,,,,,,,,,,,,
+,,[data.unicef.org],,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Indicator:,Delivered in health facilities,,,,,,,,,,,,,,
+Unit:,Percentage,,,,,,,,,,,,,,
+,,,,Mother's age,,,,,,,,,,,
+iso3,Country/areas,year,Total ,age 15-17,age 18-19,age less than 20,age more than 20,age 20-34,age 35-49,Source,Source year,,,,
+AFG,Afghanistan,2010, 	33 , 	25 , 	29 , 	28 , 	31 , 	31 , 	31 ,MICS,2010,,,,
+ALB,Albania,2005, 	98 , 	100 , 	96 , 	97 , 	98 , 	99 , 	92 ,MICS,2005,,,,
+ALB,Albania,2008, 	98 , 	94 , 	98 , 	97 , 	98 , 	98 , 	99 ,DHS,2008,,,,
+...
+```
+
+and its last:
+
+```
+ZWE,Zimbabwe,2005, 	66 , 	64 , 	64 , 	64 , 	67 , 	69 , 	53 ,DHS,2005,,,,
+ZWE,Zimbabwe,2009, 	58 , 	49 , 	59 , 	55 , 	59 , 	60 , 	52 ,MICS,2009,,,,
+ZWE,Zimbabwe,2010, 	64 , 	56 , 	66 , 	62 , 	64 , 	65 , 	60 ,DHS,2010,,,,
+ZWE,Zimbabwe,2014, 	80 , 	82 , 	82 , 	82 , 	79 , 	80 , 	77 ,MICS,2014,,,,
+,,,,,,,,,,,,,,,
+Definition:,Percentage of births delivered in a health facility.,,,,,,,,,,,,,,
+,"The indicator refers to women who had a live birth in a recent time period, generally two years for MICS and five years for DHS.",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Note:,"Database include reanalyzed data from DHS and MICS, using a reference period of two years before the survey.",,,,,,,,,,,,,,
+,Includes surveys which microdata were available as of April 2016. ,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Source:,"UNICEF global databases 2016 based on DHS, MICS .",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Contact us:,data@unicef.org,,,,,,,,,,,,,,
+```
+
+There are two other files in this collection called `c_sections.csv` and `skilled_attendant_at_birth.csv`,
+which are the number of Caesarean sections
+and the number of births where a midwife or other trained practitioner was present.
+All three datasets have been exported from the same Excel spreadsheet;
+rather than writing a separate script for each,
+we should create a tool that will handle them all.
+
+At first glance,
+the problems we need to solve to do this are:
+
+1.  Each file may have a different number of header rows
+    (by inspection, two of the files have 7 and one has 8),
+    so we should infer this number from the file.
+2.  Each file may contain a different number of records,
+    so our tool should select rows by content rather than by absolute row number.
+3.  The files appear to have the same column names
+    (for which we give thanks),
+    but we should check this in case someone tries to use our function
+    with a dataset that doesn't.
+
+These three requirements will make our program significantly more complicated,
+so we should tackle each with its own testable function.
+
+### How Many Header Rows?
+
+The data we care about comes after the row with `iso3`, `Country/areas`, and other column headers,
+so the simplest way to figure out how many rows to skip is to read the data,
+look for this row,
+and discard everything above it.
+The simplest way to do *that* is to read the file once to find the number of header rows,
+then read it again,
+discarding that number of rows.
+It's inefficient,
+but for a dataset this size,
+simplicity beats performance.
+
+Here's our first try:
+
+
+```r
+read_csv("inst/extdata/at_health_facilities.csv") %>%
+  select(check = 1) %>%
+  mutate(id = row_number()) %>%
+  filter(check == "iso3") %>%
+  select(id) %>%
+  first()
+```
+
+```
+## Error: 'inst/extdata/at_health_facilities.csv' does not exist in current working directory ('/Users/gvwilson/tidynomicon').
+```
+
+Ignoring the messages about missing column names,
+this tells us that `iso3` appears in row 7 of our data,
+which is *almost* true:
+it's actually in row 8,
+because `read_csv` has interpreted the first row of the raw CSV data as a header.
+On the bright side,
+that means we can immediately use this value as the `skip` parameter to the next `read_csv` call.
+
+How do we test this code?
+Easy:
+we turn it into a function,
+tell that function to stop if it can't find `iso3` in the data,
+and write some unit tests.
+The function is:
+
+
+```r
+determine_skip_rows <- function(src_path) {
+  read_csv(src_path) %>%
+    select(check = 1) %>%
+    mutate(id = row_number()) %>%
+    filter(check == "iso3") %>%
+    select(id) %>%
+    first()
+}
+```
+
+We can then call `usethis::use_testthat()` to set up some testing infrastructure,
+including the directory `tests/testthat`
+and a script called `tests/testthat.R`
+that will run all our tests when we want to check the integrity of our project.
+Once we have done that
+we can put these five tests in `tests/testthat/test_determine_skip_rows.R`:
+
+
+```r
+test_that("The right row is found when there are header rows", {
+  result <- determine_skip_rows("a1,a2\nb1,b2\nis03,stuff\nc1,c2\n")
+  expect_equal(result, 2)
+})
+```
+
+```
+## Error: Test failed: 'The right row is found when there are header rows'
+## * `result` not equal to 2.
+## Lengths differ: 0 is not 1
+```
+
+```r
+test_that("The right row is found when there are header rows and blank lines", {
+  result <- determine_skip_rows("a1,a2\nb1,b2\n,\nis03,stuff\nc1,c2\n,\n")
+  expect_equal(result, 3)
+})
+```
+
+```
+## Error: Test failed: 'The right row is found when there are header rows and blank lines'
+## * `result` not equal to 3.
+## Lengths differ: 0 is not 1
+```
+
+```r
+test_that("The right row is found when there are no header rows to discard", {
+  result <- determine_skip_rows("iso3,stuff\nc1,c2\n")
+  expect_equal(result, 0)
+})
+```
+
+```
+## Error: Test failed: 'The right row is found when there are no header rows to discard'
+## * `result` not equal to 0.
+## Lengths differ: 0 is not 1
+```
+
+```r
+test_that("No row is found when 'iso3' isn't present", {
+  expect_error(determine_skip_rows("a1,a2\nb1,b1\n"),
+               "No start row found")
+})
+```
+
+```
+## Error: Test failed: 'No row is found when 'iso3' isn't present'
+## * `determine_skip_rows("a1,a2\nb1,b1\n")` did not throw an error.
+```
+
+```r
+test_that("No row is found when 'iso3' is in the wrong place", {
+  expect_error(determine_skip_rows("stuff,iso3\n"),
+               "No start row found")
+})
+```
+
+```
+## Error: Test failed: 'No row is found when 'iso3' is in the wrong place'
+## * `determine_skip_rows("stuff,iso3\n")` did not throw an error.
+```
+
+That's right: all five fail.
+The first problem is that we have written `is03` (with a digit `0` instead of a letter `o`) in the first two tests.
+If we fix that and re-run the tests, they pass;
+what about the other three?
+
+1.  When there are no rows to skip, our function is returning `integer(0)` instead of 0
+    because the row with `iso3` is being used as headers.
+2.  When `iso3` isn't found at all, the function is returning `integer(0)` rather than stopping.
+
+Here is a more robust version of the function:
+
+
+```r
+determine_skip_rows <- function(src_path) {
+  data <- read_csv(src_path)
+  if (names(data)[1] == "iso3") {
+    return(0)
+  }
+  result <- data %>%
+    select(check = 1) %>%
+    mutate(id = row_number()) %>%
+    filter(check == "iso3") %>%
+    select(id) %>%
+    first()
+  if (length(result) == 0) {
+    stop("No start row found in", src_path)
+  }
+  result
+}
+```
+
+and here is the roxygen2 header and other modifications needed to make it package-worthy:
+
+
+```r
+#' Determine how many rows to skip at the start of a raw maternal data set.
+#' This works by finding the first row with `iso3` in the first column.
+#'
+#' @param src_path path to source file
+#'
+#' @return the number of rows to skip (or halt if marker 'iso3' not found)
+#'
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+
+determine_skip_rows <- function(src_path) {
+  data <- readr::read_csv(src_path)
+  if (names(data)[1] == "iso3") {
+    return(0)
+  }
+  result <- data %>%
+    dplyr::select(check = 1) %>%
+    dplyr::mutate(id = dplyr::row_number(.data)) %>%
+    dplyr::filter(.data$check == "iso3") %>%
+    dplyr::select(.data$id) %>%
+    first()
+  if (length(result) == 0) {
+    stop("No start row found in", src_path)
+  }
+  result
+}
+```
+
+Note that this roxygen2 comment block *doesn't* include an `@export` directive,
+since this function is only going to be used within our project.
+
+The code to find the first and last row of interest looks very similar:
+
+
+```r
+determine_first_and_last_row <- function(data) {
+  result <- data %>%
+    dplyr::mutate(rownum = dplyr::row_number()) %>%
+    dplyr::filter(.data$iso3 %in% c("AFG", "ZWE")) %>%
+    dplyr::filter(dplyr::row_number() %in% c(1, n())) %>%
+    dplyr::select(.data$rownum) %>%
+    dplyr::pull(.data$rownum)
+  if (length(result) != 2) {
+    stop("First or last row missing")
+  }
+  result
+}
+```
+
+as does the code to select the region of interest and reformat the numbers as fractions:
+
+
+```r
+subsection_maternal_data <- function(raw_data, first_and_last) {
+  raw_data %>%
+    slice(1:first_and_last[[2, 1]]) %>%
+    select(-.data$`Country/areas`, -starts_with("X")) %>%
+    purrr::map_dfr(function(x) ifelse(stringr::str_detect(x, "-"), NA, x)) %>%
+    dplyr::mutate_at(vars(-c(.data$iso3, .data$Source)), as.numeric) %>%
+    dplyr::mutate_at(vars(-c(.data$iso3, .data$year, .data$Source, .data$`Source year`)),
+                     function(x) x / 100) %>%
+    dplyr::rename(
+      total = .data$Total,
+      age_15_17 = .data$`age 15-17`,
+      age_18_19 = .data$`age 18-19`,
+      age_less_than_20 = .data$`age less than 20`,
+      age_more_than_20 = .data$`age more than 20`,
+      age_20_34 = .data$`age 20-34`,
+      age_35_49 = .data$`age 35-49`,
+      source = .data$Source,
+      source_year = .data$`Source year`
+    )
+}
+```
+
+(We have renamed the columns whose names included spaces and dashes
+so that they'll be easier for other people to use.)
+We can now stitch everything together---we omit the roxygen2 header blocks for clarity:
+
+
+```r
+tidy_maternal_data <- function(src_path) {
+  skip_rows <- determine_skip_rows(src_path)
+  data <- readr::read_csv(src_path, skip = skip_rows)
+  first_and_last <- determine_first_and_last_row(data)
+  subsection_maternal_data(data, first_and_last)
+}
+
+regenerate_all_datasets <- function() {
+  infant_hiv <- tidy_infant_hiv("inst/extdata/infant_hiv.csv")
+  at_health_facilities <- tidy_maternal_data("inst/extdata/at_health_facilities.csv")
+  c_sections <- tidy_maternal_data("inst/extdata/c_sections.csv")
+  skilled_attendant_at_birth <- tidy_maternal_data("inst/extdata/skilled_attendant_at_birth.csv")
+  usethis::use_data(
+    infant_hiv,
+    at_health_facilities,
+    c_sections,
+    skilled_attendant_at_birth,
+    overwrite = TRUE
+  )
+}
+```
 
 {% include links.md %}
