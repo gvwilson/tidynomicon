@@ -258,7 +258,7 @@ tracemem(first)
 ```
 
 ```
-## [1] "<0x7fefc74f4908>"
+## [1] "<0x7fb701c3cdc8>"
 ```
 
 ```r
@@ -266,10 +266,10 @@ first$left[[1]] <- 999
 ```
 
 ```
-## tracemem[0x7fefc74f4908 -> 0x7fefc12f9f48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fefc12f9f48 -> 0x7fefc145dac8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fefc145dac8 -> 0x7fefc145e3c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fefc145e3c8 -> 0x7fefbf7cc248]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7fb701c3cdc8 -> 0x7fb6fdeda348]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fb6fdeda348 -> 0x7fb6fdeb8ec8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fb6fdeb8ec8 -> 0x7fb6f879f248]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fb6f879f248 -> 0x7fb6f879f688]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -287,7 +287,7 @@ cat("left column is initially at", address(left), "\n")
 ```
 
 ```
-## left column is initially at 0x7fefc14695c8
+## left column is initially at 0x7fb6fdec3c48
 ```
 
 ```r
@@ -296,7 +296,7 @@ cat("after modification, the original column is still at", address(left), "\n")
 ```
 
 ```
-## after modification, the original column is still at 0x7fefc14695c8
+## after modification, the original column is still at 0x7fb6fdec3c48
 ```
 
 ```r
@@ -305,7 +305,7 @@ cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
 ```
-## but the first column of the tibble is at 0x7fefc3a51ac8
+## but the first column of the tibble is at 0x7fb700b04fc8
 ```
 
 (We need to uses aliases because `address(first$left)` doesn't work:
@@ -519,6 +519,8 @@ see *[Advanced R][advanced-r]* for details.
 ## A Few Minor Things
 
 What the hell is `~`?
+- http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf
+- https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html
 
 `..1` and `.` and `.f` and the like in tidyverse functions
 
@@ -573,5 +575,15 @@ table4a %>% gather(key = "year", value = "cases", one_of(c("1999", "2000")))
 Difference between `summarize(..., total = sum(n()))` and `summarize(..., total = sum(n))` (without a function call) in babynames data.
 
 The `here` package https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
+
+Named vectors `c(one = 1, two = 2, three = 3)`
+
+Lists as recursive vectors.
+
+All vectors are column vectors: use `t()` to transpose to row.
+
+`~last(.x) - first(.x)`
+
+Make sure you have devtools 2.0.0 or later and then devtools::build_manual()
 
 {% include links.md %}
