@@ -3,11 +3,23 @@ title: "Object-Oriented Programming"
 output: md_document
 permalink: /oop/
 questions:
-  - "FIXME"
+  - "How can I do object-oriented programming in R?"
+  - "How do I specify an object's class?"
+  - "How do I provide methods for a class?"
+  - "How should I create objects of a class I have defined?"
 objectives:
-  - "FIXME"
+  - "Correctly identify the most commonly used object-oriented programming system in R."
+  - "Explain what attributes R and correctly set and query objects' attributes, class, and dimensions."
+  - "Explain how to define a new method for a class."
+  - "Describe and implement the three functions that should be written for any user-defined class."
 keypoints:
-  - "FIXME"
+  - "S3 is the most commonly used object-oriented programming system in R."
+  - "Every object can store metadata about itself in attributes, which are set and queried with `attr`."
+  - "The `dim` attribute stores the dimensions of a matrix (which is physically stored as a vector)."
+  - "The `class` attribute of an object defines its class or classes (it may have several character entries)."
+  - "When `F(X, ...)` is called, and `X` has class `C`, R looks for a function called `F.C` (the `.` is just a naming convention)."
+  - "If an object has multiple classes in its `class` attribute, R looks for a corresponding method for each in turn."
+  - "Every user defined class `C` should have functions `new_C` (to create it), `validate_C` (to validate its integrity), and `C` (to create and validate)."
 ---
 
 ```{r echo=FALSE}
