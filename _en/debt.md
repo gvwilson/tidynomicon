@@ -3,11 +3,30 @@ title: "Intellectual Debt"
 output: md_document
 permalink: /debt/
 questions:
-  - "FIXME"
+  - "What grievous sin can I most easily avoid when using R?"
+  - "When and how does R actually evaluate expressions?"
+  - "How can I pipeline functions when the incoming data doesn't belong in the first parameter's position?"
+  - "Why does assigning to elements of data structures sometimes appear not to change them?"
+  - "How does R handle errors, and how can I handle them myself?"
 objectives:
-  - "FIXME"
+  - "Explain what lazy evaluation is and when expressions are actually evaluated."
+  - "Explain what the formula operator `~` was created for and what other uses it has."
+  - "Describe and use `.`, `.x`, `.y, `..1`, `..2`, and other convenience parameters."
+  - "Define copy-on-modify and explain its use in R."
+  - "Explain what conditions are and name the three built-in types of conditions."
+  - "Write code that handles conditions of a particular kind."
 keypoints:
-  - "FIXME"
+  - "Don't use `setwd`."
+  - "R defers evaluation of a function's arguments until they are actually used."
+  - "Lazy evaluation is what allows R programs to use column names as if they were variables."
+  - "The formula operator `~` delays evaluation of its operand or operands."
+  - "`~` was created to allow users to pass formulas into functions, but is used more generally to delay evaluation."
+  - "Some tidyverse functions define `.` to be the whole data, `.x` and `.y` to be the first and second arguments, and `..N` to be the N'th argument."
+  - "These convenience parameters are primarily used when the data being passed to a pipelined function needs to go somewhere other than in the first parameter's slot."
+  - "'Copy-on-modify' means that data is aliased until something attempts to modify it, at which point it duplicated, so that data always appears to be unchanged."
+  - "R uses three built-in conditions called `message`, `warning`, and `error` to signal problems of increasing severity."
+  - "Use the functions `message`, `warning`, and `stop` to signal conditions of these kinds."
+  - "Use the functions `try` and `tryCatch` to handle errors."
 ---
 
 
@@ -418,7 +437,7 @@ tracemem(first)
 ```
 
 ```
-## [1] "<0x7fb8428e85c8>"
+## [1] "<0x7fcbefea88c8>"
 ```
 
 ```r
@@ -426,10 +445,10 @@ first$left[[1]] <- 999
 ```
 
 ```
-## tracemem[0x7fb8428e85c8 -> 0x7fb8428ee7c8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fb8428ee7c8 -> 0x7fb8428ee748]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fb8428ee748 -> 0x7fb8428ee6c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7fb8428ee6c8 -> 0x7fb8428ee688]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7fcbefea88c8 -> 0x7fcbefeb5908]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fcbefeb5908 -> 0x7fcbefeb5888]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fcbefeb5888 -> 0x7fcbefeb5808]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fcbefeb5808 -> 0x7fcbefeb57c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -447,7 +466,7 @@ cat("left column is initially at", address(left), "\n")
 ```
 
 ```
-## left column is initially at 0x7fb8428ee788
+## left column is initially at 0x7fcbefeb58c8
 ```
 
 ```r
@@ -456,7 +475,7 @@ cat("after modification, the original column is still at", address(left), "\n")
 ```
 
 ```
-## after modification, the original column is still at 0x7fb8428ee788
+## after modification, the original column is still at 0x7fcbefeb58c8
 ```
 
 ```r
@@ -465,7 +484,7 @@ cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
 ```
-## but the first column of the tibble is at 0x7fb8419dc3c8
+## but the first column of the tibble is at 0x7fcbf14a05c8
 ```
 
 (We need to uses aliases because `address(first$left)` doesn't work:
