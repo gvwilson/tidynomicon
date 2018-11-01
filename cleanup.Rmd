@@ -3,11 +3,25 @@ title: "Cleaning Up Data"
 output: md_document
 permalink: /cleanup/
 questions:
-  - "FIXME"
+  - "How do I read tabular data into a program?"
+  - "How do I control the way missing values are handled while I'm reading data?"
+  - "What functions should I use to tidy up messy data?"
+  - "How can I combine partial tables into a single large table?"
 objectives:
-  - "FIXME"
+  - "Describe and use the `read_csv` function."
+  - "Describe and use the `str_replace` function."
+  - "Describe and use the `is.numeric` and `as.numeric` functions."
+  - "Describe and use the `map` function and its kin."
+  - "Describe and use pre-allocation to capture the results of loops."
 keypoints:
-  - "FIXME"
+  - "Develop data-cleaning scripts one step at a time, checking intermediate results carefully."
+  - "Use `read_csv` to read CSV-formatted tabular data into a tibble."
+  - "Use the `skip` and `na` parameters of `read_csv` to skip rows and interpret certain values as `NA`."
+  - "Use `str_replace` to replace portions of strings that match patterns with new strings."
+  - "Use `is.numeric` to test if a value is a number and `as.numeric` to convert it to a number."
+  - "Use `map` to apply a function to every element of a vector in turn."
+  - "Use `map_dfc` and `map_dfr` to map functions across the columns and rows of a tibble."
+  - "Pre-allocate storage in a list for each result from a loop and fill it in rather than repeatedly extending the list."
 ---
 
 Here is a sample of data from `raw/infant_hiv.csv`,
@@ -643,6 +657,7 @@ we need a better way to develop and check our scripts.
 
 ## Exercises
 
-FIXME: Rewrite to use <https://www.rdocumentation.org/packages/readr/versions/1.1.1/topics/parse_number>
+1. Rewrite the code that converts numbers to use
+   the [parse_number package][parse-number-package].
 
 {% include links.md %}

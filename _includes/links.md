@@ -7,6 +7,7 @@
 [hoye-zero]: http://exple.tive.org/blarg/2013/10/22/citation-needed/
 [javascript-wat]: https://www.destroyallsoftware.com/talks/wat
 [mit-license]: https://choosealicense.com/licenses/mit/
+[parse-number-package]: https://www.rdocumentation.org/packages/readr/versions/1.1.1/topics/parse_number
 [pypi]: https://pypi.org/
 [testthat]: https://github.com/r-lib/testthat
 [tidyverse-style]: http://style.tidyverse.org/
