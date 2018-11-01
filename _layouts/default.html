@@ -13,7 +13,9 @@
     {% endif %}
 
     {% include summary-block.html title="Questions Answered" items=page.questions %}
+    {% unless page.root %}
     <div id="headings" class="summary"></div>
+    {% endunless %}
 
     {{content}}
 

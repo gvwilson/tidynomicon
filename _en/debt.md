@@ -12,12 +12,17 @@ keypoints:
 
 
 
-We have accumulated some intellectual debt in the previous four lessons,
+We have accumulated some intellectual debt in the previous lessons,
 and we should clear some of before we go on to new topics.
 
-## `setwd`
+## Don't Use `setwd`
 
-Don't use `setwd`.
+Because [reasons][bryan-setwd].
+
+## But...
+
+No.
+Use the [here package][here-package].
 
 ## Lazy Evaluation
 
@@ -160,6 +165,157 @@ but R programs manipulate enviroments explicitly more often than programs in mos
 To learn more about this,
 see the discussion in *[Advanced R][advanced-r]*.
 
+## Formulas
+
+One feature of R that doesn't have an exact parallel in Python
+is the formula operator `~` (tilde).
+Its original (and still most common) purpose is to provide a convenient syntax
+for expressing the formulas used in fitting linear regression models.
+The basic format of these formulas is `response ~ predictor`,
+where `response` and `predictor` depend on the variables in the program.
+For example, `Y ~ X` means,
+"`Y` is modeled as a function of `X`",
+so `lm(Y ~ X)` means "fit a linear model that regresses `Y` on `X`".
+
+What makes `~` work is lazy evaluation:
+what actually gets passed to `lm` in the example above is a formula object
+that stores the expression representing the left side of the `~`,
+the expression representing the right side,
+and the environment in which they are to be evaluated.
+This means that we can write something like:
+
+
+```r
+fit <- lm(Z ~ X + Y)
+```
+
+to mean "fit `Z` to both `X` and `Y`", or:
+
+
+```r
+fit <- lm(Z ~ . - X, data = D)
+```
+
+to mean "fit `Z` to all the variables in the data frame `D` *except* the variable `X`."
+(Here, we use the shorthand `.` to mean "the data being manipulated".)
+
+But `~` can also be used as a unary operator,
+because its true effect is to delay computation.
+For example,
+we can use it in the function `tribble` to give names to columns
+as we create a tibble on the fly:
+
+
+```r
+temp <- tribble(
+  ~left, ~right,
+  1,     10,
+  2,     20
+)
+temp
+```
+
+```
+## # A tibble: 2 x 2
+##    left right
+##   <dbl> <dbl>
+## 1     1    10
+## 2     2    20
+```
+
+Used cautiously and with restraint,
+lazy evaluation allows us to accomplish marvels.
+Used unwisely---well,
+there's no reason for us to dwell on that,
+particularly not after what happened to poor Higgins...
+
+## Magic Names
+
+When we put a function in a pipeline using `%>%`,
+that operator calls the function with the incoming data as the first argument,
+so `data %>% func(arg)` is the same as `func(data, arg)`.
+This is fine when we want the incoming data to be the first argument,
+but what if we want it to be second?  Or third?
+
+One possibility is to save the result so far in a temporary variable
+and then start a second pipe:
+
+
+```r
+data <- tribble(
+  ~left, ~right,
+  1,     NA,
+  2,     20
+)
+empties <- data %>%
+  pmap_lgl(function(...) {
+    args <- list(...)
+    any(is.na(args))
+  })
+data %>%
+  transmute(id = row_number()) %>%
+  filter(empties) %>%
+  pull(id)
+```
+
+```
+## [1] 1
+```
+
+This builds a logical vector `empties` with as many entries as `data` has rows,
+then filters data according to which of the entries in the vector are `TRUE`.
+
+A better practice is to use the parameter name `.`,
+which means "the incoming data".
+In some functions (e.g., a two-argument function being used in `map`)
+we can use `.x` and `.y`,
+and for more arguments,
+we can use `..1`, `..2`, and so on:
+
+
+```r
+data %>%
+  pmap_lgl(function(...) {
+    args <- list(...)
+    any(is.na(args))
+  }) %>%
+  tibble(empty = .) %>%
+  mutate(id = row_number()) %>%
+  filter(empty) %>%
+  pull(id)
+```
+
+```
+## [1] 1
+```
+
+In this model,
+we create the logical vector,
+then turn it into a tibble with one column called `empty`
+(which is what `empty = .` does in `tibble`'s constructor).
+After that,
+it's easy to add another column with row numbers,
+filter,
+and pull out the row numbers.
+We used this method in [the warm-up exercise in the previous lesson](../projects/#s:warming-up).
+
+And while we're here:
+`row_number` doesn't do what its name suggests.
+We're better off using `rowid_to_column`:
+
+
+```r
+data %>% rowid_to_column()
+```
+
+```
+## # A tibble: 2 x 3
+##   rowid  left right
+##   <int> <dbl> <dbl>
+## 1     1     1    NA
+## 2     2     2    20
+```
+
 ## Copy-on-Modify
 
 Another feature of R that can surprise the unwary is [copy-on-modify](../glossary/#copy-on-modify),
@@ -262,7 +418,7 @@ tracemem(first)
 ```
 
 ```
-## [1] "<0x7f8649c19a08>"
+## [1] "<0x7fc245e41a88>"
 ```
 
 ```r
@@ -270,10 +426,10 @@ first$left[[1]] <- 999
 ```
 
 ```
-## tracemem[0x7f8649c19a08 -> 0x7f86418f1288]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7f86418f1288 -> 0x7f863ffa4d88]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7f863ffa4d88 -> 0x7f863ff9ae88]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7f863ff9ae88 -> 0x7f863fe8eac8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7fc245e41a88 -> 0x7fc2452be788]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fc2452be788 -> 0x7fc2452be708]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fc2452be708 -> 0x7fc2452be688]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fc2452be688 -> 0x7fc2452be648]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -291,7 +447,7 @@ cat("left column is initially at", address(left), "\n")
 ```
 
 ```
-## left column is initially at 0x7f86418ebd88
+## left column is initially at 0x7fc2452be748
 ```
 
 ```r
@@ -300,7 +456,7 @@ cat("after modification, the original column is still at", address(left), "\n")
 ```
 
 ```
-## after modification, the original column is still at 0x7f86418ebd88
+## after modification, the original column is still at 0x7fc2452be748
 ```
 
 ```r
@@ -309,7 +465,7 @@ cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
 ```
-## but the first column of the tibble is at 0x7f8648d72488
+## but the first column of the tibble is at 0x7fc24537b288
 ```
 
 (We need to uses aliases because `address(first$left)` doesn't work:
@@ -481,7 +637,6 @@ Do not do this,
 for it will,
 upon the day,
 leave your soul lost and gibbering in an incomprehensible silent hellscape.
-
 Should you wish to handle conditions rather than ignore them,
 you may invoke `tryCatch`.
 We begin by raising an error explicitly:
@@ -520,74 +675,202 @@ and define new types of conditions,
 but this is done less often in day-to-day R code than in Python:
 see *[Advanced R][advanced-r]* for details.
 
-## A Few Minor Things
+## A Few Minor Demons
 
-What the hell is `~`?
-- http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf
-- https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html
+**Flattening:**
+`c(c(1, 2), c(3, 4))` produces `c(1, 2, 3, 4)`,
+i.e., `c` flattens the vectors it is passed to create a single-level vector.
 
-`..1` and `.` and `.f` and the like in tidyverse functions
+**Recursive indexing:**
+Using `[[` with a vector subsets recursively:
+if `thing <- list(a = list(b = list(c = list(d = 1))))`,
+then `thing[[c("a", "b", "c", "d")]]` selects the 1.
 
-`c(c(1, 2), c(3, 4))` is `c(1, 2, 3, 4)` (it flattens).
+**Matrix indexing:**
+After `a <- matrix(1:9, nrow = 3)`,
+`a[3, 3]` is a vector of length 1 containing the value 9 (because scalars in R are actually vectors),
+while `a[1,]` is the vector `c(1, 4, 7)` (because we are selecting the first row of the matrix)
+and `a[,1]` is the vector `c(1, 2, 3)` (because we are selecting the first column of the matrix).
 
-`[` simplifies results to lowest possible dimensionality unless `drop=FALSE`.
+**Subsetting data frames:**
+When we are working with data frames (including tibbles),
+subsetting with a single vector selects columns, not rows,
+because data frames are stored as lists of columns.
+This means that `df[1:2]` selects two columns from `df`.
+However, in `df[2:3, 1:2]`, the first index selects rows, while the second selects columns.
 
-After `a <- matrix(1:9, nrow = 3)`, `a[1,1]` is a vector of length 1, while `a[1,]` is also a vector, though of length 3.
+**Repeating things:**
+The function `rep` repeats things, so `rep("a", 3)` is `c("a", "a", "a")`.
+If the second argument is a vector of the same length as the first,
+it specifies how many times each item in the first vector is to be repeated:
+`rep(c("a", "b"), c(2, 3))` is `c("a", "a", "b", "b", "b")`.
 
-With data frames, subsetting with a single vector selects columns (not rows), and `df[1:2]` selects columns, but in `df[2:3, 1:2]`, the first index selects rows, while the second selects columns.
-
-`x[[5]]` (object in car) to `x[5]` (train with one car)
-
-using `[[` with a vector subsets recursively: `b <- list(a = list(b = list(c = list(d = 1))))` and then `b[[c("a", "b", "c", "d")]]`
-
-```
-x <- c("m", "f", "u", "f", "f", "m", "m")
-lookup <- c(m = "Male", f = "Female", u = NA)
-lookup[x]
-```
-
-introduce the `match` function
-
-introduce `order`: these are 'pull' indices: `order(x)[i]` is the index in `x` of the element that belongs at location `i`
-
-point out that `rep(vec1, vec2)` repeats each element of `vec1` exactly `vec2` times
-
-When you use a name in a function call, R ignores non-function objects when looking for that value. For example, in the code below, `g09` takes on two different values:
+**Naming elements in vectors:**
+R allows us to name the elements in vectors:
+if we assign `c(one = 1, two = 2, three = 3)` to `names`,
+then `names["two"]` is 2.
+We can use this to create a lookup table:
 
 
 ```r
-g09 <- function(x) x + 100
-g10 <- function() {
-  g09 <- 10
-  g09(g09)
+values <- c("m", "f", "u", "f", "f", "m", "m")
+lookup <- c(m = "Male", f = "Female", u = "Unstated")
+lookup[values]
+```
+
+```
+##          m          f          u          f          f          m 
+##     "Male"   "Female" "Unstated"   "Female"   "Female"     "Male" 
+##          m 
+##     "Male"
+```
+
+**The `order` function:**
+While we're on the subject of lookup tables,
+the function `order` generates indices to pull values into place rather than push them,
+i.e.,
+`order(x)[i]` is the index in `x` of the element that belongs at location `i`.
+For example:
+
+
+```r
+order(c("g", "c", "t", "a"))
+```
+
+```
+## [1] 4 2 1 3
+```
+shows that the value at location 4 (the `"a"`) belongs in the first spot of the vector;
+it does *not* mean that the value in the first location (the `"g"`) belongs in location 4.
+
+**Name lookup:**
+When you use a name in a function call,
+R ignores non-function objects when looking for that value.
+For example, the call `orange()` in the code below produces 110
+because `purple(purple)` is interpreted as
+"pass the value of the local variable `purple` into the globally-defined function `purple`":
+
+
+```r
+purple <- function(x) x + 100
+orange <- function() {
+  purple <- 10
+  purple(purple)
 }
-g10()
+orange()
 ```
 
 ```
 ## [1] 110
 ```
 
-Invisible values
+(True story: Fortran uses `(...)` to mean both "call a function" and "index an array".
+It also allows functions and arrays in the same scope to have the same names,
+so `P(10)` can mean either "call the function `P` with the value 10"
+or "get the tenth element of the array `P`",
+depending on which compiler you are using.
+Ask not how I know this,
+or what curses I uttered upon discovering it
+after several hours in a dank basement in Edinburgh...)
 
-`<<-` operator
+**Invisible returns:**
+If the value returned by a function isn't assigned to something,
+R prints it out.
+This isn't always what we want (particularly in library functions),
+so we can use the function `invisible` to mark a value
+so that it won't be printed by default
+(but can still be assigned).
+This allows us to convert this:
+
+
+```r
+something <- function(value) {
+  10 * value
+}
+something(2)
+```
 
 ```
-table4a %>% gather(key = "year", value = "cases", one_of(c("1999", "2000")))
+## [1] 20
 ```
 
-Difference between `summarize(..., total = sum(n()))` and `summarize(..., total = sum(n))` (without a function call) in babynames data.
+to this:
 
-The `here` package https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
 
-Named vectors `c(one = 1, two = 2, three = 3)`
+```r
+something <- function(value) {
+  invisible(10 * value)
+}
+something(2)
+```
 
-Lists as recursive vectors.
+The calculation is still done,
+but the output is suppressed.
 
-All vectors are column vectors: use `t()` to transpose to row.
+**Assigning out of scope:**
+The assignment operator `<<-` means "assign to a variable in the environment above this one".
+As the example below shows,
+this means that what looks like creation of a new local variable can actually be modification of a global one:
 
-`~last(.x) - first(.x)`
 
-Make sure you have devtools 2.0.0 or later and then devtools::build_manual()
+```r
+var <- "original value"
+demonstrate <- function() {
+  var <<- "new value"
+}
+demonstrate()
+var
+```
+
+```
+## [1] "new value"
+```
+  
+This is most often used with [closures](#g:closures);
+see *[Advanced R][advanced-r]* for more detail.
+
+**One of a set of values:**
+The function `one_of` is a handy way to specify several values for matching
+without complicated Boolean conditionals.
+For example,
+`gather(data, key = "year", value = "cases", one_of(c("1999", "2000")))`
+collects data for the years 1999 and 2000.
+
+**Functions and columns:**
+There's a function called `n`.
+It's not the same thing as a column called `n`.
+
+
+```r
+data <- tribble(
+  ~a, ~n,
+  1,  10,
+  2,  20
+)
+data %>% summarize(total = sum(n))
+```
+
+```
+## Warning: The `printer` argument is soft-deprecated as of rlang 0.3.0.
+## This warning is displayed once per session.
+```
+
+```
+## # A tibble: 1 x 1
+##   total
+##   <dbl>
+## 1    30
+```
+
+```r
+data %>% summarize(total = sum(n()))
+```
+
+```
+## # A tibble: 1 x 1
+##   total
+##   <int>
+## 1     2
+```
 
 {% include links.md %}

@@ -1,7 +1,9 @@
 [advanced-r]: http://adv-r.had.co.nz/
 [broman-packages]: https://kbroman.org/pkg_primer/
+[bryan-setwd]: https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
 [choose-a-license]: https://choosealicense.com/
 [cran]: https://cran.r-project.org/
+[here-package]: https://cran.r-project.org/web/packages/here/index.html
 [hoye-zero]: http://exple.tive.org/blarg/2013/10/22/citation-needed/
 [javascript-wat]: https://www.destroyallsoftware.com/talks/wat
 [mit-license]: https://choosealicense.com/licenses/mit/

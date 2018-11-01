@@ -829,7 +829,7 @@ test_dir("tests/testthat", filter = "tibble")
 That's better,
 and it illustrates our earlier point about the importance of following conventions.
 
-## Warming Up
+## Warming Up {#s:warming-up}
 
 To give ourselves something to test,
 let's create a file called `scripts/find_empty_01.R`

@@ -1,6 +1,7 @@
 ---
 layout: default
 permalink: /
+root: true
 ---
 
 <div align="center">
