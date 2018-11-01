@@ -8,17 +8,19 @@ questions:
   - "How are R packages distributed?"
   - "What data formats can be used in an R package?"
   - "How should I document an R package?"
+  - "How should I test an R package?"
 objectives:
   - "Describe the three things an R package can contain."
   - "Explain how R code in a package is distributed and one implication of this."
   - "Explain the purpose of the `DESCRIPTION`, `NAMESPACE` and `.Rbuildignore` files in an R project."
-  - "Explain what should be put in the `R`, `data`, and `man` directories of an R project."
+  - "Explain what should be put in the `R`, `data`, `man`, and `tests` directories of an R project."
   - "Describe and use specially-formatted comments with roxygen2 to document a package."
   - "Use `@export` and `@import` directives correctly in roxygen2 documentation."
   - "Add a dataset to an R package."
   - "Use functions from external libraries inside a package in a hygienic way."
   - "Rewrite references to bare column names to satisfy R's packaging checks."
   - "Correctly document the package as a whole and the datasets it contains."
+  - "Create unit tests for an R package."
 keypoints:
   - "An R package can contain code, data, and documentation."
   - "R code is distributed as compiled bytecode in packages, not as source."
@@ -40,6 +42,10 @@ keypoints:
   - "Import `.data` from `rlang` and use `.data$column` to refer to columns instead of using bare column names."
   - "Create a file called <code>R/<em>package</em>.R</code> and document `NULL` to document the package as a whole."
   - "Create a file called <code>R/<em>dataset</em>.R</code> and document the string <code>'<em>dataset</em>'</code> to document a dataset."
+  - "Unit tests for an R package should be written with the testthat package, and should go in the `tests/testthat` directory."
+  - "Test should go in files called <code>test_<em>group</em>.R</code> and should be called <code>test_<em>something</em></code>."
+  - "Use `test_dir` to run tests from a particular that match a pattern."
+  - "Write tests for data transformation steps as well as library functions."
 ---
 
 
@@ -823,8 +829,6 @@ test_dir("tests/testthat")
 ## Failed:   4
 ## Warnings: 2
 ## Skipped:  0
-## 
-## Keep trying!
 ```
 
 That's rather a lot of output.
