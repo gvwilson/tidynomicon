@@ -12,15 +12,31 @@ permalink: "/glossary/"
 
 *Assignment*{:#assignment}: FIXME.
 
-*Boolean-value*{:#Boolean-value}: FIXME.
+*Attribute*{:#attribute}: FIXME.
+
+*Boolean value*{:#Boolean-value}: FIXME.
+
+*Catch (exception)*{:#catch-exception}: FIXME.
+
+*Condition*{:#condition}: FIXME.
 
 *Conditional branch*{:#conditional-branch}: FIXME.
 
 *Conditional*{:#conditional}: FIXME.
 
+*Constructor (class)*{:#constructor}: FIXME.
+
+*Copy-on-modify*{:#copy-on-modify}: FIXME.
+
 *Double square brackets*{:#double-square-brackets}: FIXME.
 
 *Empty vector*{:#empty-vector}: FIXME.
+
+*Environment*{:#environment}: FIXME.
+
+*Error*{:#error}: FIXME.
+
+*Exception*{:#exception}: FIXME.
 
 *Filter*{:#filter}: FIXME.
 
@@ -34,7 +50,15 @@ permalink: "/glossary/"
 
 *Functional programming*{:#functional-programming}: FIXME.
 
+*Generic function*{:#generic-function}: FIXME.
+
+*Global environment*{:#global-environment}: FIXME.
+
 *Grouping*{:#grouping}: FIXME.
+
+*Handle (a condition)*{:#signal-handle}: FIXME.
+
+*Helper (class)*{:#helper}: FIXME.
 
 *Heterogeneous*{:#heterogeneous}: FIXME.
 
@@ -44,13 +68,13 @@ permalink: "/glossary/"
 
 *Hubris*{:#hubris}: FIXME.
 
+*ISO3 country code*{:#iso3-country-code}: FIXME.
+
 *Indexing*{:#indexing}: FIXME.
 
 *Integer*{:#integer}: FIXME.
 
 *Intermediate variable*{:#intermediate-variable}: FIXME.
-
-*ISO3 country code*{:#iso3-country-code}: FIXME.
 
 *Lazy evaluation*{:#lazy-evaluation}: FIXME.
 
@@ -64,6 +88,8 @@ permalink: "/glossary/"
 
 *Loop body*{:#loop-body}: FIXME.
 
+*Message*{:#message}: FIXME.
+
 *Method*{:#method}: FIXME.
 
 *NA*{:#NA}: FIXME.
@@ -76,7 +102,11 @@ permalink: "/glossary/"
 
 *Package*{:#package}: FIXME.
 
+*Parent environment*{:#parent-envrironment}: FIXME.
+
 *Pipe operator*{:#pipe-operator}: FIXME.
+
+*Raise (exception)*{:#raise-exception}: FIXME.
 
 *Range expression*{:#range-expression}: FIXME.
 
@@ -92,7 +122,9 @@ permalink: "/glossary/"
 
 *Setup (testing)*{:#testing-setup}: FIXME.
 
-*Single Square brackets*{:#single-square-brackets}: FIXME.
+*Signal (a condition)*{:#signal-condition}: FIXME.
+
+*Single square brackets*{:#single-square-brackets}: FIXME.
 
 *Storage allocation*{:#storage-allocation}: FIXME.
 
@@ -110,8 +142,12 @@ permalink: "/glossary/"
 
 *Unit testing*{:#unit-test}: FIXME.
 
+*Validator (class)*{:#validator}: FIXME.
+
 *Variable arguments*{:#variable-arguments}: FIXME.
 
 *Variable*{:#variable}: FIXME.
 
 *Vector*{:#vector}: FIXME.
+
+*Warning*{:#warning}: FIXME.
