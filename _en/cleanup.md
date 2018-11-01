@@ -1241,9 +1241,9 @@ Empty strings.
 Why'd it have to be empty strings?
 More importantly,
 where are they coming from?
-Let's backtrack by displaying the `hi` column of each of our [intermediate variables](../glossary/#intermediate-variable)…
+Let's backtrack by displaying the `hi` column of each of our [intermediate variables](../glossary/#intermediate-variable)...
 
-…and there's our bug.
+...and there's our bug.
 We are creating a variable called `sliced` that has only the rows we care about,
 but then using the full table in `raw` to create `body`.
 It's a simple mistake,

@@ -254,11 +254,11 @@ we get this:
 ```
 * checking top-level files ... NOTE
 Non-standard files/directories found at top level:
-  ‘CITATION.md’ ‘CONDUCT.md’ ‘LICENSE.md’
+  'CITATION.md' 'CONDUCT.md' 'LICENSE.md'
 ...
 Found the following CITATION file in a non-standard place:
   CITATION.md
-Most likely ‘inst/CITATION’ should be used instead.
+Most likely 'inst/CITATION' should be used instead.
 ```
 
 After a bit of searching online,
@@ -280,7 +280,7 @@ but we are far from done---we also have this to deal with:
 ```
 checking for missing documentation entries ... WARNING
 Undocumented code objects:
-  ‘tidy_infant_hiv’
+  'tidy_infant_hiv'
 All user-level objects in a package should have documentation entries.
 ```
 
@@ -357,13 +357,13 @@ we go into "Build...More...Configure build tools" and check "Generate documentat
 Running the build again gives us:
 
 ```
-tidy_infant_hiv: no visible global function definition for ‘read_csv’
-tidy_infant_hiv: no visible global function definition for ‘slice’
-tidy_infant_hiv: no visible global function definition for ‘%>%’
-tidy_infant_hiv: no visible global function definition for ‘select’
+tidy_infant_hiv: no visible global function definition for 'read_csv'
+tidy_infant_hiv: no visible global function definition for 'slice'
+tidy_infant_hiv: no visible global function definition for '%>%'
+tidy_infant_hiv: no visible global function definition for 'select'
 ...several more...
-tidy_infant_hiv: no visible global function definition for ‘bind_rows’
-tidy_infant_hiv: no visible global function definition for ‘arrange’
+tidy_infant_hiv: no visible global function definition for 'bind_rows'
+tidy_infant_hiv: no visible global function definition for 'arrange'
 Undefined global functions or variables:
   %>% Countries ISO3 arrange bind_rows country everything map_dfr
   mutate read_csv rename select slice str_replace year
@@ -395,14 +395,14 @@ This changes the error to one that is slightly more confusing:
 
 ```
 * checking package dependencies ... ERROR
-Namespace dependencies not required: ‘dplyr’ ‘magrittr’
+Namespace dependencies not required: 'dplyr' 'magrittr'
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+See section 'The DESCRIPTION file' in the 'Writing R Extensions'
 manual.
 * DONE
 Status: 1 ERROR
 checking package dependencies ... ERROR
-Namespace dependencies not required: ‘dplyr’ ‘magrittr’
+Namespace dependencies not required: 'dplyr' 'magrittr'
 ```
 
 More searching,
@@ -430,10 +430,10 @@ No, we are not:
 
 ```
 checking R code for possible problems ... NOTE
-tidy_infant_hiv: no visible binding for global variable ‘ISO3’
-tidy_infant_hiv: no visible binding for global variable ‘Countries’
-tidy_infant_hiv: no visible binding for global variable ‘country’
-tidy_infant_hiv: no visible binding for global variable ‘year’
+tidy_infant_hiv: no visible binding for global variable 'ISO3'
+tidy_infant_hiv: no visible binding for global variable 'Countries'
+tidy_infant_hiv: no visible binding for global variable 'country'
+tidy_infant_hiv: no visible binding for global variable 'year'
 ```
 
 This is annoying but understandable.
@@ -821,7 +821,7 @@ If we compare `c(1L, 2L)` to `NULL`, we expect `c(FALSE, FALSE)`,
 so it's reasonable to get a zero-length logical vector as a result when we compare `NULL` to an integer vector with no elements.
 The fact that `any` of an empty logical vector is `FALSE` isn't really surprising either---none of the elements are `TRUE`,
 so it would be hard to say that any of them are.
-But `all` of an empty vector being `TRUE` is…unexpected.
+But `all` of an empty vector being `TRUE` is...unexpected.
 The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
 at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],

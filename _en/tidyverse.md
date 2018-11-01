@@ -185,7 +185,7 @@ We will go through this in stages, since each produces output.
 library(tidyverse)
 ```
 ```
-Error in library(tidyverse) : there is no package called ‘tidyverse’
+Error in library(tidyverse) : there is no package called 'tidyverse'
 ```
 
 Ah.
@@ -676,7 +676,7 @@ data$estimate[12]
 ## [1] 0.05
 ```
 
-Ah—everything in R is a vector,
+Ah---everything in R is a vector,
 so we get a vector of one value as an output rather than a single value.
 
 
@@ -1061,7 +1061,7 @@ Thus,
 then selects the first column vector from it,
 so it still gives us a vector.
 *This is not madness.*
-It is merely…differently sane.
+It is merely...differently sane.
 
 ## Basic Statistics
 
@@ -1106,7 +1106,7 @@ mean(estimates)
 ## [1] NA
 ```
 
-It seems that the void is always there, waiting for us…
+It seems that the void is always there, waiting for us...
 Let's fix this in R first:
 
 
@@ -1395,7 +1395,7 @@ maximal
 ## [1041]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.95 0.95   NA
 ```
 
-It appears that R has kept the unknown values in order to highlight just how little we know—just how little
+It appears that R has kept the unknown values in order to highlight just how little we know---just how little
 we *can* know.
 More precisely,
 wherever there was an `NA` in the original data

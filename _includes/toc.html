@@ -3,20 +3,27 @@ Display a section of the table of contents.
 This is currently hard-wired to show only the English-language ToC.
 {% endcomment %}
 
-<p><strong>Lessons</strong></p>
-<ol class="toc">
-{%- for toc in site.lessons -%}
-  {%- for page in site.en -%}
-    {% if toc == page.permalink %}
-  <li><a href="{{page.permalink | relative_url}}">{{page.title}}</a></li>
-    {%- endif -%}
-  {%- endfor -%}
-{% endfor %}
-</ol>
-
-<p><strong>Appendices</strong></p>
-<ul>
-{% for extra in site.extras %}
-  <li><a href="{{extra.url | relative_url}}">{{extra.title}}</a></li>
-{% endfor %}
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h3>Lessons</h3>
+      <ol class="toc">
+      {%- for toc in site.lessons -%}
+        {%- for page in site.en -%}
+          {% if toc == page.permalink %}
+        <li><a href="{{page.permalink | relative_url}}">{{page.title}}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      {% endfor %}
+      </ol>
+    </div>
+    <div class="col-sm">
+      <h3>Appendices</h3>
+      <ul>
+      {% for extra in site.extras %}
+        <li><a href="{{extra.url | relative_url}}">{{extra.title}}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>

@@ -4,11 +4,15 @@
 [choose-a-license]: https://choosealicense.com/
 [cran]: https://cran.r-project.org/
 [here-package]: https://cran.r-project.org/web/packages/here/index.html
+[hopr]: https://rstudio-education.github.io/hopr/
 [hoye-zero]: http://exple.tive.org/blarg/2013/10/22/citation-needed/
 [javascript-wat]: https://www.destroyallsoftware.com/talks/wat
 [mit-license]: https://choosealicense.com/licenses/mit/
 [parse-number-package]: https://www.rdocumentation.org/packages/readr/versions/1.1.1/topics/parse_number
+[primers]: https://rstudio.cloud/learn/primers
 [pypi]: https://pypi.org/
+[r4ds]: https://r4ds.had.co.nz/
+[r-inferno]: https://www.burns-stat.com/documents/books/the-r-inferno/
 [testthat]: https://github.com/r-lib/testthat
 [tidyverse-style]: http://style.tidyverse.org/
 [unicef-hiv]: https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/

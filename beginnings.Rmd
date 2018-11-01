@@ -53,26 +53,6 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
-Years ago,
-Patrick Burns wrote *[The R Inferno][r-infero]*,
-which is a guide to R for those who think they are in hell.
-Upon first encountering the language after two decades of using Python,
-I thought Burns was an optimist—after all,
-hell has rules.
-
-I have since realized that R does too,
-and that they are no more confusing or contradictory than those of many other programming languages.
-They only appear so because R draws on a tradition that is unfamiliar to those of us raised with derivatives of C.
-Counting from one,
-copying data rather than modifying it,
-and a host of other features are
-(to quote the bard)
-not mad, just differently sane.
-
-Welcome, then, to a universe where everything strange will become familiar,
-and everything familiar, strange.
-Welcome, thrice welcome, to R.
-
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(engine.path = list(python = '/Users/gvwilson/anaconda3/bin/python'))
 ```
@@ -187,7 +167,7 @@ but it has no special meaning.
 
 ## How do I store many numbers together?
 
-The Elder Gods do not bother to learn most of our names because there are so many of us and we are so…ephemeral.
+The Elder Gods do not bother to learn most of our names because there are so many of us and we are so...ephemeral.
 Similarly, we only give proper names to a handful of values in our programs;
 we lump the rest together into lists and matrices and more esoteric structure so that
 we too can create, manipulate, and dispose of multitudes with a single dark command.
@@ -322,7 +302,7 @@ R uses the special value [`NA`](../glossary/#NA) (short for "not available") to 
 and tries to shield us from the full horror of the unknowable by returning `NA`
 when we ask for knowledge that does not exist.
 
-R does more than this—much more.
+R does more than this---much more.
 In Python,
 a negative index counts backward from the end of a list.
 In R,
@@ -381,7 +361,7 @@ with a positive argument:
 character(3)
 ```
 
-Ah—it appears that `character` constructs a vector of character strings of the specified length
+Ah---it appears that `character` constructs a vector of character strings of the specified length
 and fills it with empty strings.
 The expression `character(0)` presumably therefore means
 "an [empty vector](../glossary/#empty-vector) of type character".

@@ -30,6 +30,21 @@ keypoints:
 ---
 
 
+```
+## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
 
 We have accumulated some intellectual debt in the previous lessons,
 and we should clear some of before we go on to new topics.
@@ -437,7 +452,7 @@ tracemem(first)
 ```
 
 ```
-## [1] "<0x7ff2aaa1a6c8>"
+## [1] "<0x7ff4c88e1108>"
 ```
 
 ```r
@@ -445,10 +460,10 @@ first$left[[1]] <- 999
 ```
 
 ```
-## tracemem[0x7ff2aaa1a6c8 -> 0x7ff2adb08508]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7ff2adb08508 -> 0x7ff2adb08488]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7ff2adb08488 -> 0x7ff2adb08408]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7ff2adb08408 -> 0x7ff2adb083c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7ff4c88e1108 -> 0x7ff4c7fc0648]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7ff4c7fc0648 -> 0x7ff4c7fc05c8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7ff4c7fc05c8 -> 0x7ff4c7fc0548]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7ff4c7fc0548 -> 0x7ff4c7fc0508]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -466,7 +481,7 @@ cat("left column is initially at", address(left), "\n")
 ```
 
 ```
-## left column is initially at 0x7ff2adb084c8
+## left column is initially at 0x7ff4c7fc0608
 ```
 
 ```r
@@ -475,7 +490,7 @@ cat("after modification, the original column is still at", address(left), "\n")
 ```
 
 ```
-## after modification, the original column is still at 0x7ff2adb084c8
+## after modification, the original column is still at 0x7ff4c7fc0608
 ```
 
 ```r
@@ -484,7 +499,7 @@ cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
 ```
-## but the first column of the tibble is at 0x7ff2adcff7c8
+## but the first column of the tibble is at 0x7ff4c9b18848
 ```
 
 (We need to uses aliases because `address(first$left)` doesn't work:
@@ -695,6 +710,9 @@ but this is done less often in day-to-day R code than in Python:
 see *[Advanced R][advanced-r]* for details.
 
 ## A Few Minor Demons
+
+Ralph Waldo Emerson once wrote, "A foolish consistency is the hobgoblin of little minds."
+Here, then, are few of the hobgoblins I've encountered on my journey through R.
 
 **Flattening:**
 `c(c(1, 2), c(3, 4))` produces `c(1, 2, 3, 4)`,

@@ -461,6 +461,9 @@ see *[Advanced R][advanced-r]* for details.
 
 ## A Few Minor Demons
 
+Ralph Waldo Emerson once wrote, "A foolish consistency is the hobgoblin of little minds."
+Here, then, are few of the hobgoblins I've encountered on my journey through R.
+
 **Flattening:**
 `c(c(1, 2), c(3, 4))` produces `c(1, 2, 3, 4)`,
 i.e., `c` flattens the vectors it is passed to create a single-level vector.
