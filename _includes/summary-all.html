@@ -10,6 +10,7 @@ Note:
 {% endcomment %}
 
 {% for toc in site.lessons %}
+  {% assign heading_id = toc | replace: "/", "" %}
   {% for page in site.en %}
     {% if toc == page.permalink %}
       {%- if include.which == "questions" -%}
@@ -19,10 +20,11 @@ Note:
       {%- elsif include.which == "keypoints" -%}
         {%- assign which = page.keypoints -%}
       {% endif %}
-<h2><a href="{{page.permalink | relative_url}}">{{page.title}}</a></h2>
+<h2 id="{{heading_id}}">{{page.title}}</h2>
 <ul>
 {% for obj in which %}<li>{{obj | markdownify | replace: "<p>", "" | replace: "</p>", ""}}</li>{% endfor %}
 </ul>
+<p align="right"><a href="{{page.permalink | relative_url}}">...visit page</a></p>
     {% endif %}
   {% endfor %}
 {% endfor %}
