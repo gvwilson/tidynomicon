@@ -2,6 +2,10 @@
 const makeTableOfContents = () => {
   const container = document.querySelectorAll('#headings')[0]
   const headings = Array.from(document.querySelectorAll('h2'))
+  if (headings.length === 0) {
+    container.parentNode.removeChild(container)
+    return
+  }
   const items = headings
         .map((h) => '<li><a href="#' + h.id + '">' + h.innerHTML + '</a></li>')
         .join('\n')
