@@ -433,9 +433,7 @@ colors[4]
 ## [1] NA
 ```
 
-Our understanding of the universe is unavoidably incomplete:
-limited as they are to three dimensions of space and one of time,
-our minds simply cannot grasp reality without shattering into a million gibbering pieces.
+Our minds cannot grasp reality without shattering into a million gibbering pieces.
 In statistics,
 this lack of omniscience is often reflected by gaps in data.
 R uses the special value [`NA`](../glossary/#NA) (short for "not available") to represent these gaps,
@@ -646,8 +644,6 @@ almost every function will operate on multiple values.
 And as sequences such as (-1, 0, 1) are also very common,
 R provides a notation for expressing them:
 
-or even:
-
 
 ```r
 result <- sign(-1:1)
@@ -666,7 +662,9 @@ colors[1:3]
 ```
 ## [1] "eburnean" "glaucous" "squamous"
 ```
+
 We can similarly subtract a range of colors by index:
+
 
 ```r
 colors[-1:-3]
@@ -829,6 +827,7 @@ swap(c("one"))
 ## NULL
 ```
 
+
 ```r
 swap(c("left", "right"))
 ```
@@ -878,6 +877,7 @@ NULL[1]  # Try to access an element of the vector that does not exist.
 ```
 ## NULL
 ```
+
 
 ```r
 values <- 5:10          # More than two values.
