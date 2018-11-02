@@ -53,10 +53,6 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
-```{r setup, echo=FALSE}
-knitr::opts_chunk$set(engine.path = list(python = '/Users/gvwilson/anaconda3/bin/python'))
-```
-
 Let's try some simple things at an interactive prompt.
 
 ## How do I greet the world?

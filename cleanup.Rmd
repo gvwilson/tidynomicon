@@ -24,6 +24,10 @@ keypoints:
   - "Pre-allocate storage in a list for each result from a loop and fill it in rather than repeatedly extending the list."
 ---
 
+```{r setup, echo=FALSE}
+library(tidyverse)
+```
+
 Here is a sample of data from `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
 
@@ -82,7 +86,6 @@ which we shall do in stages.
 We will begin by reading the data into a tibble:
 
 ```{r}
-library(tidyverse)
 raw <- read_csv("raw/infant_hiv.csv")
 head(raw)
 ```

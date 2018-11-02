@@ -30,21 +30,6 @@ keypoints:
 ---
 
 
-```
-## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-```
-
-```
-## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
-```
-
-```
-## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
 
 We have accumulated some intellectual debt in the previous lessons,
 and we should clear some of before we go on to new topics.
@@ -452,7 +437,7 @@ tracemem(first)
 ```
 
 ```
-## [1] "<0x7ff4c88e1108>"
+## [1] "<0x7fc5ee8662c8>"
 ```
 
 ```r
@@ -460,10 +445,10 @@ first$left[[1]] <- 999
 ```
 
 ```
-## tracemem[0x7ff4c88e1108 -> 0x7ff4c7fc0648]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7ff4c7fc0648 -> 0x7ff4c7fc05c8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7ff4c7fc05c8 -> 0x7ff4c7fc0548]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7ff4c7fc0548 -> 0x7ff4c7fc0508]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+## tracemem[0x7fc5ee8662c8 -> 0x7fc5ee882b48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fc5ee882b48 -> 0x7fc5ee882ac8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fc5ee882ac8 -> 0x7fc5ee882a48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+## tracemem[0x7fc5ee882a48 -> 0x7fc5ee882a08]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 ```
 
 ```r
@@ -481,7 +466,7 @@ cat("left column is initially at", address(left), "\n")
 ```
 
 ```
-## left column is initially at 0x7ff4c7fc0608
+## left column is initially at 0x7fc5ee882b08
 ```
 
 ```r
@@ -490,7 +475,7 @@ cat("after modification, the original column is still at", address(left), "\n")
 ```
 
 ```
-## after modification, the original column is still at 0x7ff4c7fc0608
+## after modification, the original column is still at 0x7fc5ee882b08
 ```
 
 ```r
@@ -499,7 +484,7 @@ cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
 ```
-## but the first column of the tibble is at 0x7ff4c9b18848
+## but the first column of the tibble is at 0x7fc5eea12fc8
 ```
 
 (We need to uses aliases because `address(first$left)` doesn't work:

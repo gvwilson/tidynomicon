@@ -53,8 +53,6 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
-
-
 Let's try some simple things at an interactive prompt.
 
 ## How do I greet the world?

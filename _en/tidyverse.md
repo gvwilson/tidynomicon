@@ -61,8 +61,6 @@ keypoints:
   - "Use `%>%` to create pipelines in which the left side of each `%>%` becomes the first argument of the next stage."
 ---
 
-
-
 There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.

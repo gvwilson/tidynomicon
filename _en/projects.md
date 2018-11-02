@@ -862,6 +862,8 @@ test_dir("tests/testthat", filter = "tibble")
 ## Failed:   0
 ## Warnings: 0
 ## Skipped:  0
+## 
+## Nice code.
 ```
 
 That's better,
@@ -1175,6 +1177,8 @@ test_dir("tests/testthat", "find_empty_b")
 ## Failed:   1
 ## Warnings: 1
 ## Skipped:  0
+## 
+## I believe in you!
 ```
 
 ## Checking Data Transformation

@@ -10,7 +10,8 @@
 1.  [Install R][r-install].
 2.  [Install RStudio][rstudio-install].
 3.  In the RStudio console, run `install.packages("tidyverse")` to install the tidyverse libraries.
-4.  [Install Jekyll][jekyll-install] for local preview.
+4.  Set the `RETICULATE_PYTHON` environment variable to point at the local Python you want to use.
+5.  [Install Jekyll][jekyll-install] for local preview.
 
 ## Building
 

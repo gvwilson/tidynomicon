@@ -24,6 +24,23 @@ keypoints:
   - "Pre-allocate storage in a list for each result from a loop and fill it in rather than repeatedly extending the list."
 ---
 
+
+```
+## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+
 Here is a sample of data from `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
 
@@ -81,26 +98,6 @@ which we shall do in stages.
 
 We will begin by reading the data into a tibble:
 
-
-```r
-library(tidyverse)
-```
-
-```
-## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-```
-
-```
-## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
-```
-
-```
-## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv")
