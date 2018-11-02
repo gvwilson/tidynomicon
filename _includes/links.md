@@ -6,6 +6,7 @@
 [here-package]: https://cran.r-project.org/web/packages/here/index.html
 [hopr]: https://rstudio-education.github.io/hopr/
 [hoye-zero]: http://exple.tive.org/blarg/2013/10/22/citation-needed/
+[r-install]: https://cran.rstudio.com/
 [javascript-wat]: https://www.destroyallsoftware.com/talks/wat
 [mit-license]: https://choosealicense.com/licenses/mit/
 [parse-number-package]: https://www.rdocumentation.org/packages/readr/versions/1.1.1/topics/parse_number

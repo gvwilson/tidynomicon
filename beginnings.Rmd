@@ -53,7 +53,24 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
-Let's try some simple things at an interactive prompt.
+We will begin our tour of R by looking at familiar things like lists and loops.
+Before we can do any of that,
+though,
+we need to get set up:
+
+1.  [Install R][r-install].
+    We recommend that you do *not* use conda, Brew, or other platform-specific package managers to do this,
+    as they frequently leave the installation in a less-than-usable state.
+2.  [Install RStudio][rstudio-install].
+3.  In the RStudio console,
+    run `install.packages("tidyverse")` to install the tidyverse libraries.
+    We will install others as we go along,
+    but we're going to need this soon.
+4.  Set the `RETICULATE_PYTHON` environment variable to point at the version of Python you want to use
+    (since you may have a system-installed version somewhere like `/usr/bin/python`
+    and a conda-managed version in `~/anaconda3/bin/python`).
+    In what follows,
+    we will assume Python 3.
 
 ## How do I greet the world?
 
