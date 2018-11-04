@@ -7,7 +7,7 @@ root: true
 <div align="center">
   <h1><em>{{site.title}}</em></h1>
   <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
-  <img src="{{'/files/cthulhu-200x177.png' | relative_url}}" />
+  <img src="{{'/files/cthulhu-180x152.jpg' | relative_url}}" />
   <p><em>"Speak not to me of madness, you who count from zero."</em></p>
 </div>
 
