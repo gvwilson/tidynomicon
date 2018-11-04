@@ -109,3 +109,5 @@ create a scatter plot showing the relationship in each country
 between the fraction of births at health facilities
 and the fraction that have skilled attendants present,
 coloring points according to the fraction of Caesarean sections.
+
+{% include links.md %}

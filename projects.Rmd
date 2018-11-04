@@ -824,7 +824,7 @@ so it would be hard to say that any of them are.
 But `all` of an empty vector being `TRUE` is...unexpected.
 The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
-at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],
+at this point we are veering dangerously close to [JavaScript Logic][javascript-wat],
 so we will accept this behavior and move on.
 
 So what *should* our function return when there aren't any empty rows: `NULL` or `integer(0)`?

@@ -49,6 +49,21 @@ keypoints:
 ---
 
 
+```
+## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
 
 Mistakes were made in [the previous tutorial](../cleanup/).
 It would be [hubris](../glossary/#hubris) to believe that we will not make more as we continue to clean this data.
@@ -582,12 +597,6 @@ library(testthat)
 ```
 
 ```
-## The following objects are masked from 'package:rlang':
-## 
-##     is_false, is_null, is_true
-```
-
-```
 ## The following object is masked from 'package:dplyr':
 ## 
 ##     matches
@@ -829,6 +838,8 @@ test_dir("tests/testthat")
 ## Failed:   4
 ## Warnings: 2
 ## Skipped:  0
+## 
+## Keep trying!
 ```
 
 That's rather a lot of output.
@@ -862,8 +873,6 @@ test_dir("tests/testthat", filter = "tibble")
 ## Failed:   0
 ## Warnings: 0
 ## Skipped:  0
-## 
-## Nice code.
 ```
 
 That's better,
@@ -1119,7 +1128,7 @@ so it would be hard to say that any of them are.
 But `all` of an empty vector being `TRUE` is...unexpected.
 The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,
 but honestly,
-at this point we are veering dangerously close to [JavaScript Logic][javascrip-wat],
+at this point we are veering dangerously close to [JavaScript Logic][javascript-wat],
 so we will accept this behavior and move on.
 
 So what *should* our function return when there aren't any empty rows: `NULL` or `integer(0)`?
@@ -1177,8 +1186,6 @@ test_dir("tests/testthat", "find_empty_b")
 ## Failed:   1
 ## Warnings: 1
 ## Skipped:  0
-## 
-## I believe in you!
 ```
 
 ## Checking Data Transformation
