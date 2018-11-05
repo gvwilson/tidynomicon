@@ -890,7 +890,7 @@ head(trimmed)
 ```
 
 Now to tackle those `">95%"` values.
-It turns out that `str_replace` uses [regular expressions](../glossary/#regular-expression),
+It turns out that `str_replace` uses regular expressions,
 not just direct string matches,
 so we can get rid of the `>` at the same time as we get rid of the `%`.
 We will check by looking at the first `Estimate` column,
@@ -1238,7 +1238,7 @@ Empty strings.
 Why'd it have to be empty strings?
 More importantly,
 where are they coming from?
-Let's backtrack by displaying the `hi` column of each of our [intermediate variables](../glossary/#intermediate-variable)...
+Let's backtrack by displaying the `hi` column of each of our intermediate variables...
 
 ...and there's our bug.
 We are creating a variable called `sliced` that has only the rows we care about,

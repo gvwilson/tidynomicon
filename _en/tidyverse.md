@@ -352,8 +352,8 @@ tail(data)
 ## 6 ZWE      2017    0.65   0.81 0.570
 ```
 
-Note that the row numbers printed by `tail` are [relative](../glossary/#relative-line-number) to the output,
-not [absolute](../glossary/#absolute-line-number) to the table.
+Note that the row numbers printed by `tail` are [relative](../glossary/#relative-row-number) to the output,
+not [absolute](../glossary/#absolute-row-number) to the table.
 This is different from Pandas,
 which retains the original row numbers.
 (Notice also that R starts numbering from 1.)
@@ -1612,7 +1612,7 @@ data %>%
 ## # ... with 45 more rows
 ```
 
-We can now [select](../glossary/#selection) the three columns we care about:
+We can now [select](../glossary/#select) the three columns we care about:
 
 
 ```r
@@ -1718,7 +1718,7 @@ data %>%
 
 Does the difference between high and low estimates vary by year?
 To answer that question,
-we use `group_by` to [group](../glossary/#grouping) records by value
+we use `group_by` to [group](../glossary/#group) records by value
 and then `summarize` to aggregate within groups.
 We might as well get rid of the `arrange` and `select` calls in our pipeline at this point,
 since we're not using them,

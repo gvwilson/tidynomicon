@@ -33,7 +33,7 @@ it allows good software designers to create marvels,
 and less conscientious or experienced ones to create horrors.
 
 R has not one, not two, but at least three different frameworks for object-oriented programming.
-By far the most widely used is known as S3
+By far the most widely used is known as [S3](#S3)
 (because it was first introduced with Version 3 of S,
 the language from which R is derived).
 Unlike the approaches used in Java, Python, and similarly pedestrian languages,

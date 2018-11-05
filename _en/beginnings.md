@@ -135,8 +135,8 @@ print(1 + 2 + 3)
 ## 6
 ```
 
-I can check the [type](../glossary/#type) of the result using the built-in `type` function,
-which in this case tells me that my `6` is an [integer](../glossary/#integer):
+I can check the type of the result using the built-in `type` function,
+which in this case tells me that my `6` is an integer:
 
 
 ```python
@@ -169,7 +169,7 @@ typeof(6)
 Hm.
 Calling the type-checking function `typeof` rather than `type` isn't frightening,
 and having it return the name of a type rather than a class can also be excused,
-but it does seem odd for integer addition to produce a double-precision [floating-point](../glossary/#floating-point) result
+but it does seem odd for integer addition to produce a double-precision floating-point result
 (which is what the type `"double"` means).
 Let's try an experiment:
 
@@ -186,7 +186,7 @@ Ah ha.
 By default,
 R represents numbers as floating-point values,
 even if they look like integers when written.
-We can force a [literal value](../glossary/#literal) to be an integer by putting an upper-case L after it:
+We can force a literal value to be an integer by putting an upper-case L after it:
 
 
 ```r
@@ -254,8 +254,8 @@ we lump the rest together into lists and matrices and more esoteric structure so
 we too can create, manipulate, and dispose of multitudes with a single dark command.
 
 In Python,
-we create a [list](../glossary/#list) using square brackets,
-and [assign](../glossary/#assignment) that list to a [variable](../glossary/#variable) using `=`.
+we create a list using square brackets,
+and assign that list to a variable using `=`.
 If the variable does not exist, it is created:
 
 
@@ -375,7 +375,7 @@ If you dare know the truth,
 
 ## How do I index a ~~list~~ vector?
 
-Python's rules for [indexing](../glossary/#indexing) are simple once you understand them
+Python's rules for indexing are simple once you understand them
 (a statement which is also true of quantum mechanics).
 To avoid confusing indices with values,
 let's create a list of color names and index that:
@@ -579,11 +579,11 @@ Guard against it as you would against the Hounds of Tindalos.
 ## How do I choose and repeat things?
 
 We cherish the illusion of free will so much that we embed a pretense of it in our machines
-in the form of [conditional statements](../glossary/#conditional).
+in the form of conditional statements using `if` and `else`.
 We then instruct those same machines to make the same decisions over and over,
 often for no discernible purpose.
 For example,
-we could write the following [for loop](../glossary/#for-loop) in Python:
+we could write the following `for` loop in Python:
 
 
 ```python
@@ -633,8 +633,8 @@ There are a few things to note here:
 
 1.  The parentheses in the loop header are required:
     we cannot simply write `for v in values`.
-2.  The curly braces around the [body](../glossary/#loop-body) of the loop
-    and the [conditional branches](../glossary/#conditional-branch) are optional,
+2.  The curly braces around the body of the loop
+    and the conditional branches are optional,
     but should always be there to help readability.
 3.  `paste` converts its arguments to strings and then concatenates those,
     placing a single space between each unless instructed to do otherwise.
@@ -727,7 +727,7 @@ if (numbers) {
 ```
 
 Instead,
-we must collapse them into a single [logical value](../glossary/#Boolean-value)
+we must collapse them into a single logical value
 (often called a Boolean in honor of a logician who did not go mad contemplating the nature of truth):
 
 
@@ -743,7 +743,7 @@ if (all(numbers >= 0)) {
 ```
 
 When evaluating the expression `numbers >= 0`,
-R automatically replicates or [recycles](../glossary/#recycling) the shorter vector
+R automatically replicates or [recycles](../glossary/#recycle) the shorter vector
 (in this case, the vector of length 1 containing the value 0)
 and then performs element-by-element comparison to construct a vector of logical values:
 
@@ -793,7 +793,7 @@ result
 ## How do I create and call functions?
 
 As we have already seen,
-we call [functions](../glossary/#function) in R much as we do in Python:
+we call functions in R much as we do in Python:
 
 
 ```r

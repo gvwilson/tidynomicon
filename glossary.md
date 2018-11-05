@@ -4,150 +4,251 @@ layout: default
 permalink: "/glossary/"
 ---
 
-*Absolute line number*{:#absolute-line-number}: FIXME.
+*Absolute row number*{:#absolute-row-number}:
+the sequential index of a row in a table,
+regardless of what sections of the table is being displayed.
 
-*Aggregation*{:#aggregation}: FIXME.
+*Aggregation*{:#aggregation}:
+to combine many values into one,
+e.g.,
+by summing a set of numbers or concatenating a set of strings.
 
-*Anonymous function*{:#anonymous-function}: FIXME.
+*Alias*{:#alias}:
+to have two (or more) references to the same physical data.
 
-*Assignment*{:#assignment}: FIXME.
+*Anonymous function*{:#anonymous-function}:
+a function that has not been assigned a name.
+Anonymous functions are usually quite short,
+and are usually defined where they are used,
+e.g.,
+as callbacks.
 
-*Attribute*{:#attribute}: FIXME.
+*Attribute*{:#attribute}:
+a name-value pair associated with an object,
+used to store metadata about the object
+such as an array's dimensions.
 
-*Boolean value*{:#Boolean-value}: FIXME.
+*Catch (exception)*{:#catch-exception}:
+to accept responsibility for handling an error
+or other unexpected event.
+R prefers "[handling](#handle) a [condition](#condition)"
+to "catching an [exception](#exception)".
 
-*Catch (exception)*{:#catch-exception}: FIXME.
+*Condition*{:#condition}:
+an error or other unexpected event that disrupts the normal flow of control.
+See also [handle](#handle).
 
-*Condition*{:#condition}: FIXME.
+*Constructor (class)*{:#constructor}:
+a function that creates an object of a particular class.
+In the [S3](#S3) object system,
+constructors are a convention rather than a requirement.
 
-*Conditional branch*{:#conditional-branch}: FIXME.
+*Copy-on-modify*{:#copy-on-modify}:
+the practice of creating a new copy of [aliased](#alias) data
+whenever there is an attempt to modify it
+so that each reference will believe theirs is the only one.
 
-*Conditional*{:#conditional}: FIXME.
+*Double square brackets*{:#double-square-brackets}:
+an index enclosed in `[[...]]`,
+used to return a single value of the underlying type.
+See also [single square brackets](#single-square-brackets).
 
-*Constructor (class)*{:#constructor}: FIXME.
+*Empty vector*{:#empty-vector}:
+a vector that contains no elements.
+Empty vectors have a type such as logical or character,
+and are *not* the same as [null](#null).
 
-*Copy-on-modify*{:#copy-on-modify}: FIXME.
+*Environment*{:#environment}:
+a structure that stores a set of variable names and the values they refer to.
 
-*Double square brackets*{:#double-square-brackets}: FIXME.
+*Error*{:#error}:
+the most severe type of built-in [condition](#condition) in R.
 
-*Empty vector*{:#empty-vector}: FIXME.
+*Exception*{:#exception}:
+an object containing information about an error,
+or the condition that led to the error.
+R prefers "[handling](#handle) a [condition](#condition)"
+to "[catching](#catch) an exception".
 
-*Environment*{:#environment}: FIXME.
+*Filter*{:#filter}:
+to choose a set of records according to the values they contain.
 
-*Error*{:#error}: FIXME.
+*Fully qualified name*{:#fully-qualified-name}:
+an unambiguous name of the form <code><em>package</em>::<em>thing</em></code>.
 
-*Exception*{:#exception}: FIXME.
+*Functional programming*{:#functional-programming}:
+a style of programming in which functions transform data rather than modifying it.
+Functional programming relies heavily on [higher-order functions](#higher-order function).
 
-*Filter*{:#filter}: FIXME.
+*Generic function*{:#generic-function}:
+a collection of functions with similar purpose,
+each operating on a different class of data.
 
-*Floating point*{:#floating-point}: FIXME.
+*Global environment*{:#global-environment}:
+the [environment](#environment) that holds top-level definitions in R,
+e.g.,
+those written directly in the interpreter.
 
-*For loop*{:#for-loop}: FIXME.
+*Group*{:#group}:
+to divide data into subsets according to some criteria
+while leaving records in a single structure.
 
-*Fully qualified name*{:#fully-qualified-name}: FIXME.
+*Handle (a condition)*{:#signal-handle}:
+to accept responsibility for handling an error
+or other unexpected event.
+R prefers "handling a [condition](#condition)"
+to "[catching](#catch) an [exception](#exception)".
 
-*Function*{:#function}: FIXME.
+*Helper (class)*{:#helper}:
+in [S3](#S3),
+a function that [constructs](#constructor) and [validates](#validator)
+an instance of a class.
 
-*Functional programming*{:#functional-programming}: FIXME.
+*Heterogeneous*{:#heterogeneous}:
+potentially containing data of different types.
+Most vectors in R are [homogeneous](#homogeneous),
+but lists can be heterogeneous.
 
-*Generic function*{:#generic-function}: FIXME.
+*Higher-order function*{:#higher-order-function}:
+a function that takes one or more other functions as parameters.
+Higher-order functions such as `map` are commonly used in [functional programming](#functional-programming).
 
-*Global environment*{:#global-environment}: FIXME.
+*Homogeneous*{:#homogeneous}:
+containing data of only a single type.
+Most vectors in R are homogeneous.
 
-*Grouping*{:#grouping}: FIXME.
+*Hubris*{:#hubris}:
+excessive pride or self-confidence.
 
-*Handle (a condition)*{:#signal-handle}: FIXME.
+*ISO3 country code*{:#iso3-country-code}:
+a three-letter code defined by ISO 3166-1 that identifies a specific country,
+dependent territory,
+or other geopolitical entity.
 
-*Helper (class)*{:#helper}: FIXME.
+*Lazy evaluation*{:#lazy-evaluation}:
+delaying evaluation of an expression until the value is actually needed
+(or at least until after the point where it is first encountered).
 
-*Heterogeneous*{:#heterogeneous}: FIXME.
+*List comprehension*{:#list-comprehension}:
+an expression that generates a new list from an existing one via an implicit loop.
 
-*Higher-order function*{:#higher-order-function}: FIXME.
+*Logical indexing*{:#logical-indexing}:
+to index a vector or other structure with a vector of Booleans,
+keeping only the values that correspond to true values.
 
-*Homogeneous*{:#homogeneous}: FIXME.
+*Message*{:#message}:
+the least severe type of built-in [condition](#condition) in R.
 
-*Hubris*{:#hubris}: FIXME.
+*Method*{:#method}:
+an implementation of a [generic function](#generic-function)
+that handles objects of a specific class.
 
-*ISO3 country code*{:#iso3-country-code}: FIXME.
+*NA*{:#NA}:
+a special value used to represent data that is Not Available.
 
-*Indexing*{:#indexing}: FIXME.
+*Name collision*{:#name-collision}:
+a situation in which the same name has been used in two different packages
+which are then used together,
+leading to ambiguity.
 
-*Integer*{:#integer}: FIXME.
+*Negative selection*{:#negative-selection}:
+to specify the elements of a vector or other data structure that *aren't* desired
+by negating their indices.
 
-*Intermediate variable*{:#intermediate-variable}: FIXME.
+*Null*{:#null}:
+a special value used to represent a missing object.
+`NULL` is not the same as `NA`,
+and neither is the same as an [empty vector](#empty-vector).
 
-*Lazy evaluation*{:#lazy-evaluation}: FIXME.
+*Package*{:#package}:
+a collection of code, data, and documentation
+that can be distributed and re-used.
 
-*List comprehension*{:#list-comprehension}: FIXME.
+*Parent environment*{:#parent-envrironment}:
+the [environment](#environment) "above" the current environment.
+Parentage is defined lexically (when code is written)
+rather than dynamically (as code is called).
 
-*List*{:#list}: FIXME.
+*Pipe operator*{:#pipe-operator}:
+the `%>%` used to make the output of one function the input of the next.
 
-*Literal*{:#literal}: FIXME.
+*Raise (exception)*{:#raise-exception}:
+a way of indicating that something has gone wrong in a program,
+or that some other unexpected event has occurred.
+R prefers "[signalling](#signal) a [condition](#condition)"
+to "raising an [exception](#exception)".
 
-*Logical indexing*{:#logical-indexing}: FIXME.
+*Range expression*{:#range-expression}:
+an expression of the form <code><em>low</em>:<em>high</em></code>
+that is transformed a sequence of consecutive integers.
 
-*Loop body*{:#loop-body}: FIXME.
+*Recycle*{:#recycle}:
+to re-use values from a shorter vector in order to generate
+a sequence of the same length as a longer one.
 
-*Message*{:#message}: FIXME.
+*Relative row number*{:#relative-row-number}:
+the index of a row in a displayed portion of a table,
+which may or may not be the same as the [absolut row number](#absolute-row-number)
+within the table.
 
-*Method*{:#method}: FIXME.
+*Scalar*{:#scalar}:
+a single value of a particular type, such as 1 or "a".
+Scalars don't really exist in R;
+values that appear to be scalars are actually vectors of unit length.
 
-*NA*{:#NA}: FIXME.
+*Select*{:#select}:
+to choose entire columns from a table by name or location.
 
-*Name collision*{:#name-collision}: FIXME.
-
-*Negative selection*{:#negative-selection}: FIXME.
-
-*Null*{:#null}: FIXME.
-
-*Package*{:#package}: FIXME.
-
-*Parent environment*{:#parent-envrironment}: FIXME.
-
-*Pipe operator*{:#pipe-operator}: FIXME.
-
-*Raise (exception)*{:#raise-exception}: FIXME.
-
-*Range expression*{:#range-expression}: FIXME.
-
-*Recycling*{:#recycling}: FIXME.
-
-*Regular expression*{:#regular-expression}: FIXME.
-
-*Relative line number*{:#relative-line-number}: FIXME.
-
-*Scalar*{:#scalar}: FIXME.
-
-*Selection*{:#selection}: FIXME.
-
-*Setup (testing)*{:#testing-setup}: FIXME.
+*Setup (testing)*{:#testing-setup}:
+code that is automatically run once before each [unit test](#unit-test).
 
 *Signal (a condition)*{:#signal-condition}: FIXME.
+a way of indicating that something has gone wrong in a program,
+or that some other unexpected event has occurred.
+R prefers "signalling a [condition](#condition)"
+to "[raising](#raise) an [exception](#exception)".
 
 *Single square brackets*{:#single-square-brackets}: FIXME.
+an index enclosed in `[...]`,
+used to select a structure from another structure.
+See also [double square brackets](#double-square-brackets).
 
-*Storage allocation*{:#storage-allocation}: FIXME.
+*Storage allocation*{:#storage-allocation}:
+setting aside a block of memory for future use.
 
-*Teardown (testing)*{:#testing-teardown}: FIXME.
+*Teardown (testing)*{:#testing-teardown}:
+code that is automatically run once after each [unit test](#unit-test).
 
-*Test fixture*{:#test-fixture}: FIXME.
+*Test fixture*{:#test-fixture}:
+the data structures, files, or other artefacts on which a [unit test](#unit-test) operates.
 
-*Test runner*{:#test-runner}: FIXME.
+*Test runner*{:#test-runner}:
+a software tool that finds and runs [unit tests](#unit-test).
 
-*Tibble*{:#tibble}: FIXME.
+*Tibble*{:#tibble}:
+a modern replacement for R's data frame,
+which stores tabular data in columns and rows,
+defined and used in the [tidyverse](#tidyverse).
 
-*Tidyverse*{:#tidyverse}: FIXME.
+*Tidyverse*{:#tidyverse}:
+a collection of R packages for operating on tabular data in consistent ways.
 
-*Type*{:#type}: FIXME.
+*Unit test*{:#unit-test}:
+a function that tests one aspect or property of a piece of software.
 
-*Unit testing*{:#unit-test}: FIXME.
+*Validator (class)*{:#validator}:
+a function that checks the consistency of an [S3](#S3) object.
 
-*Validator (class)*{:#validator}: FIXME.
+*Variable arguments*{:#variable-arguments}:
+in a function,
+the ability to take any number of arguments.
+R uses `...` to capture the "extra" arguments.
 
-*Variable arguments*{:#variable-arguments}: FIXME.
-
-*Variable*{:#variable}: FIXME.
-
-*Vector*{:#vector}: FIXME.
+*Vector*{:#vector}:
+a sequence of values,
+usually of [homogeneous](#homogeneous) type.
+Vectors are *the* fundamental data structure in R;
+[scalars](#scalar) are actually vectors of unit length.
 
 *Warning*{:#warning}: FIXME.
+a built-in [condition](#condition) in R of middling severity.
