@@ -4,7 +4,7 @@
   <p>
 {% for extra in site.extras %}
     <a href="{{extra.url | relative_url}}">{{extra.title}}</a>
-    {% unless forloop.last %}{% include elder-sign.html %}{% endunless %}
+    {% unless forloop.last %}{% include small-icon.html %}{% endunless %}
 {% endfor %}
   </p>
   </p>
