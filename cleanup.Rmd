@@ -24,7 +24,8 @@ keypoints:
   - "Pre-allocate storage in a list for each result from a loop and fill it in rather than repeatedly extending the list."
 ---
 
-```{r setup, echo=FALSE}
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
 library(tidyverse)
 ```
 

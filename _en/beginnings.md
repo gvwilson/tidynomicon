@@ -53,6 +53,8 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
+
+
 We will begin our tour of R by looking at familiar things like lists and loops.
 Before we can do any of that,
 though,
@@ -85,10 +87,7 @@ using pink to show Python code and green to show R:
 
 ```r
 print("Hello, world!")
-```
-
-```
-## [1] "Hello, world!"
+#> [1] "Hello, world!"
 ```
 
 A sense of weariness settles over us immediately.
@@ -100,18 +99,9 @@ Let's take a closer look by simply evaluating an expression without bothering wi
 
 ```r
 'This is in single quotes.'
-```
-
-```
-## [1] "This is in single quotes."
-```
-
-```r
+#> [1] "This is in single quotes."
 "This is in double quotes."
-```
-
-```
-## [1] "This is in double quotes."
+#> [1] "This is in double quotes."
 ```
 
 It appears that R uses double quotes to display strings even when we give it a single-quoted string
@@ -129,10 +119,7 @@ This is a feature of the current version of RStudio.)
 
 ```python
 print(1 + 2 + 3)
-```
-
-```
-## 6
+#> 6
 ```
 
 I can check the type of the result using the built-in `type` function,
@@ -141,10 +128,7 @@ which in this case tells me that my `6` is an integer:
 
 ```python
 print(type(6))
-```
-
-```
-## <class 'int'>
+#> <class 'int'>
 ```
 
 What does R do?
@@ -152,18 +136,12 @@ What does R do?
 
 ```r
 1 + 2 + 3
-```
-
-```
-## [1] 6
+#> [1] 6
 ```
 
 ```r
 typeof(6)
-```
-
-```
-## [1] "double"
+#> [1] "double"
 ```
 
 Hm.
@@ -176,10 +154,7 @@ Let's try an experiment:
 
 ```r
 typeof(6)
-```
-
-```
-## [1] "double"
+#> [1] "double"
 ```
 
 Ah ha.
@@ -191,10 +166,7 @@ We can force a literal value to be an integer by putting an upper-case L after i
 
 ```r
 typeof(6L)
-```
-
-```
-## [1] "integer"
+#> [1] "integer"
 ```
 
 Arithmetic on integers produces integers:
@@ -202,18 +174,12 @@ Arithmetic on integers produces integers:
 
 ```r
 1L + 2L + 3L
-```
-
-```
-## [1] 6
+#> [1] 6
 ```
 
 ```r
 typeof(1L + 2L + 3L)
-```
-
-```
-## [1] "integer"
+#> [1] "integer"
 ```
 
 and if we want to convert a "normal" (floating-point) number to an integer
@@ -222,18 +188,12 @@ we can do so:
 
 ```r
 as.integer(6)
-```
-
-```
-## [1] 6
+#> [1] 6
 ```
 
 ```r
 typeof(as.integer(6))
-```
-
-```
-## [1] "integer"
+#> [1] "integer"
 ```
 
 But wait:
@@ -287,22 +247,16 @@ let's have a look at the lengths of various things in Python:
 
 ```python
 print(len(primes))
-```
-
-```
-## 4
+#> 4
 ```
 
 
 ```python
 print(len(4))
-```
-
-```
-## TypeError: object of type 'int' has no len()
-## 
-## Detailed traceback: 
-##   File "<string>", line 1, in <module>
+#> TypeError: object of type 'int' has no len()
+#> 
+#> Detailed traceback: 
+#>   File "<string>", line 1, in <module>
 ```
 
 Fair enough:
@@ -316,10 +270,7 @@ what of R and its vectors?
 
 ```r
 length(primes)
-```
-
-```
-## [1] 4
+#> [1] 4
 ```
 
 Good.
@@ -327,10 +278,7 @@ Good.
 
 ```r
 length(4)
-```
-
-```
-## [1] 1
+#> [1] 1
 ```
 
 That's unexpected.
@@ -339,10 +287,7 @@ Let's have a closer look:
 
 ```r
 typeof(primes)
-```
-
-```
-## [1] "double"
+#> [1] "double"
 ```
 
 That's also unexpected,
@@ -357,11 +302,8 @@ We can prove this by creating and displaying a much longer vector:
 ```r
 longer <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 longer
-```
-
-```
-##  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
-## [24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10
+#>  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
+#> [24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10
 ```
 
 In order to help us find out way in our data,
@@ -384,37 +326,25 @@ let's create a list of color names and index that:
 ```python
 colors = ["eburnean", "glaucous", "wenge"]
 print(colors[0])
-```
-
-```
-## eburnean
+#> eburnean
 ```
 
 ```python
 print(colors[2])
-```
-
-```
-## wenge
+#> wenge
 ```
 
 ```python
 colors[3]
-```
-
-```
-## IndexError: list index out of range
-## 
-## Detailed traceback: 
-##   File "<string>", line 1, in <module>
+#> IndexError: list index out of range
+#> 
+#> Detailed traceback: 
+#>   File "<string>", line 1, in <module>
 ```
 
 ```python
 print(colors[-1])
-```
-
-```
-## wenge
+#> wenge
 ```
 
 Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprising results:
@@ -423,18 +353,12 @@ Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprisin
 ```r
 colors <- c("eburnean", "glaucous", "wenge")
 colors[1]
-```
-
-```
-## [1] "eburnean"
+#> [1] "eburnean"
 ```
 
 ```r
 colors[3]
-```
-
-```
-## [1] "wenge"
+#> [1] "wenge"
 ```
 
 What happens if we go off the end?
@@ -442,10 +366,7 @@ What happens if we go off the end?
 
 ```r
 colors[4]
-```
-
-```
-## [1] NA
+#> [1] NA
 ```
 
 Our minds cannot grasp reality without shattering into a million gibbering pieces.
@@ -464,10 +385,7 @@ we use a negative index to indicate a value that we don't want:
 
 ```r
 colors[-1]
-```
-
-```
-## [1] "glaucous" "wenge"
+#> [1] "glaucous" "wenge"
 ```
 
 But wait.
@@ -479,10 +397,7 @@ What happens if the index itself contains more than one value?
 
 ```r
 colors[1, 2]
-```
-
-```
-## Error in colors[1, 2]: incorrect number of dimensions
+#> Error in colors[1, 2]: incorrect number of dimensions
 ```
 
 All right, that didn't work.
@@ -491,34 +406,22 @@ What if we make the vector subscript explicit using `c`?
 
 ```r
 colors[c(3, 1, 2)]
-```
-
-```
-## [1] "wenge"    "eburnean" "glaucous"
+#> [1] "wenge"    "eburnean" "glaucous"
 ```
 
 ```r
 colors[c(1, 1, 1)]
-```
-
-```
-## [1] "eburnean" "eburnean" "eburnean"
+#> [1] "eburnean" "eburnean" "eburnean"
 ```
 
 ```r
 colors[c(-1, -2)]
-```
-
-```
-## [1] "wenge"
+#> [1] "wenge"
 ```
 
 ```r
 colors[c(1, -1)]
-```
-
-```
-## Error in colors[c(1, -1)]: only 0's may be mixed with negative subscripts
+#> Error in colors[c(1, -1)]: only 0's may be mixed with negative subscripts
 ```
 
 This looks promising.
@@ -535,10 +438,7 @@ What of zero?
 
 ```r
 colors[0]
-```
-
-```
-## character(0)
+#> character(0)
 ```
 
 In order to understand this rather cryptic response,
@@ -548,10 +448,7 @@ with a positive argument:
 
 ```r
 character(3)
-```
-
-```
-## [1] "" "" ""
+#> [1] "" "" ""
 ```
 
 Ah---it appears that `character` constructs a vector of character strings of the specified length
@@ -567,10 +464,7 @@ let's try indexing with 0 and 1 together:
 
 ```r
 colors[c(0, 1)]
-```
-
-```
-## [1] "eburnean"
+#> [1] "eburnean"
 ```
 
 This unfortunate behavior is fertile ground for breeding bugs.
@@ -596,12 +490,9 @@ for v in values:
     else:
         sign = 1
     print("The sign of", v, "is", sign)
-```
-
-```
-## The sign of -1 is -1
-## The sign of 0 is 0
-## The sign of 1 is 1
+#> The sign of -1 is -1
+#> The sign of 0 is 0
+#> The sign of 1 is 1
 ```
 
 and then create something equivalent in R:
@@ -621,12 +512,9 @@ for (v in values) {
   }
   print(paste("The sign of", v, "is", sign))
 }
-```
-
-```
-## [1] "The sign of -1 is -1"
-## [1] "The sign of 0 is 0"
-## [1] "The sign of 1 is 1"
+#> [1] "The sign of -1 is -1"
+#> [1] "The sign of 0 is 0"
+#> [1] "The sign of 1 is 1"
 ```
 
 There are a few things to note here:
@@ -672,10 +560,7 @@ Their most common use is as indices to vectors:
 ```r
 colors <- c("eburnean", "glaucous", "squamous", "wenge")
 colors[1:3]
-```
-
-```
-## [1] "eburnean" "glaucous" "squamous"
+#> [1] "eburnean" "glaucous" "squamous"
 ```
 
 We can similarly subtract a range of colors by index:
@@ -683,10 +568,7 @@ We can similarly subtract a range of colors by index:
 
 ```r
 colors[-1:-3]
-```
-
-```
-## [1] "wenge"
+#> [1] "wenge"
 ```
 
 R does not allow tripartite expressions of the form `start:end:stride`;
@@ -696,10 +578,7 @@ we must use the `seq` function:
 
 ```r
 seq(1, 10, 3)
-```
-
-```
-## [1]  1  4  7 10
+#> [1]  1  4  7 10
 ```
 
 This example also shows that ranges in R are inclusive at both ends,
@@ -719,11 +598,8 @@ numbers <- c(0, 1, 2)
 if (numbers) {
   print("This should not have worked.")
 }
-```
-
-```
-## Warning in if (numbers) {: the condition has length > 1 and only the first
-## element will be used
+#> Warning in if (numbers) {: the condition has length > 1 and only the first
+#> element will be used
 ```
 
 Instead,
@@ -736,10 +612,7 @@ numbers <- c(0, 1, 2)
 if (all(numbers >= 0)) {
   print("This, on the other hand, should work.")
 }
-```
-
-```
-## [1] "This, on the other hand, should work."
+#> [1] "This, on the other hand, should work."
 ```
 
 When evaluating the expression `numbers >= 0`,
@@ -750,10 +623,7 @@ and then performs element-by-element comparison to construct a vector of logical
 
 ```r
 numbers >= 0
-```
-
-```
-## [1] TRUE TRUE TRUE
+#> [1] TRUE TRUE TRUE
 ```
 
 The function `all` then checks if they are all `TRUE`.
@@ -772,10 +642,7 @@ both <- -2:2         # c(-2, -1, 0, 1, 2)
 mask <- both > 0     # c(FALSE, FALSE, FALSE, TRUE, TRUE)
 result <- both[mask] # c(1, 2)
 result
-```
-
-```
-## [1] 1 2
+#> [1] 1 2
 ```
 
 We can of course make the code shorter by eliminating `mask`:
@@ -784,10 +651,7 @@ We can of course make the code shorter by eliminating `mask`:
 ```r
 result <- both[both > 0]
 result
-```
-
-```
-## [1] 1 2
+#> [1] 1 2
 ```
 
 ## How do I create and call functions?
@@ -798,10 +662,7 @@ we call functions in R much as we do in Python:
 
 ```r
 max(1, 3, 5) + min(1, 3, 5)
-```
-
-```
-## [1] 6
+#> [1] 6
 ```
 
 We can define a new function using the `function` keyword.
@@ -815,10 +676,7 @@ swap <- function(pair) {
   c(pair[2], pair[1])
 }
 swap(c("left", "right"))
-```
-
-```
-## [1] "right" "left"
+#> [1] "right" "left"
 ```
 
 As this example shows,
@@ -836,19 +694,13 @@ swap <- function(pair) {
   c(pair[2], pair[1])
 }
 swap(c("one"))
-```
-
-```
-## NULL
+#> NULL
 ```
 
 
 ```r
 swap(c("left", "right"))
-```
-
-```
-## [1] "right" "left"
+#> [1] "right" "left"
 ```
 
 We pause now to answer some questions that may have occurred to attentive readers.
@@ -860,10 +712,7 @@ though testing that statement produces a rather odd result:
 
 ```r
 NULL == integer(0)
-```
-
-```
-## logical(0)
+#> logical(0)
 ```
 
 To test for nullity,
@@ -872,10 +721,7 @@ use the function `is.null`:
 
 ```r
 is.null(NULL)
-```
-
-```
-## [1] TRUE
+#> [1] TRUE
 ```
 
 Second,
@@ -887,10 +733,7 @@ Consider:
 
 ```r
 NULL[1]  # Try to access an element of the vector that does not exist.
-```
-
-```
-## NULL
+#> NULL
 ```
 
 
@@ -898,10 +741,7 @@ NULL[1]  # Try to access an element of the vector that does not exist.
 values <- 5:10          # More than two values.
 result <- swap(values)  # Attempting to swap the values produces NULL.
 result[1]               # But we can operate on the result without error.
-```
-
-```
-## NULL
+#> NULL
 ```
 
 The next section will explore what we ought to do instead.
@@ -914,10 +754,7 @@ R will complain:
 
 ```r
 swap("one", "two", "three")
-```
-
-```
-## Error in swap("one", "two", "three"): unused arguments ("two", "three")
+#> Error in swap("one", "two", "three"): unused arguments ("two", "three")
 ```
 
 Note that in this example we as passing three values,
@@ -936,13 +773,10 @@ print_with_title <- function(title, ...) {
   cat("\n")
 }
 print_with_title("to-do", "Monday", "Tuesday", "Wednesday")
-```
-
-```
-## == to-do ==
-## Monday
-## Tuesday
-## Wednesday
+#> == to-do ==
+#> Monday
+#> Tuesday
+#> Wednesday
 ```
 
 If we want to work with the extra arguments one by one,
@@ -958,10 +792,7 @@ add <- function(...) {
   result
 }
 add(1, 3, 5, 7)
-```
-
-```
-## [1] 16
+#> [1] 16
 ```
 
 A list in R is a vector that can contain values of many different types.
@@ -979,10 +810,7 @@ to write:
 original = [3, 5, 7, 9]
 doubled = [2 * x for x in original]
 print(doubled)
-```
-
-```
-## [6, 10, 14, 18]
+#> [6, 10, 14, 18]
 ```
 
 instead of:
@@ -993,10 +821,7 @@ doubled = []
 for x in original:
   doubled.append(2 * x)
 print(doubled)
-```
-
-```
-## [6, 10, 14, 18]
+#> [6, 10, 14, 18]
 ```
 
 If `original` is a NumPy array,
@@ -1034,10 +859,7 @@ and then pass this function to `sapply` along with the data on which we want to 
 
 ```r
 sapply(1:10, double)
-```
-
-```
-##  [1]  2  4  6  8 10 12 14 16 18 20
+#>  [1]  2  4  6  8 10 12 14 16 18 20
 ```
 
 This is clumsier than simply multiplying our values by two,
@@ -1049,10 +871,7 @@ such as conditionals:
 ```r
 values <- -5:5
 ifelse(values > 0, values, NA)
-```
-
-```
-##  [1] NA NA NA NA NA NA  1  2  3  4  5
+#>  [1] NA NA NA NA NA NA  1  2  3  4  5
 ```
 
 R provides many other higher-order functions,

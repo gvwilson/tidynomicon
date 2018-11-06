@@ -53,6 +53,10 @@ keypoints:
   - "Use `sapply(vector, function(x){ ...body... })` to perform simple operations on each element of a vector."
 ---
 
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+```
+
 We will begin our tour of R by looking at familiar things like lists and loops.
 Before we can do any of that,
 though,

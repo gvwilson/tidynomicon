@@ -25,21 +25,6 @@ keypoints:
 ---
 
 
-```
-## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-```
-
-```
-## ✔ ggplot2 3.0.0     ✔ readr   1.1.1
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ forcats 0.3.0
-```
-
-```
-## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
 
 Here is a sample of data from `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
@@ -101,46 +86,31 @@ We will begin by reading the data into a tibble:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv")
-```
-
-```
-## Warning: Missing column names filled in: 'X2' [2], 'X3' [3], 'X4' [4],
-## 'X5' [5], 'X6' [6], 'X7' [7], 'X8' [8], 'X9' [9], 'X10' [10], 'X11' [11],
-## 'X12' [12], 'X13' [13], 'X14' [14], 'X15' [15], 'X16' [16], 'X17' [17],
-## 'X18' [18], 'X19' [19], 'X20' [20], 'X21' [21], 'X22' [22], 'X23' [23],
-## 'X24' [24], 'X25' [25], 'X26' [26], 'X27' [27], 'X28' [28], 'X29' [29],
-## 'X30' [30]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X2' [2], 'X3' [3], 'X4' [4],
+#> 'X5' [5], 'X6' [6], 'X7' [7], 'X8' [8], 'X9' [9], 'X10' [10], 'X11' [11],
+#> 'X12' [12], 'X13' [13], 'X14' [14], 'X15' [15], 'X16' [16], 'X17' [17],
+#> 'X18' [18], 'X19' [19], 'X20' [20], 'X21' [21], 'X22' [22], 'X23' [23],
+#> 'X24' [24], 'X25' [25], 'X26' [26], 'X27' [27], 'X28' [28], 'X29' [29],
+#> 'X30' [30]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 head(raw)
-```
-
-```
-## # A tibble: 6 x 30
-##   `Early Infant D… X2    X3    X4    X5    X6    X7    X8    X9    X10  
-##   <chr>            <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-## 1 <NA>             <NA>  2009  <NA>  <NA>  2010  <NA>  <NA>  2011  <NA> 
-## 2 ISO3             Coun… Esti… hi    lo    Esti… hi    lo    Esti… hi   
-## 3 AFG              Afgh… -     -     -     -     -     -     -     -    
-## 4 ALB              Alba… -     -     -     -     -     -     -     -    
-## 5 DZA              Alge… -     -     -     -     -     -     38%   42%  
-## 6 AGO              Ango… -     -     -     3%    4%    2%    5%    7%   
-## # ... with 20 more variables: X11 <chr>, X12 <chr>, X13 <chr>, X14 <chr>,
-## #   X15 <chr>, X16 <chr>, X17 <chr>, X18 <chr>, X19 <chr>, X20 <chr>,
-## #   X21 <chr>, X22 <chr>, X23 <chr>, X24 <chr>, X25 <chr>, X26 <chr>,
-## #   X27 <chr>, X28 <chr>, X29 <chr>, X30 <chr>
+#> # A tibble: 6 x 30
+#>   `Early Infant D… X2    X3    X4    X5    X6    X7    X8    X9    X10  
+#>   <chr>            <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+#> 1 <NA>             <NA>  2009  <NA>  <NA>  2010  <NA>  <NA>  2011  <NA> 
+#> 2 ISO3             Coun… Esti… hi    lo    Esti… hi    lo    Esti… hi   
+#> 3 AFG              Afgh… -     -     -     -     -     -     -     -    
+#> 4 ALB              Alba… -     -     -     -     -     -     -     -    
+#> 5 DZA              Alge… -     -     -     -     -     -     38%   42%  
+#> 6 AGO              Ango… -     -     -     3%    4%    2%    5%    7%   
+#> # ... with 20 more variables: X11 <chr>, X12 <chr>, X13 <chr>, X14 <chr>,
+#> #   X15 <chr>, X16 <chr>, X17 <chr>, X18 <chr>, X19 <chr>, X20 <chr>,
+#> #   X21 <chr>, X22 <chr>, X23 <chr>, X24 <chr>, X25 <chr>, X26 <chr>,
+#> #   X27 <chr>, X28 <chr>, X29 <chr>, X30 <chr>
 ```
 
 All right:
@@ -160,54 +130,36 @@ let's skip the first two rows.
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2)
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 head(raw)
-```
-
-```
-## # A tibble: 6 x 30
-##   ISO3  Countries Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2
-##   <chr> <chr>     <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>     
-## 1 AFG   Afghanis… -        -     -     -          -     -     -         
-## 2 ALB   Albania   -        -     -     -          -     -     -         
-## 3 DZA   Algeria   -        -     -     -          -     -     38%       
-## 4 AGO   Angola    -        -     -     3%         4%    2%    5%        
-## 5 AIA   Anguilla  -        -     -     -          -     -     -         
-## 6 ATG   Antigua … -        -     -     -          -     -     -         
-## # ... with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
-## #   hi_3 <chr>, lo_3 <chr>, Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>,
-## #   Estimate_5 <chr>, hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>,
-## #   hi_6 <chr>, lo_6 <chr>, Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>,
-## #   Estimate_8 <chr>, hi_8 <chr>, lo_8 <chr>, X30 <chr>
+#> # A tibble: 6 x 30
+#>   ISO3  Countries Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2
+#>   <chr> <chr>     <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>     
+#> 1 AFG   Afghanis… -        -     -     -          -     -     -         
+#> 2 ALB   Albania   -        -     -     -          -     -     -         
+#> 3 DZA   Algeria   -        -     -     -          -     -     38%       
+#> 4 AGO   Angola    -        -     -     3%         4%    2%    5%        
+#> 5 AIA   Anguilla  -        -     -     -          -     -     -         
+#> 6 ATG   Antigua … -        -     -     -          -     -     -         
+#> # ... with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
+#> #   hi_3 <chr>, lo_3 <chr>, Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>,
+#> #   Estimate_5 <chr>, hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>,
+#> #   hi_6 <chr>, lo_6 <chr>, Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>,
+#> #   Estimate_8 <chr>, hi_8 <chr>, lo_8 <chr>, X30 <chr>
 ```
 
 That's a bit of an improvement,
@@ -223,54 +175,36 @@ We will tackle the first problem by setting `na = c("-")` in our `read_csv` call
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 head(raw)
-```
-
-```
-## # A tibble: 6 x 30
-##   ISO3  Countries Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2
-##   <chr> <chr>     <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>     
-## 1 AFG   Afghanis… <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
-## 2 ALB   Albania   <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
-## 3 DZA   Algeria   <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  38%       
-## 4 AGO   Angola    <NA>     <NA>  <NA>  3%         4%    2%    5%        
-## 5 AIA   Anguilla  <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
-## 6 ATG   Antigua … <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
-## # ... with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
-## #   hi_3 <chr>, lo_3 <chr>, Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>,
-## #   Estimate_5 <chr>, hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>,
-## #   hi_6 <chr>, lo_6 <chr>, Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>,
-## #   Estimate_8 <chr>, hi_8 <chr>, lo_8 <chr>, X30 <chr>
+#> # A tibble: 6 x 30
+#>   ISO3  Countries Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2
+#>   <chr> <chr>     <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>     
+#> 1 AFG   Afghanis… <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
+#> 2 ALB   Albania   <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
+#> 3 DZA   Algeria   <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  38%       
+#> 4 AGO   Angola    <NA>     <NA>  <NA>  3%         4%    2%    5%        
+#> 5 AIA   Anguilla  <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
+#> 6 ATG   Antigua … <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
+#> # ... with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
+#> #   hi_3 <chr>, lo_3 <chr>, Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>,
+#> #   Estimate_5 <chr>, hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>,
+#> #   hi_6 <chr>, lo_6 <chr>, Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>,
+#> #   Estimate_8 <chr>, hi_8 <chr>, lo_8 <chr>, X30 <chr>
 ```
 
 That's progress.
@@ -284,43 +218,25 @@ but which we don't want to reveal just yet).
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 countries <- raw$ISO3
 body <- raw %>%
   filter(-ISO3, -Countries)
-```
-
-```
-## Error in filter_impl(.data, quo): Evaluation error: invalid argument to unary operator.
+#> Error in filter_impl(.data, quo): Evaluation error: invalid argument to unary operator.
 ```
 
 In the Hollywood version of this lesson,
@@ -331,57 +247,39 @@ we can move forward once again:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 countries <- raw$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 head(body)
-```
-
-```
-## # A tibble: 6 x 28
-##   Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2 hi_2  lo_2 
-##   <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>      <chr> <chr>
-## 1 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## 2 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## 3 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  38%        42%   35%  
-## 4 <NA>     <NA>  <NA>  3%         4%    2%    5%         7%    4%   
-## 5 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## 6 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## # ... with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
-## #   Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>, Estimate_5 <chr>,
-## #   hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>, hi_6 <chr>, lo_6 <chr>,
-## #   Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>, Estimate_8 <chr>,
-## #   hi_8 <chr>, lo_8 <chr>, X30 <chr>
+#> # A tibble: 6 x 28
+#>   Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2 hi_2  lo_2 
+#>   <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>      <chr> <chr>
+#> 1 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> 2 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> 3 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  38%        42%   35%  
+#> 4 <NA>     <NA>  <NA>  3%         4%    2%    5%         7%    4%   
+#> 5 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> 6 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> # ... with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
+#> #   Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>, Estimate_5 <chr>,
+#> #   hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>, hi_6 <chr>, lo_6 <chr>,
+#> #   Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>, Estimate_8 <chr>,
+#> #   hi_8 <chr>, lo_8 <chr>, X30 <chr>
 ```
 
 But wait.
@@ -391,34 +289,31 @@ What happened to them?
 
 ```r
 tail(countries, n = 25)
-```
-
-```
-##  [1] "YEM"                                                                                                                                                       
-##  [2] "ZMB"                                                                                                                                                       
-##  [3] "ZWE"                                                                                                                                                       
-##  [4] ""                                                                                                                                                          
-##  [5] ""                                                                                                                                                          
-##  [6] ""                                                                                                                                                          
-##  [7] "Region"                                                                                                                                                    
-##  [8] ""                                                                                                                                                          
-##  [9] ""                                                                                                                                                          
-## [10] ""                                                                                                                                                          
-## [11] ""                                                                                                                                                          
-## [12] ""                                                                                                                                                          
-## [13] ""                                                                                                                                                          
-## [14] ""                                                                                                                                                          
-## [15] ""                                                                                                                                                          
-## [16] "Super-region"                                                                                                                                              
-## [17] ""                                                                                                                                                          
-## [18] ""                                                                                                                                                          
-## [19] ""                                                                                                                                                          
-## [20] ""                                                                                                                                                          
-## [21] "Indicator definition: Percentage of infants born to women living with HIV receiving a virological test for HIV within two months of birth"                 
-## [22] "Note: Data are not available if country did not submit data to Global AIDS Monitoring or if estimates of pregnant women living with HIV are not published."
-## [23] "Data source: Global AIDS Monitoring 2018 and UNAIDS 2018 estimates"                                                                                        
-## [24] "For more information on this indicator, please visit the guidance: http://www.unaids.org/sites/default/files/media_asset/global-aids-monitoring_en.pdf"    
-## [25] "For more information on the data, visit data.unicef.org"
+#>  [1] "YEM"                                                                                                                                                       
+#>  [2] "ZMB"                                                                                                                                                       
+#>  [3] "ZWE"                                                                                                                                                       
+#>  [4] ""                                                                                                                                                          
+#>  [5] ""                                                                                                                                                          
+#>  [6] ""                                                                                                                                                          
+#>  [7] "Region"                                                                                                                                                    
+#>  [8] ""                                                                                                                                                          
+#>  [9] ""                                                                                                                                                          
+#> [10] ""                                                                                                                                                          
+#> [11] ""                                                                                                                                                          
+#> [12] ""                                                                                                                                                          
+#> [13] ""                                                                                                                                                          
+#> [14] ""                                                                                                                                                          
+#> [15] ""                                                                                                                                                          
+#> [16] "Super-region"                                                                                                                                              
+#> [17] ""                                                                                                                                                          
+#> [18] ""                                                                                                                                                          
+#> [19] ""                                                                                                                                                          
+#> [20] ""                                                                                                                                                          
+#> [21] "Indicator definition: Percentage of infants born to women living with HIV receiving a virological test for HIV within two months of birth"                 
+#> [22] "Note: Data are not available if country did not submit data to Global AIDS Monitoring or if estimates of pregnant women living with HIV are not published."
+#> [23] "Data source: Global AIDS Monitoring 2018 and UNAIDS 2018 estimates"                                                                                        
+#> [24] "For more information on this indicator, please visit the guidance: http://www.unaids.org/sites/default/files/media_asset/global-aids-monitoring_en.pdf"    
+#> [25] "For more information on the data, visit data.unicef.org"
 ```
 
 Once again the actor playing our part on screen sighs heavily.
@@ -435,43 +330,25 @@ let's revisit the problem once we have our data in place.
 ```r
 num_rows <- 192
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:num_rows)
 countries <- sliced$ISO3
 tail(countries, n = 5)
-```
-
-```
-## [1] "VEN" "VNM" "YEM" "ZMB" "ZWE"
+#> [1] "VEN" "VNM" "YEM" "ZMB" "ZWE"
 ```
 
 Notice that we're counting rows *not including* the two we're skipping,
@@ -493,10 +370,7 @@ we shall first test our plan for converting our strings to numbers:
 fixture <- c(NA, "1%", "10%", "100%")
 result <- as.numeric(str_replace(fixture, "%", "")) / 100
 result
-```
-
-```
-## [1]   NA 0.01 0.10 1.00
+#> [1]   NA 0.01 0.10 1.00
 ```
 
 And as a further check:
@@ -504,10 +378,7 @@ And as a further check:
 
 ```r
 is.numeric(result)
-```
-
-```
-## [1] TRUE
+#> [1] TRUE
 ```
 
 The function `is.numeric` is `TRUE` for both `NA` and actual numbers,
@@ -518,58 +389,31 @@ Our updated conversion script is now:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 numbers <- as.numeric(str_replace(body, "%", "")) / 100
-```
-
-```
-## Warning in stri_replace_first_regex(string, pattern,
-## fix_replacement(replacement), : argument is not an atomic vector; coercing
-```
-
-```
-## Warning: NAs introduced by coercion
-```
-
-```r
+#> Warning in stri_replace_first_regex(string, pattern,
+#> fix_replacement(replacement), : argument is not an atomic vector; coercing
+#> Warning: NAs introduced by coercion
 is.numeric(numbers)
-```
-
-```
-## [1] TRUE
+#> [1] TRUE
 ```
 
 Oh dear.
@@ -587,18 +431,12 @@ Let's take a closer look:
 
 ```r
 is.tibble(body)
-```
-
-```
-## [1] TRUE
+#> [1] TRUE
 ```
 
 ```r
 is.tibble(numbers)
-```
-
-```
-## [1] FALSE
+#> [1] FALSE
 ```
 
 Perdition.
@@ -621,208 +459,190 @@ we can use `map` to apply the function `str_replace` to each column in turn to g
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 trimmed <- map(body, str_replace, pattern = "%", replacement = "")
 head(trimmed)
-```
-
-```
-## $Estimate
-##   [1] NA         NA         NA         NA         NA         NA        
-##   [7] NA         NA         NA         NA         "26"       NA        
-##  [13] NA         NA         NA         ">95"      NA         "77"      
-##  [19] NA         NA         "7"        NA         NA         "25"      
-##  [25] NA         NA         "3"        NA         ">95"      NA        
-##  [31] "27"       NA         "1"        NA         NA         NA        
-##  [37] "5"        NA         "8"        NA         "92"       NA        
-##  [43] NA         "83"       NA         NA         NA         NA        
-##  [49] NA         NA         NA         "28"       "1"        "4"       
-##  [55] NA         NA         NA         NA         "4"        NA        
-##  [61] NA         NA         NA         NA         "61"       NA        
-##  [67] NA         NA         NA         NA         NA         NA        
-##  [73] NA         NA         "61"       NA         NA         NA        
-##  [79] NA         "2"        NA         NA         NA         NA        
-##  [85] NA         NA         NA         ">95"      NA         NA        
-##  [91] NA         NA         NA         NA         NA         "43"      
-##  [97] "5"        NA         NA         NA         NA         NA        
-## [103] "37"       NA         "8"        NA         NA         NA        
-## [109] NA         NA         NA         NA         NA         "2"       
-## [115] NA         NA         NA         NA         "2"        NA        
-## [121] NA         "50"       NA         "4"        NA         NA        
-## [127] NA         "1"        NA         NA         NA         NA        
-## [133] NA         NA         "1"        NA         NA         NA        
-## [139] ">95"      NA         NA         "58"       NA         NA        
-## [145] NA         NA         NA         NA         "11"       NA        
-## [151] NA         NA         NA         NA         NA         NA        
-## [157] NA         NA         NA         NA         NA         NA        
-## [163] "9"        NA         NA         NA         NA         "1"       
-## [169] NA         NA         NA         "7"        NA         NA        
-## [175] NA         NA         NA         NA         "8"        "78"      
-## [181] NA         NA         "13"       NA         NA         "0"       
-## [187] NA         NA         NA         NA         "59"       NA        
-## [193] ""         "2009"     "Estimate" "25"       "23"       NA        
-## [199] "24"       "2"        NA         "1"        "8"        NA        
-## [205] "7"        "72"       "16"       "17"       ""         ""        
-## [211] ""         ""         ""         ""        
-## 
-## $hi
-##   [1] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    "35" 
-##  [12] NA    NA    NA    NA    ">95" NA    "89"  NA    NA    "10"  NA   
-##  [23] NA    "35"  NA    NA    "5"   NA    ">95" NA    "36"  NA    "1"  
-##  [34] NA    NA    NA    "6"   NA    "12"  NA    ">95" NA    NA    ">95"
-##  [45] NA    NA    NA    NA    NA    NA    NA    "36"  "1"   "4"   NA   
-##  [56] NA    NA    NA    "6"   NA    NA    NA    NA    NA    "77"  NA   
-##  [67] NA    NA    NA    NA    NA    NA    NA    NA    "74"  NA    NA   
-##  [78] NA    NA    "2"   NA    NA    NA    NA    NA    NA    NA    ">95"
-##  [89] NA    NA    NA    NA    NA    NA    NA    "53"  "7"   NA    NA   
-## [100] NA    NA    NA    "44"  NA    "9"   NA    NA    NA    NA    NA   
-## [111] NA    NA    NA    "2"   NA    NA    NA    NA    "2"   NA    NA   
-## [122] "69"  NA    "7"   NA    NA    NA    "1"   NA    NA    NA    NA   
-## [133] NA    NA    "1"   NA    NA    NA    ">95" NA    NA    "75"  NA   
-## [144] NA    NA    NA    NA    NA    "13"  NA    NA    NA    NA    NA   
-## [155] NA    NA    NA    NA    NA    NA    NA    NA    "11"  NA    NA   
-## [166] NA    NA    "1"   NA    NA    NA    "12"  NA    NA    NA    NA   
-## [177] NA    NA    "9"   "95"  NA    NA    "16"  NA    NA    "1"   NA   
-## [188] NA    NA    NA    "70"  NA    ""    ""    "hi"  "30"  "29"  NA   
-## [199] "32"  "2"   NA    "2"   "12"  NA    "9"   "89"  "22"  "23"  ""   
-## [210] ""    ""    ""    ""    ""   
-## 
-## $lo
-##   [1] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    "18" 
-##  [12] NA    NA    NA    NA    ">95" NA    "3"   NA    NA    "5"   NA   
-##  [23] NA    "19"  NA    NA    "3"   NA    "85"  NA    "23"  NA    "1"  
-##  [34] NA    NA    NA    "4"   NA    "6"   NA    "81"  NA    NA    "75" 
-##  [45] NA    NA    NA    NA    NA    NA    NA    "21"  "0"   "3"   NA   
-##  [56] NA    NA    NA    "3"   NA    NA    NA    NA    NA    "49"  NA   
-##  [67] NA    NA    NA    NA    NA    NA    NA    NA    "51"  NA    NA   
-##  [78] NA    NA    "1"   NA    NA    NA    NA    NA    NA    NA    ">95"
-##  [89] NA    NA    NA    NA    NA    NA    NA    "38"  "4"   NA    NA   
-## [100] NA    NA    NA    "32"  NA    "6"   NA    NA    NA    NA    NA   
-## [111] NA    NA    NA    "1"   NA    NA    NA    NA    "1"   NA    NA   
-## [122] "33"  NA    "3"   NA    NA    NA    "1"   NA    NA    NA    NA   
-## [133] NA    NA    "1"   NA    NA    NA    "89"  NA    NA    "49"  NA   
-## [144] NA    NA    NA    NA    NA    "9"   NA    NA    NA    NA    NA   
-## [155] NA    NA    NA    NA    NA    NA    NA    NA    "7"   NA    NA   
-## [166] NA    NA    "0"   NA    NA    NA    "5"   NA    NA    NA    NA   
-## [177] NA    NA    "7"   "65"  NA    NA    "11"  NA    NA    "0"   NA   
-## [188] NA    NA    NA    "53"  NA    ""    ""    "lo"  "22"  "20"  NA   
-## [199] "16"  "1"   NA    "1"   "6"   NA    "6"   "59"  "13"  "13"  ""   
-## [210] ""    ""    ""    ""    ""   
-## 
-## $Estimate_1
-##   [1] NA         NA         NA         "3"        NA         NA        
-##   [7] NA         NA         NA         NA         "24"       NA        
-##  [13] NA         "2"        NA         ">95"      NA         "75"      
-##  [19] NA         NA         "46"       NA         "53"       "25"      
-##  [25] NA         NA         "9"        "10"       ">95"      "45"      
-##  [31] "20"       NA         "1"        "3"        NA         NA        
-##  [37] "10"       NA         "7"        NA         "69"       "22"      
-##  [43] NA         ">95"      NA         NA         NA         "3"       
-##  [49] NA         NA         NA         "10"       "1"        "5"       
-##  [55] "28"       NA         NA         NA         "40"       NA        
-##  [61] NA         NA         "6"        NA         "82"       NA        
-##  [67] "1"        NA         NA         NA         "5"        NA        
-##  [73] "27"       NA         "69"       NA         NA         "6"       
-##  [79] NA         "13"       NA         NA         NA         NA        
-##  [85] NA         NA         NA         ">95"      "75"       NA        
-##  [91] NA         NA         "1"        NA         NA         ">95"     
-##  [97] "5"        NA         NA         NA         NA         NA        
-## [103] "61"       NA         "8"        NA         NA         NA        
-## [109] NA         NA         NA         NA         NA         "21"      
-## [115] "31"       "1"        "57"       NA         "3"        NA        
-## [121] NA         "38"       NA         "6"        NA         NA        
-## [127] NA         "1"        NA         NA         "30"       NA        
-## [133] "27"       NA         "3"        NA         NA         NA        
-## [139] ">95"      NA         NA         "73"       NA         NA        
-## [145] NA         NA         NA         NA         "11"       NA        
-## [151] NA         "1"        NA         NA         NA         NA        
-## [157] NA         "66"       NA         NA         NA         NA        
-## [163] "9"        "50"       NA         NA         NA         "4"       
-## [169] "54"       NA         NA         "14"       NA         NA        
-## [175] NA         NA         NA         NA         "13"       ">95"     
-## [181] NA         NA         "24"       NA         "62"       "12"      
-## [187] NA         NA         NA         NA         "27"       "12"      
-## [193] ""         "2010"     "Estimate" "35"       "44"       NA        
-## [199] "18"       "11"       NA         "6"        "8"        NA        
-## [205] "15"       "90"       "34"       "33"       ""         ""        
-## [211] ""         ""         ""         ""        
-## 
-## $hi_1
-##   [1] NA    NA    NA    "4"   NA    NA    NA    NA    NA    NA    "31" 
-##  [12] NA    NA    "3"   NA    ">95" NA    "88"  NA    NA    "67"  NA   
-##  [23] "62"  "35"  NA    NA    "14"  "15"  ">95" "54"  "26"  NA    "1"  
-##  [34] "4"   NA    NA    "12"  NA    "10"  NA    "78"  "34"  NA    ">95"
-##  [45] NA    NA    NA    "4"   NA    NA    NA    "13"  "1"   "5"   "32" 
-##  [56] NA    NA    NA    "61"  NA    NA    NA    "8"   NA    ">95" NA   
-##  [67] "1"   NA    NA    NA    "6"   NA    "30"  NA    "86"  NA    NA   
-##  [78] "9"   NA    "18"  NA    NA    NA    NA    NA    NA    NA    ">95"
-##  [89] ">95" NA    NA    NA    "1"   NA    NA    ">95" "7"   NA    NA   
-## [100] NA    NA    NA    "72"  NA    "9"   NA    NA    NA    NA    NA   
-## [111] NA    NA    NA    "28"  "42"  "2"   "72"  NA    "4"   NA    NA   
-## [122] "51"  NA    "10"  NA    NA    NA    "2"   NA    NA    "35"  NA   
-## [133] "40"  NA    "4"   NA    NA    NA    ">95" NA    NA    ">95" NA   
-## [144] NA    NA    NA    NA    NA    "12"  NA    NA    "1"   NA    NA   
-## [155] NA    NA    NA    "88"  NA    NA    NA    NA    "11"  "59"  NA   
-## [166] NA    NA    "5"   "66"  NA    NA    "23"  NA    NA    NA    NA   
-## [177] NA    NA    "16"  ">95" NA    NA    "30"  NA    "73"  "16"  NA   
-## [188] NA    NA    NA    "32"  "15"  ""    ""    "hi"  "42"  "57"  NA   
-## [199] "23"  "15"  NA    "8"   "12"  NA    "20"  ">95" "46"  "45"  ""   
-## [210] ""    ""    ""    ""    ""   
-## 
-## $lo_1
-##   [1] NA    NA    NA    "2"   NA    NA    NA    NA    NA    NA    "17" 
-##  [12] NA    NA    "2"   NA    ">95" NA    "3"   NA    NA    "34"  NA   
-##  [23] "47"  "19"  NA    NA    "7"   "8"   "87"  "39"  "16"  NA    "1"  
-##  [34] "3"   NA    NA    "8"   NA    "5"   NA    "61"  "15"  NA    "85" 
-##  [45] NA    NA    NA    "2"   NA    NA    NA    "8"   "0"   "4"   "25" 
-##  [56] NA    NA    NA    "30"  NA    NA    NA    "5"   NA    "66"  NA   
-##  [67] "1"   NA    NA    NA    "4"   NA    "24"  NA    "59"  NA    NA   
-##  [78] "4"   NA    "9"   NA    NA    NA    NA    NA    NA    NA    ">95"
-##  [89] "63"  NA    NA    NA    "1"   NA    NA    "88"  "4"   NA    NA   
-## [100] NA    NA    NA    "52"  NA    "7"   NA    NA    NA    NA    NA   
-## [111] NA    NA    NA    "17"  "25"  "1"   "50"  NA    "3"   NA    NA   
-## [122] "25"  NA    "4"   NA    NA    NA    "1"   NA    NA    "27"  NA   
-## [133] "17"  NA    "3"   NA    NA    NA    ">95" NA    NA    "63"  NA   
-## [144] NA    NA    NA    NA    NA    "9"   NA    NA    "0"   NA    NA   
-## [155] NA    NA    NA    "56"  NA    NA    NA    NA    "7"   "45"  NA   
-## [166] NA    NA    "3"   "46"  NA    NA    "10"  NA    NA    NA    NA   
-## [177] NA    NA    "11"  "86"  NA    NA    "20"  NA    "54"  "9"   NA   
-## [188] NA    NA    NA    "24"  "10"  ""    ""    "lo"  "29"  "37"  NA   
-## [199] "13"  "8"   NA    "4"   "6"   NA    "11"  "73"  "28"  "27"  ""   
-## [210] ""    ""    ""    ""    ""
+#> $Estimate
+#>   [1] NA         NA         NA         NA         NA         NA        
+#>   [7] NA         NA         NA         NA         "26"       NA        
+#>  [13] NA         NA         NA         ">95"      NA         "77"      
+#>  [19] NA         NA         "7"        NA         NA         "25"      
+#>  [25] NA         NA         "3"        NA         ">95"      NA        
+#>  [31] "27"       NA         "1"        NA         NA         NA        
+#>  [37] "5"        NA         "8"        NA         "92"       NA        
+#>  [43] NA         "83"       NA         NA         NA         NA        
+#>  [49] NA         NA         NA         "28"       "1"        "4"       
+#>  [55] NA         NA         NA         NA         "4"        NA        
+#>  [61] NA         NA         NA         NA         "61"       NA        
+#>  [67] NA         NA         NA         NA         NA         NA        
+#>  [73] NA         NA         "61"       NA         NA         NA        
+#>  [79] NA         "2"        NA         NA         NA         NA        
+#>  [85] NA         NA         NA         ">95"      NA         NA        
+#>  [91] NA         NA         NA         NA         NA         "43"      
+#>  [97] "5"        NA         NA         NA         NA         NA        
+#> [103] "37"       NA         "8"        NA         NA         NA        
+#> [109] NA         NA         NA         NA         NA         "2"       
+#> [115] NA         NA         NA         NA         "2"        NA        
+#> [121] NA         "50"       NA         "4"        NA         NA        
+#> [127] NA         "1"        NA         NA         NA         NA        
+#> [133] NA         NA         "1"        NA         NA         NA        
+#> [139] ">95"      NA         NA         "58"       NA         NA        
+#> [145] NA         NA         NA         NA         "11"       NA        
+#> [151] NA         NA         NA         NA         NA         NA        
+#> [157] NA         NA         NA         NA         NA         NA        
+#> [163] "9"        NA         NA         NA         NA         "1"       
+#> [169] NA         NA         NA         "7"        NA         NA        
+#> [175] NA         NA         NA         NA         "8"        "78"      
+#> [181] NA         NA         "13"       NA         NA         "0"       
+#> [187] NA         NA         NA         NA         "59"       NA        
+#> [193] ""         "2009"     "Estimate" "25"       "23"       NA        
+#> [199] "24"       "2"        NA         "1"        "8"        NA        
+#> [205] "7"        "72"       "16"       "17"       ""         ""        
+#> [211] ""         ""         ""         ""        
+#> 
+#> $hi
+#>   [1] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    "35" 
+#>  [12] NA    NA    NA    NA    ">95" NA    "89"  NA    NA    "10"  NA   
+#>  [23] NA    "35"  NA    NA    "5"   NA    ">95" NA    "36"  NA    "1"  
+#>  [34] NA    NA    NA    "6"   NA    "12"  NA    ">95" NA    NA    ">95"
+#>  [45] NA    NA    NA    NA    NA    NA    NA    "36"  "1"   "4"   NA   
+#>  [56] NA    NA    NA    "6"   NA    NA    NA    NA    NA    "77"  NA   
+#>  [67] NA    NA    NA    NA    NA    NA    NA    NA    "74"  NA    NA   
+#>  [78] NA    NA    "2"   NA    NA    NA    NA    NA    NA    NA    ">95"
+#>  [89] NA    NA    NA    NA    NA    NA    NA    "53"  "7"   NA    NA   
+#> [100] NA    NA    NA    "44"  NA    "9"   NA    NA    NA    NA    NA   
+#> [111] NA    NA    NA    "2"   NA    NA    NA    NA    "2"   NA    NA   
+#> [122] "69"  NA    "7"   NA    NA    NA    "1"   NA    NA    NA    NA   
+#> [133] NA    NA    "1"   NA    NA    NA    ">95" NA    NA    "75"  NA   
+#> [144] NA    NA    NA    NA    NA    "13"  NA    NA    NA    NA    NA   
+#> [155] NA    NA    NA    NA    NA    NA    NA    NA    "11"  NA    NA   
+#> [166] NA    NA    "1"   NA    NA    NA    "12"  NA    NA    NA    NA   
+#> [177] NA    NA    "9"   "95"  NA    NA    "16"  NA    NA    "1"   NA   
+#> [188] NA    NA    NA    "70"  NA    ""    ""    "hi"  "30"  "29"  NA   
+#> [199] "32"  "2"   NA    "2"   "12"  NA    "9"   "89"  "22"  "23"  ""   
+#> [210] ""    ""    ""    ""    ""   
+#> 
+#> $lo
+#>   [1] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    "18" 
+#>  [12] NA    NA    NA    NA    ">95" NA    "3"   NA    NA    "5"   NA   
+#>  [23] NA    "19"  NA    NA    "3"   NA    "85"  NA    "23"  NA    "1"  
+#>  [34] NA    NA    NA    "4"   NA    "6"   NA    "81"  NA    NA    "75" 
+#>  [45] NA    NA    NA    NA    NA    NA    NA    "21"  "0"   "3"   NA   
+#>  [56] NA    NA    NA    "3"   NA    NA    NA    NA    NA    "49"  NA   
+#>  [67] NA    NA    NA    NA    NA    NA    NA    NA    "51"  NA    NA   
+#>  [78] NA    NA    "1"   NA    NA    NA    NA    NA    NA    NA    ">95"
+#>  [89] NA    NA    NA    NA    NA    NA    NA    "38"  "4"   NA    NA   
+#> [100] NA    NA    NA    "32"  NA    "6"   NA    NA    NA    NA    NA   
+#> [111] NA    NA    NA    "1"   NA    NA    NA    NA    "1"   NA    NA   
+#> [122] "33"  NA    "3"   NA    NA    NA    "1"   NA    NA    NA    NA   
+#> [133] NA    NA    "1"   NA    NA    NA    "89"  NA    NA    "49"  NA   
+#> [144] NA    NA    NA    NA    NA    "9"   NA    NA    NA    NA    NA   
+#> [155] NA    NA    NA    NA    NA    NA    NA    NA    "7"   NA    NA   
+#> [166] NA    NA    "0"   NA    NA    NA    "5"   NA    NA    NA    NA   
+#> [177] NA    NA    "7"   "65"  NA    NA    "11"  NA    NA    "0"   NA   
+#> [188] NA    NA    NA    "53"  NA    ""    ""    "lo"  "22"  "20"  NA   
+#> [199] "16"  "1"   NA    "1"   "6"   NA    "6"   "59"  "13"  "13"  ""   
+#> [210] ""    ""    ""    ""    ""   
+#> 
+#> $Estimate_1
+#>   [1] NA         NA         NA         "3"        NA         NA        
+#>   [7] NA         NA         NA         NA         "24"       NA        
+#>  [13] NA         "2"        NA         ">95"      NA         "75"      
+#>  [19] NA         NA         "46"       NA         "53"       "25"      
+#>  [25] NA         NA         "9"        "10"       ">95"      "45"      
+#>  [31] "20"       NA         "1"        "3"        NA         NA        
+#>  [37] "10"       NA         "7"        NA         "69"       "22"      
+#>  [43] NA         ">95"      NA         NA         NA         "3"       
+#>  [49] NA         NA         NA         "10"       "1"        "5"       
+#>  [55] "28"       NA         NA         NA         "40"       NA        
+#>  [61] NA         NA         "6"        NA         "82"       NA        
+#>  [67] "1"        NA         NA         NA         "5"        NA        
+#>  [73] "27"       NA         "69"       NA         NA         "6"       
+#>  [79] NA         "13"       NA         NA         NA         NA        
+#>  [85] NA         NA         NA         ">95"      "75"       NA        
+#>  [91] NA         NA         "1"        NA         NA         ">95"     
+#>  [97] "5"        NA         NA         NA         NA         NA        
+#> [103] "61"       NA         "8"        NA         NA         NA        
+#> [109] NA         NA         NA         NA         NA         "21"      
+#> [115] "31"       "1"        "57"       NA         "3"        NA        
+#> [121] NA         "38"       NA         "6"        NA         NA        
+#> [127] NA         "1"        NA         NA         "30"       NA        
+#> [133] "27"       NA         "3"        NA         NA         NA        
+#> [139] ">95"      NA         NA         "73"       NA         NA        
+#> [145] NA         NA         NA         NA         "11"       NA        
+#> [151] NA         "1"        NA         NA         NA         NA        
+#> [157] NA         "66"       NA         NA         NA         NA        
+#> [163] "9"        "50"       NA         NA         NA         "4"       
+#> [169] "54"       NA         NA         "14"       NA         NA        
+#> [175] NA         NA         NA         NA         "13"       ">95"     
+#> [181] NA         NA         "24"       NA         "62"       "12"      
+#> [187] NA         NA         NA         NA         "27"       "12"      
+#> [193] ""         "2010"     "Estimate" "35"       "44"       NA        
+#> [199] "18"       "11"       NA         "6"        "8"        NA        
+#> [205] "15"       "90"       "34"       "33"       ""         ""        
+#> [211] ""         ""         ""         ""        
+#> 
+#> $hi_1
+#>   [1] NA    NA    NA    "4"   NA    NA    NA    NA    NA    NA    "31" 
+#>  [12] NA    NA    "3"   NA    ">95" NA    "88"  NA    NA    "67"  NA   
+#>  [23] "62"  "35"  NA    NA    "14"  "15"  ">95" "54"  "26"  NA    "1"  
+#>  [34] "4"   NA    NA    "12"  NA    "10"  NA    "78"  "34"  NA    ">95"
+#>  [45] NA    NA    NA    "4"   NA    NA    NA    "13"  "1"   "5"   "32" 
+#>  [56] NA    NA    NA    "61"  NA    NA    NA    "8"   NA    ">95" NA   
+#>  [67] "1"   NA    NA    NA    "6"   NA    "30"  NA    "86"  NA    NA   
+#>  [78] "9"   NA    "18"  NA    NA    NA    NA    NA    NA    NA    ">95"
+#>  [89] ">95" NA    NA    NA    "1"   NA    NA    ">95" "7"   NA    NA   
+#> [100] NA    NA    NA    "72"  NA    "9"   NA    NA    NA    NA    NA   
+#> [111] NA    NA    NA    "28"  "42"  "2"   "72"  NA    "4"   NA    NA   
+#> [122] "51"  NA    "10"  NA    NA    NA    "2"   NA    NA    "35"  NA   
+#> [133] "40"  NA    "4"   NA    NA    NA    ">95" NA    NA    ">95" NA   
+#> [144] NA    NA    NA    NA    NA    "12"  NA    NA    "1"   NA    NA   
+#> [155] NA    NA    NA    "88"  NA    NA    NA    NA    "11"  "59"  NA   
+#> [166] NA    NA    "5"   "66"  NA    NA    "23"  NA    NA    NA    NA   
+#> [177] NA    NA    "16"  ">95" NA    NA    "30"  NA    "73"  "16"  NA   
+#> [188] NA    NA    NA    "32"  "15"  ""    ""    "hi"  "42"  "57"  NA   
+#> [199] "23"  "15"  NA    "8"   "12"  NA    "20"  ">95" "46"  "45"  ""   
+#> [210] ""    ""    ""    ""    ""   
+#> 
+#> $lo_1
+#>   [1] NA    NA    NA    "2"   NA    NA    NA    NA    NA    NA    "17" 
+#>  [12] NA    NA    "2"   NA    ">95" NA    "3"   NA    NA    "34"  NA   
+#>  [23] "47"  "19"  NA    NA    "7"   "8"   "87"  "39"  "16"  NA    "1"  
+#>  [34] "3"   NA    NA    "8"   NA    "5"   NA    "61"  "15"  NA    "85" 
+#>  [45] NA    NA    NA    "2"   NA    NA    NA    "8"   "0"   "4"   "25" 
+#>  [56] NA    NA    NA    "30"  NA    NA    NA    "5"   NA    "66"  NA   
+#>  [67] "1"   NA    NA    NA    "4"   NA    "24"  NA    "59"  NA    NA   
+#>  [78] "4"   NA    "9"   NA    NA    NA    NA    NA    NA    NA    ">95"
+#>  [89] "63"  NA    NA    NA    "1"   NA    NA    "88"  "4"   NA    NA   
+#> [100] NA    NA    NA    "52"  NA    "7"   NA    NA    NA    NA    NA   
+#> [111] NA    NA    NA    "17"  "25"  "1"   "50"  NA    "3"   NA    NA   
+#> [122] "25"  NA    "4"   NA    NA    NA    "1"   NA    NA    "27"  NA   
+#> [133] "17"  NA    "3"   NA    NA    NA    ">95" NA    NA    "63"  NA   
+#> [144] NA    NA    NA    NA    NA    "9"   NA    NA    "0"   NA    NA   
+#> [155] NA    NA    NA    "56"  NA    NA    NA    NA    "7"   "45"  NA   
+#> [166] NA    NA    "3"   "46"  NA    NA    "10"  NA    NA    NA    NA   
+#> [177] NA    NA    "11"  "86"  NA    NA    "20"  NA    "54"  "9"   NA   
+#> [188] NA    NA    NA    "24"  "10"  ""    ""    "lo"  "29"  "37"  NA   
+#> [199] "13"  "8"   NA    "4"   "6"   NA    "11"  "73"  "28"  "27"  ""   
+#> [210] ""    ""    ""    ""    ""
 ```
 
 Perdition once again.
@@ -834,59 +654,41 @@ which maps a function across the columns of a tibble and returns a tibble as a r
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 trimmed <- map_dfr(body, str_replace, pattern = "%", replacement = "")
 head(trimmed)
-```
-
-```
-## # A tibble: 6 x 28
-##   Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2 hi_2  lo_2 
-##   <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>      <chr> <chr>
-## 1 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## 2 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## 3 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  38         42    35   
-## 4 <NA>     <NA>  <NA>  3          4     2     5          7     4    
-## 5 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## 6 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-## # ... with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
-## #   Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>, Estimate_5 <chr>,
-## #   hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>, hi_6 <chr>, lo_6 <chr>,
-## #   Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>, Estimate_8 <chr>,
-## #   hi_8 <chr>, lo_8 <chr>, X30 <chr>
+#> # A tibble: 6 x 28
+#>   Estimate hi    lo    Estimate_1 hi_1  lo_1  Estimate_2 hi_2  lo_2 
+#>   <chr>    <chr> <chr> <chr>      <chr> <chr> <chr>      <chr> <chr>
+#> 1 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> 2 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> 3 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  38         42    35   
+#> 4 <NA>     <NA>  <NA>  3          4     2     5          7     4    
+#> 5 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> 6 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
+#> # ... with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
+#> #   Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>, Estimate_5 <chr>,
+#> #   hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>, hi_6 <chr>, lo_6 <chr>,
+#> #   Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>, Estimate_8 <chr>,
+#> #   hi_8 <chr>, lo_8 <chr>, X30 <chr>
 ```
 
 Now to tackle those `">95%"` values.
@@ -899,81 +701,63 @@ which earlier inspection informed us had at least one `">95%"` in it:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
 trimmed$Estimate
-```
-
-```
-##   [1] NA         NA         NA         NA         NA         NA        
-##   [7] NA         NA         NA         NA         "26"       NA        
-##  [13] NA         NA         NA         "95"       NA         "77"      
-##  [19] NA         NA         "7"        NA         NA         "25"      
-##  [25] NA         NA         "3"        NA         "95"       NA        
-##  [31] "27"       NA         "1"        NA         NA         NA        
-##  [37] "5"        NA         "8"        NA         "92"       NA        
-##  [43] NA         "83"       NA         NA         NA         NA        
-##  [49] NA         NA         NA         "28"       "1"        "4"       
-##  [55] NA         NA         NA         NA         "4"        NA        
-##  [61] NA         NA         NA         NA         "61"       NA        
-##  [67] NA         NA         NA         NA         NA         NA        
-##  [73] NA         NA         "61"       NA         NA         NA        
-##  [79] NA         "2"        NA         NA         NA         NA        
-##  [85] NA         NA         NA         "95"       NA         NA        
-##  [91] NA         NA         NA         NA         NA         "43"      
-##  [97] "5"        NA         NA         NA         NA         NA        
-## [103] "37"       NA         "8"        NA         NA         NA        
-## [109] NA         NA         NA         NA         NA         "2"       
-## [115] NA         NA         NA         NA         "2"        NA        
-## [121] NA         "50"       NA         "4"        NA         NA        
-## [127] NA         "1"        NA         NA         NA         NA        
-## [133] NA         NA         "1"        NA         NA         NA        
-## [139] "95"       NA         NA         "58"       NA         NA        
-## [145] NA         NA         NA         NA         "11"       NA        
-## [151] NA         NA         NA         NA         NA         NA        
-## [157] NA         NA         NA         NA         NA         NA        
-## [163] "9"        NA         NA         NA         NA         "1"       
-## [169] NA         NA         NA         "7"        NA         NA        
-## [175] NA         NA         NA         NA         "8"        "78"      
-## [181] NA         NA         "13"       NA         NA         "0"       
-## [187] NA         NA         NA         NA         "59"       NA        
-## [193] ""         "2009"     "Estimate" "25"       "23"       NA        
-## [199] "24"       "2"        NA         "1"        "8"        NA        
-## [205] "7"        "72"       "16"       "17"       ""         ""        
-## [211] ""         ""         ""         ""
+#>   [1] NA         NA         NA         NA         NA         NA        
+#>   [7] NA         NA         NA         NA         "26"       NA        
+#>  [13] NA         NA         NA         "95"       NA         "77"      
+#>  [19] NA         NA         "7"        NA         NA         "25"      
+#>  [25] NA         NA         "3"        NA         "95"       NA        
+#>  [31] "27"       NA         "1"        NA         NA         NA        
+#>  [37] "5"        NA         "8"        NA         "92"       NA        
+#>  [43] NA         "83"       NA         NA         NA         NA        
+#>  [49] NA         NA         NA         "28"       "1"        "4"       
+#>  [55] NA         NA         NA         NA         "4"        NA        
+#>  [61] NA         NA         NA         NA         "61"       NA        
+#>  [67] NA         NA         NA         NA         NA         NA        
+#>  [73] NA         NA         "61"       NA         NA         NA        
+#>  [79] NA         "2"        NA         NA         NA         NA        
+#>  [85] NA         NA         NA         "95"       NA         NA        
+#>  [91] NA         NA         NA         NA         NA         "43"      
+#>  [97] "5"        NA         NA         NA         NA         NA        
+#> [103] "37"       NA         "8"        NA         NA         NA        
+#> [109] NA         NA         NA         NA         NA         "2"       
+#> [115] NA         NA         NA         NA         "2"        NA        
+#> [121] NA         "50"       NA         "4"        NA         NA        
+#> [127] NA         "1"        NA         NA         NA         NA        
+#> [133] NA         NA         "1"        NA         NA         NA        
+#> [139] "95"       NA         NA         "58"       NA         NA        
+#> [145] NA         NA         NA         NA         "11"       NA        
+#> [151] NA         NA         NA         NA         NA         NA        
+#> [157] NA         NA         NA         NA         NA         NA        
+#> [163] "9"        NA         NA         NA         NA         "1"       
+#> [169] NA         NA         NA         "7"        NA         NA        
+#> [175] NA         NA         NA         NA         "8"        "78"      
+#> [181] NA         NA         "13"       NA         NA         "0"       
+#> [187] NA         NA         NA         NA         "59"       NA        
+#> [193] ""         "2009"     "Estimate" "25"       "23"       NA        
+#> [199] "24"       "2"        NA         "1"        "8"        NA        
+#> [205] "7"        "72"       "16"       "17"       ""         ""        
+#> [211] ""         ""         ""         ""
 ```
 
 Excellent.
@@ -983,121 +767,94 @@ using an anonymous function that we define inside the `map_dfr` call itself:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
 percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
-```
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-```
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-```
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-```
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-```
-
-```r
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 head(percents)
-```
-
-```
-## # A tibble: 6 x 28
-##   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
-##      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>
-## 1       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## 2       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## 3       NA    NA    NA      NA    NA    NA          0.38  0.42  0.35
-## 4       NA    NA    NA       0.03  0.04  0.02       0.05  0.07  0.04
-## 5       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## 6       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
-## #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
-## #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
-## #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
-## #   hi_8 <dbl>, lo_8 <dbl>, X30 <dbl>
+#> # A tibble: 6 x 28
+#>   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
+#>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>
+#> 1       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> 2       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> 3       NA    NA    NA      NA    NA    NA          0.38  0.42  0.35
+#> 4       NA    NA    NA       0.03  0.04  0.02       0.05  0.07  0.04
+#> 5       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> 6       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
+#> #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
+#> #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
+#> #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
+#> #   hi_8 <dbl>, lo_8 <dbl>, X30 <dbl>
 ```
 
 27 warnings is rather a lot,
@@ -1106,103 +863,79 @@ so let's see what running `warnings()` produces right after the `as.numeric` cal
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
 trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
 percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
-```
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-```
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-```
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-```
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-
-## Warning in .f(.x[[i]], ...): NAs introduced by coercion
-```
-
-```r
+#> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 warnings()
 ```
 
@@ -1213,25 +946,22 @@ so let's have a look at the second column:
 
 ```r
 trimmed$hi
-```
-
-```
-##   [1] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   "35" NA   NA   NA  
-##  [15] NA   "95" NA   "89" NA   NA   "10" NA   NA   "35" NA   NA   "5"  NA  
-##  [29] "95" NA   "36" NA   "1"  NA   NA   NA   "6"  NA   "12" NA   "95" NA  
-##  [43] NA   "95" NA   NA   NA   NA   NA   NA   NA   "36" "1"  "4"  NA   NA  
-##  [57] NA   NA   "6"  NA   NA   NA   NA   NA   "77" NA   NA   NA   NA   NA  
-##  [71] NA   NA   NA   NA   "74" NA   NA   NA   NA   "2"  NA   NA   NA   NA  
-##  [85] NA   NA   NA   "95" NA   NA   NA   NA   NA   NA   NA   "53" "7"  NA  
-##  [99] NA   NA   NA   NA   "44" NA   "9"  NA   NA   NA   NA   NA   NA   NA  
-## [113] NA   "2"  NA   NA   NA   NA   "2"  NA   NA   "69" NA   "7"  NA   NA  
-## [127] NA   "1"  NA   NA   NA   NA   NA   NA   "1"  NA   NA   NA   "95" NA  
-## [141] NA   "75" NA   NA   NA   NA   NA   NA   "13" NA   NA   NA   NA   NA  
-## [155] NA   NA   NA   NA   NA   NA   NA   NA   "11" NA   NA   NA   NA   "1" 
-## [169] NA   NA   NA   "12" NA   NA   NA   NA   NA   NA   "9"  "95" NA   NA  
-## [183] "16" NA   NA   "1"  NA   NA   NA   NA   "70" NA   ""   ""   "hi" "30"
-## [197] "29" NA   "32" "2"  NA   "2"  "12" NA   "9"  "89" "22" "23" ""   ""  
-## [211] ""   ""   ""   ""
+#>   [1] NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   "35" NA   NA   NA  
+#>  [15] NA   "95" NA   "89" NA   NA   "10" NA   NA   "35" NA   NA   "5"  NA  
+#>  [29] "95" NA   "36" NA   "1"  NA   NA   NA   "6"  NA   "12" NA   "95" NA  
+#>  [43] NA   "95" NA   NA   NA   NA   NA   NA   NA   "36" "1"  "4"  NA   NA  
+#>  [57] NA   NA   "6"  NA   NA   NA   NA   NA   "77" NA   NA   NA   NA   NA  
+#>  [71] NA   NA   NA   NA   "74" NA   NA   NA   NA   "2"  NA   NA   NA   NA  
+#>  [85] NA   NA   NA   "95" NA   NA   NA   NA   NA   NA   NA   "53" "7"  NA  
+#>  [99] NA   NA   NA   NA   "44" NA   "9"  NA   NA   NA   NA   NA   NA   NA  
+#> [113] NA   "2"  NA   NA   NA   NA   "2"  NA   NA   "69" NA   "7"  NA   NA  
+#> [127] NA   "1"  NA   NA   NA   NA   NA   NA   "1"  NA   NA   NA   "95" NA  
+#> [141] NA   "75" NA   NA   NA   NA   NA   NA   "13" NA   NA   NA   NA   NA  
+#> [155] NA   NA   NA   NA   NA   NA   NA   NA   "11" NA   NA   NA   NA   "1" 
+#> [169] NA   NA   NA   "12" NA   NA   NA   NA   NA   NA   "9"  "95" NA   NA  
+#> [183] "16" NA   NA   "1"  NA   NA   NA   NA   "70" NA   ""   ""   "hi" "30"
+#> [197] "29" NA   "32" "2"  NA   "2"  "12" NA   "9"  "89" "22" "23" ""   ""  
+#> [211] ""   ""   ""   ""
 ```
 
 Empty strings.
@@ -1251,36 +981,21 @@ in which we check *both* the head and the tail:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- sliced %>%
@@ -1288,44 +1003,38 @@ body <- sliced %>%
 trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
 percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
 head(percents)
-```
-
-```
-## # A tibble: 6 x 28
-##   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
-##      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>
-## 1       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## 2       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## 3       NA    NA    NA      NA    NA    NA          0.38  0.42  0.35
-## 4       NA    NA    NA       0.03  0.04  0.02       0.05  0.07  0.04
-## 5       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## 6       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-## # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
-## #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
-## #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
-## #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
-## #   hi_8 <dbl>, lo_8 <dbl>, X30 <dbl>
+#> # A tibble: 6 x 28
+#>   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
+#>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>
+#> 1       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> 2       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> 3       NA    NA    NA      NA    NA    NA          0.38  0.42  0.35
+#> 4       NA    NA    NA       0.03  0.04  0.02       0.05  0.07  0.04
+#> 5       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> 6       NA    NA    NA      NA    NA    NA         NA    NA    NA   
+#> # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
+#> #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
+#> #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
+#> #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
+#> #   hi_8 <dbl>, lo_8 <dbl>, X30 <dbl>
 ```
 
 ```r
 tail(percents)
-```
-
-```
-## # A tibble: 6 x 28
-##   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
-##      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>
-## 1    NA     NA   NA         NA    NA    NA         NA    NA    NA   
-## 2    NA     NA   NA         NA    NA    NA         NA    NA    NA   
-## 3    NA     NA   NA         NA    NA    NA          0.31  0.37  0.26
-## 4    NA     NA   NA         NA    NA    NA         NA    NA    NA   
-## 5     0.59   0.7  0.53       0.27  0.32  0.24       0.7   0.84  0.63
-## 6    NA     NA   NA          0.12  0.15  0.1        0.23  0.28  0.2 
-## # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
-## #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
-## #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
-## #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
-## #   hi_8 <dbl>, lo_8 <dbl>, X30 <dbl>
+#> # A tibble: 6 x 28
+#>   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
+#>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>      <dbl> <dbl> <dbl>
+#> 1    NA     NA   NA         NA    NA    NA         NA    NA    NA   
+#> 2    NA     NA   NA         NA    NA    NA         NA    NA    NA   
+#> 3    NA     NA   NA         NA    NA    NA          0.31  0.37  0.26
+#> 4    NA     NA   NA         NA    NA    NA         NA    NA    NA   
+#> 5     0.59   0.7  0.53       0.27  0.32  0.24       0.7   0.84  0.63
+#> 6    NA     NA   NA          0.12  0.15  0.1        0.23  0.28  0.2 
+#> # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
+#> #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
+#> #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
+#> #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
+#> #   hi_8 <dbl>, lo_8 <dbl>, X30 <dbl>
 ```
 
 Comparing this to the raw data file convinces us that yes,
@@ -1380,152 +1089,149 @@ for (year in 1:num_years) {
   chunks[[year]] <- temp
 }
 chunks
-```
-
-```
-## [[1]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2009       NA    NA    NA
-##  2 ALB      2009       NA    NA    NA
-##  3 DZA      2009       NA    NA    NA
-##  4 AGO      2009       NA    NA    NA
-##  5 AIA      2009       NA    NA    NA
-##  6 ATG      2009       NA    NA    NA
-##  7 ARG      2009       NA    NA    NA
-##  8 ARM      2009       NA    NA    NA
-##  9 AUS      2009       NA    NA    NA
-## 10 AUT      2009       NA    NA    NA
-## # ... with 182 more rows
-## 
-## [[2]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2010       NA    NA NA   
-##  2 ALB      2010       NA    NA NA   
-##  3 DZA      2010       NA    NA NA   
-##  4 AGO      2010       NA    NA  0.03
-##  5 AIA      2010       NA    NA NA   
-##  6 ATG      2010       NA    NA NA   
-##  7 ARG      2010       NA    NA NA   
-##  8 ARM      2010       NA    NA NA   
-##  9 AUS      2010       NA    NA NA   
-## 10 AUT      2010       NA    NA NA   
-## # ... with 182 more rows
-## 
-## [[3]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2011       NA NA    NA   
-##  2 ALB      2011       NA NA    NA   
-##  3 DZA      2011       NA NA    NA   
-##  4 AGO      2011       NA  0.03  0.04
-##  5 AIA      2011       NA NA    NA   
-##  6 ATG      2011       NA NA    NA   
-##  7 ARG      2011       NA NA    NA   
-##  8 ARM      2011       NA NA    NA   
-##  9 AUS      2011       NA NA    NA   
-## 10 AUT      2011       NA NA    NA   
-## # ... with 182 more rows
-## 
-## [[4]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2012    NA    NA    NA   
-##  2 ALB      2012    NA    NA    NA   
-##  3 DZA      2012    NA    NA    NA   
-##  4 AGO      2012     0.03  0.04  0.02
-##  5 AIA      2012    NA    NA    NA   
-##  6 ATG      2012    NA    NA    NA   
-##  7 ARG      2012    NA    NA    NA   
-##  8 ARM      2012    NA    NA    NA   
-##  9 AUS      2012    NA    NA    NA   
-## 10 AUT      2012    NA    NA    NA   
-## # ... with 182 more rows
-## 
-## [[5]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2013    NA    NA    NA   
-##  2 ALB      2013    NA    NA    NA   
-##  3 DZA      2013    NA    NA     0.38
-##  4 AGO      2013     0.04  0.02  0.05
-##  5 AIA      2013    NA    NA    NA   
-##  6 ATG      2013    NA    NA    NA   
-##  7 ARG      2013    NA    NA     0.13
-##  8 ARM      2013    NA    NA    NA   
-##  9 AUS      2013    NA    NA    NA   
-## 10 AUT      2013    NA    NA    NA   
-## # ... with 182 more rows
-## 
-## [[6]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2014    NA    NA    NA   
-##  2 ALB      2014    NA    NA    NA   
-##  3 DZA      2014    NA     0.38  0.42
-##  4 AGO      2014     0.02  0.05  0.07
-##  5 AIA      2014    NA    NA    NA   
-##  6 ATG      2014    NA    NA    NA   
-##  7 ARG      2014    NA     0.13  0.14
-##  8 ARM      2014    NA    NA    NA   
-##  9 AUS      2014    NA    NA    NA   
-## 10 AUT      2014    NA    NA    NA   
-## # ... with 182 more rows
-## 
-## [[7]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2015    NA    NA    NA   
-##  2 ALB      2015    NA    NA    NA   
-##  3 DZA      2015     0.38  0.42  0.35
-##  4 AGO      2015     0.05  0.07  0.04
-##  5 AIA      2015    NA    NA    NA   
-##  6 ATG      2015    NA    NA    NA   
-##  7 ARG      2015     0.13  0.14  0.11
-##  8 ARM      2015    NA    NA    NA   
-##  9 AUS      2015    NA    NA    NA   
-## 10 AUT      2015    NA    NA    NA   
-## # ... with 182 more rows
-## 
-## [[8]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2016    NA    NA    NA   
-##  2 ALB      2016    NA    NA    NA   
-##  3 DZA      2016     0.42  0.35  0.23
-##  4 AGO      2016     0.07  0.04  0.06
-##  5 AIA      2016    NA    NA    NA   
-##  6 ATG      2016    NA    NA    NA   
-##  7 ARG      2016     0.14  0.11  0.12
-##  8 ARM      2016    NA    NA    NA   
-##  9 AUS      2016    NA    NA    NA   
-## 10 AUT      2016    NA    NA    NA   
-## # ... with 182 more rows
-## 
-## [[9]]
-## # A tibble: 192 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 AFG      2017    NA    NA    NA   
-##  2 ALB      2017    NA    NA    NA   
-##  3 DZA      2017     0.35  0.23  0.25
-##  4 AGO      2017     0.04  0.06  0.08
-##  5 AIA      2017    NA    NA    NA   
-##  6 ATG      2017    NA    NA    NA   
-##  7 ARG      2017     0.11  0.12  0.14
-##  8 ARM      2017    NA    NA    NA   
-##  9 AUS      2017    NA    NA    NA   
-## 10 AUT      2017    NA    NA    NA   
-## # ... with 182 more rows
+#> [[1]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2009       NA    NA    NA
+#>  2 ALB      2009       NA    NA    NA
+#>  3 DZA      2009       NA    NA    NA
+#>  4 AGO      2009       NA    NA    NA
+#>  5 AIA      2009       NA    NA    NA
+#>  6 ATG      2009       NA    NA    NA
+#>  7 ARG      2009       NA    NA    NA
+#>  8 ARM      2009       NA    NA    NA
+#>  9 AUS      2009       NA    NA    NA
+#> 10 AUT      2009       NA    NA    NA
+#> # ... with 182 more rows
+#> 
+#> [[2]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2010       NA    NA NA   
+#>  2 ALB      2010       NA    NA NA   
+#>  3 DZA      2010       NA    NA NA   
+#>  4 AGO      2010       NA    NA  0.03
+#>  5 AIA      2010       NA    NA NA   
+#>  6 ATG      2010       NA    NA NA   
+#>  7 ARG      2010       NA    NA NA   
+#>  8 ARM      2010       NA    NA NA   
+#>  9 AUS      2010       NA    NA NA   
+#> 10 AUT      2010       NA    NA NA   
+#> # ... with 182 more rows
+#> 
+#> [[3]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2011       NA NA    NA   
+#>  2 ALB      2011       NA NA    NA   
+#>  3 DZA      2011       NA NA    NA   
+#>  4 AGO      2011       NA  0.03  0.04
+#>  5 AIA      2011       NA NA    NA   
+#>  6 ATG      2011       NA NA    NA   
+#>  7 ARG      2011       NA NA    NA   
+#>  8 ARM      2011       NA NA    NA   
+#>  9 AUS      2011       NA NA    NA   
+#> 10 AUT      2011       NA NA    NA   
+#> # ... with 182 more rows
+#> 
+#> [[4]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2012    NA    NA    NA   
+#>  2 ALB      2012    NA    NA    NA   
+#>  3 DZA      2012    NA    NA    NA   
+#>  4 AGO      2012     0.03  0.04  0.02
+#>  5 AIA      2012    NA    NA    NA   
+#>  6 ATG      2012    NA    NA    NA   
+#>  7 ARG      2012    NA    NA    NA   
+#>  8 ARM      2012    NA    NA    NA   
+#>  9 AUS      2012    NA    NA    NA   
+#> 10 AUT      2012    NA    NA    NA   
+#> # ... with 182 more rows
+#> 
+#> [[5]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2013    NA    NA    NA   
+#>  2 ALB      2013    NA    NA    NA   
+#>  3 DZA      2013    NA    NA     0.38
+#>  4 AGO      2013     0.04  0.02  0.05
+#>  5 AIA      2013    NA    NA    NA   
+#>  6 ATG      2013    NA    NA    NA   
+#>  7 ARG      2013    NA    NA     0.13
+#>  8 ARM      2013    NA    NA    NA   
+#>  9 AUS      2013    NA    NA    NA   
+#> 10 AUT      2013    NA    NA    NA   
+#> # ... with 182 more rows
+#> 
+#> [[6]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2014    NA    NA    NA   
+#>  2 ALB      2014    NA    NA    NA   
+#>  3 DZA      2014    NA     0.38  0.42
+#>  4 AGO      2014     0.02  0.05  0.07
+#>  5 AIA      2014    NA    NA    NA   
+#>  6 ATG      2014    NA    NA    NA   
+#>  7 ARG      2014    NA     0.13  0.14
+#>  8 ARM      2014    NA    NA    NA   
+#>  9 AUS      2014    NA    NA    NA   
+#> 10 AUT      2014    NA    NA    NA   
+#> # ... with 182 more rows
+#> 
+#> [[7]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2015    NA    NA    NA   
+#>  2 ALB      2015    NA    NA    NA   
+#>  3 DZA      2015     0.38  0.42  0.35
+#>  4 AGO      2015     0.05  0.07  0.04
+#>  5 AIA      2015    NA    NA    NA   
+#>  6 ATG      2015    NA    NA    NA   
+#>  7 ARG      2015     0.13  0.14  0.11
+#>  8 ARM      2015    NA    NA    NA   
+#>  9 AUS      2015    NA    NA    NA   
+#> 10 AUT      2015    NA    NA    NA   
+#> # ... with 182 more rows
+#> 
+#> [[8]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2016    NA    NA    NA   
+#>  2 ALB      2016    NA    NA    NA   
+#>  3 DZA      2016     0.42  0.35  0.23
+#>  4 AGO      2016     0.07  0.04  0.06
+#>  5 AIA      2016    NA    NA    NA   
+#>  6 ATG      2016    NA    NA    NA   
+#>  7 ARG      2016     0.14  0.11  0.12
+#>  8 ARM      2016    NA    NA    NA   
+#>  9 AUS      2016    NA    NA    NA   
+#> 10 AUT      2016    NA    NA    NA   
+#> # ... with 182 more rows
+#> 
+#> [[9]]
+#> # A tibble: 192 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 AFG      2017    NA    NA    NA   
+#>  2 ALB      2017    NA    NA    NA   
+#>  3 DZA      2017     0.35  0.23  0.25
+#>  4 AGO      2017     0.04  0.06  0.08
+#>  5 AIA      2017    NA    NA    NA   
+#>  6 ATG      2017    NA    NA    NA   
+#>  7 ARG      2017     0.11  0.12  0.14
+#>  8 ARM      2017    NA    NA    NA   
+#>  9 AUS      2017    NA    NA    NA   
+#> 10 AUT      2017    NA    NA    NA   
+#> # ... with 182 more rows
 ```
 
 We start by giving names to our years;
@@ -1565,23 +1271,20 @@ Now comes the payoff for all that hard work:
 tidy <- bind_rows(chunks)
 tidy <- arrange(tidy, country, year)
 tidy
-```
-
-```
-## # A tibble: 1,728 x 5
-##    country  year estimate    hi    lo
-##    <chr>   <dbl>    <dbl> <dbl> <dbl>
-##  1 ""       2009       NA    NA    NA
-##  2 ""       2010       NA    NA    NA
-##  3 ""       2011       NA    NA    NA
-##  4 ""       2012       NA    NA    NA
-##  5 ""       2013       NA    NA    NA
-##  6 ""       2014       NA    NA    NA
-##  7 ""       2015       NA    NA    NA
-##  8 ""       2016       NA    NA    NA
-##  9 ""       2017       NA    NA    NA
-## 10 AFG      2009       NA    NA    NA
-## # ... with 1,718 more rows
+#> # A tibble: 1,728 x 5
+#>    country  year estimate    hi    lo
+#>    <chr>   <dbl>    <dbl> <dbl> <dbl>
+#>  1 ""       2009       NA    NA    NA
+#>  2 ""       2010       NA    NA    NA
+#>  3 ""       2011       NA    NA    NA
+#>  4 ""       2012       NA    NA    NA
+#>  5 ""       2013       NA    NA    NA
+#>  6 ""       2014       NA    NA    NA
+#>  7 ""       2015       NA    NA    NA
+#>  8 ""       2016       NA    NA    NA
+#>  9 ""       2017       NA    NA    NA
+#> 10 AFG      2009       NA    NA    NA
+#> # ... with 1,718 more rows
 ```
 
 What fresh hell is this?
@@ -1598,57 +1301,39 @@ Let us do this:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 missing <- raw %>%
   filter(is.na(Countries) | (Countries == "") | is.na(ISO3) | (ISO3 == "")) %>%
   select(Countries, ISO3)
 missing
-```
-
-```
-## # A tibble: 21 x 2
-##    Countries                       ISO3 
-##    <chr>                           <chr>
-##  1 Kosovo                          ""   
-##  2 ""                              ""   
-##  3 ""                              ""   
-##  4 ""                              ""   
-##  5 Eastern and Southern Africa     ""   
-##  6 Eastern Europe and Central Asia ""   
-##  7 Latin America and the Caribbean ""   
-##  8 Middle East and North Africa    ""   
-##  9 North America                   ""   
-## 10 South Asia                      ""   
-## # ... with 11 more rows
+#> # A tibble: 21 x 2
+#>    Countries                       ISO3 
+#>    <chr>                           <chr>
+#>  1 Kosovo                          ""   
+#>  2 ""                              ""   
+#>  3 ""                              ""   
+#>  4 ""                              ""   
+#>  5 Eastern and Southern Africa     ""   
+#>  6 Eastern Europe and Central Asia ""   
+#>  7 Latin America and the Caribbean ""   
+#>  8 Middle East and North Africa    ""   
+#>  9 North America                   ""   
+#> 10 South Asia                      ""   
+#> # ... with 11 more rows
 ```
 
 The lack of ISO3 country code for the region names doesn't bother us,
@@ -1660,67 +1345,49 @@ so we will fill that in with an ugly hack immediately after loading the data:
 
 ```r
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
 missing <- raw %>%
   filter(is.na(Countries) | (Countries == "") | is.na(ISO3) | (ISO3 == "")) %>%
   select(Countries, ISO3)
 missing
-```
-
-```
-## # A tibble: 20 x 2
-##    Countries               ISO3                                           
-##    <chr>                   <chr>                                          
-##  1 ""                      ""                                             
-##  2 ""                      ""                                             
-##  3 ""                      ""                                             
-##  4 Eastern and Southern A… ""                                             
-##  5 Eastern Europe and Cen… ""                                             
-##  6 Latin America and the … ""                                             
-##  7 Middle East and North … ""                                             
-##  8 North America           ""                                             
-##  9 South Asia              ""                                             
-## 10 West and Central Africa ""                                             
-## 11 Western Europe          ""                                             
-## 12 Europe and Central Asia ""                                             
-## 13 Sub-Saharan Africa      ""                                             
-## 14 Global                  ""                                             
-## 15 ""                      ""                                             
-## 16 ""                      Indicator definition: Percentage of infants bo…
-## 17 ""                      Note: Data are not available if country did no…
-## 18 ""                      Data source: Global AIDS Monitoring 2018 and U…
-## 19 ""                      For more information on this indicator, please…
-## 20 ""                      For more information on the data, visit data.u…
+#> # A tibble: 20 x 2
+#>    Countries               ISO3                                           
+#>    <chr>                   <chr>                                          
+#>  1 ""                      ""                                             
+#>  2 ""                      ""                                             
+#>  3 ""                      ""                                             
+#>  4 Eastern and Southern A… ""                                             
+#>  5 Eastern Europe and Cen… ""                                             
+#>  6 Latin America and the … ""                                             
+#>  7 Middle East and North … ""                                             
+#>  8 North America           ""                                             
+#>  9 South Asia              ""                                             
+#> 10 West and Central Africa ""                                             
+#> 11 Western Europe          ""                                             
+#> 12 Europe and Central Asia ""                                             
+#> 13 Sub-Saharan Africa      ""                                             
+#> 14 Global                  ""                                             
+#> 15 ""                      ""                                             
+#> 16 ""                      Indicator definition: Percentage of infants bo…
+#> 17 ""                      Note: Data are not available if country did no…
+#> 18 ""                      Data source: Global AIDS Monitoring 2018 and U…
+#> 19 ""                      For more information on this indicator, please…
+#> 20 ""                      For more information on the data, visit data.u…
 ```
 
 All right.
@@ -1739,36 +1406,21 @@ last_year <- 2017
 
 # Get and clean percentages.
 raw <- read_csv(raw_filename, skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
 sliced <- slice(raw, 1:num_rows)
 countries <- sliced$ISO3
@@ -1809,36 +1461,21 @@ Let's start by using a pipeline for the code that extracts and formats the perce
 
 # Get and clean percentages.
 raw <- read_csv(raw_filename, skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
 sliced <- slice(raw, 1:num_rows)
 countries <- sliced$ISO3
@@ -1922,36 +1559,21 @@ num_rows <- 192
 
 # Get and clean percentages.
 raw <- read_csv(raw_filename, skip = 2, na = c("-"))
-```
-
-```
-## Warning: Missing column names filled in: 'X30' [30]
-```
-
-```
-## Warning: Duplicated column names deduplicated: 'Estimate' =>
-## 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
-## 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
-## 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
-## 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
-## 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
-## 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
-## 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
-## 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   .default = col_character()
-## )
-```
-
-```
-## See spec(...) for full column specifications.
-```
-
-```r
+#> Warning: Missing column names filled in: 'X30' [30]
+#> Warning: Duplicated column names deduplicated: 'Estimate' =>
+#> 'Estimate_1' [6], 'hi' => 'hi_1' [7], 'lo' => 'lo_1' [8], 'Estimate' =>
+#> 'Estimate_2' [9], 'hi' => 'hi_2' [10], 'lo' => 'lo_2' [11], 'Estimate' =>
+#> 'Estimate_3' [12], 'hi' => 'hi_3' [13], 'lo' => 'lo_3' [14], 'Estimate' =>
+#> 'Estimate_4' [15], 'hi' => 'hi_4' [16], 'lo' => 'lo_4' [17], 'Estimate' =>
+#> 'Estimate_5' [18], 'hi' => 'hi_5' [19], 'lo' => 'lo_5' [20], 'Estimate' =>
+#> 'Estimate_6' [21], 'hi' => 'hi_6' [22], 'lo' => 'lo_6' [23], 'Estimate' =>
+#> 'Estimate_7' [24], 'hi' => 'hi_7' [25], 'lo' => 'lo_7' [26], 'Estimate' =>
+#> 'Estimate_8' [27], 'hi' => 'hi_8' [28], 'lo' => 'lo_8' [29]
+#> Parsed with column specification:
+#> cols(
+#>   .default = col_character()
+#> )
+#> See spec(...) for full column specifications.
 raw$ISO3[raw$Countries == "Kosovo"] <- "UNK"
 sliced <- slice(raw, 1:num_rows)
 countries <- sliced$ISO3

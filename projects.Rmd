@@ -48,7 +48,8 @@ keypoints:
   - "Write tests for data transformation steps as well as library functions."
 ---
 
-```{r echo=FALSE}
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
 library(tidyverse)
 ```
 

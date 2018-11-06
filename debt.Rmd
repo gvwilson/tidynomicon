@@ -29,7 +29,8 @@ keypoints:
   - "Use the functions `try` and `tryCatch` to handle errors."
 ---
 
-```{r setup, echo=FALSE}
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
 library(tidyverse)
 ```
 

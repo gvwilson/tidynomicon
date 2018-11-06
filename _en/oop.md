@@ -52,13 +52,10 @@ Let's begin by creating a matrix containing the first few hundreds:
 values <- 100 * 1:9 # creates c(100, 200, ..., 900)
 m <- matrix(values, nrow = 3, ncol = 3)
 m
-```
-
-```
-##      [,1] [,2] [,3]
-## [1,]  100  400  700
-## [2,]  200  500  800
-## [3,]  300  600  900
+#>      [,1] [,2] [,3]
+#> [1,]  100  400  700
+#> [2,]  200  500  800
+#> [3,]  300  600  900
 ```
 
 Behind the scenes,
@@ -69,10 +66,7 @@ it adds an attribute called `class` to the vector to identify it as a matrix:
 
 ```r
 class(m)
-```
-
-```
-## [1] "matrix"
+#> [1] "matrix"
 ```
 
 and another attribute called `dim` to store its dimensions as a 2-element vector:
@@ -80,10 +74,7 @@ and another attribute called `dim` to store its dimensions as a 2-element vector
 
 ```r
 dim(m)
-```
-
-```
-## [1] 3 3
+#> [1] 3 3
 ```
 
 An object's attributes are simply a set of name-value pairs;
@@ -94,14 +85,11 @@ and show or set individual attributes using `attr`:
 ```r
 attr(m, "prospects") <- "dismal"
 attributes(m)
-```
-
-```
-## $dim
-## [1] 3 3
-## 
-## $prospects
-## [1] "dismal"
+#> $dim
+#> [1] 3 3
+#> 
+#> $prospects
+#> [1] "dismal"
 ```
 
 What are the type and attributes of a tibble?
@@ -113,25 +101,16 @@ t <- tribble(
   1, 2,
   3, 4)
 typeof(t)
-```
-
-```
-## [1] "list"
-```
-
-```r
+#> [1] "list"
 attributes(t)
-```
-
-```
-## $names
-## [1] "a" "b"
-## 
-## $row.names
-## [1] 1 2
-## 
-## $class
-## [1] "tbl_df"     "tbl"        "data.frame"
+#> $names
+#> [1] "a" "b"
+#> 
+#> $row.names
+#> [1] 1 2
+#> 
+#> $class
+#> [1] "tbl_df"     "tbl"        "data.frame"
 ```
 
 This tells us that a tibble is stored as a list (the first line of output),
@@ -144,10 +123,7 @@ asking for the length of a tibble (which is the number of rows it contains):
 
 ```r
 length(t)
-```
-
-```
-## [1] 2
+#> [1] 2
 ```
 
 ## Classes
@@ -162,24 +138,15 @@ we'll create two coordinate vectors:
 first <- c(0.5, 0.7)
 class(first) <- "two_d"
 print(first)
-```
-
-```
-## [1] 0.5 0.7
-## attr(,"class")
-## [1] "two_d"
-```
-
-```r
+#> [1] 0.5 0.7
+#> attr(,"class")
+#> [1] "two_d"
 second <- c(1.3, 3.1)
 class(second) <- "two_d"
 print(second)
-```
-
-```
-## [1] 1.3 3.1
-## attr(,"class")
-## [1] "two_d"
+#> [1] 1.3 3.1
+#> attr(,"class")
+#> [1] "two_d"
 ```
 
 Separately, let's define the behavior of `toString` for such objects:
@@ -190,18 +157,9 @@ toString.two_d <- function(obj){
   paste0("<", obj[1], ", ", obj[2], ">")
 }
 toString(first)
-```
-
-```
-## [1] "<0.5, 0.7>"
-```
-
-```r
+#> [1] "<0.5, 0.7>"
 toString(second)
-```
-
-```
-## [1] "<1.3, 3.1>"
+#> [1] "<1.3, 3.1>"
 ```
 
 S3's protocol is simple:
@@ -216,26 +174,14 @@ We can trace this process by importing the sloop package and calling `s3_dispatc
 
 ```r
 library(sloop)
-```
-
-```
-## 
-## Attaching package: 'sloop'
-```
-
-```
-## The following objects are masked from 'package:pryr':
-## 
-##     ftype, is_s3_generic, is_s3_method, otype
-```
-
-```r
+#> 
+#> Attaching package: 'sloop'
+#> The following objects are masked from 'package:pryr':
+#> 
+#>     ftype, is_s3_generic, is_s3_method, otype
 s3_dispatch(toString(first))
-```
-
-```
-## => toString.two_d
-##  * toString.default
+#> => toString.two_d
+#>  * toString.default
 ```
 
 Compare this with calling `toString` on a plain old character vector:
@@ -243,12 +189,9 @@ Compare this with calling `toString` on a plain old character vector:
 
 ```r
 s3_dispatch(toString(c(7.1, 7.2)))
-```
-
-```
-##    toString.double
-##    toString.numeric
-## => toString.default
+#>    toString.double
+#>    toString.numeric
+#> => toString.default
 ```
 
 The specialized functions associated with a generic function like `toString` are called [methods](../glossary/#method).
@@ -283,10 +226,7 @@ new_two_d <- function(coordinates){
 
 example <- new_two_d(c(4.4, -2.2))
 toString(example)
-```
-
-```
-## [1] "<4.4, -2.2>"
+#> [1] "<4.4, -2.2>"
 ```
 
 Validators are only needed when checks on data correctness and consistency are expensive.
@@ -307,18 +247,9 @@ validate_two_d <- function(coordinates) {
 
 validate_two_d(example)    # should succeed silently
 validate_two_d(c(1, 3))    # should fail
-```
-
-```
-## Error in validate_two_d(c(1, 3)): class(coordinates) == "two_d" is not TRUE
-```
-
-```r
+#> Error in validate_two_d(c(1, 3)): class(coordinates) == "two_d" is not TRUE
 validate_two_d(c(2, 2, 2)) # should also fail
-```
-
-```
-## Error in validate_two_d(c(2, 2, 2)): length(coordinates) == 2 is not TRUE
+#> Error in validate_two_d(c(2, 2, 2)): length(coordinates) == 2 is not TRUE
 ```
 
 The third and final function in our trio is the helper that provides a user-friendly interface to construction of our class.
@@ -347,19 +278,10 @@ two_d <- function(...){
 
 here <- two_d(10.1, 11.2)
 toString(here)
-```
-
-```
-## [1] "<10.1, 11.2>"
-```
-
-```r
+#> [1] "<10.1, 11.2>"
 there <- two_d(c(15.6, 16.7))
 toString(there)
-```
-
-```
-## [1] "<15.6, 16.7>"
+#> [1] "<15.6, 16.7>"
 ```
 
 ## Inheritance
@@ -388,10 +310,7 @@ toString.polygon <- function(poly) {
 
 right <- new_polygon(list(c(0, 0), c(1, 0), c(0, 1)), "triangle")
 toString(right)
-```
-
-```
-## [1] "triangle: 0, 0, 1, 0, 0, 1"
+#> [1] "triangle: 0, 0, 1, 0, 0, 1"
 ```
 
 Now we will add colored shapes:
@@ -407,18 +326,9 @@ new_colored_polygon <- function(coords, name, color) {
 
 pinkish <- new_colored_polygon(list(c(0, 0), c(1, 0), c(1, 1)), "triangle", "roseate")
 class(pinkish)
-```
-
-```
-## [1] "colored_polygon" "polygon"
-```
-
-```r
+#> [1] "colored_polygon" "polygon"
 toString(pinkish)
-```
-
-```
-## [1] "triangle: 0, 0, 1, 0, 1, 1"
+#> [1] "triangle: 0, 0, 1, 0, 1, 1"
 ```
 
 So far so good:
@@ -433,10 +343,7 @@ toString.colored_polygon <- function(poly) {
 }
 
 toString(pinkish)
-```
-
-```
-## [1] "triangle: 0, 0, 1, 0, 1, 1+ color = roseate"
+#> [1] "triangle: 0, 0, 1, 0, 1, 1+ color = roseate"
 ```
 
 In practice,

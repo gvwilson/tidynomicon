@@ -56,13 +56,10 @@ def example(first, second):
     print("second argument is", second)
     return first + second
 example(1 + 2, 1 / 0)
-```
-
-```
-## ZeroDivisionError: division by zero
-## 
-## Detailed traceback: 
-##   File "<string>", line 1, in <module>
+#> ZeroDivisionError: division by zero
+#> 
+#> Detailed traceback: 
+#>   File "<string>", line 1, in <module>
 ```
 
 then the message `"starting example"` never appears because expressions are evaluated in this order:
@@ -81,15 +78,9 @@ example <- function(first, second) {
 }
 
 example(1 + 2, 1 / 0)
-```
-
-```
-## first argument is 3 
-## second argument is Inf
-```
-
-```
-## [1] Inf
+#> first argument is 3 
+#> second argument is Inf
+#> [1] Inf
 ```
 
 because the order of evaluation is:
@@ -121,16 +112,10 @@ combined <- function(left, right) {
 }
 
 combined(green(), blue())
-```
-
-```
-## combined
-## green
-## blue
-```
-
-```
-## [1] 30
+#> combined
+#> green
+#> blue
+#> [1] 30
 ```
 
 This is not wrong:
@@ -145,15 +130,12 @@ let's create a tibble whose second column's values are twice those of its first:
 ```r
 t <- tibble(a = 1:3, b = 2 * a)
 t
-```
-
-```
-## # A tibble: 3 x 2
-##       a     b
-##   <int> <dbl>
-## 1     1     2
-## 2     2     4
-## 3     3     6
+#> # A tibble: 3 x 2
+#>       a     b
+#>   <int> <dbl>
+#> 1     1     2
+#> 2     2     4
+#> 3     3     6
 ```
 
 This works because the expression defining the second column is evaluated *after*
@@ -232,14 +214,11 @@ temp <- tribble(
   2,     20
 )
 temp
-```
-
-```
-## # A tibble: 2 x 2
-##    left right
-##   <dbl> <dbl>
-## 1     1    10
-## 2     2    20
+#> # A tibble: 2 x 2
+#>    left right
+#>   <dbl> <dbl>
+#> 1     1    10
+#> 2     2    20
 ```
 
 Used cautiously and with restraint,
@@ -275,10 +254,7 @@ data %>%
   transmute(id = row_number()) %>%
   filter(empties) %>%
   pull(id)
-```
-
-```
-## [1] 1
+#> [1] 1
 ```
 
 This builds a logical vector `empties` with as many entries as `data` has rows,
@@ -302,10 +278,7 @@ data %>%
   mutate(id = row_number()) %>%
   filter(empty) %>%
   pull(id)
-```
-
-```
-## [1] 1
+#> [1] 1
 ```
 
 In this model,
@@ -325,14 +298,11 @@ We're better off using `rowid_to_column`:
 
 ```r
 data %>% rowid_to_column()
-```
-
-```
-## # A tibble: 2 x 3
-##   rowid  left right
-##   <int> <dbl> <dbl>
-## 1     1     1    NA
-## 2     2     2    20
+#> # A tibble: 2 x 3
+#>   rowid  left right
+#>   <int> <dbl> <dbl>
+#> 1     1     1    NA
+#> 2     2     2    20
 ```
 
 ## Copy-on-Modify
@@ -348,19 +318,10 @@ Here's a simple example:
 first <- c("red", "green", "blue")
 second <- first
 cat("before modification, first is", first, "and second is", second, "\n")
-```
-
-```
-## before modification, first is red green blue and second is red green blue
-```
-
-```r
+#> before modification, first is red green blue and second is red green blue
 first[[1]] <- "sulphurous"
 cat("after modification, first is", first, "and second is", second, "\n")
-```
-
-```
-## after modification, first is sulphurous green blue and second is red green blue
+#> after modification, first is sulphurous green blue and second is red green blue
 ```
 
 This is true of nested structures as well:
@@ -374,34 +335,19 @@ first <- tribble(
 second <- first
 first$left[[1]] <- 999
 cat("after modification\n")
-```
-
-```
-## after modification
-```
-
-```r
+#> after modification
 first
-```
-
-```
-## # A tibble: 2 x 2
-##    left right
-##   <dbl> <dbl>
-## 1   999   202
-## 2   303   404
-```
-
-```r
+#> # A tibble: 2 x 2
+#>    left right
+#>   <dbl> <dbl>
+#> 1   999   202
+#> 2   303   404
 second
-```
-
-```
-## # A tibble: 2 x 2
-##    left right
-##   <dbl> <dbl>
-## 1   101   202
-## 2   303   404
+#> # A tibble: 2 x 2
+#>    left right
+#>   <dbl> <dbl>
+#> 1   101   202
+#> 2   303   404
 ```
 
 In this case,
@@ -414,44 +360,23 @@ We can watch this happen using the pryr library:
 
 ```r
 library(pryr)
-```
-
-```
-## 
-## Attaching package: 'pryr'
-```
-
-```
-## The following objects are masked from 'package:purrr':
-## 
-##     compose, partial
-```
-
-```r
+#> 
+#> Attaching package: 'pryr'
+#> The following objects are masked from 'package:purrr':
+#> 
+#>     compose, partial
 first <- tribble(
   ~left, ~right,
   101,   202,
   303,   404
 )
 tracemem(first)
-```
-
-```
-## [1] "<0x7f94fbee2a48>"
-```
-
-```r
+#> [1] "<0x7fc7df24d548>"
 first$left[[1]] <- 999
-```
-
-```
-## tracemem[0x7f94fbee2a48 -> 0x7f94fd883908]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7f94fd883908 -> 0x7f94fd883888]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7f94fd883888 -> 0x7f94fd883808]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-## tracemem[0x7f94fd883808 -> 0x7f94fd8837c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
-```
-
-```r
+#> tracemem[0x7fc7df24d548 -> 0x7fc7d7254048]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fc7d7254048 -> 0x7fc7d7253f48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fc7d7253f48 -> 0x7fc7d7253e88]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fc7d7253e88 -> 0x7fc7d7253e48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 untracemem(first)
 ```
 
@@ -463,28 +388,13 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-```
-
-```
-## left column is initially at 0x7f94fd8838c8
-```
-
-```r
+#> left column is initially at 0x7fc7d7254008
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-```
-
-```
-## after modification, the original column is still at 0x7f94fd8838c8
-```
-
-```r
+#> after modification, the original column is still at 0x7fc7d7254008
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-```
-
-```
-## but the first column of the tibble is at 0x7f94fe089108
+#> but the first column of the tibble is at 0x7fc7e21a7e48
 ```
 
 (We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:
@@ -513,13 +423,10 @@ for i in range(4):
         print("index {} value {} ZeroDivisionError".format(i, values[i]))
     except Exception as e:
         print("index{} some other Exception: {}".format(i, e))
-```
-
-```
-## index 0 value -1 reciprocal -1.0
-## index 1 value 0 ZeroDivisionError
-## index 2 value 1 reciprocal 1.0
-## index3 some other Exception: list index out of range
+#> index 0 value -1 reciprocal -1.0
+#> index 1 value 0 ZeroDivisionError
+#> index 2 value 1 reciprocal 1.0
+#> index3 some other Exception: list index out of range
 ```
 
 Again, R draws on a different tradition.
@@ -531,25 +438,16 @@ so we begin by loading that:
 
 ```r
 library(rlang)
-```
-
-```
-## 
-## Attaching package: 'rlang'
-```
-
-```
-## The following object is masked from 'package:pryr':
-## 
-##     bytes
-```
-
-```
-## The following objects are masked from 'package:purrr':
-## 
-##     %@%, %||%, as_function, flatten, flatten_chr, flatten_dbl,
-##     flatten_int, flatten_lgl, invoke, list_along, modify, prepend,
-##     rep_along, splice
+#> 
+#> Attaching package: 'rlang'
+#> The following object is masked from 'package:pryr':
+#> 
+#>     bytes
+#> The following objects are masked from 'package:purrr':
+#> 
+#>     %@%, %||%, as_function, flatten, flatten_chr, flatten_dbl,
+#>     flatten_int, flatten_lgl, invoke, list_along, modify, prepend,
+#>     rep_along, splice
 ```
 
 The three built-in kinds of conditions are,
@@ -562,26 +460,11 @@ each of which takes an error message as a parameter.
 
 ```r
 message("This is a message.")
-```
-
-```
-## This is a message.
-```
-
-```r
+#> This is a message.
 warning("This is a warning.\n")
-```
-
-```
-## Warning: This is a warning.
-```
-
-```r
+#> Warning: This is a warning.
 stop("This is an error.")
-```
-
-```
-## Error in eval(expr, envir, enclos): This is an error.
+#> Error in eval(expr, envir, enclos): This is an error.
 ```
 
 Note that we have to supply our own line ending for warnings.
@@ -605,18 +488,9 @@ attemptWithoutTry <- function(left, right){
   "result" # returned
 }
 result <- attemptWithoutTry(1, "two")
-```
-
-```
-## Error in left + right: non-numeric argument to binary operator
-```
-
-```r
+#> Error in left + right: non-numeric argument to binary operator
 cat("result is", result)
-```
-
-```
-## Error in cat("result is", result): object 'result' not found
+#> Error in cat("result is", result): object 'result' not found
 ```
 
 with this:
@@ -629,10 +503,7 @@ attemptUsingTry <- function(left, right){
 }
 result <- attemptUsingTry(1, "two")
 cat("result is", result)
-```
-
-```
-## result is value returned
+#> result is value returned
 ```
 
 If we are *sure* that we wish to incur the risk of silent failure,
@@ -646,10 +517,7 @@ attemptUsingTryQuietly <- function(left, right){
 }
 result <- attemptUsingTryQuietly(1, "two")
 cat("result is", result)
-```
-
-```
-## result is result
+#> result is result
 ```
 
 Do not do this,
@@ -666,10 +534,7 @@ tryCatch(
   stop("our message"),
   error = function(cnd) cat("error object is", as.character(cnd))
 )
-```
-
-```
-## error object is Error in doTryCatch(return(expr), name, parentenv, handler): our message
+#> error object is Error in doTryCatch(return(expr), name, parentenv, handler): our message
 ```
 
 (We need to convert the error object `cnd` to character for printing because it is a list of two elements,
@@ -683,10 +548,7 @@ tryCatch(
   attemptWithoutTry(1, "two"),
   error = function(cnd) cat("error object is", as.character(cnd))
 )
-```
-
-```
-## error object is Error in left + right: non-numeric argument to binary operator
+#> error object is Error in left + right: non-numeric argument to binary operator
 ```
 
 We can handle non-fatal errors using `withCallingHandlers`,
@@ -738,13 +600,10 @@ We can use this to create a lookup table:
 values <- c("m", "f", "u", "f", "f", "m", "m")
 lookup <- c(m = "Male", f = "Female", u = "Unstated")
 lookup[values]
-```
-
-```
-##          m          f          u          f          f          m 
-##     "Male"   "Female" "Unstated"   "Female"   "Female"     "Male" 
-##          m 
-##     "Male"
+#>          m          f          u          f          f          m 
+#>     "Male"   "Female" "Unstated"   "Female"   "Female"     "Male" 
+#>          m 
+#>     "Male"
 ```
 
 **The `order` function:**
@@ -757,10 +616,7 @@ For example:
 
 ```r
 order(c("g", "c", "t", "a"))
-```
-
-```
-## [1] 4 2 1 3
+#> [1] 4 2 1 3
 ```
 shows that the value at location 4 (the `"a"`) belongs in the first spot of the vector;
 it does *not* mean that the value in the first location (the `"g"`) belongs in location 4.
@@ -780,10 +636,7 @@ orange <- function() {
   purple(purple)
 }
 orange()
-```
-
-```
-## [1] 110
+#> [1] 110
 ```
 
 (True story: Fortran uses `(...)` to mean both "call a function" and "index an array".
@@ -810,10 +663,7 @@ something <- function(value) {
   10 * value
 }
 something(2)
-```
-
-```
-## [1] 20
+#> [1] 20
 ```
 
 to this:
@@ -842,10 +692,7 @@ demonstrate <- function() {
 }
 demonstrate()
 var
-```
-
-```
-## [1] "new value"
+#> [1] "new value"
 ```
   
 This is most often used with [closures](#g:closures);
@@ -870,29 +717,17 @@ data <- tribble(
   2,  20
 )
 data %>% summarize(total = sum(n))
-```
-
-```
-## Warning: The `printer` argument is soft-deprecated as of rlang 0.3.0.
-## This warning is displayed once per session.
-```
-
-```
-## # A tibble: 1 x 1
-##   total
-##   <dbl>
-## 1    30
-```
-
-```r
+#> Warning: The `printer` argument is soft-deprecated as of rlang 0.3.0.
+#> This warning is displayed once per session.
+#> # A tibble: 1 x 1
+#>   total
+#>   <dbl>
+#> 1    30
 data %>% summarize(total = sum(n()))
-```
-
-```
-## # A tibble: 1 x 1
-##   total
-##   <int>
-## 1     2
+#> # A tibble: 1 x 1
+#>   total
+#>   <int>
+#> 1     2
 ```
 
 {% include links.md %}
