@@ -268,9 +268,9 @@ head(trimmed)
 
 Perdition once again.
 The problem now is that `map` produces a raw list as output.
-The function we want is `map_dfc`,
-which maps a function across the columns of a tibble and returns a tibble as a result.
-(There is a corresponding function `map_dfr` that maps a function across rows.)
+The function we want is `map_dfr`,
+which maps a function across the rows of a tibble and returns a tibble as a result.
+(There is a corresponding function `map_dfc` that maps a function across columns.)
 
 ```{r}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
@@ -300,7 +300,7 @@ trimmed$Estimate
 ```
 
 Excellent.
-We can now use `map_dfc` to convert the columns to numeric percentages
+We can now use `map_dfr` to convert the columns to numeric percentages
 using an anonymous function that we define inside the `map_dfr` call itself:
 
 ```{r}
