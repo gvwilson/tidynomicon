@@ -164,11 +164,6 @@ and neither is the same as an [empty vector](#empty-vector).
 a collection of code, data, and documentation
 that can be distributed and re-used.
 
-*Parent environment*{:#parent-envrironment}:
-the [environment](#environment) "above" the current environment.
-Parentage is defined lexically (when code is written)
-rather than dynamically (as code is called).
-
 *Pipe operator*{:#pipe-operator}:
 the `%>%` used to make the output of one function the input of the next.
 
@@ -249,6 +244,10 @@ a sequence of values,
 usually of [homogeneous](#homogeneous) type.
 Vectors are *the* fundamental data structure in R;
 [scalars](#scalar) are actually vectors of unit length.
+
+*Vectorize*{:#vectorize}:
+to write code so that operations are performed on entire vectors,
+rather than element-by-element within loops.
 
 *Warning*{:#warning}: FIXME.
 a built-in [condition](#condition) in R of middling severity.
