@@ -2,12 +2,17 @@ title: "The Tidynomicon"
 author: "Greg Wilson"
 
 lessons:
-- /beginnings/
+- /values-and-vectors/
+- /indexing/
+- /control-flow/
 - /tidyverse/
 - /cleanup/
-- /projects/
-- /debt/
+- /non-standard-evaluation/
+- /error-handling/
 - /oop/
+- /debt/
+- /projects/
+- /testing/
 
 extras:
 - url: "/license/"

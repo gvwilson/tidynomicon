@@ -65,6 +65,14 @@ keypoints:
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 ```
 
+
+> **Subsetting data frames:**
+> When we are working with data frames (including tibbles),
+> subsetting with a single vector selects columns, not rows,
+> because data frames are stored as lists of columns.
+> This means that `df[1:2]` selects two columns from `df`.
+> However, in `df[2:3, 1:2]`, the first index selects rows, while the second selects columns.
+
 There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.

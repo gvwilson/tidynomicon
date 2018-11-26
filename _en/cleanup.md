@@ -58,7 +58,7 @@ Data source: Global AIDS Monitoring 2018 and UNAIDS 2018 estimates,,,,,,,,,,,,,,
 "For more information on the data, visit data.unicef.org",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ```
 
-This is a mess---no, more than that, an affront to what little is left of our sanity.
+This is a mess---no, more than that, it is an affront to decency.
 There are comments mixed with data,
 values' actual indices have to be synthesized by combining column headings from two rows
 (two thirds of which have to be carried forward from previous columns),
@@ -454,7 +454,8 @@ but that doesn't work:
 `str_replace` works on vectors,
 but a tibble is a list of vectors.
 Instead,
-we can use `map` to apply the function `str_replace` to each column in turn to get rid of the percent signs:
+we can use a [higher-order function](../glossary/#higher-order-function) called `map`
+to apply the function `str_replace` to each column in turn to get rid of the percent signs:
 
 
 ```r
@@ -647,9 +648,9 @@ head(trimmed)
 
 Perdition once again.
 The problem now is that `map` produces a raw list as output.
-The function we want is `map_dfc`,
-which maps a function across the columns of a tibble and returns a tibble as a result.
-(There is a corresponding function `map_dfr` that maps a function across rows.)
+The function we want is `map_dfr`,
+which maps a function across the rows of a tibble and returns a tibble as a result.
+(There is a corresponding function `map_dfc` that maps a function across columns.)
 
 
 ```r
@@ -761,7 +762,7 @@ trimmed$Estimate
 ```
 
 Excellent.
-We can now use `map_dfc` to convert the columns to numeric percentages
+We can now use `map_dfr` to convert the columns to numeric percentages
 using an anonymous function that we define inside the `map_dfr` call itself:
 
 
@@ -1608,10 +1609,5 @@ but what we have also learned is that we make mistakes,
 and that those mistakes can easily slip past us.
 If people are going to use our cleaned-up data in their analyses,
 we need a better way to develop and check our scripts.
-
-## Exercises
-
-1. Rewrite the code that converts numbers to use
-   the [parse_number package][parse-number-package].
 
 {% include links.md %}
