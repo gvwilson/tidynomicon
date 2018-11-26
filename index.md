@@ -35,6 +35,12 @@ Welcome, then, to a universe where the strange will become familiar,
 and everything familiar, strange.
 Welcome, thrice welcome, to R.
 
+> **Contributing**
+>
+> Contributions of all kinds are very welcome:
+> please see [this page](./contributing/) for how to help,
+> and our [Code of Conduct](./conduct/) for our community standards.
+
 ## Setting Up
 
 {% include setup.md %}

@@ -19,6 +19,8 @@ extras:
   title: "License"
 - url: "/conduct/"
   title: "Code of Conduct"
+- url: "/contributing/"
+  title: "Contributing"
 - url: "/citation/"
   title: "Citation"
 - url: "/objectives/"
