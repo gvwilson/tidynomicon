@@ -7,9 +7,15 @@ questions:
   - "How can we take advantage of this?"
 objectives:
   - "Trace the order of evaluation in function calls."
-  - "Explain what environments and expressions are and how they relate."
+  - "Explain what environments and expressions are and how they relate to one another."
+  - "Justify the author's use of ASCII art in the second decade of the 21st Century."
 keypoints:
-  - "FIXME"
+  - "R uses lazy evaluation: expressions are evaluated when their values are needed, not before."
+  - "Use `expr` to create an expression without evaluating it."
+  - "Use `eval` to evaluate an expression in the context of some data."
+  - "Use `enquo` to create a quosure containing an unevaluated expression and its environment."
+  - "Use `quo_get_expr` to get the expression out of a quosure."
+  - "Use `!!` to splice the expression in a quosure into a function call."
 ---
 
 ```{r include=FALSE}
@@ -166,14 +172,14 @@ and puts its result in `final`:
 The most important thing here is not that I'm using a million lines of code on a supercomputer to draw ASCII art,
 but rather the fact that Python evaluates expressions *before* it calls functions,
 and passes the results of those evaluations to the functions.
-This is called **eager evaluation**,
+This is called [eager evaluation](../glossary/#eager-evaluation),
 and is what most modern programming languages do.
 
 ## Once More in R
 
 R,
 on the other hand,
-uses **lazy evaluation**.
+uses [lazy evaluation](../glossary/#lazy-evaluation).
 Here's an R program that's roughly equivalent to the Python shown above:
 
 ```{r}
@@ -239,7 +245,7 @@ and hinges on the fact that
 > it parses the text and builds trees like the one shown above
 > to represent what the program is supposed to do.
 > Processing that data structure to find its value
-> is called **evaluating** the expression.
+> is called [evaluating](../glossary/#evaluation) the expression.
 >
 > Most modern languages allow us to build trees ourselves,
 > either by concatenating strings to create program text
@@ -265,7 +271,7 @@ Step 1: we assign "start" to `initial` in the [global environment](../glossary/#
 ```
 
 Step 2: we ask R to call `tens_func(initial + "more")`,
-so it creates a **promise** to hold:
+so it creates a [promise](../glossary/#promise) to hold:
 
 -   the [environment](../glossary/#environment) we're in (which I'm surrounding with `@`),
 -   the expression we're passing to the function, and
@@ -641,7 +647,7 @@ However,
 `substitute` is frowned upon because it does one thing when called interactively on the command line
 and something else when called inside a function.
 Instead,
-we should use a function called `enquo` which returns an object called a **quosure**
+we should use a function called `enquo` which returns an object called a [quosure](../glossary/#quosure)
 that contains only an unevaluated expression and an environment.
 Let's try using that:
 
@@ -748,7 +754,8 @@ check_all(both_hands, left > right)
 
 Backing up a bit,
 `!!` works because [there are two broad categories of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
-**evaluating functions** and **quoting functions**.
+[evaluating functions](../glossary/#evaluating-function) and
+[quoting functions](../glossary/#quoting-function).
 Evaluating functions take arguments as values---they're what most of us are used to working with.
 Quoting functions, on the other hand, aren't passed the values of expressions, but the expressions themselves.
 When we write `both_hands$left`, the `$` function is being passed `both_hands` and the quoted expression `left`.

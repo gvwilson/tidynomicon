@@ -53,6 +53,9 @@ an index enclosed in `[[...]]`,
 used to return a single value of the underlying type.
 See also [single square brackets](#single-square-brackets).
 
+*Eager evaluation*{:#eager-evaluation}:
+evaluating an expression as soon as it is formed.
+
 *Empty vector*{:#empty-vector}:
 a vector that contains no elements.
 Empty vectors have a type such as logical or character,
@@ -63,6 +66,14 @@ a structure that stores a set of variable names and the values they refer to.
 
 *Error*{:#error}:
 the most severe type of built-in [condition](#condition) in R.
+
+*Evaluation*{:#evaluation}:
+the process of taking a complex expression such as `1+2*3/4`
+and turning it into a single irreducible value.
+
+*Evaluating function*{:#evaluating-function}:
+a function that takes arguments as values.
+Most functions are evaluating functions.
 
 *Exception*{:#exception}:
 an object containing information about an error,
@@ -160,12 +171,21 @@ a special value used to represent a missing object.
 `NULL` is not the same as `NA`,
 and neither is the same as an [empty vector](#empty-vector).
 
+*Quosure*{:#quosure}:
+a data structure containing an unevaluated expression and its environment.
+
+*Quoting function*{:#quoting-function}:
+a function that is passed expressions rather than the values of those expressions.
+
 *Package*{:#package}:
 a collection of code, data, and documentation
 that can be distributed and re-used.
 
 *Pipe operator*{:#pipe-operator}:
 the `%>%` used to make the output of one function the input of the next.
+
+*Promise*{:#promise}:
+a data structure used to record an unevaluated expression for lazy evaluation.
 
 *Raise (exception)*{:#raise-exception}:
 a way of indicating that something has gone wrong in a program,
@@ -197,13 +217,13 @@ to choose entire columns from a table by name or location.
 *Setup (testing)*{:#testing-setup}:
 code that is automatically run once before each [unit test](#unit-test).
 
-*Signal (a condition)*{:#signal-condition}: FIXME.
+*Signal (a condition)*{:#signal-condition}:
 a way of indicating that something has gone wrong in a program,
 or that some other unexpected event has occurred.
 R prefers "signalling a [condition](#condition)"
 to "[raising](#raise) an [exception](#exception)".
 
-*Single square brackets*{:#single-square-brackets}: FIXME.
+*Single square brackets*{:#single-square-brackets}:
 an index enclosed in `[...]`,
 used to select a structure from another structure.
 See also [double square brackets](#double-square-brackets).
@@ -249,5 +269,5 @@ Vectors are *the* fundamental data structure in R;
 to write code so that operations are performed on entire vectors,
 rather than element-by-element within loops.
 
-*Warning*{:#warning}: FIXME.
+*Warning*{:#warning}:
 a built-in [condition](#condition) in R of middling severity.
