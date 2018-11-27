@@ -130,6 +130,7 @@ Most vectors in R are homogeneous.
 
 *Hubris*{:#hubris}:
 excessive pride or self-confidence.
+See also [unit test](#unit-test) (lack of).
 
 *ISO3 country code*{:#iso3-country-code}:
 a three-letter code defined by ISO 3166-1 that identifies a specific country,
