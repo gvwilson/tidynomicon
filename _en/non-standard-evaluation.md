@@ -710,7 +710,7 @@ check_using_enquo <- function(data, test) {
 check_using_enquo(both_hands, left != right)
 #> <quosure>
 #> expr: ^left != right
-#> env:  0x7ff6a865a240
+#> env:  0x7fcee7f1c0c8
 ```
 
 Ah: a quosure is a structured object,

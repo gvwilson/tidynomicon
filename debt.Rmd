@@ -22,6 +22,7 @@ keypoints:
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(base.url = "../")
 library(tidyverse)
 ```
 
@@ -32,10 +33,9 @@ and we should clear some of before we go on to new topics.
 
 Because [reasons][bryan-setwd].
 
-## But...
+**But...**
 
-No.
-Use the [here package][here-package].
+No. Use the [here package][here-package].
 
 ## Formulas
 
@@ -89,6 +89,105 @@ lazy evaluation allows us to accomplish marvels.
 Used unwisely---well,
 there's no reason for us to dwell on that,
 particularly not after what happened to poor Higgins...
+
+## Factors
+
+Another feature of R that doesn't have an exact analog in Python is **factors**.
+In statistics, a factor is a categorical variable such as "flavor",
+which can be "vanilla", "chocolate", "strawberry", or "mustard".
+Factors can be represented as strings,
+but storing the same string many times wastes space and is inefficient
+(since comparing strings takes longer than comparing numbers).
+What R and other languages therefore do is store each string once
+and associate it with a numeric key,
+so that internally, "mustard" is the number 4 in the lookup table for "flavor",
+but is presented as "mustard" rather than 4.
+(Just to keep us on our toes,
+R allows factors to be either ordered or unordered.)
+
+This is useful, but brings with it some problems:
+
+1.  On the statistical side,
+    it encourages people to put messy reality into tidy but misleading boxes.
+    For example, it's unfortunately still common for forms to require people to identify themselves
+    as either "male" or "female",
+    which is [scientifically](https://www.quora.com/Scientifically-how-many-sexes-genders-are-there)
+    [incorrect](https://www.joshuakennon.com/the-six-common-biological-sexes-in-humans/).
+    Similarly, census forms that ask questions about racial or ethnic identity often leave people scratching their heads,
+    since they don't fit into any of the categories on offer.
+2.  On the computational side,
+    some functions in R automatically convert strings to factors by default.
+    This makes sense when working with statistical data---in most cases,
+    a column in which the same strings are repeated many times is categorical---but
+    it is usually not the right choice in other situations.
+    This has surprised enough people the years that the tidyverse goes the other way
+    and only creates factors when asked to.
+
+Let's work through a small example.
+Suppose we've read a CSV file and wound up with this table:
+
+```{r}
+raw <- tribble(
+  ~person, ~flavor, ~ranking,
+  "Lhawang", "strawberry", 1.7,
+  "Lhawang", "chocolate",  2.5,
+  "Lhawang", "mustard",    0.2,
+  "Khadee",  "strawberry", 2.1,
+  "Khadee", "chocolate",   2.4,
+  "Khadee", "vanilla",     3.9,
+  "Haddad", "strawberry",  1.8,
+  "Haddad", "vanilla",     2.1
+)
+raw
+```
+
+Let's aggregate using flavor values so that we can check our factor-based aggregating later:
+
+```{r}
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+```
+
+
+It probably doesn't make sense to turn the `person` column into factors,
+since names are actually character strings,
+but the `flavor` column is a good candidate:
+
+```{r}
+raw <- mutate_at(raw, vars(flavor), as.factor)
+raw
+```
+
+We can still aggregate as we did before:
+
+```{r}
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+```
+
+We can also impose an ordering on the factor's elements:
+
+```{r}
+raw <- raw %>% mutate(flavor = fct_relevel(flavor, "chocolate", "strawberry", "vanilla", "mustard"))
+```
+
+This changes the order in which they are displayed after grouping:
+
+```{r}
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+```
+
+And also changes the order of bars in a bar chart:
+
+```{r}
+raw %>%
+  group_by(flavor) %>%
+  summarize(number = n(), average = mean(ranking)) %>%
+  ggplot() +
+  geom_col(mapping = aes(x = flavor, y = average))
+```
+
+
+To learn more about how factors work and how to use them when analyzing categorical data,
+please see [this paper](https://peerj.com/preprints/3163/) by McNamara and Horton.
 
 ## Magic Names
 

@@ -29,10 +29,9 @@ and we should clear some of before we go on to new topics.
 
 Because [reasons][bryan-setwd].
 
-## But...
+**But...**
 
-No.
-Use the [here package][here-package].
+No. Use the [here package][here-package].
 
 ## Formulas
 
@@ -94,6 +93,157 @@ lazy evaluation allows us to accomplish marvels.
 Used unwisely---well,
 there's no reason for us to dwell on that,
 particularly not after what happened to poor Higgins...
+
+## Factors
+
+Another feature of R that doesn't have an exact analog in Python is **factors**.
+In statistics, a factor is a categorical variable such as "flavor",
+which can be "vanilla", "chocolate", "strawberry", or "mustard".
+Factors can be represented as strings,
+but storing the same string many times wastes space and is inefficient
+(since comparing strings takes longer than comparing numbers).
+What R and other languages therefore do is store each string once
+and associate it with a numeric key,
+so that internally, "mustard" is the number 4 in the lookup table for "flavor",
+but is presented as "mustard" rather than 4.
+(Just to keep us on our toes,
+R allows factors to be either ordered or unordered.)
+
+This is useful, but brings with it some problems:
+
+1.  On the statistical side,
+    it encourages people to put messy reality into tidy but misleading boxes.
+    For example, it's unfortunately still common for forms to require people to identify themselves
+    as either "male" or "female",
+    which is [scientifically](https://www.quora.com/Scientifically-how-many-sexes-genders-are-there)
+    [incorrect](https://www.joshuakennon.com/the-six-common-biological-sexes-in-humans/).
+    Similarly, census forms that ask questions about racial or ethnic identity often leave people scratching their heads,
+    since they don't fit into any of the categories on offer.
+2.  On the computational side,
+    some functions in R automatically convert strings to factors by default.
+    This makes sense when working with statistical data---in most cases,
+    a column in which the same strings are repeated many times is categorical---but
+    it is usually not the right choice in other situations.
+    This has surprised enough people the years that the tidyverse goes the other way
+    and only creates factors when asked to.
+
+Let's work through a small example.
+Suppose we've read a CSV file and wound up with this table:
+
+
+```r
+raw <- tribble(
+  ~person, ~flavor, ~ranking,
+  "Lhawang", "strawberry", 1.7,
+  "Lhawang", "chocolate",  2.5,
+  "Lhawang", "mustard",    0.2,
+  "Khadee",  "strawberry", 2.1,
+  "Khadee", "chocolate",   2.4,
+  "Khadee", "vanilla",     3.9,
+  "Haddad", "strawberry",  1.8,
+  "Haddad", "vanilla",     2.1
+)
+raw
+#> # A tibble: 8 x 3
+#>   person  flavor     ranking
+#>   <chr>   <chr>        <dbl>
+#> 1 Lhawang strawberry     1.7
+#> 2 Lhawang chocolate      2.5
+#> 3 Lhawang mustard        0.2
+#> 4 Khadee  strawberry     2.1
+#> 5 Khadee  chocolate      2.4
+#> 6 Khadee  vanilla        3.9
+#> 7 Haddad  strawberry     1.8
+#> 8 Haddad  vanilla        2.1
+```
+
+Let's aggregate using flavor values so that we can check our factor-based aggregating later:
+
+
+```r
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+#> # A tibble: 4 x 3
+#>   flavor     number average
+#>   <chr>       <int>   <dbl>
+#> 1 chocolate       2    2.45
+#> 2 mustard         1    0.2 
+#> 3 strawberry      3    1.87
+#> 4 vanilla         2    3
+```
+
+
+It probably doesn't make sense to turn the `person` column into factors,
+since names are actually character strings,
+but the `flavor` column is a good candidate:
+
+
+```r
+raw <- mutate_at(raw, vars(flavor), as.factor)
+raw
+#> # A tibble: 8 x 3
+#>   person  flavor     ranking
+#>   <chr>   <fct>        <dbl>
+#> 1 Lhawang strawberry     1.7
+#> 2 Lhawang chocolate      2.5
+#> 3 Lhawang mustard        0.2
+#> 4 Khadee  strawberry     2.1
+#> 5 Khadee  chocolate      2.4
+#> 6 Khadee  vanilla        3.9
+#> 7 Haddad  strawberry     1.8
+#> 8 Haddad  vanilla        2.1
+```
+
+We can still aggregate as we did before:
+
+
+```r
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+#> # A tibble: 4 x 3
+#>   flavor     number average
+#>   <fct>       <int>   <dbl>
+#> 1 chocolate       2    2.45
+#> 2 mustard         1    0.2 
+#> 3 strawberry      3    1.87
+#> 4 vanilla         2    3
+```
+
+We can also impose an ordering on the factor's elements:
+
+
+```r
+raw <- raw %>% mutate(flavor = fct_relevel(flavor, "chocolate", "strawberry", "vanilla", "mustard"))
+```
+
+This changes the order in which they are displayed after grouping:
+
+
+```r
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+#> # A tibble: 4 x 3
+#>   flavor     number average
+#>   <fct>       <int>   <dbl>
+#> 1 chocolate       2    2.45
+#> 2 strawberry      3    1.87
+#> 3 vanilla         2    3   
+#> 4 mustard         1    0.2
+```
+
+And also changes the order of bars in a bar chart:
+
+
+```r
+raw %>%
+  group_by(flavor) %>%
+  summarize(number = n(), average = mean(ranking)) %>%
+  ggplot() +
+  geom_col(mapping = aes(x = flavor, y = average))
+```
+
+![plot of chunk unnamed-chunk-11](../figure/unnamed-chunk-11-1.png)
+
+
+To learn more about how factors work and how to use them when analyzing categorical data,
+please see [this paper](https://peerj.com/preprints/3163/) by McNamara and Horton.
 
 ## Magic Names
 
@@ -239,12 +389,12 @@ first <- tribble(
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7ff68b3b78c8>"
+#> [1] "<0x7fbd68eddc88>"
 first$left[[1]] <- 999
-#> tracemem[0x7ff68b3b78c8 -> 0x7ff68b44e448]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7ff68b44e448 -> 0x7ff68b44e3c8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7ff68b44e3c8 -> 0x7ff68b44e348]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7ff68b44e348 -> 0x7ff68b44e308]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+#> tracemem[0x7fbd68eddc88 -> 0x7fbd68f7ed48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fbd68f7ed48 -> 0x7fbd68f7ebc8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fbd68f7ebc8 -> 0x7fbd68f7eac8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fbd68f7eac8 -> 0x7fbd68f7ea48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 untracemem(first)
 ```
 
@@ -256,13 +406,13 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7ff68b44e408
+#> left column is initially at 0x7fbd68f7ec88
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7ff68b44e408
+#> after modification, the original column is still at 0x7fbd68f7ec88
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7ff68b872288
+#> but the first column of the tibble is at 0x7fbd6b0a5508
 ```
 
 (We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:
