@@ -1,0 +1,120 @@
+---
+title: "Web Applications with Shiny"
+output: md_document
+permalink: /shiny/
+questions:
+  - "FIXME"
+objectives:
+  - "FIXME"
+keypoints:
+  - "FIXME"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(base.url = "../")
+library(tidyverse)
+```
+
+- FIXME: following <https://shiny.rstudio.com/tutorial/>
+- Make sure Shiny is installed
+
+```{r}
+install.packages("shiny")
+```
+
+- Make sure the built-in examples run
+  - FIXME <https://github.com/rstudio/shiny/issues/2287>
+
+```{r}
+library(shiny)
+runExample("01_hello")
+```
+
+- Every Shiny app has:
+  - a user interface object (shows things to user)
+  - a server function (the back end that provides data)
+  - a call to `shinyApp` that binds the two together
+  - can all live in the same file, though some people prefer to put the UI and server in separate files
+- Let's reproduce that first example
+
+## Setup
+
+-   Create a directory called `faithful_app`.
+    -   Every application needs to be in its own directory.)
+-   Create a file in that directory called `app.R`.
+    -   `runApp(directory_name)` automatically looks for `app.R`.)
+-   Create the skeleton of the application
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- ...
+
+server <- ...
+
+shinyApp(ui = ui, server = server)
+```
+
+## The User Interface
+
+-   The interface is a fluid page (resizes as needed)
+-   Contains a single sidebar layout with two elements, `sidebarPanel` and `mainPanel`
+-   The sidebar contains a `sliderInput` object that (as you'd expect from the name) creates a slider
+    -   `label`, `min`, `max`, and `value` set it up
+    -   `inputId` gives it a name that's used to refer to it in the server
+-   There's also a `mainPanel` object that contains a single `plotOutput`
+    -   Its `outputId` is used to refer to it in other code
+
+```{r eval=FALSE}
+ui <- fluidPage(
+  titlePanel("Hello Shiny!"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(inputId = "bins",
+                  label = "Number of bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30)),
+    mainPanel(plotOutput(outputId = "distPlot"))
+  )
+)
+```
+
+## The Server
+
+-   Something has to react to changes in controls and update displays
+-   Shiny watches for the former and takes care of the latter automatically...
+    -   ...but we have to tell it what to watch, what to update, and how to make those updates
+-   We create a function that Shiny calls when it needs to
+
+```{r eval=FALSE}
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+    x    <- faithful$waiting
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    hist(x, breaks = bins, col = "#75AADB", border = "white",
+         xlab = "Waiting time to next eruption (in mins)",
+         main = "Histogram of waiting times")
+    })
+}
+```
+
+-   When there is a change, Shiny notices and calls our function, giving it inputs (controls) and outputs (displays)
+-   `input$bins` matches the `bins` ID for the slider, so the value of `input$bins` will be the value of the slider
+-   `output$distPlot` matches the `distPlot` ID of the plot, so we can use Shiny's `renderPlot` function to tell it what to plot
+    -   Can't use ggplot2 calls directly, but terminology is very similar
+-   In this case:
+    -   `x` axis is waiting times from the `faithful` data
+    -   `bins` is the bin labels (look at `input$bins` to get value)
+    -   `hist` is the histogram we want plotted
+
+## Execution
+
+-   Run `app.R` from the command line or use:
+
+```{r}
+runApp("faithful_app")
+```
+
+-   Once it's running, narrow the window to see the "fluid" part
