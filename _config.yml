@@ -13,6 +13,7 @@ lessons:
 - /debt/
 - /projects/
 - /testing/
+- /shiny/
 
 extras:
 - url: "/license/"

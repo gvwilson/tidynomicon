@@ -10,18 +10,15 @@ keypoints:
   - "FIXME"
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-library(tidyverse)
-```
+
 
 - FIXME: following <https://shiny.rstudio.com/tutorial/>
 - Make sure Shiny is installed
 - Make sure the built-in examples run
   - FIXME <https://github.com/rstudio/shiny/issues/2287>
 
-```{r eval=FALSE}
+
+```r
 library(shiny)
 runExample("01_hello")
 ```
@@ -41,7 +38,8 @@ runExample("01_hello")
     -   `runApp(directory_name)` automatically looks for `app.R`.)
 -   Create the skeleton of the application
 
-```{r eval=FALSE}
+
+```r
 library(shiny)
 
 ui <- ...
@@ -61,7 +59,8 @@ shinyApp(ui = ui, server = server)
 -   There's also a `mainPanel` object that contains a single `plotOutput`
     -   Its `outputId` is used to refer to it in other code
 
-```{r eval=FALSE}
+
+```r
 ui <- fluidPage(
   titlePanel("Hello Shiny!"),
   sidebarLayout(
@@ -83,7 +82,8 @@ ui <- fluidPage(
     -   ...but we have to tell it what to watch, what to update, and how to make those updates
 -   We create a function that Shiny calls when it needs to
 
-```{r eval=FALSE}
+
+```r
 server <- function(input, output) {
   output$distPlot <- renderPlot({
     x    <- faithful$waiting
@@ -108,7 +108,8 @@ server <- function(input, output) {
 
 -   Run `app.R` from the command line or use:
 
-```{r eval=FALSE}
+
+```r
 runApp("faithful_app")
 ```
 
@@ -120,7 +121,8 @@ runApp("faithful_app")
 -   `mkdir unicef_app` and create `app.R`
 
 <!-- app-ui-skeleton.R -->
-```{r eval=FALSE}
+
+```r
 library(shiny)
 
 ui <- fluidPage(
@@ -143,9 +145,12 @@ shinyApp(ui = ui, server = server)
 ```
 
 
-```{r}
+
+```r
 knitr::include_graphics("../files/app-ui-skeleton.png")
 ```
+
+![plot of chunk unnamed-chunk-8](../../files/app-ui-skeleton.png)
 
 -   Position the controls on the right
 -   Use `h1`, `h2`, and similarly-named functions to create HTML elements
@@ -170,7 +175,8 @@ knitr::include_graphics("../files/app-ui-skeleton.png")
 -   Come back later and figure out how to constrain year input to match years in file
 
 <!-- app-ui-prototype.R -->
-```{r eval=FALSE}
+
+```r
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
   sidebarLayout(
@@ -185,14 +191,18 @@ ui <- fluidPage(
 )
 ```
 
-```{r}
+
+```r
 knitr::include_graphics("../files/app-ui-prototype.png")
 ```
+
+![plot of chunk unnamed-chunk-10](../../files/app-ui-prototype.png)
 
 -   Let's show the chosen filename in the output display
 
 <!-- app-show-filename-wrong.R -->
-```{r eval=FALSE}
+
+```r
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
   sidebarLayout(
@@ -212,15 +222,21 @@ server <- function(input, output){
 
 -   Initial display looks good:
 
-```{r}
+
+```r
 knitr::include_graphics("../files/app-show-filename-wrong-before.png")
 ```
 
+![plot of chunk unnamed-chunk-12](../../files/app-show-filename-wrong-before.png)
+
 -   Fill in filename: oops
 
-```{r}
+
+```r
 knitr::include_graphics("../files/app-show-filename-wrong-after.png")
 ```
+
+![plot of chunk unnamed-chunk-13](../../files/app-show-filename-wrong-after.png)
 
 -   Read the docs
     -   `input` is a named list-like object of everything set up in the interface
@@ -228,7 +244,8 @@ knitr::include_graphics("../files/app-show-filename-wrong-after.png")
     -   `input$datafile$datapath` ought to get us what we want
 
 <!-- app-show-filename-right.R -->
-```{r eval=FALSE}
+
+```r
 server <- function(input, output){
   output$filename <- renderText({
     paste("input file:", input$datafile$datapath)
@@ -240,7 +257,8 @@ server <- function(input, output){
 -   Let's fill in the server a bit
 
 <!-- app-show-filename-correct.R -->
-```{r eval=FALSE}
+
+```r
 server <- function(input, output){
   currentData <- NULL
   output$filename <- renderText({
@@ -263,9 +281,12 @@ server <- function(input, output){
     2.  Inside `server`, they are run once for each user
     3.  Inside a handler like `renderText`, they are run once on each change
 
-```{r}
+
+```r
 knitr::include_graphics("../files/app-show-filename-correct.png")
 ```
+
+![plot of chunk unnamed-chunk-16](../../files/app-show-filename-correct.png)
 
 ## Reflecting Data in the File
 
@@ -279,7 +300,8 @@ knitr::include_graphics("../files/app-show-filename-correct.png")
 -   `output$filename` uses `currentData()`, so it is automatically called when the reactive variable's value changes
 
 <!-- app-reactive-update.R -->
-```{r}
+
+```r
 server <- function(input, output){
   currentData <- reactive({
     currentPath <- input$datafile$datapath
@@ -319,6 +341,9 @@ server <- function(input, output){
 }
 ```
 
-```{r}
+
+```r
 knitr::include_graphics("../files/app-reactive-update.gif")
 ```
+
+![plot of chunk unnamed-chunk-18](../../files/app-reactive-update.gif)
