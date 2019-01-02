@@ -322,3 +322,78 @@ server <- function(input, output){
 ```{r}
 knitr::include_graphics("../files/app-reactive-update.gif")
 ```
+
+## Dates
+
+And now comes the *other* hard part:
+handling changes to the date range.
+Let's start with something that *doesn't* work:
+
+<!-- app-infinite-update.R -->
+```{r}
+server <- function(input, output, session){
+  # ...other code as before...
+
+  output$chart <- renderPlot({
+    years <- input$years
+    message(years)
+    data <- currentData()
+    if (is.null(data)) {
+      chart <- NULL
+    } else {
+      minYear <- as.character(min(data$year))
+      maxYear <- as.character(max(data$year))
+      updateDateRangeInput(session, "years", min = minYear, max = maxYear,
+                           start = minYear, end = maxYear)
+      chart <- data %>%
+        group_by(year) %>%
+        summarize(average = mean(estimate, na.rm = TRUE)) %>%
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        ggtitle(paste("Years", minYear, "-", maxYear))
+    }
+    chart
+  })
+}
+```
+
+-   Want the chart to display data for the selected range of years
+-   And have the minimum and maximum possible year set by the data
+-   So add a third parameter `session` to the `server` function
+-   Get the current years from `input$years`
+-   And use `updateDateRangeInput` to push a change from the output function to the input controls
+    -   This needs the session
+-   Run this:
+    -   Displays the current date twice on startup before a file selected because that's the default for the date input
+    -   But once dates are entered, goes into an infinite loop
+    -   The chart depends on the dates, but we're changing the dates inside the plot update
+
+-   Try again: just read `years` inside the chart update and display it
+
+<!-- app-update-every-character.R -->
+```{r}
+  output$chart <- renderPlot({
+    years <- input$years
+    message('years', years)
+    data <- currentData()
+    if (is.null(data)) {
+      chart <- NULL
+    } else {
+      minYear <- as.character(min(data$year))
+      maxYear <- as.character(max(data$year))
+      chart <- data %>%
+        group_by(year) %>%
+        summarize(average = mean(estimate, na.rm = TRUE)) %>%
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        ggtitle(paste("Years", minYear, "-", maxYear))
+    }
+    chart
+  })
+```
+
+-   Whoops: the message appears every time a character is typed in one of the date controls
+    -   I.e., deleting the start year and typing `2`, `0`, `1`, `8`
+        produces four invalid values (`blank`NA`, `0002`, `0020`, and `0201`)
+        before producing a useful one
+    

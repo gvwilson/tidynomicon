@@ -1,0 +1,19 @@
+---
+title: "Reticulate"
+output: md_document
+permalink: /reticulate/
+questions:
+  - "FIXME"
+objectives:
+  - "FIXME"
+keypoints:
+  - "FIXME"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(base.url = "../")
+library(tidyverse)
+```
+
+FiXME: fill in.
