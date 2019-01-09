@@ -1,6 +1,5 @@
 library(tidyverse)
 library(shiny)
-library(lubridate)
 
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
@@ -19,34 +18,14 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session){
-
   currentData <- reactive({
-    data <- NULL
-    path <- input$datafile$datapath
-    dates <- input$years
-    if (!is.null(path)) {
-      data <- read_csv(path)
-      lowYear <- year(dates[1])
-      highYear <- year(dates[2])
-      data <- data %>% filter((lowYear <= year) && (year <= highYear))
-    }
-    data
-  })
-
-  output$chart <- renderPlot({
-    data <- currentData()
-    if (is.null(data)) {
-      chart <- NULL
+    currentPath <- input$datafile$datapath
+    if (is.null(currentPath)) {
+      result <- NULL
     } else {
-      chart <- data %>%
-        group_by(year) %>%
-        summarize(average = mean(estimate, na.rm = TRUE)) %>%
-        ggplot() +
-        geom_line(mapping = aes(x = year, y = average)) +
-        ggtitle(paste("Years", min(data$year), "to", max(data$year)))
+      result <- read_csv(currentPath)
     }
-    message('...renderPlot about to return chart')
-    chart
+    result
   })
   
   output$filename <- renderText({
@@ -57,6 +36,27 @@ server <- function(input, output, session){
       text <- paste("showing", currentName)
     }
     text
+  })
+
+  output$chart <- renderPlot({
+    years <- input$years
+    message('years', years)
+    data <- currentData()
+    if (is.null(data)) {
+      chart <- NULL
+    } else {
+      minYear <- as.character(min(data$year))
+      maxYear <- as.character(max(data$year))
+      updateDateRangeInput(session, "years", min = minYear, max = maxYear,
+                           start = minYear, end = maxYear)
+      chart <- data %>%
+        group_by(year) %>%
+        summarize(average = mean(estimate, na.rm = TRUE)) %>%
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        ggtitle(paste("Years", minYear, "-", maxYear))
+    }
+    chart
   })
 }
 
