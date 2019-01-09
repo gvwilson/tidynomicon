@@ -520,6 +520,12 @@ server <- function(input, output){
   })
 ```
 
+-   Here are the dependencies we have created
+
+```{r}
+knitr::include_graphics("../files/unicef_slider_dependencies.png")
+```
+
 -   Ta da!
 -   Except we're adding a slider every time we open a file
     -   So if we open the same file twice, we get two sliders with identical ranges
