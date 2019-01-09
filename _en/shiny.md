@@ -42,9 +42,9 @@ runExample("01_hello")
 ```r
 library(shiny)
 
-ui <- ...
+ui <- # ...user interface...
 
-server <- ...
+server <- # ...server...
 
 shinyApp(ui = ui, server = server)
 ```
@@ -118,9 +118,9 @@ runApp("faithful_app")
 ## The User Interface
 
 -   Let's build a tool for exploring the UNICEF data
--   `mkdir unicef_app` and create `app.R`
+-   `mkdir unicef/skeleton` and create `app.R`
 
-<!-- app-ui-skeleton.R -->
+<!-- unicef/skeleton/app.R -->
 
 ```r
 library(shiny)
@@ -147,17 +147,17 @@ shinyApp(ui = ui, server = server)
 
 
 ```r
-knitr::include_graphics("../files/app-ui-skeleton.png")
+knitr::include_graphics("../files/unicef_skeleton.png")
 ```
 
-![plot of chunk unnamed-chunk-8](../../files/app-ui-skeleton.png)
+![plot of chunk unnamed-chunk-8](../../files/unicef_skeleton.png)
 
 -   Position the controls on the right
 -   Use `h1`, `h2`, and similarly-named functions to create HTML elements
 -   Use `img` to display a logo
 -   Empty server
 -   Run it: everything looks good except the image
-    -   Turns out images have to be in the `unicef_app/www` folder
+    -   Turns out images have to be in the `unicef/skeleton/www` folder
 
 -   Now time to add widgets (interactive control elements)
     -   Buttons
@@ -174,7 +174,7 @@ knitr::include_graphics("../files/app-ui-skeleton.png")
 -   Also need to choose a file
 -   Come back later and figure out how to constrain year input to match years in file
 
-<!-- app-ui-prototype.R -->
+<!-- unicef/prototype/app.R -->
 
 ```r
 ui <- fluidPage(
@@ -193,14 +193,14 @@ ui <- fluidPage(
 
 
 ```r
-knitr::include_graphics("../files/app-ui-prototype.png")
+knitr::include_graphics("../files/unicef_prototype.png")
 ```
 
-![plot of chunk unnamed-chunk-10](../../files/app-ui-prototype.png)
+![plot of chunk unnamed-chunk-10](../../files/unicef_prototype.png)
 
 -   Let's show the chosen filename in the output display
 
-<!-- app-show-filename-wrong.R -->
+<!-- unicef/filename_wrong/app.R -->
 
 ```r
 ui <- fluidPage(
@@ -224,26 +224,26 @@ server <- function(input, output){
 
 
 ```r
-knitr::include_graphics("../files/app-show-filename-wrong-before.png")
+knitr::include_graphics("../files/unicef_filename_wrong_before.png")
 ```
 
-![plot of chunk unnamed-chunk-12](../../files/app-show-filename-wrong-before.png)
+![plot of chunk unnamed-chunk-12](../../files/unicef_filename_wrong_before.png)
 
 -   Fill in filename: oops
 
 
 ```r
-knitr::include_graphics("../files/app-show-filename-wrong-after.png")
+knitr::include_graphics("../files/unicef_filename_wrong_after.png")
 ```
 
-![plot of chunk unnamed-chunk-13](../../files/app-show-filename-wrong-after.png)
+![plot of chunk unnamed-chunk-13](../../files/unicef_filename_wrong_after.png)
 
 -   Read the docs
     -   `input` is a named list-like object of everything set up in the interface
     -   `input$datafile` picks out one element, but it turns out that's a data frame
     -   `input$datafile$datapath` ought to get us what we want
 
-<!-- app-show-filename-right.R -->
+<!-- unicef/filename_right/app.R -->
 
 ```r
 server <- function(input, output){
@@ -256,7 +256,7 @@ server <- function(input, output){
 -   Ah: we should show `name`, but use `datapath` when reading data
 -   Let's fill in the server a bit
 
-<!-- app-show-filename-correct.R -->
+<!-- unicef/server/app.R -->
 
 ```r
 server <- function(input, output){
@@ -283,23 +283,24 @@ server <- function(input, output){
 
 
 ```r
-knitr::include_graphics("../files/app-show-filename-correct.png")
+knitr::include_graphics("../files/unicef_filename_right.png")
 ```
 
-![plot of chunk unnamed-chunk-16](../../files/app-show-filename-correct.png)
+![plot of chunk unnamed-chunk-16](../../files/unicef_filename_right.png)
 
-## Reflecting Data in the File
+## Displaying the Data in the File
 
 -   Now comes the hard part: updating the chart when the file changes
--   Trick is to use a **reactive variable**
-    -   A function that changes value whenever one of the inputs it depends on changes
+-   Trick is to use a **[reactive variable](../glossary/#reactive-variable)**
+    -   A function that changes value whenever something it depends on changes
+    -   Where "something" is another reactive, like the ones provided by Shiny
 -   `currentData` is created by calling `reactive` with a block of code that produces the variable's value
     -   It uses `input$datafile`, so it will automatically be triggered whenever `input$datafile` changes
     -   *And* other things can depend on it in the same way
     -   Which allows us to get rid of `currentData`
 -   `output$filename` uses `currentData()`, so it is automatically called when the reactive variable's value changes
 
-<!-- app-reactive-update.R -->
+<!-- unicef/reactive_update/app.R -->
 
 ```r
 server <- function(input, output){
@@ -343,7 +344,222 @@ server <- function(input, output){
 
 
 ```r
-knitr::include_graphics("../files/app-reactive-update.gif")
+knitr::include_graphics("../files/unicef_reactive_update.gif")
 ```
 
-![plot of chunk unnamed-chunk-18](../../files/app-reactive-update.gif)
+![plot of chunk unnamed-chunk-18](../../files/unicef_reactive_update.gif)
+
+## Breaking Circular Dependencies
+
+-   Now comes the *other* hard part: handling changes to the date range.
+-   Want the chart to display data for the selected range of years
+-   And have the minimum and maximum possible year set by the data
+-   So add a third parameter `session` to the `server` function
+-   Get the current years from `input$years`
+-   And use `updateDateRangeInput` to push a change from the output function to the input controls
+    -   This needs the session
+-   Run this:
+    -   Displays the current date twice on startup before a file selected because that's the default for the date input
+    -   But once dates are entered, goes into an infinite loop
+    -   The chart depends on the dates, but we're changing the dates inside the plot update
+
+<!-- unicef/infinite_update/app.R -->
+
+```r
+server <- function(input, output, session){
+  # ...other code as before...
+
+  output$chart <- renderPlot({
+    years <- input$years
+    message('years', years)
+    data <- currentData()
+    if (is.null(data)) {
+      chart <- NULL
+    } else {
+      minYear <- as.character(min(data$year))
+      maxYear <- as.character(max(data$year))
+      updateDateRangeInput(session, "years", min = minYear, max = maxYear,
+                           start = minYear, end = maxYear)
+      chart <- data %>%
+        group_by(year) %>%
+        summarize(average = mean(estimate, na.rm = TRUE)) %>%
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        ggtitle(paste("Years", minYear, "-", maxYear))
+    }
+    chart
+  })
+}
+```
+
+-   Try again: just read `years` inside the chart update and display it
+
+<!-- unicef/every_character/app.R -->
+
+```r
+  output$chart <- renderPlot({
+    years <- input$years
+    message('years', years)
+    data <- currentData()
+    if (is.null(data)) {
+      chart <- NULL
+    } else {
+      minYear <- as.character(min(data$year))
+      maxYear <- as.character(max(data$year))
+      chart <- data %>%
+        group_by(year) %>%
+        summarize(average = mean(estimate, na.rm = TRUE)) %>%
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        ggtitle(paste("Years", minYear, "-", maxYear))
+    }
+    chart
+  })
+```
+
+-   Whoops: the message appears every time a character is typed in one of the date controls
+    -   I.e., deleting the start year and typing `2`, `0`, `1`, `8`
+        produces `0002`, `0020`, and `0201` before producing a usable year
+
+-   Let's try another approach: only show the year selector when there's data
+    -   And change the year selector to a double-ended slider, because seeing the day and month is misleading
+-   The revised UI looks like this:
+
+<!-- unicef/slider/app.R -->
+
+```r
+ui <- fluidPage(
+  titlePanel("UNICEF Data"),
+  sidebarLayout(
+    position = "right",
+    sidebarPanel(
+      img(src = "logo.png", width = 200),
+      div(
+        id = "datafileInput",
+        fileInput("datafile", p("data file"))
+      )
+    ),
+    mainPanel(
+      p(textOutput("filename")),
+      plotOutput("chart")
+    )
+  )
+)
+```
+
+-   Wrap the file selector in a `div` so that we have a named element after which to insert our date range selector
+-   But *don't* include the date range selector (yet)
+
+-   Outline of server is:
+
+
+```r
+server <- function(input, output){
+
+  currentData <- reactive({
+    # ...provide currentData...
+  })
+  
+  selectedData <- reactive({
+    # ...provide selectedData...
+  })
+  
+  observeEvent(input$datafile, {
+    # ...insert year selector when datafile changes...
+  })
+  
+  output$chart <- renderPlot({
+    # ...update chart when selectedData changes...
+  })
+  
+  output$filename <- renderText({
+    # ...update displayed filename when selected file changes...
+  })
+}
+```
+
+-   The zero'th change is getting rid of the `session` variable (don't need it any longer)
+-   The first change is to create a reactive variable for the selected data
+    -   Because the chart depends on the selected data, while the range of years we can select depends on the current (actual) data
+    -   Everywhere you might need to "see" data, create a reactive variable
+-   The function `observeEvent` allows us to create event handlers that aren't directly attached to display objects
+    -   We need one so that we can create the year display
+-   `currentData` is straightforward: if the filename changes, load that CSV file
+
+
+```r
+  currentData <- reactive({
+    read_csv(input$datafile$datapath)
+  })
+```
+
+-   `selectedData` is also straightforward: if `currentData` changes, filter by year range
+
+
+```r
+  selectedData <- reactive({
+    req(input$years)
+    currentData() %>%
+      filter(between(year, input$years[1], input$years[2]))
+  })
+```
+
+-   Uses `currentData()`, so Shiny knows it depends on changes to the current data
+-   But how do we know we *have* a year range?
+    -   `req(input$years)` means "make sure this thing exists before going any further"
+    -   FIXME: how does Shiny know that `observeEvent` later down will create this element?
+-   Once we have the years, we can filter
+
+-   Now for the clever bit: create a slider *after* loading a data file
+    -   Use `observeEvent(input$datafile, {...})` to indicate that this action depends on changes to the filename
+    -   Get the current data, grab the year range, create a `sliderInput`, and use `insertUI` to add it after the `div` we created
+
+
+```r
+  observeEvent(input$datafile, {
+    current <- currentData()
+    lowYear <- min(current$year)
+    highYear <- max(current$year)
+    insertUI(
+      selector = "#datafileInput",
+      where = "afterEnd",
+      ui = sliderInput("years", "years", 
+                       min = lowYear,
+                       max = highYear,
+                       value = c(lowYear, highYear),
+                       sep = "")
+    )
+  })
+```
+
+-   Creating the chart and displaying the filename is as before
+    -   Though we have switched to `ifelse` for the filename's value to be idiomatic
+-   Note that the chart depends on `selectedData()` and *not* the raw data
+
+
+```r
+  output$chart <- renderPlot({
+    selectedData() %>%
+      group_by(year) %>%
+      summarize(average = mean(estimate, na.rm = TRUE)) %>%
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        labs(title = paste("Years", input$years[1], "to", input$years[2]))
+  })
+  
+  output$filename <- renderText({
+    currentName <- input$datafile$name
+    ifelse(is.null(currentName), "no filename set", paste("showing", currentName))
+  })
+```
+
+-   Ta da!
+-   Except we're adding a slider every time we open a file
+    -   So if we open the same file twice, we get two sliders with identical ranges
+
+
+```r
+knitr::include_graphics("../files/unicef_slider.png")
+```
+
+![plot of chunk unnamed-chunk-27](../../files/unicef_slider.png)

@@ -198,6 +198,9 @@ to "raising an [exception](#exception)".
 an expression of the form <code><em>low</em>:<em>high</em></code>
 that is transformed a sequence of consecutive integers.
 
+*Reactive variable*{:#reactive-variable}:
+a variable whose value is automatically updated when some other value or values change.
+
 *Recycle*{:#recycle}:
 to re-use values from a shorter vector in order to generate
 a sequence of the same length as a longer one.

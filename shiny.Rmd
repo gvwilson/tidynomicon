@@ -117,9 +117,9 @@ runApp("faithful_app")
 ## The User Interface
 
 -   Let's build a tool for exploring the UNICEF data
--   `mkdir unicef_skeleton` and create `app.R`
+-   `mkdir unicef/skeleton` and create `app.R`
 
-<!-- unicef_skeleton/app.R -->
+<!-- unicef/skeleton/app.R -->
 ```{r eval=FALSE}
 library(shiny)
 
@@ -152,7 +152,7 @@ knitr::include_graphics("../files/unicef_skeleton.png")
 -   Use `img` to display a logo
 -   Empty server
 -   Run it: everything looks good except the image
-    -   Turns out images have to be in the `unicef_app/www` folder
+    -   Turns out images have to be in the `unicef/skeleton/www` folder
 
 -   Now time to add widgets (interactive control elements)
     -   Buttons
@@ -169,7 +169,7 @@ knitr::include_graphics("../files/unicef_skeleton.png")
 -   Also need to choose a file
 -   Come back later and figure out how to constrain year input to match years in file
 
-<!-- unicef_prototype/app.R -->
+<!-- unicef/prototype/app.R -->
 ```{r eval=FALSE}
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
@@ -191,7 +191,7 @@ knitr::include_graphics("../files/unicef_prototype.png")
 
 -   Let's show the chosen filename in the output display
 
-<!-- unicef_filename_wrong/app.R -->
+<!-- unicef/filename_wrong/app.R -->
 ```{r eval=FALSE}
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
@@ -227,7 +227,7 @@ knitr::include_graphics("../files/unicef_filename_wrong_after.png")
     -   `input$datafile` picks out one element, but it turns out that's a data frame
     -   `input$datafile$datapath` ought to get us what we want
 
-<!-- unicef_filename_right/app.R -->
+<!-- unicef/filename_right/app.R -->
 ```{r eval=FALSE}
 server <- function(input, output){
   output$filename <- renderText({
@@ -239,7 +239,7 @@ server <- function(input, output){
 -   Ah: we should show `name`, but use `datapath` when reading data
 -   Let's fill in the server a bit
 
-<!-- unicef_server/app.R -->
+<!-- unicef/server/app.R -->
 ```{r eval=FALSE}
 server <- function(input, output){
   currentData <- NULL
@@ -270,7 +270,7 @@ knitr::include_graphics("../files/unicef_filename_right.png")
 ## Displaying the Data in the File
 
 -   Now comes the hard part: updating the chart when the file changes
--   Trick is to use a **reactive variable**
+-   Trick is to use a **[reactive variable](../glossary/#reactive-variable)**
     -   A function that changes value whenever something it depends on changes
     -   Where "something" is another reactive, like the ones provided by Shiny
 -   `currentData` is created by calling `reactive` with a block of code that produces the variable's value
@@ -279,7 +279,7 @@ knitr::include_graphics("../files/unicef_filename_right.png")
     -   Which allows us to get rid of `currentData`
 -   `output$filename` uses `currentData()`, so it is automatically called when the reactive variable's value changes
 
-<!-- unicef_reactive_update/app.R -->
+<!-- unicef/reactive_update/app.R -->
 ```{r eval=FALSE}
 server <- function(input, output){
   currentData <- reactive({
@@ -321,7 +321,7 @@ server <- function(input, output){
 ```
 
 ```{r}
-knitr::include_graphics("../files/app-reactive-update.gif")
+knitr::include_graphics("../files/unicef_reactive_update.gif")
 ```
 
 ## Breaking Circular Dependencies
@@ -338,7 +338,7 @@ knitr::include_graphics("../files/app-reactive-update.gif")
     -   But once dates are entered, goes into an infinite loop
     -   The chart depends on the dates, but we're changing the dates inside the plot update
 
-<!-- unicef_infinite_update/app.R -->
+<!-- unicef/infinite_update/app.R -->
 ```{r eval=FALSE}
 server <- function(input, output, session){
   # ...other code as before...
@@ -368,7 +368,7 @@ server <- function(input, output, session){
 
 -   Try again: just read `years` inside the chart update and display it
 
-<!-- unicef_every_character/app.R -->
+<!-- unicef/every_character/app.R -->
 ```{r eval=FALSE}
   output$chart <- renderPlot({
     years <- input$years
@@ -398,7 +398,7 @@ server <- function(input, output, session){
     -   And change the year selector to a double-ended slider, because seeing the day and month is misleading
 -   The revised UI looks like this:
 
-<!-- unicef_slider/app.R -->
+<!-- unicef/slider/app.R -->
 ```{r eval=FALSE}
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
