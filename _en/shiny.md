@@ -16,6 +16,7 @@ keypoints:
 - Make sure Shiny is installed
 - Make sure the built-in examples run
   - FIXME <https://github.com/rstudio/shiny/issues/2287>
+- Thanks to Mine Çetinkaya-Rundel and Barret Schloerke for explaining all of this to me
 
 
 ```r
@@ -553,6 +554,15 @@ server <- function(input, output){
   })
 ```
 
+-   Here are the dependencies we have created
+
+
+```r
+knitr::include_graphics("../files/unicef_slider_dependencies.png")
+```
+
+![plot of chunk unnamed-chunk-27](../../files/unicef_slider_dependencies.png)
+
 -   Ta da!
 -   Except we're adding a slider every time we open a file
     -   So if we open the same file twice, we get two sliders with identical ranges
@@ -562,4 +572,134 @@ server <- function(input, output){
 knitr::include_graphics("../files/unicef_slider.png")
 ```
 
-![plot of chunk unnamed-chunk-27](../../files/unicef_slider.png)
+![plot of chunk unnamed-chunk-28](../../files/unicef_slider.png)
+
+## Rendering the User Interface Explicitly
+
+-   Our last uses `uiOutput` and `renderUI` to (re-)create the slider at just the right moment
+-   The UI looks familiar, except there's a `uiOutput` placeholder where the slider is to go
+    -   The name `"slider"` will be used in the server
+
+
+```r
+ui <- fluidPage(
+  titlePanel("UNICEF Data"),
+  sidebarLayout(
+    position = "right",
+    sidebarPanel(
+      img(src = "logo.png", width = 200),
+      fileInput("datafile", p("data file")),
+      uiOutput("slider")
+    ),
+    mainPanel(
+      p(textOutput("filename")),
+      plotOutput("chart")
+    )
+  )
+)
+#> Error in fluidPage(titlePanel("UNICEF Data"), sidebarLayout(position = "right", : could not find function "fluidPage"
+```
+
+-   `uiOutput` is always used in conjunction with `renderUI` in the server, so let's look at the server
+
+
+```r
+server <- function(input, output){
+
+  currentData <- reactive({
+    # ...get the data...
+  })
+
+  output$slider <- renderUI({
+    # ...create a widget to allow year selection...
+  })
+
+  selectedData <- reactive({
+    # ...select data using values from the year selector...
+  })
+
+  output$chart <- renderPlot({
+    # ...draw the chart...
+  })
+
+  output$filename <- renderText({
+    # ...display the filename...
+  })
+}
+```
+
+-   What does `currentData` look like?
+
+
+```r
+  currentData <- reactive({
+    req(input$datafile)
+    read_csv(input$datafile$datapath)
+  })
+#> Error in reactive({: could not find function "reactive"
+```
+
+-   We use `req(...)` to tell Shiny that there's no point proceeding unless `input$datafile` actually has a value
+    -   Because we can't load data if we have a `NULL` filename
+    -   FIXME: why wasn't this check required before?
+
+-   What do we do once we have data?
+    -   We create a slider, or overwrite the existing slider if there already is one
+    -   This prevents the problem of multiple sliders
+    -   Note that the slider's ID is `"years"`, and that its range is set based on data
+    -   So we avoid the problem of having to create a slider when we don't know what its range should be
+
+
+```r
+  output$slider <- renderUI({
+    current <- currentData()
+    lowYear <- min(current$year)
+    highYear <- max(current$year)
+
+    sliderInput("years", "years",
+                     min = lowYear,
+                     max = highYear,
+                     value = c(lowYear, highYear),
+                     sep = "")
+  })
+#> Error in renderUI({: could not find function "renderUI"
+```
+
+-   What do we do once we have a slider?
+    -   Select the data
+    -   This depends on the years from the slider, so we make that explicit using `req`
+
+
+```r
+  selectedData <- reactive({
+    req(input$years)
+
+    currentData() %>%
+      filter(between(year, input$years[1], input$years[2]))
+  })
+#> Error in reactive({: could not find function "reactive"
+```
+
+-   Displaying the chart and the filename are exactly as we've seen before
+    -   The chart depends on `selectedData`
+    -   The filename display depends on `input$datafile$name`
+
+-   When the UI is initially created:
+    -   There is no data file, so `req(input$datafile)` in the definition of `currentData` halts
+    -   Without `currentData`, the `renderUI` call used to create the slider doesn't proceed
+    -   So the UI doesn't get a slider and doesn't try to display data it doesn't have
+-   When a filename is selected for the first time
+    -   `input$datafile` gets a value
+    -   So we load data *and* we can display the filename
+    -   `currentData` turns green because we have loaded data
+    -   So we can create a slider *and* initialize its limits to the min and max years from the actual data
+    -   So `selectedData` can now be constructed (all of the things it depends on exist)
+    -   So we can draw the chart
+-   When a new file is selected
+    -   `input$datafile` gets a value
+    -   We load data and display the filenmae
+    -   `currentData` is re-created
+    -   We replace the slider with a new one whose bounds are set by the new data
+    -   And then construct `selectedData` and draw the chart
+-   This isn't the only way to do it, but ther other methods involve using `freeze` and are harder to understand and debug
+-   `uiOutput` and `renderUI` will get us a long way

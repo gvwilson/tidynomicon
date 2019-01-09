@@ -8,11 +8,7 @@ ui <- fluidPage(
     sidebarPanel(
       img(src = "logo.png", width = 200),
       fileInput("datafile", p("data file")),
-      sliderInput("years", "years", 
-                  min = 0,
-                  max = 0,
-                  value = c(0, 0),
-                  sep = "")
+      uiOutput("slider")
     ),
     mainPanel(
       p(textOutput("filename")),
@@ -21,44 +17,41 @@ ui <- fluidPage(
   )
 )
 
-server <- function(input, output, server){
-  
+server <- function(input, output){
+
   currentData <- reactive({
+    req(input$datafile)
     read_csv(input$datafile$datapath)
   })
-  
-  minYear <- reactive({
-    min(currentData()$year)
+
+  output$slider <- renderUI({
+    current <- currentData()
+    lowYear <- min(current$year)
+    highYear <- max(current$year)
+
+    sliderInput("years", "years",
+                     min = lowYear,
+                     max = highYear,
+                     value = c(lowYear, highYear),
+                     sep = "")
   })
-  
-  maxYear <- reactive({
-    max(currentData()$year)
-  })
-  
+
   selectedData <- reactive({
     req(input$years)
+
     currentData() %>%
       filter(between(year, input$years[1], input$years[2]))
   })
-  
-  yearRange <- reactive({
-    req(minYear)
-    req(maxYear)
-  })
-  
-  observeEvent(yearRange, {
-    updateSliderInput(session, "years", min = minYear(), max = maxYear(), value = maxYear())
-  })
-  
+
   output$chart <- renderPlot({
     selectedData() %>%
       group_by(year) %>%
       summarize(average = mean(estimate, na.rm = TRUE)) %>%
-      ggplot() +
-      geom_line(mapping = aes(x = year, y = average)) +
-      labs(title = paste("Years", input$years[1], "to", input$years[2]))
+        ggplot() +
+        geom_line(mapping = aes(x = year, y = average)) +
+        labs(title = paste("Years", input$years[1], "to", input$years[2]))
   })
-  
+
   output$filename <- renderText({
     currentName <- input$datafile$name
     ifelse(is.null(currentName), "no filename set", paste("showing", currentName))
