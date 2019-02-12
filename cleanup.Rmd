@@ -82,7 +82,7 @@ ZWE,2017,0.65,0.81,0.57
 To bring this data to a state of grace will take some trial and effort,
 which we shall do in stages.
 
-## Show Me the Numbers
+## How do I inspect the raw data?
 
 We will begin by reading the data into a tibble:
 
@@ -369,7 +369,7 @@ Comparing this to the raw data file convinces us that yes,
 we are now converting the percentages properly,
 which means we are halfway home.
 
-## Cut, Pad, and Stitch
+## How do I tidy the data?
 
 We now have numeric values in `percents` and corresponding ISO3 codes in `countries`.
 What we do *not* have is tidy data:

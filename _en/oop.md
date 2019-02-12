@@ -43,7 +43,7 @@ to process data identified by those attributes.
 Since attributes can be used in other ways as well,
 we will start by exploring them.
 
-## Attributes
+## What are attributes?
 
 Let's begin by creating a matrix containing the first few hundreds:
 
@@ -126,7 +126,7 @@ length(t)
 #> [1] 2
 ```
 
-## Classes
+## How are classes represented?
 
 To show how classes and generic functions work together,
 let's customize the way that 2D coordinates are converted to strings.
@@ -284,7 +284,7 @@ toString(there)
 #> [1] "<15.6, 16.7>"
 ```
 
-## Inheritance
+## How does inheritance work?
 
 We said above that an object can have more than one class,
 and that S3 searches the classes in order when it wants to find a method to call.

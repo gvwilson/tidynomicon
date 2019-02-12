@@ -79,7 +79,7 @@ ZWE,2017,0.65,0.81,0.57
 To bring this data to a state of grace will take some trial and effort,
 which we shall do in stages.
 
-## Show Me the Numbers
+## How do I inspect the raw data?
 
 We will begin by reading the data into a tibble:
 
@@ -107,7 +107,7 @@ head(raw)
 #> 4 ALB              Alba… -     -     -     -     -     -     -     -    
 #> 5 DZA              Alge… -     -     -     -     -     -     38%   42%  
 #> 6 AGO              Ango… -     -     -     3%    4%    2%    5%    7%   
-#> # ... with 20 more variables: X11 <chr>, X12 <chr>, X13 <chr>, X14 <chr>,
+#> # … with 20 more variables: X11 <chr>, X12 <chr>, X13 <chr>, X14 <chr>,
 #> #   X15 <chr>, X16 <chr>, X17 <chr>, X18 <chr>, X19 <chr>, X20 <chr>,
 #> #   X21 <chr>, X22 <chr>, X23 <chr>, X24 <chr>, X25 <chr>, X26 <chr>,
 #> #   X27 <chr>, X28 <chr>, X29 <chr>, X30 <chr>
@@ -155,7 +155,7 @@ head(raw)
 #> 4 AGO   Angola    -        -     -     3%         4%    2%    5%        
 #> 5 AIA   Anguilla  -        -     -     -          -     -     -         
 #> 6 ATG   Antigua … -        -     -     -          -     -     -         
-#> # ... with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
+#> # … with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
 #> #   hi_3 <chr>, lo_3 <chr>, Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>,
 #> #   Estimate_5 <chr>, hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>,
 #> #   hi_6 <chr>, lo_6 <chr>, Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>,
@@ -200,7 +200,7 @@ head(raw)
 #> 4 AGO   Angola    <NA>     <NA>  <NA>  3%         4%    2%    5%        
 #> 5 AIA   Anguilla  <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
 #> 6 ATG   Antigua … <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>      
-#> # ... with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
+#> # … with 21 more variables: hi_2 <chr>, lo_2 <chr>, Estimate_3 <chr>,
 #> #   hi_3 <chr>, lo_3 <chr>, Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>,
 #> #   Estimate_5 <chr>, hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>,
 #> #   hi_6 <chr>, lo_6 <chr>, Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>,
@@ -275,7 +275,7 @@ head(body)
 #> 4 <NA>     <NA>  <NA>  3%         4%    2%    5%         7%    4%   
 #> 5 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
 #> 6 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-#> # ... with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
+#> # … with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
 #> #   Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>, Estimate_5 <chr>,
 #> #   hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>, hi_6 <chr>, lo_6 <chr>,
 #> #   Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>, Estimate_8 <chr>,
@@ -431,6 +431,8 @@ Let's take a closer look:
 
 ```r
 is.tibble(body)
+#> Warning: `is.tibble()` is deprecated, use `is_tibble()`.
+#> This warning is displayed once per session.
 #> [1] TRUE
 ```
 
@@ -685,7 +687,7 @@ head(trimmed)
 #> 4 <NA>     <NA>  <NA>  3          4     2     5          7     4    
 #> 5 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
 #> 6 <NA>     <NA>  <NA>  <NA>       <NA>  <NA>  <NA>       <NA>  <NA> 
-#> # ... with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
+#> # … with 19 more variables: Estimate_3 <chr>, hi_3 <chr>, lo_3 <chr>,
 #> #   Estimate_4 <chr>, hi_4 <chr>, lo_4 <chr>, Estimate_5 <chr>,
 #> #   hi_5 <chr>, lo_5 <chr>, Estimate_6 <chr>, hi_6 <chr>, lo_6 <chr>,
 #> #   Estimate_7 <chr>, hi_7 <chr>, lo_7 <chr>, Estimate_8 <chr>,
@@ -851,7 +853,7 @@ head(percents)
 #> 4       NA    NA    NA       0.03  0.04  0.02       0.05  0.07  0.04
 #> 5       NA    NA    NA      NA    NA    NA         NA    NA    NA   
 #> 6       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-#> # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
+#> # … with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
 #> #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
 #> #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
 #> #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
@@ -938,6 +940,8 @@ percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
 
 #> Warning in .f(.x[[i]], ...): NAs introduced by coercion
 warnings()
+#> Warning message:
+#> package ‘purrr’ was built under R version 3.5.2
 ```
 
 Something is still not right.
@@ -1013,7 +1017,7 @@ head(percents)
 #> 4       NA    NA    NA       0.03  0.04  0.02       0.05  0.07  0.04
 #> 5       NA    NA    NA      NA    NA    NA         NA    NA    NA   
 #> 6       NA    NA    NA      NA    NA    NA         NA    NA    NA   
-#> # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
+#> # … with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
 #> #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
 #> #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
 #> #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
@@ -1031,7 +1035,7 @@ tail(percents)
 #> 4    NA     NA   NA         NA    NA    NA         NA    NA    NA   
 #> 5     0.59   0.7  0.53       0.27  0.32  0.24       0.7   0.84  0.63
 #> 6    NA     NA   NA          0.12  0.15  0.1        0.23  0.28  0.2 
-#> # ... with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
+#> # … with 19 more variables: Estimate_3 <dbl>, hi_3 <dbl>, lo_3 <dbl>,
 #> #   Estimate_4 <dbl>, hi_4 <dbl>, lo_4 <dbl>, Estimate_5 <dbl>,
 #> #   hi_5 <dbl>, lo_5 <dbl>, Estimate_6 <dbl>, hi_6 <dbl>, lo_6 <dbl>,
 #> #   Estimate_7 <dbl>, hi_7 <dbl>, lo_7 <dbl>, Estimate_8 <dbl>,
@@ -1042,7 +1046,7 @@ Comparing this to the raw data file convinces us that yes,
 we are now converting the percentages properly,
 which means we are halfway home.
 
-## Cut, Pad, and Stitch
+## How do I tidy the data?
 
 We now have numeric values in `percents` and corresponding ISO3 codes in `countries`.
 What we do *not* have is tidy data:
@@ -1104,7 +1108,7 @@ chunks
 #>  8 ARM      2009       NA    NA    NA
 #>  9 AUS      2009       NA    NA    NA
 #> 10 AUT      2009       NA    NA    NA
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[2]]
 #> # A tibble: 192 x 5
@@ -1120,7 +1124,7 @@ chunks
 #>  8 ARM      2010       NA    NA NA   
 #>  9 AUS      2010       NA    NA NA   
 #> 10 AUT      2010       NA    NA NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[3]]
 #> # A tibble: 192 x 5
@@ -1136,7 +1140,7 @@ chunks
 #>  8 ARM      2011       NA NA    NA   
 #>  9 AUS      2011       NA NA    NA   
 #> 10 AUT      2011       NA NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[4]]
 #> # A tibble: 192 x 5
@@ -1152,7 +1156,7 @@ chunks
 #>  8 ARM      2012    NA    NA    NA   
 #>  9 AUS      2012    NA    NA    NA   
 #> 10 AUT      2012    NA    NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[5]]
 #> # A tibble: 192 x 5
@@ -1168,7 +1172,7 @@ chunks
 #>  8 ARM      2013    NA    NA    NA   
 #>  9 AUS      2013    NA    NA    NA   
 #> 10 AUT      2013    NA    NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[6]]
 #> # A tibble: 192 x 5
@@ -1184,7 +1188,7 @@ chunks
 #>  8 ARM      2014    NA    NA    NA   
 #>  9 AUS      2014    NA    NA    NA   
 #> 10 AUT      2014    NA    NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[7]]
 #> # A tibble: 192 x 5
@@ -1200,7 +1204,7 @@ chunks
 #>  8 ARM      2015    NA    NA    NA   
 #>  9 AUS      2015    NA    NA    NA   
 #> 10 AUT      2015    NA    NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[8]]
 #> # A tibble: 192 x 5
@@ -1216,7 +1220,7 @@ chunks
 #>  8 ARM      2016    NA    NA    NA   
 #>  9 AUS      2016    NA    NA    NA   
 #> 10 AUT      2016    NA    NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 #> 
 #> [[9]]
 #> # A tibble: 192 x 5
@@ -1232,7 +1236,7 @@ chunks
 #>  8 ARM      2017    NA    NA    NA   
 #>  9 AUS      2017    NA    NA    NA   
 #> 10 AUT      2017    NA    NA    NA   
-#> # ... with 182 more rows
+#> # … with 182 more rows
 ```
 
 We start by giving names to our years;
@@ -1285,7 +1289,7 @@ tidy
 #>  8 ""       2016       NA    NA    NA
 #>  9 ""       2017       NA    NA    NA
 #> 10 AFG      2009       NA    NA    NA
-#> # ... with 1,718 more rows
+#> # … with 1,718 more rows
 ```
 
 What fresh hell is this?
@@ -1334,7 +1338,7 @@ missing
 #>  8 Middle East and North Africa    ""   
 #>  9 North America                   ""   
 #> 10 South Asia                      ""   
-#> # ... with 11 more rows
+#> # … with 11 more rows
 ```
 
 The lack of ISO3 country code for the region names doesn't bother us,
@@ -1367,28 +1371,28 @@ missing <- raw %>%
   select(Countries, ISO3)
 missing
 #> # A tibble: 20 x 2
-#>    Countries               ISO3                                           
-#>    <chr>                   <chr>                                          
-#>  1 ""                      ""                                             
-#>  2 ""                      ""                                             
-#>  3 ""                      ""                                             
-#>  4 Eastern and Southern A… ""                                             
-#>  5 Eastern Europe and Cen… ""                                             
-#>  6 Latin America and the … ""                                             
-#>  7 Middle East and North … ""                                             
-#>  8 North America           ""                                             
-#>  9 South Asia              ""                                             
-#> 10 West and Central Africa ""                                             
-#> 11 Western Europe          ""                                             
-#> 12 Europe and Central Asia ""                                             
-#> 13 Sub-Saharan Africa      ""                                             
-#> 14 Global                  ""                                             
-#> 15 ""                      ""                                             
-#> 16 ""                      Indicator definition: Percentage of infants bo…
-#> 17 ""                      Note: Data are not available if country did no…
-#> 18 ""                      Data source: Global AIDS Monitoring 2018 and U…
-#> 19 ""                      For more information on this indicator, please…
-#> 20 ""                      For more information on the data, visit data.u…
+#>    Countries                ISO3                                           
+#>    <chr>                    <chr>                                          
+#>  1 ""                       ""                                             
+#>  2 ""                       ""                                             
+#>  3 ""                       ""                                             
+#>  4 Eastern and Southern Af… ""                                             
+#>  5 Eastern Europe and Cent… ""                                             
+#>  6 Latin America and the C… ""                                             
+#>  7 Middle East and North A… ""                                             
+#>  8 North America            ""                                             
+#>  9 South Asia               ""                                             
+#> 10 West and Central Africa  ""                                             
+#> 11 Western Europe           ""                                             
+#> 12 Europe and Central Asia  ""                                             
+#> 13 Sub-Saharan Africa       ""                                             
+#> 14 Global                   ""                                             
+#> 15 ""                       ""                                             
+#> 16 ""                       Indicator definition: Percentage of infants bo…
+#> 17 ""                       Note: Data are not available if country did no…
+#> 18 ""                       Data source: Global AIDS Monitoring 2018 and U…
+#> 19 ""                       For more information on this indicator, please…
+#> 20 ""                       For more information on the data, visit data.u…
 ```
 
 All right.

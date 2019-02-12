@@ -55,7 +55,7 @@ R provides tools for this purpose not unlike those available in Python.
 In order to use them,
 we must first venture into the greater realm of packaging in R.
 
-## Packaging
+## What's in an R package?
 
 Unlike Python,
 with its confusing plethora of packaging tools,
@@ -147,7 +147,7 @@ And while we're hedging the statements we have already made:
 2.  We should always put `LazyData: TRUE` in `DESCRIPTION`
     so that datasets are only loaded on demand.
 
-## Creating a Package
+## How do I create a package?
 
 We cannot turn this tutorial into an R package because we're building it as a website, not as a package.
 Instead, we will create an R package called `unicefdata` to hold cleaned-up copies of

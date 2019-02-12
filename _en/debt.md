@@ -25,7 +25,7 @@ keypoints:
 We have accumulated some intellectual debt in the previous lessons,
 and we should clear some of before we go on to new topics.
 
-## Don't Use `setwd`
+## Why shouldn't I use `setwd`?
 
 Because [reasons][bryan-setwd].
 
@@ -33,7 +33,7 @@ Because [reasons][bryan-setwd].
 
 No. Use the [here package][here-package].
 
-## Formulas
+## How do I write formulas?
 
 One feature of R that doesn't have an exact parallel in Python
 is the formula operator `~` (tilde).
@@ -94,7 +94,7 @@ Used unwisely---well,
 there's no reason for us to dwell on that,
 particularly not after what happened to poor Higgins...
 
-## Factors
+## What the hell are factors?
 
 Another feature of R that doesn't have an exact analog in Python is **factors**.
 In statistics, a factor is a categorical variable such as "flavor",
@@ -245,7 +245,7 @@ raw %>%
 To learn more about how factors work and how to use them when analyzing categorical data,
 please see [this paper](https://peerj.com/preprints/3163/) by McNamara and Horton.
 
-## Magic Names
+## How do I refer to various arguments in a pipeline?
 
 When we put a function in a pipeline using `%>%`,
 that operator calls the function with the incoming data as the first argument,
@@ -323,7 +323,7 @@ data %>% rowid_to_column()
 #> 2     2     2    20
 ```
 
-## Copy-on-Modify
+## How does R give the appearance of immutable data?
 
 Another feature of R that can surprise the unwary is [copy-on-modify](../glossary/#copy-on-modify),
 which means that if two or more variables refer to the same data
@@ -389,12 +389,12 @@ first <- tribble(
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7fb5a9cb5208>"
+#> [1] "<0x7f9095b57d48>"
 first$left[[1]] <- 999
-#> tracemem[0x7fb5a9cb5208 -> 0x7fb5a9d48288]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7fb5a9d48288 -> 0x7fb5a9d48188]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7fb5a9d48188 -> 0x7fb5a9d480c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7fb5a9d480c8 -> 0x7fb5a9d48088]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+#> tracemem[0x7f9095b57d48 -> 0x7f9095c27f48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7f9095c27f48 -> 0x7f9095c27ec8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7f9095c27ec8 -> 0x7f9095c27e48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7f9095c27e48 -> 0x7f9095c27e08]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 untracemem(first)
 ```
 
@@ -406,13 +406,13 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7fb5a9d48208
+#> left column is initially at 0x7f9095c27f08
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7fb5a9d48208
+#> after modification, the original column is still at 0x7f9095c27f08
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7fb5a7f90e48
+#> but the first column of the tibble is at 0x7f9095e57188
 ```
 
 (We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:
@@ -424,7 +424,7 @@ that modification isn't visible to the caller,
 so even functions that appear to modify structures usually don't.
 ("Usually", because there are exceptions, but we must stray off the path to find them.)
 
-## A Few Minor Demons
+## What else should I worry about?
 
 Ralph Waldo Emerson once wrote, "A foolish consistency is the hobgoblin of little minds."
 Here, then, are few of the hobgoblins I've encountered on my journey through R.

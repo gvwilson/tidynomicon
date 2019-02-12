@@ -24,7 +24,7 @@ The biggest difference between R and Python is not where R starts counting,
 but its use of [lazy evaluation](../glossary/#lazy-evaluation).
 Nothing truly makes sense in R until we understand how this works.
 
-## Python First
+## How does Python evaluate function calls?
 
 Let's start by looking at a small Python program and its output:
 
@@ -169,7 +169,7 @@ and passes the results of those evaluations to the functions.
 This is called [eager evaluation](../glossary/#eager-evaluation),
 and is what most modern programming languages do.
 
-## Once More in R
+## How does R evaluate the same kind of thing?
 
 R,
 on the other hand,
@@ -422,7 +422,7 @@ where it is automatically resolved to get the number 2 when its value is needed.
 I would have shown the promises passed into `paste` at each stage of execution above,
 but that's a lot of typing even for me.)
 
-## Let Me Show You a Magic Trick
+## Why is lazy evaluation useful?
 
 R's lazy evaluation seems pointless
 if it always produces the same answer as Python's eager evaluation,
@@ -624,7 +624,7 @@ but it's going to take a bit of work.
 > It turns out that evaluating a list containing an expression produces a list of expressions rather than an error,
 > which is so helpful that it only took me an hour to figure out my mistake.
 
-## Tidy Evaluation
+## What is tidy evaluation?
 
 Our goal is to write something that looks like it belongs in the tidyverse.
 We'll start by creating a tibble to play with:
@@ -710,7 +710,7 @@ check_using_enquo <- function(data, test) {
 check_using_enquo(both_hands, left != right)
 #> <quosure>
 #> expr: ^left != right
-#> env:  0x7fb5a8205b28
+#> env:  0x7f90b402af20
 ```
 
 Ah: a quosure is a structured object,
@@ -751,8 +751,6 @@ check_without_quoting_test <- function(data, test) {
   data %>% transmute(result = test) %>% pull(result) %>% all()
 }
 check_without_quoting_test(both_hands, left < right)
-#> Warning: The `printer` argument is soft-deprecated as of rlang 0.3.0.
-#> This warning is displayed once per session.
 #> Error in mutate_impl(.data, dots): object 'left' not found
 ```
 
@@ -793,12 +791,6 @@ check_using_bangbang <- function(data, test) {
   data %>% transmute(result = !!q_test) %>% pull(result) %>% all()
 }
 check_using_bangbang(both_hands, left < right)
-#> Warning: `lang()` is soft-deprecated as of rlang 0.2.0.
-#> Please use `call2()` instead
-#> This warning is displayed once per session.
-#> Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
-#> Please use `new_data_mask()` instead
-#> This warning is displayed once per session.
 #> [1] TRUE
 ```
 
@@ -870,7 +862,7 @@ both_hands[[the_string_left]]   # double square brackets
 #> [1] 1 2
 ```
 
-## Summary
+## What have we learned?
 
 Delayed evaluation and quoting are confusing for two reasons:
 

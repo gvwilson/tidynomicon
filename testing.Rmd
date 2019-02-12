@@ -24,7 +24,7 @@ library(tidyverse)
 In keeping with common programming practice,
 we have left testing until the end.
 
-## Testing
+## What should I know about testing in general?
 
 The standard testing library for R is [testthat][testthat].
 Like Python's [unittest][unittest] library,
@@ -151,7 +151,7 @@ test_dir("tests/testthat", filter = "tibble")
 That's better,
 and it illustrates our earlier point about the importance of following conventions.
 
-## Warming Up {#s:warming-up}
+## How can I write a few simple tests? {#s:warming-up}
 
 To give ourselves something to test,
 let's create a file called `scripts/find_empty_01.R`
@@ -310,7 +310,7 @@ And here's what happens when we run this file with `test_dir`:
 test_dir("tests/testthat", "find_empty_b")
 ```
 
-## Checking Data Transformation
+## How can I check data transformation?
 
 People normally write unit tests for the code in packages,
 not to check the steps taken to clean up particular datasets,
@@ -381,7 +381,7 @@ the problems we need to solve to do this are:
 These three requirements will make our program significantly more complicated,
 so we should tackle each with its own testable function.
 
-### How Many Header Rows?
+### How can I reorganize code to make it more testable?
 
 The data we care about comes after the row with `iso3`, `Country/areas`, and other column headers,
 so the simplest way to figure out how many rows to skip is to read the data,

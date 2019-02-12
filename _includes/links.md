@@ -24,6 +24,8 @@
 [r-inferno]: https://www.burns-stat.com/documents/books/the-r-inferno/
 [r-install]: https://cran.rstudio.com/
 [r4ds]: https://r4ds.had.co.nz/
+[reticulate]: https://rstudio.github.io/reticulate/
+[reticulate-configure]: https://rstudio.github.io/reticulate/articles/versions.html
 [rstudio-cloud]: https://rstudio.cloud/
 [rstudio-install]: https://www.rstudio.com/products/rstudio/download/
 

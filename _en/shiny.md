@@ -31,7 +31,7 @@ runExample("01_hello")
   - can all live in the same file, though some people prefer to put the UI and server in separate files
 - Let's reproduce that first example
 
-## Setup
+## How do I set up a simple application?
 
 -   Create a directory called `faithful_app`.
     -   Every application needs to be in its own directory.)
@@ -50,7 +50,7 @@ server <- # ...server...
 shinyApp(ui = ui, server = server)
 ```
 
-## The User Interface
+## How do I create a user interface?
 
 -   The interface is a fluid page (resizes as needed)
 -   Contains a single sidebar layout with two elements, `sidebarPanel` and `mainPanel`
@@ -76,7 +76,7 @@ ui <- fluidPage(
 )
 ```
 
-## The Server
+## How do I create a server?
 
 -   Something has to react to changes in controls and update displays
 -   Shiny watches for the former and takes care of the latter automatically...
@@ -105,7 +105,7 @@ server <- function(input, output) {
     -   `bins` is the bin labels (look at `input$bins` to get value)
     -   `hist` is the histogram we want plotted
 
-## Execution
+## How do I run my application?
 
 -   Run `app.R` from the command line or use:
 
@@ -116,7 +116,7 @@ runApp("faithful_app")
 
 -   Once it's running, narrow the window to see the "fluid" part (resizing)
 
-## The User Interface
+## How can I improve my user interface?
 
 -   Let's build a tool for exploring the UNICEF data
 -   `mkdir unicef/skeleton` and create `app.R`
@@ -289,7 +289,7 @@ knitr::include_graphics("../files/unicef_filename_right.png")
 
 ![plot of chunk unnamed-chunk-16](../../files/unicef_filename_right.png)
 
-## Displaying the Data in the File
+## How can I display the data in a file?
 
 -   Now comes the hard part: updating the chart when the file changes
 -   Trick is to use a **[reactive variable](../glossary/#reactive-variable)**
@@ -350,7 +350,7 @@ knitr::include_graphics("../files/unicef_reactive_update.gif")
 
 ![plot of chunk unnamed-chunk-18](../../files/unicef_reactive_update.gif)
 
-## Breaking Circular Dependencies
+## How can I break circular dependencies?
 
 -   Now comes the *other* hard part: handling changes to the date range.
 -   Want the chart to display data for the selected range of years
@@ -574,7 +574,7 @@ knitr::include_graphics("../files/unicef_slider.png")
 
 ![plot of chunk unnamed-chunk-28](../../files/unicef_slider.png)
 
-## Rendering the User Interface Explicitly
+## How can I control how the user interface is rendered?
 
 -   Our last uses `uiOutput` and `renderUI` to (re-)create the slider at just the right moment
 -   The UI looks familiar, except there's a `uiOutput` placeholder where the slider is to go

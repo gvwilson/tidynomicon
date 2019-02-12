@@ -77,7 +77,7 @@ There is no point in becoming fluent in Enochian if you do not then summon a Dwe
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.
 
-## Reading Data
+## How do I read data?
 
 We begin by looking at the file `tidy/infant_hiv.csv`,
 a tidied version of data on the percentage of infants born to women with HIV
@@ -172,7 +172,7 @@ which is the tidyverse's enhanced version of R's `data.frame`.
 It organizes data into named columns,
 each having one value for each row.
 
-## Data Inspection
+## How do I inspect data?
 
 We often have a quick look at the content of a table to remind ourselves what it contains.
 Pandas does this using methods whose names are borrowed from the Unix shell's `head` and `tail` commands:
@@ -217,7 +217,7 @@ summary(data)
 Your display of R's summary may or may not wrap,
 depending on how large a screen the older acolytes have allowed you.
 
-## Indexing
+## How do I index rows and columns?
 
 A Pandas DataFrame is a collection of series (also called columns),
 each containing the values of a single observed variable.
@@ -330,7 +330,7 @@ so it still gives us a vector.
 *This is not madness.*
 It is merely...differently sane.
 
-## Basic Statistics
+## How do I calculate basic statistics?
 
 What is the average estimate?
 We start by grabbing that column for convenience:
@@ -408,7 +408,7 @@ print((data.hi.isnull() != data.lo.isnull()).any())
 any(is.na(data$hi) != is.na(data$lo))
 ```
 
-## Filtering
+## How do I filter data?
 
 By "[filtering](../glossary/#filter)", we mean "selecting records by value".
 As discussed [earlier](../beginnings/),
@@ -474,7 +474,7 @@ rather than clever indexing tricks.
 These behave consistently across a wide scale of problems
 and encourage use of patterns that make it easier for others to understand our programs.
 
-## Tidy Code
+## How do I write tidy code?
 
 The five basic data transformation operations in the tidyverse are:
 

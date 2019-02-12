@@ -21,7 +21,7 @@ keypoints:
 In keeping with common programming practice,
 we have left testing until the end.
 
-## Testing
+## What should I know about testing in general?
 
 The standard testing library for R is [testthat][testthat].
 Like Python's [unittest][unittest] library,
@@ -180,12 +180,17 @@ test_dir("tests/testthat")
 #> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
 #> 2: file(filename, "r", encoding = encoding)
 #> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Testing properties of tibbles✔ |   1       | Testing properties of tibbles
+#> ⠏ |   0       | Testing properties of tibbles✔ |   1   1   | Testing properties of tibbles
+#> ───────────────────────────────────────────────────────────────────────────
+#> test_tibble.R:6: warning: Tibble columns are given the name 'value'
+#> `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+#> This warning is displayed once per session.
+#> ───────────────────────────────────────────────────────────────────────────
 #> 
 #> ══ Results ════════════════════════════════════════════════════════════════
 #> OK:       5
 #> Failed:   4
-#> Warnings: 2
+#> Warnings: 3
 #> Skipped:  0
 ```
 
@@ -263,8 +268,6 @@ test_dir("tests/testthat")
 #> Failed:   4
 #> Warnings: 2
 #> Skipped:  0
-#> 
-#> I believe in you!
 ```
 
 That's rather a lot of output.
@@ -297,7 +300,7 @@ test_dir("tests/testthat", filter = "tibble")
 That's better,
 and it illustrates our earlier point about the importance of following conventions.
 
-## Warming Up {#s:warming-up}
+## How can I write a few simple tests? {#s:warming-up}
 
 To give ourselves something to test,
 let's create a file called `scripts/find_empty_01.R`
@@ -568,7 +571,7 @@ test_dir("tests/testthat", "find_empty_b")
 #> Skipped:  0
 ```
 
-## Checking Data Transformation
+## How can I check data transformation?
 
 People normally write unit tests for the code in packages,
 not to check the steps taken to clean up particular datasets,
@@ -639,7 +642,7 @@ the problems we need to solve to do this are:
 These three requirements will make our program significantly more complicated,
 so we should tackle each with its own testable function.
 
-### How Many Header Rows?
+### How can I reorganize code to make it more testable?
 
 The data we care about comes after the row with `iso3`, `Country/areas`, and other column headers,
 so the simplest way to figure out how many rows to skip is to read the data,

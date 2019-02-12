@@ -75,7 +75,7 @@ There is no point in becoming fluent in Enochian if you do not then summon a Dwe
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.
 
-## Reading Data
+## How do I read data?
 
 We begin by looking at the file `tidy/infant_hiv.csv`,
 a tidied version of data on the percentage of infants born to women with HIV
@@ -253,7 +253,7 @@ data
 #>  8 AFG      2016       NA    NA    NA
 #>  9 AFG      2017       NA    NA    NA
 #> 10 AGO      2009       NA    NA    NA
-#> # ... with 1,718 more rows
+#> # … with 1,718 more rows
 ```
 
 This is a [tibble](../glossary/#tibble),
@@ -261,7 +261,7 @@ which is the tidyverse's enhanced version of R's `data.frame`.
 It organizes data into named columns,
 each having one value for each row.
 
-## Data Inspection
+## How do I inspect data?
 
 We often have a quick look at the content of a table to remind ourselves what it contains.
 Pandas does this using methods whose names are borrowed from the Unix shell's `head` and `tail` commands:
@@ -379,7 +379,7 @@ summary(data)
 Your display of R's summary may or may not wrap,
 depending on how large a screen the older acolytes have allowed you.
 
-## Indexing
+## How do I index rows and columns?
 
 A Pandas DataFrame is a collection of series (also called columns),
 each containing the values of a single observed variable.
@@ -473,7 +473,7 @@ data['estimate']
 #>  8       NA
 #>  9       NA
 #> 10       NA
-#> # ... with 1,718 more rows
+#> # … with 1,718 more rows
 ```
 
 However, R's `data$estimate` provides all the data:
@@ -773,7 +773,7 @@ data[1]
 #>  8 AFG    
 #>  9 AFG    
 #> 10 AGO    
-#> # ... with 1,718 more rows
+#> # … with 1,718 more rows
 ```
 
 But notice that the output is not a vector, but another tibble (i.e., an N-row, 1-column structure).
@@ -795,7 +795,7 @@ data[1][1]
 #>  8 AFG    
 #>  9 AFG    
 #> 10 AGO    
-#> # ... with 1,718 more rows
+#> # … with 1,718 more rows
 ```
 
 How then are we to get the first mention of Afghanistan?
@@ -987,7 +987,7 @@ so it still gives us a vector.
 *This is not madness.*
 It is merely...differently sane.
 
-## Basic Statistics
+## How do I calculate basic statistics?
 
 What is the average estimate?
 We start by grabbing that column for convenience:
@@ -1093,7 +1093,7 @@ any(is.na(data$hi) != is.na(data$lo))
 #> [1] FALSE
 ```
 
-## Filtering
+## How do I filter data?
 
 By "[filtering](../glossary/#filter)", we mean "selecting records by value".
 As discussed [earlier](../beginnings/),
@@ -1311,7 +1311,7 @@ rather than clever indexing tricks.
 These behave consistently across a wide scale of problems
 and encourage use of patterns that make it easier for others to understand our programs.
 
-## Tidy Code
+## How do I write tidy code?
 
 The five basic data transformation operations in the tidyverse are:
 
@@ -1339,7 +1339,7 @@ filter(data, lo > 0.5)
 #>  8 BLR      2010     0.95  0.95  0.95
 #>  9 BLR      2011     0.95  0.95  0.91
 #> 10 BLR      2012     0.95  0.95  0.95
-#> # ... with 173 more rows
+#> # … with 173 more rows
 ```
 
 Notice that the expression is `lo > 0.5` rather than `"lo" > 0.5`.
@@ -1378,7 +1378,7 @@ data %>% filter(lo > 0.5)
 #>  8 BLR      2010     0.95  0.95  0.95
 #>  9 BLR      2011     0.95  0.95  0.91
 #> 10 BLR      2012     0.95  0.95  0.95
-#> # ... with 173 more rows
+#> # … with 173 more rows
 ```
 
 This may not seem like much of an improvement,
@@ -1428,7 +1428,7 @@ data %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.
 #>  8 CHL      2017     0.85  0.95  0.76
 #>  9 CPV      2014     0.94  0.95  0.76
 #> 10 CPV      2016     0.94  0.95  0.76
-#> # ... with 45 more rows
+#> # … with 45 more rows
 ```
 
 And then order by `lo` in descending order,
@@ -1454,7 +1454,7 @@ data %>%
 #>  8 URY      2016     0.9   0.95  0.81
 #>  9 ZMB      2014     0.91  0.95  0.81
 #> 10 KAZ      2015     0.84  0.95  0.8 
-#> # ... with 45 more rows
+#> # … with 45 more rows
 ```
 
 We can now [select](../glossary/#select) the three columns we care about:
@@ -1480,7 +1480,7 @@ data %>%
 #>  8  2016  0.81  0.95
 #>  9  2014  0.81  0.95
 #> 10  2015  0.8   0.95
-#> # ... with 45 more rows
+#> # … with 45 more rows
 ```
 
 Once again,
@@ -1515,7 +1515,7 @@ data %>%
 #>  8  2016  0.95  0.81
 #>  9  2014  0.95  0.81
 #> 10  2015  0.95  0.8 
-#> # ... with 45 more rows
+#> # … with 45 more rows
 ```
 
 Giddy with power,
@@ -1549,7 +1549,7 @@ data %>%
 #>  8  2016  0.95  0.81     0.140 
 #>  9  2014  0.95  0.81     0.140 
 #> 10  2015  0.95  0.8      0.150 
-#> # ... with 45 more rows
+#> # … with 45 more rows
 ```
 
 Does the difference between high and low estimates vary by year?

@@ -29,7 +29,7 @@ library(tidyverse)
 We have accumulated some intellectual debt in the previous lessons,
 and we should clear some of before we go on to new topics.
 
-## Don't Use `setwd`
+## Why shouldn't I use `setwd`?
 
 Because [reasons][bryan-setwd].
 
@@ -37,7 +37,7 @@ Because [reasons][bryan-setwd].
 
 No. Use the [here package][here-package].
 
-## Formulas
+## How do I write formulas?
 
 One feature of R that doesn't have an exact parallel in Python
 is the formula operator `~` (tilde).
@@ -90,7 +90,7 @@ Used unwisely---well,
 there's no reason for us to dwell on that,
 particularly not after what happened to poor Higgins...
 
-## Factors
+## What the hell are factors?
 
 Another feature of R that doesn't have an exact analog in Python is **factors**.
 In statistics, a factor is a categorical variable such as "flavor",
@@ -189,7 +189,7 @@ raw %>%
 To learn more about how factors work and how to use them when analyzing categorical data,
 please see [this paper](https://peerj.com/preprints/3163/) by McNamara and Horton.
 
-## Magic Names
+## How do I refer to various arguments in a pipeline?
 
 When we put a function in a pipeline using `%>%`,
 that operator calls the function with the incoming data as the first argument,
@@ -257,7 +257,7 @@ We're better off using `rowid_to_column`:
 data %>% rowid_to_column()
 ```
 
-## Copy-on-Modify
+## How does R give the appearance of immutable data?
 
 Another feature of R that can surprise the unwary is [copy-on-modify](../glossary/#copy-on-modify),
 which means that if two or more variables refer to the same data
@@ -328,7 +328,7 @@ that modification isn't visible to the caller,
 so even functions that appear to modify structures usually don't.
 ("Usually", because there are exceptions, but we must stray off the path to find them.)
 
-## A Few Minor Demons
+## What else should I worry about?
 
 Ralph Waldo Emerson once wrote, "A foolish consistency is the hobgoblin of little minds."
 Here, then, are few of the hobgoblins I've encountered on my journey through R.
