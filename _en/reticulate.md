@@ -3,11 +3,18 @@ title: "Reticulate"
 output: md_document
 permalink: /reticulate/
 questions:
-  - "FIXME"
+  - "How can I use Python and R together?"
 objectives:
-  - "FIXME"
+  - "Use `reticulate` to share data between R and Python."
+  - "Use `reticulate` to call Python functions from R code and vice versa."
+  - "Run Python scripts directly from R programs."
 keypoints:
-  - "FIXME"
+  - "The `reticulate` library allows R programs to access data in Python programs and vice versa."
+  - "Use `py.whatever` to access a top-level Python variable from R."
+  - "Use `r.whatever` to access a top-level R definition from Python."
+  - "R is always indexed from 1 (even in Python) and Python is always indexed from 0 (even in R)."
+  - "Numbers in R are floating point by default, so use a trailing 'L' to force a value to be an integer."
+  - "A Python script run from an R session believes it is the main script, i.e., `__name__` is `'__main__'` inside the Python script."
 ---
 
 
@@ -126,7 +133,7 @@ we can use Python's random number generator in R as follows:
 ```r
 pyrand <- import("random")
 pyrand$gauss(0, 1)
-#> [1] 0.01715518
+#> [1] 1.781312
 ```
 
 (There's no reason to do this---R's random number generator is just as strong---but it illustrates the point.)

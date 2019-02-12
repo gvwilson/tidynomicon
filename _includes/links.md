@@ -30,6 +30,7 @@
 [rstudio-install]: https://www.rstudio.com/products/rstudio/download/
 
 [said-handling-r-errors]: https://www.onceupondata.com/2018/09/28/handling-r-errors/
+[shiny]: https://shiny.rstudio.com/
 
 [testthat]: https://github.com/r-lib/testthat
 [tidyverse-style]: http://style.tidyverse.org/

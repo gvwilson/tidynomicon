@@ -198,6 +198,9 @@ to "raising an [exception](#exception)".
 an expression of the form <code><em>low</em>:<em>high</em></code>
 that is transformed a sequence of consecutive integers.
 
+*Reactive programming*{:#reactive-programming}:
+a style of programming in which actions are triggered by external events.
+
 *Reactive variable*{:#reactive-variable}:
 a variable whose value is automatically updated when some other value or values change.
 
