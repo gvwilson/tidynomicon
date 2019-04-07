@@ -1,7 +1,6 @@
 ---
 root: true
 redirect_from: "/"
-permalink: "/en/"
 ---
 
 Years ago,
@@ -25,6 +24,8 @@ and everything familiar, strange.
 Welcome, thrice welcome, to R.
 
 ## Who are these lessons for? {#s:index-personas}
+
+See [Wils2018](#BIB) for a description of the lesson design process.
 
 Andrzej
 :   completed a Master's in library science five years ago

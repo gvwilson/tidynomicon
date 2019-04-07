@@ -28,7 +28,7 @@ keypoints:
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/")
+knitr::opts_chunk$set(fig.path = "figures/shiny/")
 library(tidyverse)
 ```
 
@@ -192,7 +192,7 @@ shinyApp(ui = ui, server = server)
 
 
 ```{r}
-knitr::include_graphics("../figures/unicef_skeleton.png")
+knitr::include_graphics("figures/shiny/unicef-skeleton.png")
 ```
 
 As the screenshot shows,
@@ -243,7 +243,7 @@ ui <- fluidPage(
 ```
 
 ```{r}
-knitr::include_graphics("../figures/unicef_prototype.png")
+knitr::include_graphics("figures/shiny/unicef-prototype.png")
 ```
 
 Let's show the chosen filename in the output display:
@@ -270,13 +270,13 @@ server <- function(input, output){
 The initial display looks good:
 
 ```{r}
-knitr::include_graphics("../figures/unicef_filename_wrong_before.png")
+knitr::include_graphics("figures/shiny/unicef-filename-wrong-before.png")
 ```
 
 but when we fill in the filename, something is clearly wrong:
 
 ```{r}
-knitr::include_graphics("../figures/unicef_filename_wrong_after.png")
+knitr::include_graphics("figures/shiny/unicef-filename-wrong-after.png")
 ```
 
 A quick browse of the documentation reveals that
@@ -324,7 +324,7 @@ This short server shows that there are three places we can put variables:
 3.  Inside a handler like `renderText`, they are run once on each change.
 
 ```{r}
-knitr::include_graphics("../figures/unicef_filename_right.png")
+knitr::include_graphics("figures/shiny/unicef-filename-right.png")
 ```
 
 ## How can I display the data in a file?
@@ -386,7 +386,7 @@ server <- function(input, output){
 ```
 
 ```{r}
-knitr::include_graphics("../figures/unicef_reactive_update.gif")
+knitr::include_graphics("figures/shiny/unicef-reactive-update.gif")
 ```
 
 ## How can I break circular dependencies?
@@ -615,7 +615,7 @@ Note that the chart depends on `selectedData()` and *not* the raw data:
 Here are the dependencies we have created:
 
 ```{r}
-knitr::include_graphics("../figures/unicef_slider_dependencies.png")
+knitr::include_graphics("figures/shiny/unicef-slider-dependencies.png")
 ```
 
 It works!
@@ -623,7 +623,7 @@ Except that we're adding a slider every time we open a file,
 so if we open the same file twice, we get two sliders with identical ranges:
 
 ```{r}
-knitr::include_graphics("../figures/unicef_slider.png")
+knitr::include_graphics("figures/shiny/unicef-slider.png")
 ```
 
 ## How can I control how the user interface is rendered?

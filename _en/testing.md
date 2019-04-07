@@ -184,6 +184,8 @@ test_dir("tests/testthat")
 #> ───────────────────────────────────────────────────────────────────────────
 #> 
 #> ══ Results ════════════════════════════════════════════════════════════════
+#> Duration: 0.1 s
+#> 
 #> OK:       5
 #> Failed:   4
 #> Warnings: 3
@@ -265,7 +267,7 @@ test_dir("tests/testthat")
 #> Warnings: 2
 #> Skipped:  0
 #> 
-#> Don't worry, you'll get it.
+#> Keep trying!
 ```
 
 That's rather a lot of output.
@@ -663,7 +665,7 @@ read_csv("inst/extdata/at_health_facilities.csv") %>%
   filter(check == "iso3") %>%
   select(id) %>%
   first()
-#> Error: 'inst/extdata/at_health_facilities.csv' does not exist in current working directory ('/Users/gvwilson/tidynomicon').
+#> Error: 'inst/extdata/at_health_facilities.csv' does not exist in current working directory ('/Users/gvwilson/tidynomicon/en_rmd').
 ```
 
 Ignoring the messages about missing column names,

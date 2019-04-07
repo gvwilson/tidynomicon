@@ -44,7 +44,7 @@ keypoints:
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/")
+knitr::opts_chunk$set(fig.path = "figures/projects/")
 library(tidyverse)
 ```
 
@@ -162,7 +162,7 @@ make it a Git repository,
 and turn on Packrat (a package manager for R):
 
 ```{r echo=FALSE, fig.cap="RStudio Project Creation Wizard"}
-knitr::include_graphics("../figures/rstudio-project-creation-wizard.png")
+knitr::include_graphics("figures/rstudio-project-creation-wizard.png")
 ```
 
 Before doing our first commit to version control,

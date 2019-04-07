@@ -63,7 +63,7 @@ keypoints:
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/")
+knitr::opts_chunk$set(fig.path = "figures/tidyverse/")
 ```
 
 There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.

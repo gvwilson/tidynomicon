@@ -283,7 +283,7 @@ rather than from zero.
 (There are a great many myths about why programming languages do the latter.
 [Mike Hoye discovered the truth][hoye-zero].)
 
-## How do I index a ~~list~~ vector?
+## How do I index a vector?
 
 Python's rules for indexing are simple once you understand them
 (a statement which is also true of quantum mechanics).
