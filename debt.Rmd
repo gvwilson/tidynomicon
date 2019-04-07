@@ -22,6 +22,7 @@ keypoints:
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 knitr::opts_knit$set(base.url = "../")
+knitr::opts_chunk$set(fig.path = "figures/")
 library(tidyverse)
 ```
 
@@ -246,7 +247,7 @@ After that,
 it's easy to add another column with row numbers,
 filter,
 and pull out the row numbers.
-We used this method in [the warm-up exercise in the previous lesson](../projects/#s:warming-up).
+We used this method in [the warm-up exercise in the previous lesson](../#s:testing-warmup).
 
 And while we're here:
 `row_number` doesn't do what its name suggests.

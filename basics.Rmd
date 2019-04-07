@@ -34,8 +34,10 @@ keypoints:
 ---
 
 ```{r include=FALSE}
-library(reticulate)
 knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(base.url = "../")
+knitr::opts_chunk$set(fig.path = "figures/")
+library(reticulate)
 ```
 
 We will begin our tour of R by looking at what kinds of data we can toy with.

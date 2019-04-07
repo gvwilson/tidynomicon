@@ -132,7 +132,7 @@ we can use Python's random number generator in R as follows:
 ```r
 pyrand <- import("random")
 pyrand$gauss(0, 1)
-#> [1] -0.3962113
+#> [1] 0.1639939
 ```
 
 (There's no reason to do this---R's random number generator is just as strong---but it illustrates the point.)
@@ -200,3 +200,5 @@ if __name__ == '__main__':
 
 then that block will be executed,
 but will fail because `sys.argv` won't include anything.
+
+{% include links.md %}

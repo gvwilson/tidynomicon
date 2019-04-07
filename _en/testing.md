@@ -264,6 +264,8 @@ test_dir("tests/testthat")
 #> Failed:   4
 #> Warnings: 2
 #> Skipped:  0
+#> 
+#> Don't worry, you'll get it.
 ```
 
 That's rather a lot of output.
@@ -296,7 +298,7 @@ test_dir("tests/testthat", filter = "tibble")
 That's better,
 and it illustrates our earlier point about the importance of following conventions.
 
-## How can I write a few simple tests? {#s:warming-up}
+## How can I write a few simple tests? {#s:testing-warmup}
 
 To give ourselves something to test,
 let's create a file called `scripts/find_empty_01.R`
@@ -581,7 +583,7 @@ It comes from the same UNICEF website as our previous data,
 but has a different set of problems.
 Here are its first few lines:
 
-```
+```text
 ,,GLOBAL DATABASES,,,,,,,,,,,,,
 ,,[data.unicef.org],,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
@@ -598,7 +600,7 @@ ALB,Albania,2008, 	98 , 	94 , 	98 , 	97 , 	98 , 	98 , 	99 ,DHS,2008,,,,
 
 and its last:
 
-```
+```text
 ZWE,Zimbabwe,2005, 	66 , 	64 , 	64 , 	64 , 	67 , 	69 , 	53 ,DHS,2005,,,,
 ZWE,Zimbabwe,2009, 	58 , 	49 , 	59 , 	55 , 	59 , 	60 , 	52 ,MICS,2009,,,,
 ZWE,Zimbabwe,2010, 	64 , 	56 , 	66 , 	62 , 	64 , 	65 , 	60 ,DHS,2010,,,,

@@ -238,7 +238,7 @@ raw %>%
   geom_col(mapping = aes(x = flavor, y = average))
 ```
 
-![plot of chunk unnamed-chunk-11](../figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-11](../figures/unnamed-chunk-11-1.png)
 
 
 To learn more about how factors work and how to use them when analyzing categorical data,
@@ -306,7 +306,7 @@ After that,
 it's easy to add another column with row numbers,
 filter,
 and pull out the row numbers.
-We used this method in [the warm-up exercise in the previous lesson](../projects/#s:warming-up).
+We used this method in [the warm-up exercise in the previous lesson](../#s:testing-warmup).
 
 And while we're here:
 `row_number` doesn't do what its name suggests.
@@ -388,12 +388,12 @@ first <- tribble(
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7fd837700648>"
+#> [1] "<0x7ff2832c1248>"
 first$left[[1]] <- 999
-#> tracemem[0x7fd837700648 -> 0x7fd83771ba88]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7fd83771ba88 -> 0x7fd83771b988]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7fd83771b988 -> 0x7fd83771b848]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7fd83771b848 -> 0x7fd83771b7c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+#> tracemem[0x7ff2832c1248 -> 0x7ff287116048]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7ff287116048 -> 0x7ff287115f48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7ff287115f48 -> 0x7ff287115e48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7ff287115e48 -> 0x7ff287115dc8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 untracemem(first)
 ```
 
@@ -405,13 +405,13 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7fd83771ba08
+#> left column is initially at 0x7ff287115fc8
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7fd83771ba08
+#> after modification, the original column is still at 0x7ff287115fc8
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7fd839448a08
+#> but the first column of the tibble is at 0x7ff286272188
 ```
 
 (We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:

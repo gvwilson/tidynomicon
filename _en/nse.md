@@ -875,3 +875,5 @@ Delayed evaluation and quoting are confusing for two reasons:
 If you would like to know more,
 or check that what you now think you understand is accurate,
 [this tutorial][lyttle-tutorial] by Ian Lyttle is a good next step.
+
+{% include links.md %}

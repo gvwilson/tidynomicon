@@ -25,13 +25,15 @@ keypoints:
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(base.url = "../")
+knitr::opts_chunk$set(fig.path = "figures/")
 library(tidyverse)
 ```
 
 Here is a sample of data from `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
 
-```
+```text
 "Early Infant Diagnosis: Percentage of infants born to women living with HIV...",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,2009,,,2010,,,2011,,,2012,,,2013,,,2014,,,2015,,,2016,,,2017,,,
 ISO3,Countries,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,...
@@ -67,7 +69,7 @@ values' actual indices have to be synthesized by combining column headings from 
 and so on.
 We want to create the tidy data found in `tidy/infant_hiv.csv`:
 
-```
+```text
 country,year,estimate,hi,lo
 AFG,2009,NA,NA,NA
 AFG,2010,NA,NA,NA

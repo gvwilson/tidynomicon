@@ -689,7 +689,6 @@ ui <- fluidPage(
     )
   )
 )
-#> Error in fluidPage(titlePanel("UNICEF Data"), sidebarLayout(position = "right", : could not find function "fluidPage"
 ```
 
 `uiOutput` is always used in conjunction with `renderUI` in the server,
@@ -729,7 +728,6 @@ What does `currentData` look like?
     req(input$datafile)
     read_csv(input$datafile$datapath)
   })
-#> Error in reactive({: could not find function "reactive"
 ```
 
 We use `req(...)` to tell Shiny that there's no point proceeding unless `input$datafile` actually has a value,
@@ -755,7 +753,6 @@ so we avoid the problem of having to create a slider when we don't know what its
                      value = c(lowYear, highYear),
                      sep = "")
   })
-#> Error in renderUI({: could not find function "renderUI"
 ```
 
 Once we have a slider,
@@ -771,7 +768,6 @@ so we make that explicit using `req`:
     currentData() %>%
       filter(between(year, input$years[1], input$years[2]))
   })
-#> Error in reactive({: could not find function "reactive"
 ```
 
 Displaying the chart and the filename are exactly as we've seen before:
@@ -807,3 +803,5 @@ each of which is probably smaller than we might first expect.
 It takes a bit of practice,
 but once you're used to it,
 you'll be able to build some powerful tools with just a page or two of code.
+
+{% include links.md %}

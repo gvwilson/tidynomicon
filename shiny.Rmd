@@ -28,6 +28,7 @@ keypoints:
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 knitr::opts_knit$set(base.url = "../")
+knitr::opts_chunk$set(fig.path = "figures/")
 library(tidyverse)
 ```
 
@@ -632,7 +633,7 @@ The UI looks familiar,
 except there's a `uiOutput` placeholder where the slider is to go---its name "slider"
 will be used in the server:
 
-```{r}
+```{r eval=FALSE}
 ui <- fluidPage(
   titlePanel("UNICEF Data"),
   sidebarLayout(
@@ -653,7 +654,7 @@ ui <- fluidPage(
 `uiOutput` is always used in conjunction with `renderUI` in the server,
 so let's look at the server:
 
-```{r}
+```{r eval=FALSE}
 server <- function(input, output){
 
   currentData <- reactive({
@@ -680,7 +681,7 @@ server <- function(input, output){
 
 What does `currentData` look like?
 
-```{r}
+```{r eval=FALSE}
   currentData <- reactive({
     req(input$datafile)
     read_csv(input$datafile$datapath)
@@ -697,7 +698,7 @@ Note that the slider's ID is `"years"`
 and that its range is set based on data,
 so we avoid the problem of having to create a slider when we don't know what its range should be:
 
-```{r}
+```{r eval=FALSE}
   output$slider <- renderUI({
     current <- currentData()
     lowYear <- min(current$year)
@@ -716,7 +717,7 @@ we select the data;
 this depends on the years from the slider,
 so we make that explicit using `req`:
 
-```{r}
+```{r eval=FALSE}
   selectedData <- reactive({
     req(input$years)
 
@@ -758,3 +759,5 @@ each of which is probably smaller than we might first expect.
 It takes a bit of practice,
 but once you're used to it,
 you'll be able to build some powerful tools with just a page or two of code.
+
+{% include links.md %}

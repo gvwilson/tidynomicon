@@ -30,6 +30,10 @@ toc:
   - license
   - conduct
   - citation
+  - contributing
   - objectives
   - keypoints
   - gloss
+
+include:
+- "_en/images/*.*"

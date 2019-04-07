@@ -18,10 +18,12 @@ keypoints:
 ---
 
 ```{r include=FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+knitr::opts_knit$set(base.url = "../")
+knitr::opts_chunk$set(fig.path = "figures/")
 library(tidyverse)
 library(rlang)
 library(reticulate)
-knitr::opts_chunk$set(collapse = T, comment = "#>")
 ```
 
 The biggest difference between R and Python is not where R starts counting,
@@ -793,3 +795,5 @@ Delayed evaluation and quoting are confusing for two reasons:
 If you would like to know more,
 or check that what you now think you understand is accurate,
 [this tutorial][lyttle-tutorial] by Ian Lyttle is a good next step.
+
+{% include links.md %}
