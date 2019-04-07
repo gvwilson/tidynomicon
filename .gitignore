@@ -12,7 +12,9 @@
 .DS_Store
 .Rhistory
 .Rproj.user
+.coverage
 .jekyll-metadata
+.pytest_cache
 .~lock.*
 __pycache__
 _minted-*
