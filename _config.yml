@@ -1,50 +1,81 @@
+# Display.
 title: "The Tidynomicon"
-author: "Greg Wilson"
+subtitle: "A Brief Introduction to R for Python Programmers"
+editor: "Greg Wilson"
+copyrightyear: "2019"
+repo: "https://github.com/gvwilson/tidynomicon/"
+website: "https://gvwilson.github.io/tidynomicon/"
+email: "gvwilson@third-bit.com"
+isbn: "000-0-0000000-0-0"
 
-lessons:
-- /values-and-vectors/
-- /indexing/
-- /control-flow/
-- /tidyverse/
-- /cleanup/
-- /non-standard-evaluation/
-- /error-handling/
-- /oop/
-- /debt/
-- /projects/
-- /testing/
-- /shiny/
-- /reticulate/
-
-extras:
-- url: "/license/"
-  title: "License"
-- url: "/conduct/"
-  title: "Code of Conduct"
-- url: "/contributing/"
-  title: "Contributing"
-- url: "/citation/"
-  title: "Citation"
-- url: "/objectives/"
-  title: "Learning Objectives"
-- url: "/keypoints/"
-  title: "Key Points"
-- url: "/glossary/"
-  title: "Glossary"
-
+# Order for Table of Contents.
+toc:
+  lessons:
+  - basics
+  - indexing
+  - control
+  - tidyverse
+  - cleanup
+  - nse
+  - errors
+  - oop
+  - debt
+  - projects
+  - testing
+  - shiny
+  - reticulate
+  bib:
+  - bib
+  extras:
+  - license
+  - conduct
+  - citation
+  - objectives
+  - keypoints
+  - gloss
+# Tell Jekyll that "en" is a collection (whose files are found in "_en").  This
+# is what allows us to loop over files in various inclusions.  We use "en" to
+# indicate English, and can use other two-letter codes for other languages.
 collections:
   en:
     output: true
+    permalink: /:collection/:title/
+
+# Specify the use of the "lesson" template for elements of the "en" collection.
 defaults:
   - scope:
       path: ""
       type: en
     values:
       language: "en"
-      layout: "default"
+      layout: "lesson"
 
+# Translations keyed by language.  This lookup table allows us to put the right
+# titles on inclusion blocks in various languages.
+translations:
+  en:
+    generated: "Last generated"
+    questions: "Questions"
+    keypoints: "Key Points"
+    lulu: "Buy on Lulu"
+
+# Standard Jekyll settings.
+repository: <USERNAME>/<PROJECT>
+highlighter: rouge
+plugins:
+- "jekyll-redirect-from"
 exclude:
-- "*.Rmd"
-- "*.Rproj"
+- BUILD.md
+- CITATION.md
+- CONDUCT.md
+- DESIGN.md
+- LICENSE.md
+- Makefile
 - README.md
 - bin
+- etc
+- misc
+- node_modules
+- requirements.txt
+- src
+- tex

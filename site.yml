@@ -1,0 +1,35 @@
+# Display.
+title: "The Tidynomicon"
+subtitle: "A Brief Introduction to R for Python Programmers"
+editor: "Greg Wilson"
+copyrightyear: "2019"
+repo: "https://github.com/gvwilson/tidynomicon/"
+website: "https://gvwilson.github.io/tidynomicon/"
+email: "gvwilson@third-bit.com"
+isbn: "000-0-0000000-0-0"
+
+# Order for Table of Contents.
+toc:
+  lessons:
+  - basics
+  - indexing
+  - control
+  - tidyverse
+  - cleanup
+  - nse
+  - errors
+  - oop
+  - debt
+  - projects
+  - testing
+  - shiny
+  - reticulate
+  bib:
+  - bib
+  extras:
+  - license
+  - conduct
+  - citation
+  - objectives
+  - keypoints
+  - gloss

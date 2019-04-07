@@ -1,7 +1,6 @@
 ---
 title: The Tidyverse
 output: md_document
-permalink: /tidyverse/
 questions:
   - "How do I install packages in R?"
   - "How do I load packages in R?"
@@ -204,6 +203,14 @@ we simply give the name of the library we want:
 install.packages("tidyverse")
 #> Error in contrib.url(repos, "source"): trying to use CRAN without setting a mirror
 library(tidyverse)
+#> ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 3.1.0     ✔ readr   1.1.1
+#> ✔ tibble  2.0.1     ✔ dplyr   0.7.8
+#> ✔ tidyr   0.8.2     ✔ forcats 0.3.0
+#> Warning: package 'tibble' was built under R version 3.5.2
+#> ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 ```
 
 Asking for the tidyverse gives us eight libraries (or packages](../glossary/#package)).

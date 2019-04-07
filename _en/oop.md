@@ -1,7 +1,6 @@
 ---
 title: "Object-Oriented Programming"
 output: md_document
-permalink: /oop/
 questions:
   - "How can I do object-oriented programming in R?"
   - "How do I specify an object's class?"
@@ -174,11 +173,6 @@ We can trace this process by importing the sloop package and calling `s3_dispatc
 
 ```r
 library(sloop)
-#> 
-#> Attaching package: 'sloop'
-#> The following objects are masked from 'package:pryr':
-#> 
-#>     ftype, is_s3_generic, is_s3_method, otype
 s3_dispatch(toString(first))
 #> => toString.two_d
 #>  * toString.default
@@ -310,7 +304,7 @@ toString.polygon <- function(poly) {
 
 right <- new_polygon(list(c(0, 0), c(1, 0), c(0, 1)), "triangle")
 toString(right)
-#> [1] "triangle: 0, 0, 1, 0, 0, 1"
+#> [1] "triangle: <0, 0>, <1, 0>, <0, 1>"
 ```
 
 Now we will add colored shapes:
@@ -328,7 +322,7 @@ pinkish <- new_colored_polygon(list(c(0, 0), c(1, 0), c(1, 1)), "triangle", "ros
 class(pinkish)
 #> [1] "colored_polygon" "polygon"
 toString(pinkish)
-#> [1] "triangle: 0, 0, 1, 0, 1, 1"
+#> [1] "triangle: <0, 0>, <1, 0>, <1, 1>"
 ```
 
 So far so good:
@@ -343,7 +337,7 @@ toString.colored_polygon <- function(poly) {
 }
 
 toString(pinkish)
-#> [1] "triangle: 0, 0, 1, 0, 1, 1+ color = roseate"
+#> [1] "triangle: <0, 0>, <1, 0>, <1, 1>+ color = roseate"
 ```
 
 In practice,

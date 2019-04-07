@@ -1,7 +1,6 @@
 ---
 title: "Intellectual Debt"
 output: md_document
-permalink: /debt/
 questions:
   - "What grievous sin can I most easily avoid when using R?"
   - "How can I pipeline functions when the incoming data doesn't belong in the first parameter's position?"
@@ -389,12 +388,12 @@ first <- tribble(
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7fbb4ceabf88>"
+#> [1] "<0x7fd837700648>"
 first$left[[1]] <- 999
-#> tracemem[0x7fbb4ceabf88 -> 0x7fbb4cf61108]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7fbb4cf61108 -> 0x7fbb4cf61088]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7fbb4cf61088 -> 0x7fbb4cf61008]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7fbb4cf61008 -> 0x7fbb4cf60fc8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+#> tracemem[0x7fd837700648 -> 0x7fd83771ba88]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7fd83771ba88 -> 0x7fd83771b988]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7fd83771b988 -> 0x7fd83771b848]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7fd83771b848 -> 0x7fd83771b7c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 untracemem(first)
 ```
 
@@ -406,13 +405,13 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7fbb4cf610c8
+#> left column is initially at 0x7fd83771ba08
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7fbb4cf610c8
+#> after modification, the original column is still at 0x7fd83771ba08
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7fbb2f13c848
+#> but the first column of the tibble is at 0x7fd839448a08
 ```
 
 (We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:

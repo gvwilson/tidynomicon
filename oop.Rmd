@@ -1,7 +1,6 @@
 ---
 title: "Object-Oriented Programming"
 output: md_document
-permalink: /oop/
 questions:
   - "How can I do object-oriented programming in R?"
   - "How do I specify an object's class?"

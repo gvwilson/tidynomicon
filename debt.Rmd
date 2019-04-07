@@ -1,7 +1,6 @@
 ---
 title: "Intellectual Debt"
 output: md_document
-permalink: /debt/
 questions:
   - "What grievous sin can I most easily avoid when using R?"
   - "How can I pipeline functions when the incoming data doesn't belong in the first parameter's position?"

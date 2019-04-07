@@ -1,26 +1,12 @@
-<html>
-  {% include header.html %}
-  <body>
-
-    {% if page.title %}
-    <div align="center">
-      <h1>
-        {% include small-icon.html %}
-        {{page.title}}
-        {% include small-icon.html %}
-      </h1>
-    </div>
-    {% endif %}
-
-    {% include summary-block.html title="Questions Answered" items=page.questions %}
-    {% unless page.root %}
-    <div id="headings" class="summary"></div>
-    {% endunless %}
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{page.language}}">
+  <head>
+    {% include head.html %}
+    <meta name="author" content="{{site.author}}" />
+    <title>{{site.title}}: {% if page.title %}{{page.title}}{% else %}{{site.subtitle}}{% endif %}</title>
+  </head>
+  <body {% if page.undone %}class="undone"{% endif %}>
     {{content}}
-
-    {% include summary-block.html title="Key Points" items=page.keypoints %}
-
-    {% include footer.html %}
+    {% include foot.html language=page.language %}
   </body>
 </html>

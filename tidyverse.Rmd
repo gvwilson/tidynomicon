@@ -1,7 +1,6 @@
 ---
 title: The Tidyverse
 output: md_document
-permalink: /tidyverse/
 questions:
   - "How do I install packages in R?"
   - "How do I load packages in R?"

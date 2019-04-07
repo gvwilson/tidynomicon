@@ -1,7 +1,6 @@
 ---
 title: "Testing"
 output: md_document
-permalink: /testing/
 questions:
   - "How can I test R code?"
   - "How can I test an R package?"
@@ -39,9 +38,6 @@ Let's load it and write our first test:
 library(testthat)
 #> 
 #> Attaching package: 'testthat'
-#> The following objects are masked from 'package:rlang':
-#> 
-#>     is_false, is_null, is_true
 #> The following object is masked from 'package:dplyr':
 #> 
 #>     matches

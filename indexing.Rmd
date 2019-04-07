@@ -1,7 +1,6 @@
 ---
 title: "Indexing"
 output: md_document
-permalink: /indexing/
 questions:
   - "How can I store values of different types in a single data structure?"
   - "How can I index things?"
