@@ -17,6 +17,9 @@
 __pycache__
 _minted-*
 _site
+dist
 en_rmd/figures
+htmlcov
+project/results/*.*
 tex/*/*.pdf
 tex/*/all.tex

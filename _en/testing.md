@@ -184,8 +184,6 @@ test_dir("tests/testthat")
 #> ───────────────────────────────────────────────────────────────────────────
 #> 
 #> ══ Results ════════════════════════════════════════════════════════════════
-#> Duration: 0.1 s
-#> 
 #> OK:       5
 #> Failed:   4
 #> Warnings: 3
@@ -266,8 +264,6 @@ test_dir("tests/testthat")
 #> Failed:   4
 #> Warnings: 2
 #> Skipped:  0
-#> 
-#> Keep trying!
 ```
 
 That's rather a lot of output.

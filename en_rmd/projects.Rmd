@@ -162,7 +162,7 @@ make it a Git repository,
 and turn on Packrat (a package manager for R):
 
 ```{r echo=FALSE, fig.cap="RStudio Project Creation Wizard"}
-knitr::include_graphics("figures/rstudio-project-creation-wizard.png")
+knitr::include_graphics("figures/projects/rstudio-project-creation-wizard.png")
 ```
 
 Before doing our first commit to version control,

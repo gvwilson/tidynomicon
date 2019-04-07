@@ -157,7 +157,7 @@ We will create `unicefdata` directly under our home directory,
 make it a Git repository,
 and turn on Packrat (a package manager for R):
 
-![RStudio Project Creation Wizard](../figures/rstudio-project-creation-wizard.png)
+![RStudio Project Creation Wizard](../figures/projects/rstudio-project-creation-wizard.png)
 
 Before doing our first commit to version control,
 we remove `R/hello.R` and `man/hello.Rd`

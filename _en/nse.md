@@ -64,7 +64,7 @@ print(final)
 
 Step 1: we assign `"start"` to `initial` at the global level:
 
-```
+```text
            +--------
     global | initial       ----> value:"start"
            +--------
@@ -74,7 +74,7 @@ Step 2: we ask Python to call `tens_func(initial + "more")`,
 so it creates a temporary variable to hold the result of the concatenation
 *before* calling `tens_func`:
 
-```
+```text
            +--------
            | global_temp_1 ----> value:"start more"
     global | initial       ----> value:"start"
@@ -83,7 +83,7 @@ so it creates a temporary variable to hold the result of the concatenation
 
 Step 3: Python creates a new stack frame to hold the call to `tens_func`:
 
-```
+```text
            +--------
  tens_func | tens_arg      --+
            +--------         |
@@ -98,7 +98,7 @@ since Python passes everything by reference.
 Step 4: we ask Python to call `ones_func(tens_arg + " tens")`,
 so it creates another temporary:
 
-```
+```text
            +--------
            | tens_temp_1   ----> value:"start more tens"
  tens_func | tens_arg      --+
@@ -110,7 +110,7 @@ so it creates another temporary:
 
 Step 5: Python creates a new stack frame to hold the call to `ones_func`:
 
-```
+```text
            +--------
  ones_func | ones_arg      --+
            +--------         |
@@ -124,7 +124,7 @@ Step 5: Python creates a new stack frame to hold the call to `ones_func`:
 
 Step 6: Python creates a temporary to hold `ones_arg + 3`:
 
-```
+```text
            +--------
            | ones_temp_1   ----> value:"start more tens ones"
  ones_func | ones_arg      --+
@@ -140,7 +140,7 @@ Step 6: Python creates a temporary to hold `ones_arg + 3`:
 Step 7: Python returns from `ones_func`
 and puts its result in yet another temporary variable in `tens_func`:
 
-```
+```text
            +--------
            | tens_temp_2   ----> value:"start more tens ones"
            | tens_temp_1   ----> value:"start more tens"
@@ -154,7 +154,7 @@ and puts its result in yet another temporary variable in `tens_func`:
 Step 8: Python returns from `tens_func`
 and puts its result in `final`:
 
-```
+```text
            +--------
            | final         ----> value:"start more tens ones"
            | global_temp_1 ----> value:"start more"
@@ -260,7 +260,7 @@ and hinges on the fact that
 
 Step 1: we assign "start" to `initial` in the [global environment](../glossary/#global-environment):
 
-```
+```text
            +--------
     global | initial       ----> value:"start"
            +--------
@@ -273,7 +273,7 @@ so it creates a [promise](../glossary/#promise) to hold:
 -   the expression we're passing to the function, and
 -   the value of that expression (which I'm showing as `____`, since it's initially empty).
 
-```
+```text
            +--------
            | global_temp_1 ----> PROMISE(@global@, paste(initial, "more"), ____)
     global | initial       ----> value:"start"
@@ -282,7 +282,7 @@ so it creates a [promise](../glossary/#promise) to hold:
 
 and passes that into `tens_func`:
 
-```
+```text
            +--------
  tens_func | tens_arg      --+
            +--------         |
@@ -301,7 +301,7 @@ R needs a value for `tens_arg`.
 To get it,
 R evaluates the promise that `tens_arg` refers to:
 
-```
+```text
            +--------
  tens_func | tens_arg      --+
            +--------         |
@@ -321,7 +321,7 @@ Steps 4:
 `tens_func` wants to call `ones_func`,
 so R creates another promise to record what's being passed into `ones_func`:
 
-```
+```text
            +--------
            | tens_temp_1   ----> PROMISE(@tens_func@, paste(tens_arg, "tens"), ____)
  tens_func | tens_arg      --+
@@ -335,7 +335,7 @@ Step 5:
 R calls `ones_func`,
 binding the newly-created promise to `ones_arg` as it does so:
 
-```
+```text
            +--------
  ones_func | ones_arg      --+
            +--------         |
@@ -351,7 +351,7 @@ Step 6:
 R needs a value for `ones_arg` to pass to `paste`,
 so it resolves the promise:
 
-```
+```text
            +--------
  ones_func | ones_arg      --+
            +--------         |
@@ -365,7 +365,7 @@ so it resolves the promise:
 
 Step 7: `ones_func` uses `paste` to concatenate strings:
 
-```
+```text
            +--------
            | ones_temp_1   ----> value:"start more tens ones"
  ones_func | ones_arg      --+
@@ -380,7 +380,7 @@ Step 7: `ones_func` uses `paste` to concatenate strings:
 
 Step 8: `ones_func` returns:
 
-```
+```text
            +--------
            | tens_temp_2   ----> "start more tens ones"
            | tens_temp_1   --+-> PROMISE(@tens_func@, paste(tens_arg, "tens"), "start more tens")
@@ -393,7 +393,7 @@ Step 8: `ones_func` returns:
 
 Step 9: `tens_func` returns:
 
-```
+```text
            +--------
            | final         ----> "start more tens ones"
            | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
