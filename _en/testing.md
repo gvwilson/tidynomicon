@@ -268,8 +268,6 @@ test_dir("tests/testthat")
 #> Failed:   4
 #> Warnings: 2
 #> Skipped:  0
-#> 
-#> Keep trying!
 ```
 
 That's rather a lot of output.

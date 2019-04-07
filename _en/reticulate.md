@@ -133,7 +133,7 @@ we can use Python's random number generator in R as follows:
 ```r
 pyrand <- import("random")
 pyrand$gauss(0, 1)
-#> [1] 1.781312
+#> [1] -0.6723994
 ```
 
 (There's no reason to do this---R's random number generator is just as strong---but it illustrates the point.)

@@ -389,12 +389,12 @@ first <- tribble(
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7f8eeadb1b08>"
+#> [1] "<0x7fbb4ceabf88>"
 first$left[[1]] <- 999
-#> tracemem[0x7f8eeadb1b08 -> 0x7f8ecdf6dd48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7f8ecdf6dd48 -> 0x7f8ecdf6dcc8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7f8ecdf6dcc8 -> 0x7f8ecdf6dc48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
-#> tracemem[0x7f8ecdf6dc48 -> 0x7f8ecdf6dbc8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
+#> tracemem[0x7fbb4ceabf88 -> 0x7fbb4cf61108]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fbb4cf61108 -> 0x7fbb4cf61088]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fbb4cf61088 -> 0x7fbb4cf61008]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main 
+#> tracemem[0x7fbb4cf61008 -> 0x7fbb4cf60fc8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit .f map process main
 untracemem(first)
 ```
 
@@ -406,13 +406,13 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7f8ecdf6dd08
+#> left column is initially at 0x7fbb4cf610c8
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7f8ecdf6dd08
+#> after modification, the original column is still at 0x7fbb4cf610c8
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7f8eebef8788
+#> but the first column of the tibble is at 0x7fbb2f13c848
 ```
 
 (We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:

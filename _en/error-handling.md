@@ -97,6 +97,7 @@ attemptUsingTry <- function(left, right){
   "value returned" # returned
 }
 result <- attemptUsingTry(1, "two")
+#> Error in left + right : non-numeric argument to binary operator
 cat("result is", result)
 #> result is value returned
 ```
