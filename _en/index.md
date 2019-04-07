@@ -4,13 +4,6 @@ redirect_from: "/"
 permalink: "/en/"
 ---
 
-<div align="center">
-  <h1><em>The Tidynomicon</em></h1>
-  <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
-  <img src="{{'/figures/cthulhu.svg'|relative_url}}" width="300" />
-  <p><em>"Speak not to me of madness, you who count from zero."</em></p>
-</div>
-
 Years ago,
 Patrick Burns wrote *[The R Inferno][r-inferno]*,
 a guide to R for those who think they are in hell.
