@@ -6,6 +6,14 @@
     }
 }
 
+div.title {
+    text-align: center;
+}
+
+div.title img {
+    width: 50%;
+}
+
 /* Highlight pages that haven't been done. */
 .undone {
     background-color: #F0FFFF;

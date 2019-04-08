@@ -3,6 +3,10 @@ root: true
 redirect_from: "/"
 ---
 
+<div markdown="1" class="title">
+![The Tidynomicon](../figures/cthulhu.svg)
+</div>
+
 Years ago,
 Patrick Burns wrote *[The R Inferno][r-inferno]*,
 a guide to R for those who think they are in hell.
