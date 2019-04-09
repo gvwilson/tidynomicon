@@ -118,7 +118,7 @@ so it uses the entire first comment string as a very long column name
 and then makes up names for the other columns.
 Looking at the file,
 the second row has years (spaced at three-column intervals)
-and the column after that has the [ISO3 country code](../glossary/#iso3-country-code),
+and the column after that has the [ISO3 country code](#g:iso3-country-code),
 the country's name,
 and then "Estimate", "hi", and "lo" repeated for every year.
 We are going to have to combine what's in the second and third rows,
@@ -455,7 +455,7 @@ but that doesn't work:
 `str_replace` works on vectors,
 but a tibble is a list of vectors.
 Instead,
-we can use a [higher-order function](../glossary/#higher-order-function) called `map`
+we can use a [higher-order function](#g:higher-order-function) called `map`
 to apply the function `str_replace` to each column in turn to get rid of the percent signs:
 
 
@@ -1243,7 +1243,7 @@ if or when we decide to use this script for other data files,
 we should extract the years from the data itself.
 We then use `vector` to create the storage we are going to need to hold our temporary tables.
 We could grow the list one item at a time,
-but [allocating storage in advance](../glossary/#storage-allocation) is more efficient
+but [allocating storage in advance](#g:storage-allocation) is more efficient
 and serves as a check on our logic:
 if our loop doesn't run for the right number of iterations,
 we will either overflow our list or have empty entries,

@@ -96,7 +96,7 @@ There are a few things to note here:
     The function `cat` (short for "concatenate") can also be used for text output.
 6.  By calling our temporary variable `sign`
     we have accidentally overwritten the rather useful built-in R function with that name.
-    [Name collisions](../glossary/#name-collision) of this sort are as easy in R as they are in Python.
+    [Name collisions](#g:name-collision) of this sort are as easy in R as they are in Python.
 
 ## How can I express a range of values in R?
 
@@ -140,7 +140,7 @@ seq_along(colors)
 ```
 
 Since sequences of this kind are used frequently,
-R lets us write them using [range expressions](../glossary/#range-expression) like this:
+R lets us write them using [range expressions](#g:range-expression) like this:
 
 
 ```r
@@ -304,7 +304,7 @@ swap("one", "two", "three")
 
 (Note that in this example we as passing three values,
 not a single vector containing three values.)
-If we want a function to handle a [varying number of arguments](../glossary/#variable-arguments),
+If we want a function to handle a [varying number of arguments](#g:variable-arguments),
 we represent the "extra" arguments with an ellipsis `...` (three dots),
 which serves the same purpose as Python's `*args`:
 
@@ -440,7 +440,7 @@ var
 ```
 
 This should only and always be done with care:
-modern R strongly encourages a [functional](../glossary/#functional-programming) style of programming,
+modern R strongly encourages a [functional](#g:functional-programming) style of programming,
 in which functions do not modify their input data,
 and *nobody* thinks that modifying global variables is a good idea any more.
   

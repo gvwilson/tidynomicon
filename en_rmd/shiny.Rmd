@@ -39,7 +39,7 @@ While the desktop still has a role to play,
 the best place to build an interface these days is on the web,
 and the best toolkit for doing that in R is [Shiny][shiny].
 This lesson will walk through the construction of a simple application
-and along the way introduce you to [reactive programming](../glossary/#reactive-programming).
+and along the way introduce you to [reactive programming](#g:reactive-programming).
 To follow along,
 please install Shiny using:
 
@@ -206,7 +206,7 @@ because it turns out that static images must be in the application's `www` folde
 i.e.,
 in `unicef/skeleton/www`.
 
-It's now time to add interactive control elements, better known as [widgets](../glossary/#widget).
+It's now time to add interactive control elements, better known as [widgets](#g:widget).
 Shiny provides:
 
 -   buttons
@@ -330,7 +330,7 @@ knitr::include_graphics("figures/shiny/unicef-filename-right.png")
 ## How can I display the data in a file?
 
 Now comes the hard part: updating the chart when the file changes.
-The trick is to use a [reactive variable](../glossary/#reactive-variable),
+The trick is to use a [reactive variable](#g:reactive-variable),
 which is actually a function that changes value whenever something it depends on changes.
 That "something" is usually another reactive,
 like the ones provided by Shiny.

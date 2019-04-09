@@ -49,7 +49,7 @@ library(tidyverse)
 ```
 
 Mistakes were made in [the previous tutorial](../cleanup/).
-It would be [hubris](../glossary/#hubris) to believe that we will not make more as we continue to clean this data.
+It would be [hubris](#g:hubris) to believe that we will not make more as we continue to clean this data.
 What will guide us safely through these dark caverns and back into the light of day?
 
 The answer is testing.

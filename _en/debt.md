@@ -324,7 +324,7 @@ data %>% rowid_to_column()
 
 ## How does R give the appearance of immutable data?
 
-Another feature of R that can surprise the unwary is [copy-on-modify](../glossary/#copy-on-modify),
+Another feature of R that can surprise the unwary is [copy-on-modify](#g:copy-on-modify),
 which means that if two or more variables refer to the same data
 and that data is updated via one variable,
 R automatically makes a copy so that the other variable's value doesn't change.
@@ -388,12 +388,12 @@ first <- tribble(
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7fb75e100708>"
+#> [1] "<0x7f83288fc908>"
 first$left[[1]] <- 999
-#> tracemem[0x7fb75e100708 -> 0x7fb75e017708]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7fb75e017708 -> 0x7fb75e017688]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7fb75e017688 -> 0x7fb75e0175c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7fb75e0175c8 -> 0x7fb75e017548]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+#> tracemem[0x7f83288fc908 -> 0x7f8328e99d08]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7f8328e99d08 -> 0x7f8328e99c88]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7f8328e99c88 -> 0x7f8328e99bc8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+#> tracemem[0x7f8328e99bc8 -> 0x7f8328e99b48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 untracemem(first)
 ```
 
@@ -405,16 +405,16 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7fb75e0176c8
+#> left column is initially at 0x7f8328e99cc8
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7fb75e0176c8
+#> after modification, the original column is still at 0x7f8328e99cc8
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7fb75bd62588
+#> but the first column of the tibble is at 0x7f8327823588
 ```
 
-(We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:
+(We need to use [aliases](#g:alias) because `address(first$left)` doesn't work:
 the argument needs to be a variable name.)
 
 R's copy-on-modify semantics is particularly important when writing functions.

@@ -27,7 +27,7 @@ library(reticulate)
 ```
 
 The biggest difference between R and Python is not where R starts counting,
-but its use of [lazy evaluation](../glossary/#lazy-evaluation).
+but its use of [lazy evaluation](#g:lazy-evaluation).
 Nothing truly makes sense in R until we understand how this works.
 
 ## How does Python evaluate function calls?
@@ -173,14 +173,14 @@ and puts its result in `final`:
 The most important thing here is not that I'm using a million lines of code on a supercomputer to draw ASCII art,
 but rather the fact that Python evaluates expressions *before* it calls functions,
 and passes the results of those evaluations to the functions.
-This is called [eager evaluation](../glossary/#eager-evaluation),
+This is called [eager evaluation](#g:eager-evaluation),
 and is what most modern programming languages do.
 
 ## How does R evaluate the same kind of thing?
 
 R,
 on the other hand,
-uses [lazy evaluation](../glossary/#lazy-evaluation).
+uses [lazy evaluation](#g:lazy-evaluation).
 Here's an R program that's roughly equivalent to the Python shown above:
 
 ```{r}
@@ -246,7 +246,7 @@ and hinges on the fact that
 > it parses the text and builds trees like the one shown above
 > to represent what the program is supposed to do.
 > Processing that data structure to find its value
-> is called [evaluating](../glossary/#evaluation) the expression.
+> is called [evaluating](#g:evaluation) the expression.
 >
 > Most modern languages allow us to build trees ourselves,
 > either by concatenating strings to create program text
@@ -263,7 +263,7 @@ and hinges on the fact that
 > so once we introduce the way R handles regular function calls,
 > we'll dive into that.
 
-Step 1: we assign "start" to `initial` in the [global environment](../glossary/#global-environment):
+Step 1: we assign "start" to `initial` in the [global environment](#g:global-environment):
 
 ```text
            +--------
@@ -272,9 +272,9 @@ Step 1: we assign "start" to `initial` in the [global environment](../glossary/#
 ```
 
 Step 2: we ask R to call `tens_func(initial + "more")`,
-so it creates a [promise](../glossary/#promise) to hold:
+so it creates a [promise](#g:promise) to hold:
 
--   the [environment](../glossary/#environment) we're in (which I'm surrounding with `@`),
+-   the [environment](#g:environment) we're in (which I'm surrounding with `@`),
 -   the expression we're passing to the function, and
 -   the value of that expression (which I'm showing as `____`, since it's initially empty).
 
@@ -648,7 +648,7 @@ However,
 `substitute` is frowned upon because it does one thing when called interactively on the command line
 and something else when called inside a function.
 Instead,
-we should use a function called `enquo` which returns an object called a [quosure](../glossary/#quosure)
+we should use a function called `enquo` which returns an object called a [quosure](#g:quosure)
 that contains only an unevaluated expression and an environment.
 Let's try using that:
 
@@ -755,8 +755,8 @@ check_all(both_hands, left > right)
 
 Backing up a bit,
 `!!` works because [there are two broad categories of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
-[evaluating functions](../glossary/#evaluating-function) and
-[quoting functions](../glossary/#quoting-function).
+[evaluating functions](#g:evaluating-function) and
+[quoting functions](#g:quoting-function).
 Evaluating functions take arguments as values---they're what most of us are used to working with.
 Quoting functions, on the other hand, aren't passed the values of expressions, but the expressions themselves.
 When we write `both_hands$left`, the `$` function is being passed `both_hands` and the quoted expression `left`.

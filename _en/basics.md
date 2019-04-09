@@ -170,7 +170,7 @@ typeof(as.integer(6))
 
 But wait:
 what is that dot doing in that function's name?
-Is there an object called `as` with a [method](../glossary/#method) called `integer`?
+Is there an object called `as` with a [method](#g:method) called `integer`?
 
 The answer is "no".
 `.` is just another character in R;
@@ -200,7 +200,7 @@ it has no result,
 so Python does not display anything when this command is run.
 
 The equivalent operation in R uses a function called `c`,
-which stands for "column" and which creates a [vector](../glossary/#vector):
+which stands for "column" and which creates a [vector](#g:vector):
 
 
 ```r
@@ -234,7 +234,7 @@ print(len(4))
 
 Fair enough:
 the length of a list is the number of elements it contains,
-and since a [scalar](../glossary/#scalar) value like the integer 4 doesn't contain elements,
+and since a [scalar](#g:scalar) value like the integer 4 doesn't contain elements,
 it has no length.
 
 What of R's vectors?
@@ -337,7 +337,7 @@ colors[4]
 #> [1] NA
 ```
 
-R handles gaps in data using the special value [`NA`](../glossary/#NA) (short for "not available"),
+R handles gaps in data using the special value [`NA`](#g:NA) (short for "not available"),
 and returns this value when we ask for a nonexistent element of a vector.
 But it does more than this---much more.
 In Python,
@@ -419,7 +419,7 @@ character(3)
 Ah---it appears that `character(N)` constructs a vector of character strings of the specified length
 and fills it with empty strings.
 The expression `character(0)` presumably therefore means
-"an [empty vector](../glossary/#empty-vector) of type character".
+"an [empty vector](#g:empty-vector) of type character".
 From this,
 we conclude that the index 0 doesn't correspond to any elements,
 so R gives us back something of the right type but with no content.
@@ -446,7 +446,7 @@ That is consistent with the behavior of single indices.
 
 ## How do I create new vectors from old?
 
-Modern Python encourages programmers to use [list comprehensions](../glossary/#list-comprehension) instead of loops,
+Modern Python encourages programmers to use [list comprehensions](#g:list-comprehension) instead of loops,
 e.g.,
 to write:
 
@@ -487,7 +487,7 @@ doubled
 #> [1]  6 10 14 18
 ```
 
-Modern R strongly encourages us to [vectorize](../glossary/#vectorize) computations in this way,
+Modern R strongly encourages us to [vectorize](#g:vectorize) computations in this way,
 i.e.,
 to do operations on whole vectors at once rather than looping over their contents.
 To aid this,
@@ -501,7 +501,7 @@ tens + hundreds / (tens * hundreds)
 #> [1] 10.10000 20.05000 30.03333
 ```
 
-If two vectors of unequal length are used together, the elements of the shorter are [recycled](../glossary/#recycle).
+If two vectors of unequal length are used together, the elements of the shorter are [recycled](#g:recycle).
 This is straightforward if one of the vectors is a scalar---it is just re-used as many times as necessary---but
 can produce odd results if the vectors' lengths aren't even multiples:
 
@@ -526,7 +526,7 @@ colors[c(TRUE, FALSE, TRUE)]
 #> [1] "eburnean" "wenge"
 ```
 
-This is (unsurprisingly) called [logical indexing](../glossary/#logical-indexing),
+This is (unsurprisingly) called [logical indexing](#g:logical-indexing),
 though to the best of my knowledge illogical indexing is not provided as an alternative.
 The function `ifelse` uses this to do what its name suggests:
 select a value from one vector if a condition is `TRUE`,
@@ -553,7 +553,7 @@ ifelse(colors < "m", colors, toupper(colors))
 ## How else does R represent the absence of data?
 
 The special value `NA` means "there's supposed to be a value here but we don't know what it is."
-A different value, [`NULL`](../glossary/#null), represents the absence of a vector.
+A different value, [`NULL`](#g:null), represents the absence of a vector.
 It is not the same as a vector of zero length,
 though testing that statement produces a rather odd result:
 

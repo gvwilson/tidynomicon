@@ -41,8 +41,8 @@ the language from which R is derived).
 Unlike the approaches used in Java, Python, and similarly pedestrian languages,
 S3 does not require users to define classes.
 Instead,
-they add [attributes](../glossary/#attribute) to data,
-then write specialized version of [generic functions](../glossary/#generic-function)
+they add [attributes](#g:attribute) to data,
+then write specialized version of [generic functions](#g:generic-function)
 to process data identified by those attributes.
 Since attributes can be used in other ways as well,
 we will start by exploring them.
@@ -149,7 +149,7 @@ Compare this with calling `toString` on a plain old character vector:
 s3_dispatch(toString(c(7.1, 7.2)))
 ```
 
-The specialized functions associated with a generic function like `toString` are called [methods](../glossary/#method).
+The specialized functions associated with a generic function like `toString` are called [methods](#g:method).
 Unlike languages that require methods to be defined all together as part of a class,
 S3 allows us to add methods when and as we see fit.
 But that doesn't mean we should:
@@ -158,11 +158,11 @@ the staggering complexity that can result from doing so.
 Instead,
 we should always write three functions that work together for a class like `prospects`:
 
-- A [constructor](../glossary/#constructor) called `new_two_d`
+- A [constructor](#g:constructor) called `new_two_d`
   that creates objects of our class.
-- An optional [validator](../glossary/#validator) called `validate_two_d`
+- An optional [validator](#g:validator) called `validate_two_d`
   that checks the consistency and correctness of an object's values.
-- An optional [helper](../glossary/#helper), simply called `two_d`,
+- An optional [helper](#g:helper), simply called `two_d`,
   that most users will call to create and validate objects.
 
 The constructor's first argument should always be the base object (in our case, the two-element vector).

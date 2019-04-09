@@ -259,7 +259,7 @@ data %>% rowid_to_column()
 
 ## How does R give the appearance of immutable data?
 
-Another feature of R that can surprise the unwary is [copy-on-modify](../glossary/#copy-on-modify),
+Another feature of R that can surprise the unwary is [copy-on-modify](#g:copy-on-modify),
 which means that if two or more variables refer to the same data
 and that data is updated via one variable,
 R automatically makes a copy so that the other variable's value doesn't change.
@@ -319,7 +319,7 @@ temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
 ```
 
-(We need to use [aliases](../glossary/#alias) because `address(first$left)` doesn't work:
+(We need to use [aliases](#g:alias) because `address(first$left)` doesn't work:
 the argument needs to be a variable name.)
 
 R's copy-on-modify semantics is particularly important when writing functions.

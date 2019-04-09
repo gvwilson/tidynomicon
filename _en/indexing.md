@@ -48,8 +48,8 @@ To explain, we must first take a look at lists.
 ## How can I store a mix of different types of objects?
 
 A list in R is a vector that can contain values of many different types.
-(The technical term for this is [heterogeneous](../glossary/#heterogeneous),
-in contrast with the [homogeneous](../glossary/#homogeneous) nature of vectors' values.)
+(The technical term for this is [heterogeneous](#g:heterogeneous),
+in contrast with the [homogeneous](#g:homogeneous) nature of vectors' values.)
 We'll use this list in our examples:
 
 
@@ -211,7 +211,7 @@ a
 ```
 
 Under the hood,
-a matrix is a vector with an [attribute](../glossary/#attribute) called `dim` that stores its dimensions:
+a matrix is a vector with an [attribute](#g:attribute) called `dim` that stores its dimensions:
 
 
 ```r

@@ -25,11 +25,11 @@ we have left testing until the end.
 The standard testing library for R is [testthat][testthat].
 Like Python's [unittest][unittest] library,
 it is a member of the [xUnit][xunit] family
-of [unit testing](../glossary/#unit-test) libraries:
+of [unit testing](#g:unit-test) libraries:
 
 1.  Each test consists of a single function that tests a single property or behavior of the system.
-2.  Tests are collected into files with prescribed names that can be found by a [test runner](../glossary/#test-runner).
-3.  Shared [setup](../glossary/#testing-setup) and [teardown](../glossary/#testing-teardown) steps are put in functions of their own.
+2.  Tests are collected into files with prescribed names that can be found by a [test runner](#g:test-runner).
+3.  Shared [setup](#g:testing-setup) and [teardown](#g:testing-teardown) steps are put in functions of their own.
 
 Let's load it and write our first test:
 
@@ -92,7 +92,7 @@ test_that("Testing two things", {
 #> [1] 0 - 1 == -1
 ```
 
-Note that a block of code is *not* the same thing as an [anonymous function](../glossary/#anonymous-function),
+Note that a block of code is *not* the same thing as an [anonymous function](#g:anonymous-function),
 which is why running this block of code does nothing:
 
 
@@ -291,6 +291,8 @@ test_dir("tests/testthat", filter = "tibble")
 #> Failed:   0
 #> Warnings: 0
 #> Skipped:  0
+#> 
+#> :)
 ```
 
 That's better,
@@ -368,7 +370,7 @@ This string is passed to `read_csv`,
 which (according to documentation that only took us 15 minutes to realize we had already seen)
 interprets its first argument as a filename *or*
 as the actual text to be parsed if it contains a newline character.
-This allows us to write put the [test fixture](../glossary/#test-fixture)
+This allows us to write put the [test fixture](#g:test-fixture)
 right there in the code as a literal string,
 which experience shows is to understand and maintain
 than having test data in separate files.
