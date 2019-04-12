@@ -53,14 +53,17 @@ we need to get set up:
 
 If you want to run the Pythonic bits of code we present as well as the R,
 run `install.packages("reticulate")`
-and then set the `RETICULATE_PYTHON` environment variable to point at the version of Python you want to use.
+and then set the `RETICULATE_PYTHON` environment variable to point at the version of Python you want to use
+*before* you launch RStudio.
 This is necessary because you may have a system-installed version somewhere like `/usr/bin/python`
 and a conda-managed version in `~/anaconda3/bin/python`.
 
+![XKCD on Python Environments (from https://xkcd.com/1987/)](../figures/basics/python-environment.png)
+
 ## How do I say hello?
 
-We begin with a traditional greeting,
-using pink to show Python code and green to show R:
+We begin with a traditional greeting.
+In Python, we write:
 
 
 ```python
@@ -68,16 +71,18 @@ print("Hello, world!")
 #> Hello, world!
 ```
 
+We can run the equivalent R in the RStudio Console:
+
 
 ```r
 print("Hello, world!")
 #> [1] "Hello, world!"
 ```
 
-Python prints what we asked it to,
-but what is that `[1]` in R's output?
+Python prints what we asked for,
+but what does the `[1]` in R's output signify?
 Is it perhaps something akin to a line number?
-Let's take a closer look by simply evaluating a couple of expressions without calling `print`:
+Let's take a closer look by evaluating a couple of expressions without calling `print`:
 
 
 ```r
@@ -92,10 +97,6 @@ Let's ignore it for now and do a little more exploring.
 
 > Note that R uses double quotes to display strings even when we give it a single-quoted string
 > (which is no worse than Python using single quotes when we've given it doubles).
-> Note also that the current version of RMarkdown doesn't show the values of raw Python expressions:
-> while the expression `"Hi!"` in R produces that same text as output even without a `print`,
-> omitting the `print` in Python leaves us with no output.
-> This will be fixed.
 
 ## How do I add numbers?
 
@@ -109,7 +110,7 @@ print(1 + 2 + 3)
 ```
 
 We can check the type of the result using `type`,
-which tells us that our `6` is an integer:
+which tells us that the result `6` is an integer:
 
 
 ```python
@@ -130,9 +131,10 @@ typeof(6)
 #> [1] "double"
 ```
 
-The function is called `typeof` rather than `type`,
-and it returns the type's name as a string,
-but seems odd for integer addition to produce a double-precision floating-point result.
+R's type inspection function is called `typeof` rather than `type`,
+and it returns the type's name as a string.
+That's all fine,
+but it seems odd for integer addition to produce a double-precision floating-point result.
 Let's try an experiment:
 
 
@@ -171,18 +173,16 @@ typeof(as.integer(6))
 But wait:
 what is that dot doing in that function's name?
 Is there an object called `as` with a [method](#g:method) called `integer`?
-
-The answer is "no".
-`.` is just another character in R;
-like the underscore `_`,
-it is used to make names more readable,
+The answer is "no":
+`.` is just another character in R.
+Like the underscore `_` it is used to make names more readable,
 but it has no special meaning.
 
 ## How do I store many numbers together?
 
-The Elder Gods do not bother to learn most of our names because there are so many of us and we are so...ephemeral.
+The Elder Gods do not bother to learn most of our names because there are so many of us and we are so ephemeral.
 Similarly, we only give a handful of values in our programs their own names;
-we lump the rest together into lists and matrices and more esoteric structure
+we lump the rest together into lists, matrices, and more esoteric structure
 so that we too can create, manipulate, and dispose of multitudes with a single dark command.
 
 The most common such structure in Python is the list.
@@ -193,6 +193,8 @@ If the variable does not exist, it is created:
 
 ```python
 primes = [3, 5, 7, 11]
+print(primes)
+#> [3, 5, 7, 11]
 ```
 
 Since assignment is a statement rather than an expression,
@@ -208,7 +210,7 @@ primes <- c(3, 5, 7, 11)
 ```
 
 Assignment is done using a left-pointing arrow `<-`.
-(Other forms with their own symbols also exist, but we will not discuss them until [later](../control-flow/).)
+(Other forms with their own symbols also exist, but we will not discuss them until [s:control](#REF).)
 Like Python,
 R does not display a value after an assignment statement.
 
@@ -234,7 +236,7 @@ print(len(4))
 
 Fair enough:
 the length of a list is the number of elements it contains,
-and since a [scalar](#g:scalar) value like the integer 4 doesn't contain elements,
+and since a [scalar](#g:scalar) like the integer 4 doesn't contain elements,
 it has no length.
 
 What of R's vectors?
@@ -245,12 +247,15 @@ length(primes)
 #> [1] 4
 ```
 
+Good---and its numbers?
+
+
 ```r
 length(4)
 #> [1] 1
 ```
 
-The first result is unproblematic, but the second is surprising.
+That's surprising.
 Let's have a closer look:
 
 
@@ -265,12 +270,13 @@ This all becomes clear once we realize that *there are no scalars in R*.
 `4` is not a single lonely integer,
 but rather a vector of length one containing the value 4.
 When we display its value,
-the `[1]` is the index of its first value.
+the `[1]` that R prints is the index of its first value.
 We can prove this by creating and displaying a much longer vector:
 
 
 ```r
-c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 #>  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
 #> [24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10
 ```
@@ -286,7 +292,7 @@ rather than from zero.
 ## How do I index a vector?
 
 Python's rules for indexing are simple once you understand them
-(a statement which is also true of quantum mechanics).
+(a statement which is also true of quantum mechanics and necromancy).
 To avoid confusing indices with values,
 let's create a list of color names and index that:
 
@@ -363,9 +369,9 @@ colors[1, 2]
 #> Error in colors[1, 2]: incorrect number of dimensions
 ```
 
-That didn't work because R, like human mathematicians, interprets the subscript `[i, j]` as being row and column indices,
+That didn't work because R interprets the subscript `[i, j]` as being row and column indices,
 and our vector has only one dimension.
-What if we make the subscript a vector using `c`?
+What if we create a vector with `c(...)` and use that as a subscript?
 
 
 ```r
@@ -381,7 +387,14 @@ colors[c(1, 1, 1)]
 #> [1] "eburnean" "eburnean" "eburnean"
 ```
 
-or select out several elements:
+Note that this is [pull indexing](#g:pull-indexing),
+i.e.,
+the value at location $i$ in the index vector specifies which element of the source vector
+is being pulled into that location in the result vector:
+
+![Pull Indexing](../figures/basics/pull-indexing.png)
+
+We can also select out several elements:
 
 
 ```r
@@ -397,7 +410,7 @@ colors[c(1, -1)]
 #> Error in colors[c(1, -1)]: only 0's may be mixed with negative subscripts
 ```
 
-That's suggestive:
+That error message is suggestive:
 what happens if we use 0 as an index?
 
 
@@ -416,8 +429,7 @@ character(3)
 #> [1] "" "" ""
 ```
 
-Ah---it appears that `character(N)` constructs a vector of character strings of the specified length
-and fills it with empty strings.
+Ah---it appears that `character(N)` constructs a vector of empty strings of the specified length.
 The expression `character(0)` presumably therefore means
 "an [empty vector](#g:empty-vector) of type character".
 From this,
@@ -501,14 +513,15 @@ tens + hundreds / (tens * hundreds)
 #> [1] 10.10000 20.05000 30.03333
 ```
 
-If two vectors of unequal length are used together, the elements of the shorter are [recycled](#g:recycle).
+If two vectors of unequal length are used together,
+the elements of the shorter are [recycled](#g:recycle).
 This is straightforward if one of the vectors is a scalar---it is just re-used as many times as necessary---but
-can produce odd results if the vectors' lengths aren't even multiples:
+shouldn't be done if the vectors don't line up nicely:
 
 
 ```r
 thousands <- c(1000, 2000)
-hundreds + thousands # hundreds has 3 elements, so 1000 is used twice, but 2000 is only used once
+hundreds + thousands
 #> Warning in hundreds + thousands: longer object length is not a multiple of
 #> shorter object length
 #> [1] 1100 2200 1300
@@ -542,13 +555,16 @@ ifelse(before_letter_m, colors, c("comes", "after", "m"))
 ```
 
 All three vectors are of the same length,
-and the first (the condition) is almost always constructed using the values of one or both of the other vectors:
+and the first (the condition) is usually constructed using the values of one or both of the other vectors:
 
 
 ```r
 ifelse(colors < "m", colors, toupper(colors))
 #> [1] "eburnean" "glaucous" "WENGE"
 ```
+
+![Vector Conditionals](../figures/basics/if-else.png)
+
 
 ## How else does R represent the absence of data?
 
