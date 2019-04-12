@@ -4,7 +4,7 @@ redirect_from: "/"
 ---
 
 <div markdown="1" class="title">
-![The Tidynomicon](../figures/cthulhu.svg)
+![The Tidynomicon](../figures/index/cthulhu.svg)
 </div>
 
 Years ago,

@@ -385,7 +385,7 @@ server <- function(input, output){
 }
 ```
 
-```{r}
+```{r echo=FALSE}
 knitr::include_graphics("figures/shiny/unicef-reactive-update.gif")
 ```
 

@@ -330,11 +330,11 @@ colors[c(1, 1, 1)]
 
 Note that this is [pull indexing](#g:pull-indexing),
 i.e.,
-the value at location $i$ in the index vector specifies which element of the source vector
+the value at location *i* in the index vector specifies which element of the source vector
 is being pulled into that location in the result vector:
 
 ```{r echo=FALSE, fig.cap="Pull Indexing"}
-knitr::include_graphics("figures/basics/pull-indexing.png")
+knitr::include_graphics("figures/basics/pull-indexing.svg")
 ```
 
 We can also select out several elements:
@@ -474,7 +474,7 @@ ifelse(colors < "m", colors, toupper(colors))
 ```
 
 ```{r echo=FALSE, fig.cap="Vector Conditionals"}
-knitr::include_graphics("figures/basics/if-else.png")
+knitr::include_graphics("figures/basics/if-else.svg")
 ```
 
 

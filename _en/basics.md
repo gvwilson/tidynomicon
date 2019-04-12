@@ -389,10 +389,10 @@ colors[c(1, 1, 1)]
 
 Note that this is [pull indexing](#g:pull-indexing),
 i.e.,
-the value at location $i$ in the index vector specifies which element of the source vector
+the value at location *i* in the index vector specifies which element of the source vector
 is being pulled into that location in the result vector:
 
-![Pull Indexing](../figures/basics/pull-indexing.png)
+![Pull Indexing](../figures/basics/pull-indexing.svg)
 
 We can also select out several elements:
 
@@ -563,7 +563,7 @@ ifelse(colors < "m", colors, toupper(colors))
 #> [1] "eburnean" "glaucous" "WENGE"
 ```
 
-![Vector Conditionals](../figures/basics/if-else.png)
+![Vector Conditionals](../figures/basics/if-else.svg)
 
 
 ## How else does R represent the absence of data?

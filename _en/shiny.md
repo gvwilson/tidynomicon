@@ -407,11 +407,6 @@ server <- function(input, output){
 }
 ```
 
-
-```r
-knitr::include_graphics("figures/shiny/unicef-reactive-update.gif")
-```
-
 ![plot of chunk unnamed-chunk-19](../figures/shiny/unicef-reactive-update.gif)
 
 ## How can I break circular dependencies?

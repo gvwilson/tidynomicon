@@ -180,6 +180,20 @@ title: "Glossary"
 **Promise**{:#g:promise}:
 :   a data structure used to record an unevaluated expression for lazy evaluation.
 
+**Pull indexing**{:#g:pull-indexing}:
+:   vectorized indexing in which the value at location *i* in the index vector
+    specifies which element of the source vector
+    is being pulled into that location in the result vector,
+    i.e., `result[i] = source[index[i]]`.
+    See also [push indexing](#g:push-indexing).
+
+**Push indexing**{:#g:push-indexing}:
+:   vectorized indexing in which the value at location *i* in the index vector
+    specifies an element of the result vector that gets the corresponding element of the source vector,
+    i.e., `result[index[i]] = source[i]`.
+    Push indexing can easily produce gaps and collisions.
+    See also [pull indexing](#g:pull-indexing).
+
 **Quosure**{:#g:quosure}:
 :   a data structure containing an unevaluated expression and its environment.
 
