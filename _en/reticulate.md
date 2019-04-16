@@ -153,7 +153,7 @@ pyrand$gauss(0, 1)
 ```
 
 ```
-[1] 0.4955527
+[1] -0.2622912
 ```
 
 (There's no reason to do this---R's random number generator is just as strong---but it illustrates the point.)

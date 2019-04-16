@@ -256,7 +256,7 @@ Instead,
 we can use a [higher-order function](#g:higher-order-function) called `map`
 to apply the function `str_replace` to each column in turn to get rid of the percent signs:
 
-```{r}
+```{r output.lines=40}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
@@ -289,7 +289,7 @@ so we can get rid of the `>` at the same time as we get rid of the `%`.
 We will check by looking at the first `Estimate` column,
 which earlier inspection informed us had at least one `">95%"` in it:
 
-```{r}
+```{r output.lines=NA}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
@@ -303,7 +303,7 @@ Excellent.
 We can now use `map_dfr` to convert the columns to numeric percentages
 using an anonymous function that we define inside the `map_dfr` call itself:
 
-```{r}
+```{r output.lines=NA}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
@@ -317,7 +317,7 @@ head(percents)
 27 warnings is rather a lot,
 so let's see what running `warnings()` produces right after the `as.numeric` call:
 
-```{r}
+```{r output.lines=20}
 raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
@@ -400,7 +400,7 @@ but at this point on our journey,
 a loop is probably simpler.)
 Here is the addition to our script:
 
-```{r}
+```{r output.lines=20}
 first_year <- 2009
 last_year <- 2017
 num_years <- (last_year - first_year) + 1

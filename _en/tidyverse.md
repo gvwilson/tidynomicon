@@ -131,50 +131,7 @@ print(data)
 16       AGO  2016      0.01  0.02  0.01
 17       AGO  2017      0.01  0.02  0.01
 18       AIA  2009       NaN   NaN   NaN
-19       AIA  2010       NaN   NaN   NaN
-20       AIA  2011       NaN   NaN   NaN
-21       AIA  2012       NaN   NaN   NaN
-22       AIA  2013       NaN   NaN   NaN
-23       AIA  2014       NaN   NaN   NaN
-24       AIA  2015       NaN   NaN   NaN
-25       AIA  2016       NaN   NaN   NaN
-26       AIA  2017       NaN   NaN   NaN
-27       ALB  2009       NaN   NaN   NaN
-28       ALB  2010       NaN   NaN   NaN
-29       ALB  2011       NaN   NaN   NaN
-...      ...   ...       ...   ...   ...
-1698     YEM  2015       NaN   NaN   NaN
-1699     YEM  2016       NaN   NaN   NaN
-1700     YEM  2017       NaN   NaN   NaN
-1701     ZAF  2009       NaN   NaN   NaN
-1702     ZAF  2010      0.66  0.88  0.56
-1703     ZAF  2011      0.65  0.86  0.54
-1704     ZAF  2012      0.89  0.95  0.75
-1705     ZAF  2013      0.75  0.95  0.63
-1706     ZAF  2014      0.86  0.95  0.73
-1707     ZAF  2015      0.95  0.95  0.95
-1708     ZAF  2016      0.79  0.95  0.67
-1709     ZAF  2017      0.95  0.95  0.85
-1710     ZMB  2009      0.59  0.70  0.53
-1711     ZMB  2010      0.27  0.32  0.24
-1712     ZMB  2011      0.70  0.84  0.63
-1713     ZMB  2012      0.74  0.88  0.67
-1714     ZMB  2013      0.64  0.76  0.57
-1715     ZMB  2014      0.91  0.95  0.81
-1716     ZMB  2015      0.43  0.52  0.39
-1717     ZMB  2016      0.43  0.51  0.39
-1718     ZMB  2017      0.46  0.54  0.41
-1719     ZWE  2009       NaN   NaN   NaN
-1720     ZWE  2010      0.12  0.15  0.10
-1721     ZWE  2011      0.23  0.28  0.20
-1722     ZWE  2012      0.38  0.47  0.33
-1723     ZWE  2013      0.57  0.70  0.49
-1724     ZWE  2014      0.54  0.67  0.47
-1725     ZWE  2015      0.59  0.73  0.51
-1726     ZWE  2016      0.71  0.88  0.62
-1727     ZWE  2017      0.65  0.81  0.57
-
-[1728 rows x 5 columns]
+...
 ```
 
 The equivalent in R is to load the [tidyverse](#g:tidyverse) collection of libraries
@@ -460,48 +417,7 @@ print(data['estimate'])
 17      0.01
 18       NaN
 19       NaN
-20       NaN
-21       NaN
-22       NaN
-23       NaN
-24       NaN
-25       NaN
-26       NaN
-27       NaN
-28       NaN
-29       NaN
-        ... 
-1698     NaN
-1699     NaN
-1700     NaN
-1701     NaN
-1702    0.66
-1703    0.65
-1704    0.89
-1705    0.75
-1706    0.86
-1707    0.95
-1708    0.79
-1709    0.95
-1710    0.59
-1711    0.27
-1712    0.70
-1713    0.74
-1714    0.64
-1715    0.91
-1716    0.43
-1717    0.43
-1718    0.46
-1719     NaN
-1720    0.12
-1721    0.23
-1722    0.38
-1723    0.57
-1724    0.54
-1725    0.59
-1726    0.71
-1727    0.65
-Name: estimate, Length: 1728, dtype: float64
+...
 ```
 
 We would get exactly the same output in Python with `data.estimate`,
@@ -559,119 +475,7 @@ data$estimate
  [222]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
  [235]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.53 0.35 0.36
  [248] 0.48 0.41 0.45 0.47 0.50 0.01 0.01 0.07 0.05 0.03 0.09 0.12 0.21
- [261] 0.23   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [274]   NA   NA   NA   NA   NA   NA   NA   NA 0.64 0.56 0.67 0.77 0.92
- [287] 0.70 0.85   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.22
- [300] 0.03 0.19 0.12 0.33 0.28 0.39 0.40 0.27 0.20 0.25 0.30 0.32 0.36
- [313] 0.33 0.53 0.51   NA 0.03 0.05 0.07 0.10 0.14 0.16 0.20 0.34 0.08
- [326] 0.07 0.03 0.05 0.04 0.00 0.01 0.02 0.03   NA   NA   NA   NA   NA
- [339]   NA   NA   NA   NA 0.05 0.10 0.18 0.22 0.30 0.37 0.45 0.44 0.48
- [352]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.95 0.95 0.95 0.76
- [365] 0.85 0.94 0.70 0.94 0.93 0.92 0.69 0.66 0.89 0.66 0.78 0.79 0.64
- [378] 0.71 0.83 0.95 0.95 0.95 0.95 0.92 0.95 0.95 0.95   NA   NA   NA
- [391]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [404]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [417] 0.02 0.08 0.08 0.02 0.08 0.10 0.10   NA   NA   NA   NA   NA   NA
- [430]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.28
- [443] 0.10 0.43 0.46 0.64 0.95 0.95 0.72 0.80   NA   NA 0.38 0.23 0.55
- [456] 0.27 0.23 0.33 0.61 0.01 0.01 0.95 0.87 0.21 0.87 0.54 0.70 0.69
- [469] 0.04 0.05 0.04 0.04 0.04 0.05 0.07 0.10 0.11   NA   NA   NA   NA
- [482] 0.27 0.39 0.36 0.39 0.15   NA   NA   NA   NA   NA   NA   NA   NA
- [495]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.04 0.40 0.15
- [508] 0.24 0.24 0.25 0.31 0.45 0.38   NA   NA   NA   NA   NA   NA   NA
- [521]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [534]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [547]   NA   NA   NA   NA 0.06 0.27 0.28 0.16 0.20 0.24 0.24 0.04   NA
- [560]   NA   NA   NA   NA   NA   NA   NA   NA 0.61 0.82 0.69 0.62 0.58
- [573] 0.74 0.77 0.79 0.84   NA 0.01 0.11 0.09 0.19 0.15 0.20 0.31 0.30
- [586]   NA 0.05 0.06 0.00 0.06 0.07 0.04 0.39 0.11   NA   NA   NA   NA
- [599]   NA 0.08 0.11 0.12 0.12   NA   NA 0.00 0.03 0.05 0.24 0.35 0.36
- [612] 0.36   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [625]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [638]   NA   NA   NA   NA 0.19 0.17 0.11 0.15 0.15 0.15 0.17   NA 0.27
- [651] 0.47 0.38 0.32 0.60 0.55 0.54 0.53 0.61 0.69 0.89 0.43 0.47 0.49
- [664] 0.40 0.60 0.59   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [677]   NA 0.04 0.39 0.35 0.36 0.32 0.35 0.40   NA   NA   NA   NA   NA
- [690]   NA   NA   NA   NA   NA   NA   NA   NA 0.04 0.05 0.06 0.02 0.01
- [703]   NA 0.06 0.07 0.08 0.09 0.10 0.25 0.27 0.23   NA   NA   NA   NA
- [716]   NA   NA   NA   NA   NA 0.02 0.13 0.03 0.09 0.12 0.15 0.20 0.23
- [729] 0.31   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [742]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [755]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [768] 0.63   NA 0.68 0.59   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [781]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.95
- [794] 0.95 0.95 0.95 0.95 0.95 0.84 0.76 0.82   NA 0.75 0.46 0.45 0.45
- [807] 0.74 0.51 0.56 0.51   NA   NA 0.03 0.11 0.11 0.38 0.33 0.66 0.70
- [820]   NA 0.45 0.62 0.34 0.37 0.37 0.79 0.74 0.64   NA   NA   NA   NA
- [833]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [846]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.01 0.08
- [859] 0.06 0.10 0.03 0.03 0.07 0.07   NA   NA   NA   NA   NA   NA   NA
- [872]   NA   NA 0.05 0.05 0.17 0.28 0.31 0.13   NA   NA   NA   NA   NA
- [885]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [898]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.43
- [911] 0.95 0.95 0.70 0.47 0.51 0.87 0.58 0.51   NA   NA   NA   NA   NA
- [924]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [937]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.02 0.21 0.21 0.68
- [950] 0.65 0.62 0.61 0.59 0.57 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95
- [963] 0.95   NA   NA 0.00 0.01   NA   NA   NA   NA   NA   NA   NA   NA
- [976]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [989]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1002]   NA   NA   NA   NA   NA   NA   NA 0.08 0.08 0.08 0.10 0.08 0.06
-[1015] 0.03 0.11 0.11   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1028] 0.01 0.04 0.05 0.09 0.12 0.15 0.26 0.28   NA   NA   NA   NA   NA
-[1041]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1054]   NA 0.31 0.36 0.30 0.31 0.38 0.41 0.44 0.50   NA   NA   NA   NA
-[1067]   NA   NA   NA 0.08 0.08   NA   NA   NA   NA   NA   NA   NA   NA
-[1080]   NA   NA   NA   NA 0.06 0.17 0.21 0.20 0.31 0.52 0.37 0.61 0.68
-[1093] 0.68 0.77 0.87 0.75 0.69 0.95   NA 0.57 0.85 0.59 0.55 0.91 0.17
-[1106] 0.53 0.95   NA   NA   NA 0.01 0.09 0.02 0.11 0.05 0.10 0.04 0.06
-[1119] 0.07 0.06 0.05 0.06 0.10 0.11 0.12 0.50 0.38 0.95 0.47 0.57 0.51
-[1132] 0.65 0.60 0.75   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1145]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1158]   NA   NA   NA   NA 0.02 0.03 0.05 0.09 0.05 0.08 0.21 0.26 0.45
-[1171]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1184]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1197]   NA 0.01 0.01 0.01 0.00 0.01 0.01 0.00 0.00 0.01   NA 0.30 0.39
-[1210] 0.20 0.39 0.45 0.55 0.51 0.49   NA   NA 0.13 0.25 0.36 0.29 0.63
-[1223] 0.41 0.78 0.01 0.03 0.05 0.03 0.00 0.02 0.03 0.04 0.05   NA   NA
-[1236]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.23 0.18 0.53 0.30
-[1249] 0.37 0.36 0.35   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1262]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1275]   NA   NA   NA   NA   NA 0.27 0.34 0.50 0.39 0.38 0.47 0.52 0.52
-[1288]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1301]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.64 0.58 0.54
-[1314] 0.84 0.58 0.73 0.74 0.81 0.83 0.87 0.84 0.90 0.85   NA   NA   NA
-[1327]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1340]   NA   NA 0.11 0.11 0.09 0.10 0.12 0.12 0.16 0.13 0.23   NA   NA
-[1353]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1366]   NA   NA   NA   NA 0.01 0.01 0.02 0.25 0.02 0.03 0.06 0.07   NA
-[1379] 0.28 0.28 0.02 0.31 0.40 0.40 0.35 0.34   NA   NA   NA   NA   NA
-[1392]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1405]   NA   NA   NA   NA   NA   NA 0.01 0.03 0.10   NA   NA   NA   NA
-[1418]   NA   NA   NA   NA   NA 0.09 0.09 0.09 0.34 0.58 0.81 0.95 0.95
-[1431] 0.67   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1444]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1457]   NA   NA   NA 0.50 0.93 0.95 0.87 0.84 0.88 0.82 0.81   NA   NA
-[1470]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1483]   NA   NA   NA   NA 0.03 0.02 0.06 0.06 0.07 0.05 0.05 0.05 0.07
-[1496] 0.14 0.05 0.11 0.11 0.16 0.17 0.36 0.36   NA 0.54 0.56 0.64 0.68
-[1509] 0.70 0.92 0.92 0.94 0.01 0.04 0.08 0.11 0.14 0.14 0.30 0.21 0.43
-[1522]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1535]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1548]   NA   NA   NA   NA 0.37 0.50 0.95 0.83 0.90 0.94   NA   NA 0.16
-[1561] 0.14 0.18 0.33 0.40 0.31 0.13   NA   NA   NA   NA   NA   NA   NA
-[1574]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.13 0.24
-[1587] 0.30 0.29 0.29 0.39 0.38 0.39 0.36 0.08 0.13 0.38 0.45 0.50 0.69
-[1600] 0.43 0.35 0.48 0.78 0.95 0.81 0.88 0.95 0.78 0.47 0.55 0.48   NA
-[1613]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.62 0.68 0.85 0.95
-[1626] 0.95 0.95 0.90 0.95   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1639] 0.00 0.12 0.58 0.54 0.48 0.84 0.76 0.74 0.56   NA   NA   NA   NA
-[1652]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1665]   NA   NA   NA 0.31 0.30 0.63 0.41 0.49 0.49 0.31   NA   NA   NA
-[1678]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1691]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.66
-[1704] 0.65 0.89 0.75 0.86 0.95 0.79 0.95 0.59 0.27 0.70 0.74 0.64 0.91
-[1717] 0.43 0.43 0.46   NA 0.12 0.23 0.38 0.57 0.54 0.59 0.71 0.65
+...
 ```
 
 Again, note that the boxed number on the left is the start index of that row.
@@ -782,48 +586,7 @@ print(data.iloc[:, 0])
 17      AGO
 18      AIA
 19      AIA
-20      AIA
-21      AIA
-22      AIA
-23      AIA
-24      AIA
-25      AIA
-26      AIA
-27      ALB
-28      ALB
-29      ALB
-       ... 
-1698    YEM
-1699    YEM
-1700    YEM
-1701    ZAF
-1702    ZAF
-1703    ZAF
-1704    ZAF
-1705    ZAF
-1706    ZAF
-1707    ZAF
-1708    ZAF
-1709    ZAF
-1710    ZMB
-1711    ZMB
-1712    ZMB
-1713    ZMB
-1714    ZMB
-1715    ZMB
-1716    ZMB
-1717    ZMB
-1718    ZMB
-1719    ZWE
-1720    ZWE
-1721    ZWE
-1722    ZWE
-1723    ZWE
-1724    ZWE
-1725    ZWE
-1726    ZWE
-1727    ZWE
-Name: country, Length: 1728, dtype: object
+...
 ```
 
 Since this is a column, it can be indexed:
@@ -915,144 +678,7 @@ data[[1]]
  [188] "BLR" "BLR" "BLZ" "BLZ" "BLZ" "BLZ" "BLZ" "BLZ" "BLZ" "BLZ" "BLZ"
  [199] "BOL" "BOL" "BOL" "BOL" "BOL" "BOL" "BOL" "BOL" "BOL" "BRA" "BRA"
  [210] "BRA" "BRA" "BRA" "BRA" "BRA" "BRA" "BRA" "BRB" "BRB" "BRB" "BRB"
- [221] "BRB" "BRB" "BRB" "BRB" "BRB" "BRN" "BRN" "BRN" "BRN" "BRN" "BRN"
- [232] "BRN" "BRN" "BRN" "BTN" "BTN" "BTN" "BTN" "BTN" "BTN" "BTN" "BTN"
- [243] "BTN" "BWA" "BWA" "BWA" "BWA" "BWA" "BWA" "BWA" "BWA" "BWA" "CAF"
- [254] "CAF" "CAF" "CAF" "CAF" "CAF" "CAF" "CAF" "CAF" "CAN" "CAN" "CAN"
- [265] "CAN" "CAN" "CAN" "CAN" "CAN" "CAN" "CHE" "CHE" "CHE" "CHE" "CHE"
- [276] "CHE" "CHE" "CHE" "CHE" "CHL" "CHL" "CHL" "CHL" "CHL" "CHL" "CHL"
- [287] "CHL" "CHL" "CHN" "CHN" "CHN" "CHN" "CHN" "CHN" "CHN" "CHN" "CHN"
- [298] "CIV" "CIV" "CIV" "CIV" "CIV" "CIV" "CIV" "CIV" "CIV" "CMR" "CMR"
- [309] "CMR" "CMR" "CMR" "CMR" "CMR" "CMR" "CMR" "COD" "COD" "COD" "COD"
- [320] "COD" "COD" "COD" "COD" "COD" "COG" "COG" "COG" "COG" "COG" "COG"
- [331] "COG" "COG" "COG" "COK" "COK" "COK" "COK" "COK" "COK" "COK" "COK"
- [342] "COK" "COL" "COL" "COL" "COL" "COL" "COL" "COL" "COL" "COL" "COM"
- [353] "COM" "COM" "COM" "COM" "COM" "COM" "COM" "COM" "CPV" "CPV" "CPV"
- [364] "CPV" "CPV" "CPV" "CPV" "CPV" "CPV" "CRI" "CRI" "CRI" "CRI" "CRI"
- [375] "CRI" "CRI" "CRI" "CRI" "CUB" "CUB" "CUB" "CUB" "CUB" "CUB" "CUB"
- [386] "CUB" "CUB" "CYP" "CYP" "CYP" "CYP" "CYP" "CYP" "CYP" "CYP" "CYP"
- [397] "CZE" "CZE" "CZE" "CZE" "CZE" "CZE" "CZE" "CZE" "CZE" "DEU" "DEU"
- [408] "DEU" "DEU" "DEU" "DEU" "DEU" "DEU" "DEU" "DJI" "DJI" "DJI" "DJI"
- [419] "DJI" "DJI" "DJI" "DJI" "DJI" "DMA" "DMA" "DMA" "DMA" "DMA" "DMA"
- [430] "DMA" "DMA" "DMA" "DNK" "DNK" "DNK" "DNK" "DNK" "DNK" "DNK" "DNK"
- [441] "DNK" "DOM" "DOM" "DOM" "DOM" "DOM" "DOM" "DOM" "DOM" "DOM" "DZA"
- [452] "DZA" "DZA" "DZA" "DZA" "DZA" "DZA" "DZA" "DZA" "ECU" "ECU" "ECU"
- [463] "ECU" "ECU" "ECU" "ECU" "ECU" "ECU" "EGY" "EGY" "EGY" "EGY" "EGY"
- [474] "EGY" "EGY" "EGY" "EGY" "ERI" "ERI" "ERI" "ERI" "ERI" "ERI" "ERI"
- [485] "ERI" "ERI" "ESP" "ESP" "ESP" "ESP" "ESP" "ESP" "ESP" "ESP" "ESP"
- [496] "EST" "EST" "EST" "EST" "EST" "EST" "EST" "EST" "EST" "ETH" "ETH"
- [507] "ETH" "ETH" "ETH" "ETH" "ETH" "ETH" "ETH" "FIN" "FIN" "FIN" "FIN"
- [518] "FIN" "FIN" "FIN" "FIN" "FIN" "FJI" "FJI" "FJI" "FJI" "FJI" "FJI"
- [529] "FJI" "FJI" "FJI" "FRA" "FRA" "FRA" "FRA" "FRA" "FRA" "FRA" "FRA"
- [540] "FRA" "FSM" "FSM" "FSM" "FSM" "FSM" "FSM" "FSM" "FSM" "FSM" "GAB"
- [551] "GAB" "GAB" "GAB" "GAB" "GAB" "GAB" "GAB" "GAB" "GBR" "GBR" "GBR"
- [562] "GBR" "GBR" "GBR" "GBR" "GBR" "GBR" "GEO" "GEO" "GEO" "GEO" "GEO"
- [573] "GEO" "GEO" "GEO" "GEO" "GHA" "GHA" "GHA" "GHA" "GHA" "GHA" "GHA"
- [584] "GHA" "GHA" "GIN" "GIN" "GIN" "GIN" "GIN" "GIN" "GIN" "GIN" "GIN"
- [595] "GMB" "GMB" "GMB" "GMB" "GMB" "GMB" "GMB" "GMB" "GMB" "GNB" "GNB"
- [606] "GNB" "GNB" "GNB" "GNB" "GNB" "GNB" "GNB" "GNQ" "GNQ" "GNQ" "GNQ"
- [617] "GNQ" "GNQ" "GNQ" "GNQ" "GNQ" "GRC" "GRC" "GRC" "GRC" "GRC" "GRC"
- [628] "GRC" "GRC" "GRC" "GRD" "GRD" "GRD" "GRD" "GRD" "GRD" "GRD" "GRD"
- [639] "GRD" "GTM" "GTM" "GTM" "GTM" "GTM" "GTM" "GTM" "GTM" "GTM" "GUY"
- [650] "GUY" "GUY" "GUY" "GUY" "GUY" "GUY" "GUY" "GUY" "HND" "HND" "HND"
- [661] "HND" "HND" "HND" "HND" "HND" "HND" "HRV" "HRV" "HRV" "HRV" "HRV"
- [672] "HRV" "HRV" "HRV" "HRV" "HTI" "HTI" "HTI" "HTI" "HTI" "HTI" "HTI"
- [683] "HTI" "HTI" "HUN" "HUN" "HUN" "HUN" "HUN" "HUN" "HUN" "HUN" "HUN"
- [694] "IDN" "IDN" "IDN" "IDN" "IDN" "IDN" "IDN" "IDN" "IDN" "IND" "IND"
- [705] "IND" "IND" "IND" "IND" "IND" "IND" "IND" "IRL" "IRL" "IRL" "IRL"
- [716] "IRL" "IRL" "IRL" "IRL" "IRL" "IRN" "IRN" "IRN" "IRN" "IRN" "IRN"
- [727] "IRN" "IRN" "IRN" "IRQ" "IRQ" "IRQ" "IRQ" "IRQ" "IRQ" "IRQ" "IRQ"
- [738] "IRQ" "ISL" "ISL" "ISL" "ISL" "ISL" "ISL" "ISL" "ISL" "ISL" "ISR"
- [749] "ISR" "ISR" "ISR" "ISR" "ISR" "ISR" "ISR" "ISR" "ITA" "ITA" "ITA"
- [760] "ITA" "ITA" "ITA" "ITA" "ITA" "ITA" "JAM" "JAM" "JAM" "JAM" "JAM"
- [771] "JAM" "JAM" "JAM" "JAM" "JOR" "JOR" "JOR" "JOR" "JOR" "JOR" "JOR"
- [782] "JOR" "JOR" "JPN" "JPN" "JPN" "JPN" "JPN" "JPN" "JPN" "JPN" "JPN"
- [793] "KAZ" "KAZ" "KAZ" "KAZ" "KAZ" "KAZ" "KAZ" "KAZ" "KAZ" "KEN" "KEN"
- [804] "KEN" "KEN" "KEN" "KEN" "KEN" "KEN" "KEN" "KGZ" "KGZ" "KGZ" "KGZ"
- [815] "KGZ" "KGZ" "KGZ" "KGZ" "KGZ" "KHM" "KHM" "KHM" "KHM" "KHM" "KHM"
- [826] "KHM" "KHM" "KHM" "KIR" "KIR" "KIR" "KIR" "KIR" "KIR" "KIR" "KIR"
- [837] "KIR" "KNA" "KNA" "KNA" "KNA" "KNA" "KNA" "KNA" "KNA" "KNA" "KOR"
- [848] "KOR" "KOR" "KOR" "KOR" "KOR" "KOR" "KOR" "KOR" "LAO" "LAO" "LAO"
- [859] "LAO" "LAO" "LAO" "LAO" "LAO" "LAO" "LBN" "LBN" "LBN" "LBN" "LBN"
- [870] "LBN" "LBN" "LBN" "LBN" "LBR" "LBR" "LBR" "LBR" "LBR" "LBR" "LBR"
- [881] "LBR" "LBR" "LBY" "LBY" "LBY" "LBY" "LBY" "LBY" "LBY" "LBY" "LBY"
- [892] "LCA" "LCA" "LCA" "LCA" "LCA" "LCA" "LCA" "LCA" "LCA" "LKA" "LKA"
- [903] "LKA" "LKA" "LKA" "LKA" "LKA" "LKA" "LKA" "LSO" "LSO" "LSO" "LSO"
- [914] "LSO" "LSO" "LSO" "LSO" "LSO" "LTU" "LTU" "LTU" "LTU" "LTU" "LTU"
- [925] "LTU" "LTU" "LTU" "LUX" "LUX" "LUX" "LUX" "LUX" "LUX" "LUX" "LUX"
- [936] "LUX" "LVA" "LVA" "LVA" "LVA" "LVA" "LVA" "LVA" "LVA" "LVA" "MAR"
- [947] "MAR" "MAR" "MAR" "MAR" "MAR" "MAR" "MAR" "MAR" "MDA" "MDA" "MDA"
- [958] "MDA" "MDA" "MDA" "MDA" "MDA" "MDA" "MDG" "MDG" "MDG" "MDG" "MDG"
- [969] "MDG" "MDG" "MDG" "MDG" "MDV" "MDV" "MDV" "MDV" "MDV" "MDV" "MDV"
- [980] "MDV" "MDV" "MEX" "MEX" "MEX" "MEX" "MEX" "MEX" "MEX" "MEX" "MEX"
- [991] "MHL" "MHL" "MHL" "MHL" "MHL" "MHL" "MHL" "MHL" "MHL" "MKD" "MKD"
-[1002] "MKD" "MKD" "MKD" "MKD" "MKD" "MKD" "MKD" "MLI" "MLI" "MLI" "MLI"
-[1013] "MLI" "MLI" "MLI" "MLI" "MLI" "MLT" "MLT" "MLT" "MLT" "MLT" "MLT"
-[1024] "MLT" "MLT" "MLT" "MMR" "MMR" "MMR" "MMR" "MMR" "MMR" "MMR" "MMR"
-[1035] "MMR" "MNE" "MNE" "MNE" "MNE" "MNE" "MNE" "MNE" "MNE" "MNE" "MNG"
-[1046] "MNG" "MNG" "MNG" "MNG" "MNG" "MNG" "MNG" "MNG" "MOZ" "MOZ" "MOZ"
-[1057] "MOZ" "MOZ" "MOZ" "MOZ" "MOZ" "MOZ" "MRT" "MRT" "MRT" "MRT" "MRT"
-[1068] "MRT" "MRT" "MRT" "MRT" "MUS" "MUS" "MUS" "MUS" "MUS" "MUS" "MUS"
-[1079] "MUS" "MUS" "MWI" "MWI" "MWI" "MWI" "MWI" "MWI" "MWI" "MWI" "MWI"
-[1090] "MYS" "MYS" "MYS" "MYS" "MYS" "MYS" "MYS" "MYS" "MYS" "NAM" "NAM"
-[1101] "NAM" "NAM" "NAM" "NAM" "NAM" "NAM" "NAM" "NER" "NER" "NER" "NER"
-[1112] "NER" "NER" "NER" "NER" "NER" "NGA" "NGA" "NGA" "NGA" "NGA" "NGA"
-[1123] "NGA" "NGA" "NGA" "NIC" "NIC" "NIC" "NIC" "NIC" "NIC" "NIC" "NIC"
-[1134] "NIC" "NIU" "NIU" "NIU" "NIU" "NIU" "NIU" "NIU" "NIU" "NIU" "NLD"
-[1145] "NLD" "NLD" "NLD" "NLD" "NLD" "NLD" "NLD" "NLD" "NOR" "NOR" "NOR"
-[1156] "NOR" "NOR" "NOR" "NOR" "NOR" "NOR" "NPL" "NPL" "NPL" "NPL" "NPL"
-[1167] "NPL" "NPL" "NPL" "NPL" "NRU" "NRU" "NRU" "NRU" "NRU" "NRU" "NRU"
-[1178] "NRU" "NRU" "NZL" "NZL" "NZL" "NZL" "NZL" "NZL" "NZL" "NZL" "NZL"
-[1189] "OMN" "OMN" "OMN" "OMN" "OMN" "OMN" "OMN" "OMN" "OMN" "PAK" "PAK"
-[1200] "PAK" "PAK" "PAK" "PAK" "PAK" "PAK" "PAK" "PAN" "PAN" "PAN" "PAN"
-[1211] "PAN" "PAN" "PAN" "PAN" "PAN" "PER" "PER" "PER" "PER" "PER" "PER"
-[1222] "PER" "PER" "PER" "PHL" "PHL" "PHL" "PHL" "PHL" "PHL" "PHL" "PHL"
-[1233] "PHL" "PLW" "PLW" "PLW" "PLW" "PLW" "PLW" "PLW" "PLW" "PLW" "PNG"
-[1244] "PNG" "PNG" "PNG" "PNG" "PNG" "PNG" "PNG" "PNG" "POL" "POL" "POL"
-[1255] "POL" "POL" "POL" "POL" "POL" "POL" "PRK" "PRK" "PRK" "PRK" "PRK"
-[1266] "PRK" "PRK" "PRK" "PRK" "PRT" "PRT" "PRT" "PRT" "PRT" "PRT" "PRT"
-[1277] "PRT" "PRT" "PRY" "PRY" "PRY" "PRY" "PRY" "PRY" "PRY" "PRY" "PRY"
-[1288] "PSE" "PSE" "PSE" "PSE" "PSE" "PSE" "PSE" "PSE" "PSE" "ROU" "ROU"
-[1299] "ROU" "ROU" "ROU" "ROU" "ROU" "ROU" "ROU" "RUS" "RUS" "RUS" "RUS"
-[1310] "RUS" "RUS" "RUS" "RUS" "RUS" "RWA" "RWA" "RWA" "RWA" "RWA" "RWA"
-[1321] "RWA" "RWA" "RWA" "SAU" "SAU" "SAU" "SAU" "SAU" "SAU" "SAU" "SAU"
-[1332] "SAU" "SDN" "SDN" "SDN" "SDN" "SDN" "SDN" "SDN" "SDN" "SDN" "SEN"
-[1343] "SEN" "SEN" "SEN" "SEN" "SEN" "SEN" "SEN" "SEN" "SGP" "SGP" "SGP"
-[1354] "SGP" "SGP" "SGP" "SGP" "SGP" "SGP" "SLB" "SLB" "SLB" "SLB" "SLB"
-[1365] "SLB" "SLB" "SLB" "SLB" "SLE" "SLE" "SLE" "SLE" "SLE" "SLE" "SLE"
-[1376] "SLE" "SLE" "SLV" "SLV" "SLV" "SLV" "SLV" "SLV" "SLV" "SLV" "SLV"
-[1387] "SOM" "SOM" "SOM" "SOM" "SOM" "SOM" "SOM" "SOM" "SOM" "SRB" "SRB"
-[1398] "SRB" "SRB" "SRB" "SRB" "SRB" "SRB" "SRB" "SSD" "SSD" "SSD" "SSD"
-[1409] "SSD" "SSD" "SSD" "SSD" "SSD" "STP" "STP" "STP" "STP" "STP" "STP"
-[1420] "STP" "STP" "STP" "SUR" "SUR" "SUR" "SUR" "SUR" "SUR" "SUR" "SUR"
-[1431] "SUR" "SVK" "SVK" "SVK" "SVK" "SVK" "SVK" "SVK" "SVK" "SVK" "SVN"
-[1442] "SVN" "SVN" "SVN" "SVN" "SVN" "SVN" "SVN" "SVN" "SWE" "SWE" "SWE"
-[1453] "SWE" "SWE" "SWE" "SWE" "SWE" "SWE" "SWZ" "SWZ" "SWZ" "SWZ" "SWZ"
-[1464] "SWZ" "SWZ" "SWZ" "SWZ" "SYC" "SYC" "SYC" "SYC" "SYC" "SYC" "SYC"
-[1475] "SYC" "SYC" "SYR" "SYR" "SYR" "SYR" "SYR" "SYR" "SYR" "SYR" "SYR"
-[1486] "TCD" "TCD" "TCD" "TCD" "TCD" "TCD" "TCD" "TCD" "TCD" "TGO" "TGO"
-[1497] "TGO" "TGO" "TGO" "TGO" "TGO" "TGO" "TGO" "THA" "THA" "THA" "THA"
-[1508] "THA" "THA" "THA" "THA" "THA" "TJK" "TJK" "TJK" "TJK" "TJK" "TJK"
-[1519] "TJK" "TJK" "TJK" "TKM" "TKM" "TKM" "TKM" "TKM" "TKM" "TKM" "TKM"
-[1530] "TKM" "TLS" "TLS" "TLS" "TLS" "TLS" "TLS" "TLS" "TLS" "TLS" "TON"
-[1541] "TON" "TON" "TON" "TON" "TON" "TON" "TON" "TON" "TTO" "TTO" "TTO"
-[1552] "TTO" "TTO" "TTO" "TTO" "TTO" "TTO" "TUN" "TUN" "TUN" "TUN" "TUN"
-[1563] "TUN" "TUN" "TUN" "TUN" "TUR" "TUR" "TUR" "TUR" "TUR" "TUR" "TUR"
-[1574] "TUR" "TUR" "TUV" "TUV" "TUV" "TUV" "TUV" "TUV" "TUV" "TUV" "TUV"
-[1585] "TZA" "TZA" "TZA" "TZA" "TZA" "TZA" "TZA" "TZA" "TZA" "UGA" "UGA"
-[1596] "UGA" "UGA" "UGA" "UGA" "UGA" "UGA" "UGA" "UKR" "UKR" "UKR" "UKR"
-[1607] "UKR" "UKR" "UKR" "UKR" "UKR" "UNK" "UNK" "UNK" "UNK" "UNK" "UNK"
-[1618] "UNK" "UNK" "UNK" "URY" "URY" "URY" "URY" "URY" "URY" "URY" "URY"
-[1629] "URY" "USA" "USA" "USA" "USA" "USA" "USA" "USA" "USA" "USA" "UZB"
-[1640] "UZB" "UZB" "UZB" "UZB" "UZB" "UZB" "UZB" "UZB" "VCT" "VCT" "VCT"
-[1651] "VCT" "VCT" "VCT" "VCT" "VCT" "VCT" "VEN" "VEN" "VEN" "VEN" "VEN"
-[1662] "VEN" "VEN" "VEN" "VEN" "VNM" "VNM" "VNM" "VNM" "VNM" "VNM" "VNM"
-[1673] "VNM" "VNM" "VUT" "VUT" "VUT" "VUT" "VUT" "VUT" "VUT" "VUT" "VUT"
-[1684] "WSM" "WSM" "WSM" "WSM" "WSM" "WSM" "WSM" "WSM" "WSM" "YEM" "YEM"
-[1695] "YEM" "YEM" "YEM" "YEM" "YEM" "YEM" "YEM" "ZAF" "ZAF" "ZAF" "ZAF"
-[1706] "ZAF" "ZAF" "ZAF" "ZAF" "ZAF" "ZMB" "ZMB" "ZMB" "ZMB" "ZMB" "ZMB"
-[1717] "ZMB" "ZMB" "ZMB" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE" "ZWE"
-[1728] "ZWE"
+...
 ```
 
 This is now a plain old vector, so it can be indexed with [single square brackets](#g:single-square-brackets):
@@ -1297,39 +923,7 @@ print(maximal)
 446     0.95
 447     0.95
 461     0.95
-792     0.95
-793     0.95
-794     0.95
-795     0.95
-796     0.95
-797     0.95
-910     0.95
-911     0.95
-954     0.95
-955     0.95
-956     0.95
-957     0.95
-958     0.95
-959     0.95
-960     0.95
-961     0.95
-962     0.95
-1097    0.95
-1106    0.95
-1127    0.95
-1428    0.95
-1429    0.95
-1461    0.95
-1553    0.95
-1603    0.95
-1606    0.95
-1624    0.95
-1625    0.95
-1626    0.95
-1628    0.95
-1707    0.95
-1709    0.95
-Name: estimate, dtype: float64
+...
 ```
 
 And in R:
@@ -1360,67 +954,7 @@ maximal
  [222]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
  [235]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
  [248]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [261]   NA   NA   NA   NA   NA 0.95 0.95   NA   NA 0.95   NA   NA   NA
- [274]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [287]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [300]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [313]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [326]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [339]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [352]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [365]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [378]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [391]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [404]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [417]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [430]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [443]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [456]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [469]   NA   NA   NA 0.95 0.95 0.95 0.95 0.95 0.95   NA   NA   NA   NA
- [482]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [495]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [508]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [521]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [534]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [547]   NA   NA 0.95 0.95   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [560]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [573]   NA   NA   NA   NA   NA 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95
- [586] 0.95   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [599]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [612]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [625]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [638]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [651]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [664]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [677]   NA 0.95   NA 0.95   NA   NA   NA 0.95   NA   NA   NA   NA   NA
- [690]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [703]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [716]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [729]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [742]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [755]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [768]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [781]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [794]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [807]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [820]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [833]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [846]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [859]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [872]   NA   NA   NA 0.95 0.95   NA   NA   NA   NA   NA   NA   NA   NA
- [885]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [898]   NA   NA   NA   NA   NA   NA   NA 0.95   NA   NA   NA   NA   NA
- [911]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [924]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [937]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [950]   NA   NA   NA   NA   NA   NA 0.95   NA   NA   NA   NA   NA   NA
- [963]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [976]   NA 0.95 0.95   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
- [989] 0.95 0.95 0.95 0.95   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1002]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1015]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1028]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
-[1041]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.95 0.95   NA
+...
 ```
 
 It appears that R has kept the unknown values in order to highlight just how little we know.
