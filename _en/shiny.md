@@ -198,7 +198,7 @@ shinyApp(ui = ui, server = server)
 knitr::include_graphics("figures/shiny/unicef-skeleton.png")
 ```
 
-![plot of chunk unnamed-chunk-9](../figures/shiny/unicef-skeleton.png)
+![plot of chunk unnamed-chunk-8](../figures/shiny/unicef-skeleton.png)
 
 As the screenshot shows,
 this positions the controls on the right.
@@ -253,7 +253,7 @@ ui <- fluidPage(
 knitr::include_graphics("figures/shiny/unicef-prototype.png")
 ```
 
-![plot of chunk unnamed-chunk-11](../figures/shiny/unicef-prototype.png)
+![plot of chunk unnamed-chunk-10](../figures/shiny/unicef-prototype.png)
 
 Let's show the chosen filename in the output display:
 
@@ -284,7 +284,7 @@ The initial display looks good:
 knitr::include_graphics("figures/shiny/unicef-filename-wrong-before.png")
 ```
 
-![plot of chunk unnamed-chunk-13](../figures/shiny/unicef-filename-wrong-before.png)
+![plot of chunk unnamed-chunk-12](../figures/shiny/unicef-filename-wrong-before.png)
 
 but when we fill in the filename, something is clearly wrong:
 
@@ -293,7 +293,7 @@ but when we fill in the filename, something is clearly wrong:
 knitr::include_graphics("figures/shiny/unicef-filename-wrong-after.png")
 ```
 
-![plot of chunk unnamed-chunk-14](../figures/shiny/unicef-filename-wrong-after.png)
+![plot of chunk unnamed-chunk-13](../figures/shiny/unicef-filename-wrong-after.png)
 
 A quick browse of the documentation reveals that
 `input` is a named list-like object of everything set up in the interface.
@@ -346,7 +346,7 @@ This short server shows that there are three places we can put variables:
 knitr::include_graphics("figures/shiny/unicef-filename-right.png")
 ```
 
-![plot of chunk unnamed-chunk-17](../figures/shiny/unicef-filename-right.png)
+![plot of chunk unnamed-chunk-16](../figures/shiny/unicef-filename-right.png)
 
 ## How can I display the data in a file?
 
@@ -407,7 +407,7 @@ server <- function(input, output){
 }
 ```
 
-![plot of chunk unnamed-chunk-19](../figures/shiny/unicef-reactive-update.gif)
+![plot of chunk unnamed-chunk-18](../figures/shiny/unicef-reactive-update.gif)
 
 ## How can I break circular dependencies?
 
@@ -647,7 +647,7 @@ Here are the dependencies we have created:
 knitr::include_graphics("figures/shiny/unicef-slider-dependencies.png")
 ```
 
-![plot of chunk unnamed-chunk-28](../figures/shiny/unicef-slider-dependencies.png)
+![plot of chunk unnamed-chunk-27](../figures/shiny/unicef-slider-dependencies.png)
 
 It works!
 Except that we're adding a slider every time we open a file,
@@ -658,7 +658,7 @@ so if we open the same file twice, we get two sliders with identical ranges:
 knitr::include_graphics("figures/shiny/unicef-slider.png")
 ```
 
-![plot of chunk unnamed-chunk-29](../figures/shiny/unicef-slider.png)
+![plot of chunk unnamed-chunk-28](../figures/shiny/unicef-slider.png)
 
 ## How can I control how the user interface is rendered?
 

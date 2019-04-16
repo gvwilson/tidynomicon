@@ -25,10 +25,8 @@ keypoints:
   - "Use `uiOutput` and `renderUI` to (re-)create UI elements as needed in order to break circular dependencies."
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/shiny/")
+```{r setup, include=FALSE}
+source("common.R")
 library(tidyverse)
 ```
 

@@ -21,10 +21,8 @@ keypoints:
   - "Every user defined class `C` should have functions `new_C` (to create it), `validate_C` (to validate its integrity), and `C` (to create and validate)."
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/oop/")
+```{r setup, include=FALSE}
+source("common.R")
 library(tidyverse)
 ```
 

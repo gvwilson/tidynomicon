@@ -36,15 +36,26 @@ Let's load it and write our first test:
 
 ```r
 library(testthat)
-#> 
-#> Attaching package: 'testthat'
-#> The following object is masked from 'package:dplyr':
-#> 
-#>     matches
-#> The following object is masked from 'package:purrr':
-#> 
-#>     is_null
+```
 
+```
+
+Attaching package: 'testthat'
+```
+
+```
+The following object is masked from 'package:dplyr':
+
+    matches
+```
+
+```
+The following object is masked from 'package:purrr':
+
+    is_null
+```
+
+```r
 test_that("Zero equals itself", {expect_equal(0, 0)})
 ```
 
@@ -57,10 +68,13 @@ Let's try something that ought to fail:
 
 ```r
 test_that("Zero equals one", {expect_equal(0, 1)})
-#> Error: Test failed: 'Zero equals one'
-#> * 0 not equal to 1.
-#> 1/1 mismatches
-#> [1] 0 - 1 == -1
+```
+
+```
+Error: Test failed: 'Zero equals one'
+* 0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
 ```
 
 Good:
@@ -72,9 +86,12 @@ We can run `expect_equal` on its own:
 
 ```r
 expect_equal(0, 1)
-#> Error: 0 not equal to 1.
-#> 1/1 mismatches
-#> [1] 0 - 1 == -1
+```
+
+```
+Error: 0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
 ```
 
 but that doesn't produce a summary of how many tests passed or failed.
@@ -86,10 +103,13 @@ test_that("Testing two things", {
   expect_equal(0, 0)
   expect_equal(0, 1)
 })
-#> Error: Test failed: 'Testing two things'
-#> * 0 not equal to 1.
-#> 1/1 mismatches
-#> [1] 0 - 1 == -1
+```
+
+```
+Error: Test failed: 'Testing two things'
+* 0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
 ```
 
 Note that a block of code is *not* the same thing as an [anonymous function](#g:anonymous-function),
@@ -143,51 +163,56 @@ We can now run this file from within RStudio:
 
 ```r
 test_dir("tests/testthat")
-#> ✔ |  OK F W S | Context
-#> ⠏ |   0       | Demonstrating the testing library✖ |   4 2     | Demonstrating the testing library
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_example.R:11: failure: Testing different numbers
-#> 0 not equal to 1.
-#> 1/1 mismatches
-#> [1] 0 - 1 == -1
-#> 
-#> test_example.R:16: failure: Testing with a tolerance
-#> 0 not equal to 0.01.
-#> 1/1 mismatches
-#> [1] 0 - 0.01 == -0.01
-#> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_find_empty_a.R:5: warning: (unknown)
-#> cannot open file '../scripts/find_empty_02.R': No such file or directory
-#> 
-#> test_find_empty_a.R:5: error: (unknown)
-#> cannot open the connection
-#> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
-#> 2: file(filename, "r", encoding = encoding)
-#> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_find_empty_b.R:5: warning: (unknown)
-#> cannot open file '../scripts/find_empty_02.R': No such file or directory
-#> 
-#> test_find_empty_b.R:5: error: (unknown)
-#> cannot open the connection
-#> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
-#> 2: file(filename, "r", encoding = encoding)
-#> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Testing properties of tibbles✔ |   1   1   | Testing properties of tibbles
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_tibble.R:6: warning: Tibble columns are given the name 'value'
-#> `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-#> This warning is displayed once per session.
-#> ───────────────────────────────────────────────────────────────────────────
-#> 
-#> ══ Results ════════════════════════════════════════════════════════════════
-#> OK:       5
-#> Failed:   4
-#> Warnings: 3
-#> Skipped:  0
+```
+
+```
+✔ |  OK F W S | Context
+⠏ |   0       | Demonstrating the testing library✖ |   4 2     | Demonstrating the testing library
+───────────────────────────────────────────────────────────────────────────
+test_example.R:11: failure: Testing different numbers
+0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
+
+test_example.R:16: failure: Testing with a tolerance
+0 not equal to 0.01.
+1/1 mismatches
+[1] 0 - 0.01 == -0.01
+───────────────────────────────────────────────────────────────────────────
+⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_a.R:5: warning: (unknown)
+cannot open file '../scripts/find_empty_02.R': No such file or directory
+
+test_find_empty_a.R:5: error: (unknown)
+cannot open the connection
+1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
+2: file(filename, "r", encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_b.R:5: warning: (unknown)
+cannot open file '../scripts/find_empty_02.R': No such file or directory
+
+test_find_empty_b.R:5: error: (unknown)
+cannot open the connection
+1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
+2: file(filename, "r", encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+⠏ |   0       | Testing properties of tibbles✔ |   1   1   | Testing properties of tibbles
+───────────────────────────────────────────────────────────────────────────
+test_tibble.R:6: warning: Tibble columns are given the name 'value'
+`as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+This warning is displayed once per session.
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+Duration: 0.1 s
+
+OK:       5
+Failed:   4
+Warnings: 3
+Skipped:  0
 ```
 
 A bit of care is needed when interpreting these results.
@@ -224,46 +249,49 @@ Now let's run all of our tests:
 
 ```r
 test_dir("tests/testthat")
-#> ✔ |  OK F W S | Context
-#> ⠏ |   0       | Demonstrating the testing library✖ |   4 2     | Demonstrating the testing library
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_example.R:11: failure: Testing different numbers
-#> 0 not equal to 1.
-#> 1/1 mismatches
-#> [1] 0 - 1 == -1
-#> 
-#> test_example.R:16: failure: Testing with a tolerance
-#> 0 not equal to 0.01.
-#> 1/1 mismatches
-#> [1] 0 - 0.01 == -0.01
-#> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_find_empty_a.R:5: warning: (unknown)
-#> cannot open file '../scripts/find_empty_02.R': No such file or directory
-#> 
-#> test_find_empty_a.R:5: error: (unknown)
-#> cannot open the connection
-#> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
-#> 2: file(filename, "r", encoding = encoding)
-#> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_find_empty_b.R:5: warning: (unknown)
-#> cannot open file '../scripts/find_empty_02.R': No such file or directory
-#> 
-#> test_find_empty_b.R:5: error: (unknown)
-#> cannot open the connection
-#> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
-#> 2: file(filename, "r", encoding = encoding)
-#> ───────────────────────────────────────────────────────────────────────────
-#> ⠏ |   0       | Testing properties of tibbles✔ |   1       | Testing properties of tibbles
-#> 
-#> ══ Results ════════════════════════════════════════════════════════════════
-#> OK:       5
-#> Failed:   4
-#> Warnings: 2
-#> Skipped:  0
+```
+
+```
+✔ |  OK F W S | Context
+⠏ |   0       | Demonstrating the testing library✖ |   4 2     | Demonstrating the testing library
+───────────────────────────────────────────────────────────────────────────
+test_example.R:11: failure: Testing different numbers
+0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
+
+test_example.R:16: failure: Testing with a tolerance
+0 not equal to 0.01.
+1/1 mismatches
+[1] 0 - 0.01 == -0.01
+───────────────────────────────────────────────────────────────────────────
+⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_a.R:5: warning: (unknown)
+cannot open file '../scripts/find_empty_02.R': No such file or directory
+
+test_find_empty_a.R:5: error: (unknown)
+cannot open the connection
+1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
+2: file(filename, "r", encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_b.R:5: warning: (unknown)
+cannot open file '../scripts/find_empty_02.R': No such file or directory
+
+test_find_empty_b.R:5: error: (unknown)
+cannot open the connection
+1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
+2: file(filename, "r", encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+⠏ |   0       | Testing properties of tibbles✔ |   1       | Testing properties of tibbles
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       5
+Failed:   4
+Warnings: 2
+Skipped:  0
 ```
 
 That's rather a lot of output.
@@ -273,7 +301,10 @@ we can provide a `filter` argument to `test_dir`:
 
 ```r
 test_dir("tests/testthat", filter = "test_tibble.R")
-#> Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir
+```
+
+```
+Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir
 ```
 
 Ah.
@@ -283,16 +314,17 @@ Let's try again:
 
 ```r
 test_dir("tests/testthat", filter = "tibble")
-#> ✔ |  OK F W S | Context
-#> ⠏ |   0       | Testing properties of tibbles✔ |   1       | Testing properties of tibbles
-#> 
-#> ══ Results ════════════════════════════════════════════════════════════════
-#> OK:       1
-#> Failed:   0
-#> Warnings: 0
-#> Skipped:  0
-#> 
-#> :)
+```
+
+```
+✔ |  OK F W S | Context
+⠏ |   0       | Testing properties of tibbles✔ |   1       | Testing properties of tibbles
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       1
+Failed:   0
+Warnings: 0
+Skipped:  0
 ```
 
 That's better,
@@ -455,23 +487,26 @@ And here's what happens when we run this file with `test_dir`:
 
 ```r
 test_dir("tests/testthat", "find_empty_a")
-#> ✔ |  OK F W S | Context
-#> ⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_find_empty_a.R:5: warning: (unknown)
-#> cannot open file '../scripts/find_empty_02.R': No such file or directory
-#> 
-#> test_find_empty_a.R:5: error: (unknown)
-#> cannot open the connection
-#> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
-#> 2: file(filename, "r", encoding = encoding)
-#> ───────────────────────────────────────────────────────────────────────────
-#> 
-#> ══ Results ════════════════════════════════════════════════════════════════
-#> OK:       0
-#> Failed:   1
-#> Warnings: 1
-#> Skipped:  0
+```
+
+```
+✔ |  OK F W S | Context
+⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_a.R:5: warning: (unknown)
+cannot open file '../scripts/find_empty_02.R': No such file or directory
+
+test_find_empty_a.R:5: error: (unknown)
+cannot open the connection
+1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_a.R:5
+2: file(filename, "r", encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       0
+Failed:   1
+Warnings: 1
+Skipped:  0
 ```
 
 This is perplexing:
@@ -491,17 +526,50 @@ Let's have a closer look at the properties of this strange beast:
 
 ```r
 print("is integer(0) equal to NULL")
-#> [1] "is integer(0) equal to NULL"
+```
+
+```
+[1] "is integer(0) equal to NULL"
+```
+
+```r
 is.null(integer(0))
-#> [1] FALSE
+```
+
+```
+[1] FALSE
+```
+
+```r
 print("any(logical(0))")
-#> [1] "any(logical(0))"
+```
+
+```
+[1] "any(logical(0))"
+```
+
+```r
 any(logical(0))
-#> [1] FALSE
+```
+
+```
+[1] FALSE
+```
+
+```r
 print("all(logical(0))")
-#> [1] "all(logical(0))"
+```
+
+```
+[1] "all(logical(0))"
+```
+
+```r
 all(logical(0))
-#> [1] TRUE
+```
+
+```
+[1] TRUE
 ```
 
 All right.
@@ -550,23 +618,26 @@ And here's what happens when we run this file with `test_dir`:
 
 ```r
 test_dir("tests/testthat", "find_empty_b")
-#> ✔ |  OK F W S | Context
-#> ⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
-#> ───────────────────────────────────────────────────────────────────────────
-#> test_find_empty_b.R:5: warning: (unknown)
-#> cannot open file '../scripts/find_empty_02.R': No such file or directory
-#> 
-#> test_find_empty_b.R:5: error: (unknown)
-#> cannot open the connection
-#> 1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
-#> 2: file(filename, "r", encoding = encoding)
-#> ───────────────────────────────────────────────────────────────────────────
-#> 
-#> ══ Results ════════════════════════════════════════════════════════════════
-#> OK:       0
-#> Failed:   1
-#> Warnings: 1
-#> Skipped:  0
+```
+
+```
+✔ |  OK F W S | Context
+⠏ |   0       | Finding empty rows✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_b.R:5: warning: (unknown)
+cannot open file '../scripts/find_empty_02.R': No such file or directory
+
+test_find_empty_b.R:5: error: (unknown)
+cannot open the connection
+1: source("../scripts/find_empty_02.R") at tests/testthat/test_find_empty_b.R:5
+2: file(filename, "r", encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       0
+Failed:   1
+Warnings: 1
+Skipped:  0
 ```
 
 ## How can I check data transformation?
@@ -663,7 +734,10 @@ read_csv("inst/extdata/at_health_facilities.csv") %>%
   filter(check == "iso3") %>%
   select(id) %>%
   first()
-#> Error: 'inst/extdata/at_health_facilities.csv' does not exist in current working directory ('/Users/gvwilson/tidynomicon/en_rmd').
+```
+
+```
+Error: 'inst/extdata/at_health_facilities.csv' does not exist in current working directory ('/Users/gvwilson/tidynomicon/en_rmd').
 ```
 
 Ignoring the messages about missing column names,
@@ -706,39 +780,62 @@ test_that("The right row is found when there are header rows", {
   result <- determine_skip_rows("a1,a2\nb1,b2\nis03,stuff\nc1,c2\n")
   expect_equal(result, 2)
 })
-#> Error: Test failed: 'The right row is found when there are header rows'
-#> * `result` not equal to 2.
-#> Lengths differ: 0 is not 1
+```
 
+```
+Error: Test failed: 'The right row is found when there are header rows'
+* `result` not equal to 2.
+Lengths differ: 0 is not 1
+```
+
+```r
 test_that("The right row is found when there are header rows and blank lines", {
   result <- determine_skip_rows("a1,a2\nb1,b2\n,\nis03,stuff\nc1,c2\n,\n")
   expect_equal(result, 3)
 })
-#> Error: Test failed: 'The right row is found when there are header rows and blank lines'
-#> * `result` not equal to 3.
-#> Lengths differ: 0 is not 1
+```
 
+```
+Error: Test failed: 'The right row is found when there are header rows and blank lines'
+* `result` not equal to 3.
+Lengths differ: 0 is not 1
+```
+
+```r
 test_that("The right row is found when there are no header rows to discard", {
   result <- determine_skip_rows("iso3,stuff\nc1,c2\n")
   expect_equal(result, 0)
 })
-#> Error: Test failed: 'The right row is found when there are no header rows to discard'
-#> * `result` not equal to 0.
-#> Lengths differ: 0 is not 1
+```
 
+```
+Error: Test failed: 'The right row is found when there are no header rows to discard'
+* `result` not equal to 0.
+Lengths differ: 0 is not 1
+```
+
+```r
 test_that("No row is found when 'iso3' isn't present", {
   expect_error(determine_skip_rows("a1,a2\nb1,b1\n"),
                "No start row found")
 })
-#> Error: Test failed: 'No row is found when 'iso3' isn't present'
-#> * `determine_skip_rows("a1,a2\nb1,b1\n")` did not throw an error.
+```
 
+```
+Error: Test failed: 'No row is found when 'iso3' isn't present'
+* `determine_skip_rows("a1,a2\nb1,b1\n")` did not throw an error.
+```
+
+```r
 test_that("No row is found when 'iso3' is in the wrong place", {
   expect_error(determine_skip_rows("stuff,iso3\n"),
                "No start row found")
 })
-#> Error: Test failed: 'No row is found when 'iso3' is in the wrong place'
-#> * `determine_skip_rows("stuff,iso3\n")` did not throw an error.
+```
+
+```
+Error: Test failed: 'No row is found when 'iso3' is in the wrong place'
+* `determine_skip_rows("stuff,iso3\n")` did not throw an error.
 ```
 
 That's right: all five fail.

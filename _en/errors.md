@@ -32,10 +32,13 @@ for i in range(4):
         print("index {} value {} ZeroDivisionError".format(i, values[i]))
     except Exception as e:
         print("index{} some other Exception: {}".format(i, e))
-#> index 0 value -1 reciprocal -1.0
-#> index 1 value 0 ZeroDivisionError
-#> index 2 value 1 reciprocal 1.0
-#> index3 some other Exception: list index out of range
+```
+
+```
+index 0 value -1 reciprocal -1.0
+index 1 value 0 ZeroDivisionError
+index 2 value 1 reciprocal 1.0
+index3 some other Exception: list index out of range
 ```
 
 R draws on a different tradition.
@@ -55,11 +58,26 @@ each of which takes an error message as a parameter.
 
 ```r
 message("This is a message.")
-#> This is a message.
+```
+
+```
+This is a message.
+```
+
+```r
 warning("This is a warning.\n")
-#> Warning: This is a warning.
+```
+
+```
+Warning: This is a warning.
+```
+
+```r
 stop("This is an error.")
-#> Error in eval(expr, envir, enclos): This is an error.
+```
+
+```
+Error in eval(expr, envir, enclos): This is an error.
 ```
 
 Note that we have to supply our own line ending for warnings.
@@ -82,9 +100,18 @@ attemptWithoutTry <- function(left, right){
   "result" # returned
 }
 result <- attemptWithoutTry(1, "two")
-#> Error in left + right: non-numeric argument to binary operator
+```
+
+```
+Error in left + right: non-numeric argument to binary operator
+```
+
+```r
 cat("result is", result)
-#> Error in cat("result is", result): object 'result' not found
+```
+
+```
+Error in cat("result is", result): object 'result' not found
 ```
 
 with this:
@@ -96,9 +123,18 @@ attemptUsingTry <- function(left, right){
   "value returned" # returned
 }
 result <- attemptUsingTry(1, "two")
-#> Error in left + right : non-numeric argument to binary operator
+```
+
+```
+Error in left + right : non-numeric argument to binary operator
+```
+
+```r
 cat("result is", result)
-#> result is value returned
+```
+
+```
+result is value returned
 ```
 
 If we are *sure* that we wish to incur the risk of silent failure,
@@ -112,7 +148,10 @@ attemptUsingTryQuietly <- function(left, right){
 }
 result <- attemptUsingTryQuietly(1, "two")
 cat("result is", result)
-#> result is result
+```
+
+```
+result is result
 ```
 
 Do not do this,
@@ -127,7 +166,10 @@ tryCatch(
   stop("our message"),
   error = function(cnd) cat("error object is", as.character(cnd))
 )
-#> error object is Error in doTryCatch(return(expr), name, parentenv, handler): our message
+```
+
+```
+error object is Error in doTryCatch(return(expr), name, parentenv, handler): our message
 ```
 
 (We need to convert the error object `cnd` to character for printing because it is a list of two elements,
@@ -141,7 +183,10 @@ tryCatch(
   attemptWithoutTry(1, "two"),
   error = function(cnd) cat("error object is", as.character(cnd))
 )
-#> error object is Error in left + right: non-numeric argument to binary operator
+```
+
+```
+error object is Error in left + right: non-numeric argument to binary operator
 ```
 
 We can also handle non-fatal errors using `withCallingHandlers`,

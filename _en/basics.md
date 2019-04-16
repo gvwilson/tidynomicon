@@ -68,7 +68,10 @@ In Python, we write:
 
 ```python
 print("Hello, world!")
-#> Hello, world!
+```
+
+```
+Hello, world!
 ```
 
 We can run the equivalent R in the RStudio Console:
@@ -76,7 +79,10 @@ We can run the equivalent R in the RStudio Console:
 
 ```r
 print("Hello, world!")
-#> [1] "Hello, world!"
+```
+
+```
+[1] "Hello, world!"
 ```
 
 Python prints what we asked for,
@@ -87,9 +93,18 @@ Let's take a closer look by evaluating a couple of expressions without calling `
 
 ```r
 'This is in single quotes.'
-#> [1] "This is in single quotes."
+```
+
+```
+[1] "This is in single quotes."
+```
+
+```r
 "This is in double quotes."
-#> [1] "This is in double quotes."
+```
+
+```
+[1] "This is in double quotes."
 ```
 
 That the mysterious `[1]` doesn't appear to be a line number.
@@ -106,7 +121,10 @@ we add numbers using `+`.
 
 ```python
 print(1 + 2 + 3)
-#> 6
+```
+
+```
+6
 ```
 
 We can check the type of the result using `type`,
@@ -115,7 +133,10 @@ which tells us that the result `6` is an integer:
 
 ```python
 print(type(6))
-#> <class 'int'>
+```
+
+```
+<class 'int'>
 ```
 
 What does R do?
@@ -123,12 +144,18 @@ What does R do?
 
 ```r
 1 + 2 + 3
-#> [1] 6
+```
+
+```
+[1] 6
 ```
 
 ```r
 typeof(6)
-#> [1] "double"
+```
+
+```
+[1] "double"
 ```
 
 R's type inspection function is called `typeof` rather than `type`,
@@ -140,7 +167,10 @@ Let's try an experiment:
 
 ```r
 typeof(6)
-#> [1] "double"
+```
+
+```
+[1] "double"
 ```
 
 Ah: by default,
@@ -151,7 +181,10 @@ We can force a literal value to be an integer by appending an upper-case `L` (wh
 
 ```r
 typeof(6L)
-#> [1] "integer"
+```
+
+```
+[1] "integer"
 ```
 
 Arithmetic on integers does produce integers:
@@ -159,7 +192,10 @@ Arithmetic on integers does produce integers:
 
 ```r
 typeof(1L + 2L + 3L)
-#> [1] "integer"
+```
+
+```
+[1] "integer"
 ```
 
 and if we want to convert a floating-point number to an integer we can do so:
@@ -167,7 +203,10 @@ and if we want to convert a floating-point number to an integer we can do so:
 
 ```r
 typeof(as.integer(6))
-#> [1] "integer"
+```
+
+```
+[1] "integer"
 ```
 
 But wait:
@@ -194,7 +233,10 @@ If the variable does not exist, it is created:
 ```python
 primes = [3, 5, 7, 11]
 print(primes)
-#> [3, 5, 7, 11]
+```
+
+```
+[3, 5, 7, 11]
 ```
 
 Since assignment is a statement rather than an expression,
@@ -222,16 +264,22 @@ let's have a look at the lengths of various things in Python:
 
 ```python
 print(len(primes))
-#> 4
+```
+
+```
+4
 ```
 
 
 ```python
 print(len(4))
-#> TypeError: object of type 'int' has no len()
-#> 
-#> Detailed traceback: 
-#>   File "<string>", line 1, in <module>
+```
+
+```
+TypeError: object of type 'int' has no len()
+
+Detailed traceback: 
+  File "<string>", line 1, in <module>
 ```
 
 Fair enough:
@@ -244,7 +292,10 @@ What of R's vectors?
 
 ```r
 length(primes)
-#> [1] 4
+```
+
+```
+[1] 4
 ```
 
 Good---and its numbers?
@@ -252,7 +303,10 @@ Good---and its numbers?
 
 ```r
 length(4)
-#> [1] 1
+```
+
+```
+[1] 1
 ```
 
 That's surprising.
@@ -261,7 +315,10 @@ Let's have a closer look:
 
 ```r
 typeof(primes)
-#> [1] "double"
+```
+
+```
+[1] "double"
 ```
 
 That's also unexpected:
@@ -277,8 +334,11 @@ We can prove this by creating and displaying a much longer vector:
 ```r
 c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-#>  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
-#> [24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
+[24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10
 ```
 
 In order to help us find out way in our data,
@@ -300,25 +360,37 @@ let's create a list of color names and index that:
 ```python
 colors = ["eburnean", "glaucous", "wenge"]
 print(colors[0])
-#> eburnean
+```
+
+```
+eburnean
 ```
 
 ```python
 print(colors[2])
-#> wenge
+```
+
+```
+wenge
 ```
 
 ```python
 colors[3]
-#> IndexError: list index out of range
-#> 
-#> Detailed traceback: 
-#>   File "<string>", line 1, in <module>
+```
+
+```
+IndexError: list index out of range
+
+Detailed traceback: 
+  File "<string>", line 1, in <module>
 ```
 
 ```python
 print(colors[-1])
-#> wenge
+```
+
+```
+wenge
 ```
 
 Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprising results:
@@ -327,12 +399,18 @@ Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprisin
 ```r
 colors <- c("eburnean", "glaucous", "wenge")
 colors[1]
-#> [1] "eburnean"
+```
+
+```
+[1] "eburnean"
 ```
 
 ```r
 colors[3]
-#> [1] "wenge"
+```
+
+```
+[1] "wenge"
 ```
 
 What happens if we go off the end?
@@ -340,7 +418,10 @@ What happens if we go off the end?
 
 ```r
 colors[4]
-#> [1] NA
+```
+
+```
+[1] NA
 ```
 
 R handles gaps in data using the special value [`NA`](#g:NA) (short for "not available"),
@@ -354,7 +435,10 @@ we use a negative index to indicate a value that we don't want:
 
 ```r
 colors[-1]
-#> [1] "glaucous" "wenge"
+```
+
+```
+[1] "glaucous" "wenge"   
 ```
 
 But wait.
@@ -366,7 +450,10 @@ What happens if the index itself contains more than one value?
 
 ```r
 colors[1, 2]
-#> Error in colors[1, 2]: incorrect number of dimensions
+```
+
+```
+Error in colors[1, 2]: incorrect number of dimensions
 ```
 
 That didn't work because R interprets the subscript `[i, j]` as being row and column indices,
@@ -376,7 +463,10 @@ What if we create a vector with `c(...)` and use that as a subscript?
 
 ```r
 colors[c(3, 1, 2)]
-#> [1] "wenge"    "eburnean" "glaucous"
+```
+
+```
+[1] "wenge"    "eburnean" "glaucous"
 ```
 
 That works, and allows us to repeat elements:
@@ -384,7 +474,10 @@ That works, and allows us to repeat elements:
 
 ```r
 colors[c(1, 1, 1)]
-#> [1] "eburnean" "eburnean" "eburnean"
+```
+
+```
+[1] "eburnean" "eburnean" "eburnean"
 ```
 
 Note that this is [pull indexing](#g:pull-indexing),
@@ -399,7 +492,10 @@ We can also select out several elements:
 
 ```r
 colors[c(-1, -2)]
-#> [1] "wenge"
+```
+
+```
+[1] "wenge"
 ```
 
 What we *cannot* do is simultaneously select elements in (with positive indices) and out (with negative ones):
@@ -407,7 +503,10 @@ What we *cannot* do is simultaneously select elements in (with positive indices)
 
 ```r
 colors[c(1, -1)]
-#> Error in colors[c(1, -1)]: only 0's may be mixed with negative subscripts
+```
+
+```
+Error in colors[c(1, -1)]: only 0's may be mixed with negative subscripts
 ```
 
 That error message is suggestive:
@@ -416,7 +515,10 @@ what happens if we use 0 as an index?
 
 ```r
 colors[0]
-#> character(0)
+```
+
+```
+character(0)
 ```
 
 In order to understand this rather cryptic response,
@@ -426,7 +528,10 @@ with a positive argument:
 
 ```r
 character(3)
-#> [1] "" "" ""
+```
+
+```
+[1] "" "" ""
 ```
 
 Ah---it appears that `character(N)` constructs a vector of empty strings of the specified length.
@@ -441,7 +546,10 @@ let's try indexing with 0 and 1 together:
 
 ```r
 colors[c(0, 1)]
-#> [1] "eburnean"
+```
+
+```
+[1] "eburnean"
 ```
 
 So when 0 is mixed with either positive or negative indices, it is ignored,
@@ -451,7 +559,10 @@ What if in-bounds and out-of-bounds indices are mixed?
 
 ```r
 colors[c(1, 10)]
-#> [1] "eburnean" NA
+```
+
+```
+[1] "eburnean" NA        
 ```
 
 That is consistent with the behavior of single indices.
@@ -467,7 +578,10 @@ to write:
 original = [3, 5, 7, 9]
 doubled = [2 * x for x in original]
 print(doubled)
-#> [6, 10, 14, 18]
+```
+
+```
+[6, 10, 14, 18]
 ```
 
 instead of:
@@ -478,7 +592,10 @@ doubled = []
 for x in original:
   doubled.append(2 * x)
 print(doubled)
-#> [6, 10, 14, 18]
+```
+
+```
+[6, 10, 14, 18]
 ```
 
 If `original` is a NumPy array,
@@ -496,7 +613,10 @@ R provides the same capability in the language itself:
 original <- c(3, 5, 7, 9)
 doubled <- 2 * original
 doubled
-#> [1]  6 10 14 18
+```
+
+```
+[1]  6 10 14 18
 ```
 
 Modern R strongly encourages us to [vectorize](#g:vectorize) computations in this way,
@@ -510,7 +630,10 @@ all arithmetic operations work element by element on vectors:
 tens <- c(10, 20, 30)
 hundreds <- c(100, 200, 300)
 tens + hundreds / (tens * hundreds)
-#> [1] 10.10000 20.05000 30.03333
+```
+
+```
+[1] 10.10000 20.05000 30.03333
 ```
 
 If two vectors of unequal length are used together,
@@ -522,9 +645,15 @@ shouldn't be done if the vectors don't line up nicely:
 ```r
 thousands <- c(1000, 2000)
 hundreds + thousands
-#> Warning in hundreds + thousands: longer object length is not a multiple of
-#> shorter object length
-#> [1] 1100 2200 1300
+```
+
+```
+Warning in hundreds + thousands: longer object length is not a multiple of
+shorter object length
+```
+
+```
+[1] 1100 2200 1300
 ```
 
 R also provides vectorized alternatives to `if`-`else` statements.
@@ -534,9 +663,18 @@ it selects elements corresponding to `TRUE` values:
 
 ```r
 colors # as a reminder
-#> [1] "eburnean" "glaucous" "wenge"
+```
+
+```
+[1] "eburnean" "glaucous" "wenge"   
+```
+
+```r
 colors[c(TRUE, FALSE, TRUE)]
-#> [1] "eburnean" "wenge"
+```
+
+```
+[1] "eburnean" "wenge"   
 ```
 
 This is (unsurprisingly) called [logical indexing](#g:logical-indexing),
@@ -549,9 +687,18 @@ and a corresponding value from another vector if the condition is `FALSE`:
 ```r
 before_letter_m <- colors < "m"
 before_letter_m # to show the index
-#> [1]  TRUE  TRUE FALSE
+```
+
+```
+[1]  TRUE  TRUE FALSE
+```
+
+```r
 ifelse(before_letter_m, colors, c("comes", "after", "m"))
-#> [1] "eburnean" "glaucous" "m"
+```
+
+```
+[1] "eburnean" "glaucous" "m"       
 ```
 
 All three vectors are of the same length,
@@ -560,7 +707,10 @@ and the first (the condition) is usually constructed using the values of one or 
 
 ```r
 ifelse(colors < "m", colors, toupper(colors))
-#> [1] "eburnean" "glaucous" "WENGE"
+```
+
+```
+[1] "eburnean" "glaucous" "WENGE"   
 ```
 
 ![Vector Conditionals](../figures/basics/if-else.svg)
@@ -576,7 +726,10 @@ though testing that statement produces a rather odd result:
 
 ```r
 NULL == integer(0)
-#> logical(0)
+```
+
+```
+logical(0)
 ```
 
 The safe way to test if something is `NULL` is to use the function `is.null`:
@@ -584,7 +737,10 @@ The safe way to test if something is `NULL` is to use the function `is.null`:
 
 ```r
 is.null(NULL)
-#> [1] TRUE
+```
+
+```
+[1] TRUE
 ```
 
 Circling back,
@@ -594,7 +750,10 @@ the safe way to test whether a value is `NA` is *not* to use direct comparison:
 ```r
 threshold <- 1.75
 threshold == NA
-#> [1] NA
+```
+
+```
+[1] NA
 ```
 
 The result is `NA` because if we don't know what the value is,
@@ -605,9 +764,18 @@ we should always use the function `is.na`:
 
 ```r
 is.na(threshold)
-#> [1] FALSE
+```
+
+```
+[1] FALSE
+```
+
+```r
 is.na(NA)
-#> [1] TRUE
+```
+
+```
+[1] TRUE
 ```
 
 {% include links.md %}

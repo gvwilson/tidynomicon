@@ -27,7 +27,10 @@ You can put Python code in RMarkdown documents:
 
 ```python
 print("Hello R")
-#> Hello R
+```
+
+```
+Hello R
 ```
 
 but how can those chunks interact with your R and vice versa?
@@ -40,8 +43,11 @@ it uses the system-default Python:
 
 ```r
 Sys.which("python")
-#>                                 python 
-#> "/Users/gvwilson/anaconda3/bin/python"
+```
+
+```
+                                python 
+"/Users/gvwilson/anaconda3/bin/python" 
 ```
 
 but you can configure it to use different versions,
@@ -59,12 +65,15 @@ let's read our infant HIV data into a Pandas data frame:
 import pandas
 data = pandas.read_csv('tidy/infant_hiv.csv')
 print(data.head())
-#>   country  year  estimate  hi  lo
-#> 0     AFG  2009       NaN NaN NaN
-#> 1     AFG  2010       NaN NaN NaN
-#> 2     AFG  2011       NaN NaN NaN
-#> 3     AFG  2012       NaN NaN NaN
-#> 4     AFG  2013       NaN NaN NaN
+```
+
+```
+  country  year  estimate  hi  lo
+0     AFG  2009       NaN NaN NaN
+1     AFG  2010       NaN NaN NaN
+2     AFG  2011       NaN NaN NaN
+3     AFG  2012       NaN NaN NaN
+4     AFG  2013       NaN NaN NaN
 ```
 
 All of our Python variables are available in our R session as part of the `py` object,
@@ -74,13 +83,16 @@ so `py$data` is our data frame inside a chunk of R code:
 ```r
 library(reticulate)
 head(py$data)
-#>   country year estimate  hi  lo
-#> 1     AFG 2009      NaN NaN NaN
-#> 2     AFG 2010      NaN NaN NaN
-#> 3     AFG 2011      NaN NaN NaN
-#> 4     AFG 2012      NaN NaN NaN
-#> 5     AFG 2013      NaN NaN NaN
-#> 6     AFG 2014      NaN NaN NaN
+```
+
+```
+  country year estimate  hi  lo
+1     AFG 2009      NaN NaN NaN
+2     AFG 2010      NaN NaN NaN
+3     AFG 2011      NaN NaN NaN
+4     AFG 2012      NaN NaN NaN
+5     AFG 2013      NaN NaN NaN
+6     AFG 2014      NaN NaN NaN
 ```
 
 reticulate handles type conversions automatically,
@@ -104,7 +116,10 @@ Hydrogen is in position 1 in R:
 
 ```r
 elements[1]
-#> [1] "hydrogen"
+```
+
+```
+[1] "hydrogen"
 ```
 
 but position 0 in Python:
@@ -112,7 +127,10 @@ but position 0 in Python:
 
 ```python
 print(r.elements[0])
-#> hydrogen
+```
+
+```
+hydrogen
 ```
 
 Note our use of the object `r` in our Python code:
@@ -132,7 +150,10 @@ we can use Python's random number generator in R as follows:
 ```r
 pyrand <- import("random")
 pyrand$gauss(0, 1)
-#> [1] -0.3418686
+```
+
+```
+[1] 0.4955527
 ```
 
 (There's no reason to do this---R's random number generator is just as strong---but it illustrates the point.)
@@ -164,24 +185,27 @@ that function and all other top-level variables defined in the script are now av
 
 ```r
 get_countries('tidy/infant_hiv.csv')
-#>   [1] "AFG" "AGO" "AIA" "ALB" "ARE" "ARG" "ARM" "ATG" "AUS" "AUT" "AZE"
-#>  [12] "BDI" "BEL" "BEN" "BFA" "BGD" "BGR" "BHR" "BHS" "BIH" "BLR" "BLZ"
-#>  [23] "BOL" "BRA" "BRB" "BRN" "BTN" "BWA" "CAF" "CAN" "CHE" "CHL" "CHN"
-#>  [34] "CIV" "CMR" "COD" "COG" "COK" "COL" "COM" "CPV" "CRI" "CUB" "CYP"
-#>  [45] "CZE" "DEU" "DJI" "DMA" "DNK" "DOM" "DZA" "ECU" "EGY" "ERI" "ESP"
-#>  [56] "EST" "ETH" "FIN" "FJI" "FRA" "FSM" "GAB" "GBR" "GEO" "GHA" "GIN"
-#>  [67] "GMB" "GNB" "GNQ" "GRC" "GRD" "GTM" "GUY" "HND" "HRV" "HTI" "HUN"
-#>  [78] "IDN" "IND" "IRL" "IRN" "IRQ" "ISL" "ISR" "ITA" "JAM" "JOR" "JPN"
-#>  [89] "KAZ" "KEN" "KGZ" "KHM" "KIR" "KNA" "KOR" "LAO" "LBN" "LBR" "LBY"
-#> [100] "LCA" "LKA" "LSO" "LTU" "LUX" "LVA" "MAR" "MDA" "MDG" "MDV" "MEX"
-#> [111] "MHL" "MKD" "MLI" "MLT" "MMR" "MNE" "MNG" "MOZ" "MRT" "MUS" "MWI"
-#> [122] "MYS" "NAM" "NER" "NGA" "NIC" "NIU" "NLD" "NOR" "NPL" "NRU" "NZL"
-#> [133] "OMN" "PAK" "PAN" "PER" "PHL" "PLW" "PNG" "POL" "PRK" "PRT" "PRY"
-#> [144] "PSE" "ROU" "RUS" "RWA" "SAU" "SDN" "SEN" "SGP" "SLB" "SLE" "SLV"
-#> [155] "SOM" "SRB" "SSD" "STP" "SUR" "SVK" "SVN" "SWE" "SWZ" "SYC" "SYR"
-#> [166] "TCD" "TGO" "THA" "TJK" "TKM" "TLS" "TON" "TTO" "TUN" "TUR" "TUV"
-#> [177] "TZA" "UGA" "UKR" "UNK" "URY" "USA" "UZB" "VCT" "VEN" "VNM" "VUT"
-#> [188] "WSM" "YEM" "ZAF" "ZMB" "ZWE"
+```
+
+```
+  [1] "AFG" "AGO" "AIA" "ALB" "ARE" "ARG" "ARM" "ATG" "AUS" "AUT" "AZE"
+ [12] "BDI" "BEL" "BEN" "BFA" "BGD" "BGR" "BHR" "BHS" "BIH" "BLR" "BLZ"
+ [23] "BOL" "BRA" "BRB" "BRN" "BTN" "BWA" "CAF" "CAN" "CHE" "CHL" "CHN"
+ [34] "CIV" "CMR" "COD" "COG" "COK" "COL" "COM" "CPV" "CRI" "CUB" "CYP"
+ [45] "CZE" "DEU" "DJI" "DMA" "DNK" "DOM" "DZA" "ECU" "EGY" "ERI" "ESP"
+ [56] "EST" "ETH" "FIN" "FJI" "FRA" "FSM" "GAB" "GBR" "GEO" "GHA" "GIN"
+ [67] "GMB" "GNB" "GNQ" "GRC" "GRD" "GTM" "GUY" "HND" "HRV" "HTI" "HUN"
+ [78] "IDN" "IND" "IRL" "IRN" "IRQ" "ISL" "ISR" "ITA" "JAM" "JOR" "JPN"
+ [89] "KAZ" "KEN" "KGZ" "KHM" "KIR" "KNA" "KOR" "LAO" "LBN" "LBR" "LBY"
+[100] "LCA" "LKA" "LSO" "LTU" "LUX" "LVA" "MAR" "MDA" "MDG" "MDV" "MEX"
+[111] "MHL" "MKD" "MLI" "MLT" "MMR" "MNE" "MNG" "MOZ" "MRT" "MUS" "MWI"
+[122] "MYS" "NAM" "NER" "NGA" "NIC" "NIU" "NLD" "NOR" "NPL" "NRU" "NZL"
+[133] "OMN" "PAK" "PAN" "PER" "PHL" "PLW" "PNG" "POL" "PRK" "PRT" "PRY"
+[144] "PSE" "ROU" "RUS" "RWA" "SAU" "SDN" "SEN" "SGP" "SLB" "SLE" "SLV"
+[155] "SOM" "SRB" "SSD" "STP" "SUR" "SVK" "SVN" "SWE" "SWZ" "SYC" "SYR"
+[166] "TCD" "TGO" "THA" "TJK" "TKM" "TLS" "TON" "TTO" "TUN" "TUR" "TUV"
+[177] "TZA" "UGA" "UKR" "UNK" "URY" "USA" "UZB" "VCT" "VEN" "VNM" "VUT"
+[188] "WSM" "YEM" "ZAF" "ZMB" "ZWE"
 ```
 
 There is one small pothole in this.

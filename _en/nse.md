@@ -36,7 +36,10 @@ def tens_func(tens_arg):
 initial = "start"
 final = tens_func(initial + " more")
 print(final)
-#> start more tens ones
+```
+
+```
+start more tens ones
 ```
 
 When we call `tens_func` we pass it `initial + " more"`;
@@ -126,7 +129,10 @@ tens_func <- function(tens_arg) {
 initial <- "start"
 final <- tens_func(paste(initial, "more"))
 print(final)
-#> [1] "start more tens ones"
+```
+
+```
+[1] "start more tens ones"
 ```
 
 And here it is with the intermediate steps spelled out in a syntax I just made up:
@@ -302,7 +308,10 @@ Displaying the value of `my_expr` isn't very exciting:
 
 ```r
 my_expr
-#> a
+```
+
+```
+a
 ```
 
 but what kind of thing is it?
@@ -310,7 +319,10 @@ but what kind of thing is it?
 
 ```r
 typeof(my_expr)
-#> [1] "symbol"
+```
+
+```
+[1] "symbol"
 ```
 
 A symbol is a kind of expression.
@@ -321,7 +333,10 @@ If we try to get the value it refers to, R displays an error message:
 
 ```r
 eval(my_expr)
-#> Error in eval(my_expr): object 'a' not found
+```
+
+```
+Error in eval(my_expr): object 'a' not found
 ```
 
 We haven't created a variable called `my_expr`,
@@ -333,7 +348,10 @@ But what if we create such a variable now and then re-evaluate the expression?
 ```r
 a <- "this is a"
 eval(my_expr)
-#> [1] "this is a"
+```
+
+```
+[1] "this is a"
 ```
 
 More usefully,
@@ -347,11 +365,14 @@ my_data <- tribble(
   2,  20
 )
 my_data
-#> # A tibble: 2 x 2
-#>       a     b
-#>   <dbl> <dbl>
-#> 1     1    10
-#> 2     2    20
+```
+
+```
+# A tibble: 2 x 2
+      a     b
+  <dbl> <dbl>
+1     1    10
+2     2    20
 ```
 
 and then ask R to evaluate our expression in the **context** of that tibble:
@@ -359,7 +380,10 @@ and then ask R to evaluate our expression in the **context** of that tibble:
 
 ```r
 eval(my_expr, my_data)
-#> [1] 1 2
+```
+
+```
+[1] 1 2
 ```
 
 When we do this,
@@ -378,7 +402,10 @@ let's create another expression:
 ```r
 add_a_b <- expr(a + b)
 typeof(add_a_b)
-#> [1] "language"
+```
+
+```
+[1] "language"
 ```
 
 The type of `add_a_b` is `language` rather than `symbol` because it contains more than just a symbol,
@@ -388,7 +415,10 @@ so we can evaluate it in the context of our data frame:
 
 ```r
 eval(add_a_b, my_data)
-#> [1] 11 22
+```
+
+```
+[1] 11 22
 ```
 
 Still not convinced?
@@ -413,11 +443,14 @@ and returns a vector of results:
 
 ```r
 run_many_checks(my_data, expr(0 < a), expr(a < b))
-#> [[1]]
-#> [1] TRUE TRUE
-#> 
-#> [[2]]
-#> [1] TRUE TRUE
+```
+
+```
+[[1]]
+[1] TRUE TRUE
+
+[[2]]
+[1] TRUE TRUE
 ```
 
 We can take it one step further and simply report whether the checks passed or not:
@@ -434,7 +467,10 @@ run_all_checks <- function(data, ...) {
 }
 
 run_all_checks(my_data, expr(0 < a), expr(a < b))
-#> [1] TRUE
+```
+
+```
+[1] TRUE
 ```
 
 Just to make sure it's actually working, we'll try something that ought to fail:
@@ -442,7 +478,10 @@ Just to make sure it's actually working, we'll try something that ought to fail:
 
 ```r
 run_all_checks(my_data, expr(b < 0))
-#> [1] FALSE
+```
+
+```
+[1] FALSE
 ```
 
 This is cool, but typing `expr(...)` over and over is kind of clumsy.
@@ -468,8 +507,11 @@ but it's going to take a bit of work.
 > ```r
 > conditions <- list(expr(a + b))
 > eval(conditions[1], my_data)
-> #> [[1]]
-> #> a + b
+> ```
+> 
+> ```
+> [[1]]
+> a + b
 > ```
 >
 > What I did wrong was use `[` instead of `[[`,
@@ -478,8 +520,11 @@ but it's going to take a bit of work.
 > 
 > ```r
 > conditions[1]
-> #> [[1]]
-> #> a + b
+> ```
+> 
+> ```
+> [[1]]
+> a + b
 > ```
 >
 > It turns out that evaluating a list containing an expression produces a list of expressions rather than an error,
@@ -498,11 +543,14 @@ both_hands <- tribble(
   2,     20
 )
 both_hands
-#> # A tibble: 2 x 2
-#>    left right
-#>   <dbl> <dbl>
-#> 1     1    10
-#> 2     2    20
+```
+
+```
+# A tibble: 2 x 2
+   left right
+  <dbl> <dbl>
+1     1    10
+2     2    20
 ```
 
 We want to be able to write this:
@@ -528,7 +576,10 @@ When we try it, it fails:
 
 ```r
 check_naive(both_hands, left != right)
-#> Error in eval(test, data): object 'left' not found
+```
+
+```
+Error in eval(test, data): object 'left' not found
 ```
 
 This makes sense:
@@ -550,7 +601,10 @@ check_using_substitute <- function(data, test) {
   eval(subst_test, data)
 }
 check_using_substitute(both_hands, left != right)
-#> [1] TRUE TRUE
+```
+
+```
+[1] TRUE TRUE
 ```
 
 However,
@@ -569,9 +623,12 @@ check_using_enquo <- function(data, test) {
   eval(q_test, data)
 }
 check_using_enquo(both_hands, left != right)
-#> <quosure>
-#> expr: ^left != right
-#> env:  global
+```
+
+```
+<quosure>
+expr: ^left != right
+env:  global
 ```
 
 Ah: a quosure is a structured object,
@@ -586,7 +643,10 @@ check_using_quo_get_expr <- function(data, test) {
   eval(quo_get_expr(q_test), data)
 }
 check_using_quo_get_expr(list(left = 1, right = 2), left != right)
-#> [1] TRUE
+```
+
+```
+Error in quo_get_expr(q_test): could not find function "quo_get_expr"
 ```
 
 All right:
@@ -597,11 +657,14 @@ our test data looks like this:
 
 ```r
 both_hands
-#> # A tibble: 2 x 2
-#>    left right
-#>   <dbl> <dbl>
-#> 1     1    10
-#> 2     2    20
+```
+
+```
+# A tibble: 2 x 2
+   left right
+  <dbl> <dbl>
+1     1    10
+2     2    20
 ```
 
 Our first attempt (which only handles a single test) is a deliberate failure:
@@ -612,7 +675,10 @@ check_without_quoting_test <- function(data, test) {
   data %>% transmute(result = test) %>% pull(result) %>% all()
 }
 check_without_quoting_test(both_hands, left < right)
-#> Error in mutate_impl(.data, dots): object 'left' not found
+```
+
+```
+Error in mutate_impl(.data, dots): object 'left' not found
 ```
 
 Good:
@@ -628,7 +694,10 @@ check_without_quoting_test <- function(data, test) {
   data %>% transmute(result = x_test) %>% pull(result) %>% all()
 }
 check_without_quoting_test(both_hands, left < right)
-#> Error in mutate_impl(.data, dots): Column `result` is of unsupported type quoted call
+```
+
+```
+Error in quo_get_expr(q_test): could not find function "quo_get_expr"
 ```
 
 Damn---we thought this one had a chance.
@@ -652,7 +721,10 @@ check_using_bangbang <- function(data, test) {
   data %>% transmute(result = !!q_test) %>% pull(result) %>% all()
 }
 check_using_bangbang(both_hands, left < right)
-#> [1] TRUE
+```
+
+```
+[1] TRUE
 ```
 
 We are almost in a state of grace.
@@ -673,7 +745,10 @@ check_all <- function(data, ...) {
 }
 
 check_all(both_hands, 0 < left, left < right)
-#> [1] TRUE
+```
+
+```
+[1] TRUE
 ```
 
 And just to make sure that it fails when it's supposed to:
@@ -681,7 +756,10 @@ And just to make sure that it fails when it's supposed to:
 
 ```r
 check_all(both_hands, left > right)
-#> [1] FALSE
+```
+
+```
+[1] FALSE
 ```
 
 Backing up a bit,
@@ -697,8 +775,14 @@ This is why we can't use variables as field names with `$`:
 ```r
 the_string_left <- "left"
 both_hands$the_string_left
-#> Warning: Unknown or uninitialised column: 'the_string_left'.
-#> NULL
+```
+
+```
+Warning: Unknown or uninitialised column: 'the_string_left'.
+```
+
+```
+NULL
 ```
 
 The square bracket operators `[` and `[[`, on the other hand,
@@ -708,11 +792,14 @@ so we can give them a variable containing a column name and get either a single-
 
 ```r
 both_hands[the_string_left]     # single square brackets
-#> # A tibble: 2 x 1
-#>    left
-#>   <dbl>
-#> 1     1
-#> 2     2
+```
+
+```
+# A tibble: 2 x 1
+   left
+  <dbl>
+1     1
+2     2
 ```
 
 or a naked vector:
@@ -720,7 +807,10 @@ or a naked vector:
 
 ```r
 both_hands[[the_string_left]]   # double square brackets
-#> [1] 1 2
+```
+
+```
+[1] 1 2
 ```
 
 ## What have we learned?

@@ -60,10 +60,8 @@ keypoints:
   - "Use `%>%` to create pipelines in which the left side of each `%>%` becomes the first argument of the next stage."
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/tidyverse/")
+```{r setup, include=FALSE}
+source("common.R")
 ```
 
 There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.

@@ -19,10 +19,8 @@ keypoints:
   - "'Copy-on-modify' means that data is aliased until something attempts to modify it, at which point it duplicated, so that data always appears to be unchanged."
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/debt/")
+```{r setup, include=FALSE}
+source("common.R")
 library(tidyverse)
 ```
 
@@ -177,7 +175,7 @@ raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
 
 And also changes the order of bars in a bar chart:
 
-```{r}
+```{r simple_bar_chart}
 raw %>%
   group_by(flavor) %>%
   summarize(number = n(), average = mean(ranking)) %>%

@@ -80,11 +80,14 @@ temp <- tribble(
   2,     20
 )
 temp
-#> # A tibble: 2 x 2
-#>    left right
-#>   <dbl> <dbl>
-#> 1     1    10
-#> 2     2    20
+```
+
+```
+# A tibble: 2 x 2
+   left right
+  <dbl> <dbl>
+1     1    10
+2     2    20
 ```
 
 Used cautiously and with restraint,
@@ -143,17 +146,20 @@ raw <- tribble(
   "Haddad", "vanilla",     2.1
 )
 raw
-#> # A tibble: 8 x 3
-#>   person  flavor     ranking
-#>   <chr>   <chr>        <dbl>
-#> 1 Lhawang strawberry     1.7
-#> 2 Lhawang chocolate      2.5
-#> 3 Lhawang mustard        0.2
-#> 4 Khadee  strawberry     2.1
-#> 5 Khadee  chocolate      2.4
-#> 6 Khadee  vanilla        3.9
-#> 7 Haddad  strawberry     1.8
-#> 8 Haddad  vanilla        2.1
+```
+
+```
+# A tibble: 8 x 3
+  person  flavor     ranking
+  <chr>   <chr>        <dbl>
+1 Lhawang strawberry     1.7
+2 Lhawang chocolate      2.5
+3 Lhawang mustard        0.2
+4 Khadee  strawberry     2.1
+5 Khadee  chocolate      2.4
+6 Khadee  vanilla        3.9
+7 Haddad  strawberry     1.8
+8 Haddad  vanilla        2.1
 ```
 
 Let's aggregate using flavor values so that we can check our factor-based aggregating later:
@@ -161,13 +167,16 @@ Let's aggregate using flavor values so that we can check our factor-based aggreg
 
 ```r
 raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
-#> # A tibble: 4 x 3
-#>   flavor     number average
-#>   <chr>       <int>   <dbl>
-#> 1 chocolate       2    2.45
-#> 2 mustard         1    0.2 
-#> 3 strawberry      3    1.87
-#> 4 vanilla         2    3
+```
+
+```
+# A tibble: 4 x 3
+  flavor     number average
+  <chr>       <int>   <dbl>
+1 chocolate       2    2.45
+2 mustard         1    0.2 
+3 strawberry      3    1.87
+4 vanilla         2    3   
 ```
 
 
@@ -179,17 +188,20 @@ but the `flavor` column is a good candidate:
 ```r
 raw <- mutate_at(raw, vars(flavor), as.factor)
 raw
-#> # A tibble: 8 x 3
-#>   person  flavor     ranking
-#>   <chr>   <fct>        <dbl>
-#> 1 Lhawang strawberry     1.7
-#> 2 Lhawang chocolate      2.5
-#> 3 Lhawang mustard        0.2
-#> 4 Khadee  strawberry     2.1
-#> 5 Khadee  chocolate      2.4
-#> 6 Khadee  vanilla        3.9
-#> 7 Haddad  strawberry     1.8
-#> 8 Haddad  vanilla        2.1
+```
+
+```
+# A tibble: 8 x 3
+  person  flavor     ranking
+  <chr>   <fct>        <dbl>
+1 Lhawang strawberry     1.7
+2 Lhawang chocolate      2.5
+3 Lhawang mustard        0.2
+4 Khadee  strawberry     2.1
+5 Khadee  chocolate      2.4
+6 Khadee  vanilla        3.9
+7 Haddad  strawberry     1.8
+8 Haddad  vanilla        2.1
 ```
 
 We can still aggregate as we did before:
@@ -197,13 +209,16 @@ We can still aggregate as we did before:
 
 ```r
 raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
-#> # A tibble: 4 x 3
-#>   flavor     number average
-#>   <fct>       <int>   <dbl>
-#> 1 chocolate       2    2.45
-#> 2 mustard         1    0.2 
-#> 3 strawberry      3    1.87
-#> 4 vanilla         2    3
+```
+
+```
+# A tibble: 4 x 3
+  flavor     number average
+  <fct>       <int>   <dbl>
+1 chocolate       2    2.45
+2 mustard         1    0.2 
+3 strawberry      3    1.87
+4 vanilla         2    3   
 ```
 
 We can also impose an ordering on the factor's elements:
@@ -218,13 +233,16 @@ This changes the order in which they are displayed after grouping:
 
 ```r
 raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
-#> # A tibble: 4 x 3
-#>   flavor     number average
-#>   <fct>       <int>   <dbl>
-#> 1 chocolate       2    2.45
-#> 2 strawberry      3    1.87
-#> 3 vanilla         2    3   
-#> 4 mustard         1    0.2
+```
+
+```
+# A tibble: 4 x 3
+  flavor     number average
+  <fct>       <int>   <dbl>
+1 chocolate       2    2.45
+2 strawberry      3    1.87
+3 vanilla         2    3   
+4 mustard         1    0.2 
 ```
 
 And also changes the order of bars in a bar chart:
@@ -238,7 +256,7 @@ raw %>%
   geom_col(mapping = aes(x = flavor, y = average))
 ```
 
-![plot of chunk unnamed-chunk-11](../figures/debt/unnamed-chunk-11-1.png)
+![plot of chunk simple_bar_chart](../figures/debt//simple_bar_chart-1.png)
 
 
 To learn more about how factors work and how to use them when analyzing categorical data,
@@ -271,7 +289,10 @@ data %>%
   transmute(id = row_number()) %>%
   filter(empties) %>%
   pull(id)
-#> [1] 1
+```
+
+```
+[1] 1
 ```
 
 This builds a logical vector `empties` with as many entries as `data` has rows,
@@ -295,7 +316,10 @@ data %>%
   mutate(id = row_number()) %>%
   filter(empty) %>%
   pull(id)
-#> [1] 1
+```
+
+```
+[1] 1
 ```
 
 In this model,
@@ -315,11 +339,14 @@ We're better off using `rowid_to_column`:
 
 ```r
 data %>% rowid_to_column()
-#> # A tibble: 2 x 3
-#>   rowid  left right
-#>   <int> <dbl> <dbl>
-#> 1     1     1    NA
-#> 2     2     2    20
+```
+
+```
+# A tibble: 2 x 3
+  rowid  left right
+  <int> <dbl> <dbl>
+1     1     1    NA
+2     2     2    20
 ```
 
 ## How does R give the appearance of immutable data?
@@ -335,10 +362,19 @@ Here's a simple example:
 first <- c("red", "green", "blue")
 second <- first
 cat("before modification, first is", first, "and second is", second, "\n")
-#> before modification, first is red green blue and second is red green blue
+```
+
+```
+before modification, first is red green blue and second is red green blue 
+```
+
+```r
 first[[1]] <- "sulphurous"
 cat("after modification, first is", first, "and second is", second, "\n")
-#> after modification, first is sulphurous green blue and second is red green blue
+```
+
+```
+after modification, first is sulphurous green blue and second is red green blue 
 ```
 
 This is true of nested structures as well:
@@ -352,19 +388,34 @@ first <- tribble(
 second <- first
 first$left[[1]] <- 999
 cat("after modification\n")
-#> after modification
+```
+
+```
+after modification
+```
+
+```r
 first
-#> # A tibble: 2 x 2
-#>    left right
-#>   <dbl> <dbl>
-#> 1   999   202
-#> 2   303   404
+```
+
+```
+# A tibble: 2 x 2
+   left right
+  <dbl> <dbl>
+1   999   202
+2   303   404
+```
+
+```r
 second
-#> # A tibble: 2 x 2
-#>    left right
-#>   <dbl> <dbl>
-#> 1   101   202
-#> 2   303   404
+```
+
+```
+# A tibble: 2 x 2
+   left right
+  <dbl> <dbl>
+1   101   202
+2   303   404
 ```
 
 In this case,
@@ -377,23 +428,44 @@ We can watch this happen using the pryr library:
 
 ```r
 library(pryr)
-#> 
-#> Attaching package: 'pryr'
-#> The following objects are masked from 'package:purrr':
-#> 
-#>     compose, partial
+```
+
+```
+
+Attaching package: 'pryr'
+```
+
+```
+The following objects are masked from 'package:purrr':
+
+    compose, partial
+```
+
+```r
 first <- tribble(
   ~left, ~right,
   101,   202,
   303,   404
 )
 tracemem(first)
-#> [1] "<0x7f83288fc908>"
+```
+
+```
+[1] "<0x7fe13d16b708>"
+```
+
+```r
 first$left[[1]] <- 999
-#> tracemem[0x7f83288fc908 -> 0x7f8328e99d08]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7f8328e99d08 -> 0x7f8328e99c88]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7f8328e99c88 -> 0x7f8328e99bc8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-#> tracemem[0x7f8328e99bc8 -> 0x7f8328e99b48]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+```
+
+```
+tracemem[0x7fe13d16b708 -> 0x7fe13d24f708]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+tracemem[0x7fe13d24f708 -> 0x7fe13d24f688]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+tracemem[0x7fe13d24f688 -> 0x7fe13d24f608]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+tracemem[0x7fe13d24f608 -> 0x7fe13d24f5c8]: $<-.data.frame $<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle timing_fn evaluate_call <Anonymous> evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+```
+
+```r
 untracemem(first)
 ```
 
@@ -405,13 +477,28 @@ We can accomplish something a little more readable using `address`:
 ```r
 left <- first$left # alias
 cat("left column is initially at", address(left), "\n")
-#> left column is initially at 0x7f8328e99cc8
+```
+
+```
+left column is initially at 0x7fe13d24f6c8 
+```
+
+```r
 first$left[[2]] <- 888
 cat("after modification, the original column is still at", address(left), "\n")
-#> after modification, the original column is still at 0x7f8328e99cc8
+```
+
+```
+after modification, the original column is still at 0x7fe13d24f6c8 
+```
+
+```r
 temp <- first$left # another alias
 cat("but the first column of the tibble is at", address(temp), "\n")
-#> but the first column of the tibble is at 0x7f8327823588
+```
+
+```
+but the first column of the tibble is at 0x7fe13d254308 
 ```
 
 (We need to use [aliases](#g:alias) because `address(first$left)` doesn't work:
@@ -437,7 +524,10 @@ For example:
 
 ```r
 order(c("g", "c", "t", "a"))
-#> [1] 4 2 1 3
+```
+
+```
+[1] 4 2 1 3
 ```
 shows that the value at location 4 (the `"a"`) belongs in the first spot of the vector;
 it does *not* mean that the value in the first location (the `"g"`) belongs in location 4.
@@ -461,15 +551,24 @@ data <- tribble(
   2,  20
 )
 data %>% summarize(total = sum(n))
-#> # A tibble: 1 x 1
-#>   total
-#>   <dbl>
-#> 1    30
+```
+
+```
+# A tibble: 1 x 1
+  total
+  <dbl>
+1    30
+```
+
+```r
 data %>% summarize(total = sum(n()))
-#> # A tibble: 1 x 1
-#>   total
-#>   <int>
-#> 1     2
+```
+
+```
+# A tibble: 1 x 1
+  total
+  <int>
+1     2
 ```
 
 {% include links.md %}

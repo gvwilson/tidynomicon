@@ -27,10 +27,8 @@ keypoints:
   - "Use `m[,j]` to get a vector containing the values in the j'th column of a matrix."
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/indexing/")
+```{r setup, include=FALSE}
+source("common.R")
 library(tidyverse)
 ```
 

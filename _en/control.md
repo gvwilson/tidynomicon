@@ -50,9 +50,12 @@ for v in values:
     else:
         sign = 1
     print("The sign of", v, "is", sign)
-#> The sign of -15 is -1
-#> The sign of 0 is 0
-#> The sign of 15 is 1
+```
+
+```
+The sign of -15 is -1
+The sign of 0 is 0
+The sign of 15 is 1
 ```
 
 Its direct translation into R is:
@@ -72,11 +75,20 @@ for (v in values) {
   }
   print(paste("The sign of", v, "is", sign))
 }
-#> [1] "The sign of -1 is -1"
-#> [1] "The sign of 0 is 0"
-#> [1] "The sign of 1 is 1"
+```
+
+```
+[1] "The sign of -1 is -1"
+[1] "The sign of 0 is 0"
+[1] "The sign of 1 is 1"
+```
+
+```r
 print(paste("final value of v is", v))
-#> [1] "final value of v is 1"
+```
+
+```
+[1] "final value of v is 1"
 ```
 
 There are a few things to note here:
@@ -110,9 +122,12 @@ colors = c("eburnean", "glaucous", "wenge")
 for (i in seq_along(colors)) {
   print(paste("The length of color", i, "is", length(colors[i])))
 }
-#> [1] "The length of color 1 is 1"
-#> [1] "The length of color 2 is 1"
-#> [1] "The length of color 3 is 1"
+```
+
+```
+[1] "The length of color 1 is 1"
+[1] "The length of color 2 is 1"
+[1] "The length of color 3 is 1"
 ```
 
 This makes no sense at all until we remember that every value is a vector,
@@ -126,9 +141,12 @@ we can use R's built-in `nchar` or the tidyverse function `str_length`:
 for (i in seq_along(colors)) {
   print(paste("The length of color", i, "is", str_length(colors[i])))
 }
-#> [1] "The length of color 1 is 8"
-#> [1] "The length of color 2 is 8"
-#> [1] "The length of color 3 is 5"
+```
+
+```
+[1] "The length of color 1 is 8"
+[1] "The length of color 2 is 8"
+[1] "The length of color 3 is 5"
 ```
 
 `seq_along` returns a vector containing a sequence of integers:
@@ -136,7 +154,10 @@ for (i in seq_along(colors)) {
 
 ```r
 seq_along(colors)
-#> [1] 1 2 3
+```
+
+```
+[1] 1 2 3
 ```
 
 Since sequences of this kind are used frequently,
@@ -145,7 +166,10 @@ R lets us write them using [range expressions](#g:range-expression) like this:
 
 ```r
 5:10
-#> [1]  5  6  7  8  9 10
+```
+
+```
+[1]  5  6  7  8  9 10
 ```
 
 Their most common use is as indices to vectors:
@@ -154,7 +178,10 @@ Their most common use is as indices to vectors:
 ```r
 colors <- c("eburnean", "glaucous", "squamous", "wenge")
 colors[1:3]
-#> [1] "eburnean" "glaucous" "squamous"
+```
+
+```
+[1] "eburnean" "glaucous" "squamous"
 ```
 
 We can similarly subtract a range of colors by index:
@@ -162,7 +189,10 @@ We can similarly subtract a range of colors by index:
 
 ```r
 colors[-1:-3]
-#> [1] "wenge"
+```
+
+```
+[1] "wenge"
 ```
 
 However, R does not allow tripartite expressions of the form `start:end:stride`.
@@ -172,7 +202,10 @@ we must use the `seq` function:
 
 ```r
 seq(1, 10, 3)
-#> [1]  1  4  7 10
+```
+
+```
+[1]  1  4  7 10
 ```
 
 This example also shows that ranges in R are inclusive at both ends,
@@ -201,8 +234,11 @@ numbers <- c(0, 1, 2)
 if (numbers) {
   print("This should not work.")
 }
-#> Warning in if (numbers) {: the condition has length > 1 and only the first
-#> element will be used
+```
+
+```
+Warning in if (numbers) {: the condition has length > 1 and only the first
+element will be used
 ```
 
 Instead,
@@ -214,7 +250,10 @@ numbers <- c(0, 1, 2)
 if (all(numbers >= 0)) {
   print("This, on the other hand, should work.")
 }
-#> [1] "This, on the other hand, should work."
+```
+
+```
+[1] "This, on the other hand, should work."
 ```
 
 The function `all` returns `TRUE` if every element in its argument is `TRUE`;
@@ -230,7 +269,10 @@ we call functions in R much as we do in Python:
 
 ```r
 max(1, 3, 5) + min(1, 3, 5)
-#> [1] 6
+```
+
+```
+[1] 6
 ```
 
 We define a new function using the `function` keyword.
@@ -244,7 +286,10 @@ swap <- function(pair) {
   c(pair[2], pair[1])
 }
 swap(c("left", "right"))
-#> [1] "right" "left"
+```
+
+```
+[1] "right" "left" 
 ```
 
 As this example shows,
@@ -262,13 +307,19 @@ swap <- function(pair) {
   c(pair[2], pair[1])
 }
 swap(c("one"))
-#> NULL
+```
+
+```
+NULL
 ```
 
 
 ```r
 swap(c("left", "right"))
-#> [1] "right" "left"
+```
+
+```
+[1] "right" "left" 
 ```
 
 Returning `NULL` when our function's inputs are invalid as we have done above is foolhardy,
@@ -278,7 +329,10 @@ Consider:
 
 ```r
 NULL[1]                 # Try to access an element of the vector that does not exist.
-#> NULL
+```
+
+```
+NULL
 ```
 
 
@@ -286,7 +340,10 @@ NULL[1]                 # Try to access an element of the vector that does not e
 values <- 5:10          # More than two values.
 result <- swap(values)  # Attempting to swap the values produces NULL.
 result[1]               # But we can operate on the result without error.
-#> NULL
+```
+
+```
+NULL
 ```
 
 We will look at what we should do instead in [s:errors](#REF).
@@ -299,7 +356,10 @@ R complains:
 
 ```r
 swap("one", "two", "three")
-#> Error in swap("one", "two", "three"): unused arguments ("two", "three")
+```
+
+```
+Error in swap("one", "two", "three"): unused arguments ("two", "three")
 ```
 
 (Note that in this example we as passing three values,
@@ -318,10 +378,13 @@ print_with_title <- function(title, ...) {
   cat("\n")
 }
 print_with_title("to-do", "Monday", "Tuesday", "Wednesday")
-#> == to-do ==
-#> Monday
-#> Tuesday
-#> Wednesday
+```
+
+```
+== to-do ==
+Monday
+Tuesday
+Wednesday
 ```
 
 R has a special data structure to represent the extra arguments in `...`.
@@ -338,7 +401,10 @@ add <- function(...) {
   result
 }
 add(1, 3, 5, 7)
-#> [1] 16
+```
+
+```
+[1] 16
 ```
 
 ## How can I provide default values for arguments?
@@ -354,11 +420,26 @@ example <- function(first, second = "second", third = "third") {
 }
 
 example("with just first")
-#> [1] "with just first + second + third"
+```
+
+```
+[1] "with just first + second + third"
+```
+
+```r
 example("with first and second by position", "positional")
-#> [1] "with first and second by position + positional + third"
+```
+
+```
+[1] "with first and second by position + positional + third"
+```
+
+```r
 example("with first and third by name", third = "by name")
-#> [1] "with first and third by name + second + by name"
+```
+
+```
+[1] "with first and third by name + second + by name"
 ```
 
 One caution:
@@ -376,7 +457,10 @@ orange <- function() {
   purple(purple)
 }
 orange()
-#> [1] 110
+```
+
+```
+[1] 110
 ```
 
 ## How can I hide the value that R returns?
@@ -396,7 +480,10 @@ something <- function(value) {
   10 * value
 }
 something(2)
-#> [1] 20
+```
+
+```
+[1] 20
 ```
 
 to this:
@@ -428,7 +515,10 @@ demonstrate <- function() {
 
 demonstrate()
 var
-#> [1] "new value"
+```
+
+```
+[1] "new value"
 ```
 
 This should only and always be done with care:

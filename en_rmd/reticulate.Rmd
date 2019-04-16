@@ -16,10 +16,8 @@ keypoints:
   - "A Python script run from an R session believes it is the main script, i.e., `__name__` is `'__main__'` inside the Python script."
 ---
 
-```{r include=FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-knitr::opts_knit$set(base.url = "../")
-knitr::opts_chunk$set(fig.path = "figures/reticulate/")
+```{r setup, include=FALSE}
+source("common.R")
 library(tidyverse)
 ```
 
