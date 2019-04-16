@@ -101,6 +101,8 @@ and its values are interpreted as follows:
 | hi | double/NA | high end of range |
 | lo | double/NA | low end of range |
 
+We can load this data in Python like this:
+
 
 ```python
 import pandas as pd
@@ -228,10 +230,10 @@ data <- read_csv('tidy/infant_hiv.csv')
 ```
 
 R's `read_csv` tells us more about what it has done than Pandas does.
-In particular, it guesses at columns' data types based on the first thousand values,
+In particular, it guesses the data types of columns based on the first thousand values
 and then tells us what types it has inferred.
 (In a better universe,
-people habitually use the first *two* rows of their spreadsheets for name *and units*,
+people would habitually use the first *two* rows of their spreadsheets for name *and units*,
 but we do not live there.)
 
 We can now look at what `read_csv` has produced.
@@ -775,7 +777,7 @@ data[1]
 #> # … with 1,718 more rows
 ```
 
-But notice that the output is not a vector, but another tibble (i.e., an N-row, 1-column structure).
+But notice that the output is not a vector, but another tibble (i.e., a table with N rows and one column).
 This means that adding another index does column-wise indexing on that tibble:
 
 
@@ -1025,7 +1027,7 @@ mean(estimates)
 #> [1] NA
 ```
 
-It seems that the void is always there, waiting for us...
+The void is always there, waiting for us...
 Let's fix this in R first:
 
 
@@ -1094,7 +1096,6 @@ print((data.hi.isnull() != data.lo.isnull()).any())
 #> False
 ```
 
-
 ```r
 any(is.na(data$hi) != is.na(data$lo))
 #> [1] FALSE
@@ -1103,7 +1104,7 @@ any(is.na(data$hi) != is.na(data$lo))
 ## How do I filter data?
 
 By "[filtering](#g:filter)", we mean "selecting records by value".
-As discussed [earlier](../beginnings/),
+As discussed in [s:basics](#REF),
 the simplest approach is to use a vector of logical values to keep only the values corresponding to `TRUE`.
 In Python, this is:
 
@@ -1272,8 +1273,7 @@ maximal
 #> [1041]   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.95 0.95   NA
 ```
 
-It appears that R has kept the unknown values in order to highlight just how little we know---just how little
-we *can* know.
+It appears that R has kept the unknown values in order to highlight just how little we know.
 More precisely,
 wherever there was an `NA` in the original data
 there is an `NA` in the logical vector
@@ -1352,10 +1352,10 @@ filter(data, lo > 0.5)
 Notice that the expression is `lo > 0.5` rather than `"lo" > 0.5`.
 The latter expression returns the entire table
 because the string `"lo"` is greater than the number 0.5 everywhere.
+
 But wait:
 how is it that `lo` can be used on its own?
 It is the name of a column, but there is no variable called `lo`.
-
 The answer is that R uses [lazy evaluation](#g:lazy-evaluation) of arguments.
 Arguments aren't evaluated until they're needed,
 so the function `filter` actually gets the expression `lo > 0.5`,
@@ -1414,8 +1414,8 @@ data %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.
 #> 1 TTO      2017     0.94  0.95  0.86
 ```
 
-Breaking the condition into stages like this doesn't always make reading easier,
-but it often helps development and testing.
+Breaking the condition into stages like this often makes reading and testing much easier,
+and encourages incremental write-test-extend development.
 
 Let's increase the band from 10% to 20%:
 

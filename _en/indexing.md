@@ -47,14 +47,14 @@ To explain, we must first take a look at lists.
 
 ## How can I store a mix of different types of objects?
 
-A list in R is a vector that can contain values of many different types.
+A [list](#g:list) in R is a vector that can contain values of many different types.
 (The technical term for this is [heterogeneous](#g:heterogeneous),
-in contrast with the [homogeneous](#g:homogeneous) nature of vectors' values.)
+in contrast with a [homogeneous](#g:homogeneous) data structure that can only contain one type of value.)
 We'll use this list in our examples:
 
 
 ```r
-thing <- list("first", c(2, 20, 200), 30)
+thing <- list("first", c(2, 20, 200), 3.3)
 thing
 #> [[1]]
 #> [1] "first"
@@ -63,7 +63,7 @@ thing
 #> [1]   2  20 200
 #> 
 #> [[3]]
-#> [1] 30
+#> [1] 3.3
 ```
 
 The output tells us that the first element of `thing` is a vector of one element,
@@ -81,7 +81,7 @@ thing[[1]]
 thing[[2]]
 #> [1]   2  20 200
 thing[[3]]
-#> [1] 30
+#> [1] 3.3
 ```
 
 Let's have a look at the types of those three values:
@@ -118,7 +118,7 @@ This shows the difference between `[[` and `[`:
 the former peels away a layer of data structure, returning only the sub-structure,
 while the latter gives us back a structure of the same type as the thing being indexed.
 Since a "scalar" is just a vector of length 1,
-there is no difference between the two when they are applied to vectors:
+there is no difference between `[[` and `[` when they are applied to vectors:
 
 
 ```r
@@ -177,7 +177,7 @@ lookup_list$m
 #> [1] "Male"
 ```
 
-We will explore this in more detail when we look at [the tidyverse](../tidyverse/),
+We will explore this in more detail when we look at the tidyverse in [s:tidyverse](#REF),
 since that is where access-by-name is used most often.
 For now,
 simply note that if the name of an element isn't a legal variable name,
@@ -191,7 +191,7 @@ another_list$`first field`
 ```
 
 Wherever possible, it's better to choose names that don't require back-quoting,
-such as `first_first`.
+such as `first_field`.
 
 ## How can I create and index a matrix?
 

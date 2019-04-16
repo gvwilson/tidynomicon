@@ -139,6 +139,9 @@ title: "Glossary"
 :   delaying evaluation of an expression until the value is actually needed
     (or at least until after the point where it is first encountered).
 
+**List**{:#g:list}:
+:   a vector that can contain values of many different types.
+
 **List comprehension**{:#g:list-comprehension}:
 :   an expression that generates a new list from an existing one via an implicit loop.
 

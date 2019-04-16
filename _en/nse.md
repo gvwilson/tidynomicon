@@ -64,33 +64,17 @@ print(final)
 
 Step 1: we assign `"start"` to `initial` at the global level:
 
-```text
-           +--------
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 1](../figures/nse/python-step-01.svg)
 
 Step 2: we ask Python to call `tens_func(initial + "more")`,
 so it creates a temporary variable to hold the result of the concatenation
 *before* calling `tens_func`:
 
-```text
-           +--------
-           | global_temp_1 ----> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 2](../figures/nse/python-step-02.svg)
 
 Step 3: Python creates a new stack frame to hold the call to `tens_func`:
 
-```text
-           +--------
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 3](../figures/nse/python-step-03.svg)
 
 Note that `tens_arg` points to the same thing in memory as `global_temp_1`,
 since Python passes everything by reference.
@@ -98,81 +82,35 @@ since Python passes everything by reference.
 Step 4: we ask Python to call `ones_func(tens_arg + " tens")`,
 so it creates another temporary:
 
-```text
-           +--------
-           | tens_temp_1   ----> value:"start more tens"
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 4](../figures/nse/python-step-04.svg)
 
 Step 5: Python creates a new stack frame to hold the call to `ones_func`:
 
-```text
-           +--------
- ones_func | ones_arg      --+
-           +--------         |
-           | tens_temp_1   --+-> value:"start more tens"
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 5](../figures/nse/python-step-05.svg)
 
-Step 6: Python creates a temporary to hold `ones_arg + 3`:
+Step 6: Python creates a temporary to hold `ones_arg + "ones"`:
 
-```text
-           +--------
-           | ones_temp_1   ----> value:"start more tens ones"
- ones_func | ones_arg      --+
-           +--------         |
-           | tens_temp_1   --+-> value:"start more tens"
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 6](../figures/nse/python-step-06.svg)
 
 Step 7: Python returns from `ones_func`
 and puts its result in yet another temporary variable in `tens_func`:
 
-```text
-           +--------
-           | tens_temp_2   ----> value:"start more tens ones"
-           | tens_temp_1   ----> value:"start more tens"
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 7](../figures/nse/python-step-07.svg)
 
 Step 8: Python returns from `tens_func`
 and puts its result in `final`:
 
-```text
-           +--------
-           | final         ----> value:"start more tens ones"
-           | global_temp_1 ----> value:"start more"
-    global | initial       ----> value:"start"
-           +--------
-```
+![Python Step 8](../figures/nse/python-step-08.svg)
 
-The most important thing here is not that I'm using a million lines of code on a supercomputer to draw ASCII art,
-but rather the fact that Python evaluates expressions *before* it calls functions,
+The most important thing here is that Python evaluates expressions *before* it calls functions,
 and passes the results of those evaluations to the functions.
 This is called [eager evaluation](#g:eager-evaluation),
 and is what most modern programming languages do.
 
 ## How does R evaluate the same kind of thing?
 
-R,
-on the other hand,
-uses [lazy evaluation](#g:lazy-evaluation).
+In contrast,
+R uses [lazy evaluation](#g:lazy-evaluation).
 Here's an R program that's roughly equivalent to the Python shown above:
 
 
@@ -260,11 +198,7 @@ and hinges on the fact that
 
 Step 1: we assign "start" to `initial` in the [global environment](#g:global-environment):
 
-```text
-           +--------
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 1](../figures/nse/r-step-01.svg)
 
 Step 2: we ask R to call `tens_func(initial + "more")`,
 so it creates a [promise](#g:promise) to hold:
@@ -273,42 +207,24 @@ so it creates a [promise](#g:promise) to hold:
 -   the expression we're passing to the function, and
 -   the value of that expression (which I'm showing as `____`, since it's initially empty).
 
-```text
-           +--------
-           | global_temp_1 ----> PROMISE(@global@, paste(initial, "more"), ____)
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 2](../figures/nse/r-step-02.svg)
 
-and passes that into `tens_func`:
+and in Step 3,
+passes that into `tens_func`:
 
-```text
-           +--------
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), ____)
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 3](../figures/nse/r-step-03.svg)
 
 Crucially,
 the promise in `tens_func` remembers that it was created in the global environment:
 it's eventually going to need a value for `initial`,
 so it needs to know where to look to find the right one.
 
-Step 3: since the very next thing we ask for is `paste(tens_arg, "tens")`,
+Step 4: since the very next thing we ask for is `paste(tens_arg, "tens")`,
 R needs a value for `tens_arg`.
 To get it,
 R evaluates the promise that `tens_arg` refers to:
 
-```text
-           +--------
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 4](../figures/nse/r-step-04.svg)
 
 This evaluation happens *after* `tens_func` has been called,
 not before as in Python,
@@ -317,89 +233,35 @@ Once a promise has been resolved,
 R uses its value,
 and that value never changes.
 
-Steps 4:
+Steps 5:
 `tens_func` wants to call `ones_func`,
 so R creates another promise to record what's being passed into `ones_func`:
 
-```text
-           +--------
-           | tens_temp_1   ----> PROMISE(@tens_func@, paste(tens_arg, "tens"), ____)
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 5](../figures/nse/r-step-05.svg)
 
-Step 5:
+Step 6:
 R calls `ones_func`,
 binding the newly-created promise to `ones_arg` as it does so:
 
-```text
-           +--------
- ones_func | ones_arg      --+
-           +--------         |
-           | tens_temp_1   --+-> PROMISE(@tens_func@, paste(tens_arg, "tens"), ____)
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 6](../figures/nse/r-step-06.svg)
 
-Step 6:
+Step 7:
 R needs a value for `ones_arg` to pass to `paste`,
 so it resolves the promise:
 
-```text
-           +--------
- ones_func | ones_arg      --+
-           +--------         |
-           | tens_temp_1   --+-> PROMISE(@tens_func@, paste(tens_arg, "tens"), "start more tens")
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 7](../figures/nse/r-step-07.svg)
 
-Step 7: `ones_func` uses `paste` to concatenate strings:
+Step 8: `ones_func` uses `paste` to concatenate strings:
 
-```text
-           +--------
-           | ones_temp_1   ----> value:"start more tens ones"
- ones_func | ones_arg      --+
-           +--------         |
-           | tens_temp_1   --+-> PROMISE(@tens_func@, paste(tens_arg, "tens"), "start more tens")
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 8](../figures/nse/r-step-08.svg)
 
-Step 8: `ones_func` returns:
+Step 9: `ones_func` returns:
 
-```text
-           +--------
-           | tens_temp_2   ----> "start more tens ones"
-           | tens_temp_1   --+-> PROMISE(@tens_func@, paste(tens_arg, "tens"), "start more tens")
- tens_func | tens_arg      --+
-           +--------         |
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 9](../figures/nse/r-step-09.svg)
 
-Step 9: `tens_func` returns:
+Step 10: `tens_func` returns:
 
-```text
-           +--------
-           | final         ----> "start more tens ones"
-           | global_temp_1 --+-> PROMISE(@global@, paste(initial, "more"), "start more")
-    global | initial       ----> value:"start"
-           +--------
-```
+![R Step 10](../figures/nse/r-step-10.svg)
 
 We got the same answer,
 but in a significantly different way.

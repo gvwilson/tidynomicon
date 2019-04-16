@@ -30,7 +30,7 @@ library(reticulate)
 library(tidyverse)
 ```
 
-The [first lesson](../values-and-vectors/) said that modern R strongly encourages people
+[s:basics](#REF) said that modern R strongly encourages people
 to write vectorized code.
 There are times, though, when we need to write loops and conditionals,
 and we should *always* break our code up into single-purpose functions.
@@ -84,8 +84,8 @@ There are a few things to note here:
     we cannot simply write `for v in values`.
 3.  The curly braces around the body of the loop
     and around the bodies of the conditional branches are optional,
-    since each contains only a single statement,
-    but should always be there to help readability.
+    since each contains only a single statement.
+    However, they should always be there to help readability.
 4.  The loop variable `v` persists after the loop is over.
 5.  `paste` converts its arguments to strings and concatenates them,
     placing a single space between each unless instructed to do otherwise.
@@ -146,8 +146,8 @@ We can similarly subtract a range of colors by index:
 colors[-1:-3]
 ```
 
-However, R does not allow tripartite expressions of the form `start:end:stride`;
-for that,
+However, R does not allow tripartite expressions of the form `start:end:stride`.
+For that,
 we must use the `seq` function:
 
 ```{r}
@@ -158,7 +158,7 @@ This example also shows that ranges in R are inclusive at both ends,
 i.e.,
 they run up to *and including* the upper bound.
 As is traditional among programming language advocates,
-we claim that this is more natural,
+people claim that this is more natural,
 and then cite as proof some supportive anecdote such as,
 "Most people do not interpret the expression 'from one to five'
 to mean 'one, two, three, or four'."
@@ -172,7 +172,7 @@ to mean 'one, two, three, or four'."
 
 ## How can I use a vector in a conditional statement?
 
-We cannot use vectors directly as a condition in and `if` statement:
+We cannot use vectors directly as a condition in an `if` statement:
 
 ```{r error=TRUE}
 numbers <- c(0, 1, 2)
@@ -242,7 +242,7 @@ as doing so means that `swap` can fail without telling us that it has done so.
 Consider:
 
 ```{r}
-NULL[1]  # Try to access an element of the vector that does not exist.
+NULL[1]                 # Try to access an element of the vector that does not exist.
 ```
 
 ```{r}
@@ -251,7 +251,7 @@ result <- swap(values)  # Attempting to swap the values produces NULL.
 result[1]               # But we can operate on the result without error.
 ```
 
-We will look [later](../error-handling/) at what we should do instead.
+We will look at what we should do instead in [s:errors](#REF).
 
 ## How can I write a function that takes a varying number of arguments?
 
@@ -326,14 +326,6 @@ orange <- function() {
 orange()
 ```
 
-> True story: Fortran uses `(...)` to mean both "call a function" and "index an array".
-> It also allows functions and arrays in the same scope to have the same names,
-> so `P(10)` can mean either "call the function `P` with the value 10"
-> or "get the tenth element of the array `P`",
-> depending on which compiler you are using.
-> Ask me what curses I uttered upon discovering this
-> after several hours in a basement in Edinburgh...
-
 ## How can I hide the value that R returns?
 
 If the value returned by a function isn't assigned to something,
@@ -382,8 +374,9 @@ var
 ```
 
 This should only and always be done with care:
-modern R strongly encourages a [functional](#g:functional-programming) style of programming,
+modern R strongly encourages a [functional](#g:functional-programming) style of programming
 in which functions do not modify their input data,
-and *nobody* thinks that modifying global variables is a good idea any more.
+and *nobody* thinks that modifying global variables is a good idea any more---especially not
+after what happened to poor Professor Peaslee.
   
 {% include links.md %}
