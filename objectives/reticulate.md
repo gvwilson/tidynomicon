@@ -1,0 +1,3 @@
+- Use `reticulate` to share data between R and Python.
+- Use `reticulate` to call Python functions from R code and vice versa.
+- Run Python scripts directly from R programs.

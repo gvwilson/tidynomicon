@@ -1,0 +1,4 @@
+- How do I write conditionals and loops in R?
+- What should I use instead of loops in R?
+- How do ranges in R differ from ranges in Python?
+- How do I create functions in R?

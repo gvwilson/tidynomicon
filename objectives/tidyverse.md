@@ -1,0 +1,15 @@
+- Install and load packages in R.
+- Read CSV data with R.
+- Explain what a tibble is and how tibbles related to data frames and matrices.
+- Describe how `read_csv` infers data types for columns in tabular datasets.
+- Name and use three functions for inspects tibbles.
+- Select subsets of tabular data using column names, scalar indices, ranges, and logical expressions.
+- Explain the difference between indexing with `[` and with `[[`.
+- Name and use four functions for calculating aggregate statistics on tabular data.
+- Explain how these functions treat `NA` by default, and how to change that behavior.
+- Name, describe, and use a tidyverse function for choosing rows by value from tabular data.
+- Name, describe, and use a tidyverse function for reordering rows of tabular data.
+- Name, describe, and use a tidyverse function for selecting columns of tabular data.
+- Name, describe, and use a tidyverse function for calculating new columns from existing ones.
+- Name, describe, and use a tidyverse function for grouping rows of tabular data.
+- Name, describe, and use a tidyverse function for aggregating grouped or ungrouped rows of tabular data.

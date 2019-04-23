@@ -1,0 +1,10 @@
+- A list is a heterogeneous vector capable of storing values of any type (including other lists).
+- Indexing with `[` returns a structure of the same type as the structure being indexed (e.g., returns a list when applied to a list).
+- Indexing with `[[` strips away one level of structure (i.e., returns the indicated element without any wrapping).
+- Use `list('name' = value, ...)` to name the elements of a list.
+- Use either `L['name']` or `L$name` to access elements by name.
+- Use back-quotes around the name with `$` notation if the name is not a legal R variable name.
+- Use `matrix(values, nrow = N)` to create a matrix with `N` rows containing the given values.
+- Use `m[i, j]` to get the value at the i'th row and j'th column of a matrix.
+- Use `m[i,]` to get a vector containing the values in the i'th row of a matrix.
+- Use `m[,j]` to get a vector containing the values in the j'th column of a matrix.

@@ -1,0 +1,5 @@
+- How do I create a package in R?
+- What can go in an R package?
+- How are R packages distributed?
+- What data formats can be used in an R package?
+- How should I document an R package?

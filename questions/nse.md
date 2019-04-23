@@ -1,0 +1,2 @@
+- When and how does R evaluate code?
+- How can we take advantage of this?

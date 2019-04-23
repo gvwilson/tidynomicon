@@ -1,0 +1,30 @@
+book_filename: "tidynomicon"
+language:
+  ui:
+    chapter_name: "Chapter "
+output_dir: "docs"
+delete_merged_file: true
+rmd_files:
+  - index.Rmd
+  - basics.Rmd
+  - indexing.Rmd
+  - control.Rmd
+  - tidyverse.Rmd
+  - cleanup.Rmd
+  - nse.Rmd
+  - errors.Rmd
+  - oop.Rmd
+  - debt.Rmd
+  - projects.Rmd
+  - testing.Rmd
+  - shiny.Rmd
+  - reticulate.Rmd
+  - references.Rmd
+  - appendix.Rmd
+  - LICENSE.md
+  - CONDUCT.md
+  - CITATION.md
+  - CONTRIBUTING.md
+  - gloss.md
+  - objectives.Rmd
+  - keypoints.Rmd

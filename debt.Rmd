@@ -1,0 +1,351 @@
+# Intellectual Debt
+
+## Questions
+```{r, child="questions/debt.md"}
+```
+
+We have accumulated some intellectual debt in the previous lessons,
+and we should clear some of before we go on to new topics.
+
+## Why shouldn't I use `setwd`?
+
+Because [reasons][bryan-setwd].
+
+**But...**
+
+No. Use the [here package][here-package].
+
+## How do I write formulas?
+
+One feature of R that doesn't have an exact parallel in Python
+is the formula operator `~` (tilde).
+Its original (and still most common) purpose is to provide a convenient syntax
+for expressing the formulas used in fitting linear regression models.
+The basic format of these formulas is `response ~ predictor`,
+where `response` and `predictor` depend on the variables in the program.
+For example, `Y ~ X` means,
+"`Y` is modeled as a function of `X`",
+so `lm(Y ~ X)` means "fit a linear model that regresses `Y` on `X`".
+
+What makes `~` work is lazy evaluation:
+what actually gets passed to `lm` in the example above is a formula object
+that stores the expression representing the left side of the `~`,
+the expression representing the right side,
+and the environment in which they are to be evaluated.
+This means that we can write something like:
+
+```{r eval=FALSE}
+fit <- lm(Z ~ X + Y)
+```
+
+to mean "fit `Z` to both `X` and `Y`", or:
+
+```{r eval=FALSE}
+fit <- lm(Z ~ . - X, data = D)
+```
+
+to mean "fit `Z` to all the variables in the data frame `D` *except* the variable `X`."
+(Here, we use the shorthand `.` to mean "the data being manipulated".)
+
+But `~` can also be used as a unary operator,
+because its true effect is to delay computation.
+For example,
+we can use it in the function `tribble` to give names to columns
+as we create a tibble on the fly:
+
+```{r}
+temp <- tribble(
+  ~left, ~right,
+  1,     10,
+  2,     20
+)
+temp
+```
+
+Used cautiously and with restraint,
+lazy evaluation allows us to accomplish marvels.
+Used unwisely---well,
+there's no reason for us to dwell on that,
+particularly not after what happened to poor Higgins...
+
+## What the hell are factors?
+
+Another feature of R that doesn't have an exact analog in Python is **factors**.
+In statistics, a factor is a categorical variable such as "flavor",
+which can be "vanilla", "chocolate", "strawberry", or "mustard".
+Factors can be represented as strings,
+but storing the same string many times wastes space and is inefficient
+(since comparing strings takes longer than comparing numbers).
+What R and other languages therefore do is store each string once
+and associate it with a numeric key,
+so that internally, "mustard" is the number 4 in the lookup table for "flavor",
+but is presented as "mustard" rather than 4.
+(Just to keep us on our toes,
+R allows factors to be either ordered or unordered.)
+
+This is useful, but brings with it some problems:
+
+1.  On the statistical side,
+    it encourages people to put messy reality into tidy but misleading boxes.
+    For example, it's unfortunately still common for forms to require people to identify themselves
+    as either "male" or "female",
+    which is [scientifically](https://www.quora.com/Scientifically-how-many-sexes-genders-are-there)
+    [incorrect](https://www.joshuakennon.com/the-six-common-biological-sexes-in-humans/).
+    Similarly, census forms that ask questions about racial or ethnic identity often leave people scratching their heads,
+    since they don't fit into any of the categories on offer.
+2.  On the computational side,
+    some functions in R automatically convert strings to factors by default.
+    This makes sense when working with statistical data---in most cases,
+    a column in which the same strings are repeated many times is categorical---but
+    it is usually not the right choice in other situations.
+    This has surprised enough people the years that the tidyverse goes the other way
+    and only creates factors when asked to.
+
+Let's work through a small example.
+Suppose we've read a CSV file and wound up with this table:
+
+```{r}
+raw <- tribble(
+  ~person, ~flavor, ~ranking,
+  "Lhawang", "strawberry", 1.7,
+  "Lhawang", "chocolate",  2.5,
+  "Lhawang", "mustard",    0.2,
+  "Khadee",  "strawberry", 2.1,
+  "Khadee", "chocolate",   2.4,
+  "Khadee", "vanilla",     3.9,
+  "Haddad", "strawberry",  1.8,
+  "Haddad", "vanilla",     2.1
+)
+raw
+```
+
+Let's aggregate using flavor values so that we can check our factor-based aggregating later:
+
+```{r}
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+```
+
+
+It probably doesn't make sense to turn the `person` column into factors,
+since names are actually character strings,
+but the `flavor` column is a good candidate:
+
+```{r}
+raw <- mutate_at(raw, vars(flavor), as.factor)
+raw
+```
+
+We can still aggregate as we did before:
+
+```{r}
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+```
+
+We can also impose an ordering on the factor's elements:
+
+```{r}
+raw <- raw %>% mutate(flavor = fct_relevel(flavor, "chocolate", "strawberry", "vanilla", "mustard"))
+```
+
+This changes the order in which they are displayed after grouping:
+
+```{r}
+raw %>% group_by(flavor) %>% summarize(number = n(), average = mean(ranking))
+```
+
+And also changes the order of bars in a bar chart:
+
+```{r simple_bar_chart}
+raw %>%
+  group_by(flavor) %>%
+  summarize(number = n(), average = mean(ranking)) %>%
+  ggplot() +
+  geom_col(mapping = aes(x = flavor, y = average))
+```
+
+
+To learn more about how factors work and how to use them when analyzing categorical data,
+please see [this paper](https://peerj.com/preprints/3163/) by McNamara and Horton.
+
+## How do I refer to various arguments in a pipeline?
+
+When we put a function in a pipeline using `%>%`,
+that operator calls the function with the incoming data as the first argument,
+so `data %>% func(arg)` is the same as `func(data, arg)`.
+This is fine when we want the incoming data to be the first argument,
+but what if we want it to be second?  Or third?
+
+One possibility is to save the result so far in a temporary variable
+and then start a second pipe:
+
+```{r}
+data <- tribble(
+  ~left, ~right,
+  1,     NA,
+  2,     20
+)
+empties <- data %>%
+  pmap_lgl(function(...) {
+    args <- list(...)
+    any(is.na(args))
+  })
+data %>%
+  transmute(id = row_number()) %>%
+  filter(empties) %>%
+  pull(id)
+```
+
+This builds a logical vector `empties` with as many entries as `data` has rows,
+then filters data according to which of the entries in the vector are `TRUE`.
+
+A better practice is to use the parameter name `.`,
+which means "the incoming data".
+In some functions (e.g., a two-argument function being used in `map`)
+we can use `.x` and `.y`,
+and for more arguments,
+we can use `..1`, `..2`, and so on:
+
+```{r}
+data %>%
+  pmap_lgl(function(...) {
+    args <- list(...)
+    any(is.na(args))
+  }) %>%
+  tibble(empty = .) %>%
+  mutate(id = row_number()) %>%
+  filter(empty) %>%
+  pull(id)
+```
+
+In this model,
+we create the logical vector,
+then turn it into a tibble with one column called `empty`
+(which is what `empty = .` does in `tibble`'s constructor).
+After that,
+it's easy to add another column with row numbers,
+filter,
+and pull out the row numbers.
+
+And while we're here:
+`row_number` doesn't do what its name suggests.
+We're better off using `rowid_to_column`:
+
+```{r}
+data %>% rowid_to_column()
+```
+
+## How does R give the appearance of immutable data?
+
+Another feature of R that can surprise the unwary is [copy-on-modify](glossary.html#copy-on-modify),
+which means that if two or more variables refer to the same data
+and that data is updated via one variable,
+R automatically makes a copy so that the other variable's value doesn't change.
+Here's a simple example:
+
+```{r}
+first <- c("red", "green", "blue")
+second <- first
+cat("before modification, first is", first, "and second is", second, "\n")
+first[[1]] <- "sulphurous"
+cat("after modification, first is", first, "and second is", second, "\n")
+```
+
+This is true of nested structures as well:
+
+```{r}
+first <- tribble(
+  ~left, ~right,
+  101,   202,
+  303,   404)
+second <- first
+first$left[[1]] <- 999
+cat("after modification\n")
+first
+second
+```
+
+In this case,
+the entire `left` column of `first` has been replaced:
+tibbles (and data frames) are stored as lists of vectors,
+so changing any value in a column triggers construction of a new column vector.
+
+We can watch this happen using the pryr library:
+
+```{r}
+library(pryr)
+first <- tribble(
+  ~left, ~right,
+  101,   202,
+  303,   404
+)
+tracemem(first)
+first$left[[1]] <- 999
+untracemem(first)
+```
+
+This rather cryptic output tell us the address of the tibble,
+then notifies us of changes to the tibble and its contents.
+We can accomplish something a little more readable using `address`:
+
+```{r}
+left <- first$left # alias
+cat("left column is initially at", address(left), "\n")
+first$left[[2]] <- 888
+cat("after modification, the original column is still at", address(left), "\n")
+temp <- first$left # another alias
+cat("but the first column of the tibble is at", address(temp), "\n")
+```
+
+(We need to use [aliases](glossary.html#alias) because `address(first$left)` doesn't work:
+the argument needs to be a variable name.)
+
+R's copy-on-modify semantics is particularly important when writing functions.
+If we modify an argument inside a function,
+that modification isn't visible to the caller,
+so even functions that appear to modify structures usually don't.
+("Usually", because there are exceptions, but we must stray off the path to find them.)
+
+## What else should I worry about?
+
+Ralph Waldo Emerson once wrote, "A foolish consistency is the hobgoblin of little minds."
+Here, then, are few of the hobgoblins I've encountered on my journey through R.
+
+**The `order` function:**
+The function `order` generates indices to pull values into place rather than push them,
+i.e.,
+`order(x)[i]` is the index in `x` of the element that belongs at location `i`.
+For example:
+
+```{r}
+order(c("g", "c", "t", "a"))
+```
+shows that the value at location 4 (the `"a"`) belongs in the first spot of the vector;
+it does *not* mean that the value in the first location (the `"g"`) belongs in location 4.
+
+**One of a set of values:**
+The function `one_of` is a handy way to specify several values for matching
+without complicated Boolean conditionals.
+For example,
+`gather(data, key = "year", value = "cases", one_of(c("1999", "2000")))`
+collects data for the years 1999 and 2000.
+
+**Functions and columns:**
+There's a function called `n`.
+It's not the same thing as a column called `n`.
+
+```{r}
+data <- tribble(
+  ~a, ~n,
+  1,  10,
+  2,  20
+)
+data %>% summarize(total = sum(n))
+data %>% summarize(total = sum(n()))
+```
+
+## Key Points
+```{r, child="keypoints/debt.md"}
+```
+
+```{r, child="etc/links.md"}
+```

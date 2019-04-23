@@ -1,0 +1,7 @@
+- Explain the difference between a list and a vector.
+- Explain the difference between indexing with `[` and with `[[`.
+- Use `[` and `[[` correctly to extract elements and sub-structures from data structures in R.
+- Create a named list in R.
+- Access elements by name using both `[` and `$` notation.
+- Correctly identify cases in which back-quoting is necessary when accessing elements via `$`.
+- Create and index matrices in R.

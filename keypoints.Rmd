@@ -1,0 +1,56 @@
+# Key Points
+
+## Values and Vectors
+```{r, child="keypoints/basics.md"}
+```
+
+## Indexing
+```{r, child="keypoints/indexing.md"}
+```
+
+## Control Flow
+```{r, child="keypoints/control.md"}
+```
+
+## The Tidyverse
+```{r, child="keypoints/tidyverse.md"}
+```
+
+## Cleaning Up Data
+```{r, child="keypoints/cleanup.md"}
+```
+
+## Non-Standard Evaluation
+```{r, child="keypoints/nse.md"}
+```
+
+## Handling Errors
+```{r, child="keypoints/errors.md"}
+```
+
+## Object-Oriented Programming
+```{r, child="keypoints/oop.md"}
+```
+
+## Intellectual Debt
+```{r, child="keypoints/debt.md"}
+```
+
+## Projects
+```{r, child="keypoints/projects.md"}
+```
+
+## Testing
+```{r, child="keypoints/testing.md"}
+```
+
+## Web Applications with Shiny
+```{r, child="keypoints/shiny.md"}
+```
+
+## Reticulate
+```{r, child="keypoints/reticulate.md"}
+```
+
+```{r, child="etc/links.md"}
+```

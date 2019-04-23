@@ -1,0 +1,4 @@
+- What grievous sin can I most easily avoid when using R?
+- How can I pipeline functions when the incoming data doesn't belong in the first parameter's position?
+- Why does assigning to elements of data structures sometimes appear not to change them?
+- How does R handle errors, and how can I handle them myself?

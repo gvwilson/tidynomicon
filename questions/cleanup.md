@@ -1,0 +1,4 @@
+- How do I read tabular data into a program?
+- How do I control the way missing values are handled while I'm reading data?
+- What functions should I use to tidy up messy data?
+- How can I combine partial tables into a single large table?

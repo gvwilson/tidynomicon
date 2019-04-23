@@ -1,0 +1,4 @@
+- How can I store values of different types in a single data structure?
+- How can I index things?
+- How can I access values by name in a data structure?
+- How can I create a matrix?

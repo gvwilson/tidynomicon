@@ -1,0 +1,2 @@
+- How does R signal errors?
+- How can I handle errors myself?

@@ -1,0 +1,15 @@
+- Use `print(expression)` to print the value of a single expression.
+- Variable names may include letters, digits, `.`, and `_`, but `.` should be avoided, as it sometimes has special meaning.
+- R's atomic data types include logical, integer, double (also called numeric), and character.
+- R stores collections in homogeneous vectors of atomic types, or in heterogeneous lists.
+- 'Scalars' in R are actually vectors of length 1.
+- Vectors and lists are created using the function `c(...)`.
+- Vector indices from 1 to length(vector) select single elements.
+- Negative indices to vectors deselect elements from the result.
+- The index 0 on its own selects no elements, creating a vector or list of length 0.
+- The expression `low:high` creates the vector of integers from `low` to `high` inclusive.
+- Subscripting a vector with a vector of numbers selects the elements at those locations (possibly with repeats).
+- Subscripting a vector with a vector of logicals selects elements where the indexing vector is `TRUE`.
+- Values from short vectors (such as 'scalars') are repeated to match the lengths of longer vectors.
+- The special value `NA` represents missing values, and (almost all) operations involving `NA` produce `NA`.
+- The special values `NULL` represents a nonexistent vector, which is not the same as a vector of length 0.

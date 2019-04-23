@@ -1,0 +1,5 @@
+- Operations signal conditions in R when errors occur.
+- The three built-in levels of conditions are messages, warnings, and errors.
+- Programs can signal these themselves using the functions `message`, `warning`, and `stop`.
+- Operations can be placed in a call to the function `try` to suppress errors, but this is a bad idea.
+- Operations can be placed in a call to the function `tryCatch` to handle errors.

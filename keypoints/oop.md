@@ -1,0 +1,7 @@
+- S3 is the most commonly used object-oriented programming system in R.
+- Every object can store metadata about itself in attributes, which are set and queried with `attr`.
+- The `dim` attribute stores the dimensions of a matrix (which is physically stored as a vector).
+- The `class` attribute of an object defines its class or classes (it may have several character entries).
+- When `F(X, ...)` is called, and `X` has class `C`, R looks for a function called `F.C` (the `.` is just a naming convention).
+- If an object has multiple classes in its `class` attribute, R looks for a corresponding method for each in turn.
+- Every user defined class `C` should have functions `new_C` (to create it), `validate_C` (to validate its integrity), and `C` (to create and validate).

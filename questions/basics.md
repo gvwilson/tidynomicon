@@ -1,0 +1,7 @@
+- How do I print things?
+- What are R's basic data types?
+- How do I find out what type something is?
+- How do I name variables in R?
+- How do I create and index lists in R?
+- How do ranges in R differ from ranges in Python?
+- What special values does R use to represent things that aren't there?

@@ -1,0 +1,6 @@
+- R uses lazy evaluation: expressions are evaluated when their values are needed, not before.
+- Use `expr` to create an expression without evaluating it.
+- Use `eval` to evaluate an expression in the context of some data.
+- Use `enquo` to create a quosure containing an unevaluated expression and its environment.
+- Use `quo_get_expr` to get the expression out of a quosure.
+- Use `!!` to splice the expression in a quosure into a function call.

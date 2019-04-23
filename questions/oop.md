@@ -1,0 +1,4 @@
+- How can I do object-oriented programming in R?
+- How do I specify an object's class?
+- How do I provide methods for a class?
+- How should I create objects of a class I have defined?

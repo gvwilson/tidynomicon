@@ -1,0 +1,20 @@
+- An R package can contain code, data, and documentation.
+- R code is distributed as compiled bytecode in packages, not as source.
+- R packages are almost always distributed through CRAN, the Comprehensive R Archive Network.
+- Most of a project's metadata goes in a file called `DESCRIPTION`.
+- Metadata related to imports and exports goes in a file called `NAMESPACE`.
+- Add patterns to a file called `.Rbuildignore` to ignore files or directories when building a project.
+- All source code for a package must go in the `R` sub-directory.
+- `library` calls in a package's source code will *not* be executed as the package is loaded after distribution.
+- Data can be included in a package by putting it in the `data` sub-directory.
+- Data must be in `.rda` format in order to be loaded as part of a package.
+- Data in other formats can be put in the `inst/extdata` directory, and will be installed when the package is installed.
+- Add comments starting with `#'` to an R file to document functions.
+- Use roxygen2 to extract these comments to create manual pages in the `man` directory.
+- Use `@export` directives in roxygen2 comment blocks to make functions visible outside a package.
+- Add required libraries to the `Imports` section of the `DESCRIPTION` file to indicate that your package depends on them.
+- Use `package::function` to access externally-defined functions inside a package.
+- Alternatively, add `@import` directives to roxygen2 comment blocks to make external functions available inside the package.
+- Import `.data` from `rlang` and use `.data$column` to refer to columns instead of using bare column names.
+- Create a file called <code>R/<em>package</em>.R</code> and document `NULL` to document the package as a whole.
+- Create a file called <code>R/<em>dataset</em>.R</code> and document the string <code>'<em>dataset</em>'</code> to document a dataset.

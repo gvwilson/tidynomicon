@@ -1,0 +1,10 @@
+- Describe the three things an R package can contain.
+- Explain how R code in a package is distributed and one implication of this.
+- Explain the purpose of the `DESCRIPTION`, `NAMESPACE` and `.Rbuildignore` files in an R project.
+- Explain what should be put in the `R`, `data`, `man`, and `tests` directories of an R project.
+- Describe and use specially-formatted comments with roxygen2 to document a package.
+- Use `@export` and `@import` directives correctly in roxygen2 documentation.
+- Add a dataset to an R package.
+- Use functions from external libraries inside a package in a hygienic way.
+- Rewrite references to bare column names to satisfy R's packaging checks.
+- Correctly document the package as a whole and the datasets it contains.

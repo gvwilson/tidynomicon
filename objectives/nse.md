@@ -1,0 +1,3 @@
+- Trace the order of evaluation in function calls.
+- Explain what environments and expressions are and how they relate to one another.
+- Justify the author's use of ASCII art in the second decade of the 21st Century.

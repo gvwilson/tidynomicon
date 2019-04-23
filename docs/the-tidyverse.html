@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 5 The Tidyverse | The Tidynomicon</title>
+  <meta name="description" content="Chapter 5 The Tidyverse | The Tidynomicon">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 5 The Tidyverse | The Tidynomicon" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 5 The Tidyverse | The Tidynomicon" />
+  <meta name="github-repo" content="gvwilson/tidynomicon" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 The Tidyverse | The Tidynomicon" />
+  
+  <meta name="twitter:description" content="Chapter 5 The Tidyverse | The Tidynomicon" />
+  
+
+<meta name="author" content="Greg Wilson">
+
+
+<meta name="date" content="2019-04-25">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="control-flow.html">
+<link rel="next" href="cleaning-up-data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Tidynomicon</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="values-and-vectors.html"><a href="values-and-vectors.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
+<li class="chapter" data-level="2.1" data-path="values-and-vectors.html"><a href="values-and-vectors.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
+<li class="chapter" data-level="2.2" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-say-hello"><i class="fa fa-check"></i><b>2.2</b> How do I say hello?</a></li>
+<li class="chapter" data-level="2.3" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-add-numbers"><i class="fa fa-check"></i><b>2.3</b> How do I add numbers?</a></li>
+<li class="chapter" data-level="2.4" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-store-many-numbers-together"><i class="fa fa-check"></i><b>2.4</b> How do I store many numbers together?</a></li>
+<li class="chapter" data-level="2.5" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-index-a-vector"><i class="fa fa-check"></i><b>2.5</b> How do I index a vector?</a></li>
+<li class="chapter" data-level="2.6" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-create-new-vectors-from-old"><i class="fa fa-check"></i><b>2.6</b> How do I create new vectors from old?</a></li>
+<li class="chapter" data-level="2.7" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-else-does-r-represent-the-absence-of-data"><i class="fa fa-check"></i><b>2.7</b> How else does R represent the absence of data?</a></li>
+<li class="chapter" data-level="2.8" data-path="values-and-vectors.html"><a href="values-and-vectors.html#key-points"><i class="fa fa-check"></i><b>2.8</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="indexing.html"><a href="indexing.html"><i class="fa fa-check"></i><b>3</b> Indexing</a><ul>
+<li class="chapter" data-level="3.1" data-path="indexing.html"><a href="indexing.html#questions-1"><i class="fa fa-check"></i><b>3.1</b> Questions</a></li>
+<li class="chapter" data-level="3.2" data-path="indexing.html"><a href="indexing.html#how-can-i-store-a-mix-of-different-types-of-objects"><i class="fa fa-check"></i><b>3.2</b> How can I store a mix of different types of objects?</a></li>
+<li class="chapter" data-level="3.3" data-path="indexing.html"><a href="indexing.html#what-is-the-difference-between-and"><i class="fa fa-check"></i><b>3.3</b> What is the difference between <code>[</code> and <code>[[</code>?</a></li>
+<li class="chapter" data-level="3.4" data-path="indexing.html"><a href="indexing.html#how-can-i-access-elements-by-name"><i class="fa fa-check"></i><b>3.4</b> How can I access elements by name?</a></li>
+<li class="chapter" data-level="3.5" data-path="indexing.html"><a href="indexing.html#how-can-i-create-and-index-a-matrix"><i class="fa fa-check"></i><b>3.5</b> How can I create and index a matrix?</a></li>
+<li class="chapter" data-level="3.6" data-path="indexing.html"><a href="indexing.html#key-points-1"><i class="fa fa-check"></i><b>3.6</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="control-flow.html"><a href="control-flow.html"><i class="fa fa-check"></i><b>4</b> Control Flow</a><ul>
+<li class="chapter" data-level="4.1" data-path="control-flow.html"><a href="control-flow.html#questions-2"><i class="fa fa-check"></i><b>4.1</b> Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="control-flow.html"><a href="control-flow.html#how-do-i-choose-and-repeat-things"><i class="fa fa-check"></i><b>4.2</b> How do I choose and repeat things?</a></li>
+<li class="chapter" data-level="4.3" data-path="control-flow.html"><a href="control-flow.html#how-can-i-express-a-range-of-values-in-r"><i class="fa fa-check"></i><b>4.3</b> How can I express a range of values in R?</a></li>
+<li class="chapter" data-level="4.4" data-path="control-flow.html"><a href="control-flow.html#how-can-i-use-a-vector-in-a-conditional-statement"><i class="fa fa-check"></i><b>4.4</b> How can I use a vector in a conditional statement?</a></li>
+<li class="chapter" data-level="4.5" data-path="control-flow.html"><a href="control-flow.html#how-do-i-create-and-call-functions"><i class="fa fa-check"></i><b>4.5</b> How do I create and call functions?</a></li>
+<li class="chapter" data-level="4.6" data-path="control-flow.html"><a href="control-flow.html#how-can-i-write-a-function-that-takes-a-varying-number-of-arguments"><i class="fa fa-check"></i><b>4.6</b> How can I write a function that takes a varying number of arguments?</a></li>
+<li class="chapter" data-level="4.7" data-path="control-flow.html"><a href="control-flow.html#how-can-i-provide-default-values-for-arguments"><i class="fa fa-check"></i><b>4.7</b> How can I provide default values for arguments?</a></li>
+<li class="chapter" data-level="4.8" data-path="control-flow.html"><a href="control-flow.html#how-can-i-hide-the-value-that-r-returns"><i class="fa fa-check"></i><b>4.8</b> How can I hide the value that R returns?</a></li>
+<li class="chapter" data-level="4.9" data-path="control-flow.html"><a href="control-flow.html#how-can-i-assign-to-a-global-variable-from-inside-a-function"><i class="fa fa-check"></i><b>4.9</b> How can I assign to a global variable from inside a function?</a></li>
+<li class="chapter" data-level="4.10" data-path="control-flow.html"><a href="control-flow.html#key-points-2"><i class="fa fa-check"></i><b>4.10</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5</b> The Tidyverse</a><ul>
+<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html#questions-3"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-read-data"><i class="fa fa-check"></i><b>5.2</b> How do I read data?</a></li>
+<li class="chapter" data-level="5.3" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-inspect-data"><i class="fa fa-check"></i><b>5.3</b> How do I inspect data?</a></li>
+<li class="chapter" data-level="5.4" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-index-rows-and-columns"><i class="fa fa-check"></i><b>5.4</b> How do I index rows and columns?</a></li>
+<li class="chapter" data-level="5.5" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-calculate-basic-statistics"><i class="fa fa-check"></i><b>5.5</b> How do I calculate basic statistics?</a></li>
+<li class="chapter" data-level="5.6" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-filter-data"><i class="fa fa-check"></i><b>5.6</b> How do I filter data?</a></li>
+<li class="chapter" data-level="5.7" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-write-tidy-code"><i class="fa fa-check"></i><b>5.7</b> How do I write tidy code?</a></li>
+<li class="chapter" data-level="5.8" data-path="the-tidyverse.html"><a href="the-tidyverse.html#key-points-3"><i class="fa fa-check"></i><b>5.8</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html"><i class="fa fa-check"></i><b>6</b> Cleaning Up Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#questions-4"><i class="fa fa-check"></i><b>6.1</b> Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#how-do-i-inspect-the-raw-data"><i class="fa fa-check"></i><b>6.2</b> How do I inspect the raw data?</a></li>
+<li class="chapter" data-level="6.3" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#how-do-i-tidy-the-data"><i class="fa fa-check"></i><b>6.3</b> How do I tidy the data?</a></li>
+<li class="chapter" data-level="6.4" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#key-points-4"><i class="fa fa-check"></i><b>6.4</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html"><i class="fa fa-check"></i><b>7</b> Non-Standard Evaluation</a><ul>
+<li class="chapter" data-level="7.1" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#questions-5"><i class="fa fa-check"></i><b>7.1</b> Questions</a></li>
+<li class="chapter" data-level="7.2" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>7.2</b> How does Python evaluate function calls?</a></li>
+<li class="chapter" data-level="7.3" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>7.3</b> How does R evaluate the same kind of thing?</a></li>
+<li class="chapter" data-level="7.4" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>7.4</b> Why is lazy evaluation useful?</a></li>
+<li class="chapter" data-level="7.5" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>7.5</b> What is tidy evaluation?</a></li>
+<li class="chapter" data-level="7.6" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#what-have-we-learned"><i class="fa fa-check"></i><b>7.6</b> What have we learned?</a></li>
+<li class="chapter" data-level="7.7" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#key-points-5"><i class="fa fa-check"></i><b>7.7</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="handling-errors.html"><a href="handling-errors.html"><i class="fa fa-check"></i><b>8</b> Handling Errors</a><ul>
+<li class="chapter" data-level="8.1" data-path="handling-errors.html"><a href="handling-errors.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
+<li class="chapter" data-level="8.2" data-path="handling-errors.html"><a href="handling-errors.html#key-points-6"><i class="fa fa-check"></i><b>8.2</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html"><i class="fa fa-check"></i><b>9</b> Object-Oriented Programming</a><ul>
+<li class="chapter" data-level="9.1" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#questions-7"><i class="fa fa-check"></i><b>9.1</b> Questions</a></li>
+<li class="chapter" data-level="9.2" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#what-are-attributes"><i class="fa fa-check"></i><b>9.2</b> What are attributes?</a></li>
+<li class="chapter" data-level="9.3" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#how-are-classes-represented"><i class="fa fa-check"></i><b>9.3</b> How are classes represented?</a></li>
+<li class="chapter" data-level="9.4" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#how-does-inheritance-work"><i class="fa fa-check"></i><b>9.4</b> How does inheritance work?</a></li>
+<li class="chapter" data-level="9.5" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intellectual-debt.html"><a href="intellectual-debt.html"><i class="fa fa-check"></i><b>10</b> Intellectual Debt</a><ul>
+<li class="chapter" data-level="10.1" data-path="intellectual-debt.html"><a href="intellectual-debt.html#questions-8"><i class="fa fa-check"></i><b>10.1</b> Questions</a></li>
+<li class="chapter" data-level="10.2" data-path="intellectual-debt.html"><a href="intellectual-debt.html#why-shouldnt-i-use-setwd"><i class="fa fa-check"></i><b>10.2</b> Why shouldn’t I use <code>setwd</code>?</a></li>
+<li class="chapter" data-level="10.3" data-path="intellectual-debt.html"><a href="intellectual-debt.html#how-do-i-write-formulas"><i class="fa fa-check"></i><b>10.3</b> How do I write formulas?</a></li>
+<li class="chapter" data-level="10.4" data-path="intellectual-debt.html"><a href="intellectual-debt.html#what-the-hell-are-factors"><i class="fa fa-check"></i><b>10.4</b> What the hell are factors?</a></li>
+<li class="chapter" data-level="10.5" data-path="intellectual-debt.html"><a href="intellectual-debt.html#how-do-i-refer-to-various-arguments-in-a-pipeline"><i class="fa fa-check"></i><b>10.5</b> How do I refer to various arguments in a pipeline?</a></li>
+<li class="chapter" data-level="10.6" data-path="intellectual-debt.html"><a href="intellectual-debt.html#how-does-r-give-the-appearance-of-immutable-data"><i class="fa fa-check"></i><b>10.6</b> How does R give the appearance of immutable data?</a></li>
+<li class="chapter" data-level="10.7" data-path="intellectual-debt.html"><a href="intellectual-debt.html#what-else-should-i-worry-about"><i class="fa fa-check"></i><b>10.7</b> What else should I worry about?</a></li>
+<li class="chapter" data-level="10.8" data-path="intellectual-debt.html"><a href="intellectual-debt.html#key-points-8"><i class="fa fa-check"></i><b>10.8</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="projects.html"><a href="projects.html"><i class="fa fa-check"></i><b>11</b> Projects</a><ul>
+<li class="chapter" data-level="11.1" data-path="projects.html"><a href="projects.html#questions-9"><i class="fa fa-check"></i><b>11.1</b> Questions</a></li>
+<li class="chapter" data-level="11.2" data-path="projects.html"><a href="projects.html#whats-in-an-r-package"><i class="fa fa-check"></i><b>11.2</b> What’s in an R package?</a></li>
+<li class="chapter" data-level="11.3" data-path="projects.html"><a href="projects.html#how-do-i-create-a-package"><i class="fa fa-check"></i><b>11.3</b> How do I create a package?</a></li>
+<li class="chapter" data-level="11.4" data-path="projects.html"><a href="projects.html#key-points-9"><i class="fa fa-check"></i><b>11.4</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>12</b> Testing</a><ul>
+<li class="chapter" data-level="12.1" data-path="testing.html"><a href="testing.html#questions-10"><i class="fa fa-check"></i><b>12.1</b> Questions</a></li>
+<li class="chapter" data-level="12.2" data-path="testing.html"><a href="testing.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>12.2</b> What should I know about testing in general?</a></li>
+<li class="chapter" data-level="12.3" data-path="testing.html"><a href="testing.html#s:testing-warmup"><i class="fa fa-check"></i><b>12.3</b> How can I write a few simple tests?</a></li>
+<li class="chapter" data-level="12.4" data-path="testing.html"><a href="testing.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>12.4</b> How can I check data transformation?</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="testing.html"><a href="testing.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>12.4.1</b> How can I reorganize code to make it more testable?</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="testing.html"><a href="testing.html#key-points-10"><i class="fa fa-check"></i><b>12.5</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="web-applications.html"><a href="web-applications.html"><i class="fa fa-check"></i><b>13</b> Web Applications</a><ul>
+<li class="chapter" data-level="13.1" data-path="web-applications.html"><a href="web-applications.html#questions-11"><i class="fa fa-check"></i><b>13.1</b> Questions</a></li>
+<li class="chapter" data-level="13.2" data-path="web-applications.html"><a href="web-applications.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>13.2</b> How do I set up a simple application?</a></li>
+<li class="chapter" data-level="13.3" data-path="web-applications.html"><a href="web-applications.html#how-do-i-create-a-user-interface"><i class="fa fa-check"></i><b>13.3</b> How do I create a user interface?</a></li>
+<li class="chapter" data-level="13.4" data-path="web-applications.html"><a href="web-applications.html#how-do-i-create-a-server"><i class="fa fa-check"></i><b>13.4</b> How do I create a server?</a></li>
+<li class="chapter" data-level="13.5" data-path="web-applications.html"><a href="web-applications.html#how-do-i-run-my-application"><i class="fa fa-check"></i><b>13.5</b> How do I run my application?</a></li>
+<li class="chapter" data-level="13.6" data-path="web-applications.html"><a href="web-applications.html#how-can-i-improve-my-user-interface"><i class="fa fa-check"></i><b>13.6</b> How can I improve my user interface?</a></li>
+<li class="chapter" data-level="13.7" data-path="web-applications.html"><a href="web-applications.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>13.7</b> How can I display the data in a file?</a></li>
+<li class="chapter" data-level="13.8" data-path="web-applications.html"><a href="web-applications.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>13.8</b> How can I break circular dependencies?</a></li>
+<li class="chapter" data-level="13.9" data-path="web-applications.html"><a href="web-applications.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>13.9</b> How can I control how the user interface is rendered?</a></li>
+<li class="chapter" data-level="13.10" data-path="web-applications.html"><a href="web-applications.html#key-points-11"><i class="fa fa-check"></i><b>13.10</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="using-python.html"><a href="using-python.html"><i class="fa fa-check"></i><b>14</b> Using Python</a><ul>
+<li class="chapter" data-level="14.1" data-path="using-python.html"><a href="using-python.html#questions-12"><i class="fa fa-check"></i><b>14.1</b> Questions</a></li>
+<li class="chapter" data-level="14.2" data-path="using-python.html"><a href="using-python.html#how-can-i-access-data-across-languages"><i class="fa fa-check"></i><b>14.2</b> How can I access data across languages?</a></li>
+<li class="chapter" data-level="14.3" data-path="using-python.html"><a href="using-python.html#how-can-i-call-functions-across-languages"><i class="fa fa-check"></i><b>14.3</b> How can I call functions across languages?</a></li>
+<li class="chapter" data-level="14.4" data-path="using-python.html"><a href="using-python.html#key-points-12"><i class="fa fa-check"></i><b>14.4</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
+<li class="chapter" data-level="B" data-path="code-of-conduct.html"><a href="code-of-conduct.html"><i class="fa fa-check"></i><b>B</b> Code of Conduct</a><ul>
+<li class="chapter" data-level="B.1" data-path="code-of-conduct.html"><a href="code-of-conduct.html#our-standards"><i class="fa fa-check"></i><b>B.1</b> Our Standards</a></li>
+<li class="chapter" data-level="B.2" data-path="code-of-conduct.html"><a href="code-of-conduct.html#our-responsibilities"><i class="fa fa-check"></i><b>B.2</b> Our Responsibilities</a></li>
+<li class="chapter" data-level="B.3" data-path="code-of-conduct.html"><a href="code-of-conduct.html#scope"><i class="fa fa-check"></i><b>B.3</b> Scope</a></li>
+<li class="chapter" data-level="B.4" data-path="code-of-conduct.html"><a href="code-of-conduct.html#enforcement"><i class="fa fa-check"></i><b>B.4</b> Enforcement</a></li>
+<li class="chapter" data-level="B.5" data-path="code-of-conduct.html"><a href="code-of-conduct.html#attribution"><i class="fa fa-check"></i><b>B.5</b> Attribution</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="citation.html"><a href="citation.html"><i class="fa fa-check"></i><b>C</b> Citation</a></li>
+<li class="chapter" data-level="D" data-path="contributing.html"><a href="contributing.html"><i class="fa fa-check"></i><b>D</b> Contributing</a></li>
+<li class="chapter" data-level="E" data-path="glossary.html"><a href="glossary.html"><i class="fa fa-check"></i><b>E</b> Glossary</a></li>
+<li class="chapter" data-level="F" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>F</b> Learning Objectives</a><ul>
+<li class="chapter" data-level="F.1" data-path="learning-objectives.html"><a href="learning-objectives.html#values-and-vectors-1"><i class="fa fa-check"></i><b>F.1</b> Values and Vectors</a></li>
+<li class="chapter" data-level="F.2" data-path="learning-objectives.html"><a href="learning-objectives.html#indexing-1"><i class="fa fa-check"></i><b>F.2</b> Indexing</a></li>
+<li class="chapter" data-level="F.3" data-path="learning-objectives.html"><a href="learning-objectives.html#control-flow-1"><i class="fa fa-check"></i><b>F.3</b> Control Flow</a></li>
+<li class="chapter" data-level="F.4" data-path="learning-objectives.html"><a href="learning-objectives.html#the-tidyverse-1"><i class="fa fa-check"></i><b>F.4</b> The Tidyverse</a></li>
+<li class="chapter" data-level="F.5" data-path="learning-objectives.html"><a href="learning-objectives.html#cleaning-up-data-1"><i class="fa fa-check"></i><b>F.5</b> Cleaning Up Data</a></li>
+<li class="chapter" data-level="F.6" data-path="learning-objectives.html"><a href="learning-objectives.html#non-standard-evaluation-1"><i class="fa fa-check"></i><b>F.6</b> Non-Standard Evaluation</a></li>
+<li class="chapter" data-level="F.7" data-path="learning-objectives.html"><a href="learning-objectives.html#handling-errors-1"><i class="fa fa-check"></i><b>F.7</b> Handling Errors</a></li>
+<li class="chapter" data-level="F.8" data-path="learning-objectives.html"><a href="learning-objectives.html#object-oriented-programming-1"><i class="fa fa-check"></i><b>F.8</b> Object-Oriented Programming</a></li>
+<li class="chapter" data-level="F.9" data-path="learning-objectives.html"><a href="learning-objectives.html#intellectual-debt-1"><i class="fa fa-check"></i><b>F.9</b> Intellectual Debt</a></li>
+<li class="chapter" data-level="F.10" data-path="learning-objectives.html"><a href="learning-objectives.html#projects-1"><i class="fa fa-check"></i><b>F.10</b> Projects</a></li>
+<li class="chapter" data-level="F.11" data-path="learning-objectives.html"><a href="learning-objectives.html#testing-1"><i class="fa fa-check"></i><b>F.11</b> Testing</a></li>
+<li class="chapter" data-level="F.12" data-path="learning-objectives.html"><a href="learning-objectives.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>F.12</b> Web Applications with Shiny</a></li>
+<li class="chapter" data-level="F.13" data-path="learning-objectives.html"><a href="learning-objectives.html#reticulate"><i class="fa fa-check"></i><b>F.13</b> Reticulate</a></li>
+</ul></li>
+<li class="chapter" data-level="G" data-path="key-points-13.html"><a href="key-points-13.html"><i class="fa fa-check"></i><b>G</b> Key Points</a><ul>
+<li class="chapter" data-level="G.1" data-path="key-points-13.html"><a href="key-points-13.html#values-and-vectors-2"><i class="fa fa-check"></i><b>G.1</b> Values and Vectors</a></li>
+<li class="chapter" data-level="G.2" data-path="key-points-13.html"><a href="key-points-13.html#indexing-2"><i class="fa fa-check"></i><b>G.2</b> Indexing</a></li>
+<li class="chapter" data-level="G.3" data-path="key-points-13.html"><a href="key-points-13.html#control-flow-2"><i class="fa fa-check"></i><b>G.3</b> Control Flow</a></li>
+<li class="chapter" data-level="G.4" data-path="key-points-13.html"><a href="key-points-13.html#the-tidyverse-2"><i class="fa fa-check"></i><b>G.4</b> The Tidyverse</a></li>
+<li class="chapter" data-level="G.5" data-path="key-points-13.html"><a href="key-points-13.html#cleaning-up-data-2"><i class="fa fa-check"></i><b>G.5</b> Cleaning Up Data</a></li>
+<li class="chapter" data-level="G.6" data-path="key-points-13.html"><a href="key-points-13.html#non-standard-evaluation-2"><i class="fa fa-check"></i><b>G.6</b> Non-Standard Evaluation</a></li>
+<li class="chapter" data-level="G.7" data-path="key-points-13.html"><a href="key-points-13.html#handling-errors-2"><i class="fa fa-check"></i><b>G.7</b> Handling Errors</a></li>
+<li class="chapter" data-level="G.8" data-path="key-points-13.html"><a href="key-points-13.html#object-oriented-programming-2"><i class="fa fa-check"></i><b>G.8</b> Object-Oriented Programming</a></li>
+<li class="chapter" data-level="G.9" data-path="key-points-13.html"><a href="key-points-13.html#intellectual-debt-2"><i class="fa fa-check"></i><b>G.9</b> Intellectual Debt</a></li>
+<li class="chapter" data-level="G.10" data-path="key-points-13.html"><a href="key-points-13.html#projects-2"><i class="fa fa-check"></i><b>G.10</b> Projects</a></li>
+<li class="chapter" data-level="G.11" data-path="key-points-13.html"><a href="key-points-13.html#testing-2"><i class="fa fa-check"></i><b>G.11</b> Testing</a></li>
+<li class="chapter" data-level="G.12" data-path="key-points-13.html"><a href="key-points-13.html#web-applications-with-shiny-1"><i class="fa fa-check"></i><b>G.12</b> Web Applications with Shiny</a></li>
+<li class="chapter" data-level="G.13" data-path="key-points-13.html"><a href="key-points-13.html#reticulate-1"><i class="fa fa-check"></i><b>G.13</b> Reticulate</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-tidyverse" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> The Tidyverse</h1>
+<div id="questions-3" class="section level2">
+<h2><span class="header-section-number">5.1</span> Questions</h2>
+<ul>
+<li>How do I install packages in R?</li>
+<li>How do I load packages in R?</li>
+<li>How do a read a CSV file in R?</li>
+<li>How does R store tabular data?</li>
+<li>How does R decide what data types to use for columns in CSV data?</li>
+<li>How can I inspect tabular data that I have loaded or created?</li>
+<li>How can I select sections of tabular data?</li>
+<li>How can I extract vectors from tables?</li>
+<li>How can I calculate basic statistics on tabular data?</li>
+<li>How does R treat missing data when calculating aggregate statistics?</li>
+<li>How can I control how R treats missing data when calculating aggregate statistics?</li>
+<li>What tools does the tidyverse provide for selecting, rearranging, changing, and summarizing tabular data?</li>
+<li>How should I combine tidyverse operations?</li>
+</ul>
+<p>There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
+Similarly,
+there is no point learning a language designed for data manipulation if you do not then bend data to your will.</p>
+</div>
+<div id="how-do-i-read-data" class="section level2">
+<h2><span class="header-section-number">5.2</span> How do I read data?</h2>
+<p>We begin by looking at the file <code>tidy/infant_hiv.csv</code>,
+a tidied version of data on the percentage of infants born to women with HIV
+who received an HIV test themselves within two months of birth.
+The original data comes from the UNICEF site at <a href="https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/" class="uri">https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/</a>,
+and this file contains:</p>
+<pre class="text"><code>country,year,estimate,hi,lo
+AFG,2009,NA,NA,NA
+AFG,2010,NA,NA,NA
+...
+AFG,2017,NA,NA,NA
+AGO,2009,NA,NA,NA
+AGO,2010,0.03,0.04,0.02
+AGO,2011,0.05,0.07,0.04
+AGO,2012,0.06,0.08,0.05
+...
+ZWE,2016,0.71,0.88,0.62
+ZWE,2017,0.65,0.81,0.57</code></pre>
+<p>The actual file has many more rows and no ellipses.
+It uses <code>NA</code> to show missing data rather than (for example) <code>-</code>, a space, or a blank,
+and its values are interpreted as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Header</th>
+<th>Datatype</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>country</td>
+<td>char</td>
+<td>ISO3 country code of country reporting data</td>
+</tr>
+<tr class="even">
+<td>year</td>
+<td>integer</td>
+<td>year CE for which data reported</td>
+</tr>
+<tr class="odd">
+<td>estimate</td>
+<td>double/NA</td>
+<td>estimated percentage of measurement</td>
+</tr>
+<tr class="even">
+<td>hi</td>
+<td>double/NA</td>
+<td>high end of range</td>
+</tr>
+<tr class="odd">
+<td>lo</td>
+<td>double/NA</td>
+<td>low end of range</td>
+</tr>
+</tbody>
+</table>
+<p>We can load this data in Python like this:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+data <span class="op">=</span> pd.read_csv(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)
+<span class="bu">print</span>(data)</code></pre>
+<pre><code>     country  year  estimate    hi    lo
+0        AFG  2009       NaN   NaN   NaN
+1        AFG  2010       NaN   NaN   NaN
+2        AFG  2011       NaN   NaN   NaN
+3        AFG  2012       NaN   NaN   NaN
+4        AFG  2013       NaN   NaN   NaN
+5        AFG  2014       NaN   NaN   NaN
+6        AFG  2015       NaN   NaN   NaN
+7        AFG  2016       NaN   NaN   NaN
+8        AFG  2017       NaN   NaN   NaN
+9        AGO  2009       NaN   NaN   NaN
+10       AGO  2010      0.03  0.04  0.02
+11       AGO  2011      0.05  0.07  0.04
+12       AGO  2012      0.06  0.08  0.05
+13       AGO  2013      0.15  0.20  0.12
+14       AGO  2014      0.10  0.14  0.08
+15       AGO  2015      0.06  0.08  0.05
+16       AGO  2016      0.01  0.02  0.01
+17       AGO  2017      0.01  0.02  0.01
+18       AIA  2009       NaN   NaN   NaN
+...</code></pre>
+<p>The equivalent in R is to load the <a href="glossary.html#tidyverse">tidyverse</a> collection of libraries
+and then call the <code>read_csv</code> function.
+We will go through this in stages, since each produces output.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
+<pre class="text"><code>Error in library(tidyverse) : there is no package called &#39;tidyverse&#39;</code></pre>
+<p>Ah.
+We must install this, which we only need to do once per machine:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
+<p>We then load the library once per program:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+✔ ggplot2 3.1.0     ✔ purrr   0.3.0
+✔ tibble  2.0.1     ✔ dplyr   0.7.8
+✔ tidyr   0.8.2     ✔ stringr 1.4.0
+✔ readr   1.1.1     ✔ forcats 0.3.0
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Warning messages:
+1: package ‘tibble’ was built under R version 3.5.2
+2: package ‘purrr’ was built under R version 3.5.2
+3: package ‘stringr’ was built under R version 3.5.2</code></pre>
+<p>Note that to install, we give <code>install.packages</code> a string,
+but to use,
+we simply give the name of the library we want.</p>
+<p>Asking for the tidyverse gives us eight libraries (or <a href="glossary.html#package">packages</a>).
+One of those, dplyr, defines two functions that mask standard functions in R with the same names.
+This is deliberate, and if we need the originals, we can get them with their <a href="glossary.html#fully-qualified-name">fully-qualified names</a>
+<code>stats::filter</code> and <code>stats::lag</code>.
+(Note that R uses <code>::</code> to get functions out of packages rather than Python’s <code>.</code>.)</p>
+<p>Once we have the tidyverse loaded,
+reading the file looks remarkably like reading the file:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  country = col_character(),
+  year = col_integer(),
+  estimate = col_double(),
+  hi = col_double(),
+  lo = col_double()
+)</code></pre>
+<p>R’s <code>read_csv</code> tells us more about what it has done than Pandas does.
+In particular, it guesses the data types of columns based on the first thousand values
+and then tells us what types it has inferred.
+(In a better universe,
+people would habitually use the first <em>two</em> rows of their spreadsheets for name <em>and units</em>,
+but we do not live there.)</p>
+<p>We can now look at what <code>read_csv</code> has produced.</p>
+<pre class="sourceCode r"><code class="sourceCode r">data</code></pre>
+<pre><code># A tibble: 1,728 x 5
+   country  year estimate    hi    lo
+   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 AFG      2009       NA    NA    NA
+ 2 AFG      2010       NA    NA    NA
+ 3 AFG      2011       NA    NA    NA
+ 4 AFG      2012       NA    NA    NA
+ 5 AFG      2013       NA    NA    NA
+ 6 AFG      2014       NA    NA    NA
+ 7 AFG      2015       NA    NA    NA
+ 8 AFG      2016       NA    NA    NA
+ 9 AFG      2017       NA    NA    NA
+10 AGO      2009       NA    NA    NA
+# … with 1,718 more rows</code></pre>
+<p>This is a <a href="glossary.html#tibble">tibble</a>,
+which is the tidyverse’s enhanced version of R’s <code>data.frame</code>.
+It organizes data into named columns,
+each having one value for each row.</p>
+</div>
+<div id="how-do-i-inspect-data" class="section level2">
+<h2><span class="header-section-number">5.3</span> How do I inspect data?</h2>
+<p>We often have a quick look at the content of a table to remind ourselves what it contains.
+Pandas does this using methods whose names are borrowed from the Unix shell’s <code>head</code> and <code>tail</code> commands:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.head())</code></pre>
+<pre><code>  country  year  estimate  hi  lo
+0     AFG  2009       NaN NaN NaN
+1     AFG  2010       NaN NaN NaN
+2     AFG  2011       NaN NaN NaN
+3     AFG  2012       NaN NaN NaN
+4     AFG  2013       NaN NaN NaN</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.tail())</code></pre>
+<pre><code>     country  year  estimate    hi    lo
+1723     ZWE  2013      0.57  0.70  0.49
+1724     ZWE  2014      0.54  0.67  0.47
+1725     ZWE  2015      0.59  0.73  0.51
+1726     ZWE  2016      0.71  0.88  0.62
+1727     ZWE  2017      0.65  0.81  0.57</code></pre>
+<p>R has similarly-named functions (not methods):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(data)</code></pre>
+<pre><code># A tibble: 6 x 5
+  country  year estimate    hi    lo
+  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 AFG      2009       NA    NA    NA
+2 AFG      2010       NA    NA    NA
+3 AFG      2011       NA    NA    NA
+4 AFG      2012       NA    NA    NA
+5 AFG      2013       NA    NA    NA
+6 AFG      2014       NA    NA    NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(data)</code></pre>
+<pre><code># A tibble: 6 x 5
+  country  year estimate    hi    lo
+  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ZWE      2012    0.38   0.47 0.33 
+2 ZWE      2013    0.570  0.7  0.49 
+3 ZWE      2014    0.54   0.67 0.47 
+4 ZWE      2015    0.59   0.73 0.51 
+5 ZWE      2016    0.71   0.88 0.62 
+6 ZWE      2017    0.65   0.81 0.570</code></pre>
+<p>Let’s have a closer look at that last command’s output:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(data)</code></pre>
+<pre><code># A tibble: 6 x 5
+  country  year estimate    hi    lo
+  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ZWE      2012    0.38   0.47 0.33 
+2 ZWE      2013    0.570  0.7  0.49 
+3 ZWE      2014    0.54   0.67 0.47 
+4 ZWE      2015    0.59   0.73 0.51 
+5 ZWE      2016    0.71   0.88 0.62 
+6 ZWE      2017    0.65   0.81 0.570</code></pre>
+<p>Note that the row numbers printed by <code>tail</code> are <a href="glossary.html#relative-row-number">relative</a> to the output,
+not <a href="glossary.html#absolute-row-number">absolute</a> to the table.
+This is different from Pandas,
+which retains the original row numbers.
+(Notice also that R starts numbering from 1.)
+What about overall information?</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.info())</code></pre>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1728 entries, 0 to 1727
+Data columns (total 5 columns):
+country     1728 non-null object
+year        1728 non-null int64
+estimate    728 non-null float64
+hi          728 non-null float64
+lo          728 non-null float64
+dtypes: float64(3), int64(1), object(1)
+memory usage: 67.6+ KB
+None</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(data)</code></pre>
+<pre><code>   country               year         estimate           hi        
+ Length:1728        Min.   :2009   Min.   :0.000   Min.   :0.0000  
+ Class :character   1st Qu.:2011   1st Qu.:0.100   1st Qu.:0.1400  
+ Mode  :character   Median :2013   Median :0.340   Median :0.4350  
+                    Mean   :2013   Mean   :0.387   Mean   :0.4614  
+                    3rd Qu.:2015   3rd Qu.:0.620   3rd Qu.:0.7625  
+                    Max.   :2017   Max.   :0.950   Max.   :0.9500  
+                                   NA&#39;s   :1000    NA&#39;s   :1000    
+       lo        
+ Min.   :0.0000  
+ 1st Qu.:0.0800  
+ Median :0.2600  
+ Mean   :0.3221  
+ 3rd Qu.:0.5100  
+ Max.   :0.9500  
+ NA&#39;s   :1000    </code></pre>
+<p>Your display of R’s summary may or may not wrap,
+depending on how large a screen the older acolytes have allowed you.</p>
+</div>
+<div id="how-do-i-index-rows-and-columns" class="section level2">
+<h2><span class="header-section-number">5.4</span> How do I index rows and columns?</h2>
+<p>A Pandas DataFrame is a collection of series (also called columns),
+each containing the values of a single observed variable.
+Columns in R tibbles are, not coincidentally, the same.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data[<span class="st">&#39;estimate&#39;</span>])</code></pre>
+<pre><code>0        NaN
+1        NaN
+2        NaN
+3        NaN
+4        NaN
+5        NaN
+6        NaN
+7        NaN
+8        NaN
+9        NaN
+10      0.03
+11      0.05
+12      0.06
+13      0.15
+14      0.10
+15      0.06
+16      0.01
+17      0.01
+18       NaN
+19       NaN
+...</code></pre>
+<p>We would get exactly the same output in Python with <code>data.estimate</code>,
+i.e.,
+with an attribute name rather than a string subscript.
+The same tricks work in R:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data[<span class="st">&#39;estimate&#39;</span>]</code></pre>
+<pre><code># A tibble: 1,728 x 1
+   estimate
+      &lt;dbl&gt;
+ 1       NA
+ 2       NA
+ 3       NA
+ 4       NA
+ 5       NA
+ 6       NA
+ 7       NA
+ 8       NA
+ 9       NA
+10       NA
+# … with 1,718 more rows</code></pre>
+<p>However, R’s <code>data$estimate</code> provides all the data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data<span class="op">$</span>estimate</code></pre>
+<pre><code>   [1]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.03 0.05 0.06
+  [14] 0.15 0.10 0.06 0.01 0.01   NA   NA   NA   NA   NA   NA   NA   NA
+  [27]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [40]   NA   NA   NA   NA   NA   NA   NA   NA 0.13 0.12 0.12 0.52 0.53
+  [53] 0.67 0.66   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [66]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [79]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.26
+  [92] 0.24 0.38 0.55 0.61 0.74 0.83 0.75 0.74   NA 0.10 0.10 0.11 0.18
+ [105] 0.12 0.02 0.12 0.20   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [118]   NA   NA 0.10 0.09 0.12 0.26 0.27 0.25 0.32 0.03 0.09 0.13 0.19
+ [131] 0.25 0.30 0.28 0.15 0.16   NA 0.02 0.02 0.02 0.03 0.15 0.10 0.17
+ [144] 0.14   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [157]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [170]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.95 0.95
+ [183] 0.95 0.95 0.95 0.95 0.80 0.95 0.87 0.77 0.75 0.72 0.51 0.55 0.50
+ [196] 0.62 0.37 0.36 0.07 0.46 0.46 0.46 0.46 0.44 0.43 0.42 0.40 0.25
+ [209] 0.25 0.46 0.25 0.45 0.45 0.46 0.46 0.45   NA   NA   NA   NA   NA
+ [222]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [235]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.53 0.35 0.36
+ [248] 0.48 0.41 0.45 0.47 0.50 0.01 0.01 0.07 0.05 0.03 0.09 0.12 0.21
+...</code></pre>
+<p>Again, note that the boxed number on the left is the start index of that row.</p>
+<p>What about single values?
+Remembering to count from zero from Python and as humans do for R,
+we have:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.estimate[<span class="dv">11</span>])</code></pre>
+<pre><code>0.05</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">data<span class="op">$</span>estimate[<span class="dv">12</span>]</code></pre>
+<pre><code>[1] 0.05</code></pre>
+<p>Ah—everything in R is a vector,
+so we get a vector of one value as an output rather than a single value.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(data.estimate[<span class="dv">11</span>]))</code></pre>
+<pre><code>TypeError: object of type &#39;numpy.float64&#39; has no len()
+
+Detailed traceback: 
+  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(data<span class="op">$</span>estimate[<span class="dv">12</span>])</code></pre>
+<pre><code>[1] 1</code></pre>
+<p>And yes, ranges work:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.estimate[<span class="dv">5</span>:<span class="dv">15</span>])</code></pre>
+<pre><code>5      NaN
+6      NaN
+7      NaN
+8      NaN
+9      NaN
+10    0.03
+11    0.05
+12    0.06
+13    0.15
+14    0.10
+Name: estimate, dtype: float64</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">data<span class="op">$</span>estimate[<span class="dv">6</span><span class="op">:</span><span class="dv">15</span>]</code></pre>
+<pre><code> [1]   NA   NA   NA   NA   NA 0.03 0.05 0.06 0.15 0.10</code></pre>
+<p>Note that the upper bound is the same, because it’s inclusive in R and exclusive in Python.
+Note also that neither library prevents us from selecting a range of data that spans logical groups such as countries,
+which is why selecting by row number is usually a sign of innocence, insouciance, or desperation.</p>
+<p>We can select by column number as well.
+Pandas uses the rather clumsy <code>object.iloc[rows, columns]</code>, with the usual <code>:</code> shortcut for “entire range”:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.iloc[:, <span class="dv">0</span>])</code></pre>
+<pre><code>0       AFG
+1       AFG
+2       AFG
+3       AFG
+4       AFG
+5       AFG
+6       AFG
+7       AFG
+8       AFG
+9       AGO
+10      AGO
+11      AGO
+12      AGO
+13      AGO
+14      AGO
+15      AGO
+16      AGO
+17      AGO
+18      AIA
+19      AIA
+...</code></pre>
+<p>Since this is a column, it can be indexed:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.iloc[:, <span class="dv">0</span>][<span class="dv">0</span>])</code></pre>
+<pre><code>AFG</code></pre>
+<p>In R, a single index is interpreted as the column index:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data[<span class="dv">1</span>]</code></pre>
+<pre><code># A tibble: 1,728 x 1
+   country
+   &lt;chr&gt;  
+ 1 AFG    
+ 2 AFG    
+ 3 AFG    
+ 4 AFG    
+ 5 AFG    
+ 6 AFG    
+ 7 AFG    
+ 8 AFG    
+ 9 AFG    
+10 AGO    
+# … with 1,718 more rows</code></pre>
+<p>But notice that the output is not a vector, but another tibble (i.e., a table with N rows and one column).
+This means that adding another index does column-wise indexing on that tibble:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data[<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
+<pre><code># A tibble: 1,728 x 1
+   country
+   &lt;chr&gt;  
+ 1 AFG    
+ 2 AFG    
+ 3 AFG    
+ 4 AFG    
+ 5 AFG    
+ 6 AFG    
+ 7 AFG    
+ 8 AFG    
+ 9 AFG    
+10 AGO    
+# … with 1,718 more rows</code></pre>
+<p>How then are we to get the first mention of Afghanistan?
+The answer is to use <a href="glossary.html#double-square-brackets">double square brackets</a> to strip away one level of structure:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data[[<span class="dv">1</span>]]</code></pre>
+<pre><code>   [1] &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AGO&quot; &quot;AGO&quot;
+  [12] &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot;
+  [23] &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot;
+  [34] &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ARE&quot; &quot;ARE&quot; &quot;ARE&quot; &quot;ARE&quot; &quot;ARE&quot; &quot;ARE&quot; &quot;ARE&quot; &quot;ARE&quot;
+  [45] &quot;ARE&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARG&quot; &quot;ARM&quot;
+  [56] &quot;ARM&quot; &quot;ARM&quot; &quot;ARM&quot; &quot;ARM&quot; &quot;ARM&quot; &quot;ARM&quot; &quot;ARM&quot; &quot;ARM&quot; &quot;ATG&quot; &quot;ATG&quot; &quot;ATG&quot;
+  [67] &quot;ATG&quot; &quot;ATG&quot; &quot;ATG&quot; &quot;ATG&quot; &quot;ATG&quot; &quot;ATG&quot; &quot;AUS&quot; &quot;AUS&quot; &quot;AUS&quot; &quot;AUS&quot; &quot;AUS&quot;
+  [78] &quot;AUS&quot; &quot;AUS&quot; &quot;AUS&quot; &quot;AUS&quot; &quot;AUT&quot; &quot;AUT&quot; &quot;AUT&quot; &quot;AUT&quot; &quot;AUT&quot; &quot;AUT&quot; &quot;AUT&quot;
+  [89] &quot;AUT&quot; &quot;AUT&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot; &quot;AZE&quot;
+ [100] &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BDI&quot; &quot;BEL&quot; &quot;BEL&quot;
+ [111] &quot;BEL&quot; &quot;BEL&quot; &quot;BEL&quot; &quot;BEL&quot; &quot;BEL&quot; &quot;BEL&quot; &quot;BEL&quot; &quot;BEN&quot; &quot;BEN&quot; &quot;BEN&quot; &quot;BEN&quot;
+ [122] &quot;BEN&quot; &quot;BEN&quot; &quot;BEN&quot; &quot;BEN&quot; &quot;BEN&quot; &quot;BFA&quot; &quot;BFA&quot; &quot;BFA&quot; &quot;BFA&quot; &quot;BFA&quot; &quot;BFA&quot;
+ [133] &quot;BFA&quot; &quot;BFA&quot; &quot;BFA&quot; &quot;BGD&quot; &quot;BGD&quot; &quot;BGD&quot; &quot;BGD&quot; &quot;BGD&quot; &quot;BGD&quot; &quot;BGD&quot; &quot;BGD&quot;
+ [144] &quot;BGD&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BGR&quot; &quot;BHR&quot;
+ [155] &quot;BHR&quot; &quot;BHR&quot; &quot;BHR&quot; &quot;BHR&quot; &quot;BHR&quot; &quot;BHR&quot; &quot;BHR&quot; &quot;BHR&quot; &quot;BHS&quot; &quot;BHS&quot; &quot;BHS&quot;
+ [166] &quot;BHS&quot; &quot;BHS&quot; &quot;BHS&quot; &quot;BHS&quot; &quot;BHS&quot; &quot;BHS&quot; &quot;BIH&quot; &quot;BIH&quot; &quot;BIH&quot; &quot;BIH&quot; &quot;BIH&quot;
+ [177] &quot;BIH&quot; &quot;BIH&quot; &quot;BIH&quot; &quot;BIH&quot; &quot;BLR&quot; &quot;BLR&quot; &quot;BLR&quot; &quot;BLR&quot; &quot;BLR&quot; &quot;BLR&quot; &quot;BLR&quot;
+ [188] &quot;BLR&quot; &quot;BLR&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot; &quot;BLZ&quot;
+ [199] &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BOL&quot; &quot;BRA&quot; &quot;BRA&quot;
+ [210] &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRB&quot; &quot;BRB&quot; &quot;BRB&quot; &quot;BRB&quot;
+...</code></pre>
+<p>This is now a plain old vector, so it can be indexed with <a href="glossary.html#single-square-brackets">single square brackets</a>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre>
+<pre><code>[1] &quot;AFG&quot;</code></pre>
+<p>But that too is a vector, so it can of course be indexed as well (for some value of “of course”):</p>
+<pre class="sourceCode r"><code class="sourceCode r">data[[<span class="dv">1</span>]][<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
+<pre><code>[1] &quot;AFG&quot;</code></pre>
+<p>Thus,
+<code>data[1][[1]]</code> produces a tibble,
+then selects the first column vector from it,
+so it still gives us a vector.
+<em>This is not madness.</em>
+It is merely…differently sane.</p>
+<blockquote>
+<p><strong>Subsetting data frames:</strong>
+When we are working with data frames (including tibbles),
+subsetting with a single vector selects columns, not rows,
+because data frames are stored as lists of columns.
+This means that <code>df[1:2]</code> selects two columns from <code>df</code>.
+However, in <code>df[2:3, 1:2]</code>, the first index selects rows, while the second selects columns.</p>
+</blockquote>
+</div>
+<div id="how-do-i-calculate-basic-statistics" class="section level2">
+<h2><span class="header-section-number">5.5</span> How do I calculate basic statistics?</h2>
+<p>What is the average estimate?
+We start by grabbing that column for convenience:</p>
+<pre class="sourceCode python"><code class="sourceCode python">estimates <span class="op">=</span> data.estimate
+<span class="bu">print</span>(<span class="bu">len</span>(estimates))</code></pre>
+<pre><code>1728</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.mean())</code></pre>
+<pre><code>0.3870192307692308</code></pre>
+<p>This translates almost directly to R:</p>
+<pre class="sourceCode r"><code class="sourceCode r">estimates &lt;-<span class="st"> </span>data<span class="op">$</span>estimate
+<span class="kw">length</span>(estimates)</code></pre>
+<pre><code>[1] 1728</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(estimates)</code></pre>
+<pre><code>[1] NA</code></pre>
+<p>The void is always there, waiting for us…
+Let’s fix this in R first:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
+<pre><code>[1] 0.3870192</code></pre>
+<p>And then try to get the statistically correct behavior in Pandas:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.mean(skipna<span class="op">=</span><span class="va">False</span>))</code></pre>
+<pre><code>nan</code></pre>
+<p>Many functions in R use <code>na.rm</code> to control whether <code>NA</code>s are removed or not.
+(Remember, the <code>.</code> character is just another part of the name)
+R’s default behavior is to leave <code>NA</code>s in, and then to include them in <a href="glossary.html#aggregation">aggregate</a> computations.
+Python’s is to get rid of missing values early and work with what’s left,
+which makes translating code from one language to the next much more interesting than it might otherwise be.
+But other than that, the statistics works the same way in Python:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.<span class="bu">min</span>())</code></pre>
+<pre><code>0.0</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.<span class="bu">max</span>())</code></pre>
+<pre><code>0.95</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.std())</code></pre>
+<pre><code>0.3034511074214113</code></pre>
+<p>Here are the equivalent computations in R:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
+<pre><code>[1] 0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
+<pre><code>[1] 0.95</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
+<pre><code>[1] 0.3034511</code></pre>
+<p>A good use of aggregation is to check the quality of the data.
+For example,
+we can ask if there are any records where some of the estimate, the low value, or the high value are missing,
+but not all of them:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>((data.hi.isnull() <span class="op">!=</span> data.lo.isnull()).<span class="bu">any</span>())</code></pre>
+<pre><code>False</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">is.na</span>(data<span class="op">$</span>hi) <span class="op">!=</span><span class="st"> </span><span class="kw">is.na</span>(data<span class="op">$</span>lo))</code></pre>
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div id="how-do-i-filter-data" class="section level2">
+<h2><span class="header-section-number">5.6</span> How do I filter data?</h2>
+<p>By “<a href="glossary.html#filter">filtering</a>”, we mean “selecting records by value”.
+As discussed in <a href="#REF">s:basics</a>,
+the simplest approach is to use a vector of logical values to keep only the values corresponding to <code>TRUE</code>.
+In Python, this is:</p>
+<pre class="sourceCode python"><code class="sourceCode python">maximal <span class="op">=</span> estimates[estimates <span class="op">&gt;=</span> <span class="fl">0.95</span>]
+<span class="bu">print</span>(<span class="bu">len</span>(maximal))</code></pre>
+<pre><code>52</code></pre>
+<p>And in R:</p>
+<pre class="sourceCode r"><code class="sourceCode r">maximal &lt;-<span class="st"> </span>estimates[estimates <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.95</span>]
+<span class="kw">length</span>(maximal)</code></pre>
+<pre><code>[1] 1052</code></pre>
+<p>The difference is unexpected.
+Let’s have a closer look at the result in Python:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(maximal)</code></pre>
+<pre><code>180     0.95
+181     0.95
+182     0.95
+183     0.95
+184     0.95
+185     0.95
+187     0.95
+360     0.95
+361     0.95
+362     0.95
+379     0.95
+380     0.95
+381     0.95
+382     0.95
+384     0.95
+385     0.95
+386     0.95
+446     0.95
+447     0.95
+461     0.95
+...</code></pre>
+<p>And in R:</p>
+<pre class="sourceCode r"><code class="sourceCode r">maximal</code></pre>
+<pre><code>   [1]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [14]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [27]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [40]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [53]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [66]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [79]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+  [92]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [105]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [118]   NA   NA   NA   NA   NA   NA   NA 0.95 0.95 0.95 0.95 0.95 0.95
+ [131] 0.95   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [144]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [157]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [170]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [183]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [196]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [209] 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95   NA   NA   NA
+ [222]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [235]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+ [248]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
+...</code></pre>
+<p>It appears that R has kept the unknown values in order to highlight just how little we know.
+More precisely,
+wherever there was an <code>NA</code> in the original data
+there is an <code>NA</code> in the logical vector
+and hence an <code>NA</code> in the final vector.
+Let us then turn to <code>which</code> to get a vector of indices at which a vector contains <code>TRUE</code>.
+This function does not return indices for <code>FALSE</code> or <code>NA</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">which</span>(estimates <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.95</span>)</code></pre>
+<pre><code> [1]  181  182  183  184  185  186  188  361  362  363  380  381  382  383
+[15]  385  386  387  447  448  462  793  794  795  796  797  798  911  912
+[29]  955  956  957  958  959  960  961  962  963 1098 1107 1128 1429 1430
+[43] 1462 1554 1604 1607 1625 1626 1627 1629 1708 1710</code></pre>
+<p>And as a quick check:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">which</span>(estimates <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.95</span>))</code></pre>
+<pre><code>[1] 52</code></pre>
+<p>So now we can index our vector with the result of the <code>which</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">maximal &lt;-<span class="st"> </span>estimates[<span class="kw">which</span>(estimates <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.95</span>)]
+maximal</code></pre>
+<pre><code> [1] 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95
+[15] 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95
+[29] 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95
+[43] 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95 0.95</code></pre>
+<p>But should we do this?
+Those <code>NA</code>s are important information,
+and should not be discarded so blithely.
+What we should <em>really</em> be doing is using the tools the tidyverse provides
+rather than clever indexing tricks.
+These behave consistently across a wide scale of problems
+and encourage use of patterns that make it easier for others to understand our programs.</p>
+</div>
+<div id="how-do-i-write-tidy-code" class="section level2">
+<h2><span class="header-section-number">5.7</span> How do I write tidy code?</h2>
+<p>The five basic data transformation operations in the tidyverse are:</p>
+<ul>
+<li><code>filter</code>: choose observations (rows) by value(s)</li>
+<li><code>arrange</code>: reorder rows</li>
+<li><code>select</code>: choose variables (columns) by name</li>
+<li><code>mutate</code>: derive new variables from existing ones</li>
+<li><code>summarize</code>: combine many values to create a single new value</li>
+</ul>
+<p><code>filter(tibble, ...criteria...)</code> keeps rows that pass all of the specified criteria:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(data, lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
+<pre><code># A tibble: 183 x 5
+   country  year estimate    hi    lo
+   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 ARG      2016     0.67  0.77  0.61
+ 2 ARG      2017     0.66  0.77  0.6 
+ 3 AZE      2014     0.74  0.95  0.53
+ 4 AZE      2015     0.83  0.95  0.64
+ 5 AZE      2016     0.75  0.95  0.56
+ 6 AZE      2017     0.74  0.95  0.56
+ 7 BLR      2009     0.95  0.95  0.95
+ 8 BLR      2010     0.95  0.95  0.95
+ 9 BLR      2011     0.95  0.95  0.91
+10 BLR      2012     0.95  0.95  0.95
+# … with 173 more rows</code></pre>
+<p>Notice that the expression is <code>lo &gt; 0.5</code> rather than <code>"lo" &gt; 0.5</code>.
+The latter expression returns the entire table
+because the string <code>"lo"</code> is greater than the number 0.5 everywhere.</p>
+<p>But wait:
+how is it that <code>lo</code> can be used on its own?
+It is the name of a column, but there is no variable called <code>lo</code>.
+The answer is that R uses <a href="glossary.html#lazy-evaluation">lazy evaluation</a> of arguments.
+Arguments aren’t evaluated until they’re needed,
+so the function <code>filter</code> actually gets the expression <code>lo &gt; 0.5</code>,
+which allows it to check that there’s a column called <code>lo</code> and then use it appropriately.
+This is much tidier than <code>filter(data, data$lo &gt; 0.5)</code> or <code>filter(data, "lo &gt; 0.5")</code>,
+and is <em>not</em> some kind of eldritch wizardry.
+Many languages rely on lazy evaluation,
+and when used circumspectly,
+it allows us to produce code that is easier to read.</p>
+<p>But we can do even better by using the <a href="glossary.html#pipe-operator">pipe operator</a> <code>%&gt;%</code>,
+which is about to become your new best friend:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
+<pre><code># A tibble: 183 x 5
+   country  year estimate    hi    lo
+   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 ARG      2016     0.67  0.77  0.61
+ 2 ARG      2017     0.66  0.77  0.6 
+ 3 AZE      2014     0.74  0.95  0.53
+ 4 AZE      2015     0.83  0.95  0.64
+ 5 AZE      2016     0.75  0.95  0.56
+ 6 AZE      2017     0.74  0.95  0.56
+ 7 BLR      2009     0.95  0.95  0.95
+ 8 BLR      2010     0.95  0.95  0.95
+ 9 BLR      2011     0.95  0.95  0.91
+10 BLR      2012     0.95  0.95  0.95
+# … with 173 more rows</code></pre>
+<p>This may not seem like much of an improvement,
+but neither does a Unix pipe consisting of <code>cat filename.txt | head</code>.
+What about this?</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(data, (estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">&amp;</span><span class="st"> </span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)))</code></pre>
+<pre><code># A tibble: 1 x 5
+  country  year estimate    hi    lo
+  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 TTO      2017     0.94  0.95  0.86</code></pre>
+<p>It uses the vectorized “and” operator <code>&amp;</code> twice,
+and parsing the condition takes a human being at least a few seconds.
+Its tidyverse equivalent is:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>))</code></pre>
+<pre><code># A tibble: 1 x 5
+  country  year estimate    hi    lo
+  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 TTO      2017     0.94  0.95  0.86</code></pre>
+<p>Breaking the condition into stages like this often makes reading and testing much easier,
+and encourages incremental write-test-extend development.</p>
+<p>Let’s increase the band from 10% to 20%:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>))</code></pre>
+<pre><code># A tibble: 55 x 5
+   country  year estimate    hi    lo
+   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 ARG      2016     0.67  0.77  0.61
+ 2 ARG      2017     0.66  0.77  0.6 
+ 3 CHL      2011     0.64  0.72  0.56
+ 4 CHL      2013     0.67  0.77  0.59
+ 5 CHL      2014     0.77  0.87  0.67
+ 6 CHL      2015     0.92  0.95  0.79
+ 7 CHL      2016     0.7   0.79  0.62
+ 8 CHL      2017     0.85  0.95  0.76
+ 9 CPV      2014     0.94  0.95  0.76
+10 CPV      2016     0.94  0.95  0.76
+# … with 45 more rows</code></pre>
+<p>And then order by <code>lo</code> in descending order,
+breaking the line the way the <a href="http://style.tidyverse.org/">tidyverse style guide</a> recommends:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(lo))</code></pre>
+<pre><code># A tibble: 55 x 5
+   country  year estimate    hi    lo
+   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 TTO      2017     0.94  0.95  0.86
+ 2 SWZ      2011     0.93  0.95  0.84
+ 3 CUB      2014     0.92  0.95  0.83
+ 4 TTO      2016     0.9   0.95  0.83
+ 5 CRI      2009     0.92  0.95  0.81
+ 6 CRI      2012     0.89  0.95  0.81
+ 7 NAM      2014     0.91  0.95  0.81
+ 8 URY      2016     0.9   0.95  0.81
+ 9 ZMB      2014     0.91  0.95  0.81
+10 KAZ      2015     0.84  0.95  0.8 
+# … with 45 more rows</code></pre>
+<p>We can now <a href="glossary.html#select">select</a> the three columns we care about:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(lo)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year, lo, hi)</code></pre>
+<pre><code># A tibble: 55 x 3
+    year    lo    hi
+   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  2017  0.86  0.95
+ 2  2011  0.84  0.95
+ 3  2014  0.83  0.95
+ 4  2016  0.83  0.95
+ 5  2009  0.81  0.95
+ 6  2012  0.81  0.95
+ 7  2014  0.81  0.95
+ 8  2016  0.81  0.95
+ 9  2014  0.81  0.95
+10  2015  0.8   0.95
+# … with 45 more rows</code></pre>
+<p>Once again,
+we are using the unquoted column names <code>year</code>, <code>lo</code>, and <code>hi</code>
+and letting R’s lazy evaluation take care of the details for us.</p>
+<p>Rather than selecting these three columns,
+we can <a href="glossary.html#negative-selection">select <em>out</em></a> the columns we’re not interested in by negating their names.
+This leaves the columns that are kept in their original order,
+rather than putting <code>lo</code> before <code>hi</code>,
+which won’t matter if we later select by name,
+but <em>will</em> if we ever want to select by position:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(lo)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>country, <span class="op">-</span>estimate)</code></pre>
+<pre><code># A tibble: 55 x 3
+    year    hi    lo
+   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  2017  0.95  0.86
+ 2  2011  0.95  0.84
+ 3  2014  0.95  0.83
+ 4  2016  0.95  0.83
+ 5  2009  0.95  0.81
+ 6  2012  0.95  0.81
+ 7  2014  0.95  0.81
+ 8  2016  0.95  0.81
+ 9  2014  0.95  0.81
+10  2015  0.95  0.8 
+# … with 45 more rows</code></pre>
+<p>Giddy with power,
+we now add a column containing the difference between the low and high values.
+This can be done using either <code>mutate</code>,
+which adds new columns to the end of an existing tibble,
+or with <code>transmute</code>,
+which creates a new tibble containing only the columns we explicitly ask for.
+Since we want to keep <code>hi</code> and <code>lo</code>,
+we decide to use <code>mutate</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(lo)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>country, <span class="op">-</span>estimate) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> hi <span class="op">-</span><span class="st"> </span>lo)</code></pre>
+<pre><code># A tibble: 55 x 4
+    year    hi    lo difference
+   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+ 1  2017  0.95  0.86     0.0900
+ 2  2011  0.95  0.84     0.110 
+ 3  2014  0.95  0.83     0.12  
+ 4  2016  0.95  0.83     0.12  
+ 5  2009  0.95  0.81     0.140 
+ 6  2012  0.95  0.81     0.140 
+ 7  2014  0.95  0.81     0.140 
+ 8  2016  0.95  0.81     0.140 
+ 9  2014  0.95  0.81     0.140 
+10  2015  0.95  0.8      0.150 
+# … with 45 more rows</code></pre>
+<p>Does the difference between high and low estimates vary by year?
+To answer that question,
+we use <code>group_by</code> to <a href="glossary.html#group">group</a> records by value
+and then <code>summarize</code> to aggregate within groups.
+We might as well get rid of the <code>arrange</code> and <code>select</code> calls in our pipeline at this point,
+since we’re not using them,
+and count how many records contributed to each aggregation using <code>n()</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> hi <span class="op">-</span><span class="st"> </span>lo) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">n</span>(), <span class="kw">mean</span>(year))</code></pre>
+<pre><code># A tibble: 9 x 3
+   year `n()` `mean(year)`
+  &lt;int&gt; &lt;int&gt;        &lt;dbl&gt;
+1  2009     3         2009
+2  2010     3         2010
+3  2011     5         2011
+4  2012     5         2012
+5  2013     6         2013
+6  2014    10         2014
+7  2015     6         2015
+8  2016    10         2016
+9  2017     7         2017</code></pre>
+<p>Let’s do that again with more meaningful names for the final table’s columns:</p>
+<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> hi <span class="op">-</span><span class="st"> </span>lo) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">count =</span> <span class="kw">n</span>(), <span class="dt">ave_diff =</span> <span class="kw">mean</span>(year))</code></pre>
+<pre><code># A tibble: 9 x 3
+   year count ave_diff
+  &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
+1  2009     3     2009
+2  2010     3     2010
+3  2011     5     2011
+4  2012     5     2012
+5  2013     6     2013
+6  2014    10     2014
+7  2015     6     2015
+8  2016    10     2016
+9  2017     7     2017</code></pre>
+<p>(We could also add a call to <code>rename</code>,
+but for small tables like this,
+setting column names on the fly is perfectly comprehensible.)</p>
+<p>Now,
+how might we do this with Pandas?
+On approach is to use a single multi-part <code>.query</code> to select data
+and store the result in a variable so that we can refer to the <code>hi</code> and <code>lo</code> columns twice
+without repeating the filtering expression.
+We then group by year and aggregate, again using strings for column names:</p>
+<pre class="sourceCode python"><code class="sourceCode python">data <span class="op">=</span> pd.read_csv(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)
+data <span class="op">=</span> data.query(<span class="st">&#39;(estimate != 0.95) &amp; (lo &gt; 0.5) &amp; (hi &lt;= (lo + 0.2))&#39;</span>)
+data <span class="op">=</span> data.assign(difference <span class="op">=</span> (data.hi <span class="op">-</span> data.lo))
+grouped <span class="op">=</span> data.groupby(<span class="st">&#39;year&#39;</span>).agg({<span class="st">&#39;difference&#39;</span> : {<span class="st">&#39;ave_diff&#39;</span> : <span class="st">&#39;mean&#39;</span>, <span class="st">&#39;count&#39;</span> : <span class="st">&#39;count&#39;</span>}})</code></pre>
+<pre><code>/Users/gvwilson/anaconda3/lib/python3.6/site-packages/pandas/core/groupby/groupby.py:4658: FutureWarning: using a dict with renaming is deprecated and will be removed in a future version
+  return super(DataFrameGroupBy, self).aggregate(arg, *args, **kwargs)</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(grouped)</code></pre>
+<pre><code>     difference      
+       ave_diff count
+year                 
+2009   0.170000     3
+2010   0.186667     3
+2011   0.168000     5
+2012   0.186000     5
+2013   0.183333     6
+2014   0.168000    10
+2015   0.161667     6
+2016   0.166000    10
+2017   0.152857     7</code></pre>
+<p>There are other ways to tackle this problem with Pandas,
+but the tidyverse approach produces code that I find more readable.</p>
+</div>
+<div id="key-points-3" class="section level2">
+<h2><span class="header-section-number">5.8</span> Key Points</h2>
+<ul>
+<li><code>install.packages('name')</code> installs packages.</li>
+<li><code>library(name)</code> (without quoting the name) loads a package.</li>
+<li><code>library(tidyverse)</code> loads the entire collection of tidyverse libraries at once.</li>
+<li><code>read_csv(filename)</code> reads CSV files that use the string ‘NA’ to represent missing values.</li>
+<li><code>read_csv</code> infers each column’s data types based on the first thousand values it reads.</li>
+<li>A tibble is the tidyverse’s version of a data frame, which represents tabular data.</li>
+<li><code>head(tibble)</code> and <code>tail(tibble)</code> inspect the first and last few rows of a tibble.</li>
+<li><code>summary(tibble)</code> displays a summary of a tibble’s structure and values.</li>
+<li><code>tibble$column</code> selects a column from a tibble, returning a vector as a result.</li>
+<li><code>tibble['column']</code> selects a column from a tibble, returning a tibble as a result.</li>
+<li><code>tibble[,c]</code> selects column <code>c</code> from a tibble, returning a tibble as a result.</li>
+<li><code>tibble[r,]</code> selects row <code>r</code> from a tibble, returning a tibble as a result.</li>
+<li>Use ranges and logical vectors as indices to select multiple rows/columns or specific rows/columns from a tibble.</li>
+<li><code>tibble[[c]]</code> selects column <code>c</code> from a tibble, returning a vector as a result.</li>
+<li><code>min(...)</code>, <code>mean(...)</code>, <code>max(...)</code>, and <code>std(...)</code> calculates the minimum, mean, maximum, and standard deviation of data.</li>
+<li>These aggregate functions include <code>NA</code>s in their calculations, and so will produce <code>NA</code> if the input data contains any.</li>
+<li>Use <code>func(data, na.rm = TRUE)</code> to remove <code>NA</code>s from data before calculations are done (but make sure this is statistically justified).</li>
+<li><code>filter(tibble, condition)</code> selects rows from a tibble that pass a logical test on their values.</li>
+<li><code>arrange(tibble, column)</code> or <code>arrange(desc(column))</code> arrange rows according to values in a column (the latter in descending order).</li>
+<li><code>select(tibble, column, column, ...)</code> selects columns from a tibble.</li>
+<li><code>select(tibble, -column)</code> selects <em>out</em> a column from a tibble.</li>
+<li><code>mutate(tibble, name = expression, name = expression, ...)</code> adds new columns to a tibble using values from existing columns.</li>
+<li><code>group_by(tibble, column, column, ...)</code> groups rows that have the same values in the specified columns.</li>
+<li><code>summarize(tibble, name = expression, name = expression)</code> aggregates tibble values (by groups if the rows have been grouped).</li>
+<li><code>tibble %&gt;% function(arguments)</code> performs the same operation as <code>function(tibble, arguments)</code>.</li>
+<li>Use <code>%&gt;%</code> to create pipelines in which the left side of each <code>%&gt;%</code> becomes the first argument of the next stage.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="control-flow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cleaning-up-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/tidyverse.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

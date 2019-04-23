@@ -1,0 +1,6 @@
+- Describe the three essential parts of a Shiny application.
+- Explain how element names are used to connect interface elements to server actions.
+- Describe the structure of a simple Shiny application and how to run it.
+- Explain what reactive variables are and how they differ from normal variables.
+- Use functions to create and style HTML elements.
+- Explain how to avoid circular updates in interfaces.

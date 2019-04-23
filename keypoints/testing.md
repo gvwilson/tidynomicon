@@ -1,0 +1,5 @@
+- Use testthat to write unit tests for R.
+- Put unit tests for an R package in the `tests/testthat` directory.
+- Put tests in files called <code>test_<em>group</em>.R</code> and call them <code>test_<em>something</em></code>.
+- Use `test_dir` to run tests from a particular that match a pattern.
+- Write tests for data transformation steps as well as library functions.

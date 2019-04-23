@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 12 Testing | The Tidynomicon</title>
+  <meta name="description" content="Chapter 12 Testing | The Tidynomicon">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 12 Testing | The Tidynomicon" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 12 Testing | The Tidynomicon" />
+  <meta name="github-repo" content="gvwilson/tidynomicon" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Testing | The Tidynomicon" />
+  
+  <meta name="twitter:description" content="Chapter 12 Testing | The Tidynomicon" />
+  
+
+<meta name="author" content="Greg Wilson">
+
+
+<meta name="date" content="2019-04-25">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="projects.html">
+<link rel="next" href="web-applications.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Tidynomicon</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="values-and-vectors.html"><a href="values-and-vectors.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
+<li class="chapter" data-level="2.1" data-path="values-and-vectors.html"><a href="values-and-vectors.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
+<li class="chapter" data-level="2.2" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-say-hello"><i class="fa fa-check"></i><b>2.2</b> How do I say hello?</a></li>
+<li class="chapter" data-level="2.3" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-add-numbers"><i class="fa fa-check"></i><b>2.3</b> How do I add numbers?</a></li>
+<li class="chapter" data-level="2.4" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-store-many-numbers-together"><i class="fa fa-check"></i><b>2.4</b> How do I store many numbers together?</a></li>
+<li class="chapter" data-level="2.5" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-index-a-vector"><i class="fa fa-check"></i><b>2.5</b> How do I index a vector?</a></li>
+<li class="chapter" data-level="2.6" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-do-i-create-new-vectors-from-old"><i class="fa fa-check"></i><b>2.6</b> How do I create new vectors from old?</a></li>
+<li class="chapter" data-level="2.7" data-path="values-and-vectors.html"><a href="values-and-vectors.html#how-else-does-r-represent-the-absence-of-data"><i class="fa fa-check"></i><b>2.7</b> How else does R represent the absence of data?</a></li>
+<li class="chapter" data-level="2.8" data-path="values-and-vectors.html"><a href="values-and-vectors.html#key-points"><i class="fa fa-check"></i><b>2.8</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="indexing.html"><a href="indexing.html"><i class="fa fa-check"></i><b>3</b> Indexing</a><ul>
+<li class="chapter" data-level="3.1" data-path="indexing.html"><a href="indexing.html#questions-1"><i class="fa fa-check"></i><b>3.1</b> Questions</a></li>
+<li class="chapter" data-level="3.2" data-path="indexing.html"><a href="indexing.html#how-can-i-store-a-mix-of-different-types-of-objects"><i class="fa fa-check"></i><b>3.2</b> How can I store a mix of different types of objects?</a></li>
+<li class="chapter" data-level="3.3" data-path="indexing.html"><a href="indexing.html#what-is-the-difference-between-and"><i class="fa fa-check"></i><b>3.3</b> What is the difference between <code>[</code> and <code>[[</code>?</a></li>
+<li class="chapter" data-level="3.4" data-path="indexing.html"><a href="indexing.html#how-can-i-access-elements-by-name"><i class="fa fa-check"></i><b>3.4</b> How can I access elements by name?</a></li>
+<li class="chapter" data-level="3.5" data-path="indexing.html"><a href="indexing.html#how-can-i-create-and-index-a-matrix"><i class="fa fa-check"></i><b>3.5</b> How can I create and index a matrix?</a></li>
+<li class="chapter" data-level="3.6" data-path="indexing.html"><a href="indexing.html#key-points-1"><i class="fa fa-check"></i><b>3.6</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="control-flow.html"><a href="control-flow.html"><i class="fa fa-check"></i><b>4</b> Control Flow</a><ul>
+<li class="chapter" data-level="4.1" data-path="control-flow.html"><a href="control-flow.html#questions-2"><i class="fa fa-check"></i><b>4.1</b> Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="control-flow.html"><a href="control-flow.html#how-do-i-choose-and-repeat-things"><i class="fa fa-check"></i><b>4.2</b> How do I choose and repeat things?</a></li>
+<li class="chapter" data-level="4.3" data-path="control-flow.html"><a href="control-flow.html#how-can-i-express-a-range-of-values-in-r"><i class="fa fa-check"></i><b>4.3</b> How can I express a range of values in R?</a></li>
+<li class="chapter" data-level="4.4" data-path="control-flow.html"><a href="control-flow.html#how-can-i-use-a-vector-in-a-conditional-statement"><i class="fa fa-check"></i><b>4.4</b> How can I use a vector in a conditional statement?</a></li>
+<li class="chapter" data-level="4.5" data-path="control-flow.html"><a href="control-flow.html#how-do-i-create-and-call-functions"><i class="fa fa-check"></i><b>4.5</b> How do I create and call functions?</a></li>
+<li class="chapter" data-level="4.6" data-path="control-flow.html"><a href="control-flow.html#how-can-i-write-a-function-that-takes-a-varying-number-of-arguments"><i class="fa fa-check"></i><b>4.6</b> How can I write a function that takes a varying number of arguments?</a></li>
+<li class="chapter" data-level="4.7" data-path="control-flow.html"><a href="control-flow.html#how-can-i-provide-default-values-for-arguments"><i class="fa fa-check"></i><b>4.7</b> How can I provide default values for arguments?</a></li>
+<li class="chapter" data-level="4.8" data-path="control-flow.html"><a href="control-flow.html#how-can-i-hide-the-value-that-r-returns"><i class="fa fa-check"></i><b>4.8</b> How can I hide the value that R returns?</a></li>
+<li class="chapter" data-level="4.9" data-path="control-flow.html"><a href="control-flow.html#how-can-i-assign-to-a-global-variable-from-inside-a-function"><i class="fa fa-check"></i><b>4.9</b> How can I assign to a global variable from inside a function?</a></li>
+<li class="chapter" data-level="4.10" data-path="control-flow.html"><a href="control-flow.html#key-points-2"><i class="fa fa-check"></i><b>4.10</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-tidyverse.html"><a href="the-tidyverse.html"><i class="fa fa-check"></i><b>5</b> The Tidyverse</a><ul>
+<li class="chapter" data-level="5.1" data-path="the-tidyverse.html"><a href="the-tidyverse.html#questions-3"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-read-data"><i class="fa fa-check"></i><b>5.2</b> How do I read data?</a></li>
+<li class="chapter" data-level="5.3" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-inspect-data"><i class="fa fa-check"></i><b>5.3</b> How do I inspect data?</a></li>
+<li class="chapter" data-level="5.4" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-index-rows-and-columns"><i class="fa fa-check"></i><b>5.4</b> How do I index rows and columns?</a></li>
+<li class="chapter" data-level="5.5" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-calculate-basic-statistics"><i class="fa fa-check"></i><b>5.5</b> How do I calculate basic statistics?</a></li>
+<li class="chapter" data-level="5.6" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-filter-data"><i class="fa fa-check"></i><b>5.6</b> How do I filter data?</a></li>
+<li class="chapter" data-level="5.7" data-path="the-tidyverse.html"><a href="the-tidyverse.html#how-do-i-write-tidy-code"><i class="fa fa-check"></i><b>5.7</b> How do I write tidy code?</a></li>
+<li class="chapter" data-level="5.8" data-path="the-tidyverse.html"><a href="the-tidyverse.html#key-points-3"><i class="fa fa-check"></i><b>5.8</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html"><i class="fa fa-check"></i><b>6</b> Cleaning Up Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#questions-4"><i class="fa fa-check"></i><b>6.1</b> Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#how-do-i-inspect-the-raw-data"><i class="fa fa-check"></i><b>6.2</b> How do I inspect the raw data?</a></li>
+<li class="chapter" data-level="6.3" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#how-do-i-tidy-the-data"><i class="fa fa-check"></i><b>6.3</b> How do I tidy the data?</a></li>
+<li class="chapter" data-level="6.4" data-path="cleaning-up-data.html"><a href="cleaning-up-data.html#key-points-4"><i class="fa fa-check"></i><b>6.4</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html"><i class="fa fa-check"></i><b>7</b> Non-Standard Evaluation</a><ul>
+<li class="chapter" data-level="7.1" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#questions-5"><i class="fa fa-check"></i><b>7.1</b> Questions</a></li>
+<li class="chapter" data-level="7.2" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>7.2</b> How does Python evaluate function calls?</a></li>
+<li class="chapter" data-level="7.3" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>7.3</b> How does R evaluate the same kind of thing?</a></li>
+<li class="chapter" data-level="7.4" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>7.4</b> Why is lazy evaluation useful?</a></li>
+<li class="chapter" data-level="7.5" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>7.5</b> What is tidy evaluation?</a></li>
+<li class="chapter" data-level="7.6" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#what-have-we-learned"><i class="fa fa-check"></i><b>7.6</b> What have we learned?</a></li>
+<li class="chapter" data-level="7.7" data-path="non-standard-evaluation.html"><a href="non-standard-evaluation.html#key-points-5"><i class="fa fa-check"></i><b>7.7</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="handling-errors.html"><a href="handling-errors.html"><i class="fa fa-check"></i><b>8</b> Handling Errors</a><ul>
+<li class="chapter" data-level="8.1" data-path="handling-errors.html"><a href="handling-errors.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
+<li class="chapter" data-level="8.2" data-path="handling-errors.html"><a href="handling-errors.html#key-points-6"><i class="fa fa-check"></i><b>8.2</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html"><i class="fa fa-check"></i><b>9</b> Object-Oriented Programming</a><ul>
+<li class="chapter" data-level="9.1" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#questions-7"><i class="fa fa-check"></i><b>9.1</b> Questions</a></li>
+<li class="chapter" data-level="9.2" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#what-are-attributes"><i class="fa fa-check"></i><b>9.2</b> What are attributes?</a></li>
+<li class="chapter" data-level="9.3" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#how-are-classes-represented"><i class="fa fa-check"></i><b>9.3</b> How are classes represented?</a></li>
+<li class="chapter" data-level="9.4" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#how-does-inheritance-work"><i class="fa fa-check"></i><b>9.4</b> How does inheritance work?</a></li>
+<li class="chapter" data-level="9.5" data-path="object-oriented-programming.html"><a href="object-oriented-programming.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intellectual-debt.html"><a href="intellectual-debt.html"><i class="fa fa-check"></i><b>10</b> Intellectual Debt</a><ul>
+<li class="chapter" data-level="10.1" data-path="intellectual-debt.html"><a href="intellectual-debt.html#questions-8"><i class="fa fa-check"></i><b>10.1</b> Questions</a></li>
+<li class="chapter" data-level="10.2" data-path="intellectual-debt.html"><a href="intellectual-debt.html#why-shouldnt-i-use-setwd"><i class="fa fa-check"></i><b>10.2</b> Why shouldn’t I use <code>setwd</code>?</a></li>
+<li class="chapter" data-level="10.3" data-path="intellectual-debt.html"><a href="intellectual-debt.html#how-do-i-write-formulas"><i class="fa fa-check"></i><b>10.3</b> How do I write formulas?</a></li>
+<li class="chapter" data-level="10.4" data-path="intellectual-debt.html"><a href="intellectual-debt.html#what-the-hell-are-factors"><i class="fa fa-check"></i><b>10.4</b> What the hell are factors?</a></li>
+<li class="chapter" data-level="10.5" data-path="intellectual-debt.html"><a href="intellectual-debt.html#how-do-i-refer-to-various-arguments-in-a-pipeline"><i class="fa fa-check"></i><b>10.5</b> How do I refer to various arguments in a pipeline?</a></li>
+<li class="chapter" data-level="10.6" data-path="intellectual-debt.html"><a href="intellectual-debt.html#how-does-r-give-the-appearance-of-immutable-data"><i class="fa fa-check"></i><b>10.6</b> How does R give the appearance of immutable data?</a></li>
+<li class="chapter" data-level="10.7" data-path="intellectual-debt.html"><a href="intellectual-debt.html#what-else-should-i-worry-about"><i class="fa fa-check"></i><b>10.7</b> What else should I worry about?</a></li>
+<li class="chapter" data-level="10.8" data-path="intellectual-debt.html"><a href="intellectual-debt.html#key-points-8"><i class="fa fa-check"></i><b>10.8</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="projects.html"><a href="projects.html"><i class="fa fa-check"></i><b>11</b> Projects</a><ul>
+<li class="chapter" data-level="11.1" data-path="projects.html"><a href="projects.html#questions-9"><i class="fa fa-check"></i><b>11.1</b> Questions</a></li>
+<li class="chapter" data-level="11.2" data-path="projects.html"><a href="projects.html#whats-in-an-r-package"><i class="fa fa-check"></i><b>11.2</b> What’s in an R package?</a></li>
+<li class="chapter" data-level="11.3" data-path="projects.html"><a href="projects.html#how-do-i-create-a-package"><i class="fa fa-check"></i><b>11.3</b> How do I create a package?</a></li>
+<li class="chapter" data-level="11.4" data-path="projects.html"><a href="projects.html#key-points-9"><i class="fa fa-check"></i><b>11.4</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>12</b> Testing</a><ul>
+<li class="chapter" data-level="12.1" data-path="testing.html"><a href="testing.html#questions-10"><i class="fa fa-check"></i><b>12.1</b> Questions</a></li>
+<li class="chapter" data-level="12.2" data-path="testing.html"><a href="testing.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>12.2</b> What should I know about testing in general?</a></li>
+<li class="chapter" data-level="12.3" data-path="testing.html"><a href="testing.html#s:testing-warmup"><i class="fa fa-check"></i><b>12.3</b> How can I write a few simple tests?</a></li>
+<li class="chapter" data-level="12.4" data-path="testing.html"><a href="testing.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>12.4</b> How can I check data transformation?</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="testing.html"><a href="testing.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>12.4.1</b> How can I reorganize code to make it more testable?</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="testing.html"><a href="testing.html#key-points-10"><i class="fa fa-check"></i><b>12.5</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="web-applications.html"><a href="web-applications.html"><i class="fa fa-check"></i><b>13</b> Web Applications</a><ul>
+<li class="chapter" data-level="13.1" data-path="web-applications.html"><a href="web-applications.html#questions-11"><i class="fa fa-check"></i><b>13.1</b> Questions</a></li>
+<li class="chapter" data-level="13.2" data-path="web-applications.html"><a href="web-applications.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>13.2</b> How do I set up a simple application?</a></li>
+<li class="chapter" data-level="13.3" data-path="web-applications.html"><a href="web-applications.html#how-do-i-create-a-user-interface"><i class="fa fa-check"></i><b>13.3</b> How do I create a user interface?</a></li>
+<li class="chapter" data-level="13.4" data-path="web-applications.html"><a href="web-applications.html#how-do-i-create-a-server"><i class="fa fa-check"></i><b>13.4</b> How do I create a server?</a></li>
+<li class="chapter" data-level="13.5" data-path="web-applications.html"><a href="web-applications.html#how-do-i-run-my-application"><i class="fa fa-check"></i><b>13.5</b> How do I run my application?</a></li>
+<li class="chapter" data-level="13.6" data-path="web-applications.html"><a href="web-applications.html#how-can-i-improve-my-user-interface"><i class="fa fa-check"></i><b>13.6</b> How can I improve my user interface?</a></li>
+<li class="chapter" data-level="13.7" data-path="web-applications.html"><a href="web-applications.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>13.7</b> How can I display the data in a file?</a></li>
+<li class="chapter" data-level="13.8" data-path="web-applications.html"><a href="web-applications.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>13.8</b> How can I break circular dependencies?</a></li>
+<li class="chapter" data-level="13.9" data-path="web-applications.html"><a href="web-applications.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>13.9</b> How can I control how the user interface is rendered?</a></li>
+<li class="chapter" data-level="13.10" data-path="web-applications.html"><a href="web-applications.html#key-points-11"><i class="fa fa-check"></i><b>13.10</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="using-python.html"><a href="using-python.html"><i class="fa fa-check"></i><b>14</b> Using Python</a><ul>
+<li class="chapter" data-level="14.1" data-path="using-python.html"><a href="using-python.html#questions-12"><i class="fa fa-check"></i><b>14.1</b> Questions</a></li>
+<li class="chapter" data-level="14.2" data-path="using-python.html"><a href="using-python.html#how-can-i-access-data-across-languages"><i class="fa fa-check"></i><b>14.2</b> How can I access data across languages?</a></li>
+<li class="chapter" data-level="14.3" data-path="using-python.html"><a href="using-python.html#how-can-i-call-functions-across-languages"><i class="fa fa-check"></i><b>14.3</b> How can I call functions across languages?</a></li>
+<li class="chapter" data-level="14.4" data-path="using-python.html"><a href="using-python.html#key-points-12"><i class="fa fa-check"></i><b>14.4</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
+<li class="chapter" data-level="B" data-path="code-of-conduct.html"><a href="code-of-conduct.html"><i class="fa fa-check"></i><b>B</b> Code of Conduct</a><ul>
+<li class="chapter" data-level="B.1" data-path="code-of-conduct.html"><a href="code-of-conduct.html#our-standards"><i class="fa fa-check"></i><b>B.1</b> Our Standards</a></li>
+<li class="chapter" data-level="B.2" data-path="code-of-conduct.html"><a href="code-of-conduct.html#our-responsibilities"><i class="fa fa-check"></i><b>B.2</b> Our Responsibilities</a></li>
+<li class="chapter" data-level="B.3" data-path="code-of-conduct.html"><a href="code-of-conduct.html#scope"><i class="fa fa-check"></i><b>B.3</b> Scope</a></li>
+<li class="chapter" data-level="B.4" data-path="code-of-conduct.html"><a href="code-of-conduct.html#enforcement"><i class="fa fa-check"></i><b>B.4</b> Enforcement</a></li>
+<li class="chapter" data-level="B.5" data-path="code-of-conduct.html"><a href="code-of-conduct.html#attribution"><i class="fa fa-check"></i><b>B.5</b> Attribution</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="citation.html"><a href="citation.html"><i class="fa fa-check"></i><b>C</b> Citation</a></li>
+<li class="chapter" data-level="D" data-path="contributing.html"><a href="contributing.html"><i class="fa fa-check"></i><b>D</b> Contributing</a></li>
+<li class="chapter" data-level="E" data-path="glossary.html"><a href="glossary.html"><i class="fa fa-check"></i><b>E</b> Glossary</a></li>
+<li class="chapter" data-level="F" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>F</b> Learning Objectives</a><ul>
+<li class="chapter" data-level="F.1" data-path="learning-objectives.html"><a href="learning-objectives.html#values-and-vectors-1"><i class="fa fa-check"></i><b>F.1</b> Values and Vectors</a></li>
+<li class="chapter" data-level="F.2" data-path="learning-objectives.html"><a href="learning-objectives.html#indexing-1"><i class="fa fa-check"></i><b>F.2</b> Indexing</a></li>
+<li class="chapter" data-level="F.3" data-path="learning-objectives.html"><a href="learning-objectives.html#control-flow-1"><i class="fa fa-check"></i><b>F.3</b> Control Flow</a></li>
+<li class="chapter" data-level="F.4" data-path="learning-objectives.html"><a href="learning-objectives.html#the-tidyverse-1"><i class="fa fa-check"></i><b>F.4</b> The Tidyverse</a></li>
+<li class="chapter" data-level="F.5" data-path="learning-objectives.html"><a href="learning-objectives.html#cleaning-up-data-1"><i class="fa fa-check"></i><b>F.5</b> Cleaning Up Data</a></li>
+<li class="chapter" data-level="F.6" data-path="learning-objectives.html"><a href="learning-objectives.html#non-standard-evaluation-1"><i class="fa fa-check"></i><b>F.6</b> Non-Standard Evaluation</a></li>
+<li class="chapter" data-level="F.7" data-path="learning-objectives.html"><a href="learning-objectives.html#handling-errors-1"><i class="fa fa-check"></i><b>F.7</b> Handling Errors</a></li>
+<li class="chapter" data-level="F.8" data-path="learning-objectives.html"><a href="learning-objectives.html#object-oriented-programming-1"><i class="fa fa-check"></i><b>F.8</b> Object-Oriented Programming</a></li>
+<li class="chapter" data-level="F.9" data-path="learning-objectives.html"><a href="learning-objectives.html#intellectual-debt-1"><i class="fa fa-check"></i><b>F.9</b> Intellectual Debt</a></li>
+<li class="chapter" data-level="F.10" data-path="learning-objectives.html"><a href="learning-objectives.html#projects-1"><i class="fa fa-check"></i><b>F.10</b> Projects</a></li>
+<li class="chapter" data-level="F.11" data-path="learning-objectives.html"><a href="learning-objectives.html#testing-1"><i class="fa fa-check"></i><b>F.11</b> Testing</a></li>
+<li class="chapter" data-level="F.12" data-path="learning-objectives.html"><a href="learning-objectives.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>F.12</b> Web Applications with Shiny</a></li>
+<li class="chapter" data-level="F.13" data-path="learning-objectives.html"><a href="learning-objectives.html#reticulate"><i class="fa fa-check"></i><b>F.13</b> Reticulate</a></li>
+</ul></li>
+<li class="chapter" data-level="G" data-path="key-points-13.html"><a href="key-points-13.html"><i class="fa fa-check"></i><b>G</b> Key Points</a><ul>
+<li class="chapter" data-level="G.1" data-path="key-points-13.html"><a href="key-points-13.html#values-and-vectors-2"><i class="fa fa-check"></i><b>G.1</b> Values and Vectors</a></li>
+<li class="chapter" data-level="G.2" data-path="key-points-13.html"><a href="key-points-13.html#indexing-2"><i class="fa fa-check"></i><b>G.2</b> Indexing</a></li>
+<li class="chapter" data-level="G.3" data-path="key-points-13.html"><a href="key-points-13.html#control-flow-2"><i class="fa fa-check"></i><b>G.3</b> Control Flow</a></li>
+<li class="chapter" data-level="G.4" data-path="key-points-13.html"><a href="key-points-13.html#the-tidyverse-2"><i class="fa fa-check"></i><b>G.4</b> The Tidyverse</a></li>
+<li class="chapter" data-level="G.5" data-path="key-points-13.html"><a href="key-points-13.html#cleaning-up-data-2"><i class="fa fa-check"></i><b>G.5</b> Cleaning Up Data</a></li>
+<li class="chapter" data-level="G.6" data-path="key-points-13.html"><a href="key-points-13.html#non-standard-evaluation-2"><i class="fa fa-check"></i><b>G.6</b> Non-Standard Evaluation</a></li>
+<li class="chapter" data-level="G.7" data-path="key-points-13.html"><a href="key-points-13.html#handling-errors-2"><i class="fa fa-check"></i><b>G.7</b> Handling Errors</a></li>
+<li class="chapter" data-level="G.8" data-path="key-points-13.html"><a href="key-points-13.html#object-oriented-programming-2"><i class="fa fa-check"></i><b>G.8</b> Object-Oriented Programming</a></li>
+<li class="chapter" data-level="G.9" data-path="key-points-13.html"><a href="key-points-13.html#intellectual-debt-2"><i class="fa fa-check"></i><b>G.9</b> Intellectual Debt</a></li>
+<li class="chapter" data-level="G.10" data-path="key-points-13.html"><a href="key-points-13.html#projects-2"><i class="fa fa-check"></i><b>G.10</b> Projects</a></li>
+<li class="chapter" data-level="G.11" data-path="key-points-13.html"><a href="key-points-13.html#testing-2"><i class="fa fa-check"></i><b>G.11</b> Testing</a></li>
+<li class="chapter" data-level="G.12" data-path="key-points-13.html"><a href="key-points-13.html#web-applications-with-shiny-1"><i class="fa fa-check"></i><b>G.12</b> Web Applications with Shiny</a></li>
+<li class="chapter" data-level="G.13" data-path="key-points-13.html"><a href="key-points-13.html#reticulate-1"><i class="fa fa-check"></i><b>G.13</b> Reticulate</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="testing" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Testing</h1>
+<div id="questions-10" class="section level2">
+<h2><span class="header-section-number">12.1</span> Questions</h2>
+<ul>
+<li>How can I test R code?</li>
+<li>How can I test an R package?</li>
+</ul>
+<p>In keeping with common programming practice,
+we have left testing until the end.</p>
+</div>
+<div id="what-should-i-know-about-testing-in-general" class="section level2">
+<h2><span class="header-section-number">12.2</span> What should I know about testing in general?</h2>
+<p>The standard testing library for R is <a href="https://github.com/r-lib/testthat">testthat</a>.
+Like Python’s <a href="https://docs.python.org/3/library/unittest.html">unittest</a> library,
+it is a member of the <a href="https://en.wikipedia.org/wiki/XUnit">xUnit</a> family
+of <a href="glossary.html#unit-test">unit testing</a> libraries:</p>
+<ol style="list-style-type: decimal">
+<li>Each test consists of a single function that tests a single property or behavior of the system.</li>
+<li>Tests are collected into files with prescribed names that can be found by a <a href="glossary.html#test-runner">test runner</a>.</li>
+<li>Shared <a href="glossary.html#testing-setup">setup</a> and <a href="glossary.html#testing-teardown">teardown</a> steps are put in functions of their own.</li>
+</ol>
+<p>Let’s load it and write our first test:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(testthat)</code></pre>
+<pre><code>
+Attaching package: &#39;testthat&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:rlang&#39;:
+
+    is_false, is_null, is_true</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    matches</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    is_null</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals itself&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)})</code></pre>
+<p>As is conventional with xUnit-style testing libraries,
+no news is good news:
+if a test passes,
+it doesn’t produce output because it doesn’t need our attention.
+Let’s try something that ought to fail:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals one&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)})</code></pre>
+<pre><code>Error: Test failed: &#39;Zero equals one&#39;
+* 0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1</code></pre>
+<p>Good:
+we can draw some comfort from the fact that They have not yet changed the fundamental rules of arithmetic.
+But what are the curly braces around <code>expect_equal</code> for?
+The answer is that they create a code block of some sort for <code>test_that</code> to run.
+We can run <code>expect_equal</code> on its own:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
+<pre><code>Error: 0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1</code></pre>
+<p>but that doesn’t produce a summary of how many tests passed or failed.
+Passing a block of code to <code>test_that</code> also allows us to check several things in one test:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Testing two things&quot;</span>, {
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
+})</code></pre>
+<pre><code>Error: Test failed: &#39;Testing two things&#39;
+* 0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1</code></pre>
+<p>Note that a block of code is <em>not</em> the same thing as an <a href="glossary.html#anonymous-function">anonymous function</a>,
+which is why running this block of code does nothing:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Using an anonymous function&quot;</span>, <span class="cf">function</span>(){
+  <span class="kw">print</span>(<span class="st">&quot;In our anonymous function&quot;</span>)
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
+})</code></pre>
+<p>But running blocks of tests by hand is a bad practice no matter what is in them.
+What we should do instead is put related tests in files,
+then put those files in a directory called <code>tests/testthat</code>.
+We can then run some or all of those tests with a single command.</p>
+<p>To start,
+let’s create <code>tests/test_example.R</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(testthat)
+<span class="kw">context</span>(<span class="st">&quot;Demonstrating the testing library&quot;</span>)
+
+<span class="kw">test_that</span>(<span class="st">&quot;Testing a number with itself&quot;</span>, {
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)
+  <span class="kw">expect_equal</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-1</span>)
+  <span class="kw">expect_equal</span>(<span class="ot">Inf</span>, <span class="ot">Inf</span>)
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;Testing different numbers&quot;</span>, {
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;Testing with a tolerance&quot;</span>, {
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="dt">tolerance =</span> <span class="fl">0.05</span>, <span class="dt">scale =</span> <span class="dv">1</span>)
+  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="dt">tolerance =</span> <span class="fl">0.005</span>, <span class="dt">scale =</span> <span class="dv">1</span>)
+})</code></pre>
+<p>The first line loads the testthat package,
+which gives us our tools.
+The call to <code>context</code> on the second line gives this set of tests a name for reporting purposes.
+After that,
+we add as many calls to <code>test_that</code> as we want,
+each with a name and a block of code.
+We can now run this file from within RStudio:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Demonstrating the testing library
+✖ |   4 2     | Demonstrating the testing library
+───────────────────────────────────────────────────────────────────────────
+test_example.R:11: failure: Testing different numbers
+0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
+
+test_example.R:16: failure: Testing with a tolerance
+0 not equal to 0.01.
+1/1 mismatches
+[1] 0 - 0.01 == -0.01
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Finding empty rows
+✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_a.R:5: warning: (unknown)
+cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+
+test_find_empty_a.R:5: error: (unknown)
+cannot open the connection
+1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_a.R:5
+2: file(filename, &quot;r&quot;, encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Finding empty rows
+✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_b.R:5: warning: (unknown)
+cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+
+test_find_empty_b.R:5: error: (unknown)
+cannot open the connection
+1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_b.R:5
+2: file(filename, &quot;r&quot;, encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Testing properties of tibbles
+✔ |   1   1   | Testing properties of tibbles
+───────────────────────────────────────────────────────────────────────────
+test_tibble.R:6: warning: Tibble columns are given the name &#39;value&#39;
+`as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+This warning is displayed once per session.
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       5
+Failed:   4
+Warnings: 3
+Skipped:  0</code></pre>
+<p>A bit of care is needed when interpreting these results.
+There are four <code>test_that</code> calls,
+but eight actual checks,
+and the number of successes and failures is counted by recording the results of the latter,
+not the former.</p>
+<p>What then is the purpose of <code>test_that</code>?
+Why not just use <code>expect_equal</code> and its kin,
+such as <code>expect_true</code>, <code>expect_false</code>, <code>expect_length</code>, and so on?
+The answer is that it allows us to do one operation and then check several things afterward.
+Let’s create another file called <code>tests/test_tibble.R</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(testthat)
+<span class="kw">context</span>(<span class="st">&quot;Testing properties of tibbles&quot;</span>)
+
+<span class="kw">test_that</span>(<span class="st">&quot;Tibble columns are given the name &#39;value&#39;&quot;</span>, {
+  t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.tibble</span>()
+  <span class="kw">expect_equal</span>(<span class="kw">names</span>(t), <span class="st">&quot;value&quot;</span>)
+})</code></pre>
+<p>(We don’t actually have to call our test files <code>test_something.R</code>,
+but <code>test_dir</code> and the rest of R’s testing infrastructure expect us to.
+Similarly,
+we don’t have to put them in a <code>tests</code> directory,
+but gibbering incoherence is likely to ensue if we do not.)
+Now let’s run all of our tests:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Demonstrating the testing library
+✖ |   4 2     | Demonstrating the testing library
+───────────────────────────────────────────────────────────────────────────
+test_example.R:11: failure: Testing different numbers
+0 not equal to 1.
+1/1 mismatches
+[1] 0 - 1 == -1
+
+test_example.R:16: failure: Testing with a tolerance
+0 not equal to 0.01.
+1/1 mismatches
+[1] 0 - 0.01 == -0.01
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Finding empty rows
+✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_a.R:5: warning: (unknown)
+cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+
+test_find_empty_a.R:5: error: (unknown)
+cannot open the connection
+1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_a.R:5
+2: file(filename, &quot;r&quot;, encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Finding empty rows
+✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_b.R:5: warning: (unknown)
+cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+
+test_find_empty_b.R:5: error: (unknown)
+cannot open the connection
+1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_b.R:5
+2: file(filename, &quot;r&quot;, encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Testing properties of tibbles
+✔ |   1       | Testing properties of tibbles
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       5
+Failed:   4
+Warnings: 2
+Skipped:  0</code></pre>
+<p>That’s rather a lot of output.
+Happily,
+we can provide a <code>filter</code> argument to <code>test_dir</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="dt">filter =</span> <span class="st">&quot;test_tibble.R&quot;</span>)</code></pre>
+<pre><code>Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir</code></pre>
+<p>Ah.
+It turns out that <code>filter</code> is applied to filenames <em>after</em> the leading <code>test_</code> and the trailing <code>.R</code> have been removed.
+Let’s try again:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="dt">filter =</span> <span class="st">&quot;tibble&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Testing properties of tibbles
+✔ |   1       | Testing properties of tibbles
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       1
+Failed:   0
+Warnings: 0
+Skipped:  0</code></pre>
+<p>That’s better,
+and it illustrates our earlier point about the importance of following conventions.</p>
+</div>
+<div id="s:testing-warmup" class="section level2">
+<h2><span class="header-section-number">12.3</span> How can I write a few simple tests?</h2>
+<p>To give ourselves something to test,
+let’s create a file called <code>scripts/find_empty_01.R</code>
+that defines a single function <code>find_empty_rows</code> that identifies all the empty rows in a CSV file.
+Our first implementation is:</p>
+<pre class="sourceCode r"><code class="sourceCode r">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {
+  data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(source)
+  empty &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">pmap</span>(<span class="cf">function</span>(...) {
+      args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
+      <span class="kw">all</span>(<span class="kw">is.na</span>(args) <span class="op">|</span><span class="st"> </span>(args <span class="op">==</span><span class="st"> &quot;&quot;</span>))
+    })
+  data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">transmute</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(<span class="kw">as.logical</span>(empty)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">pull</span>(id)
+}</code></pre>
+<p>This is complex enough to merit line-by-line exegesis:</p>
+<ol style="list-style-type: decimal">
+<li>Define the function with one argument <code>source</code>, from which we shall read.</li>
+<li>Read tabular data from that source and assign the resulting tibble to <code>data</code>.</li>
+<li>Begin a pipeline that will assign something to the variable <code>empty</code>.
+<ol style="list-style-type: decimal">
+<li>Use <code>pmap</code> to map a function across each row of the tibble.
+Since we don’t know how many columns are in each row,
+we use <code>...</code> to take any number of arguments.</li>
+<li>Convert the variable number of arguments to a list.</li>
+<li>Check to see if all of those arguments are either <code>NA</code> or the empty string.</li>
+<li>Close the mapped function’s definition.</li>
+</ol></li>
+<li>Start another pipeline.
+This one’s result isn’t assigned to a variable,
+so whatever it produces will be the value returned by <code>find_empty_rows</code>.
+<ol style="list-style-type: decimal">
+<li>Construct a tibble that contains only the row numbers of the original table in a column called <code>id</code>.</li>
+<li>Filter those row numbers to keep only those corresponding to rows that were entirely empty.
+The <code>as.logical</code> call inside <code>filter</code> is needed because the value returned by <code>pmap</code>
+(which we stored in <code>empty</code>)
+is a list, not a logical vector.</li>
+<li>Use <code>pull</code> to get the one column we want from the filtered tibble as a vector.</li>
+</ol></li>
+</ol>
+<p>There is a lot going on here,
+particularly if you are (as I am at the time of writing)
+new to R
+and needed help to figure out that <code>pmap</code> is the function this problem wants.
+But now that we have it,
+we can do this:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;scripts/find_empty_01.R&quot;</span>)
+<span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)</code></pre>
+<p>The <code>source</code> function reads R code from the given source.
+Using this inside an RMarkdown file is usually a bad idea,
+since the generated HTML or PDF won’t show readers what code we loaded and ran.
+On the other hand,
+if we are creating command-line tools for use on clusters or in other batch processing modes,
+and are careful to display the code in a nearby block,
+the stain on our soul is excusable.</p>
+<p>The more interesting part of this example is the call to <code>find_empty_rows</code>.
+Instead of giving it the name of a file,
+we have given it the text of the CSV we want parsed.
+This string is passed to <code>read_csv</code>,
+which (according to documentation that only took us 15 minutes to realize we had already seen)
+interprets its first argument as a filename <em>or</em>
+as the actual text to be parsed if it contains a newline character.
+This allows us to write put the <a href="glossary.html#test-fixture">test fixture</a>
+right there in the code as a literal string,
+which experience shows is to understand and maintain
+than having test data in separate files.</p>
+<p>Our function seems to work,
+but we can make it more pipelinesque:</p>
+<pre class="sourceCode r"><code class="sourceCode r">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {
+  <span class="kw">read_csv</span>(source) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {
+      args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
+      <span class="kw">all</span>(<span class="kw">is.na</span>(args) <span class="op">|</span><span class="st"> </span>(args <span class="op">==</span><span class="st"> &quot;&quot;</span>))
+    }) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">tibble</span>(<span class="dt">empty =</span> .) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(empty) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">pull</span>(id)
+}</code></pre>
+<p>Going line by line once again:</p>
+<ol style="list-style-type: decimal">
+<li>Define a function with one argument called <code>source</code>, from which we shall once again read.</li>
+<li>Read from that source to fill the pipeline.</li>
+<li>Map our test for emptiness across each row, returning a logical vector as a result.
+(<code>pmap_lgl</code> is a derivative of <code>pmap</code> that always casts its result to logical.
+Similar functions like <code>pmap_dbl</code> return vectors of other types,
+and many other tidyverse functions have strongly-typed variants as well.)</li>
+<li>Turn that logical vector into a single-column tibble,
+giving that column the name “empty”.
+We explain the use of <code>.</code> below.</li>
+<li>Add a second column with row numbers.</li>
+<li>Discard rows that aren’t empty.</li>
+<li>Return a vector of the remaining row IDs.</li>
+</ol>
+<blockquote>
+<p><strong>Wat?</strong></p>
+<p>Buried in the middle of the pipe shown above is the expression:</p>
+<p><code>tibble(empty = .)</code></p>
+<p>Quoting from <em><a href="http://adv-r.had.co.nz/">Advanced R</a></em>,
+“The function arguments look a little quirky
+but allow you to refer to <code>.</code> for one argument functions,
+<code>.x</code> and <code>.y.</code> for two argument functions,
+and <code>..1</code>, <code>..2</code>, <code>..3</code>, etc, for functions with an arbitrary number of arguments.”
+In other words, <code>.</code> in tidyverse functions usually means “whatever is on the left side of the <code>%&gt;%</code> operator”,
+i.e., whatever would normally be passed as the function’s first argument.
+Without this,
+we have no easy way to give the sole column of our newly-constructed tibble a name.</p>
+</blockquote>
+<p>Here’s our first batch of tests:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(testthat)
+<span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)
+
+<span class="kw">source</span>(<span class="st">&quot;../scripts/find_empty_02.R&quot;</span>)
+
+<span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="ot">NULL</span>)
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;Half-empty rows are not mistakenly detected&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">,2&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="ot">NULL</span>)
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;An empty row in the middle is found&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="kw">c</span>(2L))
+})</code></pre>
+<p>And here’s what happens when we run this file with <code>test_dir</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;find_empty_a&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Finding empty rows
+✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_a.R:5: warning: (unknown)
+cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+
+test_find_empty_a.R:5: error: (unknown)
+cannot open the connection
+1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_a.R:5
+2: file(filename, &quot;r&quot;, encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       0
+Failed:   1
+Warnings: 1
+Skipped:  0
+
+Frustration is a natural part of programming :)</code></pre>
+<p>This is perplexing:
+we expected that if there were no empty rows,
+our function would return <code>NULL</code>.
+Let’s look more closely:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)</code></pre>
+<p>Ah:
+we are being given an integer vector of zero length rather than <code>NULL</code>.
+Let’s have a closer look at the properties of this strange beast:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;is integer(0) equal to NULL&quot;</span>)</code></pre>
+<pre><code>[1] &quot;is integer(0) equal to NULL&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.null</span>(<span class="kw">integer</span>(<span class="dv">0</span>))</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;any(logical(0))&quot;</span>)</code></pre>
+<pre><code>[1] &quot;any(logical(0))&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">logical</span>(<span class="dv">0</span>))</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;all(logical(0))&quot;</span>)</code></pre>
+<pre><code>[1] &quot;all(logical(0))&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">logical</span>(<span class="dv">0</span>))</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<p>All right.
+If we compare <code>c(1L, 2L)</code> to <code>NULL</code>, we expect <code>c(FALSE, FALSE)</code>,
+so it’s reasonable to get a zero-length logical vector as a result when we compare <code>NULL</code> to an integer vector with no elements.
+The fact that <code>any</code> of an empty logical vector is <code>FALSE</code> isn’t really surprising either—none of the elements are <code>TRUE</code>,
+so it would be hard to say that any of them are.
+But <code>all</code> of an empty vector being <code>TRUE</code> is…unexpected.
+The reasoning is apparently that none of the (nonexistent) elements are <code>FALSE</code>,
+but honestly,
+at this point we are veering dangerously close to <a href="https://www.destroyallsoftware.com/talks/wat">JavaScript Logic</a>,
+so we will accept this behavior and move on.</p>
+<p>So what <em>should</em> our function return when there aren’t any empty rows: <code>NULL</code> or <code>integer(0)</code>?
+After a bit of thought,
+we decide on the latter,
+which means it’s the tests that we need to rewrite,
+not the code:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(testthat)
+<span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)
+
+<span class="kw">source</span>(<span class="st">&quot;../scripts/find_empty_02.R&quot;</span>)
+
+<span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="kw">integer</span>(<span class="dv">0</span>))
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;Half-empty rows are not mistakenly detected&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">,2&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="kw">integer</span>(<span class="dv">0</span>))
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;An empty row in the middle is found&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="kw">c</span>(2L))
+})</code></pre>
+<p>And here’s what happens when we run this file with <code>test_dir</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;find_empty_b&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Finding empty rows
+✖ |   0 1 1   | Finding empty rows
+───────────────────────────────────────────────────────────────────────────
+test_find_empty_b.R:5: warning: (unknown)
+cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+
+test_find_empty_b.R:5: error: (unknown)
+cannot open the connection
+1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_b.R:5
+2: file(filename, &quot;r&quot;, encoding = encoding)
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       0
+Failed:   1
+Warnings: 1
+Skipped:  0</code></pre>
+</div>
+<div id="how-can-i-check-data-transformation" class="section level2">
+<h2><span class="header-section-number">12.4</span> How can I check data transformation?</h2>
+<p>People normally write unit tests for the code in packages,
+not to check the steps taken to clean up particular datasets,
+but the latter are just as useful as the former.
+To illustrate,
+we have been given several more CSV files to clean up.
+The first,
+<code>at_health_facilities.csv</code>,
+shows the percentage of births at health facilities by country, year, and mother’s age.
+It comes from the same UNICEF website as our previous data,
+but has a different set of problems.
+Here are its first few lines:</p>
+<pre class="text"><code>,,GLOBAL DATABASES,,,,,,,,,,,,,
+,,[data.unicef.org],,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Indicator:,Delivered in health facilities,,,,,,,,,,,,,,
+Unit:,Percentage,,,,,,,,,,,,,,
+,,,,Mother&#39;s age,,,,,,,,,,,
+iso3,Country/areas,year,Total ,age 15-17,age 18-19,age less than 20,age more than 20,age 20-34,age 35-49,Source,Source year,,,,
+AFG,Afghanistan,2010,   33 ,    25 ,    29 ,    28 ,    31 ,    31 ,    31 ,MICS,2010,,,,
+ALB,Albania,2005,   98 ,    100 ,   96 ,    97 ,    98 ,    99 ,    92 ,MICS,2005,,,,
+ALB,Albania,2008,   98 ,    94 ,    98 ,    97 ,    98 ,    98 ,    99 ,DHS,2008,,,,
+...</code></pre>
+<p>and its last:</p>
+<pre class="text"><code>ZWE,Zimbabwe,2005,  66 ,    64 ,    64 ,    64 ,    67 ,    69 ,    53 ,DHS,2005,,,,
+ZWE,Zimbabwe,2009,  58 ,    49 ,    59 ,    55 ,    59 ,    60 ,    52 ,MICS,2009,,,,
+ZWE,Zimbabwe,2010,  64 ,    56 ,    66 ,    62 ,    64 ,    65 ,    60 ,DHS,2010,,,,
+ZWE,Zimbabwe,2014,  80 ,    82 ,    82 ,    82 ,    79 ,    80 ,    77 ,MICS,2014,,,,
+,,,,,,,,,,,,,,,
+Definition:,Percentage of births delivered in a health facility.,,,,,,,,,,,,,,
+,&quot;The indicator refers to women who had a live birth in a recent time period, generally two years for MICS and five years for DHS.&quot;,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Note:,&quot;Database include reanalyzed data from DHS and MICS, using a reference period of two years before the survey.&quot;,,,,,,,,,,,,,,
+,Includes surveys which microdata were available as of April 2016. ,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Source:,&quot;UNICEF global databases 2016 based on DHS, MICS .&quot;,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+Contact us:,data@unicef.org,,,,,,,,,,,,,,</code></pre>
+<p>There are two other files in this collection called <code>c_sections.csv</code> and <code>skilled_attendant_at_birth.csv</code>,
+which are the number of Caesarean sections
+and the number of births where a midwife or other trained practitioner was present.
+All three datasets have been exported from the same Excel spreadsheet;
+rather than writing a separate script for each,
+we should create a tool that will handle them all.</p>
+<p>At first glance,
+the problems we need to solve to do this are:</p>
+<ol style="list-style-type: decimal">
+<li>Each file may have a different number of header rows
+(by inspection, two of the files have 7 and one has 8),
+so we should infer this number from the file.</li>
+<li>Each file may contain a different number of records,
+so our tool should select rows by content rather than by absolute row number.</li>
+<li>The files appear to have the same column names
+(for which we give thanks),
+but we should check this in case someone tries to use our function
+with a dataset that doesn’t.</li>
+</ol>
+<p>These three requirements will make our program significantly more complicated,
+so we should tackle each with its own testable function.</p>
+<div id="how-can-i-reorganize-code-to-make-it-more-testable" class="section level3">
+<h3><span class="header-section-number">12.4.1</span> How can I reorganize code to make it more testable?</h3>
+<p>The data we care about comes after the row with <code>iso3</code>, <code>Country/areas</code>, and other column headers,
+so the simplest way to figure out how many rows to skip is to read the data,
+look for this row,
+and discard everything above it.
+The simplest way to do <em>that</em> is to read the file once to find the number of header rows,
+then read it again,
+discarding that number of rows.
+It’s inefficient,
+but for a dataset this size,
+simplicity beats performance.</p>
+<p>Here’s our first try:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;raw/at_health_facilities.csv&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">first</span>()</code></pre>
+<pre><code>Warning: Missing column names filled in: &#39;X1&#39; [1], &#39;X2&#39; [2], &#39;X4&#39; [4],
+&#39;X5&#39; [5], &#39;X6&#39; [6], &#39;X7&#39; [7], &#39;X8&#39; [8], &#39;X9&#39; [9], &#39;X10&#39; [10], &#39;X11&#39; [11],
+&#39;X12&#39; [12], &#39;X13&#39; [13], &#39;X14&#39; [14], &#39;X15&#39; [15], &#39;X16&#39; [16]</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  X1 = col_character(),
+  X2 = col_character(),
+  `GLOBAL DATABASES` = col_character(),
+  X4 = col_character(),
+  X5 = col_character(),
+  X6 = col_character(),
+  X7 = col_character(),
+  X8 = col_character(),
+  X9 = col_character(),
+  X10 = col_character(),
+  X11 = col_character(),
+  X12 = col_character(),
+  X13 = col_character(),
+  X14 = col_character(),
+  X15 = col_character(),
+  X16 = col_character()
+)</code></pre>
+<pre><code>[1] 7</code></pre>
+<p>Ignoring the messages about missing column names,
+this tells us that <code>iso3</code> appears in row 7 of our data,
+which is <em>almost</em> true:
+it’s actually in row 8,
+because <code>read_csv</code> has interpreted the first row of the raw CSV data as a header.
+On the bright side,
+that means we can immediately use this value as the <code>skip</code> parameter to the next <code>read_csv</code> call.</p>
+<p>How do we test this code?
+Easy:
+we turn it into a function,
+tell that function to stop if it can’t find <code>iso3</code> in the data,
+and write some unit tests.
+The function is:</p>
+<pre class="sourceCode r"><code class="sourceCode r">determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
+  <span class="kw">read_csv</span>(src_path) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">first</span>()
+}</code></pre>
+<p>We can then call <code>usethis::use_testthat()</code> to set up some testing infrastructure,
+including the directory <code>tests/testthat</code>
+and a script called <code>tests/testthat.R</code>
+that will run all our tests when we want to check the integrity of our project.
+Once we have done that
+we can put these five tests in <code>tests/testthat/test_determine_skip_rows.R</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="dv">2</span>)
+})</code></pre>
+<pre><code>Error: Test failed: &#39;The right row is found when there are header rows&#39;
+* `result` not equal to 2.
+Lengths differ: 0 is not 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows and blank lines&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="dv">3</span>)
+})</code></pre>
+<pre><code>Error: Test failed: &#39;The right row is found when there are header rows and blank lines&#39;
+* `result` not equal to 3.
+Lengths differ: 0 is not 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are no header rows to discard&quot;</span>, {
+  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;iso3,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)
+  <span class="kw">expect_equal</span>(result, <span class="dv">0</span>)
+})</code></pre>
+<pre><code>Error: Test failed: &#39;The right row is found when there are no header rows to discard&#39;
+* `result` not equal to 0.
+Lengths differ: 0 is not 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; isn&#39;t present&quot;</span>, {
+  <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b1</span><span class="ch">\n</span><span class="st">&quot;</span>),
+               <span class="st">&quot;No start row found&quot;</span>)
+})</code></pre>
+<pre><code>Error: Test failed: &#39;No row is found when &#39;iso3&#39; isn&#39;t present&#39;
+* `determine_skip_rows(&quot;a1,a2\nb1,b1\n&quot;)` did not throw an error.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; is in the wrong place&quot;</span>, {
+  <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;stuff,iso3</span><span class="ch">\n</span><span class="st">&quot;</span>),
+               <span class="st">&quot;No start row found&quot;</span>)
+})</code></pre>
+<pre><code>Error: Test failed: &#39;No row is found when &#39;iso3&#39; is in the wrong place&#39;
+* `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.</code></pre>
+<p>That’s right: all five fail.
+The first problem is that we have written <code>is03</code> (with a digit <code>0</code> instead of a letter <code>o</code>) in the first two tests.
+If we fix that and re-run the tests, they pass;
+what about the other three?</p>
+<ol style="list-style-type: decimal">
+<li>When there are no rows to skip, our function is returning <code>integer(0)</code> instead of 0
+because the row with <code>iso3</code> is being used as headers.</li>
+<li>When <code>iso3</code> isn’t found at all, the function is returning <code>integer(0)</code> rather than stopping.</li>
+</ol>
+<p>Here is a more robust version of the function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
+  data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(src_path)
+  <span class="cf">if</span> (<span class="kw">names</span>(data)[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) {
+    <span class="kw">return</span>(<span class="dv">0</span>)
+  }
+  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">first</span>()
+  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">stop</span>(<span class="st">&quot;No start row found in&quot;</span>, src_path)
+  }
+  result
+}</code></pre>
+<p>and here is the roxygen2 header and other modifications needed to make it package-worthy:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Determine how many rows to skip at the start of a raw maternal data set.</span>
+<span class="co">#&#39; This works by finding the first row with `iso3` in the first column.</span>
+<span class="co">#&#39;</span>
+<span class="co">#&#39; @param src_path path to source file</span>
+<span class="co">#&#39;</span>
+<span class="co">#&#39; @return the number of rows to skip (or halt if marker &#39;iso3&#39; not found)</span>
+<span class="co">#&#39;</span>
+<span class="co">#&#39; @importFrom magrittr %&gt;%</span>
+<span class="co">#&#39; @importFrom rlang .data</span>
+
+determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
+  data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(src_path)
+  <span class="cf">if</span> (<span class="kw">names</span>(data)[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) {
+    <span class="kw">return</span>(<span class="dv">0</span>)
+  }
+  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">id =</span> dplyr<span class="op">::</span><span class="kw">row_number</span>(.data)) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(.data<span class="op">$</span>check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(.data<span class="op">$</span>id) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">first</span>()
+  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">stop</span>(<span class="st">&quot;No start row found in&quot;</span>, src_path)
+  }
+  result
+}</code></pre>
+<p>Note that this roxygen2 comment block <em>doesn’t</em> include an <code>@export</code> directive,
+since this function is only going to be used within our project.</p>
+<p>The code to find the first and last row of interest looks very similar:</p>
+<pre class="sourceCode r"><code class="sourceCode r">determine_first_and_last_row &lt;-<span class="st"> </span><span class="cf">function</span>(data) {
+  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">rownum =</span> dplyr<span class="op">::</span><span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(.data<span class="op">$</span>iso3 <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AFG&quot;</span>, <span class="st">&quot;ZWE&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(dplyr<span class="op">::</span><span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">n</span>())) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(.data<span class="op">$</span>rownum) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">pull</span>(.data<span class="op">$</span>rownum)
+  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {
+    <span class="kw">stop</span>(<span class="st">&quot;First or last row missing&quot;</span>)
+  }
+  result
+}</code></pre>
+<p>as does the code to select the region of interest and reformat the numbers as fractions:</p>
+<pre class="sourceCode r"><code class="sourceCode r">subsection_maternal_data &lt;-<span class="st"> </span><span class="cf">function</span>(raw_data, first_and_last) {
+  raw_data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span>first_and_last[[<span class="dv">2</span>, <span class="dv">1</span>]]) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>.data<span class="op">$</span><span class="st">`</span><span class="dt">Country/areas</span><span class="st">`</span>, <span class="op">-</span><span class="kw">starts_with</span>(<span class="st">&quot;X&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span>purrr<span class="op">::</span><span class="kw">map_dfr</span>(<span class="cf">function</span>(x) <span class="kw">ifelse</span>(stringr<span class="op">::</span><span class="kw">str_detect</span>(x, <span class="st">&quot;-&quot;</span>), <span class="ot">NA</span>, x)) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">c</span>(.data<span class="op">$</span>iso3, .data<span class="op">$</span>Source)), as.numeric) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">c</span>(.data<span class="op">$</span>iso3, .data<span class="op">$</span>year, .data<span class="op">$</span>Source, .data<span class="op">$</span><span class="st">`</span><span class="dt">Source year</span><span class="st">`</span>)),
+                     <span class="cf">function</span>(x) x <span class="op">/</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">rename</span>(
+      <span class="dt">total =</span> .data<span class="op">$</span>Total,
+      <span class="dt">age_15_17 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 15-17</span><span class="st">`</span>,
+      <span class="dt">age_18_19 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 18-19</span><span class="st">`</span>,
+      <span class="dt">age_less_than_20 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age less than 20</span><span class="st">`</span>,
+      <span class="dt">age_more_than_20 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age more than 20</span><span class="st">`</span>,
+      <span class="dt">age_20_34 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 20-34</span><span class="st">`</span>,
+      <span class="dt">age_35_49 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 35-49</span><span class="st">`</span>,
+      <span class="dt">source =</span> .data<span class="op">$</span>Source,
+      <span class="dt">source_year =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">Source year</span><span class="st">`</span>
+    )
+}</code></pre>
+<p>(We have renamed the columns whose names included spaces and dashes
+so that they’ll be easier for other people to use.)
+We can now stitch everything together—we omit the roxygen2 header blocks for clarity:</p>
+<pre class="sourceCode r"><code class="sourceCode r">tidy_maternal_data &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
+  skip_rows &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(src_path)
+  data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(src_path, <span class="dt">skip =</span> skip_rows)
+  first_and_last &lt;-<span class="st"> </span><span class="kw">determine_first_and_last_row</span>(data)
+  <span class="kw">subsection_maternal_data</span>(data, first_and_last)
+}
+
+regenerate_all_datasets &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  infant_hiv &lt;-<span class="st"> </span><span class="kw">tidy_infant_hiv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>)
+  at_health_facilities &lt;-<span class="st"> </span><span class="kw">tidy_maternal_data</span>(<span class="st">&quot;raw/at_health_facilities.csv&quot;</span>)
+  c_sections &lt;-<span class="st"> </span><span class="kw">tidy_maternal_data</span>(<span class="st">&quot;raw/c_sections.csv&quot;</span>)
+  skilled_attendant_at_birth &lt;-<span class="st"> </span><span class="kw">tidy_maternal_data</span>(<span class="st">&quot;raw/skilled_attendant_at_birth.csv&quot;</span>)
+  usethis<span class="op">::</span><span class="kw">use_data</span>(
+    infant_hiv,
+    at_health_facilities,
+    c_sections,
+    skilled_attendant_at_birth,
+    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>
+  )
+}</code></pre>
+</div>
+</div>
+<div id="key-points-10" class="section level2">
+<h2><span class="header-section-number">12.5</span> Key Points</h2>
+<ul>
+<li>Use testthat to write unit tests for R.</li>
+<li>Put unit tests for an R package in the <code>tests/testthat</code> directory.</li>
+<li>Put tests in files called <code>test_<em>group</em>.R</code> and call them <code>test_<em>something</em></code>.</li>
+<li>Use <code>test_dir</code> to run tests from a particular that match a pattern.</li>
+<li>Write tests for data transformation steps as well as library functions.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="projects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="web-applications.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/testing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

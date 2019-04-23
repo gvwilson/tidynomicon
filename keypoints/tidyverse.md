@@ -1,0 +1,26 @@
+- `install.packages('name')` installs packages.
+- `library(name)` (without quoting the name) loads a package.
+- `library(tidyverse)` loads the entire collection of tidyverse libraries at once.
+- `read_csv(filename)` reads CSV files that use the string 'NA' to represent missing values.
+- `read_csv` infers each column's data types based on the first thousand values it reads.
+- A tibble is the tidyverse's version of a data frame, which represents tabular data.
+- `head(tibble)` and `tail(tibble)` inspect the first and last few rows of a tibble.
+- `summary(tibble)` displays a summary of a tibble's structure and values.
+- `tibble$column` selects a column from a tibble, returning a vector as a result.
+- `tibble['column']` selects a column from a tibble, returning a tibble as a result.
+- `tibble[,c]` selects column `c` from a tibble, returning a tibble as a result.
+- `tibble[r,]` selects row `r` from a tibble, returning a tibble as a result.
+- Use ranges and logical vectors as indices to select multiple rows/columns or specific rows/columns from a tibble.
+- `tibble[[c]]` selects column `c` from a tibble, returning a vector as a result.
+- `min(...)`, `mean(...)`, `max(...)`, and `std(...)` calculates the minimum, mean, maximum, and standard deviation of data.
+- These aggregate functions include `NA`s in their calculations, and so will produce `NA` if the input data contains any.
+- Use `func(data, na.rm = TRUE)` to remove `NA`s from data before calculations are done (but make sure this is statistically justified).
+- `filter(tibble, condition)` selects rows from a tibble that pass a logical test on their values.
+- `arrange(tibble, column)` or `arrange(desc(column))` arrange rows according to values in a column (the latter in descending order).
+- `select(tibble, column, column, ...)` selects columns from a tibble.
+- `select(tibble, -column)` selects *out* a column from a tibble.
+- `mutate(tibble, name = expression, name = expression, ...)` adds new columns to a tibble using values from existing columns.
+- `group_by(tibble, column, column, ...)` groups rows that have the same values in the specified columns.
+- `summarize(tibble, name = expression, name = expression)` aggregates tibble values (by groups if the rows have been grouped).
+- `tibble %>% function(arguments)` performs the same operation as `function(tibble, arguments)`.
+- Use `%>%` to create pipelines in which the left side of each `%>%` becomes the first argument of the next stage.
