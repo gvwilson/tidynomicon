@@ -20,7 +20,7 @@ description: "The Tidynomicon"
 source("etc/common.R")
 ```
 
-```{r echo=FALSE, fig.cap="Our Patron"}
+```{r echo=FALSE, fig.cap="Speak not of madness, oh you who count from zero."}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/index/cthulhu.pdf")
 } else {
