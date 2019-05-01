@@ -1,7 +1,8 @@
 .PHONY : all clean commands
-EPUB=_book/tidynomicon.epub
+STEM=tidynomicon
+EPUB=_book/${STEM}.epub
 HTML=_book/index.html
-PDF=_book/tidynomicon.pdf
+PDF=_book/${STEM}.pdf
 SRC= \
 index.Rmd \
 basics.Rmd \
@@ -16,7 +17,7 @@ debt.Rmd \
 projects.Rmd \
 testing.Rmd \
 shiny.Rmd \
-reticulate.Rmd \
+python.Rmd \
 references.Rmd \
 appendix.Rmd \
 LICENSE.md \

@@ -1,7 +1,11 @@
-# Using Python
+# Using Python {#python}
 
 ## Questions
 ```{r, child="questions/reticulate.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/reticulate.md"}
 ```
 
 As the previous lessons have shown,

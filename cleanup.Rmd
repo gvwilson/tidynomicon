@@ -1,7 +1,11 @@
-# Cleaning Up Data
+# Cleaning Up Data {#cleanup}
 
 ## Questions
 ```{r, child="questions/cleanup.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/cleanup.md"}
 ```
 
 Here is a sample of data from `raw/infant_hiv.csv`,

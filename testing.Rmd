@@ -1,7 +1,11 @@
-# Testing
+# Testing {#testing}
 
 ## Questions
 ```{r, child="questions/testing.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/testing.md"}
 ```
 
 In keeping with common programming practice,

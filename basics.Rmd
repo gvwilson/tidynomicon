@@ -1,7 +1,11 @@
-# Values and Vectors
+# Values and Vectors {#basics}
 
 ## Questions
 ```{r, child="questions/basics.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/basics.md"}
 ```
 
 We will begin our tour of R by looking at what kinds of data we can toy with.
@@ -155,7 +159,7 @@ primes <- c(3, 5, 7, 11)
 ```
 
 Assignment is done using a left-pointing arrow `<-`.
-(Other forms with their own symbols also exist, but we will not discuss them until [s:control](#REF).)
+(Other forms with their own symbols also exist, but we will not discuss them until Chapter \@ref(control).)
 Like Python,
 R does not display a value after an assignment statement.
 

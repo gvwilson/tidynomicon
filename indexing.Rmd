@@ -1,7 +1,11 @@
-# Indexing
+# Indexing {#indexing}
 
 ## Questions
 ```{r, child="questions/indexing.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/indexing.md"}
 ```
 
 One of the things that newcomers to R often trip over is the various ways in which structures can be indexed.
@@ -117,7 +121,7 @@ lookup_list <- list(m = "Male", f = "Female", u = "Unstated")
 lookup_list$m
 ```
 
-We will explore this in more detail when we look at the tidyverse in [s:tidyverse](#REF),
+We will explore this in more detail when we look at the tidyverse in Chapter \@ref(tidyverse),
 since that is where access-by-name is used most often.
 For now,
 simply note that if the name of an element isn't a legal variable name,

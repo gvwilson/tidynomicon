@@ -1,7 +1,11 @@
-# Projects
+# Projects {#projects}
 
 ## Questions
 ```{r, child="questions/projects.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/projects.md"}
 ```
 
 Mistakes were made in [the previous tutorial](cleanup.html).

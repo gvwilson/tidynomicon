@@ -18,7 +18,7 @@ rmd_files:
   - projects.Rmd
   - testing.Rmd
   - shiny.Rmd
-  - reticulate.Rmd
+  - python.Rmd
   - references.Rmd
   - appendix.Rmd
   - LICENSE.md

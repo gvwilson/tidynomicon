@@ -1,7 +1,11 @@
-# Non-Standard Evaluation
+# Non-Standard Evaluation {#nse}
 
 ## Questions
 ```{r, child="questions/nse.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/nse.md"}
 ```
 
 The biggest difference between R and Python is not where R starts counting,

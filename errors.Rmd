@@ -1,7 +1,11 @@
-# Handling Errors
+# Handling Errors {#errors}
 
 ## Questions
 ```{r, child="questions/errors.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/errors.md"}
 ```
 
 Cautious programmers plan for the unexpected.

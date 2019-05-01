@@ -1,13 +1,15 @@
 bookdown::gitbook:
+  highlight: tango
   css: style.css
   config:
+    download: ["pdf", "epub"]
     toc:
+      collapse: section
       before: |
         <li><a href="./">The Tidynomicon</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://github.com/gvwilson/tidynomicon/edit/master/%s
-    download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

@@ -1,4 +1,4 @@
-# Learning Objectives
+# Learning Objectives {#objectives}
 
 ## Values and Vectors
 ```{r, child="objectives/basics.md"}

@@ -1,7 +1,11 @@
-# Intellectual Debt
+# Intellectual Debt {#debt}
 
 ## Questions
 ```{r, child="questions/debt.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/debt.md"}
 ```
 
 We have accumulated some intellectual debt in the previous lessons,

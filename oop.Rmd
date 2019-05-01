@@ -1,7 +1,11 @@
-# Object-Oriented Programming
+# Object-Oriented Programming {#oop}
 
 ## Questions
 ```{r, child="questions/oop.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/oop.md"}
 ```
 
 Programmers spend a great deal of their time trying to create order out of chaos,

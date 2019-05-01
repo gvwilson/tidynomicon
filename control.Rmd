@@ -1,10 +1,14 @@
-# Control Flow
+# Control Flow {#control}
 
 ## Questions
 ```{r, child="questions/control.md"}
 ```
 
-[s:basics](#REF) said that modern R strongly encourages people
+## Learning Objectives
+```{r, child="objectives/control.md"}
+```
+
+Chapter \@ref(basics) said that modern R strongly encourages people
 to write vectorized code.
 There are times, though, when we need to write loops and conditionals,
 and we should *always* break our code up into single-purpose functions.
@@ -225,7 +229,7 @@ result <- swap(values)  # Attempting to swap the values produces NULL.
 result[1]               # But we can operate on the result without error.
 ```
 
-We will look at what we should do instead in [s:errors](#REF).
+We will look at what we should do instead in \@ref(errors).
 
 ## How can I write a function that takes a varying number of arguments?
 

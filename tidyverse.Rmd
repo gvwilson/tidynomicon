@@ -1,7 +1,11 @@
-# The Tidyverse
+# The Tidyverse {#tidyverse}
 
 ## Questions
 ```{r, child="questions/tidyverse.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/tidyverse.md"}
 ```
 
 There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
@@ -371,7 +375,7 @@ any(is.na(data$hi) != is.na(data$lo))
 ## How do I filter data?
 
 By "[filtering](glossary.html#filter)", we mean "selecting records by value".
-As discussed in [s:basics](#REF),
+As discussed in Chapter \@ref(basics),
 the simplest approach is to use a vector of logical values to keep only the values corresponding to `TRUE`.
 In Python, this is:
 

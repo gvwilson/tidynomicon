@@ -1,7 +1,11 @@
-# Web Applications
+# Web Applications {#shiny}
 
 ## Questions
 ```{r, child="questions/shiny.md"}
+```
+
+## Learning Objectives
+```{r, child="objectives/shiny.md"}
 ```
 
 Sooner or later,

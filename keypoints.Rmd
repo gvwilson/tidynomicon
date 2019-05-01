@@ -1,4 +1,4 @@
-# Key Points
+# Key Points {#keypoints}
 
 ## Values and Vectors
 ```{r, child="keypoints/basics.md"}
