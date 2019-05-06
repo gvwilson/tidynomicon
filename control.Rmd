@@ -73,6 +73,7 @@ There are a few things to note here:
 5.  `glue::glue` (the function `glue` from the library of the same name)
     interpolates variables into strings in sensible ways.
     We will load this library and use plain old `glue` in the explanations that follow.
+    (Note that R uses `::` to get functions out of packages rather than Python's `.`.)
 6.  By calling our temporary variable `sign`
     we have accidentally overwritten the rather useful built-in R function with that name.
     [Name collisions](glossary.html#name-collision) of this sort are as easy in R as they are in Python.

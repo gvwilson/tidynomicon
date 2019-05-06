@@ -12,9 +12,10 @@ source("etc/common.R")
 ```{r, child="objectives/tidyverse.md"}
 ```
 
-There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
+There is no point in becoming fluent in Enochian if you do not then call forth a Dweller Beneath at the time of the new moon.
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.
+This chapter therefore looks at how to do the things that R was summoned---er, designed---to do.
 
 ## How do I read data?
 
@@ -39,7 +40,7 @@ ZWE,2016,0.71,0.88,0.62
 ZWE,2017,0.65,0.81,0.57
 ```
 
-The actual file has many more rows and no ellipses.
+The actual file has many more rows (and no ellipses).
 It uses `NA` to show missing data rather than (for example) `-`, a space, or a blank,
 and its values are interpreted as follows:
 
@@ -53,11 +54,11 @@ and its values are interpreted as follows:
 
 We can load this data in Python like this:
 
-```{python python-read-csv, output.lines=NA}
+```{python python-read-csv, output.lines=10}
 import pandas as pd
 
-data = pd.read_csv('tidy/infant_hiv.csv')
-print(data)
+infant_hiv = pd.read_csv('tidy/infant_hiv.csv')
+print(infant_hiv)
 ```
 
 The equivalent in R is to load the [tidyverse](glossary.html#tidyverse) collection of libraries
@@ -104,15 +105,15 @@ we simply give the name of the library we want.
 
 Asking for the tidyverse gives us eight libraries (or [packages](glossary.html#package)).
 One of those, dplyr, defines two functions that mask standard functions in R with the same names.
-This is deliberate, and if we need the originals, we can get them with their [fully-qualified names](glossary.html#fully-qualified-name)
+This is deliberate, and if we need the originals, we can get them with their
+[fully-qualified names](glossary.html#fully-qualified-name)
 `stats::filter` and `stats::lag`.
-(Note that R uses `::` to get functions out of packages rather than Python's `.`.)
 
 Once we have the tidyverse loaded,
 reading the file looks remarkably like reading the file:
 
 ```{r r-read-csv}
-data <- read_csv('tidy/infant_hiv.csv')
+infant_hiv <- read_csv('tidy/infant_hiv.csv')
 ```
 
 R's `read_csv` tells us more about what it has done than Pandas does.
@@ -124,8 +125,8 @@ but we do not live there.)
 
 We can now look at what `read_csv` has produced.
 
-```{r}
-data
+```{r show-tibble}
+infant_hiv
 ```
 
 This is a [tibble](glossary.html#tibble),
@@ -138,41 +139,40 @@ each having one value for each row.
 We often have a quick look at the content of a table to remind ourselves what it contains.
 Pandas does this using methods whose names are borrowed from the Unix shell's `head` and `tail` commands:
 
-```{python}
-print(data.head())
+```{python py-show-head}
+print(infant_hiv.head())
 ```
-```{python}
-print(data.tail())
+```{python py-show-tail}
+print(infant_hiv.tail())
 ```
 
 R has similarly-named functions (not methods):
 
-```{r}
-head(data)
+```{r r-show-head}
+head(infant_hiv)
 ```
-```{r}
-tail(data)
+```{r r-show-tail}
+tail(infant_hiv)
 ```
 
 Let's have a closer look at that last command's output:
 
-```{r paged.print=FALSE}
-tail(data)
+```{r r-tail-tibble, paged.print=FALSE}
+tail(infant_hiv)
 ```
 
 Note that the row numbers printed by `tail` are [relative](glossary.html#relative-row-number) to the output,
 not [absolute](glossary.html#absolute-row-number) to the table.
 This is different from Pandas,
 which retains the original row numbers.
-(Notice also that R starts numbering from 1.)
 What about overall information?
 
-```{python}
-print(data.info())
+```{python data-info}
+print(infant_hiv.info())
 ```
 
-```{r}
-summary(data)
+```{r data-summary}
+summary(infant_hiv)
 ```
 
 Your display of R's summary may or may not wrap,
@@ -181,26 +181,25 @@ depending on how large a screen the older acolytes have allowed you.
 ## How do I index rows and columns?
 
 A Pandas DataFrame is a collection of series (also called columns),
-each containing the values of a single observed variable.
-Columns in R tibbles are, not coincidentally, the same.
+each containing the values of a single observed variable:
 
-```{python output.lines=NA}
-print(data['estimate'])
+```{python py-string-subscript, output.lines=NA}
+print(infant_hiv['estimate'])
 ```
 
-We would get exactly the same output in Python with `data.estimate`,
+We would get exactly the same output in Python with `infant_hiv.estimate`,
 i.e.,
 with an attribute name rather than a string subscript.
 The same tricks work in R:
 
-```{r}
-data['estimate']
+```{r r-string-subscript}
+infant_hiv['estimate']
 ```
 
-However, R's `data$estimate` provides all the data:
+However, R's `infant_hiv$estimate` provides all the data:
 
-```{r output.lines=NA}
-data$estimate
+```{r r-dollar-subscript, output.lines=NA}
+infant_hiv$estimate
 ```
 
 Again, note that the boxed number on the left is the start index of that row.
@@ -209,30 +208,30 @@ What about single values?
 Remembering to count from zero from Python and as humans do for R,
 we have:
 
-```{python}
-print(data.estimate[11])
+```{python py-individual-element}
+print(infant_hiv.estimate[11])
 ```
-```{r}
-data$estimate[12]
+```{r r-individual-element}
+infant_hiv$estimate[12]
 ```
 
 Ah---everything in R is a vector,
 so we get a vector of one value as an output rather than a single value.
 
-```{python error=TRUE}
-print(len(data.estimate[11]))
+```{python py-len-individual-element, error=TRUE}
+print(len(infant_hiv.estimate[11]))
 ```
-```{r}
-length(data$estimate[12])
+```{r r-len-individual-element}
+length(infant_hiv$estimate[12])
 ```
 
 And yes, ranges work:
 
-```{python}
-print(data.estimate[5:15])
+```{python py-range-estimate}
+print(infant_hiv.estimate[5:15])
 ```
-```{r}
-data$estimate[6:15]
+```{r r-range-estimate}
+infant_hiv$estimate[6:15]
 ```
 
 Note that the upper bound is the same, because it's inclusive in R and exclusive in Python.
@@ -242,46 +241,46 @@ which is why selecting by row number is usually a sign of innocence, insouciance
 We can select by column number as well.
 Pandas uses the rather clumsy `object.iloc[rows, columns]`, with the usual `:` shortcut for "entire range":
 
-```{python output.lines=NA}
-print(data.iloc[:, 0])
+```{python py-iloc, output.lines=NA}
+print(infant_hiv.iloc[:, 0])
 ```
 
 Since this is a column, it can be indexed:
 
-```{python}
-print(data.iloc[:, 0][0])
+```{python py-iloc-indexed}
+print(infant_hiv.iloc[:, 0][0])
 ```
 
 In R, a single index is interpreted as the column index:
 
-```{r}
-data[1]
+```{r single-index-is-col}
+infant_hiv[1]
 ```
 
 But notice that the output is not a vector, but another tibble (i.e., a table with N rows and one column).
 This means that adding another index does column-wise indexing on that tibble:
 
-```{r}
-data[1][1]
+```{r double-index-of-tibble}
+infant_hiv[1][1]
 ```
 
 How then are we to get the first mention of Afghanistan?
 The answer is to use [double square brackets](glossary.html#double-square-brackets) to strip away one level of structure:
 
-```{r output.lines=NA}
-data[[1]]
+```{r double-square-on-tibble, output.lines=NA}
+infant_hiv[[1]]
 ```
 
 This is now a plain old vector, so it can be indexed with [single square brackets](glossary.html#single-square-brackets):
 
-```{r}
-data[[1]][1]
+```{r double-square-then-single}
+infant_hiv[[1]][1]
 ```
 
 But that too is a vector, so it can of course be indexed as well (for some value of "of course"):
 
-```{r}
-data[[1]][1][1]
+```{r double-single-single}
+infant_hiv[[1]][1][1]
 ```
 
 Thus,
@@ -291,8 +290,8 @@ so it still gives us a vector.
 *This is not madness.*
 It is merely...differently sane.
 
-
 > **Subsetting data frames:**
+>
 > When we are working with data frames (including tibbles),
 > subsetting with a single vector selects columns, not rows,
 > because data frames are stored as lists of columns.
@@ -304,34 +303,34 @@ It is merely...differently sane.
 What is the average estimate?
 We start by grabbing that column for convenience:
 
-```{python}
-estimates = data.estimate
+```{python py-average-index}
+estimates = infant_hiv.estimate
 print(len(estimates))
 ```
-```{python}
+```{python py-estimates-mean}
 print(estimates.mean())
 ```
 
 This translates almost directly to R:
 
-```{r}
-estimates <- data$estimate
+```{r r-average-index}
+estimates <- infant_hiv$estimate
 length(estimates)
 ```
-```{r}
+```{r r-estimates-mean}
 mean(estimates)
 ```
 
 The void is always there, waiting for us...
-Let's fix this in R first:
+Let's fix this in R first by telling `mean` to drop NAs:
 
-```{r}
-mean(estimates, na.rm=TRUE)
+```{r r-remove-na}
+mean(estimates, na.rm = TRUE)
 ```
 
 And then try to get the statistically correct behavior in Pandas:
 
-```{python}
+```{python py-remove-na}
 print(estimates.mean(skipna=False))
 ```
 
@@ -342,26 +341,18 @@ Python's is to get rid of missing values early and work with what's left,
 which makes translating code from one language to the next much more interesting than it might otherwise be.
 But other than that, the statistics works the same way in Python:
 
-```{python}
-print(estimates.min())
-```
-```{python}
-print(estimates.max())
-```
-```{python}
-print(estimates.std())
+```{python py-min-max-std}
+print("min", estimates.min())
+print("max", estimates.max())
+print("std", estimates.std())
 ```
 
 Here are the equivalent computations in R:
 
-```{r}
-min(estimates, na.rm=TRUE)
-```
-```{r}
-max(estimates, na.rm=TRUE)
-```
-```{r}
-sd(estimates, na.rm=TRUE)
+```{r r-min-max-std}
+print(glue("min {min(estimates, na.rm = TRUE)}"))
+print(glue("max {max(estimates, na.rm = TRUE)}"))
+print(glue("sd {sd(estimates, na.rm = TRUE)}"))
 ```
 
 A good use of aggregation is to check the quality of the data.
@@ -369,11 +360,11 @@ For example,
 we can ask if there are any records where some of the estimate, the low value, or the high value are missing,
 but not all of them:
 
-```{python}
-print((data.hi.isnull() != data.lo.isnull()).any())
+```{python py-check-null}
+print((infant_hiv.hi.isnull() != infant_hiv.lo.isnull()).any())
 ```
-```{r}
-any(is.na(data$hi) != is.na(data$lo))
+```{r r-check-null}
+any(is.na(infant_hiv$hi) != is.na(infant_hiv$lo))
 ```
 
 ## How do I filter data?
@@ -383,14 +374,14 @@ As discussed in Chapter \@ref(basics),
 the simplest approach is to use a vector of logical values to keep only the values corresponding to `TRUE`.
 In Python, this is:
 
-```{python}
+```{python py-simple-filter}
 maximal = estimates[estimates >= 0.95]
 print(len(maximal))
 ```
 
 And in R:
 
-```{r}
+```{r r-simple-filter}
 maximal <- estimates[estimates >= 0.95]
 length(maximal)
 ```
@@ -398,13 +389,13 @@ length(maximal)
 The difference is unexpected.
 Let's have a closer look at the result in Python:
 
-```{python output.lines=NA}
+```{python py-maximal, output.lines=NA}
 print(maximal)
 ```
 
 And in R:
 
-```{r output.lines=NA}
+```{r r-maximal, output.lines=NA}
 maximal
 ```
 
@@ -416,19 +407,19 @@ and hence an `NA` in the final vector.
 Let us then turn to `which` to get a vector of indices at which a vector contains `TRUE`.
 This function does not return indices for `FALSE` or `NA`:
 
-```{r}
+```{r r-which}
 which(estimates >= 0.95)
 ```
 
 And as a quick check:
 
-```{r}
+```{r r-length-which}
 length(which(estimates >= 0.95))
 ```
 
 So now we can index our vector with the result of the `which`:
 
-```{r}
+```{r r-maximal-which}
 maximal <- estimates[which(estimates >= 0.95)]
 maximal
 ```
@@ -443,58 +434,58 @@ and encourage use of patterns that make it easier for others to understand our p
 
 ## How do I write tidy code?
 
-The five basic data transformation operations in the tidyverse are:
+The six basic data transformation operations in the tidyverse are:
 
 - `filter`: choose observations (rows) by value(s)
 - `arrange`: reorder rows
 - `select`: choose variables (columns) by name
 - `mutate`: derive new variables from existing ones
+- `group_by`: define subsets of rows for further processing
 - `summarize`: combine many values to create a single new value
 
 `filter(tibble, ...criteria...)` keeps rows that pass all of the specified criteria:
 
-```{r}
-filter(data, lo > 0.5)
+```{r filter-as-function}
+filter(infant_hiv, lo > 0.5)
 ```
 
 Notice that the expression is `lo > 0.5` rather than `"lo" > 0.5`.
-The latter expression returns the entire table
+The latter expression would return the entire table
 because the string `"lo"` is greater than the number 0.5 everywhere.
 
-But wait:
-how is it that `lo` can be used on its own?
+But how is it that the name `lo` can be used on its own?
 It is the name of a column, but there is no variable called `lo`.
-The answer is that R uses [lazy evaluation](glossary.html#lazy-evaluation) of arguments.
-Arguments aren't evaluated until they're needed,
+The answer is that R uses [lazy evaluation](glossary.html#lazy-evaluation):
+function arguments aren't evaluated until they're needed,
 so the function `filter` actually gets the expression `lo > 0.5`,
 which allows it to check that there's a column called `lo` and then use it appropriately.
-This is much tidier than `filter(data, data$lo > 0.5)` or `filter(data, "lo > 0.5")`,
-and is *not* some kind of eldritch wizardry.
+This is much tidier than `filter(data, data$lo > 0.5)` or `filter(data, "lo > 0.5")`.
+
 Many languages rely on lazy evaluation,
 and when used circumspectly,
 it allows us to produce code that is easier to read.
+We will explore it further in Chapter \@ref(nse).
 
-But we can do even better by using the [pipe operator](glossary.html#pipe-operator) `%>%`,
-which is about to become your new best friend:
+We can make data anlaysis code more readable by using the [pipe operator](glossary.html#pipe-operator) `%>%`:
 
-```{r}
-data %>% filter(lo > 0.5)
+```{r filter-in-pipe}
+infant_hiv %>% filter(lo > 0.5)
 ```
 
 This may not seem like much of an improvement,
 but neither does a Unix pipe consisting of `cat filename.txt | head`.
 What about this?
 
-```{r}
-filter(data, (estimate != 0.95) & (lo > 0.5) & (hi <= (lo + 0.1)))
+```{r filter-complex}
+filter(infant_hiv, (estimate != 0.95) & (lo > 0.5) & (hi <= (lo + 0.1)))
 ```
 
 It uses the vectorized "and" operator `&` twice,
 and parsing the condition takes a human being at least a few seconds.
-Its tidyverse equivalent is:
+Its pipelined equivalent is:
 
-```{r}
-data %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.1))
+```{r filter-complex-pipe}
+infant_hiv %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.1))
 ```
 
 Breaking the condition into stages like this often makes reading and testing much easier,
@@ -502,15 +493,15 @@ and encourages incremental write-test-extend development.
 
 Let's increase the band from 10% to 20%:
 
-```{r}
-data %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.2))
+```{r filter-wider-band}
+infant_hiv %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.2))
 ```
 
-And then order by `lo` in descending order,
+and then order by `lo` in descending order,
 breaking the line the way the [tidyverse style guide][tidyverse-style] recommends:
 
-```{r}
-data %>%
+```{r filter-arrange}
+infant_hiv %>%
   filter(estimate != 0.95) %>%
   filter(lo > 0.5) %>%
   filter(hi <= (lo + 0.2)) %>%
@@ -519,8 +510,8 @@ data %>%
 
 We can now [select](glossary.html#select) the three columns we care about:
 
-```{r}
-data %>%
+```{r filter-arrange-select}
+infant_hiv %>%
   filter(estimate != 0.95) %>%
   filter(lo > 0.5) %>%
   filter(hi <= (lo + 0.2)) %>%
@@ -539,8 +530,8 @@ rather than putting `lo` before `hi`,
 which won't matter if we later select by name,
 but *will* if we ever want to select by position:
 
-```{r}
-data %>%
+```{r select-out}
+infant_hiv %>%
   filter(estimate != 0.95) %>%
   filter(lo > 0.5) %>%
   filter(hi <= (lo + 0.2)) %>%
@@ -554,11 +545,12 @@ This can be done using either `mutate`,
 which adds new columns to the end of an existing tibble,
 or with `transmute`,
 which creates a new tibble containing only the columns we explicitly ask for.
+(There is also a function `rename` which simply renames columns.)
 Since we want to keep `hi` and `lo`,
 we decide to use `mutate`:
 
-```{r}
-data %>%
+```{r mutate-new-column}
+infant_hiv %>%
   filter(estimate != 0.95) %>%
   filter(lo > 0.5) %>%
   filter(hi <= (lo + 0.2)) %>%
@@ -575,20 +567,8 @@ We might as well get rid of the `arrange` and `select` calls in our pipeline at 
 since we're not using them,
 and count how many records contributed to each aggregation using `n()`:
 
-```{r}
-data %>%
-  filter(estimate != 0.95) %>%
-  filter(lo > 0.5) %>%
-  filter(hi <= (lo + 0.2)) %>%
-  mutate(difference = hi - lo) %>%
-  group_by(year) %>%
-  summarize(n(), mean(year))
-```
-
-Let's do that again with more meaningful names for the final table's columns:
-
-```{r}
-data %>%
+```{r summarize-and-count}
+infant_hiv %>%
   filter(estimate != 0.95) %>%
   filter(lo > 0.5) %>%
   filter(hi <= (lo + 0.2)) %>%
@@ -597,18 +577,13 @@ data %>%
   summarize(count = n(), ave_diff = mean(year))
 ```
 
-(We could also add a call to `rename`,
-but for small tables like this,
-setting column names on the fly is perfectly comprehensible.)
-
-Now,
-how might we do this with Pandas?
-On approach is to use a single multi-part `.query` to select data
+How might we do this with Pandas?
+One approach is to use a single multi-part `.query` to select data
 and store the result in a variable so that we can refer to the `hi` and `lo` columns twice
 without repeating the filtering expression.
 We then group by year and aggregate, again using strings for column names:
 
-```{python}
+```{python equivalent-to-pipeline}
 data = pd.read_csv('tidy/infant_hiv.csv')
 data = data.query('(estimate != 0.95) & (lo > 0.5) & (hi <= (lo + 0.2))')
 data = data.assign(difference = (data.hi - data.lo))
@@ -618,6 +593,30 @@ print(grouped)
 
 There are other ways to tackle this problem with Pandas,
 but the tidyverse approach produces code that I find more readable.
+
+## Modeling
+
+Tidying up data can be as calming and rewarding in the same way as knitting
+or rearranging the specimen jars on the shelves in your dining room-stroke-laboratory.
+Eventually,
+though,
+people want to do some statistics.
+The simplest tool for this in R is `lm`, which stands for "linear model".
+Given a formula and a data set,
+it calculates coefficients to fit that formula to that data:
+
+```{r}
+lm(estimate ~ lo, data = infant_hiv)
+```
+
+This is telling us that `estimate` is more-or-less equal to `0.0421 + 1.0707 * lo`.
+The `~` symbol is used to separate the left and right sides of the equation,
+and as with all things tidyverse,
+lazy evaluation allows us to use variable names directly.
+
+## Plotting
+
+FIXME
 
 ## Key Points
 ```{r, child="keypoints/tidyverse.md"}

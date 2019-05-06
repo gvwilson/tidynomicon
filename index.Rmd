@@ -1,5 +1,6 @@
 --- 
 title: "The Tidynomicon"
+subtitle: "A Brief Introduction to R for Python Programmers"
 author: "Greg Wilson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

@@ -174,7 +174,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6" data-path="tidyverse.html"><a href="tidyverse.html#how-do-i-calculate-basic-statistics"><i class="fa fa-check"></i><b>5.6</b> How do I calculate basic statistics?</a></li>
 <li class="chapter" data-level="5.7" data-path="tidyverse.html"><a href="tidyverse.html#how-do-i-filter-data"><i class="fa fa-check"></i><b>5.7</b> How do I filter data?</a></li>
 <li class="chapter" data-level="5.8" data-path="tidyverse.html"><a href="tidyverse.html#how-do-i-write-tidy-code"><i class="fa fa-check"></i><b>5.8</b> How do I write tidy code?</a></li>
-<li class="chapter" data-level="5.9" data-path="tidyverse.html"><a href="tidyverse.html#key-points-3"><i class="fa fa-check"></i><b>5.9</b> Key Points</a></li>
+<li class="chapter" data-level="5.9" data-path="tidyverse.html"><a href="tidyverse.html#modeling"><i class="fa fa-check"></i><b>5.9</b> Modeling</a></li>
+<li class="chapter" data-level="5.10" data-path="tidyverse.html"><a href="tidyverse.html#plotting"><i class="fa fa-check"></i><b>5.10</b> Plotting</a></li>
+<li class="chapter" data-level="5.11" data-path="tidyverse.html"><a href="tidyverse.html#key-points-3"><i class="fa fa-check"></i><b>5.11</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cleanup.html"><a href="cleanup.html"><i class="fa fa-check"></i><b>6</b> Cleaning Up Data</a><ul>
 <li class="chapter" data-level="6.1" data-path="cleanup.html"><a href="cleanup.html#questions-4"><i class="fa fa-check"></i><b>6.1</b> Questions</a></li>
@@ -356,9 +358,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Name, describe, and use a tidyverse function for grouping rows of tabular data.</li>
 <li>Name, describe, and use a tidyverse function for aggregating grouped or ungrouped rows of tabular data.</li>
 </ul>
-<p>There is no point in becoming fluent in Enochian if you do not then summon a Dweller Beneath at the time of the new moon.
+<p>There is no point in becoming fluent in Enochian if you do not then call forth a Dweller Beneath at the time of the new moon.
 Similarly,
-there is no point learning a language designed for data manipulation if you do not then bend data to your will.</p>
+there is no point learning a language designed for data manipulation if you do not then bend data to your will.
+This chapter therefore looks at how to do the things that R was summoned—er, designed—to do.</p>
 </div>
 <div id="how-do-i-read-data" class="section level2">
 <h2><span class="header-section-number">5.3</span> How do I read data?</h2>
@@ -379,7 +382,7 @@ AGO,2012,0.06,0.08,0.05
 ...
 ZWE,2016,0.71,0.88,0.62
 ZWE,2017,0.65,0.81,0.57</code></pre>
-<p>The actual file has many more rows and no ellipses.
+<p>The actual file has many more rows (and no ellipses).
 It uses <code>NA</code> to show missing data rather than (for example) <code>-</code>, a space, or a blank,
 and its values are interpreted as follows:</p>
 <table>
@@ -420,8 +423,8 @@ and its values are interpreted as follows:</p>
 </table>
 <p>We can load this data in Python like this:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
-data <span class="op">=</span> pd.read_csv(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)
-<span class="bu">print</span>(data)</code></pre>
+infant_hiv <span class="op">=</span> pd.read_csv(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)
+<span class="bu">print</span>(infant_hiv)</code></pre>
 <pre><code>     country  year  estimate    hi    lo
 0        AFG  2009       NaN   NaN   NaN
 1        AFG  2010       NaN   NaN   NaN
@@ -432,16 +435,6 @@ data <span class="op">=</span> pd.read_csv(<span class="st">&#39;tidy/infant_hiv
 6        AFG  2015       NaN   NaN   NaN
 7        AFG  2016       NaN   NaN   NaN
 8        AFG  2017       NaN   NaN   NaN
-9        AGO  2009       NaN   NaN   NaN
-10       AGO  2010      0.03  0.04  0.02
-11       AGO  2011      0.05  0.07  0.04
-12       AGO  2012      0.06  0.08  0.05
-13       AGO  2013      0.15  0.20  0.12
-14       AGO  2014      0.10  0.14  0.08
-15       AGO  2015      0.06  0.08  0.05
-16       AGO  2016      0.01  0.02  0.01
-17       AGO  2017      0.01  0.02  0.01
-18       AIA  2009       NaN   NaN   NaN
 ...</code></pre>
 <p>The equivalent in R is to load the <a href="glossary.html#tidyverse">tidyverse</a> collection of libraries
 and then call the <code>read_csv</code> function.
@@ -470,12 +463,12 @@ but to use,
 we simply give the name of the library we want.</p>
 <p>Asking for the tidyverse gives us eight libraries (or <a href="glossary.html#package">packages</a>).
 One of those, dplyr, defines two functions that mask standard functions in R with the same names.
-This is deliberate, and if we need the originals, we can get them with their <a href="glossary.html#fully-qualified-name">fully-qualified names</a>
-<code>stats::filter</code> and <code>stats::lag</code>.
-(Note that R uses <code>::</code> to get functions out of packages rather than Python’s <code>.</code>.)</p>
+This is deliberate, and if we need the originals, we can get them with their
+<a href="glossary.html#fully-qualified-name">fully-qualified names</a>
+<code>stats::filter</code> and <code>stats::lag</code>.</p>
 <p>Once we have the tidyverse loaded,
 reading the file looks remarkably like reading the file:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;tidy/infant_hiv.csv&#39;</span>)</code></pre>
 <pre><code>Parsed with column specification:
 cols(
   country = col_character(),
@@ -491,7 +484,7 @@ and then tells us what types it has inferred.
 people would habitually use the first <em>two</em> rows of their spreadsheets for name <em>and units</em>,
 but we do not live there.)</p>
 <p>We can now look at what <code>read_csv</code> has produced.</p>
-<pre class="sourceCode r"><code class="sourceCode r">data</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv</code></pre>
 <pre><code># A tibble: 1,728 x 5
    country  year estimate    hi    lo
    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -515,14 +508,14 @@ each having one value for each row.</p>
 <h2><span class="header-section-number">5.4</span> How do I inspect data?</h2>
 <p>We often have a quick look at the content of a table to remind ourselves what it contains.
 Pandas does this using methods whose names are borrowed from the Unix shell’s <code>head</code> and <code>tail</code> commands:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.head())</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.head())</code></pre>
 <pre><code>  country  year  estimate  hi  lo
 0     AFG  2009       NaN NaN NaN
 1     AFG  2010       NaN NaN NaN
 2     AFG  2011       NaN NaN NaN
 3     AFG  2012       NaN NaN NaN
 4     AFG  2013       NaN NaN NaN</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.tail())</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.tail())</code></pre>
 <pre><code>     country  year  estimate    hi    lo
 1723     ZWE  2013      0.57  0.70  0.49
 1724     ZWE  2014      0.54  0.67  0.47
@@ -530,7 +523,7 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 1726     ZWE  2016      0.71  0.88  0.62
 1727     ZWE  2017      0.65  0.81  0.57</code></pre>
 <p>R has similarly-named functions (not methods):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(data)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(infant_hiv)</code></pre>
 <pre><code># A tibble: 6 x 5
   country  year estimate    hi    lo
   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -540,7 +533,7 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 4 AFG      2012       NA    NA    NA
 5 AFG      2013       NA    NA    NA
 6 AFG      2014       NA    NA    NA</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(data)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(infant_hiv)</code></pre>
 <pre><code># A tibble: 6 x 5
   country  year estimate    hi    lo
   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -551,7 +544,7 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 5 ZWE      2016    0.71   0.88 0.62 
 6 ZWE      2017    0.65   0.81 0.570</code></pre>
 <p>Let’s have a closer look at that last command’s output:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(data)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(infant_hiv)</code></pre>
 <pre><code># A tibble: 6 x 5
   country  year estimate    hi    lo
   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -565,9 +558,8 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 not <a href="glossary.html#absolute-row-number">absolute</a> to the table.
 This is different from Pandas,
 which retains the original row numbers.
-(Notice also that R starts numbering from 1.)
 What about overall information?</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.info())</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.info())</code></pre>
 <pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 1728 entries, 0 to 1727
 Data columns (total 5 columns):
@@ -579,7 +571,7 @@ lo          728 non-null float64
 dtypes: float64(3), int64(1), object(1)
 memory usage: 67.6+ KB
 None</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(data)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(infant_hiv)</code></pre>
 <pre><code>   country               year         estimate           hi        
  Length:1728        Min.   :2009   Min.   :0.000   Min.   :0.0000  
  Class :character   1st Qu.:2011   1st Qu.:0.100   1st Qu.:0.1400  
@@ -602,9 +594,8 @@ depending on how large a screen the older acolytes have allowed you.</p>
 <div id="how-do-i-index-rows-and-columns" class="section level2">
 <h2><span class="header-section-number">5.5</span> How do I index rows and columns?</h2>
 <p>A Pandas DataFrame is a collection of series (also called columns),
-each containing the values of a single observed variable.
-Columns in R tibbles are, not coincidentally, the same.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data[<span class="st">&#39;estimate&#39;</span>])</code></pre>
+each containing the values of a single observed variable:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv[<span class="st">&#39;estimate&#39;</span>])</code></pre>
 <pre><code>0        NaN
 1        NaN
 2        NaN
@@ -626,11 +617,11 @@ Columns in R tibbles are, not coincidentally, the same.</p>
 18       NaN
 19       NaN
 ...</code></pre>
-<p>We would get exactly the same output in Python with <code>data.estimate</code>,
+<p>We would get exactly the same output in Python with <code>infant_hiv.estimate</code>,
 i.e.,
 with an attribute name rather than a string subscript.
 The same tricks work in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data[<span class="st">&#39;estimate&#39;</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv[<span class="st">&#39;estimate&#39;</span>]</code></pre>
 <pre><code># A tibble: 1,728 x 1
    estimate
       &lt;dbl&gt;
@@ -645,8 +636,8 @@ The same tricks work in R:</p>
  9       NA
 10       NA
 # … with 1,718 more rows</code></pre>
-<p>However, R’s <code>data$estimate</code> provides all the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data<span class="op">$</span>estimate</code></pre>
+<p>However, R’s <code>infant_hiv$estimate</code> provides all the data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv<span class="op">$</span>estimate</code></pre>
 <pre><code>   [1]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 0.03 0.05 0.06
   [14] 0.15 0.10 0.06 0.01 0.01   NA   NA   NA   NA   NA   NA   NA   NA
   [27]   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA
@@ -672,21 +663,21 @@ The same tricks work in R:</p>
 <p>What about single values?
 Remembering to count from zero from Python and as humans do for R,
 we have:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.estimate[<span class="dv">11</span>])</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.estimate[<span class="dv">11</span>])</code></pre>
 <pre><code>0.05</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">data<span class="op">$</span>estimate[<span class="dv">12</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv<span class="op">$</span>estimate[<span class="dv">12</span>]</code></pre>
 <pre><code>[1] 0.05</code></pre>
 <p>Ah—everything in R is a vector,
 so we get a vector of one value as an output rather than a single value.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(data.estimate[<span class="dv">11</span>]))</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(infant_hiv.estimate[<span class="dv">11</span>]))</code></pre>
 <pre><code>TypeError: object of type &#39;numpy.float64&#39; has no len()
 
 Detailed traceback: 
   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(data<span class="op">$</span>estimate[<span class="dv">12</span>])</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(infant_hiv<span class="op">$</span>estimate[<span class="dv">12</span>])</code></pre>
 <pre><code>[1] 1</code></pre>
 <p>And yes, ranges work:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.estimate[<span class="dv">5</span>:<span class="dv">15</span>])</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.estimate[<span class="dv">5</span>:<span class="dv">15</span>])</code></pre>
 <pre><code>5      NaN
 6      NaN
 7      NaN
@@ -698,14 +689,14 @@ Detailed traceback:
 13    0.15
 14    0.10
 Name: estimate, dtype: float64</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">data<span class="op">$</span>estimate[<span class="dv">6</span><span class="op">:</span><span class="dv">15</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv<span class="op">$</span>estimate[<span class="dv">6</span><span class="op">:</span><span class="dv">15</span>]</code></pre>
 <pre><code> [1]   NA   NA   NA   NA   NA 0.03 0.05 0.06 0.15 0.10</code></pre>
 <p>Note that the upper bound is the same, because it’s inclusive in R and exclusive in Python.
 Note also that neither library prevents us from selecting a range of data that spans logical groups such as countries,
 which is why selecting by row number is usually a sign of innocence, insouciance, or desperation.</p>
 <p>We can select by column number as well.
 Pandas uses the rather clumsy <code>object.iloc[rows, columns]</code>, with the usual <code>:</code> shortcut for “entire range”:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.iloc[:, <span class="dv">0</span>])</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.iloc[:, <span class="dv">0</span>])</code></pre>
 <pre><code>0       AFG
 1       AFG
 2       AFG
@@ -728,10 +719,10 @@ Pandas uses the rather clumsy <code>object.iloc[rows, columns]</code>, with the 
 19      AIA
 ...</code></pre>
 <p>Since this is a column, it can be indexed:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.iloc[:, <span class="dv">0</span>][<span class="dv">0</span>])</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(infant_hiv.iloc[:, <span class="dv">0</span>][<span class="dv">0</span>])</code></pre>
 <pre><code>AFG</code></pre>
 <p>In R, a single index is interpreted as the column index:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data[<span class="dv">1</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv[<span class="dv">1</span>]</code></pre>
 <pre><code># A tibble: 1,728 x 1
    country
    &lt;chr&gt;  
@@ -748,7 +739,7 @@ Pandas uses the rather clumsy <code>object.iloc[rows, columns]</code>, with the 
 # … with 1,718 more rows</code></pre>
 <p>But notice that the output is not a vector, but another tibble (i.e., a table with N rows and one column).
 This means that adding another index does column-wise indexing on that tibble:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data[<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv[<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
 <pre><code># A tibble: 1,728 x 1
    country
    &lt;chr&gt;  
@@ -765,7 +756,7 @@ This means that adding another index does column-wise indexing on that tibble:</
 # … with 1,718 more rows</code></pre>
 <p>How then are we to get the first mention of Afghanistan?
 The answer is to use <a href="glossary.html#double-square-brackets">double square brackets</a> to strip away one level of structure:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data[[<span class="dv">1</span>]]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv[[<span class="dv">1</span>]]</code></pre>
 <pre><code>   [1] &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AFG&quot; &quot;AGO&quot; &quot;AGO&quot;
   [12] &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AGO&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot;
   [23] &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;AIA&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot; &quot;ALB&quot;
@@ -788,10 +779,10 @@ The answer is to use <a href="glossary.html#double-square-brackets">double squar
  [210] &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRA&quot; &quot;BRB&quot; &quot;BRB&quot; &quot;BRB&quot; &quot;BRB&quot;
 ...</code></pre>
 <p>This is now a plain old vector, so it can be indexed with <a href="glossary.html#single-square-brackets">single square brackets</a>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre>
 <pre><code>[1] &quot;AFG&quot;</code></pre>
 <p>But that too is a vector, so it can of course be indexed as well (for some value of “of course”):</p>
-<pre class="sourceCode r"><code class="sourceCode r">data[[<span class="dv">1</span>]][<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv[[<span class="dv">1</span>]][<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
 <pre><code>[1] &quot;AFG&quot;</code></pre>
 <p>Thus,
 <code>data[1][[1]]</code> produces a tibble,
@@ -800,8 +791,8 @@ so it still gives us a vector.
 <em>This is not madness.</em>
 It is merely…differently sane.</p>
 <blockquote>
-<p><strong>Subsetting data frames:</strong>
-When we are working with data frames (including tibbles),
+<p><strong>Subsetting data frames:</strong></p>
+<p>When we are working with data frames (including tibbles),
 subsetting with a single vector selects columns, not rows,
 because data frames are stored as lists of columns.
 This means that <code>df[1:2]</code> selects two columns from <code>df</code>.
@@ -812,20 +803,20 @@ However, in <code>df[2:3, 1:2]</code>, the first index selects rows, while the s
 <h2><span class="header-section-number">5.6</span> How do I calculate basic statistics?</h2>
 <p>What is the average estimate?
 We start by grabbing that column for convenience:</p>
-<pre class="sourceCode python"><code class="sourceCode python">estimates <span class="op">=</span> data.estimate
+<pre class="sourceCode python"><code class="sourceCode python">estimates <span class="op">=</span> infant_hiv.estimate
 <span class="bu">print</span>(<span class="bu">len</span>(estimates))</code></pre>
 <pre><code>1728</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.mean())</code></pre>
 <pre><code>0.3870192307692308</code></pre>
 <p>This translates almost directly to R:</p>
-<pre class="sourceCode r"><code class="sourceCode r">estimates &lt;-<span class="st"> </span>data<span class="op">$</span>estimate
+<pre class="sourceCode r"><code class="sourceCode r">estimates &lt;-<span class="st"> </span>infant_hiv<span class="op">$</span>estimate
 <span class="kw">length</span>(estimates)</code></pre>
 <pre><code>[1] 1728</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(estimates)</code></pre>
 <pre><code>[1] NA</code></pre>
 <p>The void is always there, waiting for us…
-Let’s fix this in R first:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
+Let’s fix this in R first by telling <code>mean</code> to drop NAs:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(estimates, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>[1] 0.3870192</code></pre>
 <p>And then try to get the statistically correct behavior in Pandas:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.mean(skipna<span class="op">=</span><span class="va">False</span>))</code></pre>
@@ -836,26 +827,26 @@ R’s default behavior is to leave <code>NA</code>s in, and then to include them
 Python’s is to get rid of missing values early and work with what’s left,
 which makes translating code from one language to the next much more interesting than it might otherwise be.
 But other than that, the statistics works the same way in Python:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.<span class="bu">min</span>())</code></pre>
-<pre><code>0.0</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.<span class="bu">max</span>())</code></pre>
-<pre><code>0.95</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(estimates.std())</code></pre>
-<pre><code>0.3034511074214113</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;min&quot;</span>, estimates.<span class="bu">min</span>())</code></pre>
+<pre><code>min 0.0</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;max&quot;</span>, estimates.<span class="bu">max</span>())</code></pre>
+<pre><code>max 0.95</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;std&quot;</span>, estimates.std())</code></pre>
+<pre><code>std 0.3034511074214113</code></pre>
 <p>Here are the equivalent computations in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
-<pre><code>[1] 0</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
-<pre><code>[1] 0.95</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(estimates, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre>
-<pre><code>[1] 0.3034511</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;min {min(estimates, na.rm = TRUE)}&quot;</span>))</code></pre>
+<pre><code>min 0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;max {max(estimates, na.rm = TRUE)}&quot;</span>))</code></pre>
+<pre><code>max 0.95</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;sd {sd(estimates, na.rm = TRUE)}&quot;</span>))</code></pre>
+<pre><code>sd 0.303451107421411</code></pre>
 <p>A good use of aggregation is to check the quality of the data.
 For example,
 we can ask if there are any records where some of the estimate, the low value, or the high value are missing,
 but not all of them:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>((data.hi.isnull() <span class="op">!=</span> data.lo.isnull()).<span class="bu">any</span>())</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>((infant_hiv.hi.isnull() <span class="op">!=</span> infant_hiv.lo.isnull()).<span class="bu">any</span>())</code></pre>
 <pre><code>False</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">is.na</span>(data<span class="op">$</span>hi) <span class="op">!=</span><span class="st"> </span><span class="kw">is.na</span>(data<span class="op">$</span>lo))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">is.na</span>(infant_hiv<span class="op">$</span>hi) <span class="op">!=</span><span class="st"> </span><span class="kw">is.na</span>(infant_hiv<span class="op">$</span>lo))</code></pre>
 <pre><code>[1] FALSE</code></pre>
 </div>
 <div id="how-do-i-filter-data" class="section level2">
@@ -950,16 +941,17 @@ and encourage use of patterns that make it easier for others to understand our p
 </div>
 <div id="how-do-i-write-tidy-code" class="section level2">
 <h2><span class="header-section-number">5.8</span> How do I write tidy code?</h2>
-<p>The five basic data transformation operations in the tidyverse are:</p>
+<p>The six basic data transformation operations in the tidyverse are:</p>
 <ul>
 <li><code>filter</code>: choose observations (rows) by value(s)</li>
 <li><code>arrange</code>: reorder rows</li>
 <li><code>select</code>: choose variables (columns) by name</li>
 <li><code>mutate</code>: derive new variables from existing ones</li>
+<li><code>group_by</code>: define subsets of rows for further processing</li>
 <li><code>summarize</code>: combine many values to create a single new value</li>
 </ul>
 <p><code>filter(tibble, ...criteria...)</code> keeps rows that pass all of the specified criteria:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(data, lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(infant_hiv, lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
 <pre><code># A tibble: 183 x 5
    country  year estimate    hi    lo
    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -975,23 +967,21 @@ and encourage use of patterns that make it easier for others to understand our p
 10 BLR      2012     0.95  0.95  0.95
 # … with 173 more rows</code></pre>
 <p>Notice that the expression is <code>lo &gt; 0.5</code> rather than <code>"lo" &gt; 0.5</code>.
-The latter expression returns the entire table
+The latter expression would return the entire table
 because the string <code>"lo"</code> is greater than the number 0.5 everywhere.</p>
-<p>But wait:
-how is it that <code>lo</code> can be used on its own?
+<p>But how is it that the name <code>lo</code> can be used on its own?
 It is the name of a column, but there is no variable called <code>lo</code>.
-The answer is that R uses <a href="glossary.html#lazy-evaluation">lazy evaluation</a> of arguments.
-Arguments aren’t evaluated until they’re needed,
+The answer is that R uses <a href="glossary.html#lazy-evaluation">lazy evaluation</a>:
+function arguments aren’t evaluated until they’re needed,
 so the function <code>filter</code> actually gets the expression <code>lo &gt; 0.5</code>,
 which allows it to check that there’s a column called <code>lo</code> and then use it appropriately.
-This is much tidier than <code>filter(data, data$lo &gt; 0.5)</code> or <code>filter(data, "lo &gt; 0.5")</code>,
-and is <em>not</em> some kind of eldritch wizardry.
-Many languages rely on lazy evaluation,
+This is much tidier than <code>filter(data, data$lo &gt; 0.5)</code> or <code>filter(data, "lo &gt; 0.5")</code>.</p>
+<p>Many languages rely on lazy evaluation,
 and when used circumspectly,
-it allows us to produce code that is easier to read.</p>
-<p>But we can do even better by using the <a href="glossary.html#pipe-operator">pipe operator</a> <code>%&gt;%</code>,
-which is about to become your new best friend:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
+it allows us to produce code that is easier to read.
+We will explore it further in Chapter <a href="nse.html#nse">7</a>.</p>
+<p>We can make data anlaysis code more readable by using the <a href="glossary.html#pipe-operator">pipe operator</a> <code>%&gt;%</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
 <pre><code># A tibble: 183 x 5
    country  year estimate    hi    lo
    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1009,15 +999,15 @@ which is about to become your new best friend:</p>
 <p>This may not seem like much of an improvement,
 but neither does a Unix pipe consisting of <code>cat filename.txt | head</code>.
 What about this?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(data, (estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">&amp;</span><span class="st"> </span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(infant_hiv, (estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">&amp;</span><span class="st"> </span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)))</code></pre>
 <pre><code># A tibble: 1 x 5
   country  year estimate    hi    lo
   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 TTO      2017     0.94  0.95  0.86</code></pre>
 <p>It uses the vectorized “and” operator <code>&amp;</code> twice,
 and parsing the condition takes a human being at least a few seconds.
-Its tidyverse equivalent is:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>))</code></pre>
+Its pipelined equivalent is:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>))</code></pre>
 <pre><code># A tibble: 1 x 5
   country  year estimate    hi    lo
   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1025,7 +1015,7 @@ Its tidyverse equivalent is:</p>
 <p>Breaking the condition into stages like this often makes reading and testing much easier,
 and encourages incremental write-test-extend development.</p>
 <p>Let’s increase the band from 10% to 20%:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>))</code></pre>
 <pre><code># A tibble: 55 x 5
    country  year estimate    hi    lo
    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1040,9 +1030,9 @@ and encourages incremental write-test-extend development.</p>
  9 CPV      2014     0.94  0.95  0.76
 10 CPV      2016     0.94  0.95  0.76
 # … with 45 more rows</code></pre>
-<p>And then order by <code>lo</code> in descending order,
+<p>and then order by <code>lo</code> in descending order,
 breaking the line the way the <a href="http://style.tidyverse.org/">tidyverse style guide</a> recommends:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
@@ -1062,7 +1052,7 @@ breaking the line the way the <a href="http://style.tidyverse.org/">tidyverse st
 10 KAZ      2015     0.84  0.95  0.8 
 # … with 45 more rows</code></pre>
 <p>We can now <a href="glossary.html#select">select</a> the three columns we care about:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
@@ -1091,7 +1081,7 @@ This leaves the columns that are kept in their original order,
 rather than putting <code>lo</code> before <code>hi</code>,
 which won’t matter if we later select by name,
 but <em>will</em> if we ever want to select by position:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
@@ -1117,9 +1107,10 @@ This can be done using either <code>mutate</code>,
 which adds new columns to the end of an existing tibble,
 or with <code>transmute</code>,
 which creates a new tibble containing only the columns we explicitly ask for.
+(There is also a function <code>rename</code> which simply renames columns.)
 Since we want to keep <code>hi</code> and <code>lo</code>,
 we decide to use <code>mutate</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
@@ -1147,27 +1138,7 @@ and then <code>summarize</code> to aggregate within groups.
 We might as well get rid of the <code>arrange</code> and <code>select</code> calls in our pipeline at this point,
 since we’re not using them,
 and count how many records contributed to each aggregation using <code>n()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> hi <span class="op">-</span><span class="st"> </span>lo) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">n</span>(), <span class="kw">mean</span>(year))</code></pre>
-<pre><code># A tibble: 9 x 3
-   year `n()` `mean(year)`
-  &lt;int&gt; &lt;int&gt;        &lt;dbl&gt;
-1  2009     3         2009
-2  2010     3         2010
-3  2011     5         2011
-4  2012     5         2012
-5  2013     6         2013
-6  2014    10         2014
-7  2015     6         2015
-8  2016    10         2016
-9  2017     7         2017</code></pre>
-<p>Let’s do that again with more meaningful names for the final table’s columns:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>)) <span class="op">%&gt;%</span>
@@ -1186,12 +1157,8 @@ and count how many records contributed to each aggregation using <code>n()</code
 7  2015     6     2015
 8  2016    10     2016
 9  2017     7     2017</code></pre>
-<p>(We could also add a call to <code>rename</code>,
-but for small tables like this,
-setting column names on the fly is perfectly comprehensible.)</p>
-<p>Now,
-how might we do this with Pandas?
-On approach is to use a single multi-part <code>.query</code> to select data
+<p>How might we do this with Pandas?
+One approach is to use a single multi-part <code>.query</code> to select data
 and store the result in a variable so that we can refer to the <code>hi</code> and <code>lo</code> columns twice
 without repeating the filtering expression.
 We then group by year and aggregate, again using strings for column names:</p>
@@ -1217,8 +1184,35 @@ year
 <p>There are other ways to tackle this problem with Pandas,
 but the tidyverse approach produces code that I find more readable.</p>
 </div>
+<div id="modeling" class="section level2">
+<h2><span class="header-section-number">5.9</span> Modeling</h2>
+<p>Tidying up data can be as calming and rewarding in the same way as knitting
+or rearranging the specimen jars on the shelves in your dining room-stroke-laboratory.
+Eventually,
+though,
+people want to do some statistics.
+The simplest tool for this in R is <code>lm</code>, which stands for “linear model”.
+Given a formula and a data set,
+it calculates coefficients to fit that formula to that data:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(estimate <span class="op">~</span><span class="st"> </span>lo, <span class="dt">data =</span> infant_hiv)</code></pre>
+<pre><code>
+Call:
+lm(formula = estimate ~ lo, data = infant_hiv)
+
+Coefficients:
+(Intercept)           lo  
+     0.0421       1.0707  </code></pre>
+<p>This is telling us that <code>estimate</code> is more-or-less equal to <code>0.0421 + 1.0707 * lo</code>.
+The <code>~</code> symbol is used to separate the left and right sides of the equation,
+and as with all things tidyverse,
+lazy evaluation allows us to use variable names directly.</p>
+</div>
+<div id="plotting" class="section level2">
+<h2><span class="header-section-number">5.10</span> Plotting</h2>
+<p>FIXME</p>
+</div>
 <div id="key-points-3" class="section level2">
-<h2><span class="header-section-number">5.9</span> Key Points</h2>
+<h2><span class="header-section-number">5.11</span> Key Points</h2>
 <ul>
 <li><code>install.packages('name')</code> installs packages.</li>
 <li><code>library(name)</code> (without quoting the name) loads a package.</li>
