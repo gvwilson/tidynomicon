@@ -40,7 +40,7 @@ knitr::include_graphics("figures/basics/python-environment.png")
 We begin with a traditional greeting.
 In Python, we write:
 
-```{python}
+```{python python-hello}
 print("Hello, world!")
 ```
 
@@ -97,7 +97,7 @@ That's all fine,
 but it seems odd for integer addition to produce a double-precision floating-point result.
 Let's try an experiment:
 
-```{r}
+```{r typeof-6}
 typeof(6)
 ```
 
@@ -106,29 +106,29 @@ R represents numbers as floating-point values,
 even if they look like integers when written.
 We can force a literal value to be an integer by appending an upper-case `L` (which stands for "long integer"):
 
-```{r}
+```{r typeof-6-int}
 typeof(6L)
 ```
 
 Arithmetic on integers does produce integers:
 
-```{r}
+```{r integer-addition}
 typeof(1L + 2L + 3L)
 ```
 
 and if we want to convert a floating-point number to an integer we can do so:
 
-```{r}
+```{r convert-to-integer}
 typeof(as.integer(6))
 ```
 
 But wait:
-what is that dot doing in that function's name?
+what is that dot doing in the function's name?
 Is there an object called `as` with a [method](glossary.html#method) called `integer`?
 The answer is "no":
-`.` is just another character in R.
-Like the underscore `_` it is used to make names more readable,
-but it has no special meaning.
+`.` is (usually) just another character in R;
+like the underscore `_`,
+it is used to make names more readable.
 
 ## How do I store many numbers together?
 
@@ -142,7 +142,7 @@ We create lists using square brackets,
 and assign a list to a variable using `=`.
 If the variable does not exist, it is created:
 
-```{python}
+```{python python-list}
 primes = [3, 5, 7, 11]
 print(primes)
 ```
@@ -154,25 +154,27 @@ so Python does not display anything when this command is run.
 The equivalent operation in R uses a function called `c`,
 which stands for "column" and which creates a [vector](glossary.html#vector):
 
-```{r}
+```{r r-vector}
 primes <- c(3, 5, 7, 11)
+primes
 ```
 
 Assignment is done using a left-pointing arrow `<-`.
 (Other forms with their own symbols also exist, but we will not discuss them until Chapter \@ref(control).)
 Like Python,
-R does not display a value after an assignment statement.
+R does not display a value after an assignment statement,
+so we have to ask it to show us the value.
 
 Now that we can create vector in R,
 we can explain that errant `[1]` in our previous examples.
 To begin with,
 let's have a look at the lengths of various things in Python:
 
-```{python}
+```{python py-len-list}
 print(len(primes))
 ```
 
-```{python error=TRUE}
+```{python py-len-int, error=TRUE}
 print(len(4))
 ```
 
@@ -183,20 +185,20 @@ it has no length.
 
 What of R's vectors?
 
-```{r}
+```{r r-len-vec}
 length(primes)
 ```
 
-Good---and its numbers?
+Good---and numbers?
 
-```{r}
+```{r r-len-int}
 length(4)
 ```
 
 That's surprising.
 Let's have a closer look:
 
-```{r}
+```{r r-typeof-vec}
 typeof(primes)
 ```
 
@@ -209,7 +211,7 @@ When we display its value,
 the `[1]` that R prints is the index of its first value.
 We can prove this by creating and displaying a much longer vector:
 
-```{r}
+```{r long-vec}
 c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
@@ -220,7 +222,7 @@ and displays the starting index of each line.
 These indices also show us that R counts from 1 as humans do,
 rather than from zero.
 (There are a great many myths about why programming languages do the latter.
-[Mike Hoye discovered the truth][hoye-zero].)
+[The truth is stranger than any fiction could be.][hoye-zero])
 
 ## How do I index a vector?
 
@@ -229,33 +231,33 @@ Python's rules for indexing are simple once you understand them
 To avoid confusing indices with values,
 let's create a list of color names and index that:
 
-```{python}
+```{python py-index-0}
 colors = ["eburnean", "glaucous", "wenge"]
 print(colors[0])
 ```
-```{python}
+```{python py-index-top}
 print(colors[2])
 ```
-```{python error=TRUE}
+```{python py-index-error, error=TRUE}
 colors[3]
 ```
-```{python}
+```{python py-index-negative}
 print(colors[-1])
 ```
 
 Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprising results:
 
-```{r}
+```{r r-index-first}
 colors <- c("eburnean", "glaucous", "wenge")
 colors[1]
 ```
-```{r}
+```{r r-index-last}
 colors[3]
 ```
 
 What happens if we go off the end?
 
-```{r}
+```{r r-index-out-of-range}
 colors[4]
 ```
 
@@ -267,7 +269,7 @@ a negative index counts backward from the end of a list.
 In R,
 we use a negative index to indicate a value that we don't want:
 
-```{r}
+```{r r-index-negative}
 colors[-1]
 ```
 
@@ -277,7 +279,7 @@ then when we use 1 or -1 as an index,
 we're actually using a vector to index another one.
 What happens if the index itself contains more than one value?
 
-```{r error=TRUE}
+```{r r-index-vec-error, error=TRUE}
 colors[1, 2]
 ```
 
@@ -285,13 +287,13 @@ That didn't work because R interprets the subscript `[i, j]` as being row and co
 and our vector has only one dimension.
 What if we create a vector with `c(...)` and use that as a subscript?
 
-```{r}
+```{r r-index-with-vec}
 colors[c(3, 1, 2)]
 ```
 
 That works, and allows us to repeat elements:
 
-```{r}
+```{r r-index-vec-repeat}
 colors[c(1, 1, 1)]
 ```
 
@@ -300,7 +302,7 @@ i.e.,
 the value at location *i* in the index vector specifies which element of the source vector
 is being pulled into that location in the result vector:
 
-```{r echo=FALSE, fig.cap="Pull Indexing"}
+```{r pull-indexing-fig, echo=FALSE, fig.cap="Pull Indexing"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/basics/pull-indexing.pdf")
 } else {
@@ -310,20 +312,20 @@ if (knitr::is_latex_output()) {
 
 We can also select out several elements:
 
-```{r}
+```{r r-index-negative-multiple}
 colors[c(-1, -2)]
 ```
 
-What we *cannot* do is simultaneously select elements in (with positive indices) and out (with negative ones):
+But we *cannot* simultaneously select elements in (with positive indices) and out (with negative ones):
 
-```{r error=TRUE}
+```{r r-mixed-indexing, error=TRUE}
 colors[c(1, -1)]
 ```
 
 That error message is suggestive:
 what happens if we use 0 as an index?
 
-```{r}
+```{r r-index-zero}
 colors[0]
 ```
 
@@ -331,7 +333,7 @@ In order to understand this rather cryptic response,
 we can try calling the function `character` ourselves
 with a positive argument:
 
-```{r}
+```{r r-create-char-vec}
 character(3)
 ```
 
@@ -344,7 +346,7 @@ so R gives us back something of the right type but with no content.
 As a check,
 let's try indexing with 0 and 1 together:
 
-```{r}
+```{r r-zero-ignored}
 colors[c(0, 1)]
 ```
 
@@ -352,7 +354,7 @@ So when 0 is mixed with either positive or negative indices, it is ignored,
 which will undoubtedly lead to some puzzling bugs.
 What if in-bounds and out-of-bounds indices are mixed?
 
-```{r}
+```{r r-in-and-out}
 colors[c(1, 10)]
 ```
 
@@ -360,11 +362,9 @@ That is consistent with the behavior of single indices.
 
 ## How do I create new vectors from old?
 
-Modern Python encourages programmers to use [list comprehensions](glossary.html#list-comprehension) instead of loops,
-e.g.,
-to write:
+Modern Python encourages programmers to use [list comprehensions](glossary.html#list-comprehension) instead of loops:
 
-```{python}
+```{python py-list-comp}
 original = [3, 5, 7, 9]
 doubled = [2 * x for x in original]
 print(doubled)
@@ -372,7 +372,7 @@ print(doubled)
 
 instead of:
 
-```{python}
+```{python py-list-loop}
 doubled = []
 for x in original:
   doubled.append(2 * x)
@@ -382,13 +382,13 @@ print(doubled)
 If `original` is a NumPy array,
 we can shorten this to:
 
-```{python eval=FALSE}
+```{python py-numpy, eval=FALSE}
 doubled = 2 * original
 ```
 
-R provides the same capability in the language itself:
+R provides this capability in the language itself:
 
-```{r}
+```{r r-vec-comp}
 original <- c(3, 5, 7, 9)
 doubled <- 2 * original
 doubled
@@ -400,7 +400,7 @@ to do operations on whole vectors at once rather than looping over their content
 To aid this,
 all arithmetic operations work element by element on vectors:
 
-```{r}
+```{r vector-ops}
 tens <- c(10, 20, 30)
 hundreds <- c(100, 200, 300)
 tens + hundreds / (tens * hundreds)
@@ -411,7 +411,7 @@ the elements of the shorter are [recycled](glossary.html#recycle).
 This is straightforward if one of the vectors is a scalar---it is just re-used as many times as necessary---but
 shouldn't be done if the vectors don't line up nicely:
 
-```{r}
+```{r vec-length-mismatch}
 thousands <- c(1000, 2000)
 hundreds + thousands
 ```
@@ -420,7 +420,7 @@ R also provides vectorized alternatives to `if`-`else` statements.
 If we use a vector containing the logical (or Boolean) values `TRUE` and `FALSE` as an index,
 it selects elements corresponding to `TRUE` values:
 
-```{r}
+```{r vector-conditional}
 colors # as a reminder
 colors[c(TRUE, FALSE, TRUE)]
 ```
@@ -431,7 +431,7 @@ The function `ifelse` uses this to do what its name suggests:
 select a value from one vector if a condition is `TRUE`,
 and a corresponding value from another vector if the condition is `FALSE`:
 
-```{r}
+```{r ifelse-func}
 before_letter_m <- colors < "m"
 before_letter_m # to show the index
 ifelse(before_letter_m, colors, c("comes", "after", "m"))
@@ -440,11 +440,11 @@ ifelse(before_letter_m, colors, c("comes", "after", "m"))
 All three vectors are of the same length,
 and the first (the condition) is usually constructed using the values of one or both of the other vectors:
 
-```{r}
+```{r ifelse-example}
 ifelse(colors < "m", colors, toupper(colors))
 ```
 
-```{r echo=FALSE, fig.cap="Vector Conditionals"}
+```{r ifelse-fig, echo=FALSE, fig.cap="Vector Conditionals"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/basics/if-else.pdf")
 } else {
@@ -459,20 +459,20 @@ A different value, [`NULL`](glossary.html#null), represents the absence of a vec
 It is not the same as a vector of zero length,
 though testing that statement produces a rather odd result:
 
-```{r}
+```{r null-comparison}
 NULL == integer(0)
 ```
 
 The safe way to test if something is `NULL` is to use the function `is.null`:
 
-```{r}
+```{r is-null}
 is.null(NULL)
 ```
 
 Circling back,
 the safe way to test whether a value is `NA` is *not* to use direct comparison:
 
-```{r}
+```{r na-comparison}
 threshold <- 1.75
 threshold == NA
 ```
@@ -482,7 +482,7 @@ we can't know if it's equal to `threshold` or not.
 Instead,
 we should always use the function `is.na`:
 
-```{r}
+```{r is-na}
 is.na(threshold)
 is.na(NA)
 ```

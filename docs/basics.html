@@ -430,12 +430,12 @@ We can force a literal value to be an integer by appending an upper-case <code>L
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">6</span>))</code></pre>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>But wait:
-what is that dot doing in that function’s name?
+what is that dot doing in the function’s name?
 Is there an object called <code>as</code> with a <a href="glossary.html#method">method</a> called <code>integer</code>?
 The answer is “no”:
-<code>.</code> is just another character in R.
-Like the underscore <code>_</code> it is used to make names more readable,
-but it has no special meaning.</p>
+<code>.</code> is (usually) just another character in R;
+like the underscore <code>_</code>,
+it is used to make names more readable.</p>
 </div>
 <div id="how-do-i-store-many-numbers-together" class="section level2">
 <h2><span class="header-section-number">2.5</span> How do I store many numbers together?</h2>
@@ -455,11 +455,14 @@ it has no result,
 so Python does not display anything when this command is run.</p>
 <p>The equivalent operation in R uses a function called <code>c</code>,
 which stands for “column” and which creates a <a href="glossary.html#vector">vector</a>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)
+primes</code></pre>
+<pre><code>[1]  3  5  7 11</code></pre>
 <p>Assignment is done using a left-pointing arrow <code>&lt;-</code>.
 (Other forms with their own symbols also exist, but we will not discuss them until Chapter <a href="control.html#control">4</a>.)
 Like Python,
-R does not display a value after an assignment statement.</p>
+R does not display a value after an assignment statement,
+so we have to ask it to show us the value.</p>
 <p>Now that we can create vector in R,
 we can explain that errant <code>[1]</code> in our previous examples.
 To begin with,
@@ -478,7 +481,7 @@ it has no length.</p>
 <p>What of R’s vectors?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(primes)</code></pre>
 <pre><code>[1] 4</code></pre>
-<p>Good—and its numbers?</p>
+<p>Good—and numbers?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="dv">4</span>)</code></pre>
 <pre><code>[1] 1</code></pre>
 <p>That’s surprising.
@@ -503,7 +506,7 @@ and displays the starting index of each line.
 These indices also show us that R counts from 1 as humans do,
 rather than from zero.
 (There are a great many myths about why programming languages do the latter.
-<a href="http://exple.tive.org/blarg/2013/10/22/citation-needed/">Mike Hoye discovered the truth</a>.)</p>
+<a href="http://exple.tive.org/blarg/2013/10/22/citation-needed/">The truth is stranger than any fiction could be.</a>)</p>
 </div>
 <div id="how-do-i-index-a-vector" class="section level2">
 <h2><span class="header-section-number">2.6</span> How do I index a vector?</h2>
@@ -560,7 +563,7 @@ What if we create a vector with <code>c(...)</code> and use that as a subscript?
 i.e.,
 the value at location <em>i</em> in the index vector specifies which element of the source vector
 is being pulled into that location in the result vector:</p>
-<div class="figure"><span id="fig:unnamed-chunk-30"></span>
+<div class="figure"><span id="fig:pull-indexing-fig"></span>
 <img src="figures/basics/pull-indexing.svg" alt="Pull Indexing"  />
 <p class="caption">
 Figure 2.2: Pull Indexing
@@ -569,7 +572,7 @@ Figure 2.2: Pull Indexing
 <p>We can also select out several elements:</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-2</span>)]</code></pre>
 <pre><code>[1] &quot;wenge&quot;</code></pre>
-<p>What we <em>cannot</em> do is simultaneously select elements in (with positive indices) and out (with negative ones):</p>
+<p>But we <em>cannot</em> simultaneously select elements in (with positive indices) and out (with negative ones):</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-1</span>)]</code></pre>
 <pre><code>Error in colors[c(1, -1)]: only 0&#39;s may be mixed with negative subscripts</code></pre>
 <p>That error message is suggestive:
@@ -600,9 +603,7 @@ What if in-bounds and out-of-bounds indices are mixed?</p>
 </div>
 <div id="how-do-i-create-new-vectors-from-old" class="section level2">
 <h2><span class="header-section-number">2.7</span> How do I create new vectors from old?</h2>
-<p>Modern Python encourages programmers to use <a href="glossary.html#list-comprehension">list comprehensions</a> instead of loops,
-e.g.,
-to write:</p>
+<p>Modern Python encourages programmers to use <a href="glossary.html#list-comprehension">list comprehensions</a> instead of loops:</p>
 <pre class="sourceCode python"><code class="sourceCode python">original <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>]
 doubled <span class="op">=</span> [<span class="dv">2</span> <span class="op">*</span> x <span class="cf">for</span> x <span class="kw">in</span> original]
 <span class="bu">print</span>(doubled)</code></pre>
@@ -616,7 +617,7 @@ doubled <span class="op">=</span> [<span class="dv">2</span> <span class="op">*<
 <p>If <code>original</code> is a NumPy array,
 we can shorten this to:</p>
 <pre class="sourceCode python"><code class="sourceCode python">doubled <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> original</code></pre>
-<p>R provides the same capability in the language itself:</p>
+<p>R provides this capability in the language itself:</p>
 <pre class="sourceCode r"><code class="sourceCode r">original &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)
 doubled &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>original
 doubled</code></pre>
@@ -660,7 +661,7 @@ before_letter_m <span class="co"># to show the index</span></code></pre>
 and the first (the condition) is usually constructed using the values of one or both of the other vectors:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ifelse</span>(colors <span class="op">&lt;</span><span class="st"> &quot;m&quot;</span>, colors, <span class="kw">toupper</span>(colors))</code></pre>
 <pre><code>[1] &quot;eburnean&quot; &quot;glaucous&quot; &quot;WENGE&quot;   </code></pre>
-<div class="figure"><span id="fig:unnamed-chunk-46"></span>
+<div class="figure"><span id="fig:ifelse-fig"></span>
 <img src="figures/basics/if-else.svg" alt="Vector Conditionals"  />
 <p class="caption">
 Figure 2.3: Vector Conditionals

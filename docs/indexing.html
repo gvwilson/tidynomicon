@@ -387,6 +387,7 @@ and the third is again a vector of one element.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[[<span class="dv">3</span>]])</code></pre>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <p>Good: they are vectors.
+(Remember, everything in R is a vector—it doesn’t have scalars in the usual sense.)
 What do we get if we use single square brackets <code>[</code>?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[<span class="dv">1</span>])</code></pre>
 <pre><code>[1] &quot;list&quot;</code></pre>
@@ -409,18 +410,16 @@ v[<span class="dv">2</span>]</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(v[[<span class="dv">2</span>]])</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <blockquote>
-<p><strong>Flattening</strong></p>
+<p><strong>Flattening and Recursive Indexing</strong></p>
 <p>If a list is just a vector of objects, why do we need the function <code>list</code>?
 Why can’t we create a list with <code>c("first", c(2, 20, 200), 30)</code>?
 The answer is that R flattens the arguments to <code>c</code>,
 so that <code>c(c(1, 2), c(3, 4))</code> produces <code>c(1, 2, 3, 4)</code>.
 It also does automatic type conversion:
 <code>c("first", c(2, 20, 200), 30)</code> produces a vector of character strings
-<code>c("first", "2", "20", "200", "30")</code>.</p>
-</blockquote>
-<blockquote>
-<p><strong>Recursive Indexing</strong></p>
-<p>Using <code>[[</code> with a list subsets recursively:
+<code>c("first", "2", "20", "200", "30")</code>.
+This is helpful once you get used to it.</p>
+<p>Another “helpful, ish” behavior is that using <code>[[</code> with a list subsets recursively:
 if <code>thing &lt;- list(a = list(b = list(c = list(d = 1))))</code>,
 then <code>thing[[c("a", "b", "c", "d")]]</code> selects the 1.</p>
 </blockquote>
@@ -431,16 +430,16 @@ then <code>thing[[c("a", "b", "c", "d")]]</code> selects the 1.</p>
 if we assign <code>c(one = 1, two = 2, three = 3)</code> to <code>names</code>,
 then <code>names["two"]</code> is 2.
 We can use this to create a lookup table:</p>
-<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>)
-lookup &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">u =</span> <span class="st">&quot;Unstated&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;nb&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>)
+lookup &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
 lookup[values]</code></pre>
-<pre><code>         m          f          u          f          f          m 
-    &quot;Male&quot;   &quot;Female&quot; &quot;Unstated&quot;   &quot;Female&quot;   &quot;Female&quot;     &quot;Male&quot; 
-         m 
-    &quot;Male&quot; </code></pre>
+<pre><code>           m            f           nb            f            f 
+      &quot;Male&quot;     &quot;Female&quot; &quot;Non-binary&quot;     &quot;Female&quot;     &quot;Female&quot; 
+           m            m 
+      &quot;Male&quot;       &quot;Male&quot; </code></pre>
 <p>If the structure in question is a list rather than an atomic vector of numbers, characters, or logicals,
 we can use the syntax <code>lookup$m</code> instead of <code>lookup["m"]</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">lookup_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">u =</span> <span class="st">&quot;Unstated&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">lookup_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
 lookup_list<span class="op">$</span>m</code></pre>
 <pre><code>[1] &quot;Male&quot;</code></pre>
 <p>We will explore this in more detail when we look at the tidyverse in Chapter <a href="tidyverse.html#tidyverse">5</a>,
@@ -470,7 +469,7 @@ a</code></pre>
 a matrix is a vector with an <a href="glossary.html#attribute">attribute</a> called <code>dim</code> that stores its dimensions:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(a)</code></pre>
 <pre><code>[1] 3 3</code></pre>
-<p><code>a[3, 3]</code> is a vector of length 1 containing the value 9 (because scalars in R are actually vectors),
+<p><code>a[3, 3]</code> is a vector of length 1 containing the value 9 (again, “scalars” in R are actually vectors),
 while <code>a[1,]</code> is the vector <code>c(1, 4, 7)</code> (because we are selecting the first row of the matrix)
 and <code>a[,1]</code> is the vector <code>c(1, 2, 3)</code> (because we are selecting the first column of the matrix).
 Elements can still be accessed using a single index,
