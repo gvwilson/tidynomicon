@@ -1,5 +1,9 @@
 # The Tidyverse {#tidyverse}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/tidyverse.md"}
 ```

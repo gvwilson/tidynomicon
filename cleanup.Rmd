@@ -1,5 +1,9 @@
 # Cleaning Up Data {#cleanup}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/cleanup.md"}
 ```

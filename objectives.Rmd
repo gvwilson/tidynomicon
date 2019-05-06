@@ -1,5 +1,9 @@
 # Learning Objectives {#objectives}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Values and Vectors
 ```{r, child="objectives/basics.md"}
 ```

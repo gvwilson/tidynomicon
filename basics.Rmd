@@ -1,5 +1,9 @@
 # Values and Vectors {#basics}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/basics.md"}
 ```

@@ -1,5 +1,9 @@
 # Control Flow {#control}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/control.md"}
 ```
@@ -17,13 +21,14 @@ and we should *always* break our code up into single-purpose functions.
 
 We cherish the illusion of free will so much that we embed a pretense of it in our machines
 in the form of conditional statements using `if` and `else`.
-Ironically,
+(Ironically,
 we then instruct those same machines to make the same decisions over and over.
+It's no wonder they sometimes appear mad...)
 Here,
 for example,
 is a snippet of Python that displays the signs of a list of numbers:
 
-```{python}
+```{python py-loop-cond}
 values = [-15, 0, 15]
 for v in values:
     if v < 0:
@@ -37,7 +42,7 @@ for v in values:
 
 Its direct translation into R is:
 
-```{r}
+```{r r-loop-cond}
 values <- c(-1, 0, 1)
 for (v in values) {
   if (v < 0) {
@@ -49,9 +54,9 @@ for (v in values) {
   else {
     sign <- 1
   }
-  print(paste("The sign of", v, "is", sign))
+  print(glue::glue("The sign of {v} is {sign}"))
 }
-print(paste("final value of v is", v))
+print(glue::glue("The final value of v is {v}"))
 ```
 
 There are a few things to note here:
@@ -65,10 +70,9 @@ There are a few things to note here:
     since each contains only a single statement.
     However, they should always be there to help readability.
 4.  The loop variable `v` persists after the loop is over.
-5.  `paste` converts its arguments to strings and concatenates them,
-    placing a single space between each unless instructed to do otherwise.
-    `print` then prints the resulting (single) string.
-    The function `cat` (short for "concatenate") can also be used for text output.
+5.  `glue::glue` (the function `glue` from the library of the same name)
+    interpolates variables into strings in sensible ways.
+    We will load this library and use plain old `glue` in the explanations that follow.
 6.  By calling our temporary variable `sign`
     we have accidentally overwritten the rather useful built-in R function with that name.
     [Name collisions](glossary.html#name-collision) of this sort are as easy in R as they are in Python.
@@ -79,48 +83,48 @@ By default, R's `for` loop gives us the values in a vector, just as Python's doe
 If we want to loop over the indices instead,
 we can use the function `seq_along`:
 
-```{r}
+```{r loop-range}
 colors = c("eburnean", "glaucous", "wenge")
 for (i in seq_along(colors)) {
-  print(paste("The length of color", i, "is", length(colors[i])))
+  print(glue("The length of color {i} is {length(colors[i])}"))
 }
 ```
 
-This makes no sense at all until we remember that every value is a vector,
+This output makes no sense until we remember that every value is a vector,
 and that `length` returns the length of a vector,
 so that `length(colors[0])` is telling us that `colors[0]` contains one element.
 If we want the number of characters in the strings,
-we can use R's built-in `nchar` or the function `stringr::str_length`:
+we can use R's built-in `nchar` or the more modern function `stringr::str_length`:
 
-```{r}
+```{r loop-range-str-length}
 for (i in seq_along(colors)) {
-  print(paste("The length of color", i, "is", stringr::str_length(colors[i])))
+  print(glue("The length of color {i} is {stringr::str_length(colors[i])}"))
 }
 ```
 
 `seq_along` returns a vector containing a sequence of integers:
 
-```{r}
+```{r seq-along}
 seq_along(colors)
 ```
 
 Since sequences of this kind are used frequently,
 R lets us write them using [range expressions](glossary.html#range-expression) like this:
 
-```{r}
+```{r range-expression}
 5:10
 ```
 
 Their most common use is as indices to vectors:
 
-```{r}
+```{r range-subscript}
 colors <- c("eburnean", "glaucous", "squamous", "wenge")
 colors[1:3]
 ```
 
 We can similarly subtract a range of colors by index:
 
-```{r}
+```{r negative-range-subscript}
 colors[-1:-3]
 ```
 
@@ -128,7 +132,7 @@ However, R does not allow tripartite expressions of the form `start:end:stride`.
 For that,
 we must use the `seq` function:
 
-```{r}
+```{r seq-function}
 seq(1, 10, 3)
 ```
 
@@ -136,10 +140,8 @@ This example also shows that ranges in R are inclusive at both ends,
 i.e.,
 they run up to *and including* the upper bound.
 As is traditional among programming language advocates,
-people claim that this is more natural,
-and then cite as proof some supportive anecdote such as,
-"Most people do not interpret the expression 'from one to five'
-to mean 'one, two, three, or four'."
+people claim that this is more natural
+and then cite some supportive anecdote as proof.
 
 > **Repeating Things**
 >
@@ -152,7 +154,7 @@ to mean 'one, two, three, or four'."
 
 We cannot use vectors directly as a condition in an `if` statement:
 
-```{r error=TRUE}
+```{r vector-cond-fail, error=TRUE}
 numbers <- c(0, 1, 2)
 if (numbers) {
   print("This should not work.")
@@ -162,7 +164,7 @@ if (numbers) {
 Instead,
 we must collapse the vector into a single logical value.
 
-```{r}
+```{r all-cond}
 numbers <- c(0, 1, 2)
 if (all(numbers >= 0)) {
   print("This, on the other hand, should work.")
@@ -179,7 +181,7 @@ which corresponds to a logical "or" across the whole input.
 As we have already seen,
 we call functions in R much as we do in Python:
 
-```{r}
+```{r func-call}
 max(1, 3, 5) + min(1, 3, 5)
 ```
 
@@ -188,7 +190,7 @@ This creates the function, but does not name it;
 to accomplish that,
 we must assign the newly-created function to a variable:
 
-```{r}
+```{r func-def}
 swap <- function(pair) {
   c(pair[2], pair[1])
 }
@@ -201,7 +203,7 @@ A function can return a value earlier using the `return` function;
 we can use `return` for the final value as well,
 but most R programmers do not.
 
-```{r}
+```{r func-return}
 swap <- function(pair) {
   if (length(pair) != 2) {
     return(NULL) # This is very bad practice.
@@ -211,7 +213,7 @@ swap <- function(pair) {
 swap(c("one"))
 ```
 
-```{r}
+```{r call-swap}
 swap(c("left", "right"))
 ```
 
@@ -219,24 +221,24 @@ Returning `NULL` when our function's inputs are invalid as we have done above is
 as doing so means that `swap` can fail without telling us that it has done so.
 Consider:
 
-```{r}
+```{r element-of-null}
 NULL[1]                 # Try to access an element of the vector that does not exist.
 ```
 
-```{r}
+```{r silent-failure}
 values <- 5:10          # More than two values.
 result <- swap(values)  # Attempting to swap the values produces NULL.
 result[1]               # But we can operate on the result without error.
 ```
 
-We will look at what we should do instead in \@ref(errors).
+We will look at what we should do instead in Chapter \@ref(errors).
 
 ## How can I write a function that takes a varying number of arguments?
 
 If the number of arguments given to a function is not the number expected,
 R complains:
 
-```{r error=TRUE}
+```{r wrong-number-of-args, error=TRUE}
 swap("one", "two", "three")
 ```
 
@@ -246,22 +248,21 @@ If we want a function to handle a [varying number of arguments](glossary.html#va
 we represent the "extra" arguments with an ellipsis `...` (three dots),
 which serves the same purpose as Python's `*args`:
 
-```{r}
+```{r dot-args}
 print_with_title <- function(title, ...) {
-  title <- paste("==", title, "==\n")
-  items <- paste(..., sep = "\n")
-  cat(title)
-  cat(items)
-  cat("\n")
+  print(glue("=={title}=="), paste(..., sep = "\n"))
 }
+
 print_with_title("to-do", "Monday", "Tuesday", "Wednesday")
 ```
+
+(The function `paste` combines multiple arguments with the specified separator.)
 
 R has a special data structure to represent the extra arguments in `...`.
 If we want to work with those arguments one by one,
 we must convert `...` to a list:
 
-```{r}
+```{r dot-args-convert}
 add <- function(...) {
   result <- 0
   for (value in list(...)) {
@@ -275,12 +276,11 @@ add(1, 3, 5, 7)
 ## How can I provide default values for arguments?
 
 Like Python and most other modern programming languages,
-R lets us define default values for arguments,
-and then pass arguments by name:
+R lets us define default values for arguments and then pass arguments by name:
 
-```{r}
+```{r define-defaults}
 example <- function(first, second = "second", third = "third") {
-  print(paste(first, "+", second, "+", third))
+  print(glue("first='{first}' second='{second}' third='{third}'"))
 }
 
 example("with just first")
@@ -291,11 +291,11 @@ example("with first and third by name", third = "by name")
 One caution:
 when you use a name in a function call,
 R ignores non-function objects when figuring out what function to call.
-For example, the call `orange()` in the code below produces 110
-because `purple(purple)` is interpreted as
+For example,
+the call `orange()` in the code below produces 110 because `purple(purple)` is interpreted as
 "pass the value of the local variable `purple` into the globally-defined function `purple`":
 
-```{r}
+```{r non-functions-in-call}
 purple <- function(x) x + 100
 orange <- function() {
   purple <- 10
@@ -308,14 +308,13 @@ orange()
 
 If the value returned by a function isn't assigned to something,
 R will print it out.
-This isn't always what we want,
-particularly in library functions,
+This usually isn't what we want in library functions,
 so we can use the function `invisible` to mark a value
 so that it won't be printed by default
 (but can still be assigned).
 This allows us to convert this:
 
-```{r}
+```{r without-invisible}
 something <- function(value) {
   10 * value
 }
@@ -324,7 +323,7 @@ something(2)
 
 to this:
 
-```{r}
+```{r with-invisible}
 something <- function(value) {
   invisible(10 * value)
 }
@@ -340,7 +339,7 @@ The assignment operator `<<-` means "assign to a variable outside the current sc
 As the example below shows,
 this means that what looks like creation of a new local variable can actually be modification of a global one:
 
-```{r}
+```{r assign-out-of-scope}
 var <- "original value"
 
 demonstrate <- function() {
@@ -354,8 +353,7 @@ var
 This should only and always be done with care:
 modern R strongly encourages a [functional](glossary.html#functional-programming) style of programming
 in which functions do not modify their input data,
-and *nobody* thinks that modifying global variables is a good idea any more---especially not
-after what happened to poor Professor Peaslee.
+and *nobody* thinks that modifying global variables is a good idea any more.
 
 ## Key Points
 ```{r, child="keypoints/control.md"}

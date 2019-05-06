@@ -4,6 +4,7 @@ language:
     chapter_name: "Chapter "
 output_dir: "docs"
 delete_merged_file: true
+new_session: true
 rmd_files:
   - index.Rmd
   - basics.Rmd

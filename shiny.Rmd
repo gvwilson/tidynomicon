@@ -1,5 +1,9 @@
 # Web Applications {#shiny}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/shiny.md"}
 ```

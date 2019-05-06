@@ -429,7 +429,8 @@ We can now run this file from within RStudio:</p>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Demonstrating the testing library
-✖ |   4 2     | Demonstrating the testing library
+⠋ |   1       | Demonstrating the testing library
+✖ |   4 2     | Demonstrating the testing library [0.2 s]
 ───────────────────────────────────────────────────────────────────────────
 test_example.R:11: failure: Testing different numbers
 0 not equal to 1.
@@ -475,6 +476,8 @@ This warning is displayed once per session.
 ───────────────────────────────────────────────────────────────────────────
 
 ══ Results ════════════════════════════════════════════════════════════════
+Duration: 0.2 s
+
 OK:       5
 Failed:   4
 Warnings: 3
@@ -726,7 +729,9 @@ cannot open the connection
 OK:       0
 Failed:   1
 Warnings: 1
-Skipped:  0</code></pre>
+Skipped:  0
+
+Keep trying!</code></pre>
 <p>This is perplexing:
 we expected that if there were no empty rows,
 our function would return <code>NULL</code>.
@@ -802,9 +807,7 @@ cannot open the connection
 OK:       0
 Failed:   1
 Warnings: 1
-Skipped:  0
-
-Keep trying!</code></pre>
+Skipped:  0</code></pre>
 </div>
 <div id="how-can-i-check-data-transformation" class="section level2">
 <h2><span class="header-section-number">12.5</span> How can I check data transformation?</h2>

@@ -1,5 +1,9 @@
 # Indexing {#indexing}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/indexing.md"}
 ```

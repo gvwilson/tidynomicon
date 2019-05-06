@@ -1,5 +1,9 @@
 # Projects {#projects}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/projects.md"}
 ```

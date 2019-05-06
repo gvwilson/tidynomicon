@@ -367,7 +367,7 @@ global_temp_1 <span class="op">=</span> initial <span class="op">+</span> <span 
 final <span class="op">=</span> tens_func(global_temp_1)
 <span class="bu">print</span>(final)</code></pre>
 <p>Step 1: we assign <code>"start"</code> to <code>initial</code> at the global level:</p>
-<div class="figure"><span id="fig:unnamed-chunk-141"></span>
+<div class="figure"><span id="fig:unnamed-chunk-5"></span>
 <img src="figures/nse/python-step-01.svg" alt="Python Step 1"  />
 <p class="caption">
 Figure 7.1: Python Step 1
@@ -376,14 +376,14 @@ Figure 7.1: Python Step 1
 <p>Step 2: we ask Python to call <code>tens_func(initial + "more")</code>,
 so it creates a temporary variable to hold the result of the concatenation
 <em>before</em> calling <code>tens_func</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-142"></span>
+<div class="figure"><span id="fig:unnamed-chunk-6"></span>
 <img src="figures/nse/python-step-02.svg" alt="Python Step 2"  />
 <p class="caption">
 Figure 7.2: Python Step 2
 </p>
 </div>
 <p>Step 3: Python creates a new stack frame to hold the call to <code>tens_func</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-143"></span>
+<div class="figure"><span id="fig:unnamed-chunk-7"></span>
 <img src="figures/nse/python-step-03.svg" alt="Python Step 3"  />
 <p class="caption">
 Figure 7.3: Python Step 3
@@ -393,21 +393,21 @@ Figure 7.3: Python Step 3
 since Python passes everything by reference.</p>
 <p>Step 4: we ask Python to call <code>ones_func(tens_arg + " tens")</code>,
 so it creates another temporary:</p>
-<div class="figure"><span id="fig:unnamed-chunk-144"></span>
+<div class="figure"><span id="fig:unnamed-chunk-8"></span>
 <img src="figures/nse/python-step-04.svg" alt="Python Step 4"  />
 <p class="caption">
 Figure 7.4: Python Step 4
 </p>
 </div>
 <p>Step 5: Python creates a new stack frame to hold the call to <code>ones_func</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-145"></span>
+<div class="figure"><span id="fig:unnamed-chunk-9"></span>
 <img src="figures/nse/python-step-05.svg" alt="Python Step 5"  />
 <p class="caption">
 Figure 7.5: Python Step 5
 </p>
 </div>
 <p>Step 6: Python creates a temporary to hold <code>ones_arg + "ones"</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-146"></span>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
 <img src="figures/nse/python-step-06.svg" alt="Python Step 6"  />
 <p class="caption">
 Figure 7.6: Python Step 6
@@ -415,7 +415,7 @@ Figure 7.6: Python Step 6
 </div>
 <p>Step 7: Python returns from <code>ones_func</code>
 and puts its result in yet another temporary variable in <code>tens_func</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-147"></span>
+<div class="figure"><span id="fig:unnamed-chunk-11"></span>
 <img src="figures/nse/python-step-07.svg" alt="Python Step 7"  />
 <p class="caption">
 Figure 7.7: Python Step 7
@@ -423,7 +423,7 @@ Figure 7.7: Python Step 7
 </div>
 <p>Step 8: Python returns from <code>tens_func</code>
 and puts its result in <code>final</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-148"></span>
+<div class="figure"><span id="fig:unnamed-chunk-12"></span>
 <img src="figures/nse/python-step-08.svg" alt="Python Step 8"  />
 <p class="caption">
 Figure 7.8: Python Step 8
@@ -507,7 +507,7 @@ so once we introduce the way R handles regular function calls,
 we’ll dive into that.</p>
 </blockquote>
 <p>Step 1: we assign “start” to <code>initial</code> in the <a href="glossary.html#global-environment">global environment</a>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-151"></span>
+<div class="figure"><span id="fig:unnamed-chunk-15"></span>
 <img src="figures/nse/r-step-01.svg" alt="R Step 1"  />
 <p class="caption">
 Figure 7.9: R Step 1
@@ -520,7 +520,7 @@ so it creates a <a href="glossary.html#promise">promise</a> to hold:</p>
 <li>the expression we’re passing to the function, and</li>
 <li>the value of that expression (which I’m showing as <code>____</code>, since it’s initially empty).</li>
 </ul>
-<div class="figure"><span id="fig:unnamed-chunk-152"></span>
+<div class="figure"><span id="fig:unnamed-chunk-16"></span>
 <img src="figures/nse/r-step-02.svg" alt="R Step 2"  />
 <p class="caption">
 Figure 7.10: R Step 2
@@ -528,7 +528,7 @@ Figure 7.10: R Step 2
 </div>
 <p>and in Step 3,
 passes that into <code>tens_func</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-153"></span>
+<div class="figure"><span id="fig:unnamed-chunk-17"></span>
 <img src="figures/nse/r-step-03.svg" alt="R Step 3"  />
 <p class="caption">
 Figure 7.11: R Step 3
@@ -542,7 +542,7 @@ so it needs to know where to look to find the right one.</p>
 R needs a value for <code>tens_arg</code>.
 To get it,
 R evaluates the promise that <code>tens_arg</code> refers to:</p>
-<div class="figure"><span id="fig:unnamed-chunk-154"></span>
+<div class="figure"><span id="fig:unnamed-chunk-18"></span>
 <img src="figures/nse/r-step-04.svg" alt="R Step 4"  />
 <p class="caption">
 Figure 7.12: R Step 4
@@ -557,7 +557,7 @@ and that value never changes.</p>
 <p>Steps 5:
 <code>tens_func</code> wants to call <code>ones_func</code>,
 so R creates another promise to record what’s being passed into <code>ones_func</code>:</p>
-<div class="figure"><span id="fig:unnamed-chunk-155"></span>
+<div class="figure"><span id="fig:unnamed-chunk-19"></span>
 <img src="figures/nse/r-step-05.svg" alt="R Step 5"  />
 <p class="caption">
 Figure 7.13: R Step 5
@@ -566,7 +566,7 @@ Figure 7.13: R Step 5
 <p>Step 6:
 R calls <code>ones_func</code>,
 binding the newly-created promise to <code>ones_arg</code> as it does so:</p>
-<div class="figure"><span id="fig:unnamed-chunk-156"></span>
+<div class="figure"><span id="fig:unnamed-chunk-20"></span>
 <img src="figures/nse/r-step-06.svg" alt="R Step 6"  />
 <p class="caption">
 Figure 7.14: R Step 6
@@ -575,28 +575,28 @@ Figure 7.14: R Step 6
 <p>Step 7:
 R needs a value for <code>ones_arg</code> to pass to <code>paste</code>,
 so it resolves the promise:</p>
-<div class="figure"><span id="fig:unnamed-chunk-157"></span>
+<div class="figure"><span id="fig:unnamed-chunk-21"></span>
 <img src="figures/nse/r-step-07.svg" alt="R Step 7"  />
 <p class="caption">
 Figure 7.15: R Step 7
 </p>
 </div>
 <p>Step 8: <code>ones_func</code> uses <code>paste</code> to concatenate strings:</p>
-<div class="figure"><span id="fig:unnamed-chunk-158"></span>
+<div class="figure"><span id="fig:unnamed-chunk-22"></span>
 <img src="figures/nse/r-step-08.svg" alt="R Step 8"  />
 <p class="caption">
 Figure 7.16: R Step 8
 </p>
 </div>
 <p>Step 9: <code>ones_func</code> returns:</p>
-<div class="figure"><span id="fig:unnamed-chunk-159"></span>
+<div class="figure"><span id="fig:unnamed-chunk-23"></span>
 <img src="figures/nse/r-step-09.svg" alt="R Step 9"  />
 <p class="caption">
 Figure 7.17: R Step 9
 </p>
 </div>
 <p>Step 10: <code>tens_func</code> returns:</p>
-<div class="figure"><span id="fig:unnamed-chunk-160"></span>
+<div class="figure"><span id="fig:unnamed-chunk-24"></span>
 <img src="figures/nse/r-step-10.svg" alt="R Step 10"  />
 <p class="caption">
 Figure 7.18: R Step 10
@@ -637,10 +637,7 @@ It is not a string (though strings can be converted to symbols and symbols to st
 nor is it a value—not yet.
 If we try to get the value it refers to, R displays an error message:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval</span>(my_expr)</code></pre>
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    4    7
-[2,]    2    5    8
-[3,]    3    6    9</code></pre>
+<pre><code>Error in eval(my_expr): object &#39;a&#39; not found</code></pre>
 <p>We haven’t created a variable called <code>my_expr</code>,
 so R cannot evaluate an expression that asks for it.</p>
 <p>But what if we create such a variable now and then re-evaluate the expression?</p>

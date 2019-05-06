@@ -2,6 +2,7 @@ library(tidyverse)
 library(reticulate)
 library(rlang)
 library(knitr)
+library(glue)
 
 knitr::opts_chunk$set(comment = NA)
 knitr::opts_knit$set(width = 69)

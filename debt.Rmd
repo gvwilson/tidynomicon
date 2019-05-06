@@ -1,5 +1,9 @@
 # Intellectual Debt {#debt}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/debt.md"}
 ```

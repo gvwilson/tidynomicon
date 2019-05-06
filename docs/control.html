@@ -345,8 +345,9 @@ and we should <em>always</em> break our code up into single-purpose functions.</
 <h2><span class="header-section-number">4.3</span> How do I choose and repeat things?</h2>
 <p>We cherish the illusion of free will so much that we embed a pretense of it in our machines
 in the form of conditional statements using <code>if</code> and <code>else</code>.
-Ironically,
+(Ironically,
 we then instruct those same machines to make the same decisions over and over.
+It’s no wonder they sometimes appear mad…)
 Here,
 for example,
 is a snippet of Python that displays the signs of a list of numbers:</p>
@@ -374,13 +375,13 @@ The sign of 15 is 1</code></pre>
   <span class="cf">else</span> {
     sign &lt;-<span class="st"> </span><span class="dv">1</span>
   }
-  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The sign of&quot;</span>, v, <span class="st">&quot;is&quot;</span>, sign))
+  <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {v} is {sign}&quot;</span>))
 }</code></pre>
-<pre><code>[1] &quot;The sign of -1 is -1&quot;
-[1] &quot;The sign of 0 is 0&quot;
-[1] &quot;The sign of 1 is 1&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;final value of v is&quot;</span>, v))</code></pre>
-<pre><code>[1] &quot;final value of v is 1&quot;</code></pre>
+<pre><code>The sign of -1 is -1
+The sign of 0 is 0
+The sign of 1 is 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The final value of v is {v}&quot;</span>))</code></pre>
+<pre><code>The final value of v is 1</code></pre>
 <p>There are a few things to note here:</p>
 <ol style="list-style-type: decimal">
 <li>This is <em>not</em> how we should write R:
@@ -392,10 +393,9 @@ and around the bodies of the conditional branches are optional,
 since each contains only a single statement.
 However, they should always be there to help readability.</li>
 <li>The loop variable <code>v</code> persists after the loop is over.</li>
-<li><code>paste</code> converts its arguments to strings and concatenates them,
-placing a single space between each unless instructed to do otherwise.
-<code>print</code> then prints the resulting (single) string.
-The function <code>cat</code> (short for “concatenate”) can also be used for text output.</li>
+<li><code>glue::glue</code> (the function <code>glue</code> from the library of the same name)
+interpolates variables into strings in sensible ways.
+We will load this library and use plain old <code>glue</code> in the explanations that follow.</li>
 <li>By calling our temporary variable <code>sign</code>
 we have accidentally overwritten the rather useful built-in R function with that name.
 <a href="glossary.html#name-collision">Name collisions</a> of this sort are as easy in R as they are in Python.</li>
@@ -408,22 +408,22 @@ If we want to loop over the indices instead,
 we can use the function <code>seq_along</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {
-  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The length of color&quot;</span>, i, <span class="st">&quot;is&quot;</span>, <span class="kw">length</span>(colors[i])))
+  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {length(colors[i])}&quot;</span>))
 }</code></pre>
-<pre><code>[1] &quot;The length of color 1 is 1&quot;
-[1] &quot;The length of color 2 is 1&quot;
-[1] &quot;The length of color 3 is 1&quot;</code></pre>
-<p>This makes no sense at all until we remember that every value is a vector,
+<pre><code>The length of color 1 is 1
+The length of color 2 is 1
+The length of color 3 is 1</code></pre>
+<p>This output makes no sense until we remember that every value is a vector,
 and that <code>length</code> returns the length of a vector,
 so that <code>length(colors[0])</code> is telling us that <code>colors[0]</code> contains one element.
 If we want the number of characters in the strings,
-we can use R’s built-in <code>nchar</code> or the function <code>stringr::str_length</code>:</p>
+we can use R’s built-in <code>nchar</code> or the more modern function <code>stringr::str_length</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {
-  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The length of color&quot;</span>, i, <span class="st">&quot;is&quot;</span>, stringr<span class="op">::</span><span class="kw">str_length</span>(colors[i])))
+  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {stringr::str_length(colors[i])}&quot;</span>))
 }</code></pre>
-<pre><code>[1] &quot;The length of color 1 is 8&quot;
-[1] &quot;The length of color 2 is 8&quot;
-[1] &quot;The length of color 3 is 5&quot;</code></pre>
+<pre><code>The length of color 1 is 8
+The length of color 2 is 8
+The length of color 3 is 5</code></pre>
 <p><code>seq_along</code> returns a vector containing a sequence of integers:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq_along</span>(colors)</code></pre>
 <pre><code>[1] 1 2 3</code></pre>
@@ -447,10 +447,8 @@ we must use the <code>seq</code> function:</p>
 i.e.,
 they run up to <em>and including</em> the upper bound.
 As is traditional among programming language advocates,
-people claim that this is more natural,
-and then cite as proof some supportive anecdote such as,
-“Most people do not interpret the expression ‘from one to five’
-to mean ‘one, two, three, or four’.”</p>
+people claim that this is more natural
+and then cite some supportive anecdote as proof.</p>
 <blockquote>
 <p><strong>Repeating Things</strong></p>
 <p>The function <code>rep</code> repeats things, so <code>rep("a", 3)</code> is <code>c("a", "a", "a")</code>.
@@ -519,7 +517,7 @@ Consider:</p>
 result &lt;-<span class="st"> </span><span class="kw">swap</span>(values)  <span class="co"># Attempting to swap the values produces NULL.</span>
 result[<span class="dv">1</span>]               <span class="co"># But we can operate on the result without error.</span></code></pre>
 <pre><code>NULL</code></pre>
-<p>We will look at what we should do instead in <a href="errors.html#errors">8</a>.</p>
+<p>We will look at what we should do instead in Chapter <a href="errors.html#errors">8</a>.</p>
 </div>
 <div id="how-can-i-write-a-function-that-takes-a-varying-number-of-arguments" class="section level2">
 <h2><span class="header-section-number">4.7</span> How can I write a function that takes a varying number of arguments?</h2>
@@ -533,17 +531,15 @@ If we want a function to handle a <a href="glossary.html#variable-arguments">var
 we represent the “extra” arguments with an ellipsis <code>...</code> (three dots),
 which serves the same purpose as Python’s <code>*args</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">print_with_title &lt;-<span class="st"> </span><span class="cf">function</span>(title, ...) {
-  title &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;==&quot;</span>, title, <span class="st">&quot;==</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  items &lt;-<span class="st"> </span><span class="kw">paste</span>(..., <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  <span class="kw">cat</span>(title)
-  <span class="kw">cat</span>(items)
-  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;=={title}==&quot;</span>), <span class="kw">paste</span>(..., <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))
 }
+
 <span class="kw">print_with_title</span>(<span class="st">&quot;to-do&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>)</code></pre>
-<pre><code>== to-do ==
+<pre><code>==to-do==
 Monday
 Tuesday
 Wednesday</code></pre>
+<p>(The function <code>paste</code> combines multiple arguments with the specified separator.)</p>
 <p>R has a special data structure to represent the extra arguments in <code>...</code>.
 If we want to work with those arguments one by one,
 we must convert <code>...</code> to a list:</p>
@@ -560,23 +556,22 @@ we must convert <code>...</code> to a list:</p>
 <div id="how-can-i-provide-default-values-for-arguments" class="section level2">
 <h2><span class="header-section-number">4.8</span> How can I provide default values for arguments?</h2>
 <p>Like Python and most other modern programming languages,
-R lets us define default values for arguments,
-and then pass arguments by name:</p>
+R lets us define default values for arguments and then pass arguments by name:</p>
 <pre class="sourceCode r"><code class="sourceCode r">example &lt;-<span class="st"> </span><span class="cf">function</span>(first, <span class="dt">second =</span> <span class="st">&quot;second&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;third&quot;</span>) {
-  <span class="kw">print</span>(<span class="kw">paste</span>(first, <span class="st">&quot;+&quot;</span>, second, <span class="st">&quot;+&quot;</span>, third))
+  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;first=&#39;{first}&#39; second=&#39;{second}&#39; third=&#39;{third}&#39;&quot;</span>))
 }
 
 <span class="kw">example</span>(<span class="st">&quot;with just first&quot;</span>)</code></pre>
-<pre><code>[1] &quot;with just first + second + third&quot;</code></pre>
+<pre><code>first=&#39;with just first&#39; second=&#39;second&#39; third=&#39;third&#39;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(<span class="st">&quot;with first and second by position&quot;</span>, <span class="st">&quot;positional&quot;</span>)</code></pre>
-<pre><code>[1] &quot;with first and second by position + positional + third&quot;</code></pre>
+<pre><code>first=&#39;with first and second by position&#39; second=&#39;positional&#39; third=&#39;third&#39;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(<span class="st">&quot;with first and third by name&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;by name&quot;</span>)</code></pre>
-<pre><code>[1] &quot;with first and third by name + second + by name&quot;</code></pre>
+<pre><code>first=&#39;with first and third by name&#39; second=&#39;second&#39; third=&#39;by name&#39;</code></pre>
 <p>One caution:
 when you use a name in a function call,
 R ignores non-function objects when figuring out what function to call.
-For example, the call <code>orange()</code> in the code below produces 110
-because <code>purple(purple)</code> is interpreted as
+For example,
+the call <code>orange()</code> in the code below produces 110 because <code>purple(purple)</code> is interpreted as
 “pass the value of the local variable <code>purple</code> into the globally-defined function <code>purple</code>”:</p>
 <pre class="sourceCode r"><code class="sourceCode r">purple &lt;-<span class="st"> </span><span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span><span class="dv">100</span>
 orange &lt;-<span class="st"> </span><span class="cf">function</span>() {
@@ -590,8 +585,7 @@ orange &lt;-<span class="st"> </span><span class="cf">function</span>() {
 <h2><span class="header-section-number">4.9</span> How can I hide the value that R returns?</h2>
 <p>If the value returned by a function isn’t assigned to something,
 R will print it out.
-This isn’t always what we want,
-particularly in library functions,
+This usually isn’t what we want in library functions,
 so we can use the function <code>invisible</code> to mark a value
 so that it won’t be printed by default
 (but can still be assigned).
@@ -626,8 +620,7 @@ var</code></pre>
 <p>This should only and always be done with care:
 modern R strongly encourages a <a href="glossary.html#functional-programming">functional</a> style of programming
 in which functions do not modify their input data,
-and <em>nobody</em> thinks that modifying global variables is a good idea any more—especially not
-after what happened to poor Professor Peaslee.</p>
+and <em>nobody</em> thinks that modifying global variables is a good idea any more.</p>
 </div>
 <div id="key-points-2" class="section level2">
 <h2><span class="header-section-number">4.11</span> Key Points</h2>

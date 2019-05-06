@@ -1,5 +1,9 @@
 # Object-Oriented Programming {#oop}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/oop.md"}
 ```

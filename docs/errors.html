@@ -382,7 +382,7 @@ Compare this:</p>
 result &lt;-<span class="st"> </span><span class="kw">attemptWithoutTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)</code></pre>
 <pre><code>Error in left + right: non-numeric argument to binary operator</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</code></pre>
-<pre><code>result is NA 0.01 0.1 1</code></pre>
+<pre><code>Error in cat(&quot;result is&quot;, result): object &#39;result&#39; not found</code></pre>
 <p>with this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">attemptUsingTry &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){
   temp &lt;-<span class="st"> </span><span class="kw">try</span>(left <span class="op">+</span><span class="st"> </span>right)

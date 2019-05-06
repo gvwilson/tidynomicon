@@ -1,5 +1,9 @@
 # Using Python {#python}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/reticulate.md"}
 ```

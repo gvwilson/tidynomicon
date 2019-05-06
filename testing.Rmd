@@ -1,5 +1,9 @@
 # Testing {#testing}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Questions
 ```{r, child="questions/testing.md"}
 ```

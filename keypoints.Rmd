@@ -1,5 +1,9 @@
 # Key Points {#keypoints}
 
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
 ## Values and Vectors
 ```{r, child="keypoints/basics.md"}
 ```
