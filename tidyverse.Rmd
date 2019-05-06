@@ -605,7 +605,7 @@ The simplest tool for this in R is `lm`, which stands for "linear model".
 Given a formula and a data set,
 it calculates coefficients to fit that formula to that data:
 
-```{r}
+```{r simple-formula}
 lm(estimate ~ lo, data = infant_hiv)
 ```
 
@@ -613,10 +613,109 @@ This is telling us that `estimate` is more-or-less equal to `0.0421 + 1.0707 * l
 The `~` symbol is used to separate the left and right sides of the equation,
 and as with all things tidyverse,
 lazy evaluation allows us to use variable names directly.
+In fact,
+it lets us write much more complex formulas involving functions of multiple variables.
+For example,
+we can regress `estimate` against the square roots of `lo` and `hi`,
+though there is no good statistical reason to do so:
+
+```{r complex-formula}
+lm(estimate ~ sqrt(lo) + sqrt(hi), data = infant_hiv)
+```
+
+One important thing to note here is the way that `+` is overloaded in formulas.
+The formula `estimate ~ lo + hi` does *not* mean "regress `estimate` against the sum of `lo` and `hi`",
+but rather, "regress `estimate` against the two variables `lo` and `hi`":
+
+```{r double-regression}
+lm(estimate ~ lo + hi, data = infant_hiv)
+```
+
+If we want to regress `estiate` against the average of `lo` and `hi`
+(i.e., regress `estimate` against a single calculated variable instead of against two variables)
+we need to create a temporary column:
+
+```{r regress-temporary}
+infant_hiv %>%
+  mutate(ave_lo_hi = (lo + hi)/2) %>%
+  lm(estimate ~ ave_lo_hi, data = .)
+```
+
+Here, the call to `lm` is using the variable `.` to mean "the data coming in from the previous stage of the pipeline".
+Most of the functions in the tidyverse use this convention
+so that data can be passed to a function that expects it in a position other than the first.
 
 ## Plotting
 
-FIXME
+One of R's greatest strengths is the tools it gives us for seeing the hitherto unseeable.
+The most popular of these tools is `ggplot2`,
+which implements and extends the patterns described in @Wilk2005.
+Every chart it creates has a [geometry](glossary.html#geometry) that controls how data is displayed,
+and an [mapping](glossary.html#mapping) that controls how values are mapped to geometric properties.
+For example,
+these lines of code create a scatter plot showing the relationship between `lo` and `hi` values in the infant HIV data:
+
+```{r basic-plot}
+ggplot(infant_hiv) + geom_point(mapping = aes(x = lo, y = hi))
+```
+
+Looking more closely:
+
+-   The function `ggplot` creates an object to represent the chart with `infant_hiv` as the underlying data.
+-   `geom_point` specifies the geometry we want (points).
+-   Its `mapping` argument is assigned an [aesthetic](glossary.html#aesthetic)
+    that specifies `lo` is to be used as the `x` coordinate and `hi` is to be used as the `y` coordinate.
+-   The elements of the chart are combined with `+` rather than `%>%` for historical reasons.
+
+Let's create a slightly more appealing plot by dropping NAs,
+making the points semi-transparent,
+and colorizing them according to the value of `estimate`:
+
+```{r plot-after-drop}
+infant_hiv %>%
+  drop_na() %>%
+  ggplot() +
+  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
+  xlim(0.0, 1.0) + ylim(0.0, 1.0)
+```
+
+We set the transparency `alpha` outside the aesthetic because its value is constant for all points:
+if we set it inside `aes(...)`,
+we would be telling ggplot2 to set the transparency according to the value of the data.
+We specify the limits to the axes manually with `xlim` and `ylim` to ensure that ggplot2 includes the upper bounds:
+we found by trial and error that without this,
+all of the data would be shown,
+but the upper label "1.00" would be omitted.
+
+This plot immediately shows us that we have some outliers.
+There are far more values with `hi` equal to 0.95 than it seems there ought to be,
+and there are eight points running up the left margin that seem troubling as well.
+Let's create a new tibble that doesn't have these:
+
+```{r plot-remove-outliers}
+infant_hiv %>%
+  drop_na() %>%
+  filter(hi != 0.95) %>%
+  filter(!((lo < 0.10) & (hi > 0.25))) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
+  xlim(0.0, 1.0) + ylim(0.0, 1.0)
+```
+
+We can add the fitted curve by including another geometry:
+
+```{r plot-with-fit}
+infant_hiv %>%
+  drop_na() %>%
+  filter(hi != 0.95) %>%
+  filter(!((lo < 0.10) & (hi > 0.25))) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
+  geom_smooth(method = lm, mapping = aes(x = lo, y = hi), color = 'red') +
+  xlim(0.0, 1.0) + ylim(0.0, 1.0)
+```
+
+FIXME: why the complaint about missing values?
 
 ## Key Points
 ```{r, child="keypoints/tidyverse.md"}

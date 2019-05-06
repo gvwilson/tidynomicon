@@ -617,25 +617,25 @@ Attaching package: &#39;pryr&#39;</code></pre>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7fed633de748&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7f804ae46548&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7fed633de748 -&gt; 0x7fed6385aec8]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fed6385aec8 -&gt; 0x7fed6385ae48]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fed6385ae48 -&gt; 0x7fed6385adc8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fed6385adc8 -&gt; 0x7fed6385ad88]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7f804ae46548 -&gt; 0x7f804aedf8c8]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7f804aedf8c8 -&gt; 0x7f804aedf848]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7f804aedf848 -&gt; 0x7f804aedf7c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7f804aedf7c8 -&gt; 0x7f804aedf788]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
 We can accomplish something a little more readable using <code>address</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
 <span class="kw">cat</span>(<span class="st">&quot;left column is initially at&quot;</span>, <span class="kw">address</span>(left), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>left column is initially at 0x7fed6385ae88 </code></pre>
+<pre><code>left column is initially at 0x7f804aedf888 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">cat</span>(<span class="st">&quot;after modification, the original column is still at&quot;</span>, <span class="kw">address</span>(left), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>after modification, the original column is still at 0x7fed6385ae88 </code></pre>
+<pre><code>after modification, the original column is still at 0x7f804aedf888 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">cat</span>(<span class="st">&quot;but the first column of the tibble is at&quot;</span>, <span class="kw">address</span>(temp), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>but the first column of the tibble is at 0x7fed635bffc8 </code></pre>
+<pre><code>but the first column of the tibble is at 0x7f804bc841c8 </code></pre>
 <p>(We need to use <a href="glossary.html#alias">aliases</a> because <code>address(first$left)</code> doesn’t work:
 the argument needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.

@@ -1205,11 +1205,108 @@ Coefficients:
 <p>This is telling us that <code>estimate</code> is more-or-less equal to <code>0.0421 + 1.0707 * lo</code>.
 The <code>~</code> symbol is used to separate the left and right sides of the equation,
 and as with all things tidyverse,
-lazy evaluation allows us to use variable names directly.</p>
+lazy evaluation allows us to use variable names directly.
+In fact,
+it lets us write much more complex formulas involving functions of multiple variables.
+For example,
+we can regress <code>estimate</code> against the square roots of <code>lo</code> and <code>hi</code>,
+though there is no good statistical reason to do so:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(estimate <span class="op">~</span><span class="st"> </span><span class="kw">sqrt</span>(lo) <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(hi), <span class="dt">data =</span> infant_hiv)</code></pre>
+<pre><code>
+Call:
+lm(formula = estimate ~ sqrt(lo) + sqrt(hi), data = infant_hiv)
+
+Coefficients:
+(Intercept)     sqrt(lo)     sqrt(hi)  
+    -0.2225       0.6177       0.4814  </code></pre>
+<p>One important thing to note here is the way that <code>+</code> is overloaded in formulas.
+The formula <code>estimate ~ lo + hi</code> does <em>not</em> mean “regress <code>estimate</code> against the sum of <code>lo</code> and <code>hi</code>”,
+but rather, “regress <code>estimate</code> against the two variables <code>lo</code> and <code>hi</code>”:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(estimate <span class="op">~</span><span class="st"> </span>lo <span class="op">+</span><span class="st"> </span>hi, <span class="dt">data =</span> infant_hiv)</code></pre>
+<pre><code>
+Call:
+lm(formula = estimate ~ lo + hi, data = infant_hiv)
+
+Coefficients:
+(Intercept)           lo           hi  
+   -0.01327      0.42979      0.56752  </code></pre>
+<p>If we want to regress <code>estiate</code> against the average of <code>lo</code> and <code>hi</code>
+(i.e., regress <code>estimate</code> against a single calculated variable instead of against two variables)
+we need to create a temporary column:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ave_lo_hi =</span> (lo <span class="op">+</span><span class="st"> </span>hi)<span class="op">/</span><span class="dv">2</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">lm</span>(estimate <span class="op">~</span><span class="st"> </span>ave_lo_hi, <span class="dt">data =</span> .)</code></pre>
+<pre><code>
+Call:
+lm(formula = estimate ~ ave_lo_hi, data = .)
+
+Coefficients:
+(Intercept)    ave_lo_hi  
+   -0.00897      1.01080  </code></pre>
+<p>Here, the call to <code>lm</code> is using the variable <code>.</code> to mean “the data coming in from the previous stage of the pipeline”.
+Most of the functions in the tidyverse use this convention
+so that data can be passed to a function that expects it in a position other than the first.</p>
 </div>
 <div id="plotting" class="section level2">
 <h2><span class="header-section-number">5.10</span> Plotting</h2>
-<p>FIXME</p>
+<p>One of R’s greatest strengths is the tools it gives us for seeing the hitherto unseeable.
+The most popular of these tools is <code>ggplot2</code>,
+which implements and extends the patterns described in <span class="citation">Wilkinson (<a href="#ref-Wilk2005" role="doc-biblioref">2005</a>)</span>.
+Every chart it creates has a <a href="glossary.html#geometry">geometry</a> that controls how data is displayed,
+and an <a href="glossary.html#mapping">mapping</a> that controls how values are mapped to geometric properties.
+For example,
+these lines of code create a scatter plot showing the relationship between <code>lo</code> and <code>hi</code> values in the infant HIV data:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(infant_hiv) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi))</code></pre>
+<pre><code>Warning: Removed 1000 rows containing missing values (geom_point).</code></pre>
+<p><img src="tidyverse_files/figure-html/basic-plot-1.png" width="672" /></p>
+<p>Looking more closely:</p>
+<ul>
+<li>The function <code>ggplot</code> creates an object to represent the chart with <code>infant_hiv</code> as the underlying data.</li>
+<li><code>geom_point</code> specifies the geometry we want (points).</li>
+<li>Its <code>mapping</code> argument is assigned an <a href="glossary.html#aesthetic">aesthetic</a>
+that specifies <code>lo</code> is to be used as the <code>x</code> coordinate and <code>hi</code> is to be used as the <code>y</code> coordinate.</li>
+<li>The elements of the chart are combined with <code>+</code> rather than <code>%&gt;%</code> for historical reasons.</li>
+</ul>
+<p>Let’s create a slightly more appealing plot by dropping NAs,
+making the points semi-transparent,
+and colorizing them according to the value of <code>estimate</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
+<p><img src="tidyverse_files/figure-html/plot-after-drop-1.png" width="672" /></p>
+<p>We set the transparency <code>alpha</code> outside the aesthetic because its value is constant for all points:
+if we set it inside <code>aes(...)</code>,
+we would be telling ggplot2 to set the transparency according to the value of the data.
+We specify the limits to the axes manually with <code>xlim</code> and <code>ylim</code> to ensure that ggplot2 includes the upper bounds:
+we found by trial and error that without this,
+all of the data would be shown,
+but the upper label “1.00” would be omitted.</p>
+<p>This plot immediately shows us that we have some outliers.
+There are far more values with <code>hi</code> equal to 0.95 than it seems there ought to be,
+and there are eight points running up the left margin that seem troubling as well.
+Let’s create a new tibble that doesn’t have these:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>((lo <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.25</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
+<p><img src="tidyverse_files/figure-html/plot-remove-outliers-1.png" width="672" /></p>
+<p>We can add the fitted curve by including another geometry:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>((lo <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.25</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_smooth).</code></pre>
+<p><img src="tidyverse_files/figure-html/plot-with-fit-1.png" width="672" /></p>
+<p>FIXME: why the complaint about missing values?</p>
 </div>
 <div id="key-points-3" class="section level2">
 <h2><span class="header-section-number">5.11</span> Key Points</h2>
@@ -1242,6 +1339,12 @@ lazy evaluation allows us to use variable names directly.</p>
 <li>Use <code>%&gt;%</code> to create pipelines in which the left side of each <code>%&gt;%</code> becomes the first argument of the next stage.</li>
 </ul>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Wilk2005">
+<p>Wilkinson, Leland. 2005. <em>The Grammar of Graphics</em>. Springer.</p>
 </div>
 </div>
             </section>
