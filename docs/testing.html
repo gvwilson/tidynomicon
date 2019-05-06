@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-01">
+<meta name="date" content="2019-05-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -475,14 +475,10 @@ This warning is displayed once per session.
 ───────────────────────────────────────────────────────────────────────────
 
 ══ Results ════════════════════════════════════════════════════════════════
-Duration: 0.4 s
-
 OK:       5
 Failed:   4
 Warnings: 3
-Skipped:  0
-
-Frustration is a natural part of programming :)</code></pre>
+Skipped:  0</code></pre>
 <p>A bit of care is needed when interpreting these results.
 There are four <code>test_that</code> calls,
 but eight actual checks,
@@ -730,7 +726,9 @@ cannot open the connection
 OK:       0
 Failed:   1
 Warnings: 1
-Skipped:  0</code></pre>
+Skipped:  0
+
+No one gets it right on their first try</code></pre>
 <p>This is perplexing:
 we expected that if there were no empty rows,
 our function would return <code>NULL</code>.
