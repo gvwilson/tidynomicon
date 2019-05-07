@@ -5,21 +5,21 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 7 Non-Standard Evaluation | The Tidynomicon</title>
-  <meta name="description" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon">
+  <title>Chapter 8 Non-Standard Evaluation | The Tidynomicon</title>
+  <meta name="description" content="Chapter 8 Non-Standard Evaluation | The Tidynomicon">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 8 Non-Standard Evaluation | The Tidynomicon" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
+  <meta property="og:description" content="Chapter 8 Non-Standard Evaluation | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 8 Non-Standard Evaluation | The Tidynomicon" />
   
-  <meta name="twitter:description" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
+  <meta name="twitter:description" content="Chapter 8 Non-Standard Evaluation | The Tidynomicon" />
   
 
 <meta name="author" content="Greg Wilson">
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="cleanup.html">
-<link rel="next" href="errors.html">
+<link rel="prev" href="testerror.html">
+<link rel="next" href="oop.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -185,20 +185,26 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="cleanup.html"><a href="cleanup.html#how-do-i-tidy-the-data"><i class="fa fa-check"></i><b>6.4</b> How do I tidy the data?</a></li>
 <li class="chapter" data-level="6.5" data-path="cleanup.html"><a href="cleanup.html#key-points-4"><i class="fa fa-check"></i><b>6.5</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>7</b> Non-Standard Evaluation</a><ul>
-<li class="chapter" data-level="7.1" data-path="nse.html"><a href="nse.html#questions-5"><i class="fa fa-check"></i><b>7.1</b> Questions</a></li>
-<li class="chapter" data-level="7.2" data-path="nse.html"><a href="nse.html#learning-objectives-5"><i class="fa fa-check"></i><b>7.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="7.3" data-path="nse.html"><a href="nse.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>7.3</b> How does Python evaluate function calls?</a></li>
-<li class="chapter" data-level="7.4" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>7.4</b> How does R evaluate the same kind of thing?</a></li>
-<li class="chapter" data-level="7.5" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>7.5</b> Why is lazy evaluation useful?</a></li>
-<li class="chapter" data-level="7.6" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>7.6</b> What is tidy evaluation?</a></li>
-<li class="chapter" data-level="7.7" data-path="nse.html"><a href="nse.html#what-have-we-learned"><i class="fa fa-check"></i><b>7.7</b> What have we learned?</a></li>
-<li class="chapter" data-level="7.8" data-path="nse.html"><a href="nse.html#key-points-5"><i class="fa fa-check"></i><b>7.8</b> Key Points</a></li>
+<li class="chapter" data-level="7" data-path="testerror.html"><a href="testerror.html"><i class="fa fa-check"></i><b>7</b> Testing and Error Handling</a><ul>
+<li class="chapter" data-level="7.1" data-path="testerror.html"><a href="testerror.html#questions-5"><i class="fa fa-check"></i><b>7.1</b> Questions</a></li>
+<li class="chapter" data-level="7.2" data-path="testerror.html"><a href="testerror.html#learning-objectives-5"><i class="fa fa-check"></i><b>7.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.3" data-path="testerror.html"><a href="testerror.html#how-does-r-handle-errors"><i class="fa fa-check"></i><b>7.3</b> How does R handle errors?</a></li>
+<li class="chapter" data-level="7.4" data-path="testerror.html"><a href="testerror.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>7.4</b> What should I know about testing in general?</a></li>
+<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#s:testing-warmup"><i class="fa fa-check"></i><b>7.5</b> How can I write a few simple tests?</a></li>
+<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.6</b> How can I check data transformation?</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.6.1</b> How can I reorganize code to make it more testable?</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="errors.html"><a href="errors.html"><i class="fa fa-check"></i><b>8</b> Handling Errors</a><ul>
-<li class="chapter" data-level="8.1" data-path="errors.html"><a href="errors.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
-<li class="chapter" data-level="8.2" data-path="errors.html"><a href="errors.html#learning-objectives-6"><i class="fa fa-check"></i><b>8.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="8.3" data-path="errors.html"><a href="errors.html#key-points-6"><i class="fa fa-check"></i><b>8.3</b> Key Points</a></li>
+<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.7</b> Key Points</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>8</b> Non-Standard Evaluation</a><ul>
+<li class="chapter" data-level="8.1" data-path="nse.html"><a href="nse.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
+<li class="chapter" data-level="8.2" data-path="nse.html"><a href="nse.html#learning-objectives-6"><i class="fa fa-check"></i><b>8.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.3" data-path="nse.html"><a href="nse.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>8.3</b> How does Python evaluate function calls?</a></li>
+<li class="chapter" data-level="8.4" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>8.4</b> How does R evaluate the same kind of thing?</a></li>
+<li class="chapter" data-level="8.5" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>8.5</b> Why is lazy evaluation useful?</a></li>
+<li class="chapter" data-level="8.6" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>8.6</b> What is tidy evaluation?</a></li>
+<li class="chapter" data-level="8.7" data-path="nse.html"><a href="nse.html#what-have-we-learned"><i class="fa fa-check"></i><b>8.7</b> What have we learned?</a></li>
+<li class="chapter" data-level="8.8" data-path="nse.html"><a href="nse.html#key-points-6"><i class="fa fa-check"></i><b>8.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="oop.html"><a href="oop.html"><i class="fa fa-check"></i><b>9</b> Object-Oriented Programming</a><ul>
 <li class="chapter" data-level="9.1" data-path="oop.html"><a href="oop.html#questions-7"><i class="fa fa-check"></i><b>9.1</b> Questions</a></li>
@@ -226,35 +232,25 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.4" data-path="projects.html"><a href="projects.html#how-do-i-create-a-package"><i class="fa fa-check"></i><b>11.4</b> How do I create a package?</a></li>
 <li class="chapter" data-level="11.5" data-path="projects.html"><a href="projects.html#key-points-9"><i class="fa fa-check"></i><b>11.5</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>12</b> Testing</a><ul>
-<li class="chapter" data-level="12.1" data-path="testing.html"><a href="testing.html#questions-10"><i class="fa fa-check"></i><b>12.1</b> Questions</a></li>
-<li class="chapter" data-level="12.2" data-path="testing.html"><a href="testing.html#learning-objectives-10"><i class="fa fa-check"></i><b>12.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="12.3" data-path="testing.html"><a href="testing.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>12.3</b> What should I know about testing in general?</a></li>
-<li class="chapter" data-level="12.4" data-path="testing.html"><a href="testing.html#s:testing-warmup"><i class="fa fa-check"></i><b>12.4</b> How can I write a few simple tests?</a></li>
-<li class="chapter" data-level="12.5" data-path="testing.html"><a href="testing.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>12.5</b> How can I check data transformation?</a><ul>
-<li class="chapter" data-level="12.5.1" data-path="testing.html"><a href="testing.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>12.5.1</b> How can I reorganize code to make it more testable?</a></li>
+<li class="chapter" data-level="12" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>12</b> Web Applications</a><ul>
+<li class="chapter" data-level="12.1" data-path="shiny.html"><a href="shiny.html#questions-10"><i class="fa fa-check"></i><b>12.1</b> Questions</a></li>
+<li class="chapter" data-level="12.2" data-path="shiny.html"><a href="shiny.html#learning-objectives-10"><i class="fa fa-check"></i><b>12.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="12.3" data-path="shiny.html"><a href="shiny.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>12.3</b> How do I set up a simple application?</a></li>
+<li class="chapter" data-level="12.4" data-path="shiny.html"><a href="shiny.html#how-do-i-create-a-user-interface"><i class="fa fa-check"></i><b>12.4</b> How do I create a user interface?</a></li>
+<li class="chapter" data-level="12.5" data-path="shiny.html"><a href="shiny.html#how-do-i-create-a-server"><i class="fa fa-check"></i><b>12.5</b> How do I create a server?</a></li>
+<li class="chapter" data-level="12.6" data-path="shiny.html"><a href="shiny.html#how-do-i-run-my-application"><i class="fa fa-check"></i><b>12.6</b> How do I run my application?</a></li>
+<li class="chapter" data-level="12.7" data-path="shiny.html"><a href="shiny.html#how-can-i-improve-my-user-interface"><i class="fa fa-check"></i><b>12.7</b> How can I improve my user interface?</a></li>
+<li class="chapter" data-level="12.8" data-path="shiny.html"><a href="shiny.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>12.8</b> How can I display the data in a file?</a></li>
+<li class="chapter" data-level="12.9" data-path="shiny.html"><a href="shiny.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>12.9</b> How can I break circular dependencies?</a></li>
+<li class="chapter" data-level="12.10" data-path="shiny.html"><a href="shiny.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>12.10</b> How can I control how the user interface is rendered?</a></li>
+<li class="chapter" data-level="12.11" data-path="shiny.html"><a href="shiny.html#key-points-10"><i class="fa fa-check"></i><b>12.11</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="12.6" data-path="testing.html"><a href="testing.html#key-points-10"><i class="fa fa-check"></i><b>12.6</b> Key Points</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>13</b> Web Applications</a><ul>
-<li class="chapter" data-level="13.1" data-path="shiny.html"><a href="shiny.html#questions-11"><i class="fa fa-check"></i><b>13.1</b> Questions</a></li>
-<li class="chapter" data-level="13.2" data-path="shiny.html"><a href="shiny.html#learning-objectives-11"><i class="fa fa-check"></i><b>13.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="13.3" data-path="shiny.html"><a href="shiny.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>13.3</b> How do I set up a simple application?</a></li>
-<li class="chapter" data-level="13.4" data-path="shiny.html"><a href="shiny.html#how-do-i-create-a-user-interface"><i class="fa fa-check"></i><b>13.4</b> How do I create a user interface?</a></li>
-<li class="chapter" data-level="13.5" data-path="shiny.html"><a href="shiny.html#how-do-i-create-a-server"><i class="fa fa-check"></i><b>13.5</b> How do I create a server?</a></li>
-<li class="chapter" data-level="13.6" data-path="shiny.html"><a href="shiny.html#how-do-i-run-my-application"><i class="fa fa-check"></i><b>13.6</b> How do I run my application?</a></li>
-<li class="chapter" data-level="13.7" data-path="shiny.html"><a href="shiny.html#how-can-i-improve-my-user-interface"><i class="fa fa-check"></i><b>13.7</b> How can I improve my user interface?</a></li>
-<li class="chapter" data-level="13.8" data-path="shiny.html"><a href="shiny.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>13.8</b> How can I display the data in a file?</a></li>
-<li class="chapter" data-level="13.9" data-path="shiny.html"><a href="shiny.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>13.9</b> How can I break circular dependencies?</a></li>
-<li class="chapter" data-level="13.10" data-path="shiny.html"><a href="shiny.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>13.10</b> How can I control how the user interface is rendered?</a></li>
-<li class="chapter" data-level="13.11" data-path="shiny.html"><a href="shiny.html#key-points-11"><i class="fa fa-check"></i><b>13.11</b> Key Points</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="python.html"><a href="python.html"><i class="fa fa-check"></i><b>14</b> Using Python</a><ul>
-<li class="chapter" data-level="14.1" data-path="python.html"><a href="python.html#questions-12"><i class="fa fa-check"></i><b>14.1</b> Questions</a></li>
-<li class="chapter" data-level="14.2" data-path="python.html"><a href="python.html#learning-objectives-12"><i class="fa fa-check"></i><b>14.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="14.3" data-path="python.html"><a href="python.html#how-can-i-access-data-across-languages"><i class="fa fa-check"></i><b>14.3</b> How can I access data across languages?</a></li>
-<li class="chapter" data-level="14.4" data-path="python.html"><a href="python.html#how-can-i-call-functions-across-languages"><i class="fa fa-check"></i><b>14.4</b> How can I call functions across languages?</a></li>
-<li class="chapter" data-level="14.5" data-path="python.html"><a href="python.html#key-points-12"><i class="fa fa-check"></i><b>14.5</b> Key Points</a></li>
+<li class="chapter" data-level="13" data-path="python.html"><a href="python.html"><i class="fa fa-check"></i><b>13</b> Using Python</a><ul>
+<li class="chapter" data-level="13.1" data-path="python.html"><a href="python.html#questions-11"><i class="fa fa-check"></i><b>13.1</b> Questions</a></li>
+<li class="chapter" data-level="13.2" data-path="python.html"><a href="python.html#learning-objectives-11"><i class="fa fa-check"></i><b>13.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="13.3" data-path="python.html"><a href="python.html#how-can-i-access-data-across-languages"><i class="fa fa-check"></i><b>13.3</b> How can I access data across languages?</a></li>
+<li class="chapter" data-level="13.4" data-path="python.html"><a href="python.html#how-can-i-call-functions-across-languages"><i class="fa fa-check"></i><b>13.4</b> How can I call functions across languages?</a></li>
+<li class="chapter" data-level="13.5" data-path="python.html"><a href="python.html#key-points-11"><i class="fa fa-check"></i><b>13.5</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -275,14 +271,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="F.3" data-path="objectives.html"><a href="objectives.html#control-flow"><i class="fa fa-check"></i><b>F.3</b> Control Flow</a></li>
 <li class="chapter" data-level="F.4" data-path="objectives.html"><a href="objectives.html#the-tidyverse"><i class="fa fa-check"></i><b>F.4</b> The Tidyverse</a></li>
 <li class="chapter" data-level="F.5" data-path="objectives.html"><a href="objectives.html#cleaning-up-data"><i class="fa fa-check"></i><b>F.5</b> Cleaning Up Data</a></li>
-<li class="chapter" data-level="F.6" data-path="objectives.html"><a href="objectives.html#non-standard-evaluation"><i class="fa fa-check"></i><b>F.6</b> Non-Standard Evaluation</a></li>
-<li class="chapter" data-level="F.7" data-path="objectives.html"><a href="objectives.html#handling-errors"><i class="fa fa-check"></i><b>F.7</b> Handling Errors</a></li>
+<li class="chapter" data-level="F.6" data-path="objectives.html"><a href="objectives.html#testing-and-error-handling"><i class="fa fa-check"></i><b>F.6</b> Testing and Error Handling</a></li>
+<li class="chapter" data-level="F.7" data-path="objectives.html"><a href="objectives.html#non-standard-evaluation"><i class="fa fa-check"></i><b>F.7</b> Non-Standard Evaluation</a></li>
 <li class="chapter" data-level="F.8" data-path="objectives.html"><a href="objectives.html#object-oriented-programming"><i class="fa fa-check"></i><b>F.8</b> Object-Oriented Programming</a></li>
 <li class="chapter" data-level="F.9" data-path="objectives.html"><a href="objectives.html#intellectual-debt"><i class="fa fa-check"></i><b>F.9</b> Intellectual Debt</a></li>
 <li class="chapter" data-level="F.10" data-path="objectives.html"><a href="objectives.html#projects-1"><i class="fa fa-check"></i><b>F.10</b> Projects</a></li>
-<li class="chapter" data-level="F.11" data-path="objectives.html"><a href="objectives.html#testing-1"><i class="fa fa-check"></i><b>F.11</b> Testing</a></li>
-<li class="chapter" data-level="F.12" data-path="objectives.html"><a href="objectives.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>F.12</b> Web Applications with Shiny</a></li>
-<li class="chapter" data-level="F.13" data-path="objectives.html"><a href="objectives.html#reticulate"><i class="fa fa-check"></i><b>F.13</b> Reticulate</a></li>
+<li class="chapter" data-level="F.11" data-path="objectives.html"><a href="objectives.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>F.11</b> Web Applications with Shiny</a></li>
+<li class="chapter" data-level="F.12" data-path="objectives.html"><a href="objectives.html#reticulate"><i class="fa fa-check"></i><b>F.12</b> Reticulate</a></li>
 </ul></li>
 <li class="chapter" data-level="G" data-path="keypoints.html"><a href="keypoints.html"><i class="fa fa-check"></i><b>G</b> Key Points</a><ul>
 <li class="chapter" data-level="G.1" data-path="keypoints.html"><a href="keypoints.html#values-and-vectors-1"><i class="fa fa-check"></i><b>G.1</b> Values and Vectors</a></li>
@@ -290,14 +285,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.3" data-path="keypoints.html"><a href="keypoints.html#control-flow-1"><i class="fa fa-check"></i><b>G.3</b> Control Flow</a></li>
 <li class="chapter" data-level="G.4" data-path="keypoints.html"><a href="keypoints.html#the-tidyverse-1"><i class="fa fa-check"></i><b>G.4</b> The Tidyverse</a></li>
 <li class="chapter" data-level="G.5" data-path="keypoints.html"><a href="keypoints.html#cleaning-up-data-1"><i class="fa fa-check"></i><b>G.5</b> Cleaning Up Data</a></li>
-<li class="chapter" data-level="G.6" data-path="keypoints.html"><a href="keypoints.html#non-standard-evaluation-1"><i class="fa fa-check"></i><b>G.6</b> Non-Standard Evaluation</a></li>
-<li class="chapter" data-level="G.7" data-path="keypoints.html"><a href="keypoints.html#handling-errors-1"><i class="fa fa-check"></i><b>G.7</b> Handling Errors</a></li>
+<li class="chapter" data-level="G.6" data-path="keypoints.html"><a href="keypoints.html#testing-and-error-handling-1"><i class="fa fa-check"></i><b>G.6</b> Testing and Error Handling</a></li>
+<li class="chapter" data-level="G.7" data-path="keypoints.html"><a href="keypoints.html#non-standard-evaluation-1"><i class="fa fa-check"></i><b>G.7</b> Non-Standard Evaluation</a></li>
 <li class="chapter" data-level="G.8" data-path="keypoints.html"><a href="keypoints.html#object-oriented-programming-1"><i class="fa fa-check"></i><b>G.8</b> Object-Oriented Programming</a></li>
 <li class="chapter" data-level="G.9" data-path="keypoints.html"><a href="keypoints.html#intellectual-debt-1"><i class="fa fa-check"></i><b>G.9</b> Intellectual Debt</a></li>
 <li class="chapter" data-level="G.10" data-path="keypoints.html"><a href="keypoints.html#projects-2"><i class="fa fa-check"></i><b>G.10</b> Projects</a></li>
-<li class="chapter" data-level="G.11" data-path="keypoints.html"><a href="keypoints.html#testing-2"><i class="fa fa-check"></i><b>G.11</b> Testing</a></li>
-<li class="chapter" data-level="G.12" data-path="keypoints.html"><a href="keypoints.html#web-applications-with-shiny-1"><i class="fa fa-check"></i><b>G.12</b> Web Applications with Shiny</a></li>
-<li class="chapter" data-level="G.13" data-path="keypoints.html"><a href="keypoints.html#reticulate-1"><i class="fa fa-check"></i><b>G.13</b> Reticulate</a></li>
+<li class="chapter" data-level="G.11" data-path="keypoints.html"><a href="keypoints.html#web-applications-with-shiny-1"><i class="fa fa-check"></i><b>G.11</b> Web Applications with Shiny</a></li>
+<li class="chapter" data-level="G.12" data-path="keypoints.html"><a href="keypoints.html#reticulate-1"><i class="fa fa-check"></i><b>G.12</b> Reticulate</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -320,16 +314,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="nse" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Non-Standard Evaluation</h1>
-<div id="questions-5" class="section level2">
-<h2><span class="header-section-number">7.1</span> Questions</h2>
+<h1><span class="header-section-number">Chapter 8</span> Non-Standard Evaluation</h1>
+<div id="questions-6" class="section level2">
+<h2><span class="header-section-number">8.1</span> Questions</h2>
 <ul>
 <li>When and how does R evaluate code?</li>
 <li>How can we take advantage of this?</li>
 </ul>
 </div>
-<div id="learning-objectives-5" class="section level2">
-<h2><span class="header-section-number">7.2</span> Learning Objectives</h2>
+<div id="learning-objectives-6" class="section level2">
+<h2><span class="header-section-number">8.2</span> Learning Objectives</h2>
 <ul>
 <li>Trace the order of evaluation in function calls.</li>
 <li>Explain what environments and expressions are and how they relate to one another.</li>
@@ -340,7 +334,7 @@ but its use of <a href="glossary.html#lazy-evaluation">lazy evaluation</a>.
 Nothing truly makes sense in R until we understand how this works.</p>
 </div>
 <div id="how-does-python-evaluate-function-calls" class="section level2">
-<h2><span class="header-section-number">7.3</span> How does Python evaluate function calls?</h2>
+<h2><span class="header-section-number">8.3</span> How does Python evaluate function calls?</h2>
 <p>Let’s start by looking at a small Python program and its output:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ones_func(ones_arg):
     <span class="cf">return</span> ones_arg <span class="op">+</span> <span class="st">&quot; ones&quot;</span>
@@ -372,7 +366,7 @@ final <span class="op">=</span> tens_func(global_temp_1)
 <div class="figure"><span id="fig:unnamed-chunk-5"></span>
 <img src="figures/nse/python-step-01.svg" alt="Python Step 1"  />
 <p class="caption">
-Figure 7.1: Python Step 1
+Figure 8.1: Python Step 1
 </p>
 </div>
 <p>Step 2: we ask Python to call <code>tens_func(initial + "more")</code>,
@@ -381,14 +375,14 @@ so it creates a temporary variable to hold the result of the concatenation
 <div class="figure"><span id="fig:unnamed-chunk-6"></span>
 <img src="figures/nse/python-step-02.svg" alt="Python Step 2"  />
 <p class="caption">
-Figure 7.2: Python Step 2
+Figure 8.2: Python Step 2
 </p>
 </div>
 <p>Step 3: Python creates a new stack frame to hold the call to <code>tens_func</code>:</p>
 <div class="figure"><span id="fig:unnamed-chunk-7"></span>
 <img src="figures/nse/python-step-03.svg" alt="Python Step 3"  />
 <p class="caption">
-Figure 7.3: Python Step 3
+Figure 8.3: Python Step 3
 </p>
 </div>
 <p>Note that <code>tens_arg</code> points to the same thing in memory as <code>global_temp_1</code>,
@@ -398,21 +392,21 @@ so it creates another temporary:</p>
 <div class="figure"><span id="fig:unnamed-chunk-8"></span>
 <img src="figures/nse/python-step-04.svg" alt="Python Step 4"  />
 <p class="caption">
-Figure 7.4: Python Step 4
+Figure 8.4: Python Step 4
 </p>
 </div>
 <p>Step 5: Python creates a new stack frame to hold the call to <code>ones_func</code>:</p>
 <div class="figure"><span id="fig:unnamed-chunk-9"></span>
 <img src="figures/nse/python-step-05.svg" alt="Python Step 5"  />
 <p class="caption">
-Figure 7.5: Python Step 5
+Figure 8.5: Python Step 5
 </p>
 </div>
 <p>Step 6: Python creates a temporary to hold <code>ones_arg + "ones"</code>:</p>
 <div class="figure"><span id="fig:unnamed-chunk-10"></span>
 <img src="figures/nse/python-step-06.svg" alt="Python Step 6"  />
 <p class="caption">
-Figure 7.6: Python Step 6
+Figure 8.6: Python Step 6
 </p>
 </div>
 <p>Step 7: Python returns from <code>ones_func</code>
@@ -420,7 +414,7 @@ and puts its result in yet another temporary variable in <code>tens_func</code>:
 <div class="figure"><span id="fig:unnamed-chunk-11"></span>
 <img src="figures/nse/python-step-07.svg" alt="Python Step 7"  />
 <p class="caption">
-Figure 7.7: Python Step 7
+Figure 8.7: Python Step 7
 </p>
 </div>
 <p>Step 8: Python returns from <code>tens_func</code>
@@ -428,7 +422,7 @@ and puts its result in <code>final</code>:</p>
 <div class="figure"><span id="fig:unnamed-chunk-12"></span>
 <img src="figures/nse/python-step-08.svg" alt="Python Step 8"  />
 <p class="caption">
-Figure 7.8: Python Step 8
+Figure 8.8: Python Step 8
 </p>
 </div>
 <p>The most important thing here is that Python evaluates expressions <em>before</em> it calls functions,
@@ -437,7 +431,7 @@ This is called <a href="glossary.html#eager-evaluation">eager evaluation</a>,
 and is what most modern programming languages do.</p>
 </div>
 <div id="how-does-r-evaluate-the-same-kind-of-thing" class="section level2">
-<h2><span class="header-section-number">7.4</span> How does R evaluate the same kind of thing?</h2>
+<h2><span class="header-section-number">8.4</span> How does R evaluate the same kind of thing?</h2>
 <p>In contrast,
 R uses <a href="glossary.html#lazy-evaluation">lazy evaluation</a>.
 Here’s an R program that’s roughly equivalent to the Python shown above:</p>
@@ -512,7 +506,7 @@ we’ll dive into that.</p>
 <div class="figure"><span id="fig:unnamed-chunk-15"></span>
 <img src="figures/nse/r-step-01.svg" alt="R Step 1"  />
 <p class="caption">
-Figure 7.9: R Step 1
+Figure 8.9: R Step 1
 </p>
 </div>
 <p>Step 2: we ask R to call <code>tens_func(initial + "more")</code>,
@@ -525,7 +519,7 @@ so it creates a <a href="glossary.html#promise">promise</a> to hold:</p>
 <div class="figure"><span id="fig:unnamed-chunk-16"></span>
 <img src="figures/nse/r-step-02.svg" alt="R Step 2"  />
 <p class="caption">
-Figure 7.10: R Step 2
+Figure 8.10: R Step 2
 </p>
 </div>
 <p>and in Step 3,
@@ -533,7 +527,7 @@ passes that into <code>tens_func</code>:</p>
 <div class="figure"><span id="fig:unnamed-chunk-17"></span>
 <img src="figures/nse/r-step-03.svg" alt="R Step 3"  />
 <p class="caption">
-Figure 7.11: R Step 3
+Figure 8.11: R Step 3
 </p>
 </div>
 <p>Crucially,
@@ -547,7 +541,7 @@ R evaluates the promise that <code>tens_arg</code> refers to:</p>
 <div class="figure"><span id="fig:unnamed-chunk-18"></span>
 <img src="figures/nse/r-step-04.svg" alt="R Step 4"  />
 <p class="caption">
-Figure 7.12: R Step 4
+Figure 8.12: R Step 4
 </p>
 </div>
 <p>This evaluation happens <em>after</em> <code>tens_func</code> has been called,
@@ -562,7 +556,7 @@ so R creates another promise to record what’s being passed into <code>ones_fun
 <div class="figure"><span id="fig:unnamed-chunk-19"></span>
 <img src="figures/nse/r-step-05.svg" alt="R Step 5"  />
 <p class="caption">
-Figure 7.13: R Step 5
+Figure 8.13: R Step 5
 </p>
 </div>
 <p>Step 6:
@@ -571,7 +565,7 @@ binding the newly-created promise to <code>ones_arg</code> as it does so:</p>
 <div class="figure"><span id="fig:unnamed-chunk-20"></span>
 <img src="figures/nse/r-step-06.svg" alt="R Step 6"  />
 <p class="caption">
-Figure 7.14: R Step 6
+Figure 8.14: R Step 6
 </p>
 </div>
 <p>Step 7:
@@ -580,28 +574,28 @@ so it resolves the promise:</p>
 <div class="figure"><span id="fig:unnamed-chunk-21"></span>
 <img src="figures/nse/r-step-07.svg" alt="R Step 7"  />
 <p class="caption">
-Figure 7.15: R Step 7
+Figure 8.15: R Step 7
 </p>
 </div>
 <p>Step 8: <code>ones_func</code> uses <code>paste</code> to concatenate strings:</p>
 <div class="figure"><span id="fig:unnamed-chunk-22"></span>
 <img src="figures/nse/r-step-08.svg" alt="R Step 8"  />
 <p class="caption">
-Figure 7.16: R Step 8
+Figure 8.16: R Step 8
 </p>
 </div>
 <p>Step 9: <code>ones_func</code> returns:</p>
 <div class="figure"><span id="fig:unnamed-chunk-23"></span>
 <img src="figures/nse/r-step-09.svg" alt="R Step 9"  />
 <p class="caption">
-Figure 7.17: R Step 9
+Figure 8.17: R Step 9
 </p>
 </div>
 <p>Step 10: <code>tens_func</code> returns:</p>
 <div class="figure"><span id="fig:unnamed-chunk-24"></span>
 <img src="figures/nse/r-step-10.svg" alt="R Step 10"  />
 <p class="caption">
-Figure 7.18: R Step 10
+Figure 8.18: R Step 10
 </p>
 </div>
 <p>We got the same answer,
@@ -620,7 +614,7 @@ I would have shown the promises passed into <code>paste</code> at each stage of 
 but that’s a lot of typing even for me.)</p>
 </div>
 <div id="why-is-lazy-evaluation-useful" class="section level2">
-<h2><span class="header-section-number">7.5</span> Why is lazy evaluation useful?</h2>
+<h2><span class="header-section-number">8.5</span> Why is lazy evaluation useful?</h2>
 <p>R’s lazy evaluation seems pointless
 if it always produces the same answer as Python’s eager evaluation,
 but as you may already have guessed,
@@ -740,7 +734,7 @@ which is so helpful that it only took me an hour to figure out my mistake.</p>
 </blockquote>
 </div>
 <div id="what-is-tidy-evaluation" class="section level2">
-<h2><span class="header-section-number">7.6</span> What is tidy evaluation?</h2>
+<h2><span class="header-section-number">8.6</span> What is tidy evaluation?</h2>
 <p>Our goal is to write something that looks like it belongs in the tidyverse.
 We’ll start by creating a tibble to play with:</p>
 <pre class="sourceCode r"><code class="sourceCode r">both_hands &lt;-<span class="st"> </span><span class="kw">tribble</span>(
@@ -897,7 +891,7 @@ so we can give them a variable containing a column name and get either a single-
 <pre><code>[1] 1 2</code></pre>
 </div>
 <div id="what-have-we-learned" class="section level2">
-<h2><span class="header-section-number">7.7</span> What have we learned?</h2>
+<h2><span class="header-section-number">8.7</span> What have we learned?</h2>
 <p>Delayed evaluation and quoting are confusing for two reasons:</p>
 <ol style="list-style-type: decimal">
 <li>They expose machinery that most programmers have never had to deal with before (and might not even have known existed).
@@ -911,8 +905,8 @@ and the functions provided by the tidverse as alternatives use variations on a s
 or check that what you now think you understand is accurate,
 <a href="https://ijlyttle.shinyapps.io/tidyeval/">this tutorial</a> by Ian Lyttle is a good next step.</p>
 </div>
-<div id="key-points-5" class="section level2">
-<h2><span class="header-section-number">7.8</span> Key Points</h2>
+<div id="key-points-6" class="section level2">
+<h2><span class="header-section-number">8.8</span> Key Points</h2>
 <ul>
 <li>R uses lazy evaluation: expressions are evaluated when their values are needed, not before.</li>
 <li>Use <code>expr</code> to create an expression without evaluating it.</li>
@@ -929,8 +923,8 @@ or check that what you now think you understand is accurate,
           </div>
         </div>
       </div>
-<a href="cleanup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="errors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="testerror.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="oop.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

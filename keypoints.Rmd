@@ -24,12 +24,12 @@ source("etc/common.R")
 ```{r, child="keypoints/cleanup.md"}
 ```
 
-## Non-Standard Evaluation
-```{r, child="keypoints/nse.md"}
+## Testing and Error Handling
+```{r, child="keypoints/testerror.md"}
 ```
 
-## Handling Errors
-```{r, child="keypoints/errors.md"}
+## Non-Standard Evaluation
+```{r, child="keypoints/nse.md"}
 ```
 
 ## Object-Oriented Programming
@@ -42,10 +42,6 @@ source("etc/common.R")
 
 ## Projects
 ```{r, child="keypoints/projects.md"}
-```
-
-## Testing
-```{r, child="keypoints/testing.md"}
 ```
 
 ## Web Applications with Shiny

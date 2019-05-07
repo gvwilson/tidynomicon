@@ -232,7 +232,7 @@ result <- swap(values)  # Attempting to swap the values produces NULL.
 result[1]               # But we can operate on the result without error.
 ```
 
-We will look at what we should do instead in Chapter \@ref(errors).
+We will look at what we should do instead in Chapter \@ref(testerror).
 
 ## How can I write a function that takes a varying number of arguments?
 

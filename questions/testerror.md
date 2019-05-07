@@ -1,2 +1,4 @@
 - How does R signal errors?
 - How can I handle errors myself?
+- How can I test R code?
+- How can I test an R package?
