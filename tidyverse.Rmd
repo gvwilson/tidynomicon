@@ -715,7 +715,26 @@ infant_hiv %>%
   xlim(0.0, 1.0) + ylim(0.0, 1.0)
 ```
 
-FIXME: why the complaint about missing values?
+But wait:
+why is this complaining about missing values?
+Some online searches and guidance from the hill gods led to the discovery that
+`geom_smooth` adds virtual points to the data for plotting purposes,
+some of which lie outside the range of the actual data,
+and that setting `xlim` and `ylim` then truncates these.
+(Differently sane...)
+The safe way to control the range of the data is to add a call to `coord_cartesian`,
+which effectively zooms in on a region of interest:
+
+```{r plot-cartesian}
+infant_hiv %>%
+  drop_na() %>%
+  filter(hi != 0.95) %>%
+  filter(!((lo < 0.10) & (hi > 0.25))) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
+  geom_smooth(method = lm, mapping = aes(x = lo, y = hi), color = 'red') +
+  coord_cartesian(xlim = c(0.0, 1.0), ylim = c(0.0, 1.0))
+```
 
 ## Key Points
 ```{r, child="keypoints/tidyverse.md"}

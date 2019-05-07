@@ -1306,7 +1306,24 @@ Let’s create a new tibble that doesn’t have these:</p>
 <span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
 <pre><code>Warning: Removed 8 rows containing missing values (geom_smooth).</code></pre>
 <p><img src="tidyverse_files/figure-html/plot-with-fit-1.png" width="672" /></p>
-<p>FIXME: why the complaint about missing values?</p>
+<p>But wait:
+why is this complaining about missing values?
+Some online searches and guidance from the hill gods led to the discovery that
+<code>geom_smooth</code> adds virtual points to the data for plotting purposes,
+some of which lie outside the range of the actual data,
+and that setting <code>xlim</code> and <code>ylim</code> then truncates these.
+(Differently sane…)
+The safe way to control the range of the data is to add a call to <code>coord_cartesian</code>,
+which effectively zooms in on a region of interest:</p>
+<pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(hi <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>((lo <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.25</span>))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>))</code></pre>
+<p><img src="tidyverse_files/figure-html/plot-cartesian-1.png" width="672" /></p>
 </div>
 <div id="key-points-3" class="section level2">
 <h2><span class="header-section-number">5.11</span> Key Points</h2>
