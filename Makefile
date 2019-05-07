@@ -48,7 +48,8 @@ clean :
 
 ## check        : internal checks.
 check :
-	@etc/checklinks.py etc/links.md ${SRC}
+	@bin/checkgloss.py ./gloss.md ${SRC}
+	@bin/checklinks.py etc/links.md ${SRC}
 
 ## settings     : echo all variable values.
 settings :

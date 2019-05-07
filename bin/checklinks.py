@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 '''
-checklinks.py links_file source_file [source_file...]
+checklinks.py links_file [source_file...]
 
 Check that all of the links used in the given source files are defined in the
-links file, and that all defined links are used.
+links file, and that all defined links are used.  If no source files are given,
+reads from standard input (but links file must still be named).
 '''
 
 

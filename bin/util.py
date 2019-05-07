@@ -10,5 +10,5 @@ def report(title, values):
 
     if values:
         print(title)
-        for v in values:
+        for v in sorted(values):
             print('  ', v)
