@@ -3,6 +3,7 @@
 .Rhistory
 .Rproj.user
 .~lock.*
+__pycache__
 _book
 _bookdown_files
 figures/tidynomicon
