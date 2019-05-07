@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2019-05-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -339,7 +339,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Describe and use the <code>map</code> function and its kin.</li>
 <li>Describe and use pre-allocation to capture the results of loops.</li>
 </ul>
-<p>Here is a sample of data from <code>raw/infant_hiv.csv</code>,
+<p>Data is not born tidy.
+Here is a sample of data from the original data set <code>raw/infant_hiv.csv</code>,
 where <code>...</code> shows values elided to make the segment readable:</p>
 <pre class="text"><code>&quot;Early Infant Diagnosis: Percentage of infants born to women living with HIV...&quot;,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,2009,,,2010,,,2011,,,2012,,,2013,,,2014,,,2015,,,2016,,,2017,,,
@@ -624,9 +625,8 @@ countries &lt;-<span class="st"> </span>sliced<span class="op">$</span>ISO3
 <p>Notice that we’re counting rows <em>not including</em> the two we’re skipping,
 which means that the 192 in the call to <code>slice</code> above corresponds to row 195 of our original data:
 195, not 194, because we’re using the first row of unskipped data as headers and yes,
-you are in fact making a faint whimpering sound.
-We promise we will revisit the problem of slicing data without counting rows manually
-so as to reduce the frequency with which that sound is heard.</p>
+you are in fact making that faint whimpering sound you now hear.
+You will hear it often when dealing with real-world data…</p>
 <p>And notice also that we are slicing, <em>then</em> extracting the column containing the countries.
 We did, in a temporary version of this script,
 peel off the countries, slice those, and then wonder why our main data table still had unwanted data at the end.
@@ -671,7 +671,7 @@ fix_replacement(replacement), : argument is not an atomic vector; coercing</code
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.numeric</span>(numbers)</code></pre>
 <pre><code>[1] TRUE</code></pre>
 <p>Oh dear.
-It appears that some function <code>str_replace</code> is calling is expecting an atomic vector,
+It appears that some function that <code>str_replace</code> is calling is expecting an atomic vector,
 not a tibble.
 It worked for our test case because that was a character vector,
 but tibbles have more structure than that.</p>
@@ -680,11 +680,9 @@ which is troubling because we didn’t get a complaint when we had actual <code>
 However,
 <code>is.numeric</code> tells us that all of our results are numbers.
 Let’s take a closer look:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.tibble</span>(body)</code></pre>
-<pre><code>Warning: `is.tibble()` is deprecated, use `is_tibble()`.
-This warning is displayed once per session.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is_tibble</span>(body)</code></pre>
 <pre><code>[1] TRUE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.tibble</span>(numbers)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is_tibble</span>(numbers)</code></pre>
 <pre><code>[1] FALSE</code></pre>
 <p>Perdition.
 After browsing the data,
@@ -807,7 +805,7 @@ trimmed &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(body, str_
 #   Estimate_7 &lt;chr&gt;, hi_7 &lt;chr&gt;, lo_7 &lt;chr&gt;, Estimate_8 &lt;chr&gt;,
 #   hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;chr&gt;</code></pre>
 <p>Now to tackle those <code>"&gt;95%"</code> values.
-It turns out that <code>str_replace</code> uses regular expressions,
+It turns out that <code>str_replace</code> uses <a href="glossary.html#regular-expression">regular expressions</a>,
 not just direct string matches,
 so we can get rid of the <code>&gt;</code> at the same time as we get rid of the <code>%</code>.
 We will check by looking at the first <code>Estimate</code> column,
@@ -857,7 +855,7 @@ trimmed<span class="op">$</span>Estimate</code></pre>
 ...</code></pre>
 <p>Excellent.
 We can now use <code>map_dfr</code> to convert the columns to numeric percentages
-using an anonymous function that we define inside the <code>map_dfr</code> call itself:</p>
+using an <a href="glossary.html#anonymous-function">anonymous function</a> that we define inside the <code>map_dfr</code> call itself:</p>
 <pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
 <pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
 <pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
@@ -1044,18 +1042,14 @@ so let’s have a look at the second column:</p>
 [183] &quot;16&quot; NA   NA   &quot;1&quot;  NA   NA   NA   NA   &quot;70&quot; NA   &quot;&quot;   &quot;&quot;   &quot;hi&quot; &quot;30&quot;
 [197] &quot;29&quot; NA   &quot;32&quot; &quot;2&quot;  NA   &quot;2&quot;  &quot;12&quot; NA   &quot;9&quot;  &quot;89&quot; &quot;22&quot; &quot;23&quot; &quot;&quot;   &quot;&quot;  
 [211] &quot;&quot;   &quot;&quot;   &quot;&quot;   &quot;&quot;  </code></pre>
-<p>Empty strings.
-Why’d it have to be empty strings?
-More importantly,
-where are they coming from?
-Let’s backtrack by displaying the <code>hi</code> column of each of our intermediate variables…</p>
+<p>Where are those empty strings coming from?
+Let’s backtrack by examining the <code>hi</code> column of each of our intermediate variables interactively in the console…</p>
 <p>…and there’s our bug.
 We are creating a variable called <code>sliced</code> that has only the rows we care about,
 but then using the full table in <code>raw</code> to create <code>body</code>.
 It’s a simple mistake,
 and one that could easily have slipped by us.
-Here is our revised script,
-in which we check <em>both</em> the head and the tail:</p>
+Here is our revised script:</p>
 <pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
 <pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
 <pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
@@ -1077,8 +1071,9 @@ countries &lt;-<span class="st"> </span>sliced<span class="op">$</span>ISO3
 body &lt;-<span class="st"> </span>sliced <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries)
 trimmed &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(body, str_replace, <span class="dt">pattern =</span> <span class="st">&quot;&gt;?(</span><span class="ch">\\</span><span class="st">d+)%&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>)
-percents &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(trimmed, <span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
-<span class="kw">head</span>(percents)</code></pre>
+percents &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(trimmed, <span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)</code></pre>
+<p>and here are the checks on the head:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(percents)</code></pre>
 <pre><code># A tibble: 6 x 28
   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1093,6 +1088,7 @@ percents &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(trimmed, 
 #   hi_5 &lt;dbl&gt;, lo_5 &lt;dbl&gt;, Estimate_6 &lt;dbl&gt;, hi_6 &lt;dbl&gt;, lo_6 &lt;dbl&gt;,
 #   Estimate_7 &lt;dbl&gt;, hi_7 &lt;dbl&gt;, lo_7 &lt;dbl&gt;, Estimate_8 &lt;dbl&gt;,
 #   hi_8 &lt;dbl&gt;, lo_8 &lt;dbl&gt;, X30 &lt;dbl&gt;</code></pre>
+<p>and tail:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(percents)</code></pre>
 <pre><code># A tibble: 6 x 28
   Estimate    hi    lo Estimate_1  hi_1  lo_1 Estimate_2  hi_2  lo_2
@@ -1120,263 +1116,250 @@ countries are not associated with records,
 years are not recorded at all,
 and the column headers for <code>percents</code> have mostly been manufactured for us by R.
 We must now sew these parts together like Dr. Frankenstein’s trusty assistant Igor
-(who, like all in his trade, did most of the actual work but was given only crumbs of credit).</p>
-<p>Our starting point is this:</p>
+(who, like so many lab assistants, did most of the actual work but was given only crumbs of credit).</p>
+<p>We could write a loop to grab three columns at a time and relabel them,
+but a more concise solution makes use of two functions called <code>gather</code> and <code>separate</code>.
+<code>gather</code> takes multiple columns and collapses them into key-value pairs.
+To show how it works,
+let’s create a small tibble by hand using the function <code>tribble</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">small &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>ISO, <span class="op">~</span>est, <span class="op">~</span>hi, <span class="op">~</span>lo,
+  <span class="st">&#39;ABC&#39;</span>, <span class="fl">0.25</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>,
+  <span class="st">&#39;DEF&#39;</span>, <span class="fl">0.55</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>
+)
+small</code></pre>
+<pre><code># A tibble: 2 x 4
+  ISO     est    hi    lo
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ABC    0.25   0.3   0.2
+2 DEF    0.55   0.6   0.5</code></pre>
+<p>and then gather the three columns <code>est</code>, <code>hi</code>, and <code>lo</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">small <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;kind&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;reported&quot;</span>, est, hi, lo)</code></pre>
+<pre><code># A tibble: 6 x 3
+  ISO   kind  reported
+  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 ABC   est       0.25
+2 DEF   est       0.55
+3 ABC   hi        0.3 
+4 DEF   hi        0.6 
+5 ABC   lo        0.2 
+6 DEF   lo        0.5 </code></pre>
+<p>The <code>key</code> and <code>value</code> parameters tell <code>gather</code> to create new columns with the specified names
+(in this case, <code>kind</code> and <code>reported</code>).
+The first of these columns (<code>kind</code> in our case) is filled by repeating the column headings from the original tibble;
+the second column (<code>reported</code> in our case) is then filled with the original tibble’s values.</p>
+<p><code>separate</code> splits one column into two.
+For example, if we have the year and the heading type in a single column:</p>
+<pre class="sourceCode r"><code class="sourceCode r">single &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>combined, <span class="op">~</span>value,
+  <span class="st">&#39;2009-est&#39;</span>, <span class="dv">123</span>,
+  <span class="st">&#39;2009-hi&#39;</span>,  <span class="dv">456</span>,
+  <span class="st">&#39;2009-lo&#39;</span>,  <span class="dv">789</span>,
+  <span class="st">&#39;2010-est&#39;</span>, <span class="dv">987</span>,
+  <span class="st">&#39;2010-hi&#39;</span>,  <span class="dv">654</span>,
+  <span class="st">&#39;2010-lo&#39;</span>,  <span class="dv">321</span>
+)
+single</code></pre>
+<pre><code># A tibble: 6 x 2
+  combined value
+  &lt;chr&gt;    &lt;dbl&gt;
+1 2009-est   123
+2 2009-hi    456
+3 2009-lo    789
+4 2010-est   987
+5 2010-hi    654
+6 2010-lo    321</code></pre>
+<p>we can get the year and the heading into separate columns by separating on the <code>-</code> character:</p>
+<pre class="sourceCode r"><code class="sourceCode r">single <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">separate</span>(combined, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;kind&quot;</span>))</code></pre>
+<pre><code># A tibble: 6 x 3
+  year  kind  value
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 2009  est     123
+2 2009  hi      456
+3 2009  lo      789
+4 2010  est     987
+5 2010  hi      654
+6 2010  lo      321</code></pre>
+<p>Our strategy is therefore going to be:</p>
 <ol style="list-style-type: decimal">
-<li>Each row in <code>percents</code> corresponds positionally to an ISO3 code in <code>countries</code>.</li>
-<li>Each group of three consecutive columns in <code>percents</code> has the estimate, high, and low values
-for a single year.</li>
-<li>The years themselves are not stored in <code>percents</code>,
-but we know from inspection that they start at 2009 and run without interruption to 2017.</li>
+<li>Replace the double column headers in the existing data with a single header that combines the year with the kind.</li>
+<li>Gather the data so that the year-kind values are in a single column.</li>
+<li>Split that column.</li>
 </ol>
-<p>Our strategy is to make a list of temporary tables:</p>
-<ol style="list-style-type: decimal">
-<li>Take three columns at a time from <code>percents</code> to create a temporary tibble.</li>
-<li>Join <code>countries</code> to it.</li>
-<li>Create a column holding the year in each row and join that as well.</li>
-</ol>
-<p>and then join those temporary tables row-wise to create our final tidy table.
-(We might,
-through clever use of <code>scatter</code> and <code>gather</code>,
-be able to do this without a loop,
-but at this point on our journey,
-a loop is probably simpler.)
-Here is the addition to our script:</p>
-<pre class="sourceCode r"><code class="sourceCode r">first_year &lt;-<span class="st"> </span><span class="dv">2009</span>
-last_year &lt;-<span class="st"> </span><span class="dv">2017</span>
-num_years &lt;-<span class="st"> </span>(last_year <span class="op">-</span><span class="st"> </span>first_year) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-chunks &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, num_years)
-<span class="cf">for</span> (year <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_years) {
-  end &lt;-<span class="st"> </span>year <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
-  temp &lt;-<span class="st"> </span><span class="kw">select</span>(percents, year<span class="op">:</span>end)
-  <span class="kw">names</span>(temp) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;hi&quot;</span>, <span class="st">&quot;lo&quot;</span>)
-  temp<span class="op">$</span>country &lt;-<span class="st"> </span>countries
-  temp<span class="op">$</span>year &lt;-<span class="st"> </span><span class="kw">rep</span>((first_year <span class="op">+</span><span class="st"> </span>year) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, num_rows)
-  temp &lt;-<span class="st"> </span><span class="kw">select</span>(temp, country, year, <span class="kw">everything</span>())
-  chunks[[year]] &lt;-<span class="st"> </span>temp
-}
-chunks</code></pre>
+<p>We’ve seen the tools we need for the second and third step;
+the first involves a little bit of list manipulation.
+Let’s start by repeating <code>"est"</code>, <code>"hi"</code>, and <code>"lo"</code> as many times as we need them:</p>
+<pre class="sourceCode r"><code class="sourceCode r">num_years &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2017</span> <span class="op">-</span><span class="st"> </span><span class="dv">2009</span>
+kinds &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;hi&quot;</span>, <span class="st">&quot;lo&quot;</span>), num_years)
+kinds</code></pre>
+<pre><code> [1] &quot;est&quot; &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot; &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot; &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot; &quot;hi&quot; 
+[12] &quot;lo&quot;  &quot;est&quot; &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot; &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot; &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot;
+[23] &quot;hi&quot;  &quot;lo&quot;  &quot;est&quot; &quot;hi&quot;  &quot;lo&quot; </code></pre>
+<p>As you can probably guess from its name,
+<code>rep</code> repeats things a specified number of times,
+and as noted previously,
+a vector of vectors is flattened into a single vector.</p>
+<p>What about the years?
+We want to wind up with:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;2009&quot;</span>, <span class="st">&quot;2009&quot;</span> <span class="st">&quot;2009&quot;</span>, <span class="st">&quot;2010&quot;</span>, <span class="st">&quot;2010&quot;</span>, <span class="st">&quot;2010&quot;</span>, ...)</code></pre>
+<p>i.e., with each year repeated three times.
+<code>rep</code> won’t do this,
+but we can get there with <code>map</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">2009</span><span class="op">:</span><span class="dv">2017</span>, rep, <span class="dv">3</span>)
+years</code></pre>
 <pre><code>[[1]]
-# A tibble: 192 x 5
-   country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 AFG      2009       NA    NA    NA
- 2 ALB      2009       NA    NA    NA
- 3 DZA      2009       NA    NA    NA
- 4 AGO      2009       NA    NA    NA
- 5 AIA      2009       NA    NA    NA
- 6 ATG      2009       NA    NA    NA
- 7 ARG      2009       NA    NA    NA
- 8 ARM      2009       NA    NA    NA
- 9 AUS      2009       NA    NA    NA
-10 AUT      2009       NA    NA    NA
-# … with 182 more rows
+[1] 2009 2009 2009
 
 [[2]]
-# A tibble: 192 x 5
-   country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-...</code></pre>
-<p>We start by giving names to our years;
-if or when we decide to use this script for other data files,
-we should extract the years from the data itself.
-We then use <code>vector</code> to create the storage we are going to need to hold our temporary tables.
-We could grow the list one item at a time,
-but <a href="glossary.html#storage-allocation">allocating storage in advance</a> is more efficient
-and serves as a check on our logic:
-if our loop doesn’t run for the right number of iterations,
-we will either overflow our list or have empty entries,
-either of which should draw our attention.</p>
-<p>Within the loop we figure out the bounds on the next three-column stripe,
-select that,
-and then give those three columns meaningful names.
-This ensures that when we join all the sub-tables together,
-the columns of the result will also be sensibly named.
-Attaching the ISO3 country codes is as easy as assigning to <code>temp$country</code>,
-and replicating the year for each row is easily done using the <code>rep</code> function.
-We then reorder the columns to put country and year first
-(the call to <code>everything</code> inside <code>select</code> selects all columns that aren’t specifically selected),
-and then we assign the temporary table to the appropriate slot in <code>chunks</code> using <code>[[..]]</code>.</p>
-<p>As its name suggests,
-<code>bind_rows</code> takes a list of tables and concatenates their rows in order.
-Since we have taken care to give all of those tables the same column names,
-no subsequent renaming is necessary.
-We do,
-however,
-use <code>arrange</code> to order entries by country and year.</p>
-<p>Now comes the payoff for all that hard work:</p>
-<pre class="sourceCode r"><code class="sourceCode r">tidy &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(chunks)
-tidy &lt;-<span class="st"> </span><span class="kw">arrange</span>(tidy, country, year)
-tidy</code></pre>
-<pre><code># A tibble: 1,728 x 5
-   country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 &quot;&quot;       2009       NA    NA    NA
- 2 &quot;&quot;       2010       NA    NA    NA
- 3 &quot;&quot;       2011       NA    NA    NA
- 4 &quot;&quot;       2012       NA    NA    NA
- 5 &quot;&quot;       2013       NA    NA    NA
- 6 &quot;&quot;       2014       NA    NA    NA
- 7 &quot;&quot;       2015       NA    NA    NA
- 8 &quot;&quot;       2016       NA    NA    NA
- 9 &quot;&quot;       2017       NA    NA    NA
-10 AFG      2009       NA    NA    NA
-# … with 1,718 more rows</code></pre>
-<p>What fresh hell is this?
-Why do some rows have empty strings where country codes should be
-and <code>NA</code>s for the three percentages?
-Is our indexing off?
-Have we somehow created one extra row for each year with nonsense values?</p>
-<p>No.
-It is not our tools that have failed us, or our reason, but our data.
-(“These parts are not fresh, Igor—I must have <em>fresh</em> parts to work with!”)
-Let us do this:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
-<pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
-<pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
-&#39;Estimate_1&#39; [6], &#39;hi&#39; =&gt; &#39;hi_1&#39; [7], &#39;lo&#39; =&gt; &#39;lo_1&#39; [8], &#39;Estimate&#39; =&gt;
-&#39;Estimate_2&#39; [9], &#39;hi&#39; =&gt; &#39;hi_2&#39; [10], &#39;lo&#39; =&gt; &#39;lo_2&#39; [11], &#39;Estimate&#39; =&gt;
-&#39;Estimate_3&#39; [12], &#39;hi&#39; =&gt; &#39;hi_3&#39; [13], &#39;lo&#39; =&gt; &#39;lo_3&#39; [14], &#39;Estimate&#39; =&gt;
-&#39;Estimate_4&#39; [15], &#39;hi&#39; =&gt; &#39;hi_4&#39; [16], &#39;lo&#39; =&gt; &#39;lo_4&#39; [17], &#39;Estimate&#39; =&gt;
-&#39;Estimate_5&#39; [18], &#39;hi&#39; =&gt; &#39;hi_5&#39; [19], &#39;lo&#39; =&gt; &#39;lo_5&#39; [20], &#39;Estimate&#39; =&gt;
-&#39;Estimate_6&#39; [21], &#39;hi&#39; =&gt; &#39;hi_6&#39; [22], &#39;lo&#39; =&gt; &#39;lo_6&#39; [23], &#39;Estimate&#39; =&gt;
-&#39;Estimate_7&#39; [24], &#39;hi&#39; =&gt; &#39;hi_7&#39; [25], &#39;lo&#39; =&gt; &#39;lo_7&#39; [26], &#39;Estimate&#39; =&gt;
-&#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_character()
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">missing &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(Countries) <span class="op">|</span><span class="st"> </span>(Countries <span class="op">==</span><span class="st"> &quot;&quot;</span>) <span class="op">|</span><span class="st"> </span><span class="kw">is.na</span>(ISO3) <span class="op">|</span><span class="st"> </span>(ISO3 <span class="op">==</span><span class="st"> &quot;&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Countries, ISO3)
-missing</code></pre>
-<pre><code># A tibble: 21 x 2
-   Countries                       ISO3 
-   &lt;chr&gt;                           &lt;chr&gt;
- 1 Kosovo                          &quot;&quot;   
- 2 &quot;&quot;                              &quot;&quot;   
- 3 &quot;&quot;                              &quot;&quot;   
- 4 &quot;&quot;                              &quot;&quot;   
- 5 Eastern and Southern Africa     &quot;&quot;   
- 6 Eastern Europe and Central Asia &quot;&quot;   
- 7 Latin America and the Caribbean &quot;&quot;   
- 8 Middle East and North Africa    &quot;&quot;   
- 9 North America                   &quot;&quot;   
-10 South Asia                      &quot;&quot;   
-# … with 11 more rows</code></pre>
-<p>The lack of ISO3 country code for the region names doesn’t bother us,
-but Kosovo is definitely a problem.
-<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">According to Wikipedia</a>,
-UNK is used for Kosovo residents whose travel documents were issued by the United Nations,
-so we will fill that in with an ugly hack immediately after loading the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
-<pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
-<pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
-&#39;Estimate_1&#39; [6], &#39;hi&#39; =&gt; &#39;hi_1&#39; [7], &#39;lo&#39; =&gt; &#39;lo_1&#39; [8], &#39;Estimate&#39; =&gt;
-&#39;Estimate_2&#39; [9], &#39;hi&#39; =&gt; &#39;hi_2&#39; [10], &#39;lo&#39; =&gt; &#39;lo_2&#39; [11], &#39;Estimate&#39; =&gt;
-&#39;Estimate_3&#39; [12], &#39;hi&#39; =&gt; &#39;hi_3&#39; [13], &#39;lo&#39; =&gt; &#39;lo_3&#39; [14], &#39;Estimate&#39; =&gt;
-&#39;Estimate_4&#39; [15], &#39;hi&#39; =&gt; &#39;hi_4&#39; [16], &#39;lo&#39; =&gt; &#39;lo_4&#39; [17], &#39;Estimate&#39; =&gt;
-&#39;Estimate_5&#39; [18], &#39;hi&#39; =&gt; &#39;hi_5&#39; [19], &#39;lo&#39; =&gt; &#39;lo_5&#39; [20], &#39;Estimate&#39; =&gt;
-&#39;Estimate_6&#39; [21], &#39;hi&#39; =&gt; &#39;hi_6&#39; [22], &#39;lo&#39; =&gt; &#39;lo_6&#39; [23], &#39;Estimate&#39; =&gt;
-&#39;Estimate_7&#39; [24], &#39;hi&#39; =&gt; &#39;hi_7&#39; [25], &#39;lo&#39; =&gt; &#39;lo_7&#39; [26], &#39;Estimate&#39; =&gt;
-&#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_character()
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">raw<span class="op">$</span>ISO3[raw<span class="op">$</span>Countries <span class="op">==</span><span class="st"> &quot;Kosovo&quot;</span>] &lt;-<span class="st"> &quot;UNK&quot;</span>
-missing &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(Countries) <span class="op">|</span><span class="st"> </span>(Countries <span class="op">==</span><span class="st"> &quot;&quot;</span>) <span class="op">|</span><span class="st"> </span><span class="kw">is.na</span>(ISO3) <span class="op">|</span><span class="st"> </span>(ISO3 <span class="op">==</span><span class="st"> &quot;&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Countries, ISO3)
-missing</code></pre>
-<pre><code># A tibble: 20 x 2
-   Countries                ISO3                                           
-   &lt;chr&gt;                    &lt;chr&gt;                                          
- 1 &quot;&quot;                       &quot;&quot;                                             
- 2 &quot;&quot;                       &quot;&quot;                                             
- 3 &quot;&quot;                       &quot;&quot;                                             
- 4 Eastern and Southern Af… &quot;&quot;                                             
- 5 Eastern Europe and Cent… &quot;&quot;                                             
- 6 Latin America and the C… &quot;&quot;                                             
- 7 Middle East and North A… &quot;&quot;                                             
- 8 North America            &quot;&quot;                                             
- 9 South Asia               &quot;&quot;                                             
-10 West and Central Africa  &quot;&quot;                                             
-11 Western Europe           &quot;&quot;                                             
-12 Europe and Central Asia  &quot;&quot;                                             
-13 Sub-Saharan Africa       &quot;&quot;                                             
-14 Global                   &quot;&quot;                                             
-15 &quot;&quot;                       &quot;&quot;                                             
-16 &quot;&quot;                       Indicator definition: Percentage of infants bo…
-17 &quot;&quot;                       Note: Data are not available if country did no…
-18 &quot;&quot;                       Data source: Global AIDS Monitoring 2018 and U…
-19 &quot;&quot;                       For more information on this indicator, please…
-20 &quot;&quot;                       For more information on the data, visit data.u…</code></pre>
-<p>All right.
-Let’s add that hack to our script,
-then save the result to a file.
-The whole thing is now 38 lines long:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Constants.</span>
-raw_filename &lt;-<span class="st"> &quot;raw/infant_hiv.csv&quot;</span>
-tidy_filename &lt;-<span class="st"> &quot;tidy/infant_hiv.csv&quot;</span>
-num_rows &lt;-<span class="st"> </span><span class="dv">192</span>
-first_year &lt;-<span class="st"> </span><span class="dv">2009</span>
-last_year &lt;-<span class="st"> </span><span class="dv">2017</span>
+[1] 2010 2010 2010
 
-<span class="co"># Get and clean percentages.</span>
-raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(raw_filename, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
-<pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
-<pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
-&#39;Estimate_1&#39; [6], &#39;hi&#39; =&gt; &#39;hi_1&#39; [7], &#39;lo&#39; =&gt; &#39;lo_1&#39; [8], &#39;Estimate&#39; =&gt;
-&#39;Estimate_2&#39; [9], &#39;hi&#39; =&gt; &#39;hi_2&#39; [10], &#39;lo&#39; =&gt; &#39;lo_2&#39; [11], &#39;Estimate&#39; =&gt;
-&#39;Estimate_3&#39; [12], &#39;hi&#39; =&gt; &#39;hi_3&#39; [13], &#39;lo&#39; =&gt; &#39;lo_3&#39; [14], &#39;Estimate&#39; =&gt;
-&#39;Estimate_4&#39; [15], &#39;hi&#39; =&gt; &#39;hi_4&#39; [16], &#39;lo&#39; =&gt; &#39;lo_4&#39; [17], &#39;Estimate&#39; =&gt;
-&#39;Estimate_5&#39; [18], &#39;hi&#39; =&gt; &#39;hi_5&#39; [19], &#39;lo&#39; =&gt; &#39;lo_5&#39; [20], &#39;Estimate&#39; =&gt;
-&#39;Estimate_6&#39; [21], &#39;hi&#39; =&gt; &#39;hi_6&#39; [22], &#39;lo&#39; =&gt; &#39;lo_6&#39; [23], &#39;Estimate&#39; =&gt;
-&#39;Estimate_7&#39; [24], &#39;hi&#39; =&gt; &#39;hi_7&#39; [25], &#39;lo&#39; =&gt; &#39;lo_7&#39; [26], &#39;Estimate&#39; =&gt;
-&#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_character()
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">raw<span class="op">$</span>ISO3[raw<span class="op">$</span>Countries <span class="op">==</span><span class="st"> &quot;Kosovo&quot;</span>] &lt;-<span class="st"> &quot;UNK&quot;</span>
-sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span>num_rows)
-countries &lt;-<span class="st"> </span>sliced<span class="op">$</span>ISO3
-body &lt;-<span class="st"> </span>sliced <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries)
-trimmed &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(body, str_replace, <span class="dt">pattern =</span> <span class="st">&quot;&gt;?(</span><span class="ch">\\</span><span class="st">d+)%&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>)
-percents &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(trimmed, <span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
+[[3]]
+[1] 2011 2011 2011
 
-<span class="co"># Separate three-column chunks and add countries and years.</span>
-num_years &lt;-<span class="st"> </span>(last_year <span class="op">-</span><span class="st"> </span>first_year) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-chunks &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, num_years)
-<span class="cf">for</span> (year <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_years) {
-  end &lt;-<span class="st"> </span>year <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
-  temp &lt;-<span class="st"> </span><span class="kw">select</span>(percents, year<span class="op">:</span>end)
-  <span class="kw">names</span>(temp) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;hi&quot;</span>, <span class="st">&quot;lo&quot;</span>)
-  temp<span class="op">$</span>country &lt;-<span class="st"> </span>countries
-  temp<span class="op">$</span>year &lt;-<span class="st"> </span><span class="kw">rep</span>((first_year <span class="op">+</span><span class="st"> </span>year) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, num_rows)
-  temp &lt;-<span class="st"> </span><span class="kw">select</span>(temp, country, year, <span class="kw">everything</span>())
-  chunks[[year]] &lt;-<span class="st"> </span>temp
+[[4]]
+[1] 2012 2012 2012
+
+[[5]]
+[1] 2013 2013 2013
+
+[[6]]
+[1] 2014 2014 2014
+
+[[7]]
+[1] 2015 2015 2015
+
+[[8]]
+[1] 2016 2016 2016
+
+[[9]]
+[1] 2017 2017 2017</code></pre>
+<p>That’s almost right,
+but <code>map</code> hasn’t flattened the list for us.
+Luckily,
+we can use <code>unlist</code> to do that:</p>
+<pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">2009</span><span class="op">:</span><span class="dv">2017</span>, rep, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()
+years</code></pre>
+<pre><code> [1] 2009 2009 2009 2010 2010 2010 2011 2011 2011 2012 2012 2012 2013 2013
+[15] 2013 2014 2014 2014 2015 2015 2015 2016 2016 2016 2017 2017 2017</code></pre>
+<p>We can now combine the years and kinds by pasting the two vectors together with <code>"-"</code> as a separator:</p>
+<pre class="sourceCode r"><code class="sourceCode r">headers &lt;-<span class="st"> </span><span class="kw">paste</span>(years, kinds, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)
+headers</code></pre>
+<pre><code> [1] &quot;2009-est&quot; &quot;2009-hi&quot;  &quot;2009-lo&quot;  &quot;2010-est&quot; &quot;2010-hi&quot;  &quot;2010-lo&quot; 
+ [7] &quot;2011-est&quot; &quot;2011-hi&quot;  &quot;2011-lo&quot;  &quot;2012-est&quot; &quot;2012-hi&quot;  &quot;2012-lo&quot; 
+[13] &quot;2013-est&quot; &quot;2013-hi&quot;  &quot;2013-lo&quot;  &quot;2014-est&quot; &quot;2014-hi&quot;  &quot;2014-lo&quot; 
+[19] &quot;2015-est&quot; &quot;2015-hi&quot;  &quot;2015-lo&quot;  &quot;2016-est&quot; &quot;2016-hi&quot;  &quot;2016-lo&quot; 
+[25] &quot;2017-est&quot; &quot;2017-hi&quot;  &quot;2017-lo&quot; </code></pre>
+<p>Let’s use this to relabel the columns of <code>percents</code>
+(which holds our data without the ISO country codes):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(percents) &lt;-<span class="st"> </span>headers</code></pre>
+<pre><code>Warning: The `names` must have length 28, not 27.
+This warning is displayed once per session.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">percents</code></pre>
+<pre><code># A tibble: 192 x 28
+   `2009-est` `2009-hi` `2009-lo` `2010-est` `2010-hi` `2010-lo` `2011-est`
+        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+ 1         NA        NA        NA      NA        NA        NA         NA   
+ 2         NA        NA        NA      NA        NA        NA         NA   
+ 3         NA        NA        NA      NA        NA        NA          0.38
+ 4         NA        NA        NA       0.03      0.04      0.02       0.05
+ 5         NA        NA        NA      NA        NA        NA         NA   
+ 6         NA        NA        NA      NA        NA        NA         NA   
+ 7         NA        NA        NA      NA        NA        NA          0.13
+ 8         NA        NA        NA      NA        NA        NA         NA   
+ 9         NA        NA        NA      NA        NA        NA         NA   
+10         NA        NA        NA      NA        NA        NA         NA   
+# … with 182 more rows, and 21 more variables: `2011-hi` &lt;dbl&gt;,
+#   `2011-lo` &lt;dbl&gt;, `2012-est` &lt;dbl&gt;, `2012-hi` &lt;dbl&gt;, `2012-lo` &lt;dbl&gt;,
+#   `2013-est` &lt;dbl&gt;, `2013-hi` &lt;dbl&gt;, `2013-lo` &lt;dbl&gt;, `2014-est` &lt;dbl&gt;,
+#   `2014-hi` &lt;dbl&gt;, `2014-lo` &lt;dbl&gt;, `2015-est` &lt;dbl&gt;, `2015-hi` &lt;dbl&gt;,
+#   `2015-lo` &lt;dbl&gt;, `2016-est` &lt;dbl&gt;, `2016-hi` &lt;dbl&gt;, `2016-lo` &lt;dbl&gt;,
+#   `2017-est` &lt;dbl&gt;, `2017-hi` &lt;dbl&gt;, `2017-lo` &lt;dbl&gt;, NA &lt;dbl&gt;</code></pre>
+<p>Uh oh:
+the warning message tells us that <code>percents</code> has the wrong number of columns.
+Inspecting the tibble in the console,
+we see that the last column is full of NAs,
+which we can prove like this:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">is.na</span>(percents[,<span class="kw">ncol</span>(percents)]))</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<p>Let’s relabel our data again and then drop the empty column.
+(There are other ways to do this, but I find steps easier to read after the fact this way.)</p>
+<pre class="sourceCode r"><code class="sourceCode r">headers &lt;-<span class="st"> </span><span class="kw">c</span>(headers, <span class="st">&quot;empty&quot;</span>)
+<span class="kw">names</span>(percents) &lt;-<span class="st"> </span>headers
+percents &lt;-<span class="st"> </span><span class="kw">select</span>(percents, <span class="op">-</span>empty)
+percents</code></pre>
+<pre><code># A tibble: 192 x 27
+   `2009-est` `2009-hi` `2009-lo` `2010-est` `2010-hi` `2010-lo` `2011-est`
+        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+ 1         NA        NA        NA      NA        NA        NA         NA   
+ 2         NA        NA        NA      NA        NA        NA         NA   
+ 3         NA        NA        NA      NA        NA        NA          0.38
+ 4         NA        NA        NA       0.03      0.04      0.02       0.05
+ 5         NA        NA        NA      NA        NA        NA         NA   
+ 6         NA        NA        NA      NA        NA        NA         NA   
+ 7         NA        NA        NA      NA        NA        NA          0.13
+ 8         NA        NA        NA      NA        NA        NA         NA   
+ 9         NA        NA        NA      NA        NA        NA         NA   
+10         NA        NA        NA      NA        NA        NA         NA   
+# … with 182 more rows, and 20 more variables: `2011-hi` &lt;dbl&gt;,
+#   `2011-lo` &lt;dbl&gt;, `2012-est` &lt;dbl&gt;, `2012-hi` &lt;dbl&gt;, `2012-lo` &lt;dbl&gt;,
+#   `2013-est` &lt;dbl&gt;, `2013-hi` &lt;dbl&gt;, `2013-lo` &lt;dbl&gt;, `2014-est` &lt;dbl&gt;,
+#   `2014-hi` &lt;dbl&gt;, `2014-lo` &lt;dbl&gt;, `2015-est` &lt;dbl&gt;, `2015-hi` &lt;dbl&gt;,
+#   `2015-lo` &lt;dbl&gt;, `2016-est` &lt;dbl&gt;, `2016-hi` &lt;dbl&gt;, `2016-lo` &lt;dbl&gt;,
+#   `2017-est` &lt;dbl&gt;, `2017-hi` &lt;dbl&gt;, `2017-lo` &lt;dbl&gt;</code></pre>
+<p>It’s time to put the country codes back on the table,
+move the year and kind from column headers to a column with <code>gather</code>,
+and then split that column with <code>separate</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">final &lt;-<span class="st"> </span>percents <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">country =</span> countries) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year_kind&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span>country) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">separate</span>(year_kind, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;kind&quot;</span>))
+final</code></pre>
+<pre><code># A tibble: 5,184 x 4
+   country year  kind  value
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1 AFG     2009  est      NA
+ 2 ALB     2009  est      NA
+ 3 DZA     2009  est      NA
+ 4 AGO     2009  est      NA
+ 5 AIA     2009  est      NA
+ 6 ATG     2009  est      NA
+ 7 ARG     2009  est      NA
+ 8 ARM     2009  est      NA
+ 9 AUS     2009  est      NA
+10 AUT     2009  est      NA
+# … with 5,174 more rows</code></pre>
+<p>Here’s everything in one function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">clean_infant_hiv &lt;-<span class="st"> </span><span class="cf">function</span>(filename, num_rows) {
+  <span class="co"># Read raw data.</span>
+  raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(filename, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span>num_rows)
+  
+  <span class="co"># Save the country names to reattach later.</span>
+  countries &lt;-<span class="st"> </span>raw<span class="op">$</span>ISO3
+  
+  <span class="co"># Convert data values to percentages.</span>
+  percents &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span>num_rows) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">map_dfr</span>(str_replace, <span class="dt">pattern =</span> <span class="st">&quot;&gt;?(</span><span class="ch">\\</span><span class="st">d+)%&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">map_dfr</span>(<span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
+
+  <span class="co"># Change the headers on the percentages.</span>
+  num_years &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2017</span> <span class="op">-</span><span class="st"> </span><span class="dv">2009</span>
+  kinds &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;hi&quot;</span>, <span class="st">&quot;lo&quot;</span>), num_years)
+  years &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">2009</span><span class="op">:</span><span class="dv">2017</span>, rep, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()
+  headers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">paste</span>(years, kinds, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>), <span class="st">&quot;empty&quot;</span>)
+  <span class="kw">names</span>(percents) &lt;-<span class="st"> </span>headers
+  
+  <span class="co"># Stitch everything back together.</span>
+  percents <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">country =</span> countries) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year_kind&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span>country) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">separate</span>(year_kind, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;kind&quot;</span>))
 }
-
-<span class="co"># Combine chunks and order by country and year.</span>
-tidy &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(chunks)
-tidy &lt;-<span class="st"> </span><span class="kw">arrange</span>(tidy, country, year)
-
-<span class="co"># Save.</span>
-<span class="kw">write_csv</span>(tidy, tidy_filename)</code></pre>
-<p>“It’s alive!”,
-we exclaim,
-but we can do better.
-Let’s start by using a pipeline for the code that extracts and formats the percentages:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Constants...</span>
-
-<span class="co"># Get and clean percentages.</span>
-raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(raw_filename, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
+<span class="kw">clean_infant_hiv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>, <span class="dv">192</span>)</code></pre>
 <pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
 <pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
 &#39;Estimate_1&#39; [6], &#39;hi&#39; =&gt; &#39;hi_1&#39; [7], &#39;lo&#39; =&gt; &#39;lo_1&#39; [8], &#39;Estimate&#39; =&gt;
@@ -1392,119 +1375,23 @@ cols(
   .default = col_character()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">raw<span class="op">$</span>ISO3[raw<span class="op">$</span>Countries <span class="op">==</span><span class="st"> &quot;Kosovo&quot;</span>] &lt;-<span class="st"> &quot;UNK&quot;</span>
-sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span>num_rows)
-countries &lt;-<span class="st"> </span>sliced<span class="op">$</span>ISO3
-percents &lt;-<span class="st"> </span>sliced <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_dfr</span>(str_replace, <span class="dt">pattern =</span> <span class="st">&quot;&gt;?(</span><span class="ch">\\</span><span class="st">d+)%&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_dfr</span>(<span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
-
-<span class="co"># Separate three-column chunks and add countries and years...</span>
-
-<span class="co"># Combine chunks and order by country and year...</span>
-
-<span class="co"># Check...</span></code></pre>
-<p>The two changes are:</p>
-<ol style="list-style-type: decimal">
-<li>We use a <code>%&gt;%</code> pipe for the various transformations involved in creating percentages.</li>
-<li>We write the result to <code>temp.csv</code> so that we can compare it to the file created by our previous script.
-We should always do this sort of comparison when refactoring code in ways that isn’t meant to change output;
-if the file is small enough to store in version control,
-we could overwrite it and use <code>git diff</code> or something similar to check whether it has changed.
-However,
-we would then have to trust ourselves to be careful enough not to accidentally commit changes,
-and frankly,
-we are no longer sure how trustworthy we are…</li>
-</ol>
-<p>After checking that this has not changed the output,
-we pipeline the computation in the loop:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Constans...</span>
-
-<span class="co"># Get and clean percentages...</span>
-
-<span class="co"># Separate three-column chunks and add countries and years.</span>
-num_years &lt;-<span class="st"> </span>(last_year <span class="op">-</span><span class="st"> </span>first_year) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-chunks &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, num_years)
-<span class="cf">for</span> (year <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_years) {
-  chunks[[year]] &lt;-<span class="st"> </span><span class="kw">select</span>(percents, year<span class="op">:</span>(year <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">rename</span>(<span class="dt">estimate =</span> <span class="dv">1</span>, <span class="dt">hi =</span> <span class="dv">2</span>, <span class="dt">lo =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">country =</span> countries,
-           <span class="dt">year =</span> <span class="kw">rep</span>((first_year <span class="op">+</span><span class="st"> </span>year) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, num_rows)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())
-}
-
-<span class="co"># Combine chunks and order by country and year.</span>
-tidy &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(chunks) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(country, year)</code></pre>
-<p>We have introduced a call to <code>rename</code> here to give the columns of each sub-table the right names,
-and used <code>mutate</code> instead of assigning to named columns one by one.
-The lack of intermediate variables may make the code harder to debug using print statements,
-but certainly makes this incantation easier to read aloud.</p>
-<p>So we run it and inspect the output and it’s the same as what we had
-and we’re about to commit to version control
-when we decide to double check against the original data and guess what?
-The values for Argentina are wrong.
-In fact,
-the values for most countries and years are wrong:
-only the ones in the first three columns are right.
-The problem,
-it turns out,
-is that our loop index <code>year</code> is going up in ones,
-while each year’s data is three columns wide.
-Here’s the final, <em>final</em>, <strong><em>final</em></strong> version:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-
-<span class="co"># Constants.</span>
-raw_filename &lt;-<span class="st"> &quot;raw/infant_hiv.csv&quot;</span>
-tidy_filename &lt;-<span class="st"> &quot;tidy/infant_hiv.csv&quot;</span>
-first_year &lt;-<span class="st"> </span><span class="dv">2009</span>
-last_year &lt;-<span class="st"> </span><span class="dv">2017</span>
-num_rows &lt;-<span class="st"> </span><span class="dv">192</span>
-
-<span class="co"># Get and clean percentages.</span>
-raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(raw_filename, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
-<pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
-<pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
-&#39;Estimate_1&#39; [6], &#39;hi&#39; =&gt; &#39;hi_1&#39; [7], &#39;lo&#39; =&gt; &#39;lo_1&#39; [8], &#39;Estimate&#39; =&gt;
-&#39;Estimate_2&#39; [9], &#39;hi&#39; =&gt; &#39;hi_2&#39; [10], &#39;lo&#39; =&gt; &#39;lo_2&#39; [11], &#39;Estimate&#39; =&gt;
-&#39;Estimate_3&#39; [12], &#39;hi&#39; =&gt; &#39;hi_3&#39; [13], &#39;lo&#39; =&gt; &#39;lo_3&#39; [14], &#39;Estimate&#39; =&gt;
-&#39;Estimate_4&#39; [15], &#39;hi&#39; =&gt; &#39;hi_4&#39; [16], &#39;lo&#39; =&gt; &#39;lo_4&#39; [17], &#39;Estimate&#39; =&gt;
-&#39;Estimate_5&#39; [18], &#39;hi&#39; =&gt; &#39;hi_5&#39; [19], &#39;lo&#39; =&gt; &#39;lo_5&#39; [20], &#39;Estimate&#39; =&gt;
-&#39;Estimate_6&#39; [21], &#39;hi&#39; =&gt; &#39;hi_6&#39; [22], &#39;lo&#39; =&gt; &#39;lo_6&#39; [23], &#39;Estimate&#39; =&gt;
-&#39;Estimate_7&#39; [24], &#39;hi&#39; =&gt; &#39;hi_7&#39; [25], &#39;lo&#39; =&gt; &#39;lo_7&#39; [26], &#39;Estimate&#39; =&gt;
-&#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_character()
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">raw<span class="op">$</span>ISO3[raw<span class="op">$</span>Countries <span class="op">==</span><span class="st"> &quot;Kosovo&quot;</span>] &lt;-<span class="st"> &quot;UNK&quot;</span>
-sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span>num_rows)
-countries &lt;-<span class="st"> </span>sliced<span class="op">$</span>ISO3
-percents &lt;-<span class="st"> </span>sliced <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_dfr</span>(str_replace, <span class="dt">pattern =</span> <span class="st">&quot;&gt;?(</span><span class="ch">\\</span><span class="st">d+)%&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_dfr</span>(<span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
-
-<span class="co"># Separate three-column chunks and add countries and years.</span>
-num_years &lt;-<span class="st"> </span>(last_year <span class="op">-</span><span class="st"> </span>first_year) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-chunks &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, num_years)
-<span class="cf">for</span> (year <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_years) {
-  start =<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>(year <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-  chunks[[year]] &lt;-<span class="st"> </span><span class="kw">select</span>(percents, start<span class="op">:</span>(start <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">rename</span>(<span class="dt">estimate =</span> <span class="dv">1</span>, <span class="dt">hi =</span> <span class="dv">2</span>, <span class="dt">lo =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">country =</span> countries,
-           <span class="dt">year =</span> <span class="kw">rep</span>((first_year <span class="op">+</span><span class="st"> </span>year) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, num_rows)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())
-}
-
-<span class="co"># Combine chunks and order by country and year.</span>
-tidy &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(chunks) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(country, year)
-
-<span class="co"># Check.</span>
-<span class="kw">write_csv</span>(tidy, tidy_filename)</code></pre>
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 192 rows
+[5185, 5186, 5187, 5188, 5189, 5190, 5191, 5192, 5193, 5194, 5195, 5196,
+5197, 5198, 5199, 5200, 5201, 5202, 5203, 5204, ...].</code></pre>
+<pre><code># A tibble: 5,376 x 4
+   country year  kind  value
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1 AFG     2009  est      NA
+ 2 ALB     2009  est      NA
+ 3 DZA     2009  est      NA
+ 4 AGO     2009  est      NA
+ 5 AIA     2009  est      NA
+ 6 ATG     2009  est      NA
+ 7 ARG     2009  est      NA
+ 8 ARM     2009  est      NA
+ 9 AUS     2009  est      NA
+10 AUT     2009  est      NA
+# … with 5,366 more rows</code></pre>
 <p>We’re done,
 and we have learned a lot of R,
 but what we have also learned is that we make mistakes,
