@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-07">
+<meta name="date" content="2019-05-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,11 +190,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="testerror.html"><a href="testerror.html#learning-objectives-5"><i class="fa fa-check"></i><b>7.2</b> Learning Objectives</a></li>
 <li class="chapter" data-level="7.3" data-path="testerror.html"><a href="testerror.html#how-does-r-handle-errors"><i class="fa fa-check"></i><b>7.3</b> How does R handle errors?</a></li>
 <li class="chapter" data-level="7.4" data-path="testerror.html"><a href="testerror.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>7.4</b> What should I know about testing in general?</a></li>
-<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#s:testing-warmup"><i class="fa fa-check"></i><b>7.5</b> How can I write a few simple tests?</a></li>
-<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.6</b> How can I check data transformation?</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.6.1</b> How can I reorganize code to make it more testable?</a></li>
+<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#how-should-i-organize-my-tests"><i class="fa fa-check"></i><b>7.5</b> How should I organize my tests?</a></li>
+<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-write-a-few-simple-tests"><i class="fa fa-check"></i><b>7.6</b> How can I write a few simple tests?</a></li>
+<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.7</b> How can I check data transformation?</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.7.1</b> How can I reorganize code to make it more testable?</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.7</b> Key Points</a></li>
+<li class="chapter" data-level="7.8" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>8</b> Non-Standard Evaluation</a><ul>
 <li class="chapter" data-level="8.1" data-path="nse.html"><a href="nse.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
@@ -611,25 +612,25 @@ Attaching package: &#39;pryr&#39;</code></pre>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7fdc629ea408&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7feadbd1aa08&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7fdc629ea408 -&gt; 0x7fdc62b01688]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fdc62b01688 -&gt; 0x7fdc62b01608]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fdc62b01608 -&gt; 0x7fdc62b01588]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fdc62b01588 -&gt; 0x7fdc62b01548]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7feadbd1aa08 -&gt; 0x7feada9b6288]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7feada9b6288 -&gt; 0x7feada9b6208]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7feada9b6208 -&gt; 0x7feada9b6188]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7feada9b6188 -&gt; 0x7feada9b6148]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
 We can accomplish something a little more readable using <code>address</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
 <span class="kw">cat</span>(<span class="st">&quot;left column is initially at&quot;</span>, <span class="kw">address</span>(left), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>left column is initially at 0x7fdc62b01648 </code></pre>
+<pre><code>left column is initially at 0x7feada9b6248 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">cat</span>(<span class="st">&quot;after modification, the original column is still at&quot;</span>, <span class="kw">address</span>(left), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>after modification, the original column is still at 0x7fdc62b01648 </code></pre>
+<pre><code>after modification, the original column is still at 0x7feada9b6248 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">cat</span>(<span class="st">&quot;but the first column of the tibble is at&quot;</span>, <span class="kw">address</span>(temp), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>but the first column of the tibble is at 0x7fdc62d94b88 </code></pre>
+<pre><code>but the first column of the tibble is at 0x7feadbe32188 </code></pre>
 <p>(We need to use <a href="glossary.html#alias">aliases</a> because <code>address(first$left)</code> doesn’t work:
 the argument needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.

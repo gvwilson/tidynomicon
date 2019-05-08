@@ -1,0 +1,33 @@
+and here is the roxygen2 header and other modifications needed to make it package-worthy:
+
+```{r}
+#' Determine how many rows to skip at the start of a raw maternal data set.
+#' This works by finding the first row with `iso3` in the first column.
+#'
+#' @param src_path path to source file
+#'
+#' @return the number of rows to skip (or halt if marker 'iso3' not found)
+#'
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+
+determine_skip_rows <- function(src_path) {
+  data <- readr::read_csv(src_path)
+  if (names(data)[1] == "iso3") {
+    return(0)
+  }
+  result <- data %>%
+    dplyr::select(check = 1) %>%
+    dplyr::mutate(id = dplyr::row_number(.data)) %>%
+    dplyr::filter(.data$check == "iso3") %>%
+    dplyr::select(.data$id) %>%
+    first()
+  if (length(result) == 0) {
+    stop("No start row found in", src_path)
+  }
+  result
+}
+```
+
+Note that this roxygen2 comment block *doesn't* include an `@export` directive,
+since this function is only going to be used within our project.
