@@ -42,7 +42,7 @@ knitr::include_graphics("figures/basics/python-environment.png")
 ## How do I say hello?
 
 We begin with a traditional greeting.
-In Python, we write:
+In Python (which we will show in *italics*) we write:
 
 ```{python python-hello}
 print("Hello, world!")

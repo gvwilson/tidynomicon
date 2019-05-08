@@ -531,8 +531,8 @@ We can now run this file from within RStudio:</p>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Skipping rows correctly
-⠹ |   0 3     | Skipping rows correctly
-✖ |   0 5     | Skipping rows correctly [0.2 s]
+⠸ |   0 4     | Skipping rows correctly
+✖ |   0 5     | Skipping rows correctly [0.1 s]
 ───────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
@@ -594,14 +594,12 @@ This warning is displayed once per session.
 ───────────────────────────────────────────────────────────────────────────
 
 ══ Results ════════════════════════════════════════════════════════════════
-Duration: 0.4 s
+Duration: 0.3 s
 
 OK:       14
 Failed:   9
 Warnings: 1
-Skipped:  0
-
-I believe in you!</code></pre>
+Skipped:  0</code></pre>
 <p>Care is needed when interpreting these results.
 There are four <code>test_that</code> calls,
 but eight actual checks,
@@ -687,7 +685,7 @@ Types not compatible: integer is not NULL
 ✔ |   1       | Testing properties of tibbles
 
 ══ Results ════════════════════════════════════════════════════════════════
-Duration: 0.1 s
+Duration: 0.2 s
 
 OK:       14
 Failed:   9

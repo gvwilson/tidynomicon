@@ -12,11 +12,6 @@ pre {
 pre code {
   white-space: inherit;
 }
-
-pre.sourceCode.python {
-    background: green;
-}
-
-html {
-    background: pink;
+.python {
+  font-style: italic;
 }
