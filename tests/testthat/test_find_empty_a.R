@@ -2,7 +2,7 @@ library(tidyverse)
 library(testthat)
 context("Finding empty rows")
 
-source("../scripts/find_empty_02.R")
+source("../../scripts/find_empty_02.R")
 
 test_that("A single non-empty row is not mistakenly detected", {
   result <- find_empty_rows("a\n1")

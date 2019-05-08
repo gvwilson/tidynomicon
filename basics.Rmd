@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/basics.md"}
+```{r questions, child="questions/basics.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/basics.md"}
+```{r objectives, child="objectives/basics.md"}
 ```
 
 We will begin our tour of R by looking at what kinds of data we can toy with.
@@ -35,14 +35,14 @@ and then set the `RETICULATE_PYTHON` environment variable to point at the versio
 This is necessary because you may have a system-installed version somewhere like `/usr/bin/python`
 and a conda-managed version in `~/anaconda3/bin/python`.
 
-```{r echo=FALSE, fig.cap="XKCD on Python Environments (from https://xkcd.com/1987/)"}
+```{r xkcd, echo=FALSE, fig.cap="XKCD on Python Environments (from https://xkcd.com/1987/)"}
 knitr::include_graphics("figures/basics/python-environment.png")
 ```
 
 ## How do I say hello?
 
 We begin with a traditional greeting.
-In Python, we write:
+In Python (which we will show in *italics*) we write:
 
 ```{python python-hello}
 print("Hello, world!")
@@ -492,8 +492,8 @@ is.na(NA)
 ```
 
 ## Key Points
-```{r, child="keypoints/basics.md"}
+```{r keypoints, child="keypoints/basics.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```

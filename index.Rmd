@@ -4,9 +4,6 @@ subtitle: "A Brief Introduction to R for Python Programmers"
 author: "Greg Wilson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output:
-  bookdown::gitbook:
-    highlight: tango
 documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
@@ -21,7 +18,7 @@ description: "The Tidynomicon"
 source("etc/common.R")
 ```
 
-```{r echo=FALSE, out.width="50%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
+```{r logo, echo=FALSE, out.width="50%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/index/cthulhu.pdf")
 } else {
@@ -58,7 +55,7 @@ Andrzej
     and has worked since then for a small consulting company.
     He learned Python by doing data science courses online,
     but has no formal training in programming.
-    He just joined team that primarily uses R Markdown;
+    He just joined team that primarily uses RMarkdown;
     these lessons will show him how to translate his understanding of Python to R.
 
 Padma
@@ -69,5 +66,5 @@ Padma
     but she's comfortable doing linear regression and basic time series analysis on web traffic,
     and would like to learn enough about R to tidy up the analysts' code and get it into production.
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```

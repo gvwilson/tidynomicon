@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-07">
+<meta name="date" content="2019-05-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,11 +190,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="testerror.html"><a href="testerror.html#learning-objectives-5"><i class="fa fa-check"></i><b>7.2</b> Learning Objectives</a></li>
 <li class="chapter" data-level="7.3" data-path="testerror.html"><a href="testerror.html#how-does-r-handle-errors"><i class="fa fa-check"></i><b>7.3</b> How does R handle errors?</a></li>
 <li class="chapter" data-level="7.4" data-path="testerror.html"><a href="testerror.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>7.4</b> What should I know about testing in general?</a></li>
-<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#s:testing-warmup"><i class="fa fa-check"></i><b>7.5</b> How can I write a few simple tests?</a></li>
-<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.6</b> How can I check data transformation?</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.6.1</b> How can I reorganize code to make it more testable?</a></li>
+<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#how-should-i-organize-my-tests"><i class="fa fa-check"></i><b>7.5</b> How should I organize my tests?</a></li>
+<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-write-a-few-simple-tests"><i class="fa fa-check"></i><b>7.6</b> How can I write a few simple tests?</a></li>
+<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.7</b> How can I check data transformation?</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.7.1</b> How can I reorganize code to make it more testable?</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.7</b> Key Points</a></li>
+<li class="chapter" data-level="7.8" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>8</b> Non-Standard Evaluation</a><ul>
 <li class="chapter" data-level="8.1" data-path="nse.html"><a href="nse.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
@@ -360,7 +361,7 @@ and then set the <code>RETICULATE_PYTHON</code> environment variable to point at
 <em>before</em> you launch RStudio.
 This is necessary because you may have a system-installed version somewhere like <code>/usr/bin/python</code>
 and a conda-managed version in <code>~/anaconda3/bin/python</code>.</p>
-<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<div class="figure"><span id="fig:xkcd"></span>
 <img src="figures/basics/python-environment.png" alt="XKCD on Python Environments (from https://xkcd.com/1987/)" width="246" />
 <p class="caption">
 Figure 2.1: XKCD on Python Environments (from <a href="https://xkcd.com/1987/" class="uri">https://xkcd.com/1987/</a>)
@@ -370,7 +371,7 @@ Figure 2.1: XKCD on Python Environments (from <a href="https://xkcd.com/1987/" c
 <div id="how-do-i-say-hello" class="section level2">
 <h2><span class="header-section-number">2.3</span> How do I say hello?</h2>
 <p>We begin with a traditional greeting.
-In Python, we write:</p>
+In Python (which we will show in <em>italics</em>) we write:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</code></pre>
 <pre><code>Hello, world!</code></pre>
 <p>We can run the equivalent R in the RStudio Console:</p>

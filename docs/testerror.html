@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-07">
+<meta name="date" content="2019-05-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,11 +190,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="testerror.html"><a href="testerror.html#learning-objectives-5"><i class="fa fa-check"></i><b>7.2</b> Learning Objectives</a></li>
 <li class="chapter" data-level="7.3" data-path="testerror.html"><a href="testerror.html#how-does-r-handle-errors"><i class="fa fa-check"></i><b>7.3</b> How does R handle errors?</a></li>
 <li class="chapter" data-level="7.4" data-path="testerror.html"><a href="testerror.html#what-should-i-know-about-testing-in-general"><i class="fa fa-check"></i><b>7.4</b> What should I know about testing in general?</a></li>
-<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#s:testing-warmup"><i class="fa fa-check"></i><b>7.5</b> How can I write a few simple tests?</a></li>
-<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.6</b> How can I check data transformation?</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.6.1</b> How can I reorganize code to make it more testable?</a></li>
+<li class="chapter" data-level="7.5" data-path="testerror.html"><a href="testerror.html#how-should-i-organize-my-tests"><i class="fa fa-check"></i><b>7.5</b> How should I organize my tests?</a></li>
+<li class="chapter" data-level="7.6" data-path="testerror.html"><a href="testerror.html#how-can-i-write-a-few-simple-tests"><i class="fa fa-check"></i><b>7.6</b> How can I write a few simple tests?</a></li>
+<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#how-can-i-check-data-transformation"><i class="fa fa-check"></i><b>7.7</b> How can I check data transformation?</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="testerror.html"><a href="testerror.html#how-can-i-reorganize-code-to-make-it-more-testable"><i class="fa fa-check"></i><b>7.7.1</b> How can I reorganize code to make it more testable?</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.7</b> Key Points</a></li>
+<li class="chapter" data-level="7.8" data-path="testerror.html"><a href="testerror.html#key-points-5"><i class="fa fa-check"></i><b>7.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>8</b> Non-Standard Evaluation</a><ul>
 <li class="chapter" data-level="8.1" data-path="nse.html"><a href="nse.html#questions-6"><i class="fa fa-check"></i><b>8.1</b> Questions</a></li>
@@ -332,15 +333,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Create unit tests in R.</li>
 <li>Create unit tests for an R package.</li>
 </ul>
-<p>Cautious programmers plan for the unexpected;
-experienced ones expect things to go wrong.
-This chapter looks at how errors are handled in R,
-and at how to test R programs.</p>
+<p>Novices write code and pray that it works.
+Experienced programmers know that prayer alone is not enough,
+and take steps to protect what little sanity they have left.
+This chapter looks at the tools R gives us for doing this.</p>
 </div>
 <div id="how-does-r-handle-errors" class="section level2">
 <h2><span class="header-section-number">7.3</span> How does R handle errors?</h2>
-<p>In Python,
-this is done by <a href="glossary.html#raise-exception">raising</a> and <a href="glossary.html#catch-exception">catching</a> <a href="glossary.html#exception">exceptions</a>:</p>
+<p>Python programs handle errors
+by <a href="glossary.html#raise-exception">raising</a> and <a href="glossary.html#catch-exception">catching</a> <a href="glossary.html#exception">exceptions</a>:</p>
 <pre class="sourceCode python"><code class="sourceCode python">values <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]
 <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):
     <span class="cf">try</span>:
@@ -360,25 +361,28 @@ that some other piece of code then <a href="glossary.html#handle-condition">hand
 These things are all simpler to do using the rlang library,
 so we begin by loading that:</p>
 <p>In order of increasing severity,
-the three built-in kinds of conditions are <a href="glossary.html#message">messages</a>, <a href="glossary.html#warning">warnings</a>, and <a href="glossary.html#error">errors</a>.
-(There are also interrupts, which are generated by the user pressing Ctrl-C to stop an operation, but we will ignore those.)
-We can signal conditions of these three kinds using the functions <code>message</code>, <code>warning</code>, and <code>stop</code>,
-each of which takes an error message as a parameter.</p>
+the three built-in kinds of conditions are <a href="glossary.html#message">messages</a>,
+<a href="glossary.html#warning">warnings</a>,
+and <a href="glossary.html#error">errors</a>.
+(There are also interrupts,
+which are generated by the user pressing Ctrl-C to stop an operation,
+but we will ignore those for the sake of brevity.)
+We can signal conditions of these kinds using the functions <code>message</code>, <code>warning</code>, and <code>stop</code>,
+each of which takes an error message as a parameter:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">message</span>(<span class="st">&quot;This is a message.&quot;</span>)</code></pre>
 <pre><code>This is a message.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">warning</span>(<span class="st">&quot;This is a warning.</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
 <pre><code>Warning: This is a warning.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stop</span>(<span class="st">&quot;This is an error.&quot;</span>)</code></pre>
 <pre><code>Error in eval(expr, envir, enclos): This is an error.</code></pre>
-<p>Note that we have to supply our own line ending for warnings.
-Note also that there are only a few situations in which a warning is appropriate:
-if something has truly gone wrong,
-we should stop,
-and if it hasn’t,
-we should not distract users from more pressing concerns.</p>
+<p>Note that we have to supply our own line ending for warnings
+but not for the other two cases.
+Note also that there are very few situations in which a warning is appropriate:
+if something has truly gone wrong then we should stop,
+but otherwise we should not distract users from more pressing concerns.</p>
 <p>The bluntest of instruments for handling errors is to ignore them.
-If a statement is wrapped in the function <code>try</code>,
-errors that occur in it are still reported,
+If a statement is wrapped in the function <code>try</code>
+then errors that occur in it are still reported,
 but execution continues.
 Compare this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">attemptWithoutTry &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){
@@ -398,8 +402,7 @@ result &lt;-<span class="st"> </span><span class="kw">attemptUsingTry</span>(<sp
 <pre><code>Error in left + right : non-numeric argument to binary operator</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</code></pre>
 <pre><code>result is value returned</code></pre>
-<p>If we are <em>sure</em> that we wish to incur the risk of silent failure,
-we can suppress error messages from <code>try</code>:</p>
+<p>We can suppress error messages from <code>try</code> by setting <code>silent</code> to <code>TRUE</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">attemptUsingTryQuietly &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){
   temp &lt;-<span class="st"> </span><span class="kw">try</span>(left <span class="op">+</span><span class="st"> </span>right, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
   <span class="st">&quot;result&quot;</span> <span class="co"># returned</span>
@@ -408,38 +411,33 @@ result &lt;-<span class="st"> </span><span class="kw">attemptUsingTryQuietly</sp
 <span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</code></pre>
 <pre><code>result is result</code></pre>
 <p>Do not do this,
-for it will one day leave you lost and gibbering in an incomprehensible silent hellscape.
-Should you more sensibly wish to handle conditions rather than ignore them,
+lest you one day find yourself lost in a silent hellscape.</p>
+<p>Should you more sensibly wish to handle conditions rather than ignore them,
 you may invoke <code>tryCatch</code>.
 We begin by raising an error explicitly:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tryCatch</span>(
   <span class="kw">stop</span>(<span class="st">&quot;our message&quot;</span>),
-  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">cat</span>(<span class="st">&quot;error object is&quot;</span>, <span class="kw">as.character</span>(cnd))
+  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;error object is {cnd}&quot;</span>))
 )</code></pre>
 <pre><code>error object is Error in doTryCatch(return(expr), name, parentenv, handler): our message</code></pre>
-<p>(We need to convert the error object <code>cnd</code> to character for printing because it is a list of two elements,
-the message and the call,
-but <code>cat</code> only handles character data.)
-We can now run a function that would otherwise blow up:</p>
+<p>We can now run a function that would otherwise blow up:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tryCatch</span>(
   <span class="kw">attemptWithoutTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>),
-  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">cat</span>(<span class="st">&quot;error object is&quot;</span>, <span class="kw">as.character</span>(cnd))
+  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;error object is {cnd}&quot;</span>))
 )</code></pre>
 <pre><code>error object is Error in left + right: non-numeric argument to binary operator</code></pre>
 <p>We can also handle non-fatal errors using <code>withCallingHandlers</code>,
 and define new types of conditions,
 but this is done less often in day-to-day R code than in Python:
-see <em><a href="http://adv-r.had.co.nz/">Advanced R</a></em> for details,
-or <a href="https://www.onceupondata.com/2018/09/28/handling-r-errors/">this tutorial</a> by Omayma Said.</p>
+see <em><a href="http://adv-r.had.co.nz/">Advanced R</a></em> or <a href="https://www.onceupondata.com/2018/09/28/handling-r-errors/">this tutorial</a> for details.</p>
 </div>
 <div id="what-should-i-know-about-testing-in-general" class="section level2">
 <h2><span class="header-section-number">7.4</span> What should I know about testing in general?</h2>
 <p>In keeping with common programming practice,
-we have left testing until the end.
-The standard testing library for R is <a href="https://github.com/r-lib/testthat">testthat</a>.
-Like Python’s <a href="https://docs.python.org/3/library/unittest.html">unittest</a> library,
-it is a member of the <a href="https://en.wikipedia.org/wiki/XUnit">xUnit</a> family
-of <a href="glossary.html#unit-test">unit testing</a> libraries:</p>
+we have left testing until the last possible moment.
+The standard testing library for R is <a href="https://github.com/r-lib/testthat">testthat</a>,
+which shares many features with Python’s <a href="https://docs.python.org/3/library/unittest.html">unittest</a>
+and other <a href="glossary.html#unit-test">unit testing</a> libraries:</p>
 <ol style="list-style-type: decimal">
 <li>Each test consists of a single function that tests a single property or behavior of the system.</li>
 <li>Tests are collected into files with prescribed names that can be found by a <a href="glossary.html#test-runner">test runner</a>.</li>
@@ -459,7 +457,7 @@ Attaching package: &#39;testthat&#39;</code></pre>
 
     is_null</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals itself&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)})</code></pre>
-<p>As is conventional with xUnit-style testing libraries,
+<p>As is conventional with unit testing libraries,
 no news is good news:
 if a test passes,
 it doesn’t produce output because it doesn’t need our attention.
@@ -470,9 +468,9 @@ Let’s try something that ought to fail:</p>
 1/1 mismatches
 [1] 0 - 1 == -1</code></pre>
 <p>Good:
-we can draw some comfort from the fact that They have not yet changed the fundamental rules of arithmetic.
+we can draw some comfort from the fact that Those Beyond have not yet changed the fundamental rules of arithmetic.
 But what are the curly braces around <code>expect_equal</code> for?
-The answer is that they create a code block of some sort for <code>test_that</code> to run.
+The answer is that they create a <a href="glossary.html#code-block">code block</a> for <code>test_that</code> to run.
 We can run <code>expect_equal</code> on its own:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
 <pre><code>Error: 0 not equal to 1.
@@ -488,18 +486,23 @@ Passing a block of code to <code>test_that</code> also allows us to check severa
 * 0 not equal to 1.
 1/1 mismatches
 [1] 0 - 1 == -1</code></pre>
-<p>Note that a block of code is <em>not</em> the same thing as an <a href="glossary.html#anonymous-function">anonymous function</a>,
-which is why running this block of code does nothing:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Using an anonymous function&quot;</span>, <span class="cf">function</span>(){
+<p>A block of code is <em>not</em> the same thing as an <a href="glossary.html#anonymous-function">anonymous function</a>,
+which is why running this block of code does nothing—the “test” defines a function
+but doesn’t actually call it:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Using an anonymous function&quot;</span>, <span class="cf">function</span>() {
   <span class="kw">print</span>(<span class="st">&quot;In our anonymous function&quot;</span>)
   <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
 })</code></pre>
-<p>But running blocks of tests by hand is a bad practice no matter what is in them.
-What we should do instead is put related tests in files,
-then put those files in a directory called <code>tests/testthat</code>.
+</div>
+<div id="how-should-i-organize-my-tests" class="section level2">
+<h2><span class="header-section-number">7.5</span> How should I organize my tests?</h2>
+<p>Running blocks of tests by hand is a bad practice.
+Instead,
+we should put related tests in files
+and then put those files in a directory called <code>tests/testthat</code>.
 We can then run some or all of those tests with a single command.</p>
 <p>To start,
-let’s create <code>tests/test_example.R</code>:</p>
+let’s create <code>tests/testthat/test_example.R</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(testthat)
 <span class="kw">context</span>(<span class="st">&quot;Demonstrating the testing library&quot;</span>)
 
@@ -527,6 +530,32 @@ We can now run this file from within RStudio:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</code></pre>
 <pre><code>✔ |  OK F W S | Context
 
+⠏ |   0       | Skipping rows correctly
+⠸ |   0 4     | Skipping rows correctly
+✖ |   0 5     | Skipping rows correctly [0.1 s]
+───────────────────────────────────────────────────────────────────────────
+test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
+`result` not equal to 2.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:14: failure: The right row is found when there are header rows and blank lines
+`result` not equal to 3.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:19: failure: The right row is found when there are no header rows to discard
+`result` not equal to 0.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; isn&#39;t present
+`determine_skip_rows(&quot;a1,a2\nb1,b1\n&quot;)` did not throw an error.
+
+test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
+`determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Skipping rows correctly
+✔ |   5       | Skipping rows correctly
+
 ⠏ |   0       | Demonstrating the testing library
 ✖ |   4 2     | Demonstrating the testing library
 ───────────────────────────────────────────────────────────────────────────
@@ -542,28 +571,19 @@ test_example.R:16: failure: Testing with a tolerance
 ───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
-✖ |   0 1 1   | Finding empty rows
+✖ |   1 2     | Finding empty rows
 ───────────────────────────────────────────────────────────────────────────
-test_find_empty_a.R:5: warning: (unknown)
-cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
+`result` not equal to NULL.
+Types not compatible: integer is not NULL
 
-test_find_empty_a.R:5: error: (unknown)
-cannot open the connection
-1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_a.R:5
-2: file(filename, &quot;r&quot;, encoding = encoding)
+test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
+`result` not equal to NULL.
+Types not compatible: integer is not NULL
 ───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
-✖ |   0 1 1   | Finding empty rows
-───────────────────────────────────────────────────────────────────────────
-test_find_empty_b.R:5: warning: (unknown)
-cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
-
-test_find_empty_b.R:5: error: (unknown)
-cannot open the connection
-1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_b.R:5
-2: file(filename, &quot;r&quot;, encoding = encoding)
-───────────────────────────────────────────────────────────────────────────
+✔ |   3       | Finding empty rows
 
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1   1   | Testing properties of tibbles
@@ -574,20 +594,22 @@ This warning is displayed once per session.
 ───────────────────────────────────────────────────────────────────────────
 
 ══ Results ════════════════════════════════════════════════════════════════
-OK:       5
-Failed:   4
-Warnings: 3
+Duration: 0.3 s
+
+OK:       14
+Failed:   9
+Warnings: 1
 Skipped:  0</code></pre>
-<p>A bit of care is needed when interpreting these results.
+<p>Care is needed when interpreting these results.
 There are four <code>test_that</code> calls,
 but eight actual checks,
-and the number of successes and failures is counted by recording the results of the latter,
+and the number of successes and failures is counted by recording the latter,
 not the former.</p>
 <p>What then is the purpose of <code>test_that</code>?
 Why not just use <code>expect_equal</code> and its kin,
 such as <code>expect_true</code>, <code>expect_false</code>, <code>expect_length</code>, and so on?
 The answer is that it allows us to do one operation and then check several things afterward.
-Let’s create another file called <code>tests/test_tibble.R</code>:</p>
+Let’s create another file called <code>tests/testthat/test_tibble.R</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(testthat)
 <span class="kw">context</span>(<span class="st">&quot;Testing properties of tibbles&quot;</span>)
@@ -600,10 +622,35 @@ Let’s create another file called <code>tests/test_tibble.R</code>:</p>
 but <code>test_dir</code> and the rest of R’s testing infrastructure expect us to.
 Similarly,
 we don’t have to put them in a <code>tests</code> directory,
-but gibbering incoherence is likely to ensue if we do not.)
+but gibbering incoherence will ensue if we do not.)
 Now let’s run all of our tests:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</code></pre>
 <pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Skipping rows correctly
+✖ |   0 5     | Skipping rows correctly
+───────────────────────────────────────────────────────────────────────────
+test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
+`result` not equal to 2.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:14: failure: The right row is found when there are header rows and blank lines
+`result` not equal to 3.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:19: failure: The right row is found when there are no header rows to discard
+`result` not equal to 0.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; isn&#39;t present
+`determine_skip_rows(&quot;a1,a2\nb1,b1\n&quot;)` did not throw an error.
+
+test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
+`determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
+───────────────────────────────────────────────────────────────────────────
+
+⠏ |   0       | Skipping rows correctly
+✔ |   5       | Skipping rows correctly
 
 ⠏ |   0       | Demonstrating the testing library
 ✖ |   4 2     | Demonstrating the testing library
@@ -620,36 +667,29 @@ test_example.R:16: failure: Testing with a tolerance
 ───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
-✖ |   0 1 1   | Finding empty rows
+✖ |   1 2     | Finding empty rows
 ───────────────────────────────────────────────────────────────────────────
-test_find_empty_a.R:5: warning: (unknown)
-cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
+`result` not equal to NULL.
+Types not compatible: integer is not NULL
 
-test_find_empty_a.R:5: error: (unknown)
-cannot open the connection
-1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_a.R:5
-2: file(filename, &quot;r&quot;, encoding = encoding)
+test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
+`result` not equal to NULL.
+Types not compatible: integer is not NULL
 ───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
-✖ |   0 1 1   | Finding empty rows
-───────────────────────────────────────────────────────────────────────────
-test_find_empty_b.R:5: warning: (unknown)
-cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
-
-test_find_empty_b.R:5: error: (unknown)
-cannot open the connection
-1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_b.R:5
-2: file(filename, &quot;r&quot;, encoding = encoding)
-───────────────────────────────────────────────────────────────────────────
+✔ |   3       | Finding empty rows
 
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1       | Testing properties of tibbles
 
 ══ Results ════════════════════════════════════════════════════════════════
-OK:       5
-Failed:   4
-Warnings: 2
+Duration: 0.2 s
+
+OK:       14
+Failed:   9
+Warnings: 0
 Skipped:  0</code></pre>
 <p>That’s rather a lot of output.
 Happily,
@@ -673,11 +713,11 @@ Skipped:  0</code></pre>
 <p>That’s better,
 and it illustrates our earlier point about the importance of following conventions.</p>
 </div>
-<div id="s:testing-warmup" class="section level2">
-<h2><span class="header-section-number">7.5</span> How can I write a few simple tests?</h2>
+<div id="how-can-i-write-a-few-simple-tests" class="section level2">
+<h2><span class="header-section-number">7.6</span> How can I write a few simple tests?</h2>
 <p>To give ourselves something to test,
 let’s create a file called <code>scripts/find_empty_01.R</code>
-that defines a single function <code>find_empty_rows</code> that identifies all the empty rows in a CSV file.
+containing a single function <code>find_empty_rows</code> to identy all the empty rows in a CSV file.
 Our first implementation is:</p>
 <pre class="sourceCode r"><code class="sourceCode r">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {
   data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(source)
@@ -693,7 +733,7 @@ Our first implementation is:</p>
 }</code></pre>
 <p>This is complex enough to merit line-by-line exegesis:</p>
 <ol style="list-style-type: decimal">
-<li>Define the function with one argument <code>source</code>, from which we shall read.</li>
+<li>Define the function with one argument <code>source</code>, whence we shall read.</li>
 <li>Read tabular data from that source and assign the resulting tibble to <code>data</code>.</li>
 <li>Begin a pipeline that will assign something to the variable <code>empty</code>.
 <ol style="list-style-type: decimal">
@@ -705,7 +745,7 @@ we use <code>...</code> to take any number of arguments.</li>
 <li>Close the mapped function’s definition.</li>
 </ol></li>
 <li>Start another pipeline.
-This one’s result isn’t assigned to a variable,
+Its result isn’t assigned to a variable,
 so whatever it produces will be the value returned by <code>find_empty_rows</code>.
 <ol style="list-style-type: decimal">
 <li>Construct a tibble that contains only the row numbers of the original table in a column called <code>id</code>.</li>
@@ -717,8 +757,7 @@ is a list, not a logical vector.</li>
 </ol></li>
 </ol>
 <p>There is a lot going on here,
-particularly if you are (as I am at the time of writing)
-new to R
+particularly if you are new to R (as I am at the time of writing)
 and needed help to figure out that <code>pmap</code> is the function this problem wants.
 But now that we have it,
 we can do this:</p>
@@ -761,8 +800,8 @@ but we can make it more pipelinesque:</p>
 <li>Read from that source to fill the pipeline.</li>
 <li>Map our test for emptiness across each row, returning a logical vector as a result.
 (<code>pmap_lgl</code> is a derivative of <code>pmap</code> that always casts its result to logical.
-Similar functions like <code>pmap_dbl</code> return vectors of other types,
-and many other tidyverse functions have strongly-typed variants as well.)</li>
+Similar functions like <code>pmap_dbl</code> return vectors of other types;
+and many other tidyverse functions also have strongly-typed variants.)</li>
 <li>Turn that logical vector into a single-column tibble,
 giving that column the name “empty”.
 We explain the use of <code>.</code> below.</li>
@@ -789,7 +828,7 @@ we have no easy way to give the sole column of our newly-constructed tibble a na
 <span class="kw">library</span>(testthat)
 <span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)
 
-<span class="kw">source</span>(<span class="st">&quot;../scripts/find_empty_02.R&quot;</span>)
+<span class="kw">source</span>(<span class="st">&quot;../../scripts/find_empty_02.R&quot;</span>)
 
 <span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {
   result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)
@@ -810,52 +849,48 @@ we have no easy way to give the sole column of our newly-constructed tibble a na
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Finding empty rows
-✖ |   0 1 1   | Finding empty rows
+✖ |   1 2     | Finding empty rows
 ───────────────────────────────────────────────────────────────────────────
-test_find_empty_a.R:5: warning: (unknown)
-cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
+test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
+`result` not equal to NULL.
+Types not compatible: integer is not NULL
 
-test_find_empty_a.R:5: error: (unknown)
-cannot open the connection
-1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_a.R:5
-2: file(filename, &quot;r&quot;, encoding = encoding)
+test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
+`result` not equal to NULL.
+Types not compatible: integer is not NULL
 ───────────────────────────────────────────────────────────────────────────
 
 ══ Results ════════════════════════════════════════════════════════════════
-OK:       0
-Failed:   1
-Warnings: 1
+OK:       1
+Failed:   2
+Warnings: 0
 Skipped:  0</code></pre>
 <p>This is perplexing:
 we expected that if there were no empty rows,
 our function would return <code>NULL</code>.
 Let’s look more closely:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)</code></pre>
+<pre><code>integer(0)</code></pre>
 <p>Ah:
-we are being given an integer vector of zero length rather than <code>NULL</code>.
+our function is returning an integer vector of zero length rather than <code>NULL</code>.
 Let’s have a closer look at the properties of this strange beast:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;is integer(0) equal to NULL&quot;</span>)</code></pre>
-<pre><code>[1] &quot;is integer(0) equal to NULL&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.null</span>(<span class="kw">integer</span>(<span class="dv">0</span>))</code></pre>
-<pre><code>[1] FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;any(logical(0))&quot;</span>)</code></pre>
-<pre><code>[1] &quot;any(logical(0))&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">logical</span>(<span class="dv">0</span>))</code></pre>
-<pre><code>[1] FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;all(logical(0))&quot;</span>)</code></pre>
-<pre><code>[1] &quot;all(logical(0))&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">logical</span>(<span class="dv">0</span>))</code></pre>
-<pre><code>[1] TRUE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;integer(0) equal to NULL? {is.null(integer(0))}&quot;</span>))</code></pre>
+<pre><code>integer(0) equal to NULL? FALSE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;any(logical(0))? {any(logical(0))}&quot;</span>))</code></pre>
+<pre><code>any(logical(0))? FALSE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;all(logical(0))? {all(logical(0))}&quot;</span>))</code></pre>
+<pre><code>all(logical(0))? TRUE</code></pre>
 <p>All right.
 If we compare <code>c(1L, 2L)</code> to <code>NULL</code>, we expect <code>c(FALSE, FALSE)</code>,
-so it’s reasonable to get a zero-length logical vector as a result when we compare <code>NULL</code> to an integer vector with no elements.
+so it’s reasonable to get a zero-length logical vector as a result
+when we compare <code>NULL</code> to an integer vector with no elements.
 The fact that <code>any</code> of an empty logical vector is <code>FALSE</code> isn’t really surprising either—none of the elements are <code>TRUE</code>,
 so it would be hard to say that any of them are.
-But <code>all</code> of an empty vector being <code>TRUE</code> is…unexpected.
+<code>all</code> of an empty vector being <code>TRUE</code> is unexpected, though.
 The reasoning is apparently that none of the (nonexistent) elements are <code>FALSE</code>,
 but honestly,
 at this point we are veering dangerously close to <a href="https://www.destroyallsoftware.com/talks/wat">JavaScript Logic</a>,
-so we will accept this behavior and move on.</p>
+so we will accept this result for what it is and move on.</p>
 <p>So what <em>should</em> our function return when there aren’t any empty rows: <code>NULL</code> or <code>integer(0)</code>?
 After a bit of thought,
 we decide on the latter,
@@ -865,7 +900,7 @@ not the code:</p>
 <span class="kw">library</span>(testthat)
 <span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)
 
-<span class="kw">source</span>(<span class="st">&quot;../scripts/find_empty_02.R&quot;</span>)
+<span class="kw">source</span>(<span class="st">&quot;../../scripts/find_empty_02.R&quot;</span>)
 
 <span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {
   result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)
@@ -886,25 +921,16 @@ not the code:</p>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Finding empty rows
-✖ |   0 1 1   | Finding empty rows
-───────────────────────────────────────────────────────────────────────────
-test_find_empty_b.R:5: warning: (unknown)
-cannot open file &#39;../scripts/find_empty_02.R&#39;: No such file or directory
-
-test_find_empty_b.R:5: error: (unknown)
-cannot open the connection
-1: source(&quot;../scripts/find_empty_02.R&quot;) at tests/testthat/test_find_empty_b.R:5
-2: file(filename, &quot;r&quot;, encoding = encoding)
-───────────────────────────────────────────────────────────────────────────
+✔ |   3       | Finding empty rows
 
 ══ Results ════════════════════════════════════════════════════════════════
-OK:       0
-Failed:   1
-Warnings: 1
+OK:       3
+Failed:   0
+Warnings: 0
 Skipped:  0</code></pre>
 </div>
 <div id="how-can-i-check-data-transformation" class="section level2">
-<h2><span class="header-section-number">7.6</span> How can I check data transformation?</h2>
+<h2><span class="header-section-number">7.7</span> How can I check data transformation?</h2>
 <p>People normally write unit tests for the code in packages,
 not to check the steps taken to clean up particular datasets,
 but the latter are just as useful as the former.
@@ -965,7 +991,7 @@ with a dataset that doesn’t.</li>
 <p>These three requirements will make our program significantly more complicated,
 so we should tackle each with its own testable function.</p>
 <div id="how-can-i-reorganize-code-to-make-it-more-testable" class="section level3">
-<h3><span class="header-section-number">7.6.1</span> How can I reorganize code to make it more testable?</h3>
+<h3><span class="header-section-number">7.7.1</span> How can I reorganize code to make it more testable?</h3>
 <p>The data we care about comes after the row with <code>iso3</code>, <code>Country/areas</code>, and other column headers,
 so the simplest way to figure out how many rows to skip is to read the data,
 look for this row,
@@ -1019,7 +1045,9 @@ we turn it into a function,
 tell that function to stop if it can’t find <code>iso3</code> in the data,
 and write some unit tests.
 The function is:</p>
-<pre class="sourceCode r"><code class="sourceCode r">determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+
+determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
   <span class="kw">read_csv</span>(src_path) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
@@ -1033,39 +1061,67 @@ and a script called <code>tests/testthat.R</code>
 that will run all our tests when we want to check the integrity of our project.
 Once we have done that
 we can put these five tests in <code>tests/testthat/test_determine_skip_rows.R</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows&quot;</span>, {
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(testthat)
+<span class="kw">context</span>(<span class="st">&quot;Skipping rows correctly&quot;</span>)
+
+<span class="kw">source</span>(<span class="st">&quot;../../scripts/determine_skip_rows_a.R&quot;</span>)
+
+<span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows&quot;</span>, {
   result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)
   <span class="kw">expect_equal</span>(result, <span class="dv">2</span>)
-})</code></pre>
-<pre><code>Error: Test failed: &#39;The right row is found when there are header rows&#39;
-* `result` not equal to 2.
-Lengths differ: 0 is not 1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows and blank lines&quot;</span>, {
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows and blank lines&quot;</span>, {
   result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>)
   <span class="kw">expect_equal</span>(result, <span class="dv">3</span>)
-})</code></pre>
-<pre><code>Error: Test failed: &#39;The right row is found when there are header rows and blank lines&#39;
-* `result` not equal to 3.
-Lengths differ: 0 is not 1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are no header rows to discard&quot;</span>, {
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are no header rows to discard&quot;</span>, {
   result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;iso3,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)
   <span class="kw">expect_equal</span>(result, <span class="dv">0</span>)
-})</code></pre>
-<pre><code>Error: Test failed: &#39;The right row is found when there are no header rows to discard&#39;
-* `result` not equal to 0.
-Lengths differ: 0 is not 1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; isn&#39;t present&quot;</span>, {
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; isn&#39;t present&quot;</span>, {
   <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b1</span><span class="ch">\n</span><span class="st">&quot;</span>),
                <span class="st">&quot;No start row found&quot;</span>)
-})</code></pre>
-<pre><code>Error: Test failed: &#39;No row is found when &#39;iso3&#39; isn&#39;t present&#39;
-* `determine_skip_rows(&quot;a1,a2\nb1,b1\n&quot;)` did not throw an error.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; is in the wrong place&quot;</span>, {
+})
+
+<span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; is in the wrong place&quot;</span>, {
   <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;stuff,iso3</span><span class="ch">\n</span><span class="st">&quot;</span>),
                <span class="st">&quot;No start row found&quot;</span>)
 })</code></pre>
-<pre><code>Error: Test failed: &#39;No row is found when &#39;iso3&#39; is in the wrong place&#39;
-* `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.</code></pre>
+<p>and run it:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;determine_skip_rows_a&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
+
+⠏ |   0       | Skipping rows correctly
+✖ |   0 5     | Skipping rows correctly
+───────────────────────────────────────────────────────────────────────────
+test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
+`result` not equal to 2.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:14: failure: The right row is found when there are header rows and blank lines
+`result` not equal to 3.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:19: failure: The right row is found when there are no header rows to discard
+`result` not equal to 0.
+Lengths differ: 0 is not 1
+
+test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; isn&#39;t present
+`determine_skip_rows(&quot;a1,a2\nb1,b1\n&quot;)` did not throw an error.
+
+test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
+`determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
+───────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════
+OK:       0
+Failed:   5
+Warnings: 0
+Skipped:  0</code></pre>
 <p>That’s right: all five fail.
 The first problem is that we have written <code>is03</code> (with a digit <code>0</code> instead of a letter <code>o</code>) in the first two tests.
 If we fix that and re-run the tests, they pass;
@@ -1076,7 +1132,9 @@ because the row with <code>iso3</code> is being used as headers.</li>
 <li>When <code>iso3</code> isn’t found at all, the function is returning <code>integer(0)</code> rather than stopping.</li>
 </ol>
 <p>Here is a more robust version of the function:</p>
-<pre class="sourceCode r"><code class="sourceCode r">determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+
+determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
   data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(src_path)
   <span class="cf">if</span> (<span class="kw">names</span>(data)[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) {
     <span class="kw">return</span>(<span class="dv">0</span>)
@@ -1092,96 +1150,26 @@ because the row with <code>iso3</code> is being used as headers.</li>
   }
   result
 }</code></pre>
-<p>and here is the roxygen2 header and other modifications needed to make it package-worthy:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Determine how many rows to skip at the start of a raw maternal data set.</span>
-<span class="co">#&#39; This works by finding the first row with `iso3` in the first column.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @param src_path path to source file</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @return the number of rows to skip (or halt if marker &#39;iso3&#39; not found)</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @importFrom magrittr %&gt;%</span>
-<span class="co">#&#39; @importFrom rlang .data</span>
+<p>And here are the results:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;determine_skip_rows_b&quot;</span>)</code></pre>
+<pre><code>✔ |  OK F W S | Context
 
-determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
-  data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(src_path)
-  <span class="cf">if</span> (<span class="kw">names</span>(data)[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) {
-    <span class="kw">return</span>(<span class="dv">0</span>)
-  }
-  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">id =</span> dplyr<span class="op">::</span><span class="kw">row_number</span>(.data)) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(.data<span class="op">$</span>check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(.data<span class="op">$</span>id) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">first</span>()
-  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-    <span class="kw">stop</span>(<span class="st">&quot;No start row found in&quot;</span>, src_path)
-  }
-  result
-}</code></pre>
-<p>Note that this roxygen2 comment block <em>doesn’t</em> include an <code>@export</code> directive,
-since this function is only going to be used within our project.</p>
-<p>The code to find the first and last row of interest looks very similar:</p>
-<pre class="sourceCode r"><code class="sourceCode r">determine_first_and_last_row &lt;-<span class="st"> </span><span class="cf">function</span>(data) {
-  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">rownum =</span> dplyr<span class="op">::</span><span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(.data<span class="op">$</span>iso3 <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AFG&quot;</span>, <span class="st">&quot;ZWE&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(dplyr<span class="op">::</span><span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">n</span>())) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(.data<span class="op">$</span>rownum) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">pull</span>(.data<span class="op">$</span>rownum)
-  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {
-    <span class="kw">stop</span>(<span class="st">&quot;First or last row missing&quot;</span>)
-  }
-  result
-}</code></pre>
-<p>as does the code to select the region of interest and reformat the numbers as fractions:</p>
-<pre class="sourceCode r"><code class="sourceCode r">subsection_maternal_data &lt;-<span class="st"> </span><span class="cf">function</span>(raw_data, first_and_last) {
-  raw_data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span>first_and_last[[<span class="dv">2</span>, <span class="dv">1</span>]]) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>.data<span class="op">$</span><span class="st">`</span><span class="dt">Country/areas</span><span class="st">`</span>, <span class="op">-</span><span class="kw">starts_with</span>(<span class="st">&quot;X&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span>purrr<span class="op">::</span><span class="kw">map_dfr</span>(<span class="cf">function</span>(x) <span class="kw">ifelse</span>(stringr<span class="op">::</span><span class="kw">str_detect</span>(x, <span class="st">&quot;-&quot;</span>), <span class="ot">NA</span>, x)) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">c</span>(.data<span class="op">$</span>iso3, .data<span class="op">$</span>Source)), as.numeric) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">c</span>(.data<span class="op">$</span>iso3, .data<span class="op">$</span>year, .data<span class="op">$</span>Source, .data<span class="op">$</span><span class="st">`</span><span class="dt">Source year</span><span class="st">`</span>)),
-                     <span class="cf">function</span>(x) x <span class="op">/</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">rename</span>(
-      <span class="dt">total =</span> .data<span class="op">$</span>Total,
-      <span class="dt">age_15_17 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 15-17</span><span class="st">`</span>,
-      <span class="dt">age_18_19 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 18-19</span><span class="st">`</span>,
-      <span class="dt">age_less_than_20 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age less than 20</span><span class="st">`</span>,
-      <span class="dt">age_more_than_20 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age more than 20</span><span class="st">`</span>,
-      <span class="dt">age_20_34 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 20-34</span><span class="st">`</span>,
-      <span class="dt">age_35_49 =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">age 35-49</span><span class="st">`</span>,
-      <span class="dt">source =</span> .data<span class="op">$</span>Source,
-      <span class="dt">source_year =</span> .data<span class="op">$</span><span class="st">`</span><span class="dt">Source year</span><span class="st">`</span>
-    )
-}</code></pre>
-<p>(We have renamed the columns whose names included spaces and dashes
-so that they’ll be easier for other people to use.)
-We can now stitch everything together—we omit the roxygen2 header blocks for clarity:</p>
-<pre class="sourceCode r"><code class="sourceCode r">tidy_maternal_data &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
-  skip_rows &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(src_path)
-  data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(src_path, <span class="dt">skip =</span> skip_rows)
-  first_and_last &lt;-<span class="st"> </span><span class="kw">determine_first_and_last_row</span>(data)
-  <span class="kw">subsection_maternal_data</span>(data, first_and_last)
-}
+⠏ |   0       | Skipping rows correctly
+✔ |   5       | Skipping rows correctly
 
-regenerate_all_datasets &lt;-<span class="st"> </span><span class="cf">function</span>() {
-  infant_hiv &lt;-<span class="st"> </span><span class="kw">tidy_infant_hiv</span>(<span class="st">&quot;raw/infant_hiv.csv&quot;</span>)
-  at_health_facilities &lt;-<span class="st"> </span><span class="kw">tidy_maternal_data</span>(<span class="st">&quot;raw/at_health_facilities.csv&quot;</span>)
-  c_sections &lt;-<span class="st"> </span><span class="kw">tidy_maternal_data</span>(<span class="st">&quot;raw/c_sections.csv&quot;</span>)
-  skilled_attendant_at_birth &lt;-<span class="st"> </span><span class="kw">tidy_maternal_data</span>(<span class="st">&quot;raw/skilled_attendant_at_birth.csv&quot;</span>)
-  usethis<span class="op">::</span><span class="kw">use_data</span>(
-    infant_hiv,
-    at_health_facilities,
-    c_sections,
-    skilled_attendant_at_birth,
-    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>
-  )
-}</code></pre>
+══ Results ════════════════════════════════════════════════════════════════
+OK:       5
+Failed:   0
+Warnings: 0
+Skipped:  0</code></pre>
+<p>Our tests still aren’t checking anything statistical,
+but without trustworthy data,
+our statistics will be meaningless.
+Tests like these allow our future selves to focus on making new mistakes instead of repeating old ones.</p>
 </div>
 </div>
 <div id="key-points-5" class="section level2">
-<h2><span class="header-section-number">7.7</span> Key Points</h2>
+<h2><span class="header-section-number">7.8</span> Key Points</h2>
 <ul>
 <li>Operations signal conditions in R when errors occur.</li>
 <li>The three built-in levels of conditions are messages, warnings, and errors.</li>

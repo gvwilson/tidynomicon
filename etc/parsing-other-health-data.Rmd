@@ -1,0 +1,68 @@
+The code to find the first and last row of interest looks very similar:
+
+```{r determine-first-and-last-row}
+determine_first_and_last_row <- function(data) {
+  result <- data %>%
+    dplyr::mutate(rownum = dplyr::row_number()) %>%
+    dplyr::filter(.data$iso3 %in% c("AFG", "ZWE")) %>%
+    dplyr::filter(dplyr::row_number() %in% c(1, n())) %>%
+    dplyr::select(.data$rownum) %>%
+    dplyr::pull(.data$rownum)
+  if (length(result) != 2) {
+    stop("First or last row missing")
+  }
+  result
+}
+```
+
+as does the code to select the region of interest and reformat the numbers as fractions:
+
+```{r subsection-maternal-data}
+subsection_maternal_data <- function(raw_data, first_and_last) {
+  raw_data %>%
+    slice(1:first_and_last[[2, 1]]) %>%
+    select(-.data$`Country/areas`, -starts_with("X")) %>%
+    purrr::map_dfr(function(x) ifelse(stringr::str_detect(x, "-"), NA, x)) %>%
+    dplyr::mutate_at(vars(-c(.data$iso3, .data$Source)), as.numeric) %>%
+    dplyr::mutate_at(vars(-c(.data$iso3, .data$year, .data$Source, .data$`Source year`)),
+                     function(x) x / 100) %>%
+    dplyr::rename(
+      total = .data$Total,
+      age_15_17 = .data$`age 15-17`,
+      age_18_19 = .data$`age 18-19`,
+      age_less_than_20 = .data$`age less than 20`,
+      age_more_than_20 = .data$`age more than 20`,
+      age_20_34 = .data$`age 20-34`,
+      age_35_49 = .data$`age 35-49`,
+      source = .data$Source,
+      source_year = .data$`Source year`
+    )
+}
+```
+
+(We have renamed the columns whose names included spaces and dashes
+so that they'll be easier for other people to use.)
+We can now stitch everything together:
+
+```{r}
+tidy_maternal_data <- function(src_path) {
+  skip_rows <- determine_skip_rows(src_path)
+  data <- readr::read_csv(src_path, skip = skip_rows)
+  first_and_last <- determine_first_and_last_row(data)
+  subsection_maternal_data(data, first_and_last)
+}
+
+regenerate_all_datasets <- function() {
+  infant_hiv <- tidy_infant_hiv("raw/infant_hiv.csv")
+  at_health_facilities <- tidy_maternal_data("raw/at_health_facilities.csv")
+  c_sections <- tidy_maternal_data("raw/c_sections.csv")
+  skilled_attendant_at_birth <- tidy_maternal_data("raw/skilled_attendant_at_birth.csv")
+  usethis::use_data(
+    infant_hiv,
+    at_health_facilities,
+    c_sections,
+    skilled_attendant_at_birth,
+    overwrite = TRUE
+  )
+}
+```
