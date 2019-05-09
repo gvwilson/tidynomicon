@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/cleanup.md"}
+```{r questions, child="questions/cleanup.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/cleanup.md"}
+```{r objectives, child="objectives/cleanup.md"}
 ```
 
 Data is not born tidy.
@@ -552,8 +552,8 @@ If people are going to use our cleaned-up data in their analyses,
 we need a better way to develop and check our scripts.
 
 ## Key Points
-```{r, child="keypoints/cleanup.md"}
+```{r keypoints, child="keypoints/cleanup.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```

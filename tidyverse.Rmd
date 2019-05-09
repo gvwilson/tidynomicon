@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/tidyverse.md"}
+```{r questions, child="questions/tidyverse.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/tidyverse.md"}
+```{r objectives, child="objectives/tidyverse.md"}
 ```
 
 There is no point in becoming fluent in Enochian if you do not then call forth a Dweller Beneath at the time of the new moon.
@@ -65,23 +65,23 @@ The equivalent in R is to load the [tidyverse](glossary.html#tidyverse) collecti
 and then call the `read_csv` function.
 We will go through this in stages, since each produces output.
 
-```{r eval=FALSE}
+```{r library-fail, eval=FALSE}
 library(tidyverse)
 ```
-```text
+```
 Error in library(tidyverse) : there is no package called 'tidyverse'
 ```
 
 Ah.
 We must install this, which we only need to do once per machine:
 
-```{r eval=FALSE}
+```{r library-install, eval=FALSE}
 install.packages("tidyverse")
 ```
 
 We then load the library once per program:
 
-```{r eval=FALSE}
+```{r library-succeed, eval=FALSE}
 library(tidyverse)
 ```
 ```
@@ -737,8 +737,8 @@ infant_hiv %>%
 ```
 
 ## Key Points
-```{r, child="keypoints/tidyverse.md"}
+```{r keypoints, child="keypoints/tidyverse.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```

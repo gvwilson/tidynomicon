@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/control.md"}
+```{r questions, child="questions/control.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/control.md"}
+```{r objectives, child="objectives/control.md"}
 ```
 
 Chapter \@ref(basics) said that modern R strongly encourages people
@@ -357,8 +357,8 @@ in which functions do not modify their input data,
 and *nobody* thinks that modifying global variables is a good idea any more.
 
 ## Key Points
-```{r, child="keypoints/control.md"}
+```{r keypoints, child="keypoints/control.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```

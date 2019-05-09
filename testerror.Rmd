@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/testerror.md"}
+```{r questions, child="questions/testerror.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/testerror.md"}
+```{r objectives, child="objectives/testerror.md"}
 ```
 
 Novices write code and pray that it works.
@@ -40,7 +40,7 @@ that some other piece of code then [handles](glossary.html#handle-condition).
 These things are all simpler to do using the rlang library,
 so we begin by loading that:
 
-```{r include=FALSE}
+```{r load-rlang, include=FALSE}
 library(rlang)
 ```
 
@@ -202,7 +202,7 @@ We can then run some or all of those tests with a single command.
 To start,
 let's create `tests/testthat/test_example.R`:
 
-```{r code=readLines("tests/testthat/test_example.R"), eval=FALSE}
+```{r test-example, code=readLines("tests/testthat/test_example.R"), eval=FALSE}
 ```
 
 The first line loads the testthat package,
@@ -229,7 +229,7 @@ such as `expect_true`, `expect_false`, `expect_length`, and so on?
 The answer is that it allows us to do one operation and then check several things afterward.
 Let's create another file called `tests/testthat/test_tibble.R`:
 
-```{r code=readLines("tests/testthat/test_tibble.R")}
+```{r test-tibble, code=readLines("tests/testthat/test_tibble.R")}
 ```
 
 (We don't actually have to call our test files `test_something.R`,
@@ -269,7 +269,7 @@ let's create a file called `scripts/find_empty_01.R`
 containing a single function `find_empty_rows` to identy all the empty rows in a CSV file.
 Our first implementation is:
 
-```{r code=readLines("scripts/find_empty_01.R")}
+```{r find-empty-01, code=readLines("scripts/find_empty_01.R")}
 ```
 
 This is complex enough to merit line-by-line exegesis:
@@ -299,7 +299,7 @@ and needed help to figure out that `pmap` is the function this problem wants.
 But now that we have it,
 we can do this:
 
-```{r eval=FALSE}
+```{r show-how-source-works, eval=FALSE}
 source("scripts/find_empty_01.R")
 find_empty_rows("a,b\n1,2\n,\n5,6")
 ```
@@ -327,7 +327,7 @@ than having test data in separate files.
 Our function seems to work,
 but we can make it more pipelinesque:
 
-```{r code=readLines("scripts/find_empty_02.R")}
+```{r find-empty-02, code=readLines("scripts/find_empty_02.R")}
 ```
 
 Going line by line once again:
@@ -363,7 +363,7 @@ Going line by line once again:
 
 Here's our first batch of tests:
 
-```{r code=readLines("tests/testthat/test_find_empty_a.R"), eval=FALSE}
+```{r show-test-find-empty-a, code=readLines("tests/testthat/test_find_empty_a.R"), eval=FALSE}
 ```
 
 And here's what happens when we run this file with `test_dir`:
@@ -413,7 +413,7 @@ we decide on the latter,
 which means it's the tests that we need to rewrite,
 not the code:
 
-```{r code=readLines("tests/testthat/test_find_empty_b.R"), eval=FALSE}
+```{r show-test-find-empty-b, code=readLines("tests/testthat/test_find_empty_b.R"), eval=FALSE}
 ```
 
 And here's what happens when we run this file with `test_dir`:
@@ -542,7 +542,7 @@ that will run all our tests when we want to check the integrity of our project.
 Once we have done that
 we can put these five tests in `tests/testthat/test_determine_skip_rows.R`:
 
-```{r code=readLines("tests/testthat/test_determine_skip_rows_a.R"), eval=FALSE}
+```{r show-test-determine-skip-rows-a, code=readLines("tests/testthat/test_determine_skip_rows_a.R"), eval=FALSE}
 ```
 
 and run it:
@@ -562,7 +562,7 @@ what about the other three?
 
 Here is a more robust version of the function:
 
-```{r code=readLines("scripts/determine_skip_rows_b.R"), eval=FALSE}
+```{r show-determine-skip-rows-b, code=readLines("scripts/determine_skip_rows_b.R"), eval=FALSE}
 ```
 
 And here are the results:
@@ -577,8 +577,8 @@ our statistics will be meaningless.
 Tests like these allow our future selves to focus on making new mistakes instead of repeating old ones.
 
 ## Key Points
-```{r, child="keypoints/testerror.md"}
+```{r keypoints, child="keypoints/testerror.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```

@@ -1,13 +1,14 @@
+*.rds
 *~
 .DS_Store
 .Rhistory
 .Rproj.user
+.pytest_cache
 .~lock.*
 __pycache__
 _book
 _bookdown_files
+docs/*.md
 figures/tidynomicon
 tidynomicon.Rmd
 tidynomicon.tex
-docs/*.md
-*.rds

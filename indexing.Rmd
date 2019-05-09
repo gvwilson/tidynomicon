@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/indexing.md"}
+```{r questions, child="questions/indexing.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/indexing.md"}
+```{r objectives, child="objectives/indexing.md"}
 ```
 
 One of the things that newcomers to R often trip over is the various ways in which structures can be indexed.
@@ -169,8 +169,8 @@ a[8]
 ```
 
 ## Key Points
-```{r, child="keypoints/indexing.md"}
+```{r keypoints, child="keypoints/indexing.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```
