@@ -204,7 +204,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>8.4</b> How does R evaluate the same kind of thing?</a></li>
 <li class="chapter" data-level="8.5" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>8.5</b> Why is lazy evaluation useful?</a></li>
 <li class="chapter" data-level="8.6" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>8.6</b> What is tidy evaluation?</a></li>
-<li class="chapter" data-level="8.7" data-path="nse.html"><a href="nse.html#what-have-we-learned"><i class="fa fa-check"></i><b>8.7</b> What have we learned?</a></li>
+<li class="chapter" data-level="8.7" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>8.7</b> Is it worth it?</a></li>
 <li class="chapter" data-level="8.8" data-path="nse.html"><a href="nse.html#key-points-6"><i class="fa fa-check"></i><b>8.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="oop.html"><a href="oop.html"><i class="fa fa-check"></i><b>9</b> Object-Oriented Programming</a><ul>
@@ -612,25 +612,25 @@ Attaching package: &#39;pryr&#39;</code></pre>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7fcaf2bf2408&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7ff3664a5c08&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7fcaf2bf2408 -&gt; 0x7fcaeb56ab88]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fcaeb56ab88 -&gt; 0x7fcaeb56ab08]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fcaeb56ab08 -&gt; 0x7fcaeb56aa88]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fcaeb56aa88 -&gt; 0x7fcaeb56aa48]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7ff3664a5c08 -&gt; 0x7ff366542f88]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff366542f88 -&gt; 0x7ff366542f08]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff366542f08 -&gt; 0x7ff366542e88]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff366542e88 -&gt; 0x7ff366542e48]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
 We can accomplish something a little more readable using <code>address</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
 <span class="kw">cat</span>(<span class="st">&quot;left column is initially at&quot;</span>, <span class="kw">address</span>(left), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>left column is initially at 0x7fcaeb56ab48 </code></pre>
+<pre><code>left column is initially at 0x7ff366542f48 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">cat</span>(<span class="st">&quot;after modification, the original column is still at&quot;</span>, <span class="kw">address</span>(left), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>after modification, the original column is still at 0x7fcaeb56ab48 </code></pre>
+<pre><code>after modification, the original column is still at 0x7ff366542f48 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">cat</span>(<span class="st">&quot;but the first column of the tibble is at&quot;</span>, <span class="kw">address</span>(temp), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
-<pre><code>but the first column of the tibble is at 0x7fcaf2de1e88 </code></pre>
+<pre><code>but the first column of the tibble is at 0x7ff366b41288 </code></pre>
 <p>(We need to use <a href="glossary.html#alias">aliases</a> because <code>address(first$left)</code> doesn’t work:
 the argument needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.

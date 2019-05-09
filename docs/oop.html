@@ -204,7 +204,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>8.4</b> How does R evaluate the same kind of thing?</a></li>
 <li class="chapter" data-level="8.5" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>8.5</b> Why is lazy evaluation useful?</a></li>
 <li class="chapter" data-level="8.6" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>8.6</b> What is tidy evaluation?</a></li>
-<li class="chapter" data-level="8.7" data-path="nse.html"><a href="nse.html#what-have-we-learned"><i class="fa fa-check"></i><b>8.7</b> What have we learned?</a></li>
+<li class="chapter" data-level="8.7" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>8.7</b> Is it worth it?</a></li>
 <li class="chapter" data-level="8.8" data-path="nse.html"><a href="nse.html#key-points-6"><i class="fa fa-check"></i><b>8.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="oop.html"><a href="oop.html"><i class="fa fa-check"></i><b>9</b> Object-Oriented Programming</a><ul>
@@ -337,16 +337,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 and the rest of their time inventing new ways to create more chaos.
 Object-oriented programming serves both needs well:
 it allows good software designers to create marvels,
-and less conscientious or experienced ones to create horrors.</p>
+and less conscientious or less experienced ones to manufacture horrors.</p>
 <p>R has not one, not two, but at least three different frameworks for object-oriented programming.
-By far the most widely used is known as <a href="glossary.html#S3">S3</a>
+By far the most widely used is <a href="glossary.html#S3">S3</a>
 (because it was first introduced with Version 3 of S,
 the language from which R is derived).
-Unlike the approaches used in Java, Python, and similarly pedestrian languages,
+Unlike the approaches used in Python and similarly pedestrian languages,
 S3 does not require users to define classes.
 Instead,
 they add <a href="glossary.html#attribute">attributes</a> to data,
-then write specialized version of <a href="glossary.html#generic-function">generic functions</a>
+then write specialized versions of <a href="glossary.html#generic-function">generic functions</a>
 to process data identified by those attributes.
 Since attributes can be used in other ways as well,
 we will start by exploring them.</p>
@@ -370,9 +370,8 @@ it adds an attribute called <code>class</code> to the vector to identify it as a
 <p>and another attribute called <code>dim</code> to store its dimensions as a 2-element vector:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(m)</code></pre>
 <pre><code>[1] 3 3</code></pre>
-<p>An object’s attributes are simply a set of name-value pairs;
-we can find out what attributes are present using <code>attributes</code>,
-and show or set individual attributes using <code>attr</code>:</p>
+<p>An object’s attributes are simply a set of name-value pairs.
+We can find out what attributes are present using <code>attributes</code> and show or set individual attributes using <code>attr</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attr</span>(m, <span class="st">&quot;prospects&quot;</span>) &lt;-<span class="st"> &quot;dismal&quot;</span>
 <span class="kw">attributes</span>(m)</code></pre>
 <pre><code>$dim
@@ -397,9 +396,9 @@ $row.names
 $class
 [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 <p>This tells us that a tibble is stored as a list (the first line of output),
-that it has an attribute called <code>names</code> that stores the names of its columns,
+and that it has an attribute called <code>names</code> that stores the names of its columns,
 another called <code>row.names</code> that stores the names of its rows (a feature we should ignore),
-and finally three classes.
+and three classes.
 These classes tell R what functions to search for when we are (for example)
 asking for the length of a tibble (which is the number of rows it contains):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(t)</code></pre>
@@ -410,7 +409,7 @@ asking for the length of a tibble (which is the number of rows it contains):</p>
 <p>To show how classes and generic functions work together,
 let’s customize the way that 2D coordinates are converted to strings.
 First,
-we’ll create two coordinate vectors:</p>
+we create two coordinate vectors:</p>
 <pre class="sourceCode r"><code class="sourceCode r">first &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.7</span>)
 <span class="kw">class</span>(first) &lt;-<span class="st"> &quot;two_d&quot;</span>
 <span class="kw">print</span>(first)</code></pre>
@@ -423,7 +422,7 @@ attr(,&quot;class&quot;)
 <pre><code>[1] 1.3 3.1
 attr(,&quot;class&quot;)
 [1] &quot;two_d&quot;</code></pre>
-<p>Separately, let’s define the behavior of <code>toString</code> for such objects:</p>
+<p>Separately, we define the behavior of <code>toString</code> for such objects:</p>
 <pre class="sourceCode r"><code class="sourceCode r">toString.two_d &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
   <span class="kw">paste0</span>(<span class="st">&quot;&lt;&quot;</span>, obj[<span class="dv">1</span>], <span class="st">&quot;, &quot;</span>, obj[<span class="dv">2</span>], <span class="st">&quot;&gt;&quot;</span>)
 }
@@ -432,8 +431,8 @@ attr(,&quot;class&quot;)
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">toString</span>(second)</code></pre>
 <pre><code>[1] &quot;&lt;1.3, 3.1&gt;&quot;</code></pre>
 <p>S3’s protocol is simple:
-given a function F and an object whose class is C,
-it looks for a function named F.C.
+given a function F and an object of class C,
+S3 looks for a function named F.C.
 If it doesn’t find one,
 it looks at the object’s next class (assuming it has more than one);
 once its user-assigned classes are exhausted,
@@ -453,9 +452,9 @@ Unlike languages that require methods to be defined all together as part of a cl
 S3 allows us to add methods when and as we see fit.
 But that doesn’t mean we should:
 minds confined to three dimensions of space and one of time are simply not capable of comprehending
-the staggering complexity that can result from doing so.
+complex class hierarchies.
 Instead,
-we should always write three functions that work together for a class like <code>prospects</code>:</p>
+we should always write three functions that work together for a class like <code>two_d</code>:</p>
 <ul>
 <li>A <a href="glossary.html#constructor">constructor</a> called <code>new_two_d</code>
 that creates objects of our class.</li>
@@ -496,12 +495,12 @@ we would probably include this (inexpensive) check in the constructor.</p>
 <pre><code>Error in validate_two_d(c(1, 3)): class(coordinates) == &quot;two_d&quot; is not TRUE</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">validate_two_d</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># should also fail</span></code></pre>
 <pre><code>Error in validate_two_d(c(2, 2, 2)): length(coordinates) == 2 is not TRUE</code></pre>
-<p>The third and final function in our trio is the helper that provides a user-friendly interface to construction of our class.
+<p>The third and final function in our trio provides a user-friendly way to construct objects of our new class.
 It should call the constructor and the validator (if one exists),
 but should also provide a richer set of defaults,
 better error messages,
 and so on.
-Purely for illustrative purposes,
+To illustrate this,
 we shall allow the user to provide either one argument (which must be a two-element vector)
 or two (which must each be numeric):</p>
 <pre class="sourceCode r"><code class="sourceCode r">two_d &lt;-<span class="st"> </span><span class="cf">function</span>(...){
@@ -531,9 +530,12 @@ and that S3 searches the classes in order when it wants to find a method to call
 Methods can also trigger invocation of other methods explicitly in order to supplement,
 rather than replace,
 the behavior of other classes.
-To explore this,
-we shall look at that classic of object-oriented design, shapes—the safe kind, of course,
-not those whose non-Euclidean angles have placed such intolerable stress on the minds of so many of our colleagues over the years.</p>
+To show how this works,
+we shall look at that classic of object-oriented design: shapes.
+(The safe kind,
+of course,
+not those whose non-Euclidean angles have placed such intolerable stress on the minds of so many of our colleagues over the years.)
+We start by defining a <code>polygon</code> class:</p>
 <pre class="sourceCode r"><code class="sourceCode r">new_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(coords, name) {
   points &lt;-<span class="st"> </span><span class="kw">map</span>(coords, two_d)
   <span class="kw">class</span>(points) &lt;-<span class="st"> &quot;polygon&quot;</span>
@@ -564,7 +566,7 @@ pinkish &lt;-<span class="st"> </span><span class="kw">new_colored_polygon</span
 <p>So far so good:
 since we have not defined a method to handle colored polygons specifically,
 we get the behavior for a regular polygon.
-Let’s add another method:</p>
+Let’s add another method that supplements the behavior of the existing method:</p>
 <pre class="sourceCode r"><code class="sourceCode r">toString.colored_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(poly) {
   <span class="kw">paste0</span>(<span class="kw">toString.polygon</span>(poly), <span class="st">&quot;+ color = &quot;</span>, <span class="kw">attr</span>(poly, <span class="st">&quot;color&quot;</span>))
 }
