@@ -38,7 +38,7 @@ def get_chunks(filename, reader):
                     f'Badly-formed end of chunk {filename}:{i}'
                 in_chunk = False
             else:
-                result.add((filename, i, marker))
+                result.add((filename, i+1, marker))
                 in_chunk = True
 
     return result
@@ -48,7 +48,6 @@ def bad_chunk(chunk):
     '''Is this a badly formed chunk?'''
 
     filename, line_number, marker = chunk
-    print('***', filename, line_number, marker)
 
     # Naked chunk (plain text).
     if marker == MARKER:
