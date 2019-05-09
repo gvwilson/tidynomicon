@@ -5,11 +5,11 @@ source("etc/common.R")
 ```
 
 ## Questions
-```{r, child="questions/nse.md"}
+```{r questions, child="questions/nse.md"}
 ```
 
 ## Learning Objectives
-```{r, child="objectives/nse.md"}
+```{r objectives, child="objectives/nse.md"}
 ```
 
 The biggest difference between R and Python is not where R starts counting,
@@ -20,7 +20,7 @@ Nothing truly makes sense in R until we understand how this works.
 
 Let's start by looking at a small Python program and its output:
 
-```{python}
+```{python py-def-call}
 def ones_func(ones_arg):
     return ones_arg + " ones"
 
@@ -40,7 +40,7 @@ and `ones_func` returns `"start more tens ones"`.
 But there's a lot more going on here than first meets the eye.
 Let's spell out the steps:
 
-```{python, eval=FALSE}
+```{python py-def-call-details}
 def ones_func(ones_arg):
     ones_temp_1 = ones_arg + " ones"
     return ones_temp_1
@@ -58,7 +58,7 @@ print(final)
 
 Step 1: we assign `"start"` to `initial` at the global level:
 
-```{r echo=FALSE, fig.cap="Python Step 1"}
+```{r py-step-1, echo=FALSE, fig.cap="Python Step 1"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-01.pdf")
 } else {
@@ -70,7 +70,7 @@ Step 2: we ask Python to call `tens_func(initial + "more")`,
 so it creates a temporary variable to hold the result of the concatenation
 *before* calling `tens_func`:
 
-```{r echo=FALSE, fig.cap="Python Step 2"}
+```{r py-step-2, echo=FALSE, fig.cap="Python Step 2"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-02.pdf")
 } else {
@@ -80,7 +80,7 @@ if (knitr::is_latex_output()) {
 
 Step 3: Python creates a new stack frame to hold the call to `tens_func`:
 
-```{r echo=FALSE, fig.cap="Python Step 3"}
+```{r py-step-3, echo=FALSE, fig.cap="Python Step 3"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-03.pdf")
 } else {
@@ -94,7 +94,7 @@ since Python passes everything by reference.
 Step 4: we ask Python to call `ones_func(tens_arg + " tens")`,
 so it creates another temporary:
 
-```{r echo=FALSE, fig.cap="Python Step 4"}
+```{r py-step-4, echo=FALSE, fig.cap="Python Step 4"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-04.pdf")
 } else {
@@ -104,7 +104,7 @@ if (knitr::is_latex_output()) {
 
 Step 5: Python creates a new stack frame to hold the call to `ones_func`:
 
-```{r echo=FALSE, fig.cap="Python Step 5"}
+```{r py-step-5, echo=FALSE, fig.cap="Python Step 5"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-05.pdf")
 } else {
@@ -114,7 +114,7 @@ if (knitr::is_latex_output()) {
 
 Step 6: Python creates a temporary to hold `ones_arg + "ones"`:
 
-```{r echo=FALSE, fig.cap="Python Step 6"}
+```{r py-step-6, echo=FALSE, fig.cap="Python Step 6"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-06.pdf")
 } else {
@@ -125,7 +125,7 @@ if (knitr::is_latex_output()) {
 Step 7: Python returns from `ones_func`
 and puts its result in yet another temporary variable in `tens_func`:
 
-```{r echo=FALSE, fig.cap="Python Step 7"}
+```{r py-step-7, echo=FALSE, fig.cap="Python Step 7"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-07.pdf")
 } else {
@@ -136,7 +136,7 @@ if (knitr::is_latex_output()) {
 Step 8: Python returns from `tens_func`
 and puts its result in `final`:
 
-```{r echo=FALSE, fig.cap="Python Step 8"}
+```{r py-step-8, echo=FALSE, fig.cap="Python Step 8"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/python-step-08.pdf")
 } else {
@@ -147,7 +147,7 @@ if (knitr::is_latex_output()) {
 The most important thing here is that Python evaluates expressions *before* it calls functions,
 and passes the results of those evaluations to the functions.
 This is called [eager evaluation](glossary.html#eager-evaluation),
-and is what most modern programming languages do.
+and is what most widely-used programming languages do.
 
 ## How does R evaluate the same kind of thing?
 
@@ -155,7 +155,7 @@ In contrast,
 R uses [lazy evaluation](glossary.html#lazy-evaluation).
 Here's an R program that's roughly equivalent to the Python shown above:
 
-```{r}
+```{r r-def-call}
 ones_func <- function(ones_arg) {
   paste(ones_arg, "ones")
 }
@@ -171,7 +171,7 @@ print(final)
 
 And here it is with the intermediate steps spelled out in a syntax I just made up:
 
-```{r, eval=FALSE}
+```{r r-def-call-details, eval=FALSE}
 ones_func <- function(ones_arg) {
   ones_arg.RESOLVE(@tens_func@, paste(tens_arg, "tens"), "start more tens")
   ones_temp_1 <- paste(ones_arg, "ones")
@@ -231,13 +231,12 @@ and hinges on the fact that
 >     tree <- parse(text = combined)
 >
 > or by calling functions.
-> The function-based approach is safer and more flexible,
-> so once we introduce the way R handles regular function calls,
-> we'll dive into that.
+> The function-based approach is safer and more flexible;
+> see @Wick2019 for details.
 
 Step 1: we assign "start" to `initial` in the [global environment](glossary.html#global-environment):
 
-```{r echo=FALSE, fig.cap="R Step 1"}
+```{r r-step-1, echo=FALSE, fig.cap="R Step 1"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-01.pdf")
 } else {
@@ -252,7 +251,7 @@ so it creates a [promise](glossary.html#promise) to hold:
 -   the expression we're passing to the function, and
 -   the value of that expression (which I'm showing as `____`, since it's initially empty).
 
-```{r echo=FALSE, fig.cap="R Step 2"}
+```{r r-step-2, echo=FALSE, fig.cap="R Step 2"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-02.pdf")
 } else {
@@ -263,7 +262,7 @@ if (knitr::is_latex_output()) {
 and in Step 3,
 passes that into `tens_func`:
 
-```{r echo=FALSE, fig.cap="R Step 3"}
+```{r r-step-3, echo=FALSE, fig.cap="R Step 3"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-03.pdf")
 } else {
@@ -272,7 +271,7 @@ if (knitr::is_latex_output()) {
 ```
 
 Crucially,
-the promise in `tens_func` remembers that it was created in the global environment:
+the promise in `tens_func` remembers that it was created in the [global environment](glossary.html#global-environment):
 it's eventually going to need a value for `initial`,
 so it needs to know where to look to find the right one.
 
@@ -281,7 +280,7 @@ R needs a value for `tens_arg`.
 To get it,
 R evaluates the promise that `tens_arg` refers to:
 
-```{r echo=FALSE, fig.cap="R Step 4"}
+```{r r-step-4 ,echo=FALSE, fig.cap="R Step 4"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-04.pdf")
 } else {
@@ -300,7 +299,7 @@ Steps 5:
 `tens_func` wants to call `ones_func`,
 so R creates another promise to record what's being passed into `ones_func`:
 
-```{r echo=FALSE, fig.cap="R Step 5"}
+```{r r-step-5, echo=FALSE, fig.cap="R Step 5"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-05.pdf")
 } else {
@@ -312,7 +311,7 @@ Step 6:
 R calls `ones_func`,
 binding the newly-created promise to `ones_arg` as it does so:
 
-```{r echo=FALSE, fig.cap="R Step 6"}
+```{r r-step-6, echo=FALSE, fig.cap="R Step 6"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-06.pdf")
 } else {
@@ -324,7 +323,7 @@ Step 7:
 R needs a value for `ones_arg` to pass to `paste`,
 so it resolves the promise:
 
-```{r echo=FALSE, fig.cap="R Step 7"}
+```{r r-step-7, echo=FALSE, fig.cap="R Step 7"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-07.pdf")
 } else {
@@ -334,7 +333,7 @@ if (knitr::is_latex_output()) {
 
 Step 8: `ones_func` uses `paste` to concatenate strings:
 
-```{r echo=FALSE, fig.cap="R Step 8"}
+```{r r-step-8, echo=FALSE, fig.cap="R Step 8"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-08.pdf")
 } else {
@@ -344,7 +343,7 @@ if (knitr::is_latex_output()) {
 
 Step 9: `ones_func` returns:
 
-```{r echo=FALSE, fig.cap="R Step 9"}
+```{r r-step-9, echo=FALSE, fig.cap="R Step 9"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-09.pdf")
 } else {
@@ -354,7 +353,7 @@ if (knitr::is_latex_output()) {
 
 Step 10: `tens_func` returns:
 
-```{r echo=FALSE, fig.cap="R Step 10"}
+```{r r-step-10, echo=FALSE, fig.cap="R Step 10"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/nse/r-step-10.pdf")
 } else {
@@ -370,7 +369,7 @@ and then resolved the promise when the value was needed.
 R *always* does this:
 if we call:
 
-```{r, eval=FALSE}
+```{r call-sign, eval=FALSE}
 sign(2)
 ```
 
@@ -379,7 +378,7 @@ R is creating a promise and passing it to `sign`,
 where it is automatically resolved to get the number 2 when its value is needed.
 (If I wanted to be thorough,
 I would have shown the promises passed into `paste` at each stage of execution above,
-but that's a lot of typing even for me.)
+but that's a lot of typing.)
 
 ## Why is lazy evaluation useful?
 
@@ -390,19 +389,19 @@ it doesn't have to.
 To see how powerful lazy evaluation can be,
 let's create an expression of our own:
 
-```{r}
-my_expr <- expr(a)
+```{r create-expr}
+my_expr <- expr(red)
 ```
 
 Displaying the value of `my_expr` isn't very exciting:
 
-```{r}
+```{r show-expr}
 my_expr
 ```
 
 but what kind of thing is it?
 
-```{r}
+```{r type-of-expr}
 typeof(my_expr)
 ```
 
@@ -411,67 +410,67 @@ It is not a string (though strings can be converted to symbols and symbols to st
 nor is it a value---not yet.
 If we try to get the value it refers to, R displays an error message:
 
-```{r error=TRUE}
+```{r eval-expr-error, error=TRUE}
 eval(my_expr)
 ```
 
-We haven't created a variable called `my_expr`,
+We haven't created a variable called `red`,
 so R cannot evaluate an expression that asks for it.
 
 But what if we create such a variable now and then re-evaluate the expression?
 
-```{r}
-a <- "this is a"
+```{r eval-after-var-def}
+red <- "this is red"
 eval(my_expr)
 ```
 
 More usefully,
-what if we create something that has a value for `a`:
+what if we create something that has a value for `red`:
 
-```{r}
-my_data <- tribble(
-  ~a, ~b,
-  1,  10,
-  2,  20
+```{r create-tibble}
+color_data <- tribble(
+  ~red, ~green,
+     1,     10,
+    20,      2
 )
-my_data
+color_data
 ```
 
-and then ask R to evaluate our expression in the **context** of that tibble:
+and then ask R to evaluate our expression in the [context](glossary.html#context) of that tibble:
 
-```{r}
-eval(my_expr, my_data)
+```{r eval-with-context}
+eval(my_expr, color_data)
 ```
 
 When we do this,
 `eval` looks for definitions of variables in the data structure we've given it---in this case,
-in the tibble `my_data`.
-Since that tibble has a column called `a`,
-`eval(my_expr, my_data)` gives us that column.
+in the tibble `color_data`.
+Since that tibble has a column called `red`,
+`eval(my_expr, color_data)` gives us that column.
 
 This may not seem life-changing yet,
 but being able to pass expressions around
-and evaluate them in various contexts allows us to seem very clever indeed.
+and evaluate them in contexts of our choosing allows us to seem very clever indeed.
 For example,
 let's create another expression:
 
-```{r}
-add_a_b <- expr(a + b)
-typeof(add_a_b)
+```{r expr-add-red-green}
+add_red_green <- expr(red + green)
+typeof(add_red_green)
 ```
 
-The type of `add_a_b` is `language` rather than `symbol` because it contains more than just a symbol,
+The type of `add_red_green` is `language` rather than `symbol` because it contains more than just a symbol,
 but it's still an expression,
 so we can evaluate it in the context of our data frame:
 
-```{r}
-eval(add_a_b, my_data)
+```{r eval-add-red-green}
+eval(add_red_green, color_data)
 ```
 
 Still not convinced?
 Have a look at this function:
 
-```{r}
+```{r def-run-many-checks}
 run_many_checks <- function(data, ...) {
   conditions <- list(...)
   checks <- vector("list", length(conditions))
@@ -486,13 +485,13 @@ It takes a tibble and some logical expressions,
 evaluates each expression in turn,
 and returns a vector of results:
 
-```{r}
-run_many_checks(my_data, expr(0 < a), expr(a < b))
+```{r call-many-checks}
+run_many_checks(color_data, expr(0 < red), expr(red < green))
 ```
 
 We can take it one step further and simply report whether the checks passed or not:
 
-```{r}
+```{r report-run-all-checks}
 run_all_checks <- function(data, ...) {
   conditions <- list(...)
   checks <- vector("logical", length(conditions))
@@ -502,13 +501,7 @@ run_all_checks <- function(data, ...) {
   all(checks)
 }
 
-run_all_checks(my_data, expr(0 < a), expr(a < b))
-```
-
-Just to make sure it's actually working, we'll try something that ought to fail:
-
-```{r}
-run_all_checks(my_data, expr(b < 0))
+run_all_checks(color_data, expr(0 < red), expr(red < green))
 ```
 
 This is cool, but typing `expr(...)` over and over is kind of clumsy.
@@ -516,8 +509,8 @@ It also seems superfluous,
 since we know that arguments aren't evaluated before they're passed into functions.
 Can we get rid of this and write something that does this?
 
-```{r, eval=FALSE}
-check_all(my_data, 0 < a, a < b)
+```{r desired-check-call, eval=FALSE}
+check_all(color_data, 0 < red, red < green)
 ```
 
 The answer is going to be "yes",
@@ -529,46 +522,30 @@ but it's going to take a bit of work.
 > a word (or code snippet) of warning.
 > The first version of `run_many_checks` essentially did this:
 >
-> ```{r}
-> conditions <- list(expr(a + b))
-> eval(conditions[1], my_data)
+> ```{r mistaken-condition, eval=FALSE}
+> conditions <- list(expr(red < green))
+> eval(conditions[1], color_data)
 > ```
 >
 > What I did wrong was use `[` instead of `[[`,
-> which meant that `conditions[1]` was not an expression---it wa a list containing a single expression:
->
-> ```{r}
-> conditions[1]
-> ```
->
+> which meant that `conditions[1]` was not an expression---it wa a list containing a single expression.
 > It turns out that evaluating a list containing an expression produces a list of expressions rather than an error,
 > which is so helpful that it only took me an hour to figure out my mistake.
 
 ## What is tidy evaluation?
 
 Our goal is to write something that looks like it belongs in the tidyverse.
-We'll start by creating a tibble to play with:
-
-```{r}
-both_hands <- tribble(
-  ~left, ~right,
-  1,     10,
-  2,     20
-)
-both_hands
-```
-
 We want to be able to write this:
 
-```{r, eval=FALSE}
-check_all(both_hands, 0 < left, left < right)
+```{r show-better-check-all, eval=FALSE}
+check_all(color_data, 0 < red, red < green)
 ```
 
 without calling `expr` to quote our expressions explicitly.
 For simplicity's sake,
 our first attempt only handles a single expression:
 
-```{r}
+```{r def-check-naive}
 check_naive <- function(data, test) {
   eval(test, data)
 }
@@ -576,45 +553,47 @@ check_naive <- function(data, test) {
 
 When we try it, it fails:
 
-```{r, error=TRUE}
-check_naive(both_hands, left != right)
+```{r check-naive-fails, error=TRUE}
+check_naive(color_data, red != green)
 ```
 
 This makes sense:
 by the time we get to the `eval` call,
-`test` refers to a promise that represents the value of `left != right` in the global environment.
+`test` refers to a promise that represents the value of `red != green` in the global environment.
 Promises are not expressions---each promise contains an expression,
 but it also contains an environment and a copy of the expression's value (if it has ever been calculated).
 As a result,
-when R sees the call to `eval` inside `check_naive` it automatically tries to resolve the promise that contains `left != right`,
+when R sees the call to `eval` inside `check_naive`
+it automatically tries to resolve the promise that contains `left != right`,
 and fails because there are no variables with those names in the global environment.
 
 So how can we get the expression out of the promise without triggering evaluation?
 One way is to use a function called `substitute`:
 
-```{r}
+```{r check-using-substitute}
 check_using_substitute <- function(data, test) {
   subst_test <- substitute(test)
   eval(subst_test, data)
 }
-check_using_substitute(both_hands, left != right)
+check_using_substitute(color_data, red != green)
 ```
 
 However,
 `substitute` is frowned upon because it does one thing when called interactively on the command line
 and something else when called inside a function.
 Instead,
-we should use a function called `enquo` which returns an object called a [quosure](glossary.html#quosure)
+we should use a function called `enquo` from the rlang package.
+`enquo` returns an object called a [quosure](glossary.html#quosure)
 that contains only an unevaluated expression and an environment.
 Let's try using that:
 
 
-```{r}
+```{r check-with-enquo-fail}
 check_using_enquo <- function(data, test) {
   q_test <- enquo(test)
   eval(q_test, data)
 }
-check_using_enquo(both_hands, left != right)
+check_using_enquo(color_data, red != green)
 ```
 
 Ah: a quosure is a structured object,
@@ -622,7 +601,7 @@ so evaluating it just gives it back to us in the same way that evaluating `2` or
 What we want to `eval` is the expression inside the quosure,
 which we can get using `quo_get_expr`:
 
-```{r}
+```{r check-with-enquo-success}
 check_using_quo_get_expr <- function(data, test) {
   q_test <- enquo(test)
   eval(quo_get_expr(q_test), data)
@@ -635,31 +614,30 @@ we're ready to write `check_all`.
 As a reminder,
 our test data looks like this:
 
-```{r}
-both_hands
+```{r show-my-data}
+color_data
 ```
 
-Our first attempt (which only handles a single test) is a deliberate failure:
+Our first attempt (which only handles a single test) is going to fail on purpose
+to demonstrate a common mistake:
 
-```{r, error=TRUE}
+```{r deliberate-failure, error=TRUE}
 check_without_quoting_test <- function(data, test) {
   data %>% transmute(result = test) %>% pull(result) %>% all()
 }
-check_without_quoting_test(both_hands, left < right)
+check_without_quoting_test(color_data, red < green)
 ```
 
-Good:
-we expected that to fail because we're not enquoting the test.
-(If this *had* worked, it would have told us that we still don't understand what we're doing.)
-Let's modify it to enquote and then pass in the expression:
+That failed because we're not enquoting the test.
+Let's modify it the code to enquote and then pass in the expression:
 
-```{r, error=TRUE}
+```{r another-failure, error=TRUE}
 check_without_quoting_test <- function(data, test) {
   q_test <- enquo(test)
   x_test <- quo_get_expr(q_test)
   data %>% transmute(result = x_test) %>% pull(result) %>% all()
 }
-check_without_quoting_test(both_hands, left < right)
+check_without_quoting_test(color_data, red < green)
 ```
 
 Damn---we thought this one had a chance.
@@ -669,19 +647,19 @@ Somehow,
 we need to prevent R from doing that promise wrapping.
 
 This brings us to `enquo`'s partner `!!`,
-which we can use to splice the expression in a quosure into a function call.
+which we can use to [splice](glossary.html#splice) the expression in a quosure into a function call.
 `!!` is pronounced "bang bang" or "oh hell",
 depending on how your day is going.
 It only works in contexts like function calls where R is automatically quoting things for us,
 but if we use it then,
 it does exactly what we want:
 
-```{r, error=TRUE}
+```{r check-using-bang-bang, error=TRUE}
 check_using_bangbang <- function(data, test) {
   q_test <- enquo(test)
   data %>% transmute(result = !!q_test) %>% pull(result) %>% all()
 }
-check_using_bangbang(both_hands, left < right)
+check_using_bangbang(color_data, red < green)
 ```
 
 We are almost in a state of grace.
@@ -690,7 +668,7 @@ The two rules we must follow are:
 1.  Use `enquo` to enquote every argument that contains an unevaluated expression.
 2.  Use `!!` when passing each of those arguments into a tidyverse function.
 
-```{r}
+```{r check-all-complete}
 check_all <- function(data, ...) {
   tests <- enquos(...)
   result <- TRUE
@@ -700,44 +678,45 @@ check_all <- function(data, ...) {
   result
 }
 
-check_all(both_hands, 0 < left, left < right)
+check_all(color_data, 0 < red, red < green)
 ```
 
-And just to make sure that it fails when it's supposed to:
+And just to make sure that it succeeds when it's supposed to:
 
-```{r}
-check_all(both_hands, left > right)
+```{r check-all-pass}
+check_all(color_data, red != green)
 ```
 
 Backing up a bit,
-`!!` works because [there are two broad categories of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
+`!!` works because there are
+[two broad categories of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
 [evaluating functions](glossary.html#evaluating-function) and
 [quoting functions](glossary.html#quoting-function).
 Evaluating functions take arguments as values---they're what most of us are used to working with.
 Quoting functions, on the other hand, aren't passed the values of expressions, but the expressions themselves.
-When we write `both_hands$left`, the `$` function is being passed `both_hands` and the quoted expression `left`.
+When we write `color_data$red`, the `$` function is being passed `color_data` and the quoted expression `red`.
 This is why we can't use variables as field names with `$`:
 
-```{r, error=TRUE}
-the_string_left <- "left"
-both_hands$the_string_left
+```{r cannot-use-variables-with-dollar, error=TRUE}
+the_string_red <- "red"
+color_data$the_string_red
 ```
 
 The square bracket operators `[` and `[[`, on the other hand,
 are evaluating functions,
 so we can give them a variable containing a column name and get either a single-column tibble:
 
-```{r}
-both_hands[the_string_left]     # single square brackets
+```{r can-use-variables-with-brackets-1}
+color_data[the_string_red]     # single square brackets
 ```
 
 or a naked vector:
 
-```{r}
-both_hands[[the_string_left]]   # double square brackets
+```{r can-use-variables-with-brackets-2}
+color_data[[the_string_red]]   # double square brackets
 ```
 
-## What have we learned?
+## Is it worth it?
 
 Delayed evaluation and quoting are confusing for two reasons:
 
@@ -750,11 +729,11 @@ Delayed evaluation and quoting are confusing for two reasons:
 
 If you would like to know more,
 or check that what you now think you understand is accurate,
-[this tutorial][lyttle-tutorial] by Ian Lyttle is a good next step.
+[this tutorial][lyttle-tutorial] is a good next step.
 
 ## Key Points
-```{r, child="keypoints/nse.md"}
+```{r keypoints, child="keypoints/nse.md"}
 ```
 
-```{r, child="etc/links.md"}
+```{r links, child="etc/links.md"}
 ```
