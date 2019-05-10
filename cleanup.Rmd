@@ -16,7 +16,7 @@ Data is not born tidy.
 Here is a sample of data from the original data set `raw/infant_hiv.csv`,
 where `...` shows values elided to make the segment readable:
 
-```text
+```
 "Early Infant Diagnosis: Percentage of infants born to women living with HIV...",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,2009,,,2010,,,2011,,,2012,,,2013,,,2014,,,2015,,,2016,,,2017,,,
 ISO3,Countries,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,...
@@ -52,7 +52,7 @@ values' actual indices have to be synthesized by combining column headings from 
 and so on.
 We want to create the tidy data found in `tidy/infant_hiv.csv`:
 
-```text
+```
 country,year,estimate,hi,lo
 AFG,2009,NA,NA,NA
 AFG,2010,NA,NA,NA
@@ -370,7 +370,9 @@ We could write a loop to grab three columns at a time and relabel them,
 but a more concise solution makes use of two functions called `gather` and `separate`.
 `gather` takes multiple columns and collapses them into key-value pairs.
 To show how it works,
-let's create a small tibble by hand using the function `tribble`:
+let's create a small tibble by hand using the function `tribble`.
+The first few arguments use `~` as a [prefix operator](glossary.html#prefix-operator) to define columns names,
+and all of the other values are then put into a tibble with those columns:
 
 ```{r demonstrate-tribble}
 small <- tribble(

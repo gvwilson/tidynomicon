@@ -594,7 +594,7 @@ print(grouped)
 There are other ways to tackle this problem with Pandas,
 but the tidyverse approach produces code that I find more readable.
 
-## Modeling
+## How do I model my data?
 
 Tidying up data can be as calming and rewarding in the same way as knitting
 or rearranging the specimen jars on the shelves in your dining room-stroke-laboratory.
@@ -645,7 +645,7 @@ Here, the call to `lm` is using the variable `.` to mean "the data coming in fro
 Most of the functions in the tidyverse use this convention
 so that data can be passed to a function that expects it in a position other than the first.
 
-## Plotting
+## How do I create a plot?
 
 One of R's greatest strengths is the tools it gives us for seeing the hitherto unseeable.
 The most popular of these tools is `ggplot2`,
