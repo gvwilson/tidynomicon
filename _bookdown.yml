@@ -16,6 +16,7 @@ rmd_files:
   - nse.Rmd
   - oop.Rmd
   - debt.Rmd
+  - practice.Rmd
   - projects.Rmd
   - shiny.Rmd
   - python.Rmd

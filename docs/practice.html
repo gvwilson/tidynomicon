@@ -5,21 +5,21 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 12 Projects | The Tidynomicon</title>
-  <meta name="description" content="Chapter 12 Projects | The Tidynomicon">
+  <title>Chapter 11 Practice | The Tidynomicon</title>
+  <meta name="description" content="Chapter 11 Practice | The Tidynomicon">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 12 Projects | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 11 Practice | The Tidynomicon" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Chapter 12 Projects | The Tidynomicon" />
+  <meta property="og:description" content="Chapter 11 Practice | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Projects | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 11 Practice | The Tidynomicon" />
   
-  <meta name="twitter:description" content="Chapter 12 Projects | The Tidynomicon" />
+  <meta name="twitter:description" content="Chapter 11 Practice | The Tidynomicon" />
   
 
 <meta name="author" content="Greg Wilson">
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="practice.html">
-<link rel="next" href="shiny.html">
+<link rel="prev" href="debt.html">
+<link rel="next" href="projects.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -322,476 +322,349 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="projects" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Projects</h1>
-<div id="questions-9" class="section level2">
-<h2><span class="header-section-number">12.1</span> Questions</h2>
-<ul>
-<li>How do I create a package in R?</li>
-<li>What can go in an R package?</li>
-<li>How are R packages distributed?</li>
-<li>What data formats can be used in an R package?</li>
-<li>How should I document an R package?</li>
-</ul>
-</div>
-<div id="learning-objectives-9" class="section level2">
-<h2><span class="header-section-number">12.2</span> Learning Objectives</h2>
-<ul>
-<li>Describe the three things an R package can contain.</li>
-<li>Explain how R code in a package is distributed and one implication of this.</li>
-<li>Explain the purpose of the <code>DESCRIPTION</code>, <code>NAMESPACE</code> and <code>.Rbuildignore</code> files in an R project.</li>
-<li>Explain what should be put in the <code>R</code>, <code>data</code>, <code>man</code>, and <code>tests</code> directories of an R project.</li>
-<li>Describe and use specially-formatted comments with roxygen2 to document a package.</li>
-<li>Use <code>@export</code> and <code>@import</code> directives correctly in roxygen2 documentation.</li>
-<li>Add a dataset to an R package.</li>
-<li>Use functions from external libraries inside a package in a hygienic way.</li>
-<li>Rewrite references to bare column names to satisfy R’s packaging checks.</li>
-<li>Correctly document the package as a whole and the datasets it contains.</li>
-</ul>
-<p>Mistakes were made in <a href="cleanup.html">the previous tutorial</a>.
-It would be <a href="glossary.html#hubris">hubris</a> to believe that we will not make more as we continue to clean this data.
-What will guide us safely through these dark caverns and back into the light of day?</p>
-<p>The answer is testing.
-We must test our assumptions, test our code, test our very <em>being</em> if we are to advance.
-Luckily for us,
-R provides tools for this purpose not unlike those available in Python.
-In order to use them,
-we must first venture into the greater realm of packaging in R.</p>
-</div>
-<div id="whats-in-an-r-package" class="section level2">
-<h2><span class="header-section-number">12.3</span> What’s in an R package?</h2>
-<p>Unlike Python,
-with its confusing plethora of packaging tools,
-R has one way to do it.
-Before converting our project into a package,
-we will explore what a package should contain.</p>
-<ul>
-<li>The text file <code>DESCRIPTION</code> (with no suffix) holds most of the package’s metadata,
-including a description of what it,
-who wrote it,
-and what other packages it requires to run.
-We will edit its contents as we go along.</li>
-<li><code>NAMESPACE</code>,
-whose name also has no extension, contains the names of everything exported from the package
-(i.e., everything that is visible to the outside world).
-As we will see,
-we should leave its management in the hands of RStudio.</li>
-<li>Just as <code>.gitignore</code> tells Git what files in a project to ignore,
-<code>.Rbuildignore</code> tells RStudio which files it doesn’t need to worry about
-when building a package from source.</li>
-<li>All of the R source for our package must go in a directory called <code>R</code>;
-sub-directories are not allowed.</li>
-<li>As you would expect from its name,
-the <code>data</code> directory contains all the data in our package.
-In order for it to be loadable as part of the package,
-the data must be saved in <code>.rda</code> format.
-We can use R’s function <code>save</code> to do this
-(and use <code>load</code> in our code to restore it),
-but a better choice is to load the <code>usethis</code> library
-and call <code>usethis::use_data(object, overwrite = TRUE)</code>.</li>
-<li>Manual pages go in the <code>man</code> directory.
-The bad news is that they have to be in a sort-of-LaTeX format
-that is only a bit less obscure than the runes inscribed on the ancient dagger
-your colleague brought back from her latest archeological dig.
-The good news is,
-we can embed comments in our source code and use a tool called roxygen2
-to extract them and format them as required.</li>
-<li>The <code>tests</code> directory holds the package’s unit tests.
-It should contain files with names like <code>test_<em>some_feature</em>.R</code>,
-which should in turn contain functions named <code>test_<em>something_specific</em></code>.
-We’ll have a closer look at these later.</li>
-</ul>
-<p>In order to understand the rest of what follows,
-it’s important to understand that R packages are distributed as compiled bytecode,
-<em>not</em> as source code (which is how Python does it).
-When a package is built,
-R loads and checks the code,
-then saves the corresponding instructions.
-Our R files should therefore define functions,
-not run commands immediately,
-because if they do the latter,
-those commands will be executed every time the script loads,
-which is probably not what users will want.</p>
-<p>As a side effect,
-this means that if a package uses <code>load(something)</code>,
-then that <code>load</code> command is executed <em>while the package is being compiled</em>,
-and <em>not</em> while the compiled package is being loaded by a user after distribution.
-Thus,
-this simple and rather pointless “package”:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
-
-sr &lt;-<span class="st"> </span><span class="cf">function</span>(text, pattern, replacement) {
-  <span class="kw">str_replace</span>(text, pattern, replacement)
-}</code></pre>
-<p>probably won’t work when it’s loaded by a user,
-because <code>stringr</code> may not be in memory on the user’s machine at the time <code>str_replace</code> is called.</p>
-<p>How then can our packages use libraries?
-The safest way is to use <a href="glossary.html#fully-qualified-name">fully-qualified names</a>
-such as <code>stringr::str_replace</code>
-every time we call a function defined somewhere outside our package.
-We will explore other options below.</p>
-<p>And while we’re hedging the statements we have already made:</p>
+<div id="practice" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Practice</h1>
+<p>We have covered a lot in the last few lessons,
+so this one presents some practice exercises to ground what we have learned
+and introduce a few more commonly-used functions.</p>
+<div id="working-with-a-single-tidy-table" class="section level2">
+<h2><span class="header-section-number">11.1</span> Working with a single tidy table</h2>
 <ol style="list-style-type: decimal">
-<li>Data that <em>isn’t</em> meant to be loaded directly into are should go in <code>inst/extdata</code>.
-The first part of the directory name, <code>inst</code>, is short for “install”:
-when the package is installed,
-everything in this directory is bumped up a level and put in the installation directory.
-Thus,
-the installation directory will get a sub-directory called <code>extdata</code> (for “external data”),
-and that can hold whatever we want.</li>
-<li>We should always put <code>LazyData: TRUE</code> in <code>DESCRIPTION</code>
-so that datasets are only loaded on demand.</li>
+<li>Load the tidyverse collection of libraries and the <code>here</code> library for constructing paths:</li>
 </ol>
-</div>
-<div id="how-do-i-create-a-package" class="section level2">
-<h2><span class="header-section-number">12.4</span> How do I create a package?</h2>
-<p>We cannot turn this tutorial into an R package because we’re building it as a website, not as a package.
-Instead, we will create an R package called <code>unicefdata</code> to hold cleaned-up copies of
-<a href="https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/">some HIV/AIDS data</a> and <a href="https://data.unicef.org/resources/dataset/maternal-health-data/">maternal health data</a> from UNICEF.</p>
-<p>The first step is to run RStudio’s project creation wizard.
-We will create <code>unicefdata</code> directly under our home directory,
-make it a Git repository,
-and turn on Packrat (a package manager for R):</p>
-<div class="figure"><span id="fig:unnamed-chunk-4"></span>
-<img src="figures/projects/rstudio-project-creation-wizard.png" alt="RStudio Project Creation Wizard" width="274" />
-<p class="caption">
-Figure 12.1: RStudio Project Creation Wizard
-</p>
-</div>
-<p>Before doing our first commit to version control,
-we remove <code>R/hello.R</code> and <code>man/hello.Rd</code>
-(which the project wizard helpfully provides as starting points),
-and add <code>README.md</code>, <code>LICENSE.md</code>, <code>CONDUCT.md</code>, and <code>CITATION.md</code>
-to describe the project as a whole,
-its license,
-the contributor code of conduct,
-and how we want the project cited.
-These files are nothing to do with R per se
-(and as we’ll see below, R isn’t entirely happy having them here with these names),
-but every project should have all four of these <em>somewhere</em>.</p>
-<p>After committing all of this to version control,
-we copy the data tidying script we wrote previous into <code>R/tidy_datasets.R</code>.
-For reference,
-this is what the file looks like at this point:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-
-<span class="co"># Constants.</span>
-raw_filename &lt;-<span class="st"> &quot;inst/extdata/infant_hiv.csv&quot;</span>
-tidy_filename &lt;-<span class="st"> &quot;/tmp/infant_hiv.csv&quot;</span>
-first_year &lt;-<span class="st"> </span><span class="dv">2009</span>
-last_year &lt;-<span class="st"> </span><span class="dv">2017</span>
-num_rows &lt;-<span class="st"> </span><span class="dv">192</span>
-
-<span class="co"># Get and clean percentages.</span>
-raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(raw_filename, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))
-raw<span class="op">$</span>ISO3[raw<span class="op">$</span>Countries <span class="op">==</span><span class="st"> &quot;Kosovo&quot;</span>] &lt;-<span class="st"> &quot;UNK&quot;</span>
-sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span>num_rows)
-countries &lt;-<span class="st"> </span>sliced<span class="op">$</span>ISO3
-percents &lt;-<span class="st"> </span>sliced <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_dfr</span>(str_replace, <span class="dt">pattern =</span> <span class="st">&quot;&gt;?(</span><span class="ch">\\</span><span class="st">d+)%&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">map_dfr</span>(<span class="cf">function</span>(col) <span class="kw">as.numeric</span>(col) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
-
-<span class="co"># Separate three-column chunks and add countries and years.</span>
-num_years &lt;-<span class="st"> </span>(last_year <span class="op">-</span><span class="st"> </span>first_year) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-chunks &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, num_years)
-<span class="cf">for</span> (year <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_years) {
-  start =<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>(year <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-  chunks[[year]] &lt;-<span class="st"> </span><span class="kw">select</span>(percents, start<span class="op">:</span>(start <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">rename</span>(<span class="dt">estimate =</span> <span class="dv">1</span>, <span class="dt">hi =</span> <span class="dv">2</span>, <span class="dt">lo =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">country =</span> countries,
-           <span class="dt">year =</span> <span class="kw">rep</span>((first_year <span class="op">+</span><span class="st"> </span>year) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, num_rows)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())
-}
-
-<span class="co"># Combine chunks and order by country and year.</span>
-tidy &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(chunks) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(country, year)
-
-<span class="co"># Check.</span>
-<span class="kw">write_csv</span>(tidy, tidy_filename)</code></pre>
-<p>We’re going to need to wrap this up as a function
-so that these commands aren’t executed while the library loads,
-and we should probably also allow the user to specify the locations of the input and output files—we’ll come back
-and do all of this later.</p>
-<p>First,
-though,
-let’s edit <code>DESCRIPTION</code> and:</p>
-<ol style="list-style-type: decimal">
-<li>change the <code>Title</code>, <code>Author</code>, <code>Maintainer</code>, and <code>Description</code>;</li>
-<li>change the <code>License</code> to <a href="https://choosealicense.com/licenses/mit/"><code>MIT</code></a> (see <a href="https://choosealicense.com/">Choose a License</a> for other options); and</li>
-<li>go to the <code>Build</code> tab in RStudio and run ’Check` to see if our package meets CRAN’s standards.</li>
+<span class="kw">library</span>(here)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>here::here</code> to construct a path to a file and <code>readr::read_csv</code> to read that file:</li>
 </ol>
-<p>A note on this:
-<a href="https://cran.r-project.org/">CRAN</a> is the Comprehensive R Archive Network.
-Like the <a href="https://pypi.org/">Python Package Index</a>,
-it is the place to go to find the packages you need.
-CRAN’s rules are famously strict,
-which ensures that packages run for everyone,
-but which also makes package development a little more onerous than it might be.</p>
-<p>For example,
-when we run <code>Check</code>,
-we get this:</p>
-<pre class="text"><code>* checking top-level files ... NOTE
-Non-standard files/directories found at top level:
-  &#39;CITATION.md&#39; &#39;CONDUCT.md&#39; &#39;LICENSE.md&#39;
-...
-Found the following CITATION file in a non-standard place:
-  CITATION.md
-Most likely &#39;inst/CITATION&#39; should be used instead.</code></pre>
-<p>After a bit of searching online,
-we rearrange these files as follows:</p>
-<ol style="list-style-type: decimal">
-<li><code>LICENSE.md</code> becomes <code>LICENSE</code> with no extension (but still in the root directory).</li>
-<li>The <code>DESCRIPTION</code> entry for the license is updated to <code>License: MIT + file LICENSE</code> (spelled exactly that way).</li>
-<li>We add lines to <code>.Rbuildignore</code> to tell R to ignore <code>CITATION.md</code> and <code>CONDUCT.md</code>.
-We could instead move <code>CITATION.md</code> to <code>inst/CITATION</code>
-so that it will be copied into the root of the installation directory on users’ machines,
-but a lot of people expect to find the citation description in the root directory of the original project.
-We could also duplicate the file,
-and once the package is mature enough to deploy,
-that might be the best answer.</li>
+<pre class="sourceCode r"><code class="sourceCode r">path =<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;survey&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)
+person &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(path)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  person_id = col_character(),
+  personal_name = col_character(),
+  family_name = col_character()
+)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">person</code></pre>
+<pre><code># A tibble: 5 x 3
+  person_id personal_name family_name
+  &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;      
+1 dyer      William       Dyer       
+2 pb        Frank         Pabodie    
+3 lake      Anderson      Lake       
+4 roe       Valentina     Roerich    
+5 danforth  Frank         Danforth   </code></pre>
+<p><em>Read <code>survey/site.csv</code>.</em></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Count rows and columns using <code>nrow</code> and <code>ncol</code>:</li>
 </ol>
-<p>These changes fix the warnings about non-standard files in non-standard places,
-but we are far from done—we also have this to deal with:</p>
-<pre class="text"><code>checking for missing documentation entries ... WARNING
-Undocumented code objects:
-  &#39;tidy_infant_hiv&#39;
-All user-level objects in a package should have documentation entries.</code></pre>
-<p>Fair enough—we want people to know what our package is for and how to use it,
-so a little documentation seems like a fair request.
-For this,
-we turn to Hadley Wickham’s <em><a href="http://r-pkgs.had.co.nz/">R Packages</a></em>
-and Karl Broman’s “<a href="https://kbroman.org/pkg_primer/">R package primer</a>”
-for advice on writing roxygen2 documentation.
-We then return to our source file and wrap our existing code with this:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Tidy up the infant HIV data set.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @param src_path path to source file</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @return a tibble of tidy data</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @export</span>
-
-tidy_infant_hiv &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
-  <span class="co"># ...all the code from before...</span>
-  <span class="co"># Return the final tidy dataset.</span>
-  tidy
-}</code></pre>
-<p>roxygen2 processes comment lines that start with <code>#'</code> (hash followed by single quote).
-Putting a comment block right before a function associates that documentation with that function;
-here,
-we are saying that:</p>
-<ul>
-<li>the function has a single parameter called <code>src_path</code>;</li>
-<li>it returns a tibble of tidy data; and</li>
-<li>we want it exported (i.e., we want it to be visible outside the package).</li>
-</ul>
-<p>Our function is now documented,
-but when we run <code>Check</code>,
-we still get a warning.
-After a bit more searching and experimentation,
-we discover that we need to load the <code>devtools</code> package
-and run <code>devtools::document()</code> to regenerate documentation:
-it isn’t done automatically.
-When we do this,
-we get good news and bad news:</p>
-<pre class="text"><code>Updating unicefdata documentation
-Loading unicefdata
-First time using roxygen2. Upgrading automatically...
-Updating roxygen version in /Users/gvwilson/unicefdata/DESCRIPTION
-Warning: The existing &#39;NAMESPACE&#39; file was not generated by roxygen2, and will not be overwritten.
-Writing tidy_infant_hiv.Rd</code></pre>
-<p>Ah—the tutorials did warn us about this.
-We need to delete <code>NAMESPACE</code> and re-run <code>devtools:document()</code>
-in order to create this file:</p>
-<pre class="text"><code># Generated by roxygen2: do not edit by hand
-
-export(tidy_infant_hiv)</code></pre>
-<p>The comment at the start tells roxygen2 it can overwrite the file,
-and reminds us that we shouldn’t edit it by hand.
-The <code>export(tidy_infant_hiv)</code> directive is what we really want:
-as you might guess,
-it tells the package builder which function to make visible.</p>
-<p>After doing this,
-we go into “Build…More…Configure build tools” and check “Generate documentation with Roxygen”.
-Running the build again gives us:</p>
-<pre class="text"><code>tidy_infant_hiv: no visible global function definition for &#39;read_csv&#39;
-tidy_infant_hiv: no visible global function definition for &#39;slice&#39;
-tidy_infant_hiv: no visible global function definition for &#39;%&gt;%&#39;
-tidy_infant_hiv: no visible global function definition for &#39;select&#39;
-...several more...
-tidy_infant_hiv: no visible global function definition for &#39;bind_rows&#39;
-tidy_infant_hiv: no visible global function definition for &#39;arrange&#39;
-Undefined global functions or variables:
-  %&gt;% Countries ISO3 arrange bind_rows country everything map_dfr
-  mutate read_csv rename select slice str_replace year</code></pre>
-<p>This is the package loading problem mentioned earlier:
-since our compiled-and-distributable package will only contain the bytecodes for its own functions,
-direct calls to functions from other libraries won’t work after the package is installed.
-We will demonstrate two ways to fix this.
-First,
-we can add this to the roxygen2 comment block for our function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; @import dplyr</span>
-<span class="co">#&#39; @importFrom magrittr %&gt;%</span></code></pre>
-<p>which tells the package builder that we want all of the functions in these two packages available.
-Second (and more properly) we can change various call to use their package prefix, e.g.:</p>
-<pre class="text"><code>  percents &lt;- sliced %&gt;%
-    select(ISO3, Countries) %&gt;%
-    purrr::map_dfr(stringr::str_replace, pattern = &quot;&gt;?(\\d+)%&quot;, replacement = &quot;\\1&quot;) %&gt;%
-    purrr::map_dfr(function(col) as.numeric(col) / 100)</code></pre>
-<p>This changes the error to one that is slightly more confusing:</p>
-<pre class="text"><code>* checking package dependencies ... ERROR
-Namespace dependencies not required: &#39;dplyr&#39; &#39;magrittr&#39;
-
-See section &#39;The DESCRIPTION file&#39; in the &#39;Writing R Extensions&#39;
-manual.
-* DONE
-Status: 1 ERROR
-checking package dependencies ... ERROR
-Namespace dependencies not required: &#39;dplyr&#39; &#39;magrittr&#39;</code></pre>
-<p>More searching,
-more experimentation,
-and finally we add this to the <code>DESCRIPTION</code> file:</p>
-<pre class="text"><code>Imports:
-    readr (&gt;= 1.1.0),
-    dplyr (&gt;= 0.7.0),
-    magrittr (&gt;= 1.5.0),
-    purrr (&gt;= 0.2.0),
-    rlang (&gt;= 0.3.0),
-    stringr (&gt;= 1.3.0)</code></pre>
-<p>The <code>Imports</code> field in <code>DESCRIPTION</code> actually has nothing to do with importing functions;
-it just ensures that those packages are installed when this package is.
-As for the version numbers in parentheses,
-we got those by running <code>packageVersion("readr")</code> and similar commands inside RStudio
-and then rounding off.</p>
-<p>All right: are we done now?
-No, we are not:</p>
-<pre class="text"><code>checking R code for possible problems ... NOTE
-tidy_infant_hiv: no visible binding for global variable &#39;ISO3&#39;
-tidy_infant_hiv: no visible binding for global variable &#39;Countries&#39;
-tidy_infant_hiv: no visible binding for global variable &#39;country&#39;
-tidy_infant_hiv: no visible binding for global variable &#39;year&#39;</code></pre>
-<p>This is annoying but understandable.
-When the package builder is checking our code,
-it has no idea what columns are going to be in our data frames,
-so it has no way to know if <code>ISO3</code> or <code>Countries</code> will cause a problem.
-However,
-this is just a <code>NOTE</code>, not an <code>ERROR</code>,
-so we can try running “Build…Install and Restart”
-to build our package,
-re-start our R session (so that memory is clean),
-and load our newly-created package,
-and then run <code>tidy_infant_hiv("inst/extdata/infant_hiv.csv")</code>.
-This produces:</p>
-<pre class="text"><code>Error in read_csv(src_path, skip = 2, na = c(&quot;-&quot;)) : 
-  could not find function &quot;read_csv&quot;</code></pre>
-<p>After calling upon the names of Those Who Shall Not Be Named
-and making a fresh cup of tea,
-we re-read our code and realize that we forgot to rename <code>read_csv</code> to <code>readr::read_csv</code>.
-Fixing this doesn’t fix the problem with column names, though;
-to do that,
-we add this to the roxygen2 comment block:</p>
-<pre class="text"><code>#&#39; @importFrom rlang .data</code></pre>
-<p>and then modify the calls that use naked column names to be:</p>
-<pre class="text"><code>    select(-.data$ISO3, -.data$Countries) %&gt;%
-    ...
-    select(.data$country, .data$year, everything())
-    ...
-    arrange(.data$country, .data$year)</code></pre>
-<p>What is this <code>.data</code> that we have invoked?
-Typing <code>?rlang::.data</code> gives us the answer:
-it is a pronoun that allows us to be explicit when we refer to an object inside the data.
-Adding this—i.e.,
-being explicity that <code>country</code> is a column of <code>.data</code> rather than an undefined variable—finally
-(finally)
-gives us a clean build.</p>
-<p>But we are not done,
-because we are never <em>truly</em> done,
-any more than we are ever truly safe.
-We still need to add our cleaned-up data to our package
-and document the package as a whole.
-There are three steps to this.</p>
-<p>First, we load and clean the data, storing the cleaned tibble in a variable called <code>infant_hiv</code>,
-then load the <code>usethis</code> package and called <code>usethis::use_data(infant_hiv)</code>
-to store the tibble in <code>data/infant_hiv.rda</code>.
-(We could just call <code>save</code> with the appropriate parameters,
-but <code>usethis</code> is a useful set of tools for creating and managing R projects,
-and in retrospect,
-we should have started using it earlier.)
-Note: we <em>must</em> save the data as <code>.rda</code>, not as (for example) <code>.rds</code> or <code>.csv</code>;
-only <code>.rda</code> will be automatically loaded as part of the project.</p>
-<p>Second,
-we create a file called <code>R/infant_hiv.R</code> to hold documentation about the dataset
-and put this in it:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Tidied infant HIV data.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; This tidy data is derived from the `infant_hiv.csv` file, which in turn is</span>
-<span class="co">#&#39; derived from an Excel spreadsheet provided by UNICEF - see the README.md file</span>
-<span class="co">#&#39; in the raw data directory for details.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @format A data frame</span>
-<span class="co">#&#39; \describe{</span>
-<span class="co">#&#39;   \item{country}{Country reporting (ISO3 code)}</span>
-<span class="co">#&#39;   \item{year}{Year reported}</span>
-<span class="co">#&#39;   \item{estimate}{Best estimate of rate (may be NA)}</span>
-<span class="co">#&#39;   \item{hi}{High end of estimate range (may be NA)}</span>
-<span class="co">#&#39;   \item{lo}{Low end of estimate range (may be NA)}</span>
-<span class="co">#&#39; }</span>
-<span class="st">&quot;infant_hiv&quot;</span></code></pre>
-<p>Everything except the last line is a roxygen2 comment block
-that describes the data in plain language,
-then uses some tags and directives to document its format and fields.
-(Note that we have also documented our data in <code>inst/extdata/README.md</code>,
-but that focuses on the format and meaning of the raw data,
-not the cleaned-up version.)</p>
-<p>The last line is the string <code>"infant_hiv"</code>,
-i.e.,
-the name of the dataset.
-We will create one placeholder R file like this for each of our datasets,
-and each will have that dataset’s name as the thing being documented.</p>
-<p>We use a similar trick to document the package as a whole:
-we create a file <code>R/unicefdata.R</code>
-(i.e., a file with exactly the same name as the package)
-and put this in it:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Clean up and share some data from UNICEF on infant HIV rates and maternal mortality.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @author Greg Wilson, \email{greg.wilson@rstudio.com}</span>
-<span class="co">#&#39; @docType package</span>
-<span class="co">#&#39; @name unicefdata</span>
-<span class="ot">NULL</span></code></pre>
-<p>That’s right:
-to document the entire package,
-we document <code>NULL</code>,
-which is one of the few times R uses call-by-value.
-(That’s a fairly clumsy joke,
-but honestly,
-who among us is at our best at times like these?)</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(person)</code></pre>
+<pre><code>[1] 5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(person)</code></pre>
+<pre><code>[1] 3</code></pre>
+<p><em>How many rows and columns are in the site data?</em></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Format strings using <code>glue::glue</code>:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person has {nrow(person)} rows and {ncol(person)} columns&quot;</span>))</code></pre>
+<pre><code>person has 5 rows and 3 columns</code></pre>
+<p><em>Print a nicely-formatted summary of the number of rows and columns in the site data.</em></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Use <code>colnames</code> to get the names of columns and <code>paste</code> to join strings together:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person columns are {paste(colnames(person), collapse = &#39; &#39;)}&quot;</span>))</code></pre>
+<pre><code>person columns are person_id personal_name family_name</code></pre>
+<p><em>Print a nicely-formatted summary of the names of the columns in the site data.</em></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Use <code>dplyr::select</code> to create a new table with a subset of columns by name:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">select</span>(person, family_name, personal_name)</code></pre>
+<pre><code># A tibble: 5 x 2
+  family_name personal_name
+  &lt;chr&gt;       &lt;chr&gt;        
+1 Dyer        William      
+2 Pabodie     Frank        
+3 Lake        Anderson     
+4 Roerich     Valentina    
+5 Danforth    Frank        </code></pre>
+<p><em>Create a table with just the latitudes and longitudes of sites.</em></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Use <code>dplyr::filter</code> to create a new table with a subset of rows by values:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">filter</span>(person, family_name <span class="op">&lt;</span><span class="st"> &quot;M&quot;</span>)</code></pre>
+<pre><code># A tibble: 3 x 3
+  person_id personal_name family_name
+  &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;      
+1 dyer      William       Dyer       
+2 lake      Anderson      Lake       
+3 danforth  Frank         Danforth   </code></pre>
+<p><em>Create a table with only sites south of -48 degrees.</em></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Use the pipe operator <code>%&gt;%</code> to combine operations:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(family_name, personal_name) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(family_name <span class="op">&lt;</span><span class="st"> &quot;M&quot;</span>)</code></pre>
+<pre><code># A tibble: 3 x 2
+  family_name personal_name
+  &lt;chr&gt;       &lt;chr&gt;        
+1 Dyer        William      
+2 Lake        Anderson     
+3 Danforth    Frank        </code></pre>
+<p><em>Create a table with only the latitudes and longitudes of sites south of -48 degrees.</em></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Use <code>dplyr::mutate</code> to create a new column with calculated values and <code>stringr::str_length</code> to calculate string length:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name))</code></pre>
+<pre><code># A tibble: 5 x 4
+  person_id personal_name family_name name_length
+  &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;             &lt;int&gt;
+1 dyer      William       Dyer                  4
+2 pb        Frank         Pabodie               7
+3 lake      Anderson      Lake                  4
+4 roe       Valentina     Roerich               7
+5 danforth  Frank         Danforth              8</code></pre>
+<p><em>Use the built-in function <code>round</code> to create a table with latitudes and longitudes rounded to integers.</em></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Use <code>dplyr::arrange</code> to order rows and (optionally) <code>dplyr::desc</code> to impose descending order:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(dplyr<span class="op">::</span><span class="kw">desc</span>(name_length))</code></pre>
+<pre><code># A tibble: 5 x 4
+  person_id personal_name family_name name_length
+  &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;             &lt;int&gt;
+1 danforth  Frank         Danforth              8
+2 pb        Frank         Pabodie               7
+3 roe       Valentina     Roerich               7
+4 dyer      William       Dyer                  4
+5 lake      Anderson      Lake                  4</code></pre>
+<p><em>Create a table sorted by decreasing longitude (i.e., most negative longitude last).</em></p>
 </div>
-<div id="key-points-9" class="section level2">
-<h2><span class="header-section-number">12.5</span> Key Points</h2>
-<ul>
-<li>An R package can contain code, data, and documentation.</li>
-<li>R code is distributed as compiled bytecode in packages, not as source.</li>
-<li>R packages are almost always distributed through CRAN, the Comprehensive R Archive Network.</li>
-<li>Most of a project’s metadata goes in a file called <code>DESCRIPTION</code>.</li>
-<li>Metadata related to imports and exports goes in a file called <code>NAMESPACE</code>.</li>
-<li>Add patterns to a file called <code>.Rbuildignore</code> to ignore files or directories when building a project.</li>
-<li>All source code for a package must go in the <code>R</code> sub-directory.</li>
-<li><code>library</code> calls in a package’s source code will <em>not</em> be executed as the package is loaded after distribution.</li>
-<li>Data can be included in a package by putting it in the <code>data</code> sub-directory.</li>
-<li>Data must be in <code>.rda</code> format in order to be loaded as part of a package.</li>
-<li>Data in other formats can be put in the <code>inst/extdata</code> directory, and will be installed when the package is installed.</li>
-<li>Add comments starting with <code>#'</code> to an R file to document functions.</li>
-<li>Use roxygen2 to extract these comments to create manual pages in the <code>man</code> directory.</li>
-<li>Use <code>@export</code> directives in roxygen2 comment blocks to make functions visible outside a package.</li>
-<li>Add required libraries to the <code>Imports</code> section of the <code>DESCRIPTION</code> file to indicate that your package depends on them.</li>
-<li>Use <code>package::function</code> to access externally-defined functions inside a package.</li>
-<li>Alternatively, add <code>@import</code> directives to roxygen2 comment blocks to make external functions available inside the package.</li>
-<li>Import <code>.data</code> from <code>rlang</code> and use <code>.data$column</code> to refer to columns instead of using bare column names.</li>
-<li>Create a file called <code>R/<em>package</em>.R</code> and document <code>NULL</code> to document the package as a whole.</li>
-<li>Create a file called <code>R/<em>dataset</em>.R</code> and document the string <code>‘<em>dataset</em>’</code> to document a dataset.</li>
-</ul>
+<div id="working-with-grouped-data" class="section level2">
+<h2><span class="header-section-number">11.2</span> Working with grouped data</h2>
+<ol style="list-style-type: decimal">
+<li>Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">measurements &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;survey&quot;</span>, <span class="st">&quot;measurements.csv&quot;</span>))</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  visit_id = col_integer(),
+  visitor = col_character(),
+  quantity = col_character(),
+  reading = col_double()
+)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(measurements)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Find rows where <code>reading</code> is not NA and saved as <code>cleaned</code>:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>measurements <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(reading))
+cleaned</code></pre>
+<pre><code># A tibble: 20 x 4
+   visit_id visitor quantity reading
+      &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+ 1      619 dyer    rad         9.82
+ 2      619 dyer    sal         0.13
+ 3      622 dyer    rad         7.8 
+ 4      622 dyer    sal         0.09
+ 5      734 pb      rad         8.41
+ 6      734 lake    sal         0.05
+ 7      734 pb      temp      -21.5 
+ 8      735 pb      rad         7.22
+ 9      735 &lt;NA&gt;    sal         0.06
+10      735 &lt;NA&gt;    temp      -26   
+11      751 pb      rad         4.35
+12      751 pb      temp      -18.5 
+13      752 lake    rad         2.19
+14      752 lake    sal         0.09
+15      752 lake    temp      -16   
+16      752 roe     sal        41.6 
+17      837 lake    rad         1.46
+18      837 lake    sal         0.21
+19      837 roe     sal        22.5 
+20      844 roe     rad        11.2 </code></pre>
+<p><em>Rewrite the filter expression to select rows where the visitor and quantity are not NA either.</em></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Group measurements by quantity measured and count the number of each (the column is named <code>n</code> automatically):</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>()</code></pre>
+<pre><code># A tibble: 3 x 2
+# Groups:   quantity [3]
+  quantity     n
+  &lt;chr&gt;    &lt;int&gt;
+1 rad          8
+2 sal          7
+3 temp         3</code></pre>
+<p><em>Group by person and quantity measured.</em></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Find the minimum, average, and maximum for each quantity:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">low =</span> <span class="kw">min</span>(reading), <span class="dt">mid =</span> <span class="kw">mean</span>(reading), <span class="dt">high =</span> <span class="kw">max</span>(reading))</code></pre>
+<pre><code># A tibble: 3 x 4
+  quantity    low    mid  high
+  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 rad        1.46   6.56  11.2
+2 sal        0.05   9.24  41.6
+3 temp     -21.5  -18.7  -16  </code></pre>
+<p><em>Look at the range for each combination of person and quantity.</em></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Rescale salinity measurements that are greater than 1:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">reading =</span> <span class="kw">ifelse</span>(quantity <span class="op">==</span><span class="st"> &#39;sal&#39;</span> <span class="op">&amp;</span><span class="st"> </span>reading <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.0</span>, reading<span class="op">/</span><span class="dv">100</span>, reading))
+cleaned</code></pre>
+<pre><code># A tibble: 18 x 4
+   visit_id visitor quantity reading
+      &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+ 1      619 dyer    rad        9.82 
+ 2      619 dyer    sal        0.13 
+ 3      622 dyer    rad        7.8  
+ 4      622 dyer    sal        0.09 
+ 5      734 pb      rad        8.41 
+ 6      734 lake    sal        0.05 
+ 7      734 pb      temp     -21.5  
+ 8      735 pb      rad        7.22 
+ 9      751 pb      rad        4.35 
+10      751 pb      temp     -18.5  
+11      752 lake    rad        2.19 
+12      752 lake    sal        0.09 
+13      752 lake    temp     -16    
+14      752 roe     sal        0.416
+15      837 lake    rad        1.46 
+16      837 lake    sal        0.21 
+17      837 roe     sal        0.225
+18      844 roe     rad       11.2  </code></pre>
+<p><em>Do the same calculation use <code>case_when</code>.</em></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Read <code>visited.csv</code>, drop the NAs, and join with the cleaned-up table of readings:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;survey&quot;</span>, <span class="st">&quot;visited.csv&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(visit_date)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">inner_join</span>(cleaned, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;visit_id&quot;</span> =<span class="st"> &quot;visit_id&quot;</span>))</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  visit_id = col_integer(),
+  site_id = col_character(),
+  visit_date = col_date(format = &quot;&quot;)
+)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned</code></pre>
+<pre><code># A tibble: 14 x 6
+   visit_id site_id visit_date visitor quantity reading
+      &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+ 1      619 DR-1    1927-02-08 dyer    rad        9.82 
+ 2      619 DR-1    1927-02-08 dyer    sal        0.13 
+ 3      622 DR-1    1927-02-10 dyer    rad        7.8  
+ 4      622 DR-1    1927-02-10 dyer    sal        0.09 
+ 5      734 DR-3    1930-01-07 pb      rad        8.41 
+ 6      734 DR-3    1930-01-07 lake    sal        0.05 
+ 7      734 DR-3    1930-01-07 pb      temp     -21.5  
+ 8      735 DR-3    1930-01-12 pb      rad        7.22 
+ 9      751 DR-3    1930-02-26 pb      rad        4.35 
+10      751 DR-3    1930-02-26 pb      temp     -18.5  
+11      837 MSK-4   1932-01-14 lake    rad        1.46 
+12      837 MSK-4   1932-01-14 lake    sal        0.21 
+13      837 MSK-4   1932-01-14 roe     sal        0.225
+14      844 DR-1    1932-03-22 roe     rad       11.2  </code></pre>
+<p><em>Join <code>visited.csv</code> with <code>site.csv</code> to get (date, latitude, longitude) triples for site visits.</em></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Find the dates of the highest radiation reading at each site:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">max_rad =</span> <span class="kw">max</span>(reading)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</code></pre>
+<pre><code># A tibble: 3 x 7
+# Groups:   site_id [3]
+  visit_id site_id visit_date visitor quantity reading max_rad
+     &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+1      734 DR-3    1930-01-07 pb      rad         8.41    8.41
+2      837 MSK-4   1932-01-14 lake    rad         1.46    1.46
+3      844 DR-1    1932-03-22 roe     rad        11.2    11.2 </code></pre>
+<p>Another way to do it:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">top_n</span>(<span class="dv">1</span>, reading) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(site_id, visit_date, reading)</code></pre>
+<pre><code># A tibble: 3 x 3
+# Groups:   site_id [3]
+  site_id visit_date reading
+  &lt;chr&gt;   &lt;date&gt;       &lt;dbl&gt;
+1 DR-3    1930-01-07    8.41
+2 MSK-4   1932-01-14    1.46
+3 DR-1    1932-03-22   11.2 </code></pre>
+<p><em>Explain why this <strong>doesn’t</strong> work.</em></p>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">max_rad =</span> <span class="kw">max</span>(reading)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</code></pre>
+<pre><code>Error in filter_impl(.data, quo): Evaluation error: object &#39;reading&#39; not found.</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Normalize radiation against the highest radiation seen per site:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(
+    <span class="dt">max_rad =</span> <span class="kw">max</span>(reading),
+    <span class="dt">frac_rad =</span> reading <span class="op">/</span><span class="st"> </span>max_rad) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(visit_id, site_id, visit_date, frac_rad)</code></pre>
+<pre><code># A tibble: 7 x 4
+# Groups:   site_id [3]
+  visit_id site_id visit_date frac_rad
+     &lt;int&gt; &lt;chr&gt;   &lt;date&gt;        &lt;dbl&gt;
+1      619 DR-1    1927-02-08    0.873
+2      622 DR-1    1927-02-10    0.693
+3      734 DR-3    1930-01-07    1    
+4      735 DR-3    1930-01-12    0.859
+5      751 DR-3    1930-02-26    0.517
+6      837 MSK-4   1932-01-14    1    
+7      844 DR-1    1932-03-22    1    </code></pre>
+<p><em>Normalize salinity against mean salinity by site.</em></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Find stepwise change in radiation per site by date:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">delta_rad =</span> reading <span class="op">-</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">lag</span>(reading)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(site_id, visit_date)</code></pre>
+<pre><code># A tibble: 7 x 7
+# Groups:   site_id [3]
+  visit_id site_id visit_date visitor quantity reading delta_rad
+     &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+1      619 DR-1    1927-02-08 dyer    rad         9.82     NA   
+2      622 DR-1    1927-02-10 dyer    rad         7.8      -2.02
+3      844 DR-1    1932-03-22 roe     rad        11.2       3.45
+4      734 DR-3    1930-01-07 pb      rad         8.41     NA   
+5      735 DR-3    1930-01-12 pb      rad         7.22     -1.19
+6      751 DR-3    1930-02-26 pb      rad         4.35     -2.87
+7      837 MSK-4   1932-01-14 lake    rad         1.46     NA   </code></pre>
+<p><em>Find length of time between visits by site.</em></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Find sites that experience any stepwise increase in radiation between visits:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">delta_rad =</span> reading <span class="op">-</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">lag</span>(reading)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(delta_rad)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">any_increase =</span> <span class="kw">any</span>(delta_rad <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(any_increase)</code></pre>
+<pre><code># A tibble: 1 x 2
+  site_id any_increase
+  &lt;chr&gt;   &lt;lgl&gt;       
+1 DR-1    TRUE        </code></pre>
+<p><em>Find sites with visits more than one year apart.</em></p>
 
 </div>
 </div>
@@ -800,8 +673,8 @@ who among us is at our best at times like these?)</p>
           </div>
         </div>
       </div>
-<a href="practice.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="shiny.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="debt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="projects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -831,7 +704,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/gvwilson/tidynomicon/edit/master/projects.Rmd",
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/practice.Rmd",
 "text": "Edit"
 },
 "history": {

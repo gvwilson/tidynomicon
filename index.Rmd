@@ -18,7 +18,7 @@ description: "The Tidynomicon"
 source("etc/common.R")
 ```
 
-```{r logo, echo=FALSE, out.width="50%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
+```{r logo, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/index/cthulhu.pdf")
 } else {
