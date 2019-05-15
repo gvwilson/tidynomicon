@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-14">
+<meta name="date" content="2019-05-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -233,6 +233,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>11</b> Practice</a><ul>
 <li class="chapter" data-level="11.1" data-path="practice.html"><a href="practice.html#working-with-a-single-tidy-table"><i class="fa fa-check"></i><b>11.1</b> Working with a single tidy table</a></li>
 <li class="chapter" data-level="11.2" data-path="practice.html"><a href="practice.html#working-with-grouped-data"><i class="fa fa-check"></i><b>11.2</b> Working with grouped data</a></li>
+<li class="chapter" data-level="11.3" data-path="practice.html"><a href="practice.html#creating-charts"><i class="fa fa-check"></i><b>11.3</b> Creating charts</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="projects.html"><a href="projects.html"><i class="fa fa-check"></i><b>12</b> Projects</a><ul>
 <li class="chapter" data-level="12.1" data-path="projects.html"><a href="projects.html#questions-9"><i class="fa fa-check"></i><b>12.1</b> Questions</a></li>
@@ -665,6 +666,141 @@ cols(
   &lt;chr&gt;   &lt;lgl&gt;       
 1 DR-1    TRUE        </code></pre>
 <p><em>Find sites with visits more than one year apart.</em></p>
+</div>
+<div id="creating-charts" class="section level2">
+<h2><span class="header-section-number">11.3</span> Creating charts</h2>
+<p>We will use data on the mass and home range area (HRA) of various species from:</p>
+<blockquote>
+<p>Tamburello N, Côté IM, Dulvy NK (2015) Data from: Energy and the scaling of animal space use. Dryad Digital Repository.
+<a href="https://doi.org/10.5061/dryad.q5j65" class="uri">https://doi.org/10.5061/dryad.q5j65</a></p>
+</blockquote>
+<pre class="sourceCode r"><code class="sourceCode r">hra &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;hra/home-range-database.csv&quot;</span>))</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  .default = col_character(),
+  mean.mass.g = col_double(),
+  log10.mass = col_double(),
+  mean.hra.m2 = col_double(),
+  log10.hra = col_double(),
+  preymass = col_double(),
+  log10.preymass = col_double(),
+  PPMR = col_double()
+)</code></pre>
+<pre><code>See spec(...) for full column specifications.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(hra)</code></pre>
+<pre><code># A tibble: 6 x 24
+  taxon common.name class order family genus species primarymethod N    
+  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;
+1 lake… american e… acti… angu… angui… angu… rostra… telemetry     16   
+2 rive… blacktail … acti… cypr… catos… moxo… poecil… mark-recaptu… &lt;NA&gt; 
+3 rive… central st… acti… cypr… cypri… camp… anomal… mark-recaptu… 20   
+4 rive… rosyside d… acti… cypr… cypri… clin… fundul… mark-recaptu… 26   
+5 rive… longnose d… acti… cypr… cypri… rhin… catara… mark-recaptu… 17   
+6 rive… muskellunge acti… esoc… esoci… esox  masqui… telemetry     5    
+# … with 15 more variables: mean.mass.g &lt;dbl&gt;, log10.mass &lt;dbl&gt;,
+#   alternative.mass.reference &lt;chr&gt;, mean.hra.m2 &lt;dbl&gt;, log10.hra &lt;dbl&gt;,
+#   hra.reference &lt;chr&gt;, realm &lt;chr&gt;, thermoregulation &lt;chr&gt;,
+#   locomotion &lt;chr&gt;, trophic.guild &lt;chr&gt;, dimension &lt;chr&gt;,
+#   preymass &lt;dbl&gt;, log10.preymass &lt;dbl&gt;, PPMR &lt;dbl&gt;,
+#   prey.size.reference &lt;chr&gt;</code></pre>
+<ol style="list-style-type: decimal">
+<li>Look at how mass is distributed:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> mean.mass.g))</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="practice_files/figure-html/chart-mass-1.png" width="672" /></p>
+<p>Try again with <code>log10.mass</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass))</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="practice_files/figure-html/chart-log-mass-1.png" width="672" /></p>
+<p><em>Create histograms showing the distribution of home range area using linear and log scales.</em></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Change the visual appearance of a chart:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass), <span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;Frequency of Species Masses&quot;</span>) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Log10 of Mass&quot;</span>) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Number of Species&quot;</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</code></pre>
+<p><img src="practice_files/figure-html/change-visual-1.png" width="672" /></p>
+<p><em>Show the distribution of home range areas with a dark background.</em></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a scatterplot showing the relationship between mass and home range area:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra))</code></pre>
+<p><img src="practice_files/figure-html/scatterplot-1.png" width="672" /></p>
+<p><em>Create a similar scatterplot showing the relationship between the raw values rather than the log values.</em></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Colorize scatterplot points by class:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre>
+<p><img src="practice_files/figure-html/colorize-scatterplot-1.png" width="672" /></p>
+<p>**Group by order and experiment with different alpha values.*</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Create a faceted plot:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>class_fct)</code></pre>
+<p><img src="practice_files/figure-html/facet-plot-1.png" width="672" /></p>
+<p><em>Create a plot faceted by order for just the reptiles.</em></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Fit a linear regression to the logarithmic data for birds:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<p><img src="practice_files/figure-html/fit-line-1.png" width="672" /></p>
+<p><em>Fit a line to the raw data for birds rather than the logarithmic data.</em></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Create a violin plot of mass by order for birds:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct))</code></pre>
+<p><img src="practice_files/figure-html/violin-plot-1.png" width="672" /></p>
+<p><em>Rotate the labels on the X axis to make this readable, then explain the gaps.</em></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Display the same data as a boxplot:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct))</code></pre>
+<p><img src="practice_files/figure-html/box-plot-1.png" width="672" /></p>
+<p><em>Fix the labels and remove orders that only contain one species.</em></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Save the linear regression plot for birds as a PNG:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<p><img src="practice_files/figure-html/save-file-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;/tmp/birds.png&quot;</span>)</code></pre>
+<pre><code>Saving 7 x 5 in image</code></pre>
+<p><em>Save the plot as SVG scaled to be 8cm wide.</em></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Create a horizontal histogram with 50 bins:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass), <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">coord_flip</span>()</code></pre>
+<p><img src="practice_files/figure-html/horizontal-1.png" width="672" /></p>
+<p><em>Use <code>stat_summary</code> to summarize the relationship between mass and home range area by class.</em></p>
 
 </div>
 </div>

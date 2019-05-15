@@ -233,5 +233,135 @@ cleaned %>%
 
 *Find sites with visits more than one year apart.*
 
+## Creating charts
+
+We will use data on the mass and home range area (HRA) of various species from:
+
+> Tamburello N, Côté IM, Dulvy NK (2015) Data from: Energy and the scaling of animal space use. Dryad Digital Repository.
+> https://doi.org/10.5061/dryad.q5j65
+
+```{r}
+hra <- readr::read_csv(here::here("hra/home-range-database.csv"))
+head(hra)
+```
+
+1. Look at how mass is distributed:
+
+```{r chart-mass}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = mean.mass.g))
+```
+
+Try again with `log10.mass`:
+
+```{r chart-log-mass}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = log10.mass))
+```
+
+*Create histograms showing the distribution of home range area using linear and log scales.*
+
+2. Change the visual appearance of a chart:
+
+```{r change-visual}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = log10.mass), bins = 100) +
+  ggplot2::ggtitle("Frequency of Species Masses") + ggplot2::xlab("Log10 of Mass") + ggplot2::ylab("Number of Species") +
+  ggplot2::theme_minimal()
+```
+
+*Show the distribution of home range areas with a dark background.*
+
+3. Create a scatterplot showing the relationship between mass and home range area:
+
+```{r scatterplot}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra))
+```
+
+*Create a similar scatterplot showing the relationship between the raw values rather than the log values.*
+
+4. Colorize scatterplot points by class:
+
+```{r colorize-scatterplot}
+hra %>%
+  dplyr::mutate(class_fct = as.factor(class)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct), alpha = 0.5)
+```
+
+**Group by order and experiment with different alpha values.*
+
+5. Create a faceted plot:
+
+```{r facet-plot}
+hra %>%
+  dplyr::mutate(class_fct = as.factor(class)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct), alpha = 0.5) +
+  ggplot2::facet_wrap(~class_fct)
+```
+
+*Create a plot faceted by order for just the reptiles.*
+
+6. Fit a linear regression to the logarithmic data for birds:
+
+```{r fit-line}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra), alpha = 0.5) +
+  ggplot2::geom_smooth(method = lm, mapping = aes(x = log10.mass, y = log10.hra), color = 'red')
+```
+
+*Fit a line to the raw data for birds rather than the logarithmic data.*
+
+7. Create a violin plot of mass by order for birds:
+
+```{r violin-plot}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  dplyr::mutate(order_fct = as.factor(order)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_violin(mapping = aes(x = order_fct, y = log10.mass, color = order_fct))
+```
+
+*Rotate the labels on the X axis to make this readable, then explain the gaps.*
+
+8. Display the same data as a boxplot:
+
+```{r box-plot}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  dplyr::mutate(order_fct = as.factor(order)) %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_boxplot(mapping = aes(x = order_fct, y = log10.mass, color = order_fct))
+```
+
+*Fix the labels and remove orders that only contain one species.*
+
+9. Save the linear regression plot for birds as a PNG:
+
+```{r save-file}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  ggplot2::ggplot() +
+  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra), alpha = 0.5) +
+  ggplot2::geom_smooth(method = lm, mapping = aes(x = log10.mass, y = log10.hra), color = 'red')
+ggsave("/tmp/birds.png")
+```
+
+*Save the plot as SVG scaled to be 8cm wide.*
+
+10. Create a horizontal histogram with 50 bins:
+
+```{r horizontal}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = log10.mass), bins = 50) +
+  ggplot2::coord_flip()
+```
+
+*Use `stat_summary` to summarize the relationship between mass and home range area by class.*
+
 ```{r links, child="etc/links.md"}
 ```
