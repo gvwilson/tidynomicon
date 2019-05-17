@@ -10,14 +10,14 @@ and introduce a few more commonly-used functions.
 
 ## Working with a single tidy table
 
-1. Load the tidyverse collection of libraries and the `here` library for constructing paths:
+### Load the tidyverse collection of libraries and the `here` library for constructing paths:
 
 ```{r fake-load-libraries, eval=FALSE}
 library(tidyverse)
 library(here)
 ```
 
-2. Use `here::here` to construct a path to a file and `readr::read_csv` to read that file:
+### Use `here::here` to construct a path to a file and `readr::read_csv` to read that file:
 
 ```{r read-survey-data}
 path = here::here("data", "person.csv")
@@ -27,7 +27,7 @@ person
 
 *Read `survey/site.csv`.*
 
-3. Count rows and columns using `nrow` and `ncol`:
+### Count rows and columns using `nrow` and `ncol`:
 
 ```{r count-rows-and-columns}
 nrow(person)
@@ -36,7 +36,7 @@ ncol(person)
 
 *How many rows and columns are in the site data?*
 
-4. Format strings using `glue::glue`:
+### Format strings using `glue::glue`:
 
 ```{r use-glue}
 print(glue::glue("person has {nrow(person)} rows and {ncol(person)} columns"))
@@ -44,7 +44,7 @@ print(glue::glue("person has {nrow(person)} rows and {ncol(person)} columns"))
 
 *Print a nicely-formatted summary of the number of rows and columns in the site data.*
 
-5. Use `colnames` to get the names of columns and `paste` to join strings together:
+### Use `colnames` to get the names of columns and `paste` to join strings together:
 
 ```{r use-colnames-and-paste}
 print(glue::glue("person columns are {paste(colnames(person), collapse = ' ')}"))
@@ -52,7 +52,7 @@ print(glue::glue("person columns are {paste(colnames(person), collapse = ' ')}")
 
 *Print a nicely-formatted summary of the names of the columns in the site data.*
 
-6. Use `dplyr::select` to create a new table with a subset of columns by name:
+### Use `dplyr::select` to create a new table with a subset of columns by name:
 
 ```{r select-by-name}
 dplyr::select(person, family_name, personal_name)
@@ -60,7 +60,7 @@ dplyr::select(person, family_name, personal_name)
 
 *Create a table with just the latitudes and longitudes of sites.*
 
-7. Use `dplyr::filter` to create a new table with a subset of rows by values:
+### Use `dplyr::filter` to create a new table with a subset of rows by values:
 
 ```{r filter-with-one-condition}
 dplyr::filter(person, family_name < "M")
@@ -68,7 +68,7 @@ dplyr::filter(person, family_name < "M")
 
 *Create a table with only sites south of -48 degrees.*
 
-8. Use the pipe operator `%>%` to combine operations:
+### Use the pipe operator `%>%` to combine operations:
 
 ```{r select-pipe-filter}
 person %>%
@@ -78,7 +78,7 @@ person %>%
 
 *Create a table with only the latitudes and longitudes of sites south of -48 degrees.*
 
-9. Use `dplyr::mutate` to create a new column with calculated values and `stringr::str_length` to calculate string length:
+### Use `dplyr::mutate` to create a new column with calculated values and `stringr::str_length` to calculate string length:
 
 ```{r mutate-name-length}
 person %>%
@@ -87,7 +87,7 @@ person %>%
 
 *Use the built-in function `round` to create a table with latitudes and longitudes rounded to integers.*
 
-10. Use `dplyr::arrange` to order rows and (optionally) `dplyr::desc` to impose descending order:
+### Use `dplyr::arrange` to order rows and (optionally) `dplyr::desc` to impose descending order:
 
 ```{r mutate-and-arrange}
 person %>%
@@ -99,14 +99,14 @@ person %>%
 
 ## Working with grouped data
 
-1. Read `survey/measurements.csv` and look at the data with `View`:
+### Read `survey/measurements.csv` and look at the data with `View`:
 
 ```{r read-and-view}
 measurements <- readr::read_csv(here::here("data", "measurements.csv"))
 View(measurements)
 ```
 
-2. Find rows where `reading` is not NA and saved as `cleaned`:
+### Find rows where `reading` is not NA and saved as `cleaned`:
 
 ```{r remove-reading-na}
 cleaned <- measurements %>%
@@ -121,7 +121,7 @@ cleaned <- measurements %>%
   dplyr::filter(!is.na(visitor) & !is.na(quantity) & !is.na(reading))
 ```
 
-3. Group measurements by quantity measured and count the number of each (the column is named `n` automatically):
+### Group measurements by quantity measured and count the number of each (the column is named `n` automatically):
 
 ```{r group-by-quantity}
 cleaned %>%
@@ -131,7 +131,7 @@ cleaned %>%
 
 *Group by person and quantity measured.*
 
-4. Find the minimum, average, and maximum for each quantity:
+### Find the minimum, average, and maximum for each quantity:
 
 ```{r min-ave-max}
 cleaned %>%
@@ -141,7 +141,7 @@ cleaned %>%
 
 *Look at the range for each combination of person and quantity.*
 
-5. Rescale salinity measurements that are greater than 1:
+### Rescale salinity measurements that are greater than 1:
 
 ```{r rescale-salinity}
 cleaned <- cleaned %>%
@@ -151,7 +151,7 @@ cleaned
 
 *Do the same calculation use `case_when`.*
 
-6. Read `visited.csv`, drop the NAs, and join with the cleaned-up table of readings:
+### Read `visited.csv`, drop the NAs, and join with the cleaned-up table of readings:
 
 ```{r join-two-tables}
 cleaned <- readr::read_csv(here::here("data", "visited.csv")) %>%
@@ -162,7 +162,7 @@ cleaned
 
 *Join `visited.csv` with `site.csv` to get (date, latitude, longitude) triples for site visits.*
 
-7. Find the dates of the highest radiation reading at each site:
+### Find the dates of the highest radiation reading at each site:
 
 ```{r dates-high-rad}
 cleaned %>%
@@ -193,7 +193,7 @@ cleaned %>%
   dplyr::filter(reading == max_rad)
 ```
 
-8. Normalize radiation against the highest radiation seen per site:
+### Normalize radiation against the highest radiation seen per site:
 
 ```{r normalize-rad}
 cleaned %>%
@@ -207,7 +207,7 @@ cleaned %>%
 
 *Normalize salinity against mean salinity by site.*
 
-9. Find stepwise change in radiation per site by date:
+### Find stepwise change in radiation per site by date:
 
 ```{r rad-change}
 cleaned %>%
@@ -219,7 +219,7 @@ cleaned %>%
 
 *Find length of time between visits by site.*
 
-10. Find sites that experience any stepwise increase in radiation between visits:
+### Find sites that experience any stepwise increase in radiation between visits:
 
 ```{r rad-increases}
 cleaned %>%
@@ -245,7 +245,7 @@ hra <- readr::read_csv(here::here("data", "home-range-database.csv"))
 head(hra)
 ```
 
-1. Look at how mass is distributed:
+### Look at how mass is distributed:
 
 ```{r chart-mass}
 ggplot2::ggplot(hra) +
@@ -261,7 +261,7 @@ ggplot2::ggplot(hra) +
 
 *Create histograms showing the distribution of home range area using linear and log scales.*
 
-2. Change the visual appearance of a chart:
+### Change the visual appearance of a chart:
 
 ```{r change-visual}
 ggplot2::ggplot(hra) +
@@ -272,7 +272,7 @@ ggplot2::ggplot(hra) +
 
 *Show the distribution of home range areas with a dark background.*
 
-3. Create a scatterplot showing the relationship between mass and home range area:
+### Create a scatterplot showing the relationship between mass and home range area:
 
 ```{r scatterplot}
 ggplot2::ggplot(hra) +
@@ -281,7 +281,7 @@ ggplot2::ggplot(hra) +
 
 *Create a similar scatterplot showing the relationship between the raw values rather than the log values.*
 
-4. Colorize scatterplot points by class:
+### Colorize scatterplot points by class:
 
 ```{r colorize-scatterplot}
 hra %>%
@@ -292,7 +292,7 @@ hra %>%
 
 **Group by order and experiment with different alpha values.*
 
-5. Create a faceted plot:
+### Create a faceted plot:
 
 ```{r facet-plot}
 hra %>%
@@ -304,7 +304,7 @@ hra %>%
 
 *Create a plot faceted by order for just the reptiles.*
 
-6. Fit a linear regression to the logarithmic data for birds:
+### Fit a linear regression to the logarithmic data for birds:
 
 ```{r fit-line}
 hra %>%
@@ -316,7 +316,7 @@ hra %>%
 
 *Fit a line to the raw data for birds rather than the logarithmic data.*
 
-7. Create a violin plot of mass by order for birds:
+### Create a violin plot of mass by order for birds:
 
 ```{r violin-plot}
 hra %>%
@@ -328,7 +328,7 @@ hra %>%
 
 *Rotate the labels on the X axis to make this readable, then explain the gaps.*
 
-8. Display the same data as a boxplot:
+### Display the same data as a boxplot:
 
 ```{r box-plot}
 hra %>%
@@ -340,7 +340,7 @@ hra %>%
 
 *Fix the labels and remove orders that only contain one species.*
 
-9. Save the linear regression plot for birds as a PNG:
+### Save the linear regression plot for birds as a PNG:
 
 ```{r save-file}
 hra %>%
@@ -353,7 +353,7 @@ ggsave("/tmp/birds.png")
 
 *Save the plot as SVG scaled to be 8cm wide.*
 
-10. Create a horizontal histogram with 50 bins:
+### Create a horizontal histogram with 50 bins:
 
 ```{r horizontal}
 ggplot2::ggplot(hra) +
@@ -362,6 +362,139 @@ ggplot2::ggplot(hra) +
 ```
 
 *Use `stat_summary` to summarize the relationship between mass and home range area by class.*
+
+## Writing functions
+
+### Write and call a function that returns one column from a file:
+
+```{r define-function, message=FALSE}
+col_from_file <- function(filename, colname) {
+  dat <- readr::read_csv(filename)
+  dat[colname]
+}
+
+person_filename <- here::here("data", "person.csv")
+col_from_file(person_filename, "family_name")
+```
+
+*Write a function that reads a file and changes the name of one column.*
+
+### Define a default value for a parameter:
+
+```{r default-value, message=FALSE}
+col_from_file <- function(filename, colname, na = c("", "NA")) {
+  dat <- readr::read_csv(filename, na = na)
+  dat[colname]
+}
+
+col_from_file(person_filename, "family_name", c("Dyer"))
+```
+
+*Write a function that only keeps the first 100 rows of a table unless another value is passed.*
+
+### Name the value passed for a parameter to make intention clearer:
+
+```{r named-passing}
+col_from_file(person_filename, "family_name", na = c("Dyer"))
+```
+
+*Call your function with all of the parameters out of order.*
+
+### Make functions slightly more robust:
+
+```{r with-error-check, message=FALSE, error=TRUE}
+col_from_file <- function(filename, colname, na = c("", "NA")) {
+  dat <- readr::read_csv(filename, na = na)
+  stopifnot(colname %in% colnames(dat))
+  dat[colname]
+}
+
+col_from_file(person_filename, "FAMILY", na = c("Dyer"))
+```
+
+*Fail if the number of rows asked for is less than or equal to zero.*
+
+### Use quoting and splicing to avoid needing a string for the column name:
+
+```{r nse-single, message=FALSE}
+cols_from_file <- function(filename, colname, na = c("", "NA")) {
+  colname = rlang::enquo(colname)
+  readr::read_csv(filename, na = na) %>%
+    dplyr::select(!!colname)
+}
+
+cols_from_file(person_filename, personal_name)
+```
+
+*Modify your function so that users can pass `num_rows/2` or a similar expression to specify the number of rows they want to keep.*
+
+### Select any number of columns:
+
+```{r quote-multi-column, message=FALSE}
+cols_from_file <- function(filename, ..., na = c("", "NA")) {
+  readr::read_csv(filename, na = na) %>%
+    dplyr::select(...)
+}
+
+cols_from_file(person_filename, personal_name, family_name)
+```
+
+*Can you call `cols_from_file` to subtract columns rather than keeping them?*
+
+### Run a function safely:
+
+```{r nonexistent-column, message=FALSE, error=TRUE}
+cols_from_file(person_filename, NONEXISTENT)
+```
+
+```{r run-safely-fail, message=FALSE}
+safe_cols_from_file <- purrr::safely(cols_from_file)
+safe_cols_from_file(person_filename, NONEXISTENT)
+```
+
+```{r run-safely-succeed, message=FALSE}
+safe_cols_from_file(person_filename, person_id)
+```
+
+*When is `purrr::safely` safe to use?*
+
+### Unpack multiple values in a single assignment:
+
+```{r unpack, message=FALSE}
+library(zeallot)
+
+c(result, error) %<-% safe_cols_from_file(person_filename, person_id)
+result
+error
+```
+
+*what happens if there are more variables on the left of `%<-%` than there are values on the right?*
+
+### Assign out of function scope with `<<-`:
+
+```{r assign-upward, message=FALSE}
+call_count = 0
+
+safe_cols_from_file <- purrr::safely(function(filename, ..., na = c("", "NA")) {
+  call_count <<- call_count + 1
+  readr::read_csv(filename, na = na) %>%
+    dplyr::select(...)
+})
+
+c(result, error) %<-% safe_cols_from_file(person_filename, family_name)
+
+call_count
+```
+
+*What happens if the variable assigned to with `<<-` does not exist before the assignment?*
+
+### Use anonymous functions:
+
+```{r anonymous-function}
+purrr::map(result$family_name, function(x) stringr::str_length(x))
+```
+
+*Modify this example to create a vector of integers.*
 
 ```{r links, child="etc/links.md"}
 ```

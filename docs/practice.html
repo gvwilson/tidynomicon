@@ -211,9 +211,54 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.8" data-path="debt.html"><a href="debt.html#key-points-6"><i class="fa fa-check"></i><b>8.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>9</b> Practice</a><ul>
-<li class="chapter" data-level="9.1" data-path="practice.html"><a href="practice.html#working-with-a-single-tidy-table"><i class="fa fa-check"></i><b>9.1</b> Working with a single tidy table</a></li>
-<li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#working-with-grouped-data"><i class="fa fa-check"></i><b>9.2</b> Working with grouped data</a></li>
-<li class="chapter" data-level="9.3" data-path="practice.html"><a href="practice.html#creating-charts"><i class="fa fa-check"></i><b>9.3</b> Creating charts</a></li>
+<li class="chapter" data-level="9.1" data-path="practice.html"><a href="practice.html#working-with-a-single-tidy-table"><i class="fa fa-check"></i><b>9.1</b> Working with a single tidy table</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="practice.html"><a href="practice.html#load-the-tidyverse-collection-of-libraries-and-the-here-library-for-constructing-paths"><i class="fa fa-check"></i><b>9.1.1</b> Load the tidyverse collection of libraries and the <code>here</code> library for constructing paths:</a></li>
+<li class="chapter" data-level="9.1.2" data-path="practice.html"><a href="practice.html#use-herehere-to-construct-a-path-to-a-file-and-readrread_csv-to-read-that-file"><i class="fa fa-check"></i><b>9.1.2</b> Use <code>here::here</code> to construct a path to a file and <code>readr::read_csv</code> to read that file:</a></li>
+<li class="chapter" data-level="9.1.3" data-path="practice.html"><a href="practice.html#count-rows-and-columns-using-nrow-and-ncol"><i class="fa fa-check"></i><b>9.1.3</b> Count rows and columns using <code>nrow</code> and <code>ncol</code>:</a></li>
+<li class="chapter" data-level="9.1.4" data-path="practice.html"><a href="practice.html#format-strings-using-glueglue"><i class="fa fa-check"></i><b>9.1.4</b> Format strings using <code>glue::glue</code>:</a></li>
+<li class="chapter" data-level="9.1.5" data-path="practice.html"><a href="practice.html#use-colnames-to-get-the-names-of-columns-and-paste-to-join-strings-together"><i class="fa fa-check"></i><b>9.1.5</b> Use <code>colnames</code> to get the names of columns and <code>paste</code> to join strings together:</a></li>
+<li class="chapter" data-level="9.1.6" data-path="practice.html"><a href="practice.html#use-dplyrselect-to-create-a-new-table-with-a-subset-of-columns-by-name"><i class="fa fa-check"></i><b>9.1.6</b> Use <code>dplyr::select</code> to create a new table with a subset of columns by name:</a></li>
+<li class="chapter" data-level="9.1.7" data-path="practice.html"><a href="practice.html#use-dplyrfilter-to-create-a-new-table-with-a-subset-of-rows-by-values"><i class="fa fa-check"></i><b>9.1.7</b> Use <code>dplyr::filter</code> to create a new table with a subset of rows by values:</a></li>
+<li class="chapter" data-level="9.1.8" data-path="practice.html"><a href="practice.html#use-the-pipe-operator-to-combine-operations"><i class="fa fa-check"></i><b>9.1.8</b> Use the pipe operator <code>%&gt;%</code> to combine operations:</a></li>
+<li class="chapter" data-level="9.1.9" data-path="practice.html"><a href="practice.html#use-dplyrmutate-to-create-a-new-column-with-calculated-values-and-stringrstr_length-to-calculate-string-length"><i class="fa fa-check"></i><b>9.1.9</b> Use <code>dplyr::mutate</code> to create a new column with calculated values and <code>stringr::str_length</code> to calculate string length:</a></li>
+<li class="chapter" data-level="9.1.10" data-path="practice.html"><a href="practice.html#use-dplyrarrange-to-order-rows-and-optionally-dplyrdesc-to-impose-descending-order"><i class="fa fa-check"></i><b>9.1.10</b> Use <code>dplyr::arrange</code> to order rows and (optionally) <code>dplyr::desc</code> to impose descending order:</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#working-with-grouped-data"><i class="fa fa-check"></i><b>9.2</b> Working with grouped data</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="practice.html"><a href="practice.html#read-surveymeasurements.csv-and-look-at-the-data-with-view"><i class="fa fa-check"></i><b>9.2.1</b> Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</a></li>
+<li class="chapter" data-level="9.2.2" data-path="practice.html"><a href="practice.html#find-rows-where-reading-is-not-na-and-saved-as-cleaned"><i class="fa fa-check"></i><b>9.2.2</b> Find rows where <code>reading</code> is not NA and saved as <code>cleaned</code>:</a></li>
+<li class="chapter" data-level="9.2.3" data-path="practice.html"><a href="practice.html#group-measurements-by-quantity-measured-and-count-the-number-of-each-the-column-is-named-n-automatically"><i class="fa fa-check"></i><b>9.2.3</b> Group measurements by quantity measured and count the number of each (the column is named <code>n</code> automatically):</a></li>
+<li class="chapter" data-level="9.2.4" data-path="practice.html"><a href="practice.html#find-the-minimum-average-and-maximum-for-each-quantity"><i class="fa fa-check"></i><b>9.2.4</b> Find the minimum, average, and maximum for each quantity:</a></li>
+<li class="chapter" data-level="9.2.5" data-path="practice.html"><a href="practice.html#rescale-salinity-measurements-that-are-greater-than-1"><i class="fa fa-check"></i><b>9.2.5</b> Rescale salinity measurements that are greater than 1:</a></li>
+<li class="chapter" data-level="9.2.6" data-path="practice.html"><a href="practice.html#read-visited.csv-drop-the-nas-and-join-with-the-cleaned-up-table-of-readings"><i class="fa fa-check"></i><b>9.2.6</b> Read <code>visited.csv</code>, drop the NAs, and join with the cleaned-up table of readings:</a></li>
+<li class="chapter" data-level="9.2.7" data-path="practice.html"><a href="practice.html#find-the-dates-of-the-highest-radiation-reading-at-each-site"><i class="fa fa-check"></i><b>9.2.7</b> Find the dates of the highest radiation reading at each site:</a></li>
+<li class="chapter" data-level="9.2.8" data-path="practice.html"><a href="practice.html#normalize-radiation-against-the-highest-radiation-seen-per-site"><i class="fa fa-check"></i><b>9.2.8</b> Normalize radiation against the highest radiation seen per site:</a></li>
+<li class="chapter" data-level="9.2.9" data-path="practice.html"><a href="practice.html#find-stepwise-change-in-radiation-per-site-by-date"><i class="fa fa-check"></i><b>9.2.9</b> Find stepwise change in radiation per site by date:</a></li>
+<li class="chapter" data-level="9.2.10" data-path="practice.html"><a href="practice.html#find-sites-that-experience-any-stepwise-increase-in-radiation-between-visits"><i class="fa fa-check"></i><b>9.2.10</b> Find sites that experience any stepwise increase in radiation between visits:</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="practice.html"><a href="practice.html#creating-charts"><i class="fa fa-check"></i><b>9.3</b> Creating charts</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="practice.html"><a href="practice.html#look-at-how-mass-is-distributed"><i class="fa fa-check"></i><b>9.3.1</b> Look at how mass is distributed:</a></li>
+<li class="chapter" data-level="9.3.2" data-path="practice.html"><a href="practice.html#change-the-visual-appearance-of-a-chart"><i class="fa fa-check"></i><b>9.3.2</b> Change the visual appearance of a chart:</a></li>
+<li class="chapter" data-level="9.3.3" data-path="practice.html"><a href="practice.html#create-a-scatterplot-showing-the-relationship-between-mass-and-home-range-area"><i class="fa fa-check"></i><b>9.3.3</b> Create a scatterplot showing the relationship between mass and home range area:</a></li>
+<li class="chapter" data-level="9.3.4" data-path="practice.html"><a href="practice.html#colorize-scatterplot-points-by-class"><i class="fa fa-check"></i><b>9.3.4</b> Colorize scatterplot points by class:</a></li>
+<li class="chapter" data-level="9.3.5" data-path="practice.html"><a href="practice.html#create-a-faceted-plot"><i class="fa fa-check"></i><b>9.3.5</b> Create a faceted plot:</a></li>
+<li class="chapter" data-level="9.3.6" data-path="practice.html"><a href="practice.html#fit-a-linear-regression-to-the-logarithmic-data-for-birds"><i class="fa fa-check"></i><b>9.3.6</b> Fit a linear regression to the logarithmic data for birds:</a></li>
+<li class="chapter" data-level="9.3.7" data-path="practice.html"><a href="practice.html#create-a-violin-plot-of-mass-by-order-for-birds"><i class="fa fa-check"></i><b>9.3.7</b> Create a violin plot of mass by order for birds:</a></li>
+<li class="chapter" data-level="9.3.8" data-path="practice.html"><a href="practice.html#display-the-same-data-as-a-boxplot"><i class="fa fa-check"></i><b>9.3.8</b> Display the same data as a boxplot:</a></li>
+<li class="chapter" data-level="9.3.9" data-path="practice.html"><a href="practice.html#save-the-linear-regression-plot-for-birds-as-a-png"><i class="fa fa-check"></i><b>9.3.9</b> Save the linear regression plot for birds as a PNG:</a></li>
+<li class="chapter" data-level="9.3.10" data-path="practice.html"><a href="practice.html#create-a-horizontal-histogram-with-50-bins"><i class="fa fa-check"></i><b>9.3.10</b> Create a horizontal histogram with 50 bins:</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="practice.html"><a href="practice.html#writing-functions"><i class="fa fa-check"></i><b>9.4</b> Writing functions</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="practice.html"><a href="practice.html#write-and-call-a-function-that-returns-one-column-from-a-file"><i class="fa fa-check"></i><b>9.4.1</b> Write and call a function that returns one column from a file:</a></li>
+<li class="chapter" data-level="9.4.2" data-path="practice.html"><a href="practice.html#define-a-default-value-for-a-parameter"><i class="fa fa-check"></i><b>9.4.2</b> Define a default value for a parameter:</a></li>
+<li class="chapter" data-level="9.4.3" data-path="practice.html"><a href="practice.html#name-the-value-passed-for-a-parameter-to-make-intention-clearer"><i class="fa fa-check"></i><b>9.4.3</b> Name the value passed for a parameter to make intention clearer:</a></li>
+<li class="chapter" data-level="9.4.4" data-path="practice.html"><a href="practice.html#make-functions-slightly-more-robust"><i class="fa fa-check"></i><b>9.4.4</b> Make functions slightly more robust:</a></li>
+<li class="chapter" data-level="9.4.5" data-path="practice.html"><a href="practice.html#use-quoting-and-splicing-to-avoid-needing-a-string-for-the-column-name"><i class="fa fa-check"></i><b>9.4.5</b> Use quoting and splicing to avoid needing a string for the column name:</a></li>
+<li class="chapter" data-level="9.4.6" data-path="practice.html"><a href="practice.html#select-any-number-of-columns"><i class="fa fa-check"></i><b>9.4.6</b> Select any number of columns:</a></li>
+<li class="chapter" data-level="9.4.7" data-path="practice.html"><a href="practice.html#run-a-function-safely"><i class="fa fa-check"></i><b>9.4.7</b> Run a function safely:</a></li>
+<li class="chapter" data-level="9.4.8" data-path="practice.html"><a href="practice.html#unpack-multiple-values-in-a-single-assignment"><i class="fa fa-check"></i><b>9.4.8</b> Unpack multiple values in a single assignment:</a></li>
+<li class="chapter" data-level="9.4.9" data-path="practice.html"><a href="practice.html#assign-out-of-function-scope-with--"><i class="fa fa-check"></i><b>9.4.9</b> Assign out of function scope with <code>&lt;&lt;-</code>:</a></li>
+<li class="chapter" data-level="9.4.10" data-path="practice.html"><a href="practice.html#use-anonymous-functions"><i class="fa fa-check"></i><b>9.4.10</b> Use anonymous functions:</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="testerror.html"><a href="testerror.html"><i class="fa fa-check"></i><b>10</b> Testing and Error Handling</a><ul>
 <li class="chapter" data-level="10.1" data-path="testerror.html"><a href="testerror.html#questions-7"><i class="fa fa-check"></i><b>10.1</b> Questions</a></li>
@@ -330,14 +375,13 @@ so this one presents some practice exercises to ground what we have learned
 and introduce a few more commonly-used functions.</p>
 <div id="working-with-a-single-tidy-table" class="section level2">
 <h2><span class="header-section-number">9.1</span> Working with a single tidy table</h2>
-<ol style="list-style-type: decimal">
-<li>Load the tidyverse collection of libraries and the <code>here</code> library for constructing paths:</li>
-</ol>
+<div id="load-the-tidyverse-collection-of-libraries-and-the-here-library-for-constructing-paths" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Load the tidyverse collection of libraries and the <code>here</code> library for constructing paths:</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(here)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Use <code>here::here</code> to construct a path to a file and <code>readr::read_csv</code> to read that file:</li>
-</ol>
+</div>
+<div id="use-herehere-to-construct-a-path-to-a-file-and-readrread_csv-to-read-that-file" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Use <code>here::here</code> to construct a path to a file and <code>readr::read_csv</code> to read that file:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">path =<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)
 person &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(path)</code></pre>
 <pre><code>Parsed with column specification:
@@ -356,29 +400,29 @@ cols(
 4 roe       Valentina     Roerich    
 5 danforth  Frank         Danforth   </code></pre>
 <p><em>Read <code>survey/site.csv</code>.</em></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Count rows and columns using <code>nrow</code> and <code>ncol</code>:</li>
-</ol>
+</div>
+<div id="count-rows-and-columns-using-nrow-and-ncol" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> Count rows and columns using <code>nrow</code> and <code>ncol</code>:</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(person)</code></pre>
 <pre><code>[1] 5</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(person)</code></pre>
 <pre><code>[1] 3</code></pre>
 <p><em>How many rows and columns are in the site data?</em></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Format strings using <code>glue::glue</code>:</li>
-</ol>
+</div>
+<div id="format-strings-using-glueglue" class="section level3">
+<h3><span class="header-section-number">9.1.4</span> Format strings using <code>glue::glue</code>:</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person has {nrow(person)} rows and {ncol(person)} columns&quot;</span>))</code></pre>
 <pre><code>person has 5 rows and 3 columns</code></pre>
 <p><em>Print a nicely-formatted summary of the number of rows and columns in the site data.</em></p>
-<ol start="5" style="list-style-type: decimal">
-<li>Use <code>colnames</code> to get the names of columns and <code>paste</code> to join strings together:</li>
-</ol>
+</div>
+<div id="use-colnames-to-get-the-names-of-columns-and-paste-to-join-strings-together" class="section level3">
+<h3><span class="header-section-number">9.1.5</span> Use <code>colnames</code> to get the names of columns and <code>paste</code> to join strings together:</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person columns are {paste(colnames(person), collapse = &#39; &#39;)}&quot;</span>))</code></pre>
 <pre><code>person columns are person_id personal_name family_name</code></pre>
 <p><em>Print a nicely-formatted summary of the names of the columns in the site data.</em></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Use <code>dplyr::select</code> to create a new table with a subset of columns by name:</li>
-</ol>
+</div>
+<div id="use-dplyrselect-to-create-a-new-table-with-a-subset-of-columns-by-name" class="section level3">
+<h3><span class="header-section-number">9.1.6</span> Use <code>dplyr::select</code> to create a new table with a subset of columns by name:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">select</span>(person, family_name, personal_name)</code></pre>
 <pre><code># A tibble: 5 x 2
   family_name personal_name
@@ -389,9 +433,9 @@ cols(
 4 Roerich     Valentina    
 5 Danforth    Frank        </code></pre>
 <p><em>Create a table with just the latitudes and longitudes of sites.</em></p>
-<ol start="7" style="list-style-type: decimal">
-<li>Use <code>dplyr::filter</code> to create a new table with a subset of rows by values:</li>
-</ol>
+</div>
+<div id="use-dplyrfilter-to-create-a-new-table-with-a-subset-of-rows-by-values" class="section level3">
+<h3><span class="header-section-number">9.1.7</span> Use <code>dplyr::filter</code> to create a new table with a subset of rows by values:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">filter</span>(person, family_name <span class="op">&lt;</span><span class="st"> &quot;M&quot;</span>)</code></pre>
 <pre><code># A tibble: 3 x 3
   person_id personal_name family_name
@@ -400,9 +444,9 @@ cols(
 2 lake      Anderson      Lake       
 3 danforth  Frank         Danforth   </code></pre>
 <p><em>Create a table with only sites south of -48 degrees.</em></p>
-<ol start="8" style="list-style-type: decimal">
-<li>Use the pipe operator <code>%&gt;%</code> to combine operations:</li>
-</ol>
+</div>
+<div id="use-the-pipe-operator-to-combine-operations" class="section level3">
+<h3><span class="header-section-number">9.1.8</span> Use the pipe operator <code>%&gt;%</code> to combine operations:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(family_name, personal_name) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(family_name <span class="op">&lt;</span><span class="st"> &quot;M&quot;</span>)</code></pre>
@@ -413,9 +457,9 @@ cols(
 2 Lake        Anderson     
 3 Danforth    Frank        </code></pre>
 <p><em>Create a table with only the latitudes and longitudes of sites south of -48 degrees.</em></p>
-<ol start="9" style="list-style-type: decimal">
-<li>Use <code>dplyr::mutate</code> to create a new column with calculated values and <code>stringr::str_length</code> to calculate string length:</li>
-</ol>
+</div>
+<div id="use-dplyrmutate-to-create-a-new-column-with-calculated-values-and-stringrstr_length-to-calculate-string-length" class="section level3">
+<h3><span class="header-section-number">9.1.9</span> Use <code>dplyr::mutate</code> to create a new column with calculated values and <code>stringr::str_length</code> to calculate string length:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name))</code></pre>
 <pre><code># A tibble: 5 x 4
@@ -427,9 +471,9 @@ cols(
 4 roe       Valentina     Roerich               7
 5 danforth  Frank         Danforth              8</code></pre>
 <p><em>Use the built-in function <code>round</code> to create a table with latitudes and longitudes rounded to integers.</em></p>
-<ol start="10" style="list-style-type: decimal">
-<li>Use <code>dplyr::arrange</code> to order rows and (optionally) <code>dplyr::desc</code> to impose descending order:</li>
-</ol>
+</div>
+<div id="use-dplyrarrange-to-order-rows-and-optionally-dplyrdesc-to-impose-descending-order" class="section level3">
+<h3><span class="header-section-number">9.1.10</span> Use <code>dplyr::arrange</code> to order rows and (optionally) <code>dplyr::desc</code> to impose descending order:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name)) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(dplyr<span class="op">::</span><span class="kw">desc</span>(name_length))</code></pre>
@@ -443,11 +487,11 @@ cols(
 5 lake      Anderson      Lake                  4</code></pre>
 <p><em>Create a table sorted by decreasing longitude (i.e., most negative longitude last).</em></p>
 </div>
+</div>
 <div id="working-with-grouped-data" class="section level2">
 <h2><span class="header-section-number">9.2</span> Working with grouped data</h2>
-<ol style="list-style-type: decimal">
-<li>Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</li>
-</ol>
+<div id="read-surveymeasurements.csv-and-look-at-the-data-with-view" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">measurements &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;measurements.csv&quot;</span>))</code></pre>
 <pre><code>Parsed with column specification:
 cols(
@@ -457,9 +501,9 @@ cols(
   reading = col_double()
 )</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(measurements)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Find rows where <code>reading</code> is not NA and saved as <code>cleaned</code>:</li>
-</ol>
+</div>
+<div id="find-rows-where-reading-is-not-na-and-saved-as-cleaned" class="section level3">
+<h3><span class="header-section-number">9.2.2</span> Find rows where <code>reading</code> is not NA and saved as <code>cleaned</code>:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>measurements <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(reading))
 cleaned</code></pre>
@@ -487,9 +531,9 @@ cleaned</code></pre>
 19      837 roe     sal        22.5 
 20      844 roe     rad        11.2 </code></pre>
 <p><em>Rewrite the filter expression to select rows where the visitor and quantity are not NA either.</em></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Group measurements by quantity measured and count the number of each (the column is named <code>n</code> automatically):</li>
-</ol>
+</div>
+<div id="group-measurements-by-quantity-measured-and-count-the-number-of-each-the-column-is-named-n-automatically" class="section level3">
+<h3><span class="header-section-number">9.2.3</span> Group measurements by quantity measured and count the number of each (the column is named <code>n</code> automatically):</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>()</code></pre>
@@ -501,9 +545,9 @@ cleaned</code></pre>
 2 sal          7
 3 temp         3</code></pre>
 <p><em>Group by person and quantity measured.</em></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Find the minimum, average, and maximum for each quantity:</li>
-</ol>
+</div>
+<div id="find-the-minimum-average-and-maximum-for-each-quantity" class="section level3">
+<h3><span class="header-section-number">9.2.4</span> Find the minimum, average, and maximum for each quantity:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">low =</span> <span class="kw">min</span>(reading), <span class="dt">mid =</span> <span class="kw">mean</span>(reading), <span class="dt">high =</span> <span class="kw">max</span>(reading))</code></pre>
@@ -514,9 +558,9 @@ cleaned</code></pre>
 2 sal        0.05   9.24  41.6
 3 temp     -21.5  -18.7  -16  </code></pre>
 <p><em>Look at the range for each combination of person and quantity.</em></p>
-<ol start="5" style="list-style-type: decimal">
-<li>Rescale salinity measurements that are greater than 1:</li>
-</ol>
+</div>
+<div id="rescale-salinity-measurements-that-are-greater-than-1" class="section level3">
+<h3><span class="header-section-number">9.2.5</span> Rescale salinity measurements that are greater than 1:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">reading =</span> <span class="kw">ifelse</span>(quantity <span class="op">==</span><span class="st"> &#39;sal&#39;</span> <span class="op">&amp;</span><span class="st"> </span>reading <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.0</span>, reading<span class="op">/</span><span class="dv">100</span>, reading))
 cleaned</code></pre>
@@ -542,9 +586,9 @@ cleaned</code></pre>
 17      837 roe     sal        0.225
 18      844 roe     rad       11.2  </code></pre>
 <p><em>Do the same calculation use <code>case_when</code>.</em></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Read <code>visited.csv</code>, drop the NAs, and join with the cleaned-up table of readings:</li>
-</ol>
+</div>
+<div id="read-visited.csv-drop-the-nas-and-join-with-the-cleaned-up-table-of-readings" class="section level3">
+<h3><span class="header-section-number">9.2.6</span> Read <code>visited.csv</code>, drop the NAs, and join with the cleaned-up table of readings:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;visited.csv&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(visit_date)) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">inner_join</span>(cleaned, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;visit_id&quot;</span> =<span class="st"> &quot;visit_id&quot;</span>))</code></pre>
@@ -573,9 +617,9 @@ cols(
 13      837 MSK-4   1932-01-14 roe     sal        0.225
 14      844 DR-1    1932-03-22 roe     rad       11.2  </code></pre>
 <p><em>Join <code>visited.csv</code> with <code>site.csv</code> to get (date, latitude, longitude) triples for site visits.</em></p>
-<ol start="7" style="list-style-type: decimal">
-<li>Find the dates of the highest radiation reading at each site:</li>
-</ol>
+</div>
+<div id="find-the-dates-of-the-highest-radiation-reading-at-each-site" class="section level3">
+<h3><span class="header-section-number">9.2.7</span> Find the dates of the highest radiation reading at each site:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
@@ -609,9 +653,9 @@ cols(
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</code></pre>
 <pre><code>Error in filter_impl(.data, quo): Evaluation error: object &#39;reading&#39; not found.</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Normalize radiation against the highest radiation seen per site:</li>
-</ol>
+</div>
+<div id="normalize-radiation-against-the-highest-radiation-seen-per-site" class="section level3">
+<h3><span class="header-section-number">9.2.8</span> Normalize radiation against the highest radiation seen per site:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
@@ -631,9 +675,9 @@ cols(
 6      837 MSK-4   1932-01-14    1    
 7      844 DR-1    1932-03-22    1    </code></pre>
 <p><em>Normalize salinity against mean salinity by site.</em></p>
-<ol start="9" style="list-style-type: decimal">
-<li>Find stepwise change in radiation per site by date:</li>
-</ol>
+</div>
+<div id="find-stepwise-change-in-radiation-per-site-by-date" class="section level3">
+<h3><span class="header-section-number">9.2.9</span> Find stepwise change in radiation per site by date:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
@@ -651,9 +695,9 @@ cols(
 6      751 DR-3    1930-02-26 pb      rad         4.35     -2.87
 7      837 MSK-4   1932-01-14 lake    rad         1.46     NA   </code></pre>
 <p><em>Find length of time between visits by site.</em></p>
-<ol start="10" style="list-style-type: decimal">
-<li>Find sites that experience any stepwise increase in radiation between visits:</li>
-</ol>
+</div>
+<div id="find-sites-that-experience-any-stepwise-increase-in-radiation-between-visits" class="section level3">
+<h3><span class="header-section-number">9.2.10</span> Find sites that experience any stepwise increase in radiation between visits:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
@@ -666,6 +710,7 @@ cols(
   &lt;chr&gt;   &lt;lgl&gt;       
 1 DR-1    TRUE        </code></pre>
 <p><em>Find sites with visits more than one year apart.</em></p>
+</div>
 </div>
 <div id="creating-charts" class="section level2">
 <h2><span class="header-section-number">9.3</span> Creating charts</h2>
@@ -703,9 +748,8 @@ cols(
 #   locomotion &lt;chr&gt;, trophic.guild &lt;chr&gt;, dimension &lt;chr&gt;,
 #   preymass &lt;dbl&gt;, log10.preymass &lt;dbl&gt;, PPMR &lt;dbl&gt;,
 #   prey.size.reference &lt;chr&gt;</code></pre>
-<ol style="list-style-type: decimal">
-<li>Look at how mass is distributed:</li>
-</ol>
+<div id="look-at-how-mass-is-distributed" class="section level3">
+<h3><span class="header-section-number">9.3.1</span> Look at how mass is distributed:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> mean.mass.g))</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
@@ -716,34 +760,34 @@ cols(
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="practice_files/figure-html/chart-log-mass-1.png" width="672" /></p>
 <p><em>Create histograms showing the distribution of home range area using linear and log scales.</em></p>
-<ol start="2" style="list-style-type: decimal">
-<li>Change the visual appearance of a chart:</li>
-</ol>
+</div>
+<div id="change-the-visual-appearance-of-a-chart" class="section level3">
+<h3><span class="header-section-number">9.3.2</span> Change the visual appearance of a chart:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass), <span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;Frequency of Species Masses&quot;</span>) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Log10 of Mass&quot;</span>) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Number of Species&quot;</span>) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</code></pre>
 <p><img src="practice_files/figure-html/change-visual-1.png" width="672" /></p>
 <p><em>Show the distribution of home range areas with a dark background.</em></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Create a scatterplot showing the relationship between mass and home range area:</li>
-</ol>
+</div>
+<div id="create-a-scatterplot-showing-the-relationship-between-mass-and-home-range-area" class="section level3">
+<h3><span class="header-section-number">9.3.3</span> Create a scatterplot showing the relationship between mass and home range area:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra))</code></pre>
 <p><img src="practice_files/figure-html/scatterplot-1.png" width="672" /></p>
 <p><em>Create a similar scatterplot showing the relationship between the raw values rather than the log values.</em></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Colorize scatterplot points by class:</li>
-</ol>
+</div>
+<div id="colorize-scatterplot-points-by-class" class="section level3">
+<h3><span class="header-section-number">9.3.4</span> Colorize scatterplot points by class:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre>
 <p><img src="practice_files/figure-html/colorize-scatterplot-1.png" width="672" /></p>
 <p>**Group by order and experiment with different alpha values.*</p>
-<ol start="5" style="list-style-type: decimal">
-<li>Create a faceted plot:</li>
-</ol>
+</div>
+<div id="create-a-faceted-plot" class="section level3">
+<h3><span class="header-section-number">9.3.5</span> Create a faceted plot:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
@@ -751,9 +795,9 @@ cols(
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>class_fct)</code></pre>
 <p><img src="practice_files/figure-html/facet-plot-1.png" width="672" /></p>
 <p><em>Create a plot faceted by order for just the reptiles.</em></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Fit a linear regression to the logarithmic data for birds:</li>
-</ol>
+</div>
+<div id="fit-a-linear-regression-to-the-logarithmic-data-for-birds" class="section level3">
+<h3><span class="header-section-number">9.3.6</span> Fit a linear regression to the logarithmic data for birds:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
@@ -761,9 +805,9 @@ cols(
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
 <p><img src="practice_files/figure-html/fit-line-1.png" width="672" /></p>
 <p><em>Fit a line to the raw data for birds rather than the logarithmic data.</em></p>
-<ol start="7" style="list-style-type: decimal">
-<li>Create a violin plot of mass by order for birds:</li>
-</ol>
+</div>
+<div id="create-a-violin-plot-of-mass-by-order-for-birds" class="section level3">
+<h3><span class="header-section-number">9.3.7</span> Create a violin plot of mass by order for birds:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
@@ -771,9 +815,9 @@ cols(
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct))</code></pre>
 <p><img src="practice_files/figure-html/violin-plot-1.png" width="672" /></p>
 <p><em>Rotate the labels on the X axis to make this readable, then explain the gaps.</em></p>
-<ol start="8" style="list-style-type: decimal">
-<li>Display the same data as a boxplot:</li>
-</ol>
+</div>
+<div id="display-the-same-data-as-a-boxplot" class="section level3">
+<h3><span class="header-section-number">9.3.8</span> Display the same data as a boxplot:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
@@ -781,9 +825,9 @@ cols(
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct))</code></pre>
 <p><img src="practice_files/figure-html/box-plot-1.png" width="672" /></p>
 <p><em>Fix the labels and remove orders that only contain one species.</em></p>
-<ol start="9" style="list-style-type: decimal">
-<li>Save the linear regression plot for birds as a PNG:</li>
-</ol>
+</div>
+<div id="save-the-linear-regression-plot-for-birds-as-a-png" class="section level3">
+<h3><span class="header-section-number">9.3.9</span> Save the linear regression plot for birds as a PNG:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
@@ -793,15 +837,203 @@ cols(
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;/tmp/birds.png&quot;</span>)</code></pre>
 <pre><code>Saving 7 x 5 in image</code></pre>
 <p><em>Save the plot as SVG scaled to be 8cm wide.</em></p>
-<ol start="10" style="list-style-type: decimal">
-<li>Create a horizontal histogram with 50 bins:</li>
-</ol>
+</div>
+<div id="create-a-horizontal-histogram-with-50-bins" class="section level3">
+<h3><span class="header-section-number">9.3.10</span> Create a horizontal histogram with 50 bins:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass), <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">coord_flip</span>()</code></pre>
 <p><img src="practice_files/figure-html/horizontal-1.png" width="672" /></p>
 <p><em>Use <code>stat_summary</code> to summarize the relationship between mass and home range area by class.</em></p>
+</div>
+</div>
+<div id="writing-functions" class="section level2">
+<h2><span class="header-section-number">9.4</span> Writing functions</h2>
+<div id="write-and-call-a-function-that-returns-one-column-from-a-file" class="section level3">
+<h3><span class="header-section-number">9.4.1</span> Write and call a function that returns one column from a file:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname) {
+  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename)
+  dat[colname]
+}
 
+person_filename &lt;-<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)
+<span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>)</code></pre>
+<pre><code># A tibble: 5 x 1
+  family_name
+  &lt;chr&gt;      
+1 Dyer       
+2 Pabodie    
+3 Lake       
+4 Roerich    
+5 Danforth   </code></pre>
+<p><em>Write a function that reads a file and changes the name of one column.</em></p>
+</div>
+<div id="define-a-default-value-for-a-parameter" class="section level3">
+<h3><span class="header-section-number">9.4.2</span> Define a default value for a parameter:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
+  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na)
+  dat[colname]
+}
+
+<span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Dyer&quot;</span>))</code></pre>
+<pre><code># A tibble: 5 x 1
+  family_name
+  &lt;chr&gt;      
+1 &lt;NA&gt;       
+2 Pabodie    
+3 Lake       
+4 Roerich    
+5 Danforth   </code></pre>
+<p><em>Write a function that only keeps the first 100 rows of a table unless another value is passed.</em></p>
+</div>
+<div id="name-the-value-passed-for-a-parameter-to-make-intention-clearer" class="section level3">
+<h3><span class="header-section-number">9.4.3</span> Name the value passed for a parameter to make intention clearer:</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Dyer&quot;</span>))</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  person_id = col_character(),
+  personal_name = col_character(),
+  family_name = col_character()
+)</code></pre>
+<pre><code># A tibble: 5 x 1
+  family_name
+  &lt;chr&gt;      
+1 &lt;NA&gt;       
+2 Pabodie    
+3 Lake       
+4 Roerich    
+5 Danforth   </code></pre>
+<p><em>Call your function with all of the parameters out of order.</em></p>
+</div>
+<div id="make-functions-slightly-more-robust" class="section level3">
+<h3><span class="header-section-number">9.4.4</span> Make functions slightly more robust:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
+  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na)
+  <span class="kw">stopifnot</span>(colname <span class="op">%in%</span><span class="st"> </span><span class="kw">colnames</span>(dat))
+  dat[colname]
+}
+
+<span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;FAMILY&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;Dyer&quot;</span>))</code></pre>
+<pre><code>Error in col_from_file(person_filename, &quot;FAMILY&quot;, na = c(&quot;Dyer&quot;)): colname %in% colnames(dat) is not TRUE</code></pre>
+<p><em>Fail if the number of rows asked for is less than or equal to zero.</em></p>
+</div>
+<div id="use-quoting-and-splicing-to-avoid-needing-a-string-for-the-column-name" class="section level3">
+<h3><span class="header-section-number">9.4.5</span> Use quoting and splicing to avoid needing a string for the column name:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">cols_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
+  colname =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">enquo</span>(colname)
+  readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">!!</span>colname)
+}
+
+<span class="kw">cols_from_file</span>(person_filename, personal_name)</code></pre>
+<pre><code># A tibble: 5 x 1
+  personal_name
+  &lt;chr&gt;        
+1 William      
+2 Frank        
+3 Anderson     
+4 Valentina    
+5 Frank        </code></pre>
+<p><em>Modify your function so that users can pass <code>num_rows/2</code> or a similar expression to specify the number of rows they want to keep.</em></p>
+</div>
+<div id="select-any-number-of-columns" class="section level3">
+<h3><span class="header-section-number">9.4.6</span> Select any number of columns:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">cols_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, ..., <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
+  readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(...)
+}
+
+<span class="kw">cols_from_file</span>(person_filename, personal_name, family_name)</code></pre>
+<pre><code># A tibble: 5 x 2
+  personal_name family_name
+  &lt;chr&gt;         &lt;chr&gt;      
+1 William       Dyer       
+2 Frank         Pabodie    
+3 Anderson      Lake       
+4 Valentina     Roerich    
+5 Frank         Danforth   </code></pre>
+<p><em>Can you call <code>cols_from_file</code> to subtract columns rather than keeping them?</em></p>
+</div>
+<div id="run-a-function-safely" class="section level3">
+<h3><span class="header-section-number">9.4.7</span> Run a function safely:</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cols_from_file</span>(person_filename, NONEXISTENT)</code></pre>
+<pre><code>Error in .f(.x[[i]], ...): object &#39;NONEXISTENT&#39; not found</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">safe_cols_from_file &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">safely</span>(cols_from_file)
+<span class="kw">safe_cols_from_file</span>(person_filename, NONEXISTENT)</code></pre>
+<pre><code>$result
+NULL
+
+$error
+&lt;simpleError in .f(.x[[i]], ...): object &#39;NONEXISTENT&#39; not found&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">safe_cols_from_file</span>(person_filename, person_id)</code></pre>
+<pre><code>$result
+# A tibble: 5 x 1
+  person_id
+  &lt;chr&gt;    
+1 dyer     
+2 pb       
+3 lake     
+4 roe      
+5 danforth 
+
+$error
+NULL</code></pre>
+<p><em>When is <code>purrr::safely</code> safe to use?</em></p>
+</div>
+<div id="unpack-multiple-values-in-a-single-assignment" class="section level3">
+<h3><span class="header-section-number">9.4.8</span> Unpack multiple values in a single assignment:</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(zeallot)
+
+<span class="kw">c</span>(result, error) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">safe_cols_from_file</span>(person_filename, person_id)
+result</code></pre>
+<pre><code># A tibble: 5 x 1
+  person_id
+  &lt;chr&gt;    
+1 dyer     
+2 pb       
+3 lake     
+4 roe      
+5 danforth </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">error</code></pre>
+<pre><code>NULL</code></pre>
+<p><em>what happens if there are more variables on the left of <code>%&lt;-%</code> than there are values on the right?</em></p>
+</div>
+<div id="assign-out-of-function-scope-with--" class="section level3">
+<h3><span class="header-section-number">9.4.9</span> Assign out of function scope with <code>&lt;&lt;-</code>:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">call_count =<span class="st"> </span><span class="dv">0</span>
+
+safe_cols_from_file &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">safely</span>(<span class="cf">function</span>(filename, ..., <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
+  call_count &lt;&lt;-<span class="st"> </span>call_count <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+  readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(...)
+})
+
+<span class="kw">c</span>(result, error) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">safe_cols_from_file</span>(person_filename, family_name)
+
+call_count</code></pre>
+<pre><code>[1] 1</code></pre>
+<p><em>What happens if the variable assigned to with <code>&lt;&lt;-</code> does not exist before the assignment?</em></p>
+</div>
+<div id="use-anonymous-functions" class="section level3">
+<h3><span class="header-section-number">9.4.10</span> Use anonymous functions:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map</span>(result<span class="op">$</span>family_name, <span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_length</span>(x))</code></pre>
+<pre><code>[[1]]
+[1] 4
+
+[[2]]
+[1] 7
+
+[[3]]
+[1] 4
+
+[[4]]
+[1] 7
+
+[[5]]
+[1] 8</code></pre>
+<p><em>Modify this example to create a vector of integers.</em></p>
+
+</div>
 </div>
 </div>
             </section>
