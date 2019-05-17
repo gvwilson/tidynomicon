@@ -50,7 +50,7 @@ There are comments mixed with data,
 values' actual indices have to be synthesized by combining column headings from two rows
 (two thirds of which have to be carried forward from previous columns),
 and so on.
-We want to create the tidy data found in `tidy/infant_hiv.csv`:
+We want to create the tidy data found in `results/infant_hiv.csv`:
 
 ```
 country,year,estimate,hi,lo
@@ -71,7 +71,7 @@ which we shall do in stages.
 We will begin by reading the data into a tibble:
 
 ```{r read-and-head}
-raw <- read_csv("raw/infant_hiv.csv")
+raw <- read_csv("data/infant_hiv.csv")
 head(raw)
 ```
 
@@ -90,7 +90,7 @@ Since we want the ISO3 code and the country name,
 let's skip the first two rows.
 
 ```{r read-skip-and-head}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2)
+raw <- read_csv("data/infant_hiv.csv", skip = 2)
 head(raw)
 ```
 
@@ -105,7 +105,7 @@ We will tackle the first problem by setting `na = c("-")` in our `read_csv` call
 (since we should never do ourselves what a library function will do for us):
 
 ```{r read-skip-na-and-head}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 head(raw)
 ```
 
@@ -118,7 +118,7 @@ We will save the ISO3 values for later use
 but which we don't want to reveal just yet).
 
 ```{r read-and-filter-mistake, error=TRUE}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
   filter(-ISO3, -Countries)
@@ -130,7 +130,7 @@ Once we make that change,
 we can move forward once again:
 
 ```{r read-and-select}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 countries <- raw$ISO3
 body <- raw %>%
   select(-ISO3, -Countries)
@@ -157,7 +157,7 @@ let's revisit the problem once we have our data in place.
 
 ```{r read-slice-and-tail}
 num_rows <- 192
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:num_rows)
 countries <- sliced$ISO3
 tail(countries, n = 5)
@@ -194,7 +194,7 @@ and so are we.
 Our updated conversion script is now:
 
 ```{r str-replace-fail}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -241,7 +241,7 @@ we can use a [higher-order function](glossary.html#higher-order-function) called
 to apply the function `str_replace` to each column in turn to get rid of the percent signs:
 
 ```{r read-and-trim-with-map, output.lines=40}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -257,7 +257,7 @@ which maps a function across the rows of a tibble and returns a tibble as a resu
 (There is a corresponding function `map_dfc` that maps a function across columns.)
 
 ```{r read-and-trim-with-map-dfr}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -274,7 +274,7 @@ We will check by looking at the first `Estimate` column,
 which earlier inspection informed us had at least one `">95%"` in it:
 
 ```{r use-regexp, output.lines=NA}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -288,7 +288,7 @@ We can now use `map_dfr` to convert the columns to numeric percentages
 using an [anonymous function](glossary.html#anonymous-function) that we define inside the `map_dfr` call itself:
 
 ```{r convert-to-percent, output.lines=NA}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -302,7 +302,7 @@ head(percents)
 so let's see what running `warnings()` produces right after the `as.numeric` call:
 
 ```{r look-at-warnings, output.lines=20}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- raw %>%
@@ -331,7 +331,7 @@ and one that could easily have slipped by us.
 Here is our revised script:
 
 ```{r fixing-trim-bug}
-raw <- read_csv("raw/infant_hiv.csv", skip = 2, na = c("-"))
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
 sliced <- slice(raw, 1:192)
 countries <- sliced$ISO3
 body <- sliced %>%
@@ -543,7 +543,7 @@ clean_infant_hiv <- function(filename, num_rows) {
     gather(key = "year_kind", value = "value", -country) %>%
     separate(year_kind, c("year", "kind"))
 }
-clean_infant_hiv("raw/infant_hiv.csv", 192)
+clean_infant_hiv("data/infant_hiv.csv", 192)
 ```
 
 We're done,

@@ -19,7 +19,7 @@ This chapter therefore looks at how to do the things that R was summoned---er, d
 
 ## How do I read data?
 
-We begin by looking at the file `tidy/infant_hiv.csv`,
+We begin by looking at the file `results/infant_hiv.csv`,
 a tidied version of data on the percentage of infants born to women with HIV
 who received an HIV test themselves within two months of birth.
 The original data comes from the UNICEF site at <https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/>,
@@ -57,7 +57,7 @@ We can load this data in Python like this:
 ```{python python-read-csv, output.lines=10}
 import pandas as pd
 
-infant_hiv = pd.read_csv('tidy/infant_hiv.csv')
+infant_hiv = pd.read_csv('results/infant_hiv.csv')
 print(infant_hiv)
 ```
 
@@ -113,7 +113,7 @@ Once we have the tidyverse loaded,
 reading the file looks remarkably like reading the file:
 
 ```{r r-read-csv}
-infant_hiv <- read_csv('tidy/infant_hiv.csv')
+infant_hiv <- read_csv('results/infant_hiv.csv')
 ```
 
 R's `read_csv` tells us more about what it has done than Pandas does.
@@ -584,7 +584,7 @@ without repeating the filtering expression.
 We then group by year and aggregate, again using strings for column names:
 
 ```{python equivalent-to-pipeline}
-data = pd.read_csv('tidy/infant_hiv.csv')
+data = pd.read_csv('results/infant_hiv.csv')
 data = data.query('(estimate != 0.95) & (lo > 0.5) & (hi <= (lo + 0.2))')
 data = data.assign(difference = (data.hi - data.lo))
 grouped = data.groupby('year').agg({'difference' : {'ave_diff' : 'mean', 'count' : 'count'}})

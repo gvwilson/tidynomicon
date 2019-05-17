@@ -45,7 +45,7 @@ let's read our infant HIV data into a Pandas data frame:
 
 ```{python}
 import pandas
-data = pandas.read_csv('tidy/infant_hiv.csv')
+data = pandas.read_csv('results/infant_hiv.csv')
 print(data.head())
 ```
 
@@ -122,7 +122,7 @@ By default,
 that function and all other top-level variables defined in the script are now available in R:
 
 ```{r}
-get_countries('tidy/infant_hiv.csv')
+get_countries('results/infant_hiv.csv')
 ```
 
 There is one small pothole in this.

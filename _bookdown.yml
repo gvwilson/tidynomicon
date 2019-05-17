@@ -12,14 +12,14 @@ rmd_files:
   - control.Rmd
   - tidyverse.Rmd
   - cleanup.Rmd
-  - testerror.Rmd
   - nse.Rmd
-  - oop.Rmd
   - debt.Rmd
   - practice.Rmd
+  - testerror.Rmd
+  - oop.Rmd
   - projects.Rmd
-  - shiny.Rmd
   - python.Rmd
+  - shiny.Rmd
   - references.Rmd
   - appendix.Rmd
   - LICENSE.md

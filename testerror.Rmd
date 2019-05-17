@@ -509,7 +509,7 @@ simplicity beats performance.
 Here's our first try:
 
 ```{r reading-health-data}
-read_csv("raw/at_health_facilities.csv") %>%
+read_csv("data/at_health_facilities.csv") %>%
   select(check = 1) %>%
   mutate(id = row_number()) %>%
   filter(check == "iso3") %>%
