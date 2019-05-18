@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-17">
+<meta name="date" content="2019-05-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -254,10 +254,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.4" data-path="practice.html"><a href="practice.html#make-functions-slightly-more-robust"><i class="fa fa-check"></i><b>9.4.4</b> Make functions slightly more robust:</a></li>
 <li class="chapter" data-level="9.4.5" data-path="practice.html"><a href="practice.html#use-quoting-and-splicing-to-avoid-needing-a-string-for-the-column-name"><i class="fa fa-check"></i><b>9.4.5</b> Use quoting and splicing to avoid needing a string for the column name:</a></li>
 <li class="chapter" data-level="9.4.6" data-path="practice.html"><a href="practice.html#select-any-number-of-columns"><i class="fa fa-check"></i><b>9.4.6</b> Select any number of columns:</a></li>
-<li class="chapter" data-level="9.4.7" data-path="practice.html"><a href="practice.html#run-a-function-safely"><i class="fa fa-check"></i><b>9.4.7</b> Run a function safely:</a></li>
-<li class="chapter" data-level="9.4.8" data-path="practice.html"><a href="practice.html#unpack-multiple-values-in-a-single-assignment"><i class="fa fa-check"></i><b>9.4.8</b> Unpack multiple values in a single assignment:</a></li>
-<li class="chapter" data-level="9.4.9" data-path="practice.html"><a href="practice.html#assign-out-of-function-scope-with--"><i class="fa fa-check"></i><b>9.4.9</b> Assign out of function scope with <code>&lt;&lt;-</code>:</a></li>
-<li class="chapter" data-level="9.4.10" data-path="practice.html"><a href="practice.html#use-anonymous-functions"><i class="fa fa-check"></i><b>9.4.10</b> Use anonymous functions:</a></li>
+<li class="chapter" data-level="9.4.7" data-path="practice.html"><a href="practice.html#add-an-optional-filter-condition"><i class="fa fa-check"></i><b>9.4.7</b> Add an optional filter condition:</a></li>
+<li class="chapter" data-level="9.4.8" data-path="practice.html"><a href="practice.html#run-a-function-safely"><i class="fa fa-check"></i><b>9.4.8</b> Run a function safely:</a></li>
+<li class="chapter" data-level="9.4.9" data-path="practice.html"><a href="practice.html#unpack-multiple-values-in-a-single-assignment"><i class="fa fa-check"></i><b>9.4.9</b> Unpack multiple values in a single assignment:</a></li>
+<li class="chapter" data-level="9.4.10" data-path="practice.html"><a href="practice.html#assign-out-of-function-scope-with--"><i class="fa fa-check"></i><b>9.4.10</b> Assign out of function scope with <code>&lt;&lt;-</code>:</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="practice.html"><a href="practice.html#functional-programming"><i class="fa fa-check"></i><b>9.5</b> Functional programming</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="practice.html"><a href="practice.html#apply-a-function-to-every-element-of-a-vector"><i class="fa fa-check"></i><b>9.5.1</b> Apply a function to every element of a vector:</a></li>
+<li class="chapter" data-level="9.5.2" data-path="practice.html"><a href="practice.html#use-an-anonymous-function"><i class="fa fa-check"></i><b>9.5.2</b> Use an anonymous function:</a></li>
+<li class="chapter" data-level="9.5.3" data-path="practice.html"><a href="practice.html#use-a-formula-with-.x-as-a-shorthand-for-an-anonymous-function-of-one-argument"><i class="fa fa-check"></i><b>9.5.3</b> Use a formula with <code>.x</code> as a shorthand for an anonymous function of one argument:</a></li>
+<li class="chapter" data-level="9.5.4" data-path="practice.html"><a href="practice.html#map-a-function-of-two-arguments"><i class="fa fa-check"></i><b>9.5.4</b> Map a function of two arguments:</a></li>
+<li class="chapter" data-level="9.5.5" data-path="practice.html"><a href="practice.html#map-a-function-of-three-or-more-arguments"><i class="fa fa-check"></i><b>9.5.5</b> Map a function of three or more arguments:</a></li>
+<li class="chapter" data-level="9.5.6" data-path="practice.html"><a href="practice.html#flattern-one-level-of-a-nested-structure"><i class="fa fa-check"></i><b>9.5.6</b> Flattern one level of a nested structure:</a></li>
+<li class="chapter" data-level="9.5.7" data-path="practice.html"><a href="practice.html#check-whether-every-element-passes-a-test"><i class="fa fa-check"></i><b>9.5.7</b> Check whether every element passes a test:</a></li>
+<li class="chapter" data-level="9.5.8" data-path="practice.html"><a href="practice.html#modify-specific-elements-of-a-list"><i class="fa fa-check"></i><b>9.5.8</b> Modify specific elements of a list:</a></li>
+<li class="chapter" data-level="9.5.9" data-path="practice.html"><a href="practice.html#create-an-acronym"><i class="fa fa-check"></i><b>9.5.9</b> Create an acronym:</a></li>
+<li class="chapter" data-level="9.5.10" data-path="practice.html"><a href="practice.html#create-intermediate-values"><i class="fa fa-check"></i><b>9.5.10</b> Create intermediate values:</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="testerror.html"><a href="testerror.html"><i class="fa fa-check"></i><b>10</b> Testing and Error Handling</a><ul>
@@ -644,12 +656,12 @@ which shows us where objects live in the computer’s memory:</p>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7fe50e251348&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7f880d3fd148&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7fe50e251348 -&gt; 0x7fe50e274508]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fe50e274508 -&gt; 0x7fe50e274488]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fe50e274488 -&gt; 0x7fe50e274408]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fe50e274408 -&gt; 0x7fe50e2a62c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7f880d3fd148 -&gt; 0x7f880d46e308]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7f880d46e308 -&gt; 0x7f880d46e288]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7f880d46e288 -&gt; 0x7f880d46e208]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7f880d46e208 -&gt; 0x7f880d4a00c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
@@ -657,13 +669,13 @@ We can accomplish something a little more readable using <code>pryr::address</co
 (i.e., the <code>address</code> function from the pryr package):</p>
 <pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;left column is initially at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>left column is initially at 0x7fe50e2744c8</code></pre>
+<pre><code>left column is initially at 0x7f880d46e2c8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7fe50e2744c8</code></pre>
+<pre><code>after modification, the original column is still at 0x7f880d46e2c8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7fe50db09208</code></pre>
+<pre><code>but the first column is at 0x7f880d665808</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.

@@ -441,6 +441,25 @@ cols_from_file(person_filename, personal_name, family_name)
 
 *Can you call `cols_from_file` to subtract columns rather than keeping them?*
 
+### Add an optional filter condition:
+
+```{r}
+cols_from_file <- function(filename, ..., na = c("", "NA"), filter_by = NULL) {
+  temp <- read_csv(filename, na = na) %>%
+    dplyr::select(...)
+  filter_by <- rlang::enquo(filter_by)
+  if (!is.null(filter_by)) {
+    temp <- temp %>%
+      filter(!!filter_by)
+  }
+  temp
+}
+
+cols_from_file(person_filename, personal_name, family_name, filter_by = family_name > "M")
+```
+
+*Why doesn't this work if the call to `rlang::enquo` is moved inside the conditional?*
+
 ### Run a function safely:
 
 ```{r nonexistent-column, message=FALSE, error=TRUE}
@@ -468,7 +487,7 @@ result
 error
 ```
 
-*what happens if there are more variables on the left of `%<-%` than there are values on the right?*
+*What happens if there are more variables on the left of `%<-%` than there are values on the right?*
 
 ### Assign out of function scope with `<<-`:
 
@@ -488,13 +507,92 @@ call_count
 
 *What happens if the variable assigned to with `<<-` does not exist before the assignment?*
 
-### Use anonymous functions:
+## Functional programming
 
-```{r anonymous-function}
-purrr::map(result$family_name, function(x) stringr::str_length(x))
+### Apply a function to every element of a vector:
+
+```{r purrr-map}
+long_name <- function(name){
+  stringr::str_length(name) > 4
+}
+
+purrr::map(person$family_name, long_name)
 ```
 
-*Modify this example to create a vector of integers.*
+*Modify this example to return a logical vector.*
+
+### Use an anonymous function:
+
+```{r anonymous-function}
+purrr::map_lgl(person$family_name, function(name) stringr::str_length(name) > 4)
+```
+
+*Create a character vector with all names in upper case.*
+
+### Use a formula with `.x` as a shorthand for an anonymous function of one argument:
+
+```{r}
+purrr::map_chr(person$family_name, ~ stringr::str_to_upper(.x))
+```
+
+*Do you actually need `purrr::map_chr` to do this?*
+
+### Map a function of two arguments:
+
+```{r}
+purrr::map2_chr(person$personal_name, person$family_name, ~stringr::str_c(.y, .x, sep = '_'))
+```
+
+*Calculate a vector of `mean.mass.g` over `mean.hra.m2` for the `hra` table using `purrr::map2_dbl`, then explain how you ought to do it instead.*
+
+### Map a function of three or more arguments:
+
+```{r}
+vals = list(first = person$personal_name, last = person$family_name, ident = person$person_id)
+purrr::pmap_chr(vals, function(ident, last, first) stringr::str_c(first, last, ident, sep = '_'))
+```
+
+*Repeat this without giving names to the elements of `vals`.*
+
+### Flattern one level of a nested structure:
+
+```{r}
+purrr::flatten(list(person$personal_name, person$family_name))
+```
+
+*Use `purrr::keep` to discard the elements from the flattened list that are greater than "M".*
+
+### Check whether every element passes a test:
+
+```{r}
+purrr::every(person$personal_name, ~.x > 'M')
+```
+
+*Use `some` to check whether any of the elements pass the same test.*
+
+### Modify specific elements of a list:
+
+```{r}
+purrr::modify_at(person$personal_name, c(2, 4), stringr::str_to_upper)
+```
+
+*Use `modify_if` to upper-case names that are greater than "M".*
+
+### Create an acronym:
+
+```{r}
+purrr::reduce(person$personal_name, ~stringr::str_c(.x, stringr::str_sub(.y, 1, 1)), .init = "")
+```
+
+*Explain why using `stringr::str_c(stringr::str_sub(.x, 1, 1), stringr::str_sub(.y, 1, 1))` doesn't work.*
+
+### Create intermediate values:
+
+```{r}
+purrr::accumulate(person$personal_name, ~stringr::str_c(.x, stringr::str_sub(.y, 1, 1)), .init = "")
+```
+
+*Modify this so that the initial empty string isn't in the final result.*
 
 ```{r links, child="etc/links.md"}
 ```

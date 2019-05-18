@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-17">
+<meta name="date" content="2019-05-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -254,10 +254,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.4" data-path="practice.html"><a href="practice.html#make-functions-slightly-more-robust"><i class="fa fa-check"></i><b>9.4.4</b> Make functions slightly more robust:</a></li>
 <li class="chapter" data-level="9.4.5" data-path="practice.html"><a href="practice.html#use-quoting-and-splicing-to-avoid-needing-a-string-for-the-column-name"><i class="fa fa-check"></i><b>9.4.5</b> Use quoting and splicing to avoid needing a string for the column name:</a></li>
 <li class="chapter" data-level="9.4.6" data-path="practice.html"><a href="practice.html#select-any-number-of-columns"><i class="fa fa-check"></i><b>9.4.6</b> Select any number of columns:</a></li>
-<li class="chapter" data-level="9.4.7" data-path="practice.html"><a href="practice.html#run-a-function-safely"><i class="fa fa-check"></i><b>9.4.7</b> Run a function safely:</a></li>
-<li class="chapter" data-level="9.4.8" data-path="practice.html"><a href="practice.html#unpack-multiple-values-in-a-single-assignment"><i class="fa fa-check"></i><b>9.4.8</b> Unpack multiple values in a single assignment:</a></li>
-<li class="chapter" data-level="9.4.9" data-path="practice.html"><a href="practice.html#assign-out-of-function-scope-with--"><i class="fa fa-check"></i><b>9.4.9</b> Assign out of function scope with <code>&lt;&lt;-</code>:</a></li>
-<li class="chapter" data-level="9.4.10" data-path="practice.html"><a href="practice.html#use-anonymous-functions"><i class="fa fa-check"></i><b>9.4.10</b> Use anonymous functions:</a></li>
+<li class="chapter" data-level="9.4.7" data-path="practice.html"><a href="practice.html#add-an-optional-filter-condition"><i class="fa fa-check"></i><b>9.4.7</b> Add an optional filter condition:</a></li>
+<li class="chapter" data-level="9.4.8" data-path="practice.html"><a href="practice.html#run-a-function-safely"><i class="fa fa-check"></i><b>9.4.8</b> Run a function safely:</a></li>
+<li class="chapter" data-level="9.4.9" data-path="practice.html"><a href="practice.html#unpack-multiple-values-in-a-single-assignment"><i class="fa fa-check"></i><b>9.4.9</b> Unpack multiple values in a single assignment:</a></li>
+<li class="chapter" data-level="9.4.10" data-path="practice.html"><a href="practice.html#assign-out-of-function-scope-with--"><i class="fa fa-check"></i><b>9.4.10</b> Assign out of function scope with <code>&lt;&lt;-</code>:</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="practice.html"><a href="practice.html#functional-programming"><i class="fa fa-check"></i><b>9.5</b> Functional programming</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="practice.html"><a href="practice.html#apply-a-function-to-every-element-of-a-vector"><i class="fa fa-check"></i><b>9.5.1</b> Apply a function to every element of a vector:</a></li>
+<li class="chapter" data-level="9.5.2" data-path="practice.html"><a href="practice.html#use-an-anonymous-function"><i class="fa fa-check"></i><b>9.5.2</b> Use an anonymous function:</a></li>
+<li class="chapter" data-level="9.5.3" data-path="practice.html"><a href="practice.html#use-a-formula-with-.x-as-a-shorthand-for-an-anonymous-function-of-one-argument"><i class="fa fa-check"></i><b>9.5.3</b> Use a formula with <code>.x</code> as a shorthand for an anonymous function of one argument:</a></li>
+<li class="chapter" data-level="9.5.4" data-path="practice.html"><a href="practice.html#map-a-function-of-two-arguments"><i class="fa fa-check"></i><b>9.5.4</b> Map a function of two arguments:</a></li>
+<li class="chapter" data-level="9.5.5" data-path="practice.html"><a href="practice.html#map-a-function-of-three-or-more-arguments"><i class="fa fa-check"></i><b>9.5.5</b> Map a function of three or more arguments:</a></li>
+<li class="chapter" data-level="9.5.6" data-path="practice.html"><a href="practice.html#flattern-one-level-of-a-nested-structure"><i class="fa fa-check"></i><b>9.5.6</b> Flattern one level of a nested structure:</a></li>
+<li class="chapter" data-level="9.5.7" data-path="practice.html"><a href="practice.html#check-whether-every-element-passes-a-test"><i class="fa fa-check"></i><b>9.5.7</b> Check whether every element passes a test:</a></li>
+<li class="chapter" data-level="9.5.8" data-path="practice.html"><a href="practice.html#modify-specific-elements-of-a-list"><i class="fa fa-check"></i><b>9.5.8</b> Modify specific elements of a list:</a></li>
+<li class="chapter" data-level="9.5.9" data-path="practice.html"><a href="practice.html#create-an-acronym"><i class="fa fa-check"></i><b>9.5.9</b> Create an acronym:</a></li>
+<li class="chapter" data-level="9.5.10" data-path="practice.html"><a href="practice.html#create-intermediate-values"><i class="fa fa-check"></i><b>9.5.10</b> Create intermediate values:</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="testerror.html"><a href="testerror.html"><i class="fa fa-check"></i><b>10</b> Testing and Error Handling</a><ul>
@@ -954,8 +966,35 @@ cols(
 5 Frank         Danforth   </code></pre>
 <p><em>Can you call <code>cols_from_file</code> to subtract columns rather than keeping them?</em></p>
 </div>
+<div id="add-an-optional-filter-condition" class="section level3">
+<h3><span class="header-section-number">9.4.7</span> Add an optional filter condition:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">cols_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, ..., <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>), <span class="dt">filter_by =</span> <span class="ot">NULL</span>) {
+  temp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na) <span class="op">%&gt;%</span>
+<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(...)
+  filter_by &lt;-<span class="st"> </span>rlang<span class="op">::</span><span class="kw">enquo</span>(filter_by)
+  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(filter_by)) {
+    temp &lt;-<span class="st"> </span>temp <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(<span class="op">!!</span>filter_by)
+  }
+  temp
+}
+
+<span class="kw">cols_from_file</span>(person_filename, personal_name, family_name, <span class="dt">filter_by =</span> family_name <span class="op">&gt;</span><span class="st"> &quot;M&quot;</span>)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  person_id = col_character(),
+  personal_name = col_character(),
+  family_name = col_character()
+)</code></pre>
+<pre><code># A tibble: 2 x 2
+  personal_name family_name
+  &lt;chr&gt;         &lt;chr&gt;      
+1 Frank         Pabodie    
+2 Valentina     Roerich    </code></pre>
+<p><em>Why doesn’t this work if the call to <code>rlang::enquo</code> is moved inside the conditional?</em></p>
+</div>
 <div id="run-a-function-safely" class="section level3">
-<h3><span class="header-section-number">9.4.7</span> Run a function safely:</h3>
+<h3><span class="header-section-number">9.4.8</span> Run a function safely:</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cols_from_file</span>(person_filename, NONEXISTENT)</code></pre>
 <pre><code>Error in .f(.x[[i]], ...): object &#39;NONEXISTENT&#39; not found</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">safe_cols_from_file &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">safely</span>(cols_from_file)
@@ -967,39 +1006,25 @@ $error
 &lt;simpleError in .f(.x[[i]], ...): object &#39;NONEXISTENT&#39; not found&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">safe_cols_from_file</span>(person_filename, person_id)</code></pre>
 <pre><code>$result
-# A tibble: 5 x 1
-  person_id
-  &lt;chr&gt;    
-1 dyer     
-2 pb       
-3 lake     
-4 roe      
-5 danforth 
+NULL
 
 $error
-NULL</code></pre>
+&lt;Rcpp::exception in filter_impl(.data, quo): Argument 2 filter condition does not evaluate to a logical vector&gt;</code></pre>
 <p><em>When is <code>purrr::safely</code> safe to use?</em></p>
 </div>
 <div id="unpack-multiple-values-in-a-single-assignment" class="section level3">
-<h3><span class="header-section-number">9.4.8</span> Unpack multiple values in a single assignment:</h3>
+<h3><span class="header-section-number">9.4.9</span> Unpack multiple values in a single assignment:</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(zeallot)
 
 <span class="kw">c</span>(result, error) <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">safe_cols_from_file</span>(person_filename, person_id)
 result</code></pre>
-<pre><code># A tibble: 5 x 1
-  person_id
-  &lt;chr&gt;    
-1 dyer     
-2 pb       
-3 lake     
-4 roe      
-5 danforth </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">error</code></pre>
 <pre><code>NULL</code></pre>
-<p><em>what happens if there are more variables on the left of <code>%&lt;-%</code> than there are values on the right?</em></p>
+<pre class="sourceCode r"><code class="sourceCode r">error</code></pre>
+<pre><code>&lt;Rcpp::exception in filter_impl(.data, quo): Argument 2 filter condition does not evaluate to a logical vector&gt;</code></pre>
+<p><em>What happens if there are more variables on the left of <code>%&lt;-%</code> than there are values on the right?</em></p>
 </div>
 <div id="assign-out-of-function-scope-with--" class="section level3">
-<h3><span class="header-section-number">9.4.9</span> Assign out of function scope with <code>&lt;&lt;-</code>:</h3>
+<h3><span class="header-section-number">9.4.10</span> Assign out of function scope with <code>&lt;&lt;-</code>:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">call_count =<span class="st"> </span><span class="dv">0</span>
 
 safe_cols_from_file &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">safely</span>(<span class="cf">function</span>(filename, ..., <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
@@ -1014,24 +1039,117 @@ call_count</code></pre>
 <pre><code>[1] 1</code></pre>
 <p><em>What happens if the variable assigned to with <code>&lt;&lt;-</code> does not exist before the assignment?</em></p>
 </div>
-<div id="use-anonymous-functions" class="section level3">
-<h3><span class="header-section-number">9.4.10</span> Use anonymous functions:</h3>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map</span>(result<span class="op">$</span>family_name, <span class="cf">function</span>(x) stringr<span class="op">::</span><span class="kw">str_length</span>(x))</code></pre>
+</div>
+<div id="functional-programming" class="section level2">
+<h2><span class="header-section-number">9.5</span> Functional programming</h2>
+<div id="apply-a-function-to-every-element-of-a-vector" class="section level3">
+<h3><span class="header-section-number">9.5.1</span> Apply a function to every element of a vector:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">long_name &lt;-<span class="st"> </span><span class="cf">function</span>(name){
+  stringr<span class="op">::</span><span class="kw">str_length</span>(name) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>
+}
+
+purrr<span class="op">::</span><span class="kw">map</span>(person<span class="op">$</span>family_name, long_name)</code></pre>
 <pre><code>[[1]]
-[1] 4
+[1] FALSE
 
 [[2]]
-[1] 7
+[1] TRUE
 
 [[3]]
-[1] 4
+[1] FALSE
 
 [[4]]
-[1] 7
+[1] TRUE
 
 [[5]]
-[1] 8</code></pre>
-<p><em>Modify this example to create a vector of integers.</em></p>
+[1] TRUE</code></pre>
+<p><em>Modify this example to return a logical vector.</em></p>
+</div>
+<div id="use-an-anonymous-function" class="section level3">
+<h3><span class="header-section-number">9.5.2</span> Use an anonymous function:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map_lgl</span>(person<span class="op">$</span>family_name, <span class="cf">function</span>(name) stringr<span class="op">::</span><span class="kw">str_length</span>(name) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<pre><code>[1] FALSE  TRUE FALSE  TRUE  TRUE</code></pre>
+<p><em>Create a character vector with all names in upper case.</em></p>
+</div>
+<div id="use-a-formula-with-.x-as-a-shorthand-for-an-anonymous-function-of-one-argument" class="section level3">
+<h3><span class="header-section-number">9.5.3</span> Use a formula with <code>.x</code> as a shorthand for an anonymous function of one argument:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map_chr</span>(person<span class="op">$</span>family_name, <span class="op">~</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_to_upper</span>(.x))</code></pre>
+<pre><code>[1] &quot;DYER&quot;     &quot;PABODIE&quot;  &quot;LAKE&quot;     &quot;ROERICH&quot;  &quot;DANFORTH&quot;</code></pre>
+<p><em>Do you actually need <code>purrr::map_chr</code> to do this?</em></p>
+</div>
+<div id="map-a-function-of-two-arguments" class="section level3">
+<h3><span class="header-section-number">9.5.4</span> Map a function of two arguments:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map2_chr</span>(person<span class="op">$</span>personal_name, person<span class="op">$</span>family_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.y, .x, <span class="dt">sep =</span> <span class="st">&#39;_&#39;</span>))</code></pre>
+<pre><code>[1] &quot;Dyer_William&quot;      &quot;Pabodie_Frank&quot;     &quot;Lake_Anderson&quot;    
+[4] &quot;Roerich_Valentina&quot; &quot;Danforth_Frank&quot;   </code></pre>
+<p><em>Calculate a vector of <code>mean.mass.g</code> over <code>mean.hra.m2</code> for the <code>hra</code> table using <code>purrr::map2_dbl</code>, then explain how you ought to do it instead.</em></p>
+</div>
+<div id="map-a-function-of-three-or-more-arguments" class="section level3">
+<h3><span class="header-section-number">9.5.5</span> Map a function of three or more arguments:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">vals =<span class="st"> </span><span class="kw">list</span>(<span class="dt">first =</span> person<span class="op">$</span>personal_name, <span class="dt">last =</span> person<span class="op">$</span>family_name, <span class="dt">ident =</span> person<span class="op">$</span>person_id)
+purrr<span class="op">::</span><span class="kw">pmap_chr</span>(vals, <span class="cf">function</span>(ident, last, first) stringr<span class="op">::</span><span class="kw">str_c</span>(first, last, ident, <span class="dt">sep =</span> <span class="st">&#39;_&#39;</span>))</code></pre>
+<pre><code>[1] &quot;William_Dyer_dyer&quot;       &quot;Frank_Pabodie_pb&quot;       
+[3] &quot;Anderson_Lake_lake&quot;      &quot;Valentina_Roerich_roe&quot;  
+[5] &quot;Frank_Danforth_danforth&quot;</code></pre>
+<p><em>Repeat this without giving names to the elements of <code>vals</code>.</em></p>
+</div>
+<div id="flattern-one-level-of-a-nested-structure" class="section level3">
+<h3><span class="header-section-number">9.5.6</span> Flattern one level of a nested structure:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">flatten</span>(<span class="kw">list</span>(person<span class="op">$</span>personal_name, person<span class="op">$</span>family_name))</code></pre>
+<pre><code>[[1]]
+[1] &quot;William&quot;
+
+[[2]]
+[1] &quot;Frank&quot;
+
+[[3]]
+[1] &quot;Anderson&quot;
+
+[[4]]
+[1] &quot;Valentina&quot;
+
+[[5]]
+[1] &quot;Frank&quot;
+
+[[6]]
+[1] &quot;Dyer&quot;
+
+[[7]]
+[1] &quot;Pabodie&quot;
+
+[[8]]
+[1] &quot;Lake&quot;
+
+[[9]]
+[1] &quot;Roerich&quot;
+
+[[10]]
+[1] &quot;Danforth&quot;</code></pre>
+<p><em>Use <code>purrr::keep</code> to discard the elements from the flattened list that are greater than “M”.</em></p>
+</div>
+<div id="check-whether-every-element-passes-a-test" class="section level3">
+<h3><span class="header-section-number">9.5.7</span> Check whether every element passes a test:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">every</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>.x <span class="op">&gt;</span><span class="st"> &#39;M&#39;</span>)</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<p><em>Use <code>some</code> to check whether any of the elements pass the same test.</em></p>
+</div>
+<div id="modify-specific-elements-of-a-list" class="section level3">
+<h3><span class="header-section-number">9.5.8</span> Modify specific elements of a list:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">modify_at</span>(person<span class="op">$</span>personal_name, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), stringr<span class="op">::</span>str_to_upper)</code></pre>
+<pre><code>[1] &quot;William&quot;   &quot;FRANK&quot;     &quot;Anderson&quot;  &quot;VALENTINA&quot; &quot;Frank&quot;    </code></pre>
+<p><em>Use <code>modify_if</code> to upper-case names that are greater than “M”.</em></p>
+</div>
+<div id="create-an-acronym" class="section level3">
+<h3><span class="header-section-number">9.5.9</span> Create an acronym:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">reduce</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.x, stringr<span class="op">::</span><span class="kw">str_sub</span>(.y, <span class="dv">1</span>, <span class="dv">1</span>)), <span class="dt">.init =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<pre><code>[1] &quot;WFAVF&quot;</code></pre>
+<p><em>Explain why using <code>stringr::str_c(stringr::str_sub(.x, 1, 1), stringr::str_sub(.y, 1, 1))</code> doesn’t work.</em></p>
+</div>
+<div id="create-intermediate-values" class="section level3">
+<h3><span class="header-section-number">9.5.10</span> Create intermediate values:</h3>
+<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">accumulate</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.x, stringr<span class="op">::</span><span class="kw">str_sub</span>(.y, <span class="dv">1</span>, <span class="dv">1</span>)), <span class="dt">.init =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<pre><code>[1] &quot;&quot;      &quot;W&quot;     &quot;WF&quot;    &quot;WFA&quot;   &quot;WFAV&quot;  &quot;WFAVF&quot;</code></pre>
+<p><em>Modify this so that the initial empty string isn’t in the final result.</em></p>
 
 </div>
 </div>
