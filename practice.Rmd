@@ -99,10 +99,15 @@ person %>%
 
 ## Working with grouped data
 
-### Read `survey/measurements.csv` and look at the data with `View`:
+### Read `survey/measurements.csv`:
 
 ```{r read-and-view}
 measurements <- readr::read_csv(here::here("data", "measurements.csv"))
+```
+
+And look at the data with `View`:
+
+```{r read-and-view-skip, eval=FALSE}
 View(measurements)
 ```
 

@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-18">
+<meta name="date" content="2019-05-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -224,7 +224,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.10" data-path="practice.html"><a href="practice.html#use-dplyrarrange-to-order-rows-and-optionally-dplyrdesc-to-impose-descending-order"><i class="fa fa-check"></i><b>9.1.10</b> Use <code>dplyr::arrange</code> to order rows and (optionally) <code>dplyr::desc</code> to impose descending order:</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#working-with-grouped-data"><i class="fa fa-check"></i><b>9.2</b> Working with grouped data</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="practice.html"><a href="practice.html#read-surveymeasurements.csv-and-look-at-the-data-with-view"><i class="fa fa-check"></i><b>9.2.1</b> Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</a></li>
+<li class="chapter" data-level="9.2.1" data-path="practice.html"><a href="practice.html#read-surveymeasurements.csv"><i class="fa fa-check"></i><b>9.2.1</b> Read <code>survey/measurements.csv</code>:</a></li>
 <li class="chapter" data-level="9.2.2" data-path="practice.html"><a href="practice.html#find-rows-where-reading-is-not-na-and-saved-as-cleaned"><i class="fa fa-check"></i><b>9.2.2</b> Find rows where <code>reading</code> is not NA and saved as <code>cleaned</code>:</a></li>
 <li class="chapter" data-level="9.2.3" data-path="practice.html"><a href="practice.html#group-measurements-by-quantity-measured-and-count-the-number-of-each-the-column-is-named-n-automatically"><i class="fa fa-check"></i><b>9.2.3</b> Group measurements by quantity measured and count the number of each (the column is named <code>n</code> automatically):</a></li>
 <li class="chapter" data-level="9.2.4" data-path="practice.html"><a href="practice.html#find-the-minimum-average-and-maximum-for-each-quantity"><i class="fa fa-check"></i><b>9.2.4</b> Find the minimum, average, and maximum for each quantity:</a></li>
@@ -656,12 +656,12 @@ which shows us where objects live in the computer’s memory:</p>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7f880d3fd148&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7fa35ae7cc08&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7f880d3fd148 -&gt; 0x7f880d46e308]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f880d46e308 -&gt; 0x7f880d46e288]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f880d46e288 -&gt; 0x7f880d46e208]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f880d46e208 -&gt; 0x7f880d4a00c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7fa35ae7cc08 -&gt; 0x7fa35aeeddc8]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fa35aeeddc8 -&gt; 0x7fa35aeedd48]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fa35aeedd48 -&gt; 0x7fa35aeedcc8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fa35aeedcc8 -&gt; 0x7fa35aeedc88]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
@@ -669,13 +669,13 @@ We can accomplish something a little more readable using <code>pryr::address</co
 (i.e., the <code>address</code> function from the pryr package):</p>
 <pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;left column is initially at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>left column is initially at 0x7f880d46e2c8</code></pre>
+<pre><code>left column is initially at 0x7fa35aeedd88</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7f880d46e2c8</code></pre>
+<pre><code>after modification, the original column is still at 0x7fa35aeedd88</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7f880d665808</code></pre>
+<pre><code>but the first column is at 0x7fa35c2116c8</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.

@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-18">
+<meta name="date" content="2019-05-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -224,7 +224,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.10" data-path="practice.html"><a href="practice.html#use-dplyrarrange-to-order-rows-and-optionally-dplyrdesc-to-impose-descending-order"><i class="fa fa-check"></i><b>9.1.10</b> Use <code>dplyr::arrange</code> to order rows and (optionally) <code>dplyr::desc</code> to impose descending order:</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#working-with-grouped-data"><i class="fa fa-check"></i><b>9.2</b> Working with grouped data</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="practice.html"><a href="practice.html#read-surveymeasurements.csv-and-look-at-the-data-with-view"><i class="fa fa-check"></i><b>9.2.1</b> Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</a></li>
+<li class="chapter" data-level="9.2.1" data-path="practice.html"><a href="practice.html#read-surveymeasurements.csv"><i class="fa fa-check"></i><b>9.2.1</b> Read <code>survey/measurements.csv</code>:</a></li>
 <li class="chapter" data-level="9.2.2" data-path="practice.html"><a href="practice.html#find-rows-where-reading-is-not-na-and-saved-as-cleaned"><i class="fa fa-check"></i><b>9.2.2</b> Find rows where <code>reading</code> is not NA and saved as <code>cleaned</code>:</a></li>
 <li class="chapter" data-level="9.2.3" data-path="practice.html"><a href="practice.html#group-measurements-by-quantity-measured-and-count-the-number-of-each-the-column-is-named-n-automatically"><i class="fa fa-check"></i><b>9.2.3</b> Group measurements by quantity measured and count the number of each (the column is named <code>n</code> automatically):</a></li>
 <li class="chapter" data-level="9.2.4" data-path="practice.html"><a href="practice.html#find-the-minimum-average-and-maximum-for-each-quantity"><i class="fa fa-check"></i><b>9.2.4</b> Find the minimum, average, and maximum for each quantity:</a></li>
@@ -502,8 +502,8 @@ cols(
 </div>
 <div id="working-with-grouped-data" class="section level2">
 <h2><span class="header-section-number">9.2</span> Working with grouped data</h2>
-<div id="read-surveymeasurements.csv-and-look-at-the-data-with-view" class="section level3">
-<h3><span class="header-section-number">9.2.1</span> Read <code>survey/measurements.csv</code> and look at the data with <code>View</code>:</h3>
+<div id="read-surveymeasurements.csv" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Read <code>survey/measurements.csv</code>:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">measurements &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;measurements.csv&quot;</span>))</code></pre>
 <pre><code>Parsed with column specification:
 cols(
@@ -512,6 +512,7 @@ cols(
   quantity = col_character(),
   reading = col_double()
 )</code></pre>
+<p>And look at the data with <code>View</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(measurements)</code></pre>
 </div>
 <div id="find-rows-where-reading-is-not-na-and-saved-as-cleaned" class="section level3">
