@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-27">
+<meta name="date" content="2019-06-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -865,7 +865,7 @@ to demonstrate a common mistake:</p>
   data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">result =</span> test) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
 }
 <span class="kw">check_without_quoting_test</span>(color_data, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
-<pre><code>Error in mutate_impl(.data, dots): object &#39;green&#39; not found</code></pre>
+<pre><code>Error: object &#39;green&#39; not found</code></pre>
 <p>That failed because we’re not enquoting the test.
 Let’s modify it the code to enquote and then pass in the expression:</p>
 <pre class="sourceCode r"><code class="sourceCode r">check_without_quoting_test &lt;-<span class="st"> </span><span class="cf">function</span>(data, test) {
@@ -874,7 +874,7 @@ Let’s modify it the code to enquote and then pass in the expression:</p>
   data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">result =</span> x_test) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
 }
 <span class="kw">check_without_quoting_test</span>(color_data, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
-<pre><code>Error in mutate_impl(.data, dots): Column `result` is of unsupported type quoted call</code></pre>
+<pre><code>Error: Column `result` is of unsupported type quoted call</code></pre>
 <p>Damn—we thought this one had a chance.
 The problem is that when we say <code>result = x_test</code>,
 what actually gets passed into <code>transmute</code> is a promise containing an expression.

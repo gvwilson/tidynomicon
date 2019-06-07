@@ -291,8 +291,8 @@ ggplot2::ggplot(hra) +
 ```{r colorize-scatterplot}
 hra %>%
   dplyr::mutate(class_fct = as.factor(class)) %>%
-  ggplot2::ggplot() +
-  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct), alpha = 0.5)
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct)) +
+  ggplot2::geom_point(alpha = 0.5)
 ```
 
 **Group by order and experiment with different alpha values.*
@@ -302,8 +302,8 @@ hra %>%
 ```{r facet-plot}
 hra %>%
   dplyr::mutate(class_fct = as.factor(class)) %>%
-  ggplot2::ggplot() +
-  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct), alpha = 0.5) +
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct)) +
+  ggplot2::geom_point(alpha = 0.5) +
   ggplot2::facet_wrap(~class_fct)
 ```
 
@@ -314,9 +314,9 @@ hra %>%
 ```{r fit-line}
 hra %>%
   dplyr::filter(class == "aves") %>%
-  ggplot2::ggplot() +
-  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra), alpha = 0.5) +
-  ggplot2::geom_smooth(method = lm, mapping = aes(x = log10.mass, y = log10.hra), color = 'red')
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra)) +
+  ggplot2::geom_point(alpha = 0.5) +
+  ggplot2::geom_smooth(method = lm, color = 'red')
 ```
 
 *Fit a line to the raw data for birds rather than the logarithmic data.*
@@ -327,8 +327,8 @@ hra %>%
 hra %>%
   dplyr::filter(class == "aves") %>%
   dplyr::mutate(order_fct = as.factor(order)) %>%
-  ggplot2::ggplot() +
-  ggplot2::geom_violin(mapping = aes(x = order_fct, y = log10.mass, color = order_fct))
+  ggplot2::ggplot(mapping = aes(x = order_fct, y = log10.mass, color = order_fct)) +
+  ggplot2::geom_violin()
 ```
 
 *Rotate the labels on the X axis to make this readable, then explain the gaps.*
@@ -339,8 +339,8 @@ hra %>%
 hra %>%
   dplyr::filter(class == "aves") %>%
   dplyr::mutate(order_fct = as.factor(order)) %>%
-  ggplot2::ggplot() +
-  ggplot2::geom_boxplot(mapping = aes(x = order_fct, y = log10.mass, color = order_fct))
+  ggplot2::ggplot(mapping = aes(x = order_fct, y = log10.mass, color = order_fct)) +
+  ggplot2::geom_boxplot()
 ```
 
 *Fix the labels and remove orders that only contain one species.*
@@ -350,9 +350,9 @@ hra %>%
 ```{r save-file}
 hra %>%
   dplyr::filter(class == "aves") %>%
-  ggplot2::ggplot() +
-  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra), alpha = 0.5) +
-  ggplot2::geom_smooth(method = lm, mapping = aes(x = log10.mass, y = log10.hra), color = 'red')
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra)) +
+  ggplot2::geom_point(alpha = 0.5) +
+  ggplot2::geom_smooth(method = lm, color = 'red')
 ggsave("/tmp/birds.png")
 ```
 

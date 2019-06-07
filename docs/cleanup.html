@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-27">
+<meta name="date" content="2019-06-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -585,7 +585,7 @@ cols(
 <pre class="sourceCode r"><code class="sourceCode r">countries &lt;-<span class="st"> </span>raw<span class="op">$</span>ISO3
 body &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">-</span>ISO3, <span class="op">-</span>Countries)</code></pre>
-<pre><code>Error in filter_impl(.data, quo): Evaluation error: invalid argument to unary operator.</code></pre>
+<pre><code>Error in -ISO3: invalid argument to unary operator</code></pre>
 <p>In the Hollywood version of this lesson,
 we would sigh heavily at this point as we realize that we should have called <code>select</code>, not <code>filter</code>.
 Once we make that change,

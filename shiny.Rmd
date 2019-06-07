@@ -357,8 +357,8 @@ server <- function(input, output){
       chart <- data %>%
         group_by(year) %>%
         summarize(average = mean(estimate, na.rm = TRUE)) %>%
-        ggplot() +
-        geom_line(mapping = aes(x = year, y = average))
+        ggplot(mapping = aes(x = year, y = average)) +
+        geom_line()
     }
     chart
   })
@@ -407,8 +407,8 @@ server <- function(input, output, session){
       chart <- data %>%
         group_by(year) %>%
         summarize(average = mean(estimate, na.rm = TRUE)) %>%
-        ggplot() +
-        geom_line(mapping = aes(x = year, y = average)) +
+        ggplot(mapping = aes(x = year, y = average)) +
+        geom_line() +
         ggtitle(paste("Years", minYear, "-", maxYear))
     }
     chart
@@ -441,8 +441,8 @@ We will just read `years` inside the chart update and display it:
       chart <- data %>%
         group_by(year) %>%
         summarize(average = mean(estimate, na.rm = TRUE)) %>%
-        ggplot() +
-        geom_line(mapping = aes(x = year, y = average)) +
+        ggplot(mapping = aes(x = year, y = average)) +
+        geom_line() +
         ggtitle(paste("Years", minYear, "-", maxYear))
     }
     chart
@@ -585,8 +585,8 @@ Note that the chart depends on `selectedData()` and *not* the raw data:
     selectedData() %>%
       group_by(year) %>%
       summarize(average = mean(estimate, na.rm = TRUE)) %>%
-        ggplot() +
-        geom_line(mapping = aes(x = year, y = average)) +
+        ggplot(mapping = aes(x = year, y = average)) +
+        geom_line() +
         labs(title = paste("Years", input$years[1], "to", input$years[2]))
   })
   

@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-27">
+<meta name="date" content="2019-06-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1333,8 +1333,8 @@ making the points semi-transparent,
 and colorizing them according to the value of <code>estimate</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
 <p><img src="tidyverse_files/figure-html/plot-after-drop-1.png" width="672" /></p>
 <p>We set the transparency <code>alpha</code> outside the aesthetic because its value is constant for all points:
@@ -1352,8 +1352,8 @@ Let’s create a new tibble that doesn’t have these:</p>
 <span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>((lo <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.25</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
 <p><img src="tidyverse_files/figure-html/plot-remove-outliers-1.png" width="672" /></p>
 <p>We can add the fitted curve by including another geometry:</p>
@@ -1361,9 +1361,9 @@ Let’s create a new tibble that doesn’t have these:</p>
 <span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>((lo <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.25</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)</code></pre>
 <pre><code>Warning: Removed 8 rows containing missing values (geom_smooth).</code></pre>
 <p><img src="tidyverse_files/figure-html/plot-with-fit-1.png" width="672" /></p>
@@ -1380,9 +1380,9 @@ which effectively zooms in on a region of interest:</p>
 <span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(hi <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>((lo <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.25</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi, <span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lo, <span class="dt">y =</span> hi)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> estimate), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>))</code></pre>
 <p><img src="tidyverse_files/figure-html/plot-cartesian-1.png" width="672" /></p>
 </div>

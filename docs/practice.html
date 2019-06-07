@@ -25,7 +25,7 @@
 <meta name="author" content="Greg Wilson">
 
 
-<meta name="date" content="2019-05-27">
+<meta name="date" content="2019-06-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -665,7 +665,7 @@ cols(
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">max_rad =</span> <span class="kw">max</span>(reading)) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</code></pre>
-<pre><code>Error in filter_impl(.data, quo): Evaluation error: object &#39;reading&#39; not found.</code></pre>
+<pre><code>Error: object &#39;reading&#39; not found</code></pre>
 </div>
 <div id="normalize-radiation-against-the-highest-radiation-seen-per-site" class="section level3">
 <h3><span class="header-section-number">9.2.8</span> Normalize radiation against the highest radiation seen per site:</h3>
@@ -794,8 +794,8 @@ cols(
 <h3><span class="header-section-number">9.3.4</span> Colorize scatterplot points by class:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct)) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre>
 <p><img src="practice_files/figure-html/colorize-scatterplot-1.png" width="672" /></p>
 <p>**Group by order and experiment with different alpha values.*</p>
 </div>
@@ -803,8 +803,8 @@ cols(
 <h3><span class="header-section-number">9.3.5</span> Create a faceted plot:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct)) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
 <span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>class_fct)</code></pre>
 <p><img src="practice_files/figure-html/facet-plot-1.png" width="672" /></p>
 <p><em>Create a plot faceted by order for just the reptiles.</em></p>
@@ -813,9 +813,9 @@ cols(
 <h3><span class="header-section-number">9.3.6</span> Fit a linear regression to the logarithmic data for birds:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra)) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
 <p><img src="practice_files/figure-html/fit-line-1.png" width="672" /></p>
 <p><em>Fit a line to the raw data for birds rather than the logarithmic data.</em></p>
 </div>
@@ -824,8 +824,8 @@ cols(
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct))</code></pre>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct)) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>()</code></pre>
 <p><img src="practice_files/figure-html/violin-plot-1.png" width="672" /></p>
 <p><em>Rotate the labels on the X axis to make this readable, then explain the gaps.</em></p>
 </div>
@@ -834,8 +834,8 @@ cols(
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct))</code></pre>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct)) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>()</code></pre>
 <p><img src="practice_files/figure-html/box-plot-1.png" width="672" /></p>
 <p><em>Fix the labels and remove orders that only contain one species.</em></p>
 </div>
@@ -843,9 +843,9 @@ cols(
 <h3><span class="header-section-number">9.3.9</span> Save the linear regression plot for birds as a PNG:</h3>
 <pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra), <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra)) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
 <p><img src="practice_files/figure-html/save-file-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;/tmp/birds.png&quot;</span>)</code></pre>
 <pre><code>Saving 7 x 5 in image</code></pre>
@@ -1010,7 +1010,7 @@ $error
 NULL
 
 $error
-&lt;Rcpp::exception in filter_impl(.data, quo): Argument 2 filter condition does not evaluate to a logical vector&gt;</code></pre>
+&lt;Rcpp::exception: Argument 2 filter condition does not evaluate to a logical vector&gt;</code></pre>
 <p><em>When is <code>purrr::safely</code> safe to use?</em></p>
 </div>
 <div id="unpack-multiple-values-in-a-single-assignment" class="section level3">
@@ -1021,7 +1021,7 @@ $error
 result</code></pre>
 <pre><code>NULL</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">error</code></pre>
-<pre><code>&lt;Rcpp::exception in filter_impl(.data, quo): Argument 2 filter condition does not evaluate to a logical vector&gt;</code></pre>
+<pre><code>&lt;Rcpp::exception: Argument 2 filter condition does not evaluate to a logical vector&gt;</code></pre>
 <p><em>What happens if there are more variables on the left of <code>%&lt;-%</code> than there are values on the right?</em></p>
 </div>
 <div id="assign-out-of-function-scope-with--" class="section level3">

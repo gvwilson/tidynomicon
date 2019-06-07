@@ -674,8 +674,8 @@ and colorizing them according to the value of `estimate`:
 ```{r plot-after-drop}
 infant_hiv %>%
   drop_na() %>%
-  ggplot() +
-  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
+  ggplot(mapping = aes(x = lo, y = hi, color = estimate)) +
+  geom_point(alpha = 0.5) +
   xlim(0.0, 1.0) + ylim(0.0, 1.0)
 ```
 
@@ -697,8 +697,8 @@ infant_hiv %>%
   drop_na() %>%
   filter(hi != 0.95) %>%
   filter(!((lo < 0.10) & (hi > 0.25))) %>%
-  ggplot() +
-  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
+  ggplot(mapping = aes(x = lo, y = hi, color = estimate)) +
+  geom_point(alpha = 0.5) +
   xlim(0.0, 1.0) + ylim(0.0, 1.0)
 ```
 
@@ -709,9 +709,9 @@ infant_hiv %>%
   drop_na() %>%
   filter(hi != 0.95) %>%
   filter(!((lo < 0.10) & (hi > 0.25))) %>%
-  ggplot() +
-  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
-  geom_smooth(method = lm, mapping = aes(x = lo, y = hi), color = 'red') +
+  ggplot(mapping = aes(x = lo, y = hi)) +
+  geom_point(mapping = aes(color = estimate), alpha = 0.5) +
+  geom_smooth(method = lm, color = 'red') +
   xlim(0.0, 1.0) + ylim(0.0, 1.0)
 ```
 
@@ -730,9 +730,9 @@ infant_hiv %>%
   drop_na() %>%
   filter(hi != 0.95) %>%
   filter(!((lo < 0.10) & (hi > 0.25))) %>%
-  ggplot() +
-  geom_point(mapping = aes(x = lo, y = hi, color = estimate), alpha = 0.5) +
-  geom_smooth(method = lm, mapping = aes(x = lo, y = hi), color = 'red') +
+  ggplot(mapping = aes(x = lo, y = hi)) +
+  geom_point(mapping = aes(color = estimate), alpha = 0.5) +
+  geom_smooth(method = lm, color = 'red') +
   coord_cartesian(xlim = c(0.0, 1.0), ylim = c(0.0, 1.0))
 ```
 

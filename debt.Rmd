@@ -125,8 +125,8 @@ And also changes the order of bars in a bar chart:
 raw %>%
   group_by(flavor) %>%
   summarize(number = n(), average = mean(ranking)) %>%
-  ggplot() +
-  geom_col(mapping = aes(x = flavor, y = average))
+  ggplot(mapping = aes(x = flavor, y = average)) +
+  geom_col()
 ```
 
 To learn more about how factors work and how to use them when analyzing categorical data,
