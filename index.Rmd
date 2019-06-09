@@ -18,12 +18,8 @@ description: "The Tidynomicon"
 source("etc/common.R")
 ```
 
-```{r logo, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
-if (knitr::is_latex_output()) {
-  knitr::include_graphics("figures/index/cthulhu.pdf")
-} else {
-  knitr::include_graphics("figures/index/cthulhu.svg")
-}
+```{r logo, echo=FALSE, out.width="80%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
+knitr::include_graphics("figures/index/cthulhu-900x759.jpg")
 ```
 
 Years ago,
