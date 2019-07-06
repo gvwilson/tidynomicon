@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Web Applications | The Tidynomicon</title>
-  <meta name="description" content="Chapter 14 Web Applications | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 14 Web Applications | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Web Applications | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 14 Web Applications | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="python.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -529,7 +528,7 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 
 <span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-skeleton.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-skeleton.png" width="464" /></p>
+<p><img src="figures/shiny/unicef-skeleton.png" /><!-- --></p>
 <p>As the screenshot shows,
 this positions the controls on the right.
 We use <code>h1</code>, <code>h2</code>, and similarly-named functions to create HTML elements
@@ -573,7 +572,7 @@ This makes our interface:</p>
   )
 )</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-prototype.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-prototype.png" width="456" /></p>
+<p><img src="figures/shiny/unicef-prototype.png" /><!-- --></p>
 <p>Let’s show the chosen filename in the output display:</p>
 <!-- unicef/filename_wrong/app.R -->
 <pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
@@ -593,10 +592,10 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 }</code></pre>
 <p>The initial display looks good:</p>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-filename-wrong-before.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-filename-wrong-before.png" width="578" /></p>
+<p><img src="figures/shiny/unicef-filename-wrong-before.png" /><!-- --></p>
 <p>but when we fill in the filename, something is clearly wrong:</p>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-filename-wrong-after.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-filename-wrong-after.png" width="578" /></p>
+<p><img src="figures/shiny/unicef-filename-wrong-after.png" /><!-- --></p>
 <p>A quick browse of the documentation reveals that
 <code>input</code> is a named list-like object of everything set up in the interface.
 <code>input$datafile</code> picks out one element,
@@ -634,7 +633,7 @@ Let’s fill in the server a bit:</p>
 <li>Inside a handler like <code>renderText</code>, they are run once on each change.</li>
 </ol>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-filename-right.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-filename-right.png" width="470" /></p>
+<p><img src="figures/shiny/unicef-filename-right.png" /><!-- --></p>
 </div>
 <div id="how-can-i-display-the-data-in-a-file" class="section level2">
 <h2><span class="header-section-number">14.8</span> How can I display the data in a file?</h2>
@@ -879,12 +878,12 @@ Note that the chart depends on <code>selectedData()</code> and <em>not</em> the 
   })</code></pre>
 <p>Here are the dependencies we have created:</p>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-slider-dependencies.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-slider-dependencies.png" width="270" /></p>
+<p><img src="figures/shiny/unicef-slider-dependencies.png" /><!-- --></p>
 <p>It works!
 Except that we’re adding a slider every time we open a file,
 so if we open the same file twice, we get two sliders with identical ranges:</p>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;figures/shiny/unicef-slider.png&quot;</span>)</code></pre>
-<p><img src="figures/shiny/unicef-slider.png" width="511" /></p>
+<p><img src="figures/shiny/unicef-slider.png" /><!-- --></p>
 </div>
 <div id="how-can-i-control-how-the-user-interface-is-rendered" class="section level2">
 <h2><span class="header-section-number">14.10</span> How can I control how the user interface is rendered?</h2>

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Values and Vectors | The Tidynomicon</title>
-  <meta name="description" content="Chapter 2 Values and Vectors | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 2 Values and Vectors | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Values and Vectors | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 2 Values and Vectors | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="index.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -403,36 +402,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Create vectors in R and index them to select single values, ranges of values, and selected values.</li>
 <li>Explain the difference between <code>NA</code> and <code>NULL</code> and correctly use tests for each.</li>
 </ul>
-<p>We will begin our tour of R by looking at what kinds of data we can toy with.
-To do that,
-we need to get set up:</p>
-<ol style="list-style-type: decimal">
-<li>Create an account on <a href="https://rstudio.cloud/">rstudio.cloud</a>,
-then create a new project and start typing.</li>
-<li>Alternatively:
-<ol style="list-style-type: decimal">
-<li><a href="https://cran.rstudio.com/">Install R</a>.
-We recommend that you do <em>not</em> use conda, Brew, or other platform-specific package managers to do this,
-as they sometimes only install part of what you need.</li>
-<li><a href="https://www.rstudio.com/products/rstudio/download/">Install RStudio</a>.</li>
-<li>In the RStudio console,
-run <code>install.packages("tidyverse")</code> to install the tidyverse libraries.
-We will install others as we go along,
-but we’re going to need this soon.</li>
-</ol></li>
-</ol>
-<p>If you want to run the Pythonic bits of code we present as well as the R,
-run <code>install.packages("reticulate")</code>
-and then set the <code>RETICULATE_PYTHON</code> environment variable to point at the version of Python you want to use
-<em>before</em> you launch RStudio.
-This is necessary because you may have a system-installed version somewhere like <code>/usr/bin/python</code>
-and a conda-managed version in <code>~/anaconda3/bin/python</code>.</p>
-<div class="figure"><span id="fig:xkcd"></span>
-<img src="figures/basics/python-environment.png" alt="XKCD on Python Environments (from https://xkcd.com/1987/)" width="246" />
-<p class="caption">
-Figure 2.1: XKCD on Python Environments (from <a href="https://xkcd.com/1987/" class="uri">https://xkcd.com/1987/</a>)
-</p>
-</div>
 </div>
 <div id="how-do-i-say-hello" class="section level2">
 <h2><span class="header-section-number">2.3</span> How do I say hello?</h2>
@@ -533,7 +502,7 @@ let’s have a look at the lengths of various things in Python:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(primes))</code></pre>
 <pre><code>4</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(<span class="dv">4</span>))</code></pre>
-<pre><code>TypeError: object of type &#39;int&#39; has no len()
+<pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: object of type &#39;int&#39; has no len()
 
 Detailed traceback: 
   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
@@ -583,7 +552,7 @@ let’s create a list of color names and index that:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(colors[<span class="dv">2</span>])</code></pre>
 <pre><code>wenge</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python">colors[<span class="dv">3</span>]</code></pre>
-<pre><code>IndexError: list index out of range
+<pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): IndexError: list index out of range
 
 Detailed traceback: 
   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
@@ -629,7 +598,7 @@ is being pulled into that location in the result vector:</p>
 <div class="figure"><span id="fig:pull-indexing-fig"></span>
 <img src="figures/basics/pull-indexing.svg" alt="Pull Indexing"  />
 <p class="caption">
-Figure 2.2: Pull Indexing
+Figure 2.1: Pull Indexing
 </p>
 </div>
 <p>We can also select out several elements:</p>
@@ -727,7 +696,7 @@ and the first (the condition) is usually constructed using the values of one or 
 <div class="figure"><span id="fig:ifelse-fig"></span>
 <img src="figures/basics/if-else.svg" alt="Vector Conditionals"  />
 <p class="caption">
-Figure 2.3: Vector Conditionals
+Figure 2.2: Vector Conditionals
 </p>
 </div>
 </div>

@@ -4,39 +4,8 @@
 source("etc/common.R")
 ```
 
-## Questions
-```{r questions, child="questions/basics.md"}
-```
-
 ## Learning Objectives
 ```{r objectives, child="objectives/basics.md"}
-```
-
-We will begin our tour of R by looking at what kinds of data we can toy with.
-To do that,
-we need to get set up:
-
-1.  Create an account on [rstudio.cloud][rstudio-cloud],
-    then create a new project and start typing.
-2.  Alternatively:
-    1.  [Install R][r-install].
-        We recommend that you do *not* use conda, Brew, or other platform-specific package managers to do this,
-        as they sometimes only install part of what you need.
-    2.  [Install RStudio][rstudio-install].
-    3.  In the RStudio console,
-        run `install.packages("tidyverse")` to install the tidyverse libraries.
-        We will install others as we go along,
-        but we're going to need this soon.
-
-If you want to run the Pythonic bits of code we present as well as the R,
-run `install.packages("reticulate")`
-and then set the `RETICULATE_PYTHON` environment variable to point at the version of Python you want to use
-*before* you launch RStudio.
-This is necessary because you may have a system-installed version somewhere like `/usr/bin/python`
-and a conda-managed version in `~/anaconda3/bin/python`.
-
-```{r xkcd, echo=FALSE, fig.cap="XKCD on Python Environments (from https://xkcd.com/1987/)"}
-knitr::include_graphics("figures/basics/python-environment.png")
 ```
 
 ## How do I say hello?

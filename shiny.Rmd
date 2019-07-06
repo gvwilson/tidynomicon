@@ -4,10 +4,6 @@
 source("etc/common.R")
 ```
 
-## Questions
-```{r, child="questions/shiny.md"}
-```
-
 ## Learning Objectives
 ```{r, child="objectives/shiny.md"}
 ```

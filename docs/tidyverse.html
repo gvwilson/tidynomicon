@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 The Tidyverse | The Tidynomicon</title>
-  <meta name="description" content="Chapter 5 The Tidyverse | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 5 The Tidyverse | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 The Tidyverse | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 5 The Tidyverse | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="control.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -484,6 +483,7 @@ and its values are interpreted as follows:</p>
 </table>
 <p>We can load this data in Python like this:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+
 infant_hiv <span class="op">=</span> pd.read_csv(<span class="st">&#39;results/infant_hiv.csv&#39;</span>)
 <span class="bu">print</span>(infant_hiv)</code></pre>
 <pre><code>     country  year  estimate    hi    lo
@@ -533,7 +533,7 @@ reading the file looks remarkably like reading the file:</p>
 <pre><code>Parsed with column specification:
 cols(
   country = col_character(),
-  year = col_integer(),
+  year = col_double(),
   estimate = col_double(),
   hi = col_double(),
   lo = col_double()
@@ -548,7 +548,7 @@ but we do not live there.)</p>
 <pre class="sourceCode r"><code class="sourceCode r">infant_hiv</code></pre>
 <pre><code># A tibble: 1,728 x 5
    country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 AFG      2009       NA    NA    NA
  2 AFG      2010       NA    NA    NA
  3 AFG      2011       NA    NA    NA
@@ -587,7 +587,7 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(infant_hiv)</code></pre>
 <pre><code># A tibble: 6 x 5
   country  year estimate    hi    lo
-  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 AFG      2009       NA    NA    NA
 2 AFG      2010       NA    NA    NA
 3 AFG      2011       NA    NA    NA
@@ -597,7 +597,7 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(infant_hiv)</code></pre>
 <pre><code># A tibble: 6 x 5
   country  year estimate    hi    lo
-  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 ZWE      2012    0.38   0.47 0.33 
 2 ZWE      2013    0.570  0.7  0.49 
 3 ZWE      2014    0.54   0.67 0.47 
@@ -608,7 +608,7 @@ Pandas does this using methods whose names are borrowed from the Unix shell’s 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(infant_hiv)</code></pre>
 <pre><code># A tibble: 6 x 5
   country  year estimate    hi    lo
-  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 ZWE      2012    0.38   0.47 0.33 
 2 ZWE      2013    0.570  0.7  0.49 
 3 ZWE      2014    0.54   0.67 0.47 
@@ -731,7 +731,7 @@ we have:</p>
 <p>Ah—everything in R is a vector,
 so we get a vector of one value as an output rather than a single value.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(infant_hiv.estimate[<span class="dv">11</span>]))</code></pre>
-<pre><code>TypeError: object of type &#39;numpy.float64&#39; has no len()
+<pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: object of type &#39;numpy.float64&#39; has no len()
 
 Detailed traceback: 
   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
@@ -1015,7 +1015,7 @@ and encourage use of patterns that make it easier for others to understand our p
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(infant_hiv, lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
 <pre><code># A tibble: 183 x 5
    country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 ARG      2016     0.67  0.77  0.61
  2 ARG      2017     0.66  0.77  0.6 
  3 AZE      2014     0.74  0.95  0.53
@@ -1045,7 +1045,7 @@ We will explore it further in Chapter <a href="nse.html#nse">7</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
 <pre><code># A tibble: 183 x 5
    country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 ARG      2016     0.67  0.77  0.61
  2 ARG      2017     0.66  0.77  0.6 
  3 AZE      2014     0.74  0.95  0.53
@@ -1063,7 +1063,7 @@ What about this?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(infant_hiv, (estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">&amp;</span><span class="st"> </span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">&amp;</span><span class="st"> </span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>)))</code></pre>
 <pre><code># A tibble: 1 x 5
   country  year estimate    hi    lo
-  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 TTO      2017     0.94  0.95  0.86</code></pre>
 <p>It uses the vectorized “and” operator <code>&amp;</code> twice,
 and parsing the condition takes a human being at least a few seconds.
@@ -1071,7 +1071,7 @@ Its pipelined equivalent is:</p>
 <pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>))</code></pre>
 <pre><code># A tibble: 1 x 5
   country  year estimate    hi    lo
-  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 TTO      2017     0.94  0.95  0.86</code></pre>
 <p>Breaking the condition into stages like this often makes reading and testing much easier,
 and encourages incremental write-test-extend development.</p>
@@ -1079,7 +1079,7 @@ and encourages incremental write-test-extend development.</p>
 <pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(estimate <span class="op">!=</span><span class="st"> </span><span class="fl">0.95</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(hi <span class="op">&lt;=</span><span class="st"> </span>(lo <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>))</code></pre>
 <pre><code># A tibble: 55 x 5
    country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 ARG      2016     0.67  0.77  0.61
  2 ARG      2017     0.66  0.77  0.6 
  3 CHL      2011     0.64  0.72  0.56
@@ -1100,7 +1100,7 @@ breaking the line the way the <a href="http://style.tidyverse.org/">tidyverse st
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(lo))</code></pre>
 <pre><code># A tibble: 55 x 5
    country  year estimate    hi    lo
-   &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 TTO      2017     0.94  0.95  0.86
  2 SWZ      2011     0.93  0.95  0.84
  3 CUB      2014     0.92  0.95  0.83
@@ -1121,7 +1121,7 @@ breaking the line the way the <a href="http://style.tidyverse.org/">tidyverse st
 <span class="st">  </span><span class="kw">select</span>(year, lo, hi)</code></pre>
 <pre><code># A tibble: 55 x 3
     year    lo    hi
-   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1  2017  0.86  0.95
  2  2011  0.84  0.95
  3  2014  0.83  0.95
@@ -1150,7 +1150,7 @@ but <em>will</em> if we ever want to select by position:</p>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>country, <span class="op">-</span>estimate)</code></pre>
 <pre><code># A tibble: 55 x 3
     year    hi    lo
-   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
  1  2017  0.95  0.86
  2  2011  0.95  0.84
  3  2014  0.95  0.83
@@ -1180,7 +1180,7 @@ we decide to use <code>mutate</code>:</p>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">difference =</span> hi <span class="op">-</span><span class="st"> </span>lo)</code></pre>
 <pre><code># A tibble: 55 x 4
     year    hi    lo difference
-   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
  1  2017  0.95  0.86     0.0900
  2  2011  0.95  0.84     0.110 
  3  2014  0.95  0.83     0.12  
@@ -1208,7 +1208,7 @@ and count how many records contributed to each aggregation using <code>n()</code
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">count =</span> <span class="kw">n</span>(), <span class="dt">ave_diff =</span> <span class="kw">mean</span>(year))</code></pre>
 <pre><code># A tibble: 9 x 3
    year count ave_diff
-  &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
+  &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;
 1  2009     3     2009
 2  2010     3     2010
 3  2011     5     2011

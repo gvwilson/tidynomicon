@@ -4,10 +4,6 @@
 source("etc/common.R")
 ```
 
-## Questions
-```{r, child="questions/reticulate.md"}
-```
-
 ## Learning Objectives
 ```{r, child="objectives/reticulate.md"}
 ```
@@ -35,6 +31,17 @@ Sys.which("python")
 
 but you can configure it to use different versions,
 or to use `virtualenv` or a Conda environment---see [the document][reticulate-configure] for details.
+
+> If you want to run the Pythonic bits of code we present as well as the R,
+> run `install.packages("reticulate")`
+> and then set the `RETICULATE_PYTHON` environment variable to point at the version of Python you want to use
+> *before* you launch RStudio.
+> This is necessary because you may have a system-installed version somewhere like `/usr/bin/python`
+> and a conda-managed version in `~/anaconda3/bin/python`.
+
+```{r xkcd, echo=FALSE, fig.cap="XKCD on Python Environments (from https://xkcd.com/1987/)"}
+knitr::include_graphics("figures/python/python-environment.png")
+```
 
 ## How can I access data across languages?
 

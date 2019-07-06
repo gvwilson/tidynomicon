@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Using Python | The Tidynomicon</title>
-  <meta name="description" content="Chapter 13 Using Python | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 13 Using Python | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Using Python | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 13 Using Python | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="projects.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -413,6 +412,20 @@ it uses the system-default Python:</p>
 &quot;/Users/gvwilson/anaconda3/bin/python&quot; </code></pre>
 <p>but you can configure it to use different versions,
 or to use <code>virtualenv</code> or a Conda environment—see <a href="https://rstudio.github.io/reticulate/articles/versions.html">the document</a> for details.</p>
+<blockquote>
+<p>If you want to run the Pythonic bits of code we present as well as the R,
+run <code>install.packages("reticulate")</code>
+and then set the <code>RETICULATE_PYTHON</code> environment variable to point at the version of Python you want to use
+<em>before</em> you launch RStudio.
+This is necessary because you may have a system-installed version somewhere like <code>/usr/bin/python</code>
+and a conda-managed version in <code>~/anaconda3/bin/python</code>.</p>
+</blockquote>
+<div class="figure"><span id="fig:xkcd"></span>
+<img src="figures/python/python-environment.png" alt="XKCD on Python Environments (from https://xkcd.com/1987/)"  />
+<p class="caption">
+Figure 13.1: XKCD on Python Environments (from <a href="https://xkcd.com/1987/" class="uri">https://xkcd.com/1987/</a>)
+</p>
+</div>
 </div>
 <div id="how-can-i-access-data-across-languages" class="section level2">
 <h2><span class="header-section-number">13.3</span> How can I access data across languages?</h2>
@@ -470,13 +483,15 @@ For example,
 we can use Python’s random number generator in R as follows:</p>
 <pre class="sourceCode r"><code class="sourceCode r">pyrand &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;random&quot;</span>)
 pyrand<span class="op">$</span><span class="kw">gauss</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
-<pre><code>[1] -1.380866</code></pre>
+<pre><code>[1] -1.327089</code></pre>
 <p>(There’s no reason to do this—R’s random number generator is just as strong—but it illustrates the point.)</p>
 <p>We can also source Python scripts.
 For example,
 suppose that <code>countries.py</code> contains this function:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span>
+
 <span class="im">import</span> pandas <span class="im">as</span> pd
+
 <span class="kw">def</span> get_countries(filename):
     data <span class="op">=</span> pd.read_csv(filename)
     <span class="cf">return</span> data.country.unique()</code></pre>

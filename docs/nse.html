@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Non-Standard Evaluation | The Tidynomicon</title>
-  <meta name="description" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 7 Non-Standard Evaluation | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="cleanup.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -405,8 +404,10 @@ Nothing truly makes sense in R until we understand how this works.</p>
 <p>Let’s start by looking at a small Python program and its output:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ones_func(ones_arg):
     <span class="cf">return</span> ones_arg <span class="op">+</span> <span class="st">&quot; ones&quot;</span>
+
 <span class="kw">def</span> tens_func(tens_arg):
     <span class="cf">return</span> ones_func(tens_arg <span class="op">+</span> <span class="st">&quot; tens&quot;</span>)
+
 initial <span class="op">=</span> <span class="st">&quot;start&quot;</span>
 final <span class="op">=</span> tens_func(initial <span class="op">+</span> <span class="st">&quot; more&quot;</span>)
 <span class="bu">print</span>(final)</code></pre>
@@ -421,10 +422,12 @@ Let’s spell out the steps:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ones_func(ones_arg):
     ones_temp_1 <span class="op">=</span> ones_arg <span class="op">+</span> <span class="st">&quot; ones&quot;</span>
     <span class="cf">return</span> ones_temp_1
+
 <span class="kw">def</span> tens_func(tens_arg):
     tens_temp_1 <span class="op">=</span> tens_arg <span class="op">+</span> <span class="st">&quot; tens&quot;</span>
     tens_temp_2 <span class="op">=</span> ones_func(tens_temp_1)
     <span class="cf">return</span> tens_temp_2
+
 initial <span class="op">=</span> <span class="st">&quot;start&quot;</span>
 global_temp_1 <span class="op">=</span> initial <span class="op">+</span> <span class="st">&quot; more&quot;</span>
 final <span class="op">=</span> tens_func(global_temp_1)

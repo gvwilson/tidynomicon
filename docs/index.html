@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>The Tidynomicon</title>
-  <meta name="description" content="The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -382,18 +381,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">The Tidynomicon</h1>
-<h2 class="subtitle"><em>A Brief Introduction to R for Python Programmers</em></h2>
+<h2 class="subtitle"><em>A Brief Introduction to R for People Who Count From Zero</em></h2>
 <p class="author"><em>Greg Wilson</em></p>
-<p class="date"><em>2019-06-09</em></p>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<div class="figure" style="text-align: center"><span id="fig:logo"></span>
-<img src="figures/index/cthulhu-900x759.jpg" alt="Speak not of madness, oh you who count from zero." width="80%" />
-<p class="caption">
-Figure 1.1: Speak not of madness, oh you who count from zero.
-</p>
-</div>
 <p>Years ago,
 Patrick Burns wrote <em><a href="https://www.burns-stat.com/documents/books/the-r-inferno/">The R Inferno</a></em>,
 a guide to R for those who think they are in hell.
@@ -411,16 +403,22 @@ these are not mad, just differently sane.</p>
 <p>Welcome, then, to a universe where the strange will become familiar,
 and everything familiar, strange.
 Welcome, thrice welcome, to R.</p>
+<div class="figure" style="text-align: center"><span id="fig:logo"></span>
+<img src="figures/index/cthulhu-900x759.jpg" alt="Speak not of madness, oh you who count from zero." width="80%" />
+<p class="caption">
+Figure 1.1: Speak not of madness, oh you who count from zero.
+</p>
+</div>
 <div id="s:index-personas" class="section level2">
 <h2><span class="header-section-number">1.1</span> Who are these lessons for?</h2>
-<p>See <span class="citation">Wilson (<a href="#ref-Wils2018" role="doc-biblioref">2018</a>)</span> for a description of the lesson design process.</p>
+<p>See <span class="citation">Wilson (<a href="#ref-Wils2018" role="doc-biblioref">2018</a>)</span> for a description of the process used to design these lessons.</p>
 <dl>
 <dt>Andrzej</dt>
 <dd>completed a Master’s in library science five years ago
-and has worked since then for a small consulting company.
+and has done data analysis for various school boards since then.
 He learned Python by doing data science courses online,
 but has no formal training in programming.
-He just joined team that primarily uses RMarkdown;
+He just joined team that uses R and R Markdown to generate reports.
 these lessons will show him how to translate his understanding of Python to R.
 </dd>
 <dt>Padma</dt>
@@ -432,6 +430,24 @@ but she’s comfortable doing linear regression and basic time series analysis o
 and would like to learn enough about R to tidy up the analysts’ code and get it into production.
 </dd>
 </dl>
+</div>
+<div id="s:index-install" class="section level2">
+<h2><span class="header-section-number">1.2</span> How do I get started?</h2>
+<p>The exercises provide a different perspective on the concepts that the lessons introduce.
+To do them:</p>
+<ol style="list-style-type: decimal">
+<li>Create an account on <a href="https://rstudio.cloud/">rstudio.cloud</a>,
+then create a new project and start typing.</li>
+<li>Alternatively:
+<ol style="list-style-type: decimal">
+<li><a href="https://cran.rstudio.com/">Install R</a>.
+We recommend that you do <em>not</em> use conda, Brew, or other platform-specific package managers to do this,
+as they sometimes only install part of what you need.</li>
+<li><a href="https://www.rstudio.com/products/rstudio/download/">Install RStudio</a>.</li>
+</ol></li>
+</ol>
+<p>You will need various libraries (called “packages” in R) as we go along;
+we will install these when and as needed.</p>
 
 </div>
 </div>

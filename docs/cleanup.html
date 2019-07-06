@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Cleaning Up Data | The Tidynomicon</title>
-  <meta name="description" content="Chapter 6 Cleaning Up Data | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 6 Cleaning Up Data | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Cleaning Up Data | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 6 Cleaning Up Data | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="tidyverse.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -458,7 +457,8 @@ which we shall do in stages.</p>
 &#39;X30&#39; [30]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(raw)</code></pre>
@@ -474,7 +474,7 @@ cols(
 # … with 20 more variables: X11 &lt;chr&gt;, X12 &lt;chr&gt;, X13 &lt;chr&gt;, X14 &lt;chr&gt;,
 #   X15 &lt;chr&gt;, X16 &lt;chr&gt;, X17 &lt;chr&gt;, X18 &lt;chr&gt;, X19 &lt;chr&gt;, X20 &lt;chr&gt;,
 #   X21 &lt;chr&gt;, X22 &lt;chr&gt;, X23 &lt;chr&gt;, X24 &lt;chr&gt;, X25 &lt;chr&gt;, X26 &lt;chr&gt;,
-#   X27 &lt;chr&gt;, X28 &lt;chr&gt;, X29 &lt;chr&gt;, X30 &lt;chr&gt;</code></pre>
+#   X27 &lt;chr&gt;, X28 &lt;chr&gt;, X29 &lt;chr&gt;, X30 &lt;lgl&gt;</code></pre>
 <p>All right:
 R isn’t able to infer column names,
 so it uses the entire first comment string as a very long column name
@@ -501,7 +501,8 @@ let’s skip the first two rows.</p>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(raw)</code></pre>
@@ -518,7 +519,7 @@ cols(
 #   hi_3 &lt;chr&gt;, lo_3 &lt;chr&gt;, Estimate_4 &lt;chr&gt;, hi_4 &lt;chr&gt;, lo_4 &lt;chr&gt;,
 #   Estimate_5 &lt;chr&gt;, hi_5 &lt;chr&gt;, lo_5 &lt;chr&gt;, Estimate_6 &lt;chr&gt;,
 #   hi_6 &lt;chr&gt;, lo_6 &lt;chr&gt;, Estimate_7 &lt;chr&gt;, hi_7 &lt;chr&gt;, lo_7 &lt;chr&gt;,
-#   Estimate_8 &lt;chr&gt;, hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;chr&gt;</code></pre>
+#   Estimate_8 &lt;chr&gt;, hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;lgl&gt;</code></pre>
 <p>That’s a bit of an improvement,
 but why are all the columns <code>character</code> instead of numbers?
 This happens because:</p>
@@ -541,7 +542,8 @@ This happens because:</p>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(raw)</code></pre>
@@ -558,7 +560,7 @@ cols(
 #   hi_3 &lt;chr&gt;, lo_3 &lt;chr&gt;, Estimate_4 &lt;chr&gt;, hi_4 &lt;chr&gt;, lo_4 &lt;chr&gt;,
 #   Estimate_5 &lt;chr&gt;, hi_5 &lt;chr&gt;, lo_5 &lt;chr&gt;, Estimate_6 &lt;chr&gt;,
 #   hi_6 &lt;chr&gt;, lo_6 &lt;chr&gt;, Estimate_7 &lt;chr&gt;, hi_7 &lt;chr&gt;, lo_7 &lt;chr&gt;,
-#   Estimate_8 &lt;chr&gt;, hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;chr&gt;</code></pre>
+#   Estimate_8 &lt;chr&gt;, hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;lgl&gt;</code></pre>
 <p>That’s progress.
 We now need to strip the percentage signs and convert what’s left to numeric values.
 To simplify our lives,
@@ -579,7 +581,8 @@ but which we don’t want to reveal just yet).</p>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">countries &lt;-<span class="st"> </span>raw<span class="op">$</span>ISO3
@@ -603,7 +606,8 @@ we can move forward once again:</p>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">countries &lt;-<span class="st"> </span>raw<span class="op">$</span>ISO3
@@ -623,7 +627,7 @@ body &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span>
 #   Estimate_4 &lt;chr&gt;, hi_4 &lt;chr&gt;, lo_4 &lt;chr&gt;, Estimate_5 &lt;chr&gt;,
 #   hi_5 &lt;chr&gt;, lo_5 &lt;chr&gt;, Estimate_6 &lt;chr&gt;, hi_6 &lt;chr&gt;, lo_6 &lt;chr&gt;,
 #   Estimate_7 &lt;chr&gt;, hi_7 &lt;chr&gt;, lo_7 &lt;chr&gt;, Estimate_8 &lt;chr&gt;,
-#   hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;chr&gt;</code></pre>
+#   hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;lgl&gt;</code></pre>
 <p>But wait.
 Weren’t there some aggregate lines of data at the end of our input?
 What happened to them?</p>
@@ -676,7 +680,8 @@ raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span>num_rows)
@@ -718,7 +723,8 @@ Our updated conversion script is now:</p>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -774,7 +780,8 @@ to apply the function <code>str_replace</code> to each column in turn to get rid
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -842,7 +849,8 @@ which maps a function across the rows of a tibble and returns a tibble as a resu
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -884,7 +892,8 @@ which earlier inspection informed us had at least one <code>"&gt;95%"</code> in 
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -930,7 +939,8 @@ using an <a href="glossary.html#anonymous-function">anonymous function</a> that 
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -1021,7 +1031,8 @@ so let’s see what running <code>warnings()</code> produces right after the <co
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -1124,7 +1135,8 @@ Here is our revised script:</p>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sliced &lt;-<span class="st"> </span><span class="kw">slice</span>(raw, <span class="dv">1</span><span class="op">:</span><span class="dv">192</span>)
@@ -1435,7 +1447,8 @@ final</code></pre>
 &#39;Estimate_8&#39; [27], &#39;hi&#39; =&gt; &#39;hi_8&#39; [28], &#39;lo&#39; =&gt; &#39;lo_8&#39; [29]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  .default = col_character()
+  .default = col_character(),
+  X30 = col_logical()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 192 rows

@@ -4,10 +4,6 @@
 source("etc/common.R")
 ```
 
-## Questions
-```{r questions, child="questions/cleanup.md"}
-```
-
 ## Learning Objectives
 ```{r objectives, child="objectives/cleanup.md"}
 ```

@@ -1,8 +1,7 @@
 --- 
 title: "The Tidynomicon"
-subtitle: "A Brief Introduction to R for Python Programmers"
+subtitle: "A Brief Introduction to R for People Who Count From Zero"
 author: "Greg Wilson"
-date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
@@ -16,10 +15,6 @@ description: "The Tidynomicon"
 
 ```{r setup, include=FALSE}
 source("etc/common.R")
-```
-
-```{r logo, echo=FALSE, out.width="80%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
-knitr::include_graphics("figures/index/cthulhu-900x759.jpg")
 ```
 
 Years ago,
@@ -42,16 +37,20 @@ Welcome, then, to a universe where the strange will become familiar,
 and everything familiar, strange.
 Welcome, thrice welcome, to R.
 
+```{r logo, echo=FALSE, out.width="80%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
+knitr::include_graphics("figures/index/cthulhu-900x759.jpg")
+```
+
 ## Who are these lessons for? {#s:index-personas}
 
-See @Wils2018 for a description of the lesson design process.
+See @Wils2018 for a description of the process used to design these lessons.
 
 Andrzej
 :   completed a Master's in library science five years ago
-    and has worked since then for a small consulting company.
+    and has done data analysis for various school boards since then.
     He learned Python by doing data science courses online,
     but has no formal training in programming.
-    He just joined team that primarily uses RMarkdown;
+    He just joined team that uses R and R Markdown to generate reports.
     these lessons will show him how to translate his understanding of Python to R.
 
 Padma
@@ -61,6 +60,22 @@ Padma
     Padma isn't a statistician,
     but she's comfortable doing linear regression and basic time series analysis on web traffic,
     and would like to learn enough about R to tidy up the analysts' code and get it into production.
+
+## How do I get started? {#s:index-install}
+
+The exercises provide a different perspective on the concepts that the lessons introduce.
+To do them:
+
+1.  Create an account on [rstudio.cloud][rstudio-cloud],
+    then create a new project and start typing.
+2.  Alternatively:
+    1.  [Install R][r-install].
+        We recommend that you do *not* use conda, Brew, or other platform-specific package managers to do this,
+        as they sometimes only install part of what you need.
+    2.  [Install RStudio][rstudio-install].
+
+You will need various libraries (called "packages" in R) as we go along;
+we will install these when and as needed.
 
 ```{r links, child="etc/links.md"}
 ```

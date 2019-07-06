@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Intellectual Debt | The Tidynomicon</title>
-  <meta name="description" content="Chapter 8 Intellectual Debt | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 8 Intellectual Debt | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Intellectual Debt | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 8 Intellectual Debt | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="nse.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -656,12 +655,12 @@ which shows us where objects live in the computer’s memory:</p>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7f88c4aa3508&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7fd37de4c448&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7f88c4aa3508 -&gt; 0x7f88c4b2d4c8]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f88c4b2d4c8 -&gt; 0x7f88c4b2d448]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f88c4b2d448 -&gt; 0x7f88c4bfb2c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f88c4bfb2c8 -&gt; 0x7f88c4bfb288]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7fd37de4c448 -&gt; 0x7fd37def5b08]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fd37def5b08 -&gt; 0x7fd37def5a88]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fd37def5a88 -&gt; 0x7fd37def5a08]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fd37def5a08 -&gt; 0x7fd37def59c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
@@ -669,13 +668,16 @@ We can accomplish something a little more readable using <code>pryr::address</co
 (i.e., the <code>address</code> function from the pryr package):</p>
 <pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;left column is initially at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>left column is initially at 0x7f88c4b2d488</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;pryr&#39;:
+  method      from
+  print.bytes Rcpp</code></pre>
+<pre><code>left column is initially at 0x7fd37def5ac8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7f88c4b2d488</code></pre>
+<pre><code>after modification, the original column is still at 0x7fd37def5ac8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7f88c4f20908</code></pre>
+<pre><code>but the first column is at 0x7fd35f1e96c8</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.

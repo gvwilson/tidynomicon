@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Practice | The Tidynomicon</title>
-  <meta name="description" content="Chapter 9 Practice | The Tidynomicon">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 9 Practice | The Tidynomicon" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Practice | The Tidynomicon" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,13 @@
   <meta name="twitter:description" content="Chapter 9 Practice | The Tidynomicon" />
   
 
-<meta name="author" content="Greg Wilson">
+<meta name="author" content="Greg Wilson" />
 
 
-<meta name="date" content="2019-06-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="debt.html">
@@ -131,6 +129,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#questions"><i class="fa fa-check"></i><b>2.1</b> Questions</a></li>
@@ -507,7 +506,7 @@ cols(
 <pre class="sourceCode r"><code class="sourceCode r">measurements &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;measurements.csv&quot;</span>))</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  visit_id = col_integer(),
+  visit_id = col_double(),
   visitor = col_character(),
   quantity = col_character(),
   reading = col_double()
@@ -522,7 +521,7 @@ cols(
 cleaned</code></pre>
 <pre><code># A tibble: 20 x 4
    visit_id visitor quantity reading
-      &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
  1      619 dyer    rad         9.82
  2      619 dyer    sal         0.13
  3      622 dyer    rad         7.8 
@@ -579,7 +578,7 @@ cleaned</code></pre>
 cleaned</code></pre>
 <pre><code># A tibble: 18 x 4
    visit_id visitor quantity reading
-      &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
  1      619 dyer    rad        9.82 
  2      619 dyer    sal        0.13 
  3      622 dyer    rad        7.8  
@@ -607,14 +606,14 @@ cleaned</code></pre>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">inner_join</span>(cleaned, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;visit_id&quot;</span> =<span class="st"> &quot;visit_id&quot;</span>))</code></pre>
 <pre><code>Parsed with column specification:
 cols(
-  visit_id = col_integer(),
+  visit_id = col_double(),
   site_id = col_character(),
   visit_date = col_date(format = &quot;&quot;)
 )</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">cleaned</code></pre>
 <pre><code># A tibble: 14 x 6
    visit_id site_id visit_date visitor quantity reading
-      &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+      &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
  1      619 DR-1    1927-02-08 dyer    rad        9.82 
  2      619 DR-1    1927-02-08 dyer    sal        0.13 
  3      622 DR-1    1927-02-10 dyer    rad        7.8  
@@ -641,7 +640,7 @@ cols(
 <pre><code># A tibble: 3 x 7
 # Groups:   site_id [3]
   visit_id site_id visit_date visitor quantity reading max_rad
-     &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
 1      734 DR-3    1930-01-07 pb      rad         8.41    8.41
 2      837 MSK-4   1932-01-14 lake    rad         1.46    1.46
 3      844 DR-1    1932-03-22 roe     rad        11.2    11.2 </code></pre>
@@ -679,7 +678,7 @@ cols(
 <pre><code># A tibble: 7 x 4
 # Groups:   site_id [3]
   visit_id site_id visit_date frac_rad
-     &lt;int&gt; &lt;chr&gt;   &lt;date&gt;        &lt;dbl&gt;
+     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;        &lt;dbl&gt;
 1      619 DR-1    1927-02-08    0.873
 2      622 DR-1    1927-02-10    0.693
 3      734 DR-3    1930-01-07    1    
@@ -699,7 +698,7 @@ cols(
 <pre><code># A tibble: 7 x 7
 # Groups:   site_id [3]
   visit_id site_id visit_date visitor quantity reading delta_rad
-     &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
 1      619 DR-1    1927-02-08 dyer    rad         9.82     NA   
 2      622 DR-1    1927-02-10 dyer    rad         7.8      -2.02
 3      844 DR-1    1932-03-22 roe     rad        11.2       3.45
