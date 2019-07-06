@@ -43,8 +43,6 @@ knitr::include_graphics("figures/index/cthulhu-900x759.jpg")
 
 ## Who are these lessons for? {#s:index-personas}
 
-See @Wils2018 for a description of the process used to design these lessons.
-
 Andrzej
 :   completed a Master's in library science five years ago
     and has done data analysis for various school boards since then.
@@ -63,19 +61,24 @@ Padma
 
 ## How do I get started? {#s:index-install}
 
-The exercises provide a different perspective on the concepts that the lessons introduce.
-To do them:
+If you would truly venture beyond the veil,
+it is not enough to read:
+you must *do*.
+In order to attempt the exercises in these lessons:
 
 1.  Create an account on [rstudio.cloud][rstudio-cloud],
-    then create a new project and start typing.
-2.  Alternatively:
+    clone [the tidynomicon project][cloud-project],
+    and work in that.
+2.  If you prefer to work on your own computer:
     1.  [Install R][r-install].
-        We recommend that you do *not* use conda, Brew, or other platform-specific package managers to do this,
+        We recommend that you do *not* use [conda][conda],
+        [brew][brew],
+        or other platform-specific package managers to do this,
         as they sometimes only install part of what you need.
     2.  [Install RStudio][rstudio-install].
 
-You will need various libraries (called "packages" in R) as we go along;
-we will install these when and as needed.
+You will need additional software packages as we go along;
+each shall be named and summoned in due course.
 
 ```{r links, child="etc/links.md"}
 ```

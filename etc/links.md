@@ -3,10 +3,12 @@
 
 [advanced-r]: http://adv-r.had.co.nz/
 
+[brew]: https://brew.sh/
 [broman-packages]: https://kbroman.org/pkg_primer/
 [bryan-setwd]: https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
 
 [choose-a-license]: https://choosealicense.com/
+[conda]: https://conda.io/
 [covenant]: https://www.contributor-covenant.org
 [cran]: https://cran.r-project.org/
 
@@ -37,6 +39,7 @@
 [shiny]: https://shiny.rstudio.com/
 
 [testthat]: https://github.com/r-lib/testthat
+[tidynomicon-project]: FIXME
 [tidyverse-style]: http://style.tidyverse.org/
 
 [unicef-hiv]: https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/
