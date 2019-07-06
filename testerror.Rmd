@@ -301,7 +301,7 @@ find_empty_rows("a,b\n1,2\n,\n5,6")
 ```
 
 The `source` function reads R code from the given source.
-Using this inside an RMarkdown file is usually a bad idea,
+Using this inside an R Markdown file is usually a bad idea,
 since the generated HTML or PDF won't show readers what code we loaded and ran.
 On the other hand,
 if we are creating command-line tools for use on clusters or in other batch processing modes,

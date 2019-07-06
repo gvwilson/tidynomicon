@@ -12,7 +12,7 @@ As the previous lessons have shown,
 you can do a lot with R,
 but sometimes you might feel a cold, serpentine tug on your soul
 pulling you back to Python.
-You can put Python code in RMarkdown documents:
+You can put Python code in R Markdown documents:
 
 ```{python}
 print("Hello R")
