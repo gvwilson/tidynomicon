@@ -1,4 +1,0 @@
-- Name and describe the three levels of error handling in R.
-- Handle an otherwise-fatal error in a function call in R.
-- Create unit tests in R.
-- Create unit tests for an R package.

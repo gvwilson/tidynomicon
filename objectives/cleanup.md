@@ -1,5 +1,0 @@
-- Describe and use the `read_csv` function.
-- Describe and use the `str_replace` function.
-- Describe and use the `is.numeric` and `as.numeric` functions.
-- Describe and use the `map` function and its kin.
-- Describe and use pre-allocation to capture the results of loops.

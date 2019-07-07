@@ -8,8 +8,6 @@ new_session: true
 rmd_files:
   - index.Rmd
   - basics.Rmd
-  - indexing.Rmd
-  - control.Rmd
   - tidyverse.Rmd
   - cleanup.Rmd
   - nse.Rmd
@@ -27,5 +25,4 @@ rmd_files:
   - CITATION.md
   - CONTRIBUTING.md
   - gloss.md
-  - objectives.Rmd
   - keypoints.Rmd

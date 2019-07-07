@@ -13,3 +13,21 @@
 - Values from short vectors (such as 'scalars') are repeated to match the lengths of longer vectors.
 - The special value `NA` represents missing values, and (almost all) operations involving `NA` produce `NA`.
 - The special values `NULL` represents a nonexistent vector, which is not the same as a vector of length 0.
+- A list is a heterogeneous vector capable of storing values of any type (including other lists).
+- Indexing with `[` returns a structure of the same type as the structure being indexed (e.g., returns a list when applied to a list).
+- Indexing with `[[` strips away one level of structure (i.e., returns the indicated element without any wrapping).
+- Use `list('name' = value, ...)` to name the elements of a list.
+- Use either `L['name']` or `L$name` to access elements by name.
+- Use back-quotes around the name with `$` notation if the name is not a legal R variable name.
+- Use `matrix(values, nrow = N)` to create a matrix with `N` rows containing the given values.
+- Use `m[i, j]` to get the value at the i'th row and j'th column of a matrix.
+- Use `m[i,]` to get a vector containing the values in the i'th row of a matrix.
+- Use `m[,j]` to get a vector containing the values in the j'th column of a matrix.
+- Use `for (loop_variable in collection){ ...body... }` to create a loop.
+- Use `if (expression) { ...body... } else if (expression) { ...body... } else { ...body... }` to create conditionals.
+- Expression conditions must have length 1; use `any(...)` and `all(...)` to collapse logical vectors to single values.
+- Use `function(...arguments...) { ...body... }` to create a function.
+- Use variable <- function(...arguments...) { ...body... }` to create a function and give it a name.
+- The body of a function can be a single expression or a block in curly braces.
+- The last expression evaluated in a function is returned as its result.
+- Use `return(expression)` to return a result early from a function.

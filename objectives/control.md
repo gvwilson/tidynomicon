@@ -1,4 +1,0 @@
-- Create `for` loops and `if`/`else` statements in R.
-- Explain why vectors cannot be used directly in conditional expressions and correctly use `all` and `any` to combine their values.
-- Define functions taking a fixed number of named arguments and/or a variable number of arguments.
-- Explain what vectorization is and create vectorized equivalents of unnested loops containing simple conditional tests.

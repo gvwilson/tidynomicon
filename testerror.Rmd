@@ -4,14 +4,17 @@
 source("etc/common.R")
 ```
 
-## Learning Objectives
-```{r objectives, child="objectives/testerror.md"}
-```
-
 Novices write code and pray that it works.
 Experienced programmers know that prayer alone is not enough,
 and take steps to protect what little sanity they have left.
 This chapter looks at the tools R gives us for doing this.
+
+## Learning Objectives
+
+- Name and describe the three levels of error handling in R.
+- Handle an otherwise-fatal error in a function call in R.
+- Create unit tests in R.
+- Create unit tests for an R package.
 
 ## How does R handle errors?
 

@@ -4,10 +4,6 @@
 source("etc/common.R")
 ```
 
-## Learning Objectives
-```{r objectives, child="objectives/oop.md"}
-```
-
 Programmers spend a great deal of their time trying to create order out of chaos,
 and the rest of their time inventing new ways to create more chaos.
 Object-oriented programming serves both needs well:
@@ -26,6 +22,13 @@ then write specialized versions of [generic functions](glossary.html#generic-fun
 to process data identified by those attributes.
 Since attributes can be used in other ways as well,
 we will start by exploring them.
+
+## Learning Objectives
+
+- Correctly identify the most commonly used object-oriented programming system in R.
+- Explain what attributes R and correctly set and query objects' attributes, class, and dimensions.
+- Explain how to define a new method for a class.
+- Describe and implement the three functions that should be written for any user-defined class.
 
 ## What are attributes?
 

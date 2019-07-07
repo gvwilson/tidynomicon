@@ -1,5 +1,0 @@
-- Name and describe R's atomic data types and create objects of those types.
-- Explain what 'scalar' values actually are in R.
-- Identify correct and incorrect variable names in R.
-- Create vectors in R and index them to select single values, ranges of values, and selected values.
-- Explain the difference between `NA` and `NULL` and correctly use tests for each.

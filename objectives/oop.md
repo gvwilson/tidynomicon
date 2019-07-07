@@ -1,4 +1,0 @@
-- Correctly identify the most commonly used object-oriented programming system in R.
-- Explain what attributes R and correctly set and query objects' attributes, class, and dimensions.
-- Explain how to define a new method for a class.
-- Describe and implement the three functions that should be written for any user-defined class.

@@ -4,14 +4,6 @@
 source("etc/common.R")
 ```
 
-## Learning Objectives
-```{r, child="objectives/reticulate.md"}
-```
-
-As the previous lessons have shown,
-you can do a lot with R,
-but sometimes you might feel a cold, serpentine tug on your soul
-pulling you back to Python.
 You can put Python code in R Markdown documents:
 
 ```{python}
@@ -20,6 +12,15 @@ print("Hello R")
 
 but how can those chunks interact with your R and vice versa?
 The answer is a package called [reticulate][reticulate] that provides two-way communication between Python and R.
+
+## Learning Objectives
+
+- Use `reticulate` to share data between R and Python.
+- Use `reticulate` to call Python functions from R code and vice versa.
+- Run Python scripts directly from R programs.
+
+## How do I set up reticulate?
+
 To use it,
 run `install.packages("reticulate")`.
 By default,

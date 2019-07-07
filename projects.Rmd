@@ -4,10 +4,6 @@
 source("etc/common.R")
 ```
 
-## Learning Objectives
-```{r, child="objectives/projects.md"}
-```
-
 Mistakes were made in [the previous tutorial](cleanup.html).
 It would be [hubris](glossary.html#hubris) to believe that we will not make more as we continue to clean this data.
 What will guide us safely through these dark caverns and back into the light of day?
@@ -18,6 +14,19 @@ Luckily for us,
 R provides tools for this purpose not unlike those available in Python.
 In order to use them,
 we must first venture into the greater realm of packaging in R.
+
+## Learning Objectives
+
+- Describe the three things an R package can contain.
+- Explain how R code in a package is distributed and one implication of this.
+- Explain the purpose of the `DESCRIPTION`, `NAMESPACE` and `.Rbuildignore` files in an R project.
+- Explain what should be put in the `R`, `data`, `man`, and `tests` directories of an R project.
+- Describe and use specially-formatted comments with roxygen2 to document a package.
+- Use `@export` and `@import` directives correctly in roxygen2 documentation.
+- Add a dataset to an R package.
+- Use functions from external libraries inside a package in a hygienic way.
+- Rewrite references to bare column names to satisfy R's packaging checks.
+- Correctly document the package as a whole and the datasets it contains.
 
 ## What's in an R package?
 

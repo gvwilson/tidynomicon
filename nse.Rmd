@@ -4,13 +4,15 @@
 source("etc/common.R")
 ```
 
-## Learning Objectives
-```{r objectives, child="objectives/nse.md"}
-```
-
 The biggest difference between R and Python is not where R starts counting,
 but its use of [lazy evaluation](glossary.html#lazy-evaluation).
 Nothing truly makes sense in R until we understand how this works.
+
+## Learning Objectives
+
+- Trace the order of evaluation in function calls.
+- Explain what environments and expressions are and how they relate to one another.
+- Justify the author's use of ASCII art in the second decade of the 21st Century.
 
 ## How does Python evaluate function calls?
 

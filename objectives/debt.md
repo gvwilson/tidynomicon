@@ -1,3 +1,0 @@
-- Explain what the formula operator `~` was created for and what other uses it has.
-- Describe and use `.`, `.x`, `.y, `..1`, `..2`, and other convenience parameters.
-- Define copy-on-modify and explain its use in R.

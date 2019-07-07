@@ -4,9 +4,26 @@
 source("etc/common.R")
 ```
 
+FIXME
+
 ## Learning Objectives
-```{r objectives, child="objectives/basics.md"}
-```
+
+- Name and describe R's atomic data types and create objects of those types.
+- Explain what 'scalar' values actually are in R.
+- Identify correct and incorrect variable names in R.
+- Create vectors in R and index them to select single values, ranges of values, and selected values.
+- Explain the difference between `NA` and `NULL` and correctly use tests for each.
+- Explain the difference between a list and a vector.
+- Explain the difference between indexing with `[` and with `[[`.
+- Use `[` and `[[` correctly to extract elements and sub-structures from data structures in R.
+- Create a named list in R.
+- Access elements by name using both `[` and `$` notation.
+- Correctly identify cases in which back-quoting is necessary when accessing elements via `$`.
+- Create and index matrices in R.
+- Create `for` loops and `if`/`else` statements in R.
+- Explain why vectors cannot be used directly in conditional expressions and correctly use `all` and `any` to combine their values.
+- Define functions taking a fixed number of named arguments and/or a variable number of arguments.
+- Explain what vectorization is and create vectorized equivalents of unnested loops containing simple conditional tests.
 
 ## How do I say hello?
 
@@ -133,7 +150,7 @@ primes
 ```
 
 Assignment is done using a left-pointing arrow `<-`.
-(Other forms with their own symbols also exist, but we will not discuss them until Chapter \@ref(control).)
+(Other forms exist, which we will discuss later.)
 Like Python,
 R does not display a value after an assignment statement,
 so we have to ask it to show us the value.
@@ -459,6 +476,501 @@ we should always use the function `is.na`:
 is.na(threshold)
 is.na(NA)
 ```
+
+## How can I store a mix of different types of objects?
+
+One of the things that newcomers to R often trip over is the various ways in which structures can be indexed.
+All of the following are legal:
+
+```{r subscript-examples, eval=FALSE}
+thing[i]
+thing[i, j]
+thing[[i]]
+thing[[i, j]]
+thing$name
+thing$"name"
+```
+
+but they can behave differently depending on what kind of thing `thing` is.
+To explain, we must first take a look at lists.
+
+A [list](glossary.html#list) in R is a vector that can contain values of many different types.
+(The technical term for this is [heterogeneous](glossary.html#heterogeneous),
+in contrast with a [homogeneous](glossary.html#homogeneous) data structure that can only contain one type of value.)
+We'll use this list in our examples:
+
+```{r list-of-things}
+thing <- list("first", c(2, 20, 200), 3.3)
+thing
+```
+
+The output tells us that the first element of `thing` is a vector of one element,
+that the second is a vector of three elements,
+and the third is again a vector of one element.
+
+## What is the difference between `[` and `[[`?
+
+The output above strongly suggests that we can get the elements of a list using `[[` (double square brackets):
+
+```{r double-square}
+thing[[1]]
+thing[[2]]
+thing[[3]]
+```
+
+Let's have a look at the types of those three values:
+
+```{r double-square-elements}
+typeof(thing[[1]])
+typeof(thing[[2]])
+typeof(thing[[3]])
+```
+
+Good: they are vectors.
+(Remember, everything in R is a vector---it doesn't have scalars in the usual sense.)
+What do we get if we use single square brackets `[`?
+
+```{r single-square-typeof}
+typeof(thing[1])
+```
+
+Sure enough, the value itself is a list:
+
+```{r single-square-value}
+thing[1]
+```
+
+This shows the difference between `[[` and `[`:
+the former peels away a layer of data structure, returning only the sub-structure,
+while the latter gives us back a structure of the same type as the thing being indexed.
+Since a "scalar" is just a vector of length 1,
+there is no difference between `[[` and `[` when they are applied to vectors:
+
+```{r single-and-double}
+v <- c("first", "second", "third")
+v[2]
+typeof(v[2])
+v[[2]]
+typeof(v[[2]])
+```
+
+> **Flattening and Recursive Indexing**
+>
+> If a list is just a vector of objects, why do we need the function `list`?
+> Why can't we create a list with `c("first", c(2, 20, 200), 30)`?
+> The answer is that R flattens the arguments to `c`,
+> so that `c(c(1, 2), c(3, 4))` produces `c(1, 2, 3, 4)`.
+> It also does automatic type conversion:
+> `c("first", c(2, 20, 200), 30)` produces a vector of character strings
+> `c("first", "2", "20", "200", "30")`.
+> This is helpful once you get used to it.
+>
+> Another "helpful, ish" behavior is that using `[[` with a list subsets recursively:
+> if `thing <- list(a = list(b = list(c = list(d = 1))))`,
+> then `thing[[c("a", "b", "c", "d")]]` selects the 1.
+
+## How can I access elements by name?
+
+R allows us to name the elements in vectors:
+if we assign `c(one = 1, two = 2, three = 3)` to `names`,
+then `names["two"]` is 2.
+We can use this to create a lookup table:
+
+```{r lookup-table}
+values <- c("m", "f", "nb", "f", "f", "m", "m")
+lookup <- c(m = "Male", f = "Female", nb = "Non-binary")
+lookup[values]
+```
+
+If the structure in question is a list rather than an atomic vector of numbers, characters, or logicals,
+we can use the syntax `lookup$m` instead of `lookup["m"]`:
+
+```{r lookup-list}
+lookup_list <- list(m = "Male", f = "Female", nb = "Non-binary")
+lookup_list$m
+```
+
+We will explore this in more detail when we look at the tidyverse in Chapter \@ref(tidyverse),
+since that is where access-by-name is used most often.
+For now,
+simply note that if the name of an element isn't a legal variable name,
+we have to put it in backward quotes to use it as an accessor:
+
+```{r quoted-names}
+another_list <- list("first field" = "F", "second field" = "S")
+another_list$`first field`
+```
+
+Wherever possible, it's better to choose names that don't require back-quoting,
+such as `first_field`.
+
+## How can I create and index a matrix?
+
+Matrices are frequently used in statistics, so R provides built-in support for them.
+After `a <- matrix(1:9, nrow = 3)`,
+`a` is a 3x3 matrix containing the values 1 through 9.
+What may surprise you is the order in which the values generated by the expression `1:9` are laid out:
+
+```{r matrix-order}
+a <- matrix(1:9, nrow = 3)
+a
+```
+
+Under the hood,
+a matrix is a vector with an [attribute](glossary.html#attribute) called `dim` that stores its dimensions:
+
+```{r matrix-attribute}
+dim(a)
+```
+
+`a[3, 3]` is a vector of length 1 containing the value 9 (again, "scalars" in R are actually vectors),
+while `a[1,]` is the vector `c(1, 4, 7)` (because we are selecting the first row of the matrix)
+and `a[,1]` is the vector `c(1, 2, 3)` (because we are selecting the first column of the matrix).
+Elements can still be accessed using a single index,
+which returns the value from that location in the underlying vector:
+
+```{r matrix-single-index}
+a[8]
+```
+
+## How do I choose and repeat things?
+
+We cherish the illusion of free will so much that we embed a pretense of it in our machines
+in the form of conditional statements using `if` and `else`.
+(Ironically,
+we then instruct those same machines to make the same decisions over and over.
+It's no wonder they sometimes appear mad...)
+Here,
+for example,
+is a snippet of Python that displays the signs of a list of numbers:
+
+```{python py-loop-cond}
+values = [-15, 0, 15]
+for v in values:
+    if v < 0:
+        sign = -1
+    elif v == 0:
+        sign = 0
+    else:
+        sign = 1
+    print("The sign of", v, "is", sign)
+```
+
+Its direct translation into R is:
+
+```{r r-loop-cond}
+values <- c(-1, 0, 1)
+for (v in values) {
+  if (v < 0) {
+    sign <- -1
+  }
+  else if (v == 0) {
+    sign <- 0
+  }
+  else {
+    sign <- 1
+  }
+  print(glue::glue("The sign of {v} is {sign}"))
+}
+print(glue::glue("The final value of v is {v}"))
+```
+
+There are a few things to note here:
+
+1.  This is *not* how we should write R:
+    everything in this snippet can and should be vectorized.
+2.  The parentheses in the loop header are required:
+    we cannot simply write `for v in values`.
+3.  The curly braces around the body of the loop
+    and around the bodies of the conditional branches are optional,
+    since each contains only a single statement.
+    However, they should always be there to help readability.
+4.  The loop variable `v` persists after the loop is over.
+5.  `glue::glue` (the function `glue` from the library of the same name)
+    interpolates variables into strings in sensible ways.
+    We will load this library and use plain old `glue` in the explanations that follow.
+    (Note that R uses `::` to get functions out of packages rather than Python's `.`.)
+6.  By calling our temporary variable `sign`
+    we have accidentally overwritten the rather useful built-in R function with that name.
+    [Name collisions](glossary.html#name-collision) of this sort are as easy in R as they are in Python.
+
+## How can I express a range of values in R?
+
+By default, R's `for` loop gives us the values in a vector, just as Python's does.
+If we want to loop over the indices instead,
+we can use the function `seq_along`:
+
+```{r loop-range}
+colors = c("eburnean", "glaucous", "wenge")
+for (i in seq_along(colors)) {
+  print(glue("The length of color {i} is {length(colors[i])}"))
+}
+```
+
+This output makes no sense until we remember that every value is a vector,
+and that `length` returns the length of a vector,
+so that `length(colors[0])` is telling us that `colors[0]` contains one element.
+If we want the number of characters in the strings,
+we can use R's built-in `nchar` or the more modern function `stringr::str_length`:
+
+```{r loop-range-str-length}
+for (i in seq_along(colors)) {
+  print(glue("The length of color {i} is {stringr::str_length(colors[i])}"))
+}
+```
+
+`seq_along` returns a vector containing a sequence of integers:
+
+```{r seq-along}
+seq_along(colors)
+```
+
+Since sequences of this kind are used frequently,
+R lets us write them using [range expressions](glossary.html#range-expression) like this:
+
+```{r range-expression}
+5:10
+```
+
+Their most common use is as indices to vectors:
+
+```{r range-subscript}
+colors <- c("eburnean", "glaucous", "squamous", "wenge")
+colors[1:3]
+```
+
+We can similarly subtract a range of colors by index:
+
+```{r negative-range-subscript}
+colors[-1:-3]
+```
+
+However, R does not allow tripartite expressions of the form `start:end:stride`.
+For that,
+we must use the `seq` function:
+
+```{r seq-function}
+seq(1, 10, 3)
+```
+
+This example also shows that ranges in R are inclusive at both ends,
+i.e.,
+they run up to *and including* the upper bound.
+As is traditional among programming language advocates,
+people claim that this is more natural
+and then cite some supportive anecdote as proof.
+
+> **Repeating Things**
+>
+> The function `rep` repeats things, so `rep("a", 3)` is `c("a", "a", "a")`.
+> If the second argument is a vector of the same length as the first,
+> it specifies how many times each item in the first vector is to be repeated:
+> `rep(c("a", "b"), c(2, 3))` is `c("a", "a", "b", "b", "b")`.
+
+## How can I use a vector in a conditional statement?
+
+We cannot use vectors directly as a condition in an `if` statement:
+
+```{r vector-cond-fail, error=TRUE}
+numbers <- c(0, 1, 2)
+if (numbers) {
+  print("This should not work.")
+}
+```
+
+Instead,
+we must collapse the vector into a single logical value.
+
+```{r all-cond}
+numbers <- c(0, 1, 2)
+if (all(numbers >= 0)) {
+  print("This, on the other hand, should work.")
+}
+```
+
+The function `all` returns `TRUE` if every element in its argument is `TRUE`;
+it corresponds to a logical "and" of all its inputs.
+We can use a corresponding function `any` to check if at least one value is `TRUE`,
+which corresponds to a logical "or" across the whole input.
+
+## How do I create and call functions?
+
+As we have already seen,
+we call functions in R much as we do in Python:
+
+```{r func-call}
+max(1, 3, 5) + min(1, 3, 5)
+```
+
+We define a new function using the `function` keyword.
+This creates the function, but does not name it;
+to accomplish that,
+we must assign the newly-created function to a variable:
+
+```{r func-def}
+swap <- function(pair) {
+  c(pair[2], pair[1])
+}
+swap(c("left", "right"))
+```
+
+As this example shows,
+the result of a function is the value of the last expression evaluated within it.
+A function can return a value earlier using the `return` function;
+we can use `return` for the final value as well,
+but most R programmers do not.
+
+```{r func-return}
+swap <- function(pair) {
+  if (length(pair) != 2) {
+    return(NULL) # This is very bad practice.
+  }
+  c(pair[2], pair[1])
+}
+swap(c("one"))
+```
+
+```{r call-swap}
+swap(c("left", "right"))
+```
+
+Returning `NULL` when our function's inputs are invalid as we have done above is foolhardy,
+as doing so means that `swap` can fail without telling us that it has done so.
+Consider:
+
+```{r element-of-null}
+NULL[1]                 # Try to access an element of the vector that does not exist.
+```
+
+```{r silent-failure}
+values <- 5:10          # More than two values.
+result <- swap(values)  # Attempting to swap the values produces NULL.
+result[1]               # But we can operate on the result without error.
+```
+
+We will look at what we should do instead in Chapter \@ref(testerror).
+
+## How can I write a function that takes variable arguments?
+
+If the number of arguments given to a function is not the number expected,
+R complains:
+
+```{r wrong-number-of-args, error=TRUE}
+swap("one", "two", "three")
+```
+
+(Note that in this example we as passing three values,
+not a single vector containing three values.)
+If we want a function to handle a [varying number of arguments](glossary.html#variable-arguments),
+we represent the "extra" arguments with an ellipsis `...` (three dots),
+which serves the same purpose as Python's `*args`:
+
+```{r dot-args}
+print_with_title <- function(title, ...) {
+  print(glue("=={title}=="), paste(..., sep = "\n"))
+}
+
+print_with_title("to-do", "Monday", "Tuesday", "Wednesday")
+```
+
+(The function `paste` combines multiple arguments with the specified separator.)
+
+R has a special data structure to represent the extra arguments in `...`.
+If we want to work with those arguments one by one,
+we must convert `...` to a list:
+
+```{r dot-args-convert}
+add <- function(...) {
+  result <- 0
+  for (value in list(...)) {
+    result <- result + value
+  }
+  result
+}
+add(1, 3, 5, 7)
+```
+
+## How can I provide default values for arguments?
+
+Like Python and most other modern programming languages,
+R lets us define default values for arguments and then pass arguments by name:
+
+```{r define-defaults}
+example <- function(first, second = "second", third = "third") {
+  print(glue("first='{first}' second='{second}' third='{third}'"))
+}
+
+example("with just first")
+example("with first and second by position", "positional")
+example("with first and third by name", third = "by name")
+```
+
+One caution:
+when you use a name in a function call,
+R ignores non-function objects when figuring out what function to call.
+For example,
+the call `orange()` in the code below produces 110 because `purple(purple)` is interpreted as
+"pass the value of the local variable `purple` into the globally-defined function `purple`":
+
+```{r non-functions-in-call}
+purple <- function(x) x + 100
+orange <- function() {
+  purple <- 10
+  purple(purple)
+}
+orange()
+```
+
+## How can I hide the value that R returns?
+
+If the value returned by a function isn't assigned to something,
+R will print it out.
+This usually isn't what we want in library functions,
+so we can use the function `invisible` to mark a value
+so that it won't be printed by default
+(but can still be assigned).
+This allows us to convert this:
+
+```{r without-invisible}
+something <- function(value) {
+  10 * value
+}
+something(2)
+```
+
+to this:
+
+```{r with-invisible}
+something <- function(value) {
+  invisible(10 * value)
+}
+something(2)
+```
+
+The calculation is still done,
+but the output is suppressed.
+
+## How can I assign to a global variable from inside a function?
+
+The assignment operator `<<-` means "assign to a variable outside the current scope".
+As the example below shows,
+this means that what looks like creation of a new local variable can actually be modification of a global one:
+
+```{r assign-out-of-scope}
+var <- "original value"
+
+demonstrate <- function() {
+  var <<- "new value"
+}
+
+demonstrate()
+var
+```
+
+This should only and always be done with care:
+modern R strongly encourages a [functional](glossary.html#functional-programming) style of programming
+in which functions do not modify their input data,
+and *nobody* thinks that modifying global variables is a good idea any more.
 
 ## Key Points
 ```{r keypoints, child="keypoints/basics.md"}
