@@ -641,7 +641,7 @@ but rather, "regress `estimate` against the two variables `lo` and `hi`":
 lm(estimate ~ lo + hi, data = infant_hiv)
 ```
 
-If we want to regress `estiate` against the average of `lo` and `hi`
+If we want to regress `estimate` against the average of `lo` and `hi`
 (i.e., regress `estimate` against a single calculated variable instead of against two variables)
 we need to create a temporary column:
 

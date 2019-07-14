@@ -46,37 +46,33 @@ knitr::include_graphics("figures/index/cthulhu-900x759.jpg")
 Andrzej
 :   completed a Master's in library science five years ago
     and has done data analysis for various school boards since then.
-    He learned Python by doing data science courses online,
+    He learned Python doing data science courses online,
     but has no formal training in programming.
-    He just joined team that uses R and R Markdown to generate reports.
-    these lessons will show him how to translate his understanding of Python to R.
+    He just joined team that uses R and R Markdown to generate reports,
+    and these lessons will show him how to translate his understanding of Python to R.
 
 Padma
-:   has been building performance dashboards for a logistics company using Django and D3.
-    The company has just hired some data scientists who use R,
-    and who would like to rebuild some of those dashboards in Shiny.
+:   has been building dashboards for a logistics company using Django and D3
+    while also doing systems administration and managing deployments.
+    The company has just hired some data scientists
+    who would like to rebuild some of her dashboards in Shiny.
     Padma isn't a statistician,
-    but she's comfortable doing linear regression and basic time series analysis on web traffic,
-    and would like to learn enough about R to tidy up the analysts' code and get it into production.
+    but would like to learn enough about R to help the analysts
+    and get their code into production.
 
 ## How do I get started? {#s:index-install}
 
-If you would truly venture beyond the veil,
-it is not enough to read:
-you must *do*.
-In order to attempt the exercises in these lessons:
-
-1.  Create an account on [rstudio.cloud][rstudio-cloud],
-    clone [the tidynomicon project][cloud-project],
-    and work in that.
-2.  If you prefer to work on your own computer:
-    1.  [Install R][r-install].
-        We recommend that you do *not* use [conda][conda],
-        [brew][brew],
-        or other platform-specific package managers to do this,
-        as they sometimes only install part of what you need.
-    2.  [Install RStudio][rstudio-install].
-
+You will learn as much or more from the exercise in this book as from the lessons themselves.
+To start,
+you can create an account on [rstudio.cloud][rstudio-cloud],
+clone [the tidynomicon project][cloud-project],
+and work in that.
+If you prefer to work on your own computer,
+you must [install R][r-install] and then [install RStudio][rstudio-install].
+We recommend that you do *not* use [conda][conda],
+[brew][brew],
+or other platform-specific package managers to do this,
+as they sometimes only install part of what you need.
 You will need additional software packages as we go along;
 each shall be named and summoned in due course.
 

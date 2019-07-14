@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Values and Vectors | The Tidynomicon</title>
-  <meta name="description" content="Chapter 2 Values and Vectors | The Tidynomicon" />
+  <title>Chapter 2 Simple Beginnings | The Tidynomicon</title>
+  <meta name="description" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Values and Vectors | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Chapter 2 Values and Vectors | The Tidynomicon" />
+  <meta property="og:description" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Values and Vectors | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   
-  <meta name="twitter:description" content="Chapter 2 Values and Vectors | The Tidynomicon" />
+  <meta name="twitter:description" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   
 
 <meta name="author" content="Greg Wilson" />
@@ -131,7 +131,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Simple Beginnings</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#learning-objectives"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#how-do-i-say-hello"><i class="fa fa-check"></i><b>2.2</b> How do I say hello?</a></li>
 <li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#how-do-i-add-numbers"><i class="fa fa-check"></i><b>2.3</b> How do I add numbers?</a></li>
@@ -348,8 +348,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="basics" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Values and Vectors</h1>
-<p>FIXME</p>
+<h1><span class="header-section-number">Chapter 2</span> Simple Beginnings</h1>
+<p>We begin by introducing the basic elements of R.
+You will use these less often than you might expect,
+but they are the building blocks for the higher-level tools introduced in Chapter <a href="tidyverse.html#tidyverse">3</a>,
+and offer the comfort of familiarity.
+Where we feel comparisons would aid understanding,
+we provide short examples in Python.</p>
 <div id="learning-objectives" class="section level2">
 <h2><span class="header-section-number">2.1</span> Learning Objectives</h2>
 <ul>
@@ -374,10 +379,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="how-do-i-say-hello" class="section level2">
 <h2><span class="header-section-number">2.2</span> How do I say hello?</h2>
 <p>We begin with a traditional greeting.
-In Python (which we will show in <em>italics</em>) we write:</p>
+In Python, we write:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</code></pre>
 <pre><code>Hello, world!</code></pre>
-<p>We can run the equivalent R in the RStudio Console:</p>
+<p>We can run the equivalent R in the RStudio Console (Figure ):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</code></pre>
 <pre><code>[1] &quot;Hello, world!&quot;</code></pre>
 <p>Python prints what we asked for,
@@ -388,8 +393,8 @@ Let’s take a closer look by evaluating a couple of expressions without calling
 <pre><code>[1] &quot;This is in single quotes.&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;This is in double quotes.&quot;</span></code></pre>
 <pre><code>[1] &quot;This is in double quotes.&quot;</code></pre>
-<p>That the mysterious <code>[1]</code> doesn’t appear to be a line number.
-Let’s ignore it for now and do a little more exploring.</p>
+<p><code>[1]</code> doesn’t appear to be a line number;
+let’s ignore it for now and do a little more exploring.</p>
 <blockquote>
 <p>Note that R uses double quotes to display strings even when we give it a single-quoted string
 (which is no worse than Python using single quotes when we’ve given it doubles).</p>
@@ -420,7 +425,8 @@ Let’s try an experiment:</p>
 <p>Ah: by default,
 R represents numbers as floating-point values,
 even if they look like integers when written.
-We can force a literal value to be an integer by appending an upper-case <code>L</code> (which stands for “long integer”):</p>
+We can force a literal value to be an integer by appending an upper-case <code>L</code>
+(which stands for “long integer”):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(6L)</code></pre>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>Arithmetic on integers does produce integers:</p>
@@ -430,7 +436,7 @@ We can force a literal value to be an integer by appending an upper-case <code>L
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">6</span>))</code></pre>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>But wait:
-what is that dot doing in the function’s name?
+what is that dot in <code>as.integer</code>’s name?
 Is there an object called <code>as</code> with a <a href="glossary.html#method">method</a> called <code>integer</code>?
 The answer is “no”:
 <code>.</code> is (usually) just another character in R;
@@ -439,18 +445,20 @@ it is used to make names more readable.</p>
 </div>
 <div id="how-do-i-store-many-numbers-together" class="section level2">
 <h2><span class="header-section-number">2.4</span> How do I store many numbers together?</h2>
-<p>The Elder Gods do not bother to learn most of our names because there are so many of us and we are so ephemeral.
+<p>The Elder Gods do not bother to learn most of our names
+because there are so many of us and we are so ephemeral.
 Similarly, we only give a handful of values in our programs their own names;
 we lump the rest together into lists, matrices, and more esoteric structure
-so that we too can create, manipulate, and dispose of multitudes with a single dark command.</p>
+so that we too can create, manipulate, and dispose of multitudes with a single imperious command.</p>
 <p>The most common such structure in Python is the list.
-We create lists using square brackets,
+We create lists using square brackets
 and assign a list to a variable using <code>=</code>.
 If the variable does not exist, it is created:</p>
 <pre class="sourceCode python"><code class="sourceCode python">primes <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>]
 <span class="bu">print</span>(primes)</code></pre>
 <pre><code>[3, 5, 7, 11]</code></pre>
-<p>Since assignment is a statement rather than an expression,
+<p>Since assignment is a <a href="glossary.html#statement">statement</a>
+rather than an <a href="glossary.html#expression">expression</a>,
 it has no result,
 so Python does not display anything when this command is run.</p>
 <p>The equivalent operation in R uses a function called <code>c</code>,
@@ -458,17 +466,17 @@ which stands for “column” and which creates a <a href="glossary.html#vector"
 <pre class="sourceCode r"><code class="sourceCode r">primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)
 primes</code></pre>
 <pre><code>[1]  3  5  7 11</code></pre>
-<p>Assignment is done using a left-pointing arrow <code>&lt;-</code>.
-(Other forms exist, which we will discuss later.)
-Like Python,
-R does not display a value after an assignment statement,
-so we have to ask it to show us the value.</p>
-<p>Now that we can create vector in R,
-we can explain that errant <code>[1]</code> in our previous examples.
-To begin with,
+<p>Assignment is done using a left-pointing arrow <code>&lt;-</code>
+(though other forms exist, which we will discuss later).
+As in Python,
+assignment is a statement rather than an expression,
+so we enter the name of the newly-created variable to get R to display its value.</p>
+<p>Now that we can create vectors in R,
+we can explain the errant <code>[1]</code> in our previous examples.
+To start,
 let’s have a look at the lengths of various things in Python:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(primes))</code></pre>
-<pre><code>4</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(primes, <span class="bu">len</span>(primes))</code></pre>
+<pre><code>[3, 5, 7, 11] 4</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(<span class="dv">4</span>))</code></pre>
 <pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: object of type &#39;int&#39; has no len()
 
@@ -477,8 +485,8 @@ Detailed traceback:
 <p>Fair enough:
 the length of a list is the number of elements it contains,
 and since a <a href="glossary.html#scalar">scalar</a> like the integer 4 doesn’t contain elements,
-it has no length.</p>
-<p>What of R’s vectors?</p>
+it has no length.
+What of R’s vectors?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(primes)</code></pre>
 <pre><code>[1] 4</code></pre>
 <p>Good—and numbers?</p>
@@ -495,7 +503,7 @@ This all becomes clear once we realize that <em>there are no scalars in R</em>.
 but rather a vector of length one containing the value 4.
 When we display its value,
 the <code>[1]</code> that R prints is the index of its first value.
-We can prove this by creating and displaying a much longer vector:</p>
+We can prove this by creating and displaying a longer vector:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>,
   <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</code></pre>
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
@@ -551,7 +559,7 @@ we’re actually using a vector to index another one.
 What happens if the index itself contains more than one value?</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">1</span>, <span class="dv">2</span>]</code></pre>
 <pre><code>Error in colors[1, 2]: incorrect number of dimensions</code></pre>
-<p>That didn’t work because R interprets the subscript <code>[i, j]</code> as being row and column indices,
+<p>That didn’t work because R interprets <code>[i, j]</code> as being row and column indices,
 and our vector has only one dimension.
 What if we create a vector with <code>c(...)</code> and use that as a subscript?</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)]</code></pre>
@@ -562,8 +570,8 @@ What if we create a vector with <code>c(...)</code> and use that as a subscript?
 <p>Note that this is <a href="glossary.html#pull-indexing">pull indexing</a>,
 i.e.,
 the value at location <em>i</em> in the index vector specifies which element of the source vector
-is being pulled into that location in the result vector:</p>
-<div class="figure"><span id="fig:pull-indexing-fig"></span>
+is being pulled into that location in the result vector (Figure ).</p>
+<div class="figure"><span id="fig:pull-indexing"></span>
 <img src="figures/basics/pull-indexing.svg" alt="Pull Indexing"  />
 <p class="caption">
 Figure 2.1: Pull Indexing
@@ -572,7 +580,7 @@ Figure 2.1: Pull Indexing
 <p>We can also select out several elements:</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-2</span>)]</code></pre>
 <pre><code>[1] &quot;wenge&quot;</code></pre>
-<p>But we <em>cannot</em> simultaneously select elements in (with positive indices) and out (with negative ones):</p>
+<p>But we cannot simultaneously select elements in (with positive indices) and out (with negative ones):</p>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-1</span>)]</code></pre>
 <pre><code>Error in colors[c(1, -1)]: only 0&#39;s may be mixed with negative subscripts</code></pre>
 <p>That error message is suggestive:
@@ -584,7 +592,8 @@ we can try calling the function <code>character</code> ourselves
 with a positive argument:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">character</span>(<span class="dv">3</span>)</code></pre>
 <pre><code>[1] &quot;&quot; &quot;&quot; &quot;&quot;</code></pre>
-<p>Ah—it appears that <code>character(N)</code> constructs a vector of empty strings of the specified length.
+<p>Ah:
+<code>character(N)</code> constructs a vector of empty strings of the specified length.
 The expression <code>character(0)</code> presumably therefore means
 “an <a href="glossary.html#empty-vector">empty vector</a> of type character”.
 From this,
@@ -603,7 +612,10 @@ What if in-bounds and out-of-bounds indices are mixed?</p>
 </div>
 <div id="how-do-i-create-new-vectors-from-old" class="section level2">
 <h2><span class="header-section-number">2.6</span> How do I create new vectors from old?</h2>
-<p>Modern Python encourages programmers to use <a href="glossary.html#list-comprehension">list comprehensions</a> instead of loops:</p>
+<p>Modern Python encourages programmers to use <a href="glossary.html#list-comprehension">list comprehensions</a>
+instead of loops,
+i.e.,
+to write:</p>
 <pre class="sourceCode python"><code class="sourceCode python">original <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>]
 doubled <span class="op">=</span> [<span class="dv">2</span> <span class="op">*</span> x <span class="cf">for</span> x <span class="kw">in</span> original]
 <span class="bu">print</span>(doubled)</code></pre>
@@ -614,10 +626,8 @@ doubled <span class="op">=</span> [<span class="dv">2</span> <span class="op">*<
   doubled.append(<span class="dv">2</span> <span class="op">*</span> x)
 <span class="bu">print</span>(doubled)</code></pre>
 <pre><code>[6, 10, 14, 18]</code></pre>
-<p>If <code>original</code> is a NumPy array,
-we can shorten this to:</p>
-<pre class="sourceCode python"><code class="sourceCode python">doubled <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> original</code></pre>
-<p>R provides this capability in the language itself:</p>
+<p>If <code>original</code> is a NumPy array, we can shorten this to <code>2 * original</code>.
+R provides this capability in the language itself:</p>
 <pre class="sourceCode r"><code class="sourceCode r">original &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)
 doubled &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>original
 doubled</code></pre>
@@ -633,8 +643,13 @@ tens <span class="op">+</span><span class="st"> </span>hundreds <span class="op"
 <pre><code>[1] 10.10000 20.05000 30.03333</code></pre>
 <p>If two vectors of unequal length are used together,
 the elements of the shorter are <a href="glossary.html#recycle">recycled</a>.
-This is straightforward if one of the vectors is a scalar—it is just re-used as many times as necessary—but
-shouldn’t be done if the vectors don’t line up nicely:</p>
+This behaves sensibly if one of the vectors is a scalar—it is just re-used as many times as necessary:</p>
+<pre class="sourceCode r"><code class="sourceCode r">hundreds <span class="op">+</span><span class="st"> </span><span class="dv">5</span></code></pre>
+<pre><code>[1] 105 205 305</code></pre>
+<p>If both vectors have several elements,
+the shorter is repeated as often as necessary.
+This works,
+but is so likely to lead to hard-to-find bugs that R produces a warning message:</p>
 <pre class="sourceCode r"><code class="sourceCode r">thousands &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>)
 hundreds <span class="op">+</span><span class="st"> </span>thousands</code></pre>
 <pre><code>Warning in hundreds + thousands: longer object length is not a multiple of
@@ -647,7 +662,7 @@ it selects elements corresponding to <code>TRUE</code> values:</p>
 <pre><code>[1] &quot;eburnean&quot; &quot;glaucous&quot; &quot;wenge&quot;   </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)]</code></pre>
 <pre><code>[1] &quot;eburnean&quot; &quot;wenge&quot;   </code></pre>
-<p>This is (unsurprisingly) called <a href="glossary.html#logical-indexing">logical indexing</a>,
+<p>This is called <a href="glossary.html#logical-indexing">logical indexing</a>,
 though to the best of my knowledge illogical indexing is not provided as an alternative.
 The function <code>ifelse</code> uses this to do what its name suggests:
 select a value from one vector if a condition is <code>TRUE</code>,
@@ -707,7 +722,8 @@ thing<span class="op">$</span><span class="st">&quot;name&quot;</span></code></p
 To explain, we must first take a look at lists.</p>
 <p>A <a href="glossary.html#list">list</a> in R is a vector that can contain values of many different types.
 (The technical term for this is <a href="glossary.html#heterogeneous">heterogeneous</a>,
-in contrast with a <a href="glossary.html#homogeneous">homogeneous</a> data structure that can only contain one type of value.)
+in contrast with a <a href="glossary.html#homogeneous">homogeneous</a> data structure
+that can only contain one type of value.)
 We’ll use this list in our examples:</p>
 <pre class="sourceCode r"><code class="sourceCode r">thing &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;first&quot;</span>, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">20</span>, <span class="dv">200</span>), <span class="fl">3.3</span>)
 thing</code></pre>
@@ -721,7 +737,16 @@ thing</code></pre>
 [1] 3.3</code></pre>
 <p>The output tells us that the first element of <code>thing</code> is a vector of one element,
 that the second is a vector of three elements,
-and the third is again a vector of one element.</p>
+and the third is again a vector of one element;
+the major indices are shown in <code>[[…]]</code>,
+while the indices of the contained elements are shown in <code>[…]</code>.
+(Again,
+remember that <code>"first"</code> and 3.3 are actually vectors of length 1.)</p>
+<blockquote>
+<p>In keeping with R’s conventions,
+we will henceforth use <code>[[</code> and <code>[</code> to refer to the two kinds of indexing
+rather than <code>[[…]]</code> and <code>[…]</code>.</p>
+</blockquote>
 </div>
 <div id="what-is-the-difference-between-and" class="section level2">
 <h2><span class="header-section-number">2.9</span> What is the difference between <code>[</code> and <code>[[</code>?</h2>
@@ -739,15 +764,15 @@ and the third is again a vector of one element.</p>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[[<span class="dv">3</span>]])</code></pre>
 <pre><code>[1] &quot;double&quot;</code></pre>
-<p>Good: they are vectors.
-(Remember, everything in R is a vector—it doesn’t have scalars in the usual sense.)
-What do we get if we use single square brackets <code>[</code>?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[<span class="dv">1</span>])</code></pre>
-<pre><code>[1] &quot;list&quot;</code></pre>
-<p>Sure enough, the value itself is a list:</p>
+<p>That seems sensible.
+Now,
+what do we get if we index single square brackets <code>[…]</code>?</p>
 <pre class="sourceCode r"><code class="sourceCode r">thing[<span class="dv">1</span>]</code></pre>
 <pre><code>[[1]]
 [1] &quot;first&quot;</code></pre>
+<p>That looks like a list, not a vector—let’s check:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[<span class="dv">1</span>])</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
 <p>This shows the difference between <code>[[</code> and <code>[</code>:
 the former peels away a layer of data structure, returning only the sub-structure,
 while the latter gives us back a structure of the same type as the thing being indexed.
@@ -771,7 +796,8 @@ so that <code>c(c(1, 2), c(3, 4))</code> produces <code>c(1, 2, 3, 4)</code>.
 It also does automatic type conversion:
 <code>c("first", c(2, 20, 200), 30)</code> produces a vector of character strings
 <code>c("first", "2", "20", "200", "30")</code>.
-This is helpful once you get used to it.</p>
+This is helpful once you get used to it
+(which once again is true of both quantum mechanics and necromancy).</p>
 <p>Another “helpful, ish” behavior is that using <code>[[</code> with a list subsets recursively:
 if <code>thing &lt;- list(a = list(b = list(c = list(d = 1))))</code>,
 then <code>thing[[c("a", "b", "c", "d")]]</code> selects the 1.</p>
@@ -779,7 +805,7 @@ then <code>thing[[c("a", "b", "c", "d")]]</code> selects the 1.</p>
 </div>
 <div id="how-can-i-access-elements-by-name" class="section level2">
 <h2><span class="header-section-number">2.10</span> How can I access elements by name?</h2>
-<p>R allows us to name the elements in vectors:
+<p>R allows us to name the elements in vectors and lists:
 if we assign <code>c(one = 1, two = 2, three = 3)</code> to <code>names</code>,
 then <code>names["two"]</code> is 2.
 We can use this to create a lookup table:</p>
@@ -795,30 +821,32 @@ we can use the syntax <code>lookup$m</code> instead of <code>lookup["m"]</code>:
 <pre class="sourceCode r"><code class="sourceCode r">lookup_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
 lookup_list<span class="op">$</span>m</code></pre>
 <pre><code>[1] &quot;Male&quot;</code></pre>
-<p>We will explore this in more detail when we look at the tidyverse in Chapter <a href="tidyverse.html#tidyverse">3</a>,
+<p>We will explore this in more detail when we look at the tidyverse in Chapter <a href="tidyverse.html#tidyverse">3</a>,
 since that is where access-by-name is used most often.
 For now,
 simply note that if the name of an element isn’t a legal variable name,
-we have to put it in backward quotes to use it as an accessor:</p>
+we have to put it in backward quotes to use it with <code>$</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">another_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;first field&quot;</span> =<span class="st"> &quot;F&quot;</span>, <span class="st">&quot;second field&quot;</span> =<span class="st"> &quot;S&quot;</span>)
 another_list<span class="op">$</span><span class="st">`</span><span class="dt">first field</span><span class="st">`</span></code></pre>
 <pre><code>[1] &quot;F&quot;</code></pre>
-<p>Wherever possible, it’s better to choose names that don’t require back-quoting,
-such as <code>first_field</code>.</p>
+<blockquote>
+<p>If you have control,
+or at least the illusion thereof,
+choose names such as <code>first_field</code> that don’t require back-quoting.</p>
+</blockquote>
 </div>
 <div id="how-can-i-create-and-index-a-matrix" class="section level2">
 <h2><span class="header-section-number">2.11</span> How can I create and index a matrix?</h2>
 <p>Matrices are frequently used in statistics, so R provides built-in support for them.
 After <code>a &lt;- matrix(1:9, nrow = 3)</code>,
-<code>a</code> is a 3x3 matrix containing the values 1 through 9.
-What may surprise you is the order in which the values generated by the expression <code>1:9</code> are laid out:</p>
+<code>a</code> is a 3x3 matrix containing the values 1 through 9:</p>
 <pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)
 a</code></pre>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
-<p>Under the hood,
+<p>Behind the scenes,
 a matrix is a vector with an <a href="glossary.html#attribute">attribute</a> called <code>dim</code> that stores its dimensions:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(a)</code></pre>
 <pre><code>[1] 3 3</code></pre>
@@ -837,9 +865,9 @@ in the form of conditional statements using <code>if</code> and <code>else</code
 (Ironically,
 we then instruct those same machines to make the same decisions over and over.
 It’s no wonder they sometimes appear mad…)
-Here,
-for example,
-is a snippet of Python that displays the signs of a list of numbers:</p>
+For example,
+here is a snippet of Python that uses <code>for</code> and <code>if</code> to display
+the signs of the numbers in a list:</p>
 <pre class="sourceCode python"><code class="sourceCode python">values <span class="op">=</span> [<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>]
 <span class="cf">for</span> v <span class="kw">in</span> values:
     <span class="cf">if</span> v <span class="op">&lt;</span> <span class="dv">0</span>:
@@ -852,8 +880,10 @@ is a snippet of Python that displays the signs of a list of numbers:</p>
 <pre><code>The sign of -15 is -1
 The sign of 0 is 0
 The sign of 15 is 1</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;The final value of v is&quot;</span>, v)</code></pre>
+<pre><code>The final value of v is 15</code></pre>
 <p>Its direct translation into R is:</p>
-<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>)
 <span class="cf">for</span> (v <span class="cf">in</span> values) {
   <span class="cf">if</span> (v <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
     sign &lt;-<span class="st"> </span><span class="dv">-1</span>
@@ -866,43 +896,47 @@ The sign of 15 is 1</code></pre>
   }
   <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {v} is {sign}&quot;</span>))
 }</code></pre>
-<pre><code>The sign of -1 is -1
+<pre><code>The sign of -15 is -1
 The sign of 0 is 0
-The sign of 1 is 1</code></pre>
+The sign of 15 is 1</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The final value of v is {v}&quot;</span>))</code></pre>
-<pre><code>The final value of v is 1</code></pre>
+<pre><code>The final value of v is 15</code></pre>
 <p>There are a few things to note here:</p>
 <ol style="list-style-type: decimal">
-<li>This is <em>not</em> how we should write R:
-everything in this snippet can and should be vectorized.</li>
 <li>The parentheses in the loop header are required:
 we cannot simply write <code>for v in values</code>.</li>
 <li>The curly braces around the body of the loop
 and around the bodies of the conditional branches are optional,
 since each contains only a single statement.
 However, they should always be there to help readability.</li>
-<li>The loop variable <code>v</code> persists after the loop is over.</li>
+<li>As in Python,
+the loop variable <code>v</code> persists after the loop is over.</li>
 <li><code>glue::glue</code> (the function <code>glue</code> from the library of the same name)
 interpolates variables into strings in sensible ways.
 We will load this library and use plain old <code>glue</code> in the explanations that follow.
 (Note that R uses <code>::</code> to get functions out of packages rather than Python’s <code>.</code>.)</li>
 <li>By calling our temporary variable <code>sign</code>
 we have accidentally overwritten the rather useful built-in R function with that name.
-<a href="glossary.html#name-collision">Name collisions</a> of this sort are as easy in R as they are in Python.</li>
+<a href="glossary.html#name-collision">Name collisions</a> of this sort
+are just as easy in R as they are in Python.</li>
+<li>This is <em>not</em> how we should write R:
+everything in this snippet can and should be vectorized.
+We will see how in Chapter <a href="tidyverse.html#tidyverse">3</a>.</li>
 </ol>
 </div>
 <div id="how-can-i-express-a-range-of-values-in-r" class="section level2">
 <h2><span class="header-section-number">2.13</span> How can I express a range of values in R?</h2>
-<p>By default, R’s <code>for</code> loop gives us the values in a vector, just as Python’s does.
+<p><code>for</code> in R loops over the values in a vector, just as it does in Python.
 If we want to loop over the indices instead,
 we can use the function <code>seq_along</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;squamous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {
   <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {length(colors[i])}&quot;</span>))
 }</code></pre>
 <pre><code>The length of color 1 is 1
 The length of color 2 is 1
-The length of color 3 is 1</code></pre>
+The length of color 3 is 1
+The length of color 4 is 1</code></pre>
 <p>This output makes no sense until we remember that every value is a vector,
 and that <code>length</code> returns the length of a vector,
 so that <code>length(colors[0])</code> is telling us that <code>colors[0]</code> contains one element.
@@ -913,24 +947,25 @@ we can use R’s built-in <code>nchar</code> or the more modern function <code>s
 }</code></pre>
 <pre><code>The length of color 1 is 8
 The length of color 2 is 8
-The length of color 3 is 5</code></pre>
-<p><code>seq_along</code> returns a vector containing a sequence of integers:</p>
+The length of color 3 is 8
+The length of color 4 is 5</code></pre>
+<p>As you may already have guessed,
+<code>seq_along</code> returns a vector containing a sequence of integers:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq_along</span>(colors)</code></pre>
-<pre><code>[1] 1 2 3</code></pre>
+<pre><code>[1] 1 2 3 4</code></pre>
 <p>Since sequences of this kind are used frequently,
-R lets us write them using <a href="glossary.html#range-expression">range expressions</a> like this:</p>
+R lets us write them using <a href="glossary.html#range-expression">range expressions</a>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span><span class="op">:</span><span class="dv">10</span></code></pre>
 <pre><code>[1]  5  6  7  8  9 10</code></pre>
 <p>Their most common use is as indices to vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;squamous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)
-colors[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</code></pre>
-<pre><code>[1] &quot;eburnean&quot; &quot;glaucous&quot; &quot;squamous&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]</code></pre>
+<pre><code>[1] &quot;glaucous&quot; &quot;squamous&quot;</code></pre>
 <p>We can similarly subtract a range of colors by index:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">3</span>]</code></pre>
-<pre><code>[1] &quot;wenge&quot;</code></pre>
-<p>However, R does not allow tripartite expressions of the form <code>start:end:stride</code>.
+<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">2</span>]</code></pre>
+<pre><code>[1] &quot;squamous&quot; &quot;wenge&quot;   </code></pre>
+<p>However, R does not allow tripartite expressions of the form <code>start:end:step</code>.
 For that,
-we must use the <code>seq</code> function:</p>
+we must use <code>seq</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">3</span>)</code></pre>
 <pre><code>[1]  1  4  7 10</code></pre>
 <p>This example also shows that ranges in R are inclusive at both ends,
@@ -938,7 +973,7 @@ i.e.,
 they run up to <em>and including</em> the upper bound.
 As is traditional among programming language advocates,
 people claim that this is more natural
-and then cite some supportive anecdote as proof.</p>
+and then cite some supportive anecdote as if it were proof.</p>
 <blockquote>
 <p><strong>Repeating Things</strong></p>
 <p>The function <code>rep</code> repeats things, so <code>rep("a", 3)</code> is <code>c("a", "a", "a")</code>.
@@ -949,7 +984,7 @@ it specifies how many times each item in the first vector is to be repeated:
 </div>
 <div id="how-can-i-use-a-vector-in-a-conditional-statement" class="section level2">
 <h2><span class="header-section-number">2.14</span> How can I use a vector in a conditional statement?</h2>
-<p>We cannot use vectors directly as a condition in an <code>if</code> statement:</p>
+<p>We cannot use a vector directly as a condition in an <code>if</code> statement:</p>
 <pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)
 <span class="cf">if</span> (numbers) {
   <span class="kw">print</span>(<span class="st">&quot;This should not work.&quot;</span>)
@@ -957,7 +992,7 @@ it specifies how many times each item in the first vector is to be repeated:
 <pre><code>Warning in if (numbers) {: the condition has length &gt; 1 and only the first
 element will be used</code></pre>
 <p>Instead,
-we must collapse the vector into a single logical value.</p>
+we must collapse the vector into a single logical value:</p>
 <pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)
 <span class="cf">if</span> (<span class="kw">all</span>(numbers <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>)) {
   <span class="kw">print</span>(<span class="st">&quot;This, on the other hand, should work.&quot;</span>)
@@ -975,8 +1010,8 @@ we call functions in R much as we do in Python:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">min</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</code></pre>
 <pre><code>[1] 6</code></pre>
 <p>We define a new function using the <code>function</code> keyword.
-This creates the function, but does not name it;
-to accomplish that,
+This creates the function;
+to name it,
 we must assign the newly-created function to a variable:</p>
 <pre class="sourceCode r"><code class="sourceCode r">swap &lt;-<span class="st"> </span><span class="cf">function</span>(pair) {
   <span class="kw">c</span>(pair[<span class="dv">2</span>], pair[<span class="dv">1</span>])
@@ -1015,7 +1050,7 @@ result[<span class="dv">1</span>]               <span class="co"># But we can op
 R complains:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">swap</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)</code></pre>
 <pre><code>Error in swap(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;): unused arguments (&quot;two&quot;, &quot;three&quot;)</code></pre>
-<p>(Note that in this example we as passing three values,
+<p>(Note that we are passing three separate values here,
 not a single vector containing three values.)
 If we want a function to handle a <a href="glossary.html#variable-arguments">varying number of arguments</a>,
 we represent the “extra” arguments with an ellipsis <code>...</code> (three dots),
@@ -1029,10 +1064,12 @@ which serves the same purpose as Python’s <code>*args</code>:</p>
 Monday
 Tuesday
 Wednesday</code></pre>
-<p>(The function <code>paste</code> combines multiple arguments with the specified separator.)</p>
-<p>R has a special data structure to represent the extra arguments in <code>...</code>.
+<blockquote>
+<p>The function <code>paste</code> creates a string by combining its arguments with the specified separator.</p>
+</blockquote>
+<p>R uses a special data structure to represent the extra arguments in <code>...</code>.
 If we want to work with those arguments one by one,
-we must convert <code>...</code> to a list:</p>
+we must explicitly convert <code>...</code> to a list:</p>
 <pre class="sourceCode r"><code class="sourceCode r">add &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
   result &lt;-<span class="st"> </span><span class="dv">0</span>
   <span class="cf">for</span> (value <span class="cf">in</span> <span class="kw">list</span>(...)) {
@@ -1059,10 +1096,12 @@ R lets us define default values for arguments and then pass arguments by name:</
 <pre><code>first=&#39;with first and third by name&#39; second=&#39;second&#39; third=&#39;by name&#39;</code></pre>
 <p>One caution:
 when you use a name in a function call,
-R ignores non-function objects when figuring out what function to call.
-For example,
-the call <code>orange()</code> in the code below produces 110 because <code>purple(purple)</code> is interpreted as
-“pass the value of the local variable <code>purple</code> into the globally-defined function <code>purple</code>”:</p>
+R ignores things that <em>aren’t</em> functions when looking up the function.
+This means that
+the call to <code>orange()</code> in the code below produces 110 rather than an error
+because <code>purple(purple)</code> is interpreted as
+“pass the value 10 into the globally-defined function <code>purple</code>”
+rather than “try to call a function <code>10(10)</code>”:</p>
 <pre class="sourceCode r"><code class="sourceCode r">purple &lt;-<span class="st"> </span><span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span><span class="dv">100</span>
 orange &lt;-<span class="st"> </span><span class="cf">function</span>() {
   purple &lt;-<span class="st"> </span><span class="dv">10</span>
@@ -1074,12 +1113,12 @@ orange &lt;-<span class="st"> </span><span class="cf">function</span>() {
 <div id="how-can-i-hide-the-value-that-r-returns" class="section level2">
 <h2><span class="header-section-number">2.18</span> How can I hide the value that R returns?</h2>
 <p>If the value returned by a function isn’t assigned to something,
-R will print it out.
-This usually isn’t what we want in library functions,
-so we can use the function <code>invisible</code> to mark a value
-so that it won’t be printed by default
-(but can still be assigned).
-This allows us to convert this:</p>
+R displays it.
+Since this usually isn’t what we want in library functions,
+we can use the function <code>invisible</code> to mark a value as “not to be printed”
+(though the value can still be assigned).
+For example,
+we can convert:</p>
 <pre class="sourceCode r"><code class="sourceCode r">something &lt;-<span class="st"> </span><span class="cf">function</span>(value) {
   <span class="dv">10</span> <span class="op">*</span><span class="st"> </span>value
 }
@@ -1090,14 +1129,15 @@ This allows us to convert this:</p>
   <span class="kw">invisible</span>(<span class="dv">10</span> <span class="op">*</span><span class="st"> </span>value)
 }
 <span class="kw">something</span>(<span class="dv">2</span>)</code></pre>
-<p>The calculation is still done,
+<p>The calculation is still being done,
 but the output is suppressed.</p>
 </div>
 <div id="how-can-i-assign-to-a-global-variable-from-inside-a-function" class="section level2">
 <h2><span class="header-section-number">2.19</span> How can I assign to a global variable from inside a function?</h2>
 <p>The assignment operator <code>&lt;&lt;-</code> means “assign to a variable outside the current scope”.
 As the example below shows,
-this means that what looks like creation of a new local variable can actually be modification of a global one:</p>
+this means that what looks like creation of a new local variable
+can actually be modification of a global one:</p>
 <pre class="sourceCode r"><code class="sourceCode r">var &lt;-<span class="st"> &quot;original value&quot;</span>
 
 demonstrate &lt;-<span class="st"> </span><span class="cf">function</span>() {

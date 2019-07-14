@@ -1,10 +1,15 @@
-# Values and Vectors {#basics}
+# Simple Beginnings {#basics}
 
 ```{r setup, include=FALSE}
 source("etc/common.R")
 ```
 
-FIXME
+We begin by introducing the basic elements of R.
+You will use these less often than you might expect,
+but they are the building blocks for the higher-level tools introduced in Chapter \@ref(tidyverse),
+and offer the comfort of familiarity.
+Where we feel comparisons would aid understanding,
+we provide short examples in Python.
 
 ## Learning Objectives
 
@@ -28,16 +33,20 @@ FIXME
 ## How do I say hello?
 
 We begin with a traditional greeting.
-In Python (which we will show in *italics*) we write:
+In Python, we write:
 
 ```{python python-hello}
 print("Hello, world!")
 ```
 
-We can run the equivalent R in the RStudio Console:
+We can run the equivalent R in the RStudio Console (Figure \ref{fig:console}):
 
 ```{r r-hello}
 print("Hello, world!")
+```
+
+```{r console, echo=FALSE, fig.cap="RStudio Console"}
+# knitr::include_graphics("figures/basics/rstudio-console.png")
 ```
 
 Python prints what we asked for,
@@ -50,8 +59,8 @@ Let's take a closer look by evaluating a couple of expressions without calling `
 "This is in double quotes."
 ```
 
-That the mysterious `[1]` doesn't appear to be a line number.
-Let's ignore it for now and do a little more exploring.
+`[1]` doesn't appear to be a line number;
+let's ignore it for now and do a little more exploring.
 
 > Note that R uses double quotes to display strings even when we give it a single-quoted string
 > (which is no worse than Python using single quotes when we've given it doubles).
@@ -94,7 +103,8 @@ typeof(6)
 Ah: by default,
 R represents numbers as floating-point values,
 even if they look like integers when written.
-We can force a literal value to be an integer by appending an upper-case `L` (which stands for "long integer"):
+We can force a literal value to be an integer by appending an upper-case `L`
+(which stands for "long integer"):
 
 ```{r typeof-6-int}
 typeof(6L)
@@ -113,7 +123,7 @@ typeof(as.integer(6))
 ```
 
 But wait:
-what is that dot doing in the function's name?
+what is that dot in `as.integer`'s name?
 Is there an object called `as` with a [method](glossary.html#method) called `integer`?
 The answer is "no":
 `.` is (usually) just another character in R;
@@ -122,13 +132,14 @@ it is used to make names more readable.
 
 ## How do I store many numbers together?
 
-The Elder Gods do not bother to learn most of our names because there are so many of us and we are so ephemeral.
+The Elder Gods do not bother to learn most of our names
+because there are so many of us and we are so ephemeral.
 Similarly, we only give a handful of values in our programs their own names;
 we lump the rest together into lists, matrices, and more esoteric structure
-so that we too can create, manipulate, and dispose of multitudes with a single dark command.
+so that we too can create, manipulate, and dispose of multitudes with a single imperious command.
 
 The most common such structure in Python is the list.
-We create lists using square brackets,
+We create lists using square brackets
 and assign a list to a variable using `=`.
 If the variable does not exist, it is created:
 
@@ -137,7 +148,8 @@ primes = [3, 5, 7, 11]
 print(primes)
 ```
 
-Since assignment is a statement rather than an expression,
+Since assignment is a [statement](glossary.html#statement)
+rather than an [expression](glossary.html#expression),
 it has no result,
 so Python does not display anything when this command is run.
 
@@ -149,19 +161,19 @@ primes <- c(3, 5, 7, 11)
 primes
 ```
 
-Assignment is done using a left-pointing arrow `<-`.
-(Other forms exist, which we will discuss later.)
-Like Python,
-R does not display a value after an assignment statement,
-so we have to ask it to show us the value.
+Assignment is done using a left-pointing arrow `<-`
+(though other forms exist, which we will discuss later).
+As in Python,
+assignment is a statement rather than an expression,
+so we enter the name of the newly-created variable to get R to display its value.
 
-Now that we can create vector in R,
-we can explain that errant `[1]` in our previous examples.
-To begin with,
+Now that we can create vectors in R,
+we can explain the errant `[1]` in our previous examples.
+To start,
 let's have a look at the lengths of various things in Python:
 
 ```{python py-len-list}
-print(len(primes))
+print(primes, len(primes))
 ```
 
 ```{python py-len-int, error=TRUE}
@@ -172,7 +184,6 @@ Fair enough:
 the length of a list is the number of elements it contains,
 and since a [scalar](glossary.html#scalar) like the integer 4 doesn't contain elements,
 it has no length.
-
 What of R's vectors?
 
 ```{r r-len-vec}
@@ -199,7 +210,7 @@ This all becomes clear once we realize that *there are no scalars in R*.
 but rather a vector of length one containing the value 4.
 When we display its value,
 the `[1]` that R prints is the index of its first value.
-We can prove this by creating and displaying a much longer vector:
+We can prove this by creating and displaying a longer vector:
 
 ```{r long-vec}
 c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -273,7 +284,7 @@ What happens if the index itself contains more than one value?
 colors[1, 2]
 ```
 
-That didn't work because R interprets the subscript `[i, j]` as being row and column indices,
+That didn't work because R interprets `[i, j]` as being row and column indices,
 and our vector has only one dimension.
 What if we create a vector with `c(...)` and use that as a subscript?
 
@@ -290,9 +301,9 @@ colors[c(1, 1, 1)]
 Note that this is [pull indexing](glossary.html#pull-indexing),
 i.e.,
 the value at location *i* in the index vector specifies which element of the source vector
-is being pulled into that location in the result vector:
+is being pulled into that location in the result vector (Figure \ref{fig:pull-indexing}).
 
-```{r pull-indexing-fig, echo=FALSE, fig.cap="Pull Indexing"}
+```{r pull-indexing, echo=FALSE, fig.cap="Pull Indexing"}
 if (knitr::is_latex_output()) {
   knitr::include_graphics("figures/basics/pull-indexing.pdf")
 } else {
@@ -306,7 +317,7 @@ We can also select out several elements:
 colors[c(-1, -2)]
 ```
 
-But we *cannot* simultaneously select elements in (with positive indices) and out (with negative ones):
+But we cannot simultaneously select elements in (with positive indices) and out (with negative ones):
 
 ```{r r-mixed-indexing, error=TRUE}
 colors[c(1, -1)]
@@ -327,7 +338,8 @@ with a positive argument:
 character(3)
 ```
 
-Ah---it appears that `character(N)` constructs a vector of empty strings of the specified length.
+Ah:
+`character(N)` constructs a vector of empty strings of the specified length.
 The expression `character(0)` presumably therefore means
 "an [empty vector](glossary.html#empty-vector) of type character".
 From this,
@@ -352,7 +364,10 @@ That is consistent with the behavior of single indices.
 
 ## How do I create new vectors from old?
 
-Modern Python encourages programmers to use [list comprehensions](glossary.html#list-comprehension) instead of loops:
+Modern Python encourages programmers to use [list comprehensions](glossary.html#list-comprehension)
+instead of loops,
+i.e.,
+to write:
 
 ```{python py-list-comp}
 original = [3, 5, 7, 9]
@@ -369,13 +384,7 @@ for x in original:
 print(doubled)
 ```
 
-If `original` is a NumPy array,
-we can shorten this to:
-
-```{python py-numpy, eval=FALSE}
-doubled = 2 * original
-```
-
+If `original` is a NumPy array, we can shorten this to `2 * original`.
 R provides this capability in the language itself:
 
 ```{r r-vec-comp}
@@ -398,8 +407,16 @@ tens + hundreds / (tens * hundreds)
 
 If two vectors of unequal length are used together,
 the elements of the shorter are [recycled](glossary.html#recycle).
-This is straightforward if one of the vectors is a scalar---it is just re-used as many times as necessary---but
-shouldn't be done if the vectors don't line up nicely:
+This behaves sensibly if one of the vectors is a scalar---it is just re-used as many times as necessary:
+
+```{r scalar-vector}
+hundreds + 5
+```
+
+If both vectors have several elements,
+the shorter is repeated as often as necessary.
+This works,
+but is so likely to lead to hard-to-find bugs that R produces a warning message:
 
 ```{r vec-length-mismatch}
 thousands <- c(1000, 2000)
@@ -415,7 +432,7 @@ colors # as a reminder
 colors[c(TRUE, FALSE, TRUE)]
 ```
 
-This is (unsurprisingly) called [logical indexing](glossary.html#logical-indexing),
+This is called [logical indexing](glossary.html#logical-indexing),
 though to the best of my knowledge illogical indexing is not provided as an alternative.
 The function `ifelse` uses this to do what its name suggests:
 select a value from one vector if a condition is `TRUE`,
@@ -496,7 +513,8 @@ To explain, we must first take a look at lists.
 
 A [list](glossary.html#list) in R is a vector that can contain values of many different types.
 (The technical term for this is [heterogeneous](glossary.html#heterogeneous),
-in contrast with a [homogeneous](glossary.html#homogeneous) data structure that can only contain one type of value.)
+in contrast with a [homogeneous](glossary.html#homogeneous) data structure
+that can only contain one type of value.)
 We'll use this list in our examples:
 
 ```{r list-of-things}
@@ -506,38 +524,54 @@ thing
 
 The output tells us that the first element of `thing` is a vector of one element,
 that the second is a vector of three elements,
-and the third is again a vector of one element.
+and the third is again a vector of one element;
+the major indices are shown in `[[…]]`,
+while the indices of the contained elements are shown in `[…]`.
+(Again,
+remember that `"first"` and 3.3 are actually vectors of length 1.)
+
+> In keeping with R's conventions,
+> we will henceforth use `[[` and `[` to refer to the two kinds of indexing
+> rather than `[[…]]` and `[…]`.
 
 ## What is the difference between `[` and `[[`?
 
 The output above strongly suggests that we can get the elements of a list using `[[` (double square brackets):
 
-```{r double-square}
+```{r double-square-first}
 thing[[1]]
+```
+```{r double-square-second}
 thing[[2]]
+```
+```{r double-square-third}
 thing[[3]]
 ```
 
 Let's have a look at the types of those three values:
 
-```{r double-square-elements}
+```{r double-square-elements-first}
 typeof(thing[[1]])
+```
+```{r double-square-elements-second}
 typeof(thing[[2]])
+```
+```{r double-square-elements-third}
 typeof(thing[[3]])
 ```
 
-Good: they are vectors.
-(Remember, everything in R is a vector---it doesn't have scalars in the usual sense.)
-What do we get if we use single square brackets `[`?
-
-```{r single-square-typeof}
-typeof(thing[1])
-```
-
-Sure enough, the value itself is a list:
+That seems sensible.
+Now,
+what do we get if we index single square brackets `[…]`?
 
 ```{r single-square-value}
 thing[1]
+```
+
+That looks like a list, not a vector---let's check:
+
+```{r single-square-typeof}
+typeof(thing[1])
 ```
 
 This shows the difference between `[[` and `[`:
@@ -546,11 +580,17 @@ while the latter gives us back a structure of the same type as the thing being i
 Since a "scalar" is just a vector of length 1,
 there is no difference between `[[` and `[` when they are applied to vectors:
 
-```{r single-and-double}
+```{r single-and-double-1}
 v <- c("first", "second", "third")
 v[2]
+```
+```{r single-and-double-2}
 typeof(v[2])
+```
+```{r single-and-double-3}
 v[[2]]
+```
+```{r single-and-double-4}
 typeof(v[[2]])
 ```
 
@@ -563,7 +603,8 @@ typeof(v[[2]])
 > It also does automatic type conversion:
 > `c("first", c(2, 20, 200), 30)` produces a vector of character strings
 > `c("first", "2", "20", "200", "30")`.
-> This is helpful once you get used to it.
+> This is helpful once you get used to it
+> (which once again is true of both quantum mechanics and necromancy).
 >
 > Another "helpful, ish" behavior is that using `[[` with a list subsets recursively:
 > if `thing <- list(a = list(b = list(c = list(d = 1))))`,
@@ -571,7 +612,7 @@ typeof(v[[2]])
 
 ## How can I access elements by name?
 
-R allows us to name the elements in vectors:
+R allows us to name the elements in vectors and lists:
 if we assign `c(one = 1, two = 2, three = 3)` to `names`,
 then `names["two"]` is 2.
 We can use this to create a lookup table:
@@ -590,33 +631,33 @@ lookup_list <- list(m = "Male", f = "Female", nb = "Non-binary")
 lookup_list$m
 ```
 
-We will explore this in more detail when we look at the tidyverse in Chapter \@ref(tidyverse),
+We will explore this in more detail when we look at the tidyverse in Chapter \@ref(tidyverse),
 since that is where access-by-name is used most often.
 For now,
 simply note that if the name of an element isn't a legal variable name,
-we have to put it in backward quotes to use it as an accessor:
+we have to put it in backward quotes to use it with `$`:
 
 ```{r quoted-names}
 another_list <- list("first field" = "F", "second field" = "S")
 another_list$`first field`
 ```
 
-Wherever possible, it's better to choose names that don't require back-quoting,
-such as `first_field`.
+> If you have control,
+> or at least the illusion thereof,
+> choose names such as `first_field` that don't require back-quoting.
 
 ## How can I create and index a matrix?
 
 Matrices are frequently used in statistics, so R provides built-in support for them.
 After `a <- matrix(1:9, nrow = 3)`,
-`a` is a 3x3 matrix containing the values 1 through 9.
-What may surprise you is the order in which the values generated by the expression `1:9` are laid out:
+`a` is a 3x3 matrix containing the values 1 through 9:
 
 ```{r matrix-order}
 a <- matrix(1:9, nrow = 3)
 a
 ```
 
-Under the hood,
+Behind the scenes,
 a matrix is a vector with an [attribute](glossary.html#attribute) called `dim` that stores its dimensions:
 
 ```{r matrix-attribute}
@@ -639,10 +680,10 @@ We cherish the illusion of free will so much that we embed a pretense of it in o
 in the form of conditional statements using `if` and `else`.
 (Ironically,
 we then instruct those same machines to make the same decisions over and over.
-It's no wonder they sometimes appear mad...)
-Here,
-for example,
-is a snippet of Python that displays the signs of a list of numbers:
+It's no wonder they sometimes appear mad…)
+For example,
+here is a snippet of Python that uses `for` and `if` to display
+the signs of the numbers in a list:
 
 ```{python py-loop-cond}
 values = [-15, 0, 15]
@@ -654,12 +695,13 @@ for v in values:
     else:
         sign = 1
     print("The sign of", v, "is", sign)
+print("The final value of v is", v)
 ```
 
 Its direct translation into R is:
 
 ```{r r-loop-cond}
-values <- c(-1, 0, 1)
+values <- c(-15, 0, 15)
 for (v in values) {
   if (v < 0) {
     sign <- -1
@@ -677,31 +719,34 @@ print(glue::glue("The final value of v is {v}"))
 
 There are a few things to note here:
 
-1.  This is *not* how we should write R:
-    everything in this snippet can and should be vectorized.
-2.  The parentheses in the loop header are required:
+1.  The parentheses in the loop header are required:
     we cannot simply write `for v in values`.
-3.  The curly braces around the body of the loop
+1.  The curly braces around the body of the loop
     and around the bodies of the conditional branches are optional,
     since each contains only a single statement.
     However, they should always be there to help readability.
-4.  The loop variable `v` persists after the loop is over.
-5.  `glue::glue` (the function `glue` from the library of the same name)
+1.  As in Python,
+    the loop variable `v` persists after the loop is over.
+1.  `glue::glue` (the function `glue` from the library of the same name)
     interpolates variables into strings in sensible ways.
     We will load this library and use plain old `glue` in the explanations that follow.
     (Note that R uses `::` to get functions out of packages rather than Python's `.`.)
-6.  By calling our temporary variable `sign`
+1.  By calling our temporary variable `sign`
     we have accidentally overwritten the rather useful built-in R function with that name.
-    [Name collisions](glossary.html#name-collision) of this sort are as easy in R as they are in Python.
+    [Name collisions](glossary.html#name-collision) of this sort
+    are just as easy in R as they are in Python.
+1.  This is *not* how we should write R:
+    everything in this snippet can and should be vectorized.
+    We will see how in Chapter \@ref(tidyverse).
 
 ## How can I express a range of values in R?
 
-By default, R's `for` loop gives us the values in a vector, just as Python's does.
+`for` in R loops over the values in a vector, just as it does in Python.
 If we want to loop over the indices instead,
 we can use the function `seq_along`:
 
 ```{r loop-range}
-colors = c("eburnean", "glaucous", "wenge")
+colors <- c("eburnean", "glaucous", "squamous", "wenge")
 for (i in seq_along(colors)) {
   print(glue("The length of color {i} is {length(colors[i])}"))
 }
@@ -719,6 +764,7 @@ for (i in seq_along(colors)) {
 }
 ```
 
+As you may already have guessed,
 `seq_along` returns a vector containing a sequence of integers:
 
 ```{r seq-along}
@@ -726,7 +772,7 @@ seq_along(colors)
 ```
 
 Since sequences of this kind are used frequently,
-R lets us write them using [range expressions](glossary.html#range-expression) like this:
+R lets us write them using [range expressions](glossary.html#range-expression):
 
 ```{r range-expression}
 5:10
@@ -735,19 +781,18 @@ R lets us write them using [range expressions](glossary.html#range-expression) l
 Their most common use is as indices to vectors:
 
 ```{r range-subscript}
-colors <- c("eburnean", "glaucous", "squamous", "wenge")
-colors[1:3]
+colors[2:3]
 ```
 
 We can similarly subtract a range of colors by index:
 
 ```{r negative-range-subscript}
-colors[-1:-3]
+colors[-1:-2]
 ```
 
-However, R does not allow tripartite expressions of the form `start:end:stride`.
+However, R does not allow tripartite expressions of the form `start:end:step`.
 For that,
-we must use the `seq` function:
+we must use `seq`:
 
 ```{r seq-function}
 seq(1, 10, 3)
@@ -758,7 +803,7 @@ i.e.,
 they run up to *and including* the upper bound.
 As is traditional among programming language advocates,
 people claim that this is more natural
-and then cite some supportive anecdote as proof.
+and then cite some supportive anecdote as if it were proof.
 
 > **Repeating Things**
 >
@@ -769,7 +814,7 @@ and then cite some supportive anecdote as proof.
 
 ## How can I use a vector in a conditional statement?
 
-We cannot use vectors directly as a condition in an `if` statement:
+We cannot use a vector directly as a condition in an `if` statement:
 
 ```{r vector-cond-fail, error=TRUE}
 numbers <- c(0, 1, 2)
@@ -779,7 +824,7 @@ if (numbers) {
 ```
 
 Instead,
-we must collapse the vector into a single logical value.
+we must collapse the vector into a single logical value:
 
 ```{r all-cond}
 numbers <- c(0, 1, 2)
@@ -803,8 +848,8 @@ max(1, 3, 5) + min(1, 3, 5)
 ```
 
 We define a new function using the `function` keyword.
-This creates the function, but does not name it;
-to accomplish that,
+This creates the function;
+to name it,
 we must assign the newly-created function to a variable:
 
 ```{r func-def}
@@ -859,7 +904,7 @@ R complains:
 swap("one", "two", "three")
 ```
 
-(Note that in this example we as passing three values,
+(Note that we are passing three separate values here,
 not a single vector containing three values.)
 If we want a function to handle a [varying number of arguments](glossary.html#variable-arguments),
 we represent the "extra" arguments with an ellipsis `...` (three dots),
@@ -873,11 +918,11 @@ print_with_title <- function(title, ...) {
 print_with_title("to-do", "Monday", "Tuesday", "Wednesday")
 ```
 
-(The function `paste` combines multiple arguments with the specified separator.)
+> The function `paste` creates a string by combining its arguments with the specified separator.
 
-R has a special data structure to represent the extra arguments in `...`.
+R uses a special data structure to represent the extra arguments in `...`.
 If we want to work with those arguments one by one,
-we must convert `...` to a list:
+we must explicitly convert `...` to a list:
 
 ```{r dot-args-convert}
 add <- function(...) {
@@ -907,10 +952,12 @@ example("with first and third by name", third = "by name")
 
 One caution:
 when you use a name in a function call,
-R ignores non-function objects when figuring out what function to call.
-For example,
-the call `orange()` in the code below produces 110 because `purple(purple)` is interpreted as
-"pass the value of the local variable `purple` into the globally-defined function `purple`":
+R ignores things that *aren't* functions when looking up the function.
+This means that
+the call to `orange()` in the code below produces 110 rather than an error
+because `purple(purple)` is interpreted as
+"pass the value 10 into the globally-defined function `purple`"
+rather than "try to call a function `10(10)`":
 
 ```{r non-functions-in-call}
 purple <- function(x) x + 100
@@ -924,12 +971,12 @@ orange()
 ## How can I hide the value that R returns?
 
 If the value returned by a function isn't assigned to something,
-R will print it out.
-This usually isn't what we want in library functions,
-so we can use the function `invisible` to mark a value
-so that it won't be printed by default
-(but can still be assigned).
-This allows us to convert this:
+R displays it.
+Since this usually isn't what we want in library functions,
+we can use the function `invisible` to mark a value as "not to be printed"
+(though the value can still be assigned).
+For example,
+we can convert:
 
 ```{r without-invisible}
 something <- function(value) {
@@ -947,14 +994,15 @@ something <- function(value) {
 something(2)
 ```
 
-The calculation is still done,
+The calculation is still being done,
 but the output is suppressed.
 
 ## How can I assign to a global variable from inside a function?
 
 The assignment operator `<<-` means "assign to a variable outside the current scope".
 As the example below shows,
-this means that what looks like creation of a new local variable can actually be modification of a global one:
+this means that what looks like creation of a new local variable
+can actually be modification of a global one:
 
 ```{r assign-out-of-scope}
 var <- "original value"
@@ -974,7 +1022,4 @@ and *nobody* thinks that modifying global variables is a good idea any more.
 
 ## Key Points
 ```{r keypoints, child="keypoints/basics.md"}
-```
-
-```{r links, child="etc/links.md"}
 ```

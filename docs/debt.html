@@ -131,7 +131,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#s:index-personas"><i class="fa fa-check"></i><b>1.1</b> Who are these lessons for?</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#s:index-install"><i class="fa fa-check"></i><b>1.2</b> How do I get started?</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Values and Vectors</a><ul>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Simple Beginnings</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#learning-objectives"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#how-do-i-say-hello"><i class="fa fa-check"></i><b>2.2</b> How do I say hello?</a></li>
 <li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#how-do-i-add-numbers"><i class="fa fa-check"></i><b>2.3</b> How do I add numbers?</a></li>
@@ -614,12 +614,12 @@ which shows us where objects live in the computer’s memory:</p>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7fd558797248&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7fa87ca01e48&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7fd558797248 -&gt; 0x7fd55bbcb108]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fd55bbcb108 -&gt; 0x7fd55bbcb088]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fd55bbcb088 -&gt; 0x7fd55bbcb008]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fd55bbcb008 -&gt; 0x7fd55bbcafc8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7fa87ca01e48 -&gt; 0x7fa87caaf508]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fa87caaf508 -&gt; 0x7fa87caaf488]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fa87caaf488 -&gt; 0x7fa87caaf408]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fa87caaf408 -&gt; 0x7fa87caaf3c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
@@ -630,13 +630,13 @@ We can accomplish something a little more readable using <code>pryr::address</co
 <pre><code>Registered S3 method overwritten by &#39;pryr&#39;:
   method      from
   print.bytes Rcpp</code></pre>
-<pre><code>left column is initially at 0x7fd55bbcb0c8</code></pre>
+<pre><code>left column is initially at 0x7fa87caaf4c8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7fd55bbcb0c8</code></pre>
+<pre><code>after modification, the original column is still at 0x7fa87caaf4c8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7fd55bf795c8</code></pre>
+<pre><code>but the first column is at 0x7fa85dbe61c8</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.
