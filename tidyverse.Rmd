@@ -7,7 +7,7 @@ source("etc/common.R")
 There is no point in becoming fluent in Enochian if you do not then call forth a Dweller Beneath at the time of the new moon.
 Similarly,
 there is no point learning a language designed for data manipulation if you do not then bend data to your will.
-This chapter therefore looks at how to do the things that R was summoned---er, designed---to do.
+This chapter therefore looks at how to do the things that R was summoned—er, designed—to do.
 
 ## Learning Objectives
 
@@ -54,13 +54,13 @@ The actual file has many more rows (and no ellipses).
 It uses `NA` to show missing data rather than (for example) `-`, a space, or a blank,
 and its values are interpreted as follows:
 
-| Header | Datatype | Description |
-|---|---|---|
-| country | char | ISO3 country code of country reporting data |
-| year | integer | year CE for which data reported |
-| estimate | double/NA | estimated percentage of measurement |
-| hi | double/NA | high end of range |
-| lo | double/NA | low end of range |
+| Header   | Datatype  | Description                                 |
+|----------|-----------|---------------------------------------------|
+| country  | char      | ISO3 country code of country reporting data |
+| year     | integer   | year CE for which data reported             |
+| estimate | double/NA | estimated percentage of measurement         |
+| hi       | double/NA | high end of range                           |
+| lo       | double/NA | low end of range                            |
 
 We can load this data in Python like this:
 
@@ -71,7 +71,8 @@ infant_hiv = pd.read_csv('results/infant_hiv.csv')
 print(infant_hiv)
 ```
 
-The equivalent in R is to load the [tidyverse](glossary.html#tidyverse) collection of libraries
+The equivalent in R is to load
+the [tidyverse](glossary.html#tidyverse) collection of [packages](glossary.html#package)
 and then call the `read_csv` function.
 We will go through this in stages, since each produces output.
 
@@ -83,7 +84,8 @@ Error in library(tidyverse) : there is no package called 'tidyverse'
 ```
 
 Ah.
-We must install this, which we only need to do once per machine:
+We must install the tidyverse
+(but only need to do so once per machine):
 
 ```{r library-install, eval=FALSE}
 install.packages("tidyverse")
@@ -91,31 +93,21 @@ install.packages("tidyverse")
 
 We then load the library once per program:
 
-```{r library-succeed, eval=FALSE}
+```{r unloading, echo=FALSE}
+# Detach so that loading will be echoed.
+detach(package:tidyverse)
+```
+```{r library-succeed}
 library(tidyverse)
 ```
-```
-── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
-✔ ggplot2 3.1.0     ✔ purrr   0.3.0
-✔ tibble  2.0.1     ✔ dplyr   0.7.8
-✔ tidyr   0.8.2     ✔ stringr 1.4.0
-✔ readr   1.1.1     ✔ forcats 0.3.0
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-Warning messages:
-1: package ‘tibble’ was built under R version 3.5.2
-2: package ‘purrr’ was built under R version 3.5.2
-3: package ‘stringr’ was built under R version 3.5.2
-```
 
-Note that to install, we give `install.packages` a string,
-but to use,
-we simply give the name of the library we want.
+Note that we give `install.packages` a string to install,
+but simply give the name of the package we want to load to `library`.
 
-Asking for the tidyverse gives us eight libraries (or [packages](glossary.html#package)).
+Loading the tidyverse gives us eight packages.
 One of those, dplyr, defines two functions that mask standard functions in R with the same names.
-This is deliberate, and if we need the originals, we can get them with their
+If we need the originals,
+we can always get them with their
 [fully-qualified names](glossary.html#fully-qualified-name)
 `stats::filter` and `stats::lag`.
 
@@ -143,6 +135,9 @@ This is a [tibble](glossary.html#tibble),
 which is the tidyverse's enhanced version of R's `data.frame`.
 It organizes data into named columns,
 each having one value for each row.
+In statistical terms,
+the columns are the variables being observed
+and the rows are the actual observations.
 
 ## How do I inspect data?
 
@@ -156,7 +151,7 @@ print(infant_hiv.head())
 print(infant_hiv.tail())
 ```
 
-R has similarly-named functions (not methods):
+R has similarly-named functions:
 
 ```{r r-show-head}
 head(infant_hiv)
@@ -175,6 +170,7 @@ Note that the row numbers printed by `tail` are [relative](glossary.html#relativ
 not [absolute](glossary.html#absolute-row-number) to the table.
 This is different from Pandas,
 which retains the original row numbers.
+
 What about overall information?
 
 ```{python data-info}
@@ -225,7 +221,7 @@ print(infant_hiv.estimate[11])
 infant_hiv$estimate[12]
 ```
 
-Ah---everything in R is a vector,
+Ah—everything in R is a vector,
 so we get a vector of one value as an output rather than a single value.
 
 ```{python py-len-individual-element, error=TRUE}
@@ -245,11 +241,11 @@ infant_hiv$estimate[6:15]
 ```
 
 Note that the upper bound is the same, because it's inclusive in R and exclusive in Python.
-Note also that neither library prevents us from selecting a range of data that spans logical groups such as countries,
+Note also that nothing prevents us from selecting a range of rows that spans several countries,
 which is why selecting by row number is usually a sign of innocence, insouciance, or desperation.
 
 We can select by column number as well.
-Pandas uses the rather clumsy `object.iloc[rows, columns]`, with the usual `:` shortcut for "entire range":
+Pandas uses the rather clumsy `object.iloc[rows, columns]` with the usual shortcut `:` for "entire range":
 
 ```{python py-iloc, output.lines=NA}
 print(infant_hiv.iloc[:, 0])
@@ -298,9 +294,9 @@ Thus,
 then selects the first column vector from it,
 so it still gives us a vector.
 *This is not madness.*
-It is merely...differently sane.
+It is merely…differently sane.
 
-> **Subsetting data frames:**
+> **Subsetting Data Frames**
 >
 > When we are working with data frames (including tibbles),
 > subsetting with a single vector selects columns, not rows,
@@ -331,14 +327,14 @@ length(estimates)
 mean(estimates)
 ```
 
-The void is always there, waiting for us...
+The void is always there, waiting for us…
 Let's fix this in R first by telling `mean` to drop NAs:
 
 ```{r r-remove-na}
 mean(estimates, na.rm = TRUE)
 ```
 
-And then try to get the statistically correct behavior in Pandas:
+and then try to get the statistically correct behavior in Pandas:
 
 ```{python py-remove-na}
 print(estimates.mean(skipna=False))
@@ -349,7 +345,8 @@ Many functions in R use `na.rm` to control whether `NA`s are removed or not.
 R's default behavior is to leave `NA`s in, and then to include them in [aggregate](glossary.html#aggregation) computations.
 Python's is to get rid of missing values early and work with what's left,
 which makes translating code from one language to the next much more interesting than it might otherwise be.
-But other than that, the statistics works the same way in Python:
+But other than that, the statistics works the same way.
+In Python, we write:
 
 ```{python py-min-max-std}
 print("min", estimates.min())
@@ -357,7 +354,7 @@ print("max", estimates.max())
 print("std", estimates.std())
 ```
 
-Here are the equivalent computations in R:
+and in R:
 
 ```{r r-min-max-std}
 print(glue("min {min(estimates, na.rm = TRUE)}"))
@@ -469,12 +466,9 @@ The answer is that R uses [lazy evaluation](glossary.html#lazy-evaluation):
 function arguments aren't evaluated until they're needed,
 so the function `filter` actually gets the expression `lo > 0.5`,
 which allows it to check that there's a column called `lo` and then use it appropriately.
-This is much tidier than `filter(data, data$lo > 0.5)` or `filter(data, "lo > 0.5")`.
-
-Many languages rely on lazy evaluation,
-and when used circumspectly,
-it allows us to produce code that is easier to read.
-We will explore it further in Chapter \@ref(nse).
+It may seem strange at first,
+but it is much tidier than `filter(data, data$lo > 0.5)` or `filter(data, "lo > 0.5")`.
+We will explore lazy evaluation further in Chapter \@ref(nse).
 
 We can make data anlaysis code more readable by using the [pipe operator](glossary.html#pipe-operator) `%>%`:
 
@@ -500,15 +494,10 @@ infant_hiv %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (l
 
 Breaking the condition into stages like this often makes reading and testing much easier,
 and encourages incremental write-test-extend development.
-
-Let's increase the band from 10% to 20%:
-
-```{r filter-wider-band}
-infant_hiv %>% filter(estimate != 0.95) %>% filter(lo > 0.5) %>% filter(hi <= (lo + 0.2))
-```
-
-and then order by `lo` in descending order,
-breaking the line the way the [tidyverse style guide][tidyverse-style] recommends:
+Let's increase the band from 10% to 20%,
+break the line the way the [tidyverse style guide][tidyverse-style] recommends
+to make the operations easier to spot,
+and order by `lo` in descending order:
 
 ```{r filter-arrange}
 infant_hiv %>%
@@ -534,7 +523,8 @@ we are using the unquoted column names `year`, `lo`, and `hi`
 and letting R's lazy evaluation take care of the details for us.
 
 Rather than selecting these three columns,
-we can [select *out*](glossary.html#negative-selection) the columns we're not interested in by negating their names.
+we can [select *out*](glossary.html#negative-selection) the columns we're not interested in
+by negating their names.
 This leaves the columns that are kept in their original order,
 rather than putting `lo` before `hi`,
 which won't matter if we later select by name,
@@ -626,8 +616,8 @@ lazy evaluation allows us to use variable names directly.
 In fact,
 it lets us write much more complex formulas involving functions of multiple variables.
 For example,
-we can regress `estimate` against the square roots of `lo` and `hi`,
-though there is no good statistical reason to do so:
+we can regress `estimate` against the square roots of `lo` and `hi`
+(though there is no sound statistical reason to do so):
 
 ```{r complex-formula}
 lm(estimate ~ sqrt(lo) + sqrt(hi), data = infant_hiv)
@@ -651,19 +641,22 @@ infant_hiv %>%
   lm(estimate ~ ave_lo_hi, data = .)
 ```
 
-Here, the call to `lm` is using the variable `.` to mean "the data coming in from the previous stage of the pipeline".
+Here, the call to `lm` is using the variable `.` to mean
+"the data coming in from the previous stage of the pipeline".
 Most of the functions in the tidyverse use this convention
 so that data can be passed to a function that expects it in a position other than the first.
 
 ## How do I create a plot?
 
-One of R's greatest strengths is the tools it gives us for seeing the hitherto unseeable.
-The most popular of these tools is `ggplot2`,
-which implements and extends the patterns described in @Wilk2005.
-Every chart it creates has a [geometry](glossary.html#geometry) that controls how data is displayed,
-and an [mapping](glossary.html#mapping) that controls how values are mapped to geometric properties.
+Human being always want to see the previously unseen,
+though they are not always glad to have done so.
+The most popular tool for doing this in R is `ggplot2`,
+which implements and extends the patterns for creating charts described in @Wilk2005.
+Every chart it creates has a [geometry](glossary.html#geometry) that controls how data is displayed
+and a [mapping](glossary.html#mapping) that controls how values are represented geometrically.
 For example,
-these lines of code create a scatter plot showing the relationship between `lo` and `hi` values in the infant HIV data:
+these lines of code create a scatter plot
+showing the relationship between `lo` and `hi` values in the infant HIV data:
 
 ```{r basic-plot}
 ggplot(infant_hiv) + geom_point(mapping = aes(x = lo, y = hi))
@@ -689,11 +682,11 @@ infant_hiv %>%
   xlim(0.0, 1.0) + ylim(0.0, 1.0)
 ```
 
-We set the transparency `alpha` outside the aesthetic because its value is constant for all points:
-if we set it inside `aes(...)`,
+We set the transparency `alpha` outside the aesthetic because its value is constant for all points.
+If we set it inside `aes(...)`,
 we would be telling ggplot2 to set the transparency according to the value of the data.
 We specify the limits to the axes manually with `xlim` and `ylim` to ensure that ggplot2 includes the upper bounds:
-we found by trial and error that without this,
+without this,
 all of the data would be shown,
 but the upper label "1.00" would be omitted.
 
@@ -712,7 +705,7 @@ infant_hiv %>%
   xlim(0.0, 1.0) + ylim(0.0, 1.0)
 ```
 
-We can add the fitted curve by including another geometry:
+We can add the fitted curve by including another geometry called `geom_smooth`:
 
 ```{r plot-with-fit}
 infant_hiv %>%
@@ -727,11 +720,11 @@ infant_hiv %>%
 
 But wait:
 why is this complaining about missing values?
-Some online searches and guidance from the hill gods led to the discovery that
+Some online searches lead to the discovery that
 `geom_smooth` adds virtual points to the data for plotting purposes,
 some of which lie outside the range of the actual data,
 and that setting `xlim` and `ylim` then truncates these.
-(Differently sane...)
+(Remember, R is differently sane…)
 The safe way to control the range of the data is to add a call to `coord_cartesian`,
 which effectively zooms in on a region of interest:
 
@@ -744,6 +737,357 @@ infant_hiv %>%
   geom_point(mapping = aes(color = estimate), alpha = 0.5) +
   geom_smooth(method = lm, color = 'red') +
   coord_cartesian(xlim = c(0.0, 1.0), ylim = c(0.0, 1.0))
+```
+
+## Do I need more practice with the tidyverse?
+
+Absolutely:
+open a fresh file and begin by loading the tidyverse
+and the here package used to construct paths:
+
+```{r fake-load-libraries, eval=FALSE}
+library(tidyverse)
+library(here)
+```
+
+Next,
+use `here::here` to construct a path to a file and `readr::read_csv` to read that file:
+
+```{r read-survey-data}
+path = here::here("data", "person.csv")
+person <- readr::read_csv(path)
+```
+
+We don't need to write out fully-qualified names—`here` and `read_csv` will do—but
+we will use them to make it easier to see what comes from where.
+
+Next,
+have a look at the tibble `person`,
+which contains some basic information about a group of foolhardy scientists
+who ventured into the Antarctic in the 1920s and 1930s in search of things best left undisturbed:
+
+```{r show-person}
+person
+```
+
+How many rows and columns does this tibble contain?
+
+```{r count-rows}
+nrow(person)
+```
+
+```{r count-cols}
+ncol(person)
+```
+
+(These names don't have a package prefix because they are built in.)
+Let's show that information in a slightly nicer way
+using `glue` to insert values into a string
+and `print` to display the result:
+
+```{r use-glue}
+print(glue::glue("person has {nrow(person)} rows and {ncol(person)} columns"))
+```
+
+If we want to display several values,
+we can use the function `paste` to combine the elements of a vector.
+`colnames` gives us the names of a tibble's columns,
+and `paste`'s `collapse` argument tells the function
+to use a single space to separate concatenated values:
+
+```{r use-colnames-and-paste}
+print(glue::glue("person columns are {paste(colnames(person), collapse = ' ')}"))
+```
+
+Time for some data manipulation.
+Let's get everyone's family and personal names:
+
+```{r select-by-name}
+dplyr::select(person, family_name, personal_name)
+```
+
+and then filter that list to keep only those that come in the first half of the alphabet:
+
+```{r filter-with-two-conditions}
+dplyr::select(person, family_name, personal_name) %>%
+  dplyr::filter(family_name < "N")
+```
+
+It would be more consistent to rewrite this as:
+
+```{r filter-consistently}
+person %>%
+  dplyr::select(family_name, personal_name) %>%
+  dplyr::filter(family_name < "N")
+```
+
+It's easy to add a column that records the lengths of family names:
+
+```{r mutate-name-length}
+person %>%
+  dplyr::mutate(name_length = stringr::str_length(family_name))
+```
+
+and then arrange in descending order:
+
+```{r mutate-and-arrange}
+person %>%
+  dplyr::mutate(name_length = stringr::str_length(family_name)) %>%
+  dplyr::arrange(dplyr::desc(name_length))
+```
+
+## Do I need even more practice?
+
+Yes.
+Yes, you do.
+Let's load a slightly larger dataset:
+
+```{r read-and-view}
+measurements <- readr::read_csv(here::here("data", "measurements.csv"))
+measurements
+```
+
+If we want an overview of our data's properties,
+we can use the aptly-named `summarize` function:
+
+```{r summarize}
+dplyr::summarize(measurements)
+```
+
+Removing records with missing readings is straightforward:
+
+```{r remove-reading-na}
+measurements %>%
+  dplyr::filter(!is.na(reading))
+```
+
+Removing rows that contain *any* NAs is equally easy,
+though it may be statistically unsound:
+
+```{r hidden-cleaned, echo=FALSE}
+cleaned <- measurements %>%
+  tidyr::drop_na()
+```
+
+We can now group our data by the quantity measured
+and count the number of each—the column is named `n` automatically:
+
+```{r group-by-quantity}
+cleaned %>%
+  dplyr::group_by(quantity) %>%
+  dplyr::count()
+```
+
+How are the readings of each type distributed?
+
+```{r min-ave-max}
+cleaned %>%
+  dplyr::group_by(quantity) %>%
+  dplyr::summarize(low = min(reading),
+                   mid = mean(reading),
+                   high = max(reading))
+```
+
+After inspection,
+we realize that most of the salinity measurements lie between 0 and 1,
+but a handful range up to 100.
+During a brief interval of lucidity,
+the librarian who collected the battered notebooks from which the data was transcribed
+informs us that one of the explorers recorded percentages rather than actual values.
+We therefore decide to normalize all salinity measurements greater than 1.0 using `ifelse`
+(a two-branch analog of `case_when`):
+
+```{r rescale-salinity}
+cleaned <- cleaned %>%
+  dplyr::mutate(reading = ifelse(quantity == 'sal' & reading > 1.0,
+                                 reading/100,
+                                 reading))
+cleaned
+```
+
+To answer our next set of questions,
+we need data about when each site was visited.
+Let's read `visited.csv` and discard entries that are missing the visit date:
+
+```{r read-visited}
+visited <- readr::read_csv(here::here("data", "visited.csv")) %>%
+  dplyr::filter(!is.na(visit_date))
+visited
+```
+
+and then combine that table with our cleaned measurement data.
+We will use an [inner join](glossary.html#inner-join)
+that matches records on the visit ID;
+dplyr also provides other kinds of joins should we need them.
+
+```{r join-two-tables}
+combined <- visited %>%
+  dplyr::inner_join(cleaned,
+                    by = c("visit_id" = "visit_id"))
+```
+
+We can now find the date of the highest radiation reading at each site:
+
+```{r dates-high-rad}
+combined %>%
+  dplyr::filter(quantity == "rad") %>%
+  dplyr::group_by(site_id) %>%
+  dplyr::mutate(max_rad = max(reading)) %>%
+  dplyr::filter(reading == max_rad)
+```
+
+or:
+
+```{r dates-high-rad-2}
+combined %>%
+  dplyr::filter(quantity == "rad") %>%
+  dplyr::group_by(site_id) %>%
+  dplyr::top_n(1, reading) %>%
+  dplyr::select(site_id, visit_date, reading)
+```
+
+The function `dplyr::lag` shifts the values in a column.
+We can use it to calculate the difference in radiation at each site
+between visits:
+
+```{r rad-change}
+combined %>%
+  dplyr::filter(quantity == "rad") %>%
+  dplyr::group_by(site_id) %>%
+  dplyr::mutate(delta_rad = reading - dplyr::lag(reading)) %>%
+  dplyr::arrange(site_id, visit_date)
+```
+
+Going one step further,
+we can create a list of sites at which radiation increased between any two visits:
+
+```{r rad-increases}
+combined %>%
+  dplyr::filter(quantity == "rad") %>%
+  dplyr::group_by(site_id) %>%
+  dplyr::mutate(delta_rad = reading - dplyr::lag(reading)) %>%
+  dplyr::filter(!is.na(delta_rad)) %>%
+  dplyr::summarize(any_increase = any(delta_rad > 0)) %>%
+  dplyr::filter(any_increase)
+```
+
+## Please may I create some charts?
+
+Certainly.
+We will use data on the mass and home range area (HRA) of various species from:
+
+> Tamburello N, Côté IM, Dulvy NK (2015) Data from: Energy and the scaling of animal space use. Dryad Digital Repository.
+> https://doi.org/10.5061/dryad.q5j65
+
+```{r read-hra}
+hra <- readr::read_csv(here::here("data", "home-range-database.csv"))
+head(hra)
+```
+
+A few keystrokes show us how the masses of these animals are distributed:
+
+```{r chart-mass}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = mean.mass.g))
+```
+
+The distribution becomes much clearer if we plot the logarithms of the masses,
+which are helpfully precalculated in `log10.mass`:
+
+```{r chart-log-mass}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = log10.mass))
+```
+
+Let's tidy that up a bit:
+
+```{r change-visual}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_histogram(mapping = aes(x = log10.mass), bins = 100) +
+  ggplot2::ggtitle("Frequency of Species Masses") +
+  ggplot2::xlab("Log10 of Mass") +
+  ggplot2::ylab("Number of Species") +
+  ggplot2::theme_minimal()
+```
+
+How are mass and home range area related?
+
+```{r scatterplot}
+ggplot2::ggplot(hra) +
+  ggplot2::geom_point(mapping = aes(x = log10.mass, y = log10.hra))
+```
+
+Does the relationship depend on the class of animal?
+(Here, we use the word "class" in the biological sense:
+the class "aves" is birds.)
+
+```{r colorize-scatterplot}
+hra %>%
+  dplyr::mutate(class_fct = as.factor(class)) %>%
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct)) +
+  ggplot2::geom_point(alpha = 0.5)
+```
+
+> *What's a Factor?
+>
+> The code above creates a new column `class_fct`
+> by converting the text values in `class` to a [factor](glossary.html#factor).
+> Other languages call this an enumeration:
+> we will discuss factors in more detail in Chapter \@ref(debt).
+
+Our chart may be clearer if we display the [facets](glossary.html#facet) separately:
+
+```{r facet-plot}
+hra %>%
+  dplyr::mutate(class_fct = as.factor(class)) %>%
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra, color = class_fct)) +
+  ggplot2::geom_point(alpha = 0.5) +
+  ggplot2::facet_wrap(~class_fct)
+```
+
+If we want to look at the mass-area relationship more closely for birds,
+we can construct a regression line:
+
+```{r fit-line}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra)) +
+  ggplot2::geom_point(alpha = 0.5) +
+  ggplot2::geom_smooth(method = lm, color = 'red')
+```
+
+Drilling down even further,
+we can create a violin plot of mass by order for the birds
+(where "order" is the biological division below "class"):
+
+```{r violin-plot}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  dplyr::mutate(order_fct = as.factor(order)) %>%
+  ggplot2::ggplot(mapping = aes(x = order_fct, y = log10.mass, color = order_fct)) +
+  ggplot2::geom_violin()
+```
+
+Changing just one line gives us a box plot instead:
+
+```{r box-plot}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  dplyr::mutate(order_fct = as.factor(order)) %>%
+  ggplot2::ggplot(mapping = aes(x = order_fct, y = log10.mass, color = order_fct)) +
+  ggplot2::geom_boxplot()
+```
+
+And if we want to save our chart to a file,
+that's just one more call as well:
+
+```{r save-file}
+hra %>%
+  dplyr::filter(class == "aves") %>%
+  ggplot2::ggplot(mapping = aes(x = log10.mass, y = log10.hra)) +
+  ggplot2::geom_point(alpha = 0.5) +
+  ggplot2::geom_smooth(method = lm, color = 'red')
+ggsave("/tmp/birds.png")
 ```
 
 ## Key Points

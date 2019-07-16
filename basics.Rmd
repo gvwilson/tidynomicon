@@ -39,14 +39,14 @@ In Python, we write:
 print("Hello, world!")
 ```
 
-We can run the equivalent R in the RStudio Console (Figure \ref{fig:console}):
+We can run the equivalent R in the RStudio Console (Figure \@ref(fig:console)):
 
 ```{r r-hello}
 print("Hello, world!")
 ```
 
 ```{r console, echo=FALSE, fig.cap="RStudio Console"}
-# knitr::include_graphics("figures/basics/rstudio-console.png")
+knitr::include_graphics("figures/FIXME.jpg")
 ```
 
 Python prints what we asked for,
@@ -190,7 +190,7 @@ What of R's vectors?
 length(primes)
 ```
 
-Good---and numbers?
+Good—and numbers?
 
 ```{r r-len-int}
 length(4)
@@ -264,7 +264,7 @@ colors[4]
 
 R handles gaps in data using the special value [`NA`](glossary.html#NA) (short for "not available"),
 and returns this value when we ask for a nonexistent element of a vector.
-But it does more than this---much more.
+But it does more than this—much more.
 In Python,
 a negative index counts backward from the end of a list.
 In R,
@@ -301,7 +301,7 @@ colors[c(1, 1, 1)]
 Note that this is [pull indexing](glossary.html#pull-indexing),
 i.e.,
 the value at location *i* in the index vector specifies which element of the source vector
-is being pulled into that location in the result vector (Figure \ref{fig:pull-indexing}).
+is being pulled into that location in the result vector (Figure \@ref(fig:pull-indexing)).
 
 ```{r pull-indexing, echo=FALSE, fig.cap="Pull Indexing"}
 if (knitr::is_latex_output()) {
@@ -407,7 +407,7 @@ tens + hundreds / (tens * hundreds)
 
 If two vectors of unequal length are used together,
 the elements of the shorter are [recycled](glossary.html#recycle).
-This behaves sensibly if one of the vectors is a scalar---it is just re-used as many times as necessary:
+This behaves sensibly if one of the vectors is a scalar—it is just re-used as many times as necessary:
 
 ```{r scalar-vector}
 hundreds + 5
@@ -568,7 +568,7 @@ what do we get if we index single square brackets `[…]`?
 thing[1]
 ```
 
-That looks like a list, not a vector---let's check:
+That looks like a list, not a vector—let's check:
 
 ```{r single-square-typeof}
 typeof(thing[1])

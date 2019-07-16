@@ -1,14 +1,14 @@
 --- 
 title: "The Tidynomicon"
-subtitle: "A Brief Introduction to R for People Who Count From Zero"
 author: "Greg Wilson"
-site: bookdown::bookdown_site
+bibliography: book.bib
+description: The Tidynomicon
 documentclass: book
-bibliography: [book.bib]
-biblio-style: apalike
-link-citations: yes
 github-repo: gvwilson/tidynomicon
-description: "The Tidynomicon"
+link-citations: yes
+site: bookdown::bookdown_site
+subtitle: A Brief Introduction to R for People Who Count From Zero
+biblio-style: apalike
 ---
 
 # Introduction
@@ -21,7 +21,7 @@ Years ago,
 Patrick Burns wrote *[The R Inferno][r-inferno]*,
 a guide to R for those who think they are in hell.
 Upon first encountering the language after two decades of using Python,
-I thought Burns was an optimist---after all,
+I thought Burns was an optimist—after all,
 hell has rules.
 
 I have since realized that R does too,

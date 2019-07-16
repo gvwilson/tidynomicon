@@ -144,14 +144,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.10" data-path="basics.html"><a href="basics.html#how-can-i-access-elements-by-name"><i class="fa fa-check"></i><b>2.10</b> How can I access elements by name?</a></li>
 <li class="chapter" data-level="2.11" data-path="basics.html"><a href="basics.html#how-can-i-create-and-index-a-matrix"><i class="fa fa-check"></i><b>2.11</b> How can I create and index a matrix?</a></li>
 <li class="chapter" data-level="2.12" data-path="basics.html"><a href="basics.html#how-do-i-choose-and-repeat-things"><i class="fa fa-check"></i><b>2.12</b> How do I choose and repeat things?</a></li>
-<li class="chapter" data-level="2.13" data-path="basics.html"><a href="basics.html#how-can-i-express-a-range-of-values-in-r"><i class="fa fa-check"></i><b>2.13</b> How can I express a range of values in R?</a></li>
-<li class="chapter" data-level="2.14" data-path="basics.html"><a href="basics.html#how-can-i-use-a-vector-in-a-conditional-statement"><i class="fa fa-check"></i><b>2.14</b> How can I use a vector in a conditional statement?</a></li>
-<li class="chapter" data-level="2.15" data-path="basics.html"><a href="basics.html#how-do-i-create-and-call-functions"><i class="fa fa-check"></i><b>2.15</b> How do I create and call functions?</a></li>
-<li class="chapter" data-level="2.16" data-path="basics.html"><a href="basics.html#how-can-i-write-a-function-that-takes-variable-arguments"><i class="fa fa-check"></i><b>2.16</b> How can I write a function that takes variable arguments?</a></li>
-<li class="chapter" data-level="2.17" data-path="basics.html"><a href="basics.html#how-can-i-provide-default-values-for-arguments"><i class="fa fa-check"></i><b>2.17</b> How can I provide default values for arguments?</a></li>
-<li class="chapter" data-level="2.18" data-path="basics.html"><a href="basics.html#how-can-i-hide-the-value-that-r-returns"><i class="fa fa-check"></i><b>2.18</b> How can I hide the value that R returns?</a></li>
-<li class="chapter" data-level="2.19" data-path="basics.html"><a href="basics.html#how-can-i-assign-to-a-global-variable-from-inside-a-function"><i class="fa fa-check"></i><b>2.19</b> How can I assign to a global variable from inside a function?</a></li>
-<li class="chapter" data-level="2.20" data-path="basics.html"><a href="basics.html#key-points"><i class="fa fa-check"></i><b>2.20</b> Key Points</a></li>
+<li class="chapter" data-level="2.13" data-path="basics.html"><a href="basics.html#how-can-i-vectorize-loops-and-conditionals"><i class="fa fa-check"></i><b>2.13</b> How can I vectorize loops and conditionals?</a></li>
+<li class="chapter" data-level="2.14" data-path="basics.html"><a href="basics.html#how-can-i-express-a-range-of-values"><i class="fa fa-check"></i><b>2.14</b> How can I express a range of values?</a></li>
+<li class="chapter" data-level="2.15" data-path="basics.html"><a href="basics.html#how-can-i-use-a-vector-in-a-conditional-statement"><i class="fa fa-check"></i><b>2.15</b> How can I use a vector in a conditional statement?</a></li>
+<li class="chapter" data-level="2.16" data-path="basics.html"><a href="basics.html#how-do-i-create-and-call-functions"><i class="fa fa-check"></i><b>2.16</b> How do I create and call functions?</a></li>
+<li class="chapter" data-level="2.17" data-path="basics.html"><a href="basics.html#how-can-i-write-a-function-that-takes-variable-arguments"><i class="fa fa-check"></i><b>2.17</b> How can I write a function that takes variable arguments?</a></li>
+<li class="chapter" data-level="2.18" data-path="basics.html"><a href="basics.html#how-can-i-provide-default-values-for-arguments"><i class="fa fa-check"></i><b>2.18</b> How can I provide default values for arguments?</a></li>
+<li class="chapter" data-level="2.19" data-path="basics.html"><a href="basics.html#how-can-i-hide-the-value-that-r-returns"><i class="fa fa-check"></i><b>2.19</b> How can I hide the value that R returns?</a></li>
+<li class="chapter" data-level="2.20" data-path="basics.html"><a href="basics.html#how-can-i-assign-to-a-global-variable-from-inside-a-function"><i class="fa fa-check"></i><b>2.20</b> How can I assign to a global variable from inside a function?</a></li>
+<li class="chapter" data-level="2.21" data-path="basics.html"><a href="basics.html#key-points"><i class="fa fa-check"></i><b>2.21</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>3</b> The Tidyverse</a><ul>
 <li class="chapter" data-level="3.1" data-path="tidyverse.html"><a href="tidyverse.html#learning-objectives-1"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
@@ -375,23 +376,16 @@ This chapter therefore looks at how to do the things that R was summoned—er, d
 </div>
 <div id="how-do-i-read-data" class="section level2">
 <h2><span class="header-section-number">3.2</span> How do I read data?</h2>
-<p>We begin by looking at the file <code>results/infant_hiv.csv</code>,
-a tidied version of data on the percentage of infants born to women with HIV
-who received an HIV test themselves within two months of birth.
-The original data comes from the UNICEF site at <a href="https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/" class="uri">https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/</a>,
-and this file contains:</p>
-<pre class="text"><code>country,year,estimate,hi,lo
-AFG,2009,NA,NA,NA
-AFG,2010,NA,NA,NA
-...
-AFG,2017,NA,NA,NA
-AGO,2009,NA,NA,NA
-AGO,2010,0.03,0.04,0.02
-AGO,2011,0.05,0.07,0.04
-AGO,2012,0.06,0.08,0.05
-...
-ZWE,2016,0.71,0.88,0.62
-ZWE,2017,0.65,0.81,0.57</code></pre>
+<p>We begin by looking at the file <code>data/person.csv</code>,
+which contains information on a handful of scientists
+who were foolhardy enough to explore the more inaccessible corners of Antarctica
+in the late 1920s and early 1930s:</p>
+<p>person_id,personal_name,family_name
+dyer,William,Dyer
+pb,Frank,Pabodie
+lake,Anderson,Lake
+roe,Valentina,Roerich
+danforth,Frank,Danforth</p>
 <p>The actual file has many more rows (and no ellipses).
 It uses <code>NA</code> to show missing data rather than (for example) <code>-</code>, a space, or a blank,
 and its values are interpreted as follows:</p>

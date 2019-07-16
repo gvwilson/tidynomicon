@@ -405,7 +405,7 @@ typeof(my_expr)
 
 A symbol is a kind of expression.
 It is not a string (though strings can be converted to symbols and symbols to strings)
-nor is it a value---not yet.
+nor is it a value—not yet.
 If we try to get the value it refers to, R displays an error message:
 
 ```{r eval-expr-error, error=TRUE}
@@ -441,7 +441,7 @@ eval(my_expr, color_data)
 ```
 
 When we do this,
-`eval` looks for definitions of variables in the data structure we've given it---in this case,
+`eval` looks for definitions of variables in the data structure we've given it—in this case,
 in the tibble `color_data`.
 Since that tibble has a column called `red`,
 `eval(my_expr, color_data)` gives us that column.
@@ -514,7 +514,7 @@ check_all(color_data, 0 < red, red < green)
 The answer is going to be "yes",
 but it's going to take a bit of work.
 
-> **Square Brackets... Why'd It Have to Be Square Brackets?**
+> **Square Brackets… Why'd It Have to Be Square Brackets?**
 >
 > Before we go there,
 > a word (or code snippet) of warning.
@@ -526,7 +526,7 @@ but it's going to take a bit of work.
 > ```
 >
 > What I did wrong was use `[` instead of `[[`,
-> which meant that `conditions[1]` was not an expression---it wa a list containing a single expression.
+> which meant that `conditions[1]` was not an expression—it wa a list containing a single expression.
 > It turns out that evaluating a list containing an expression produces a list of expressions rather than an error,
 > which is so helpful that it only took me an hour to figure out my mistake.
 
@@ -558,7 +558,7 @@ check_naive(color_data, red != green)
 This makes sense:
 by the time we get to the `eval` call,
 `test` refers to a promise that represents the value of `red != green` in the global environment.
-Promises are not expressions---each promise contains an expression,
+Promises are not expressions—each promise contains an expression,
 but it also contains an environment and a copy of the expression's value (if it has ever been calculated).
 As a result,
 when R sees the call to `eval` inside `check_naive`
@@ -638,7 +638,7 @@ check_without_quoting_test <- function(data, test) {
 check_without_quoting_test(color_data, red < green)
 ```
 
-Damn---we thought this one had a chance.
+Damn—we thought this one had a chance.
 The problem is that when we say `result = x_test`,
 what actually gets passed into `transmute` is a promise containing an expression.
 Somehow,
@@ -690,7 +690,7 @@ Backing up a bit,
 [two broad categories of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
 [evaluating functions](glossary.html#evaluating-function) and
 [quoting functions](glossary.html#quoting-function).
-Evaluating functions take arguments as values---they're what most of us are used to working with.
+Evaluating functions take arguments as values—they're what most of us are used to working with.
 Quoting functions, on the other hand, aren't passed the values of expressions, but the expressions themselves.
 When we write `color_data$red`, the `$` function is being passed `color_data` and the quoted expression `red`.
 This is why we can't use variables as field names with `$`:
@@ -719,7 +719,7 @@ color_data[[the_string_red]]   # double square brackets
 Delayed evaluation and quoting are confusing for two reasons:
 
 1.  They expose machinery that most programmers have never had to deal with before (and might not even have known existed).
-    It's rather like learning to drive an automatic transmission and then switching to a manual one---all of a sudden
+    It's rather like learning to drive an automatic transmission and then switching to a manual one—all of a sudden
     you have to worry about a gear shift and a clutch.
 2.  R's built-in tools don't behave as consistently as they could,
     and the functions provided by the tidverse as alternatives use variations on a small number of names:

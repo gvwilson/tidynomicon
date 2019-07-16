@@ -615,7 +615,7 @@ knitr::include_graphics("figures/shiny/unicef-slider.png")
 
 Our last refinement uses `uiOutput` and `renderUI` to (re-)create the slider at just the right moment.
 The UI looks familiar,
-except there's a `uiOutput` placeholder where the slider is to go---its name "slider"
+except there's a `uiOutput` placeholder where the slider is to go—its name "slider"
 will be used in the server:
 
 ```{r eval=FALSE}

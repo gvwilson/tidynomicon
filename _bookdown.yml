@@ -12,7 +12,6 @@ rmd_files:
   - cleanup.Rmd
   - nse.Rmd
   - debt.Rmd
-  - practice.Rmd
   - testerror.Rmd
   - oop.Rmd
   - projects.Rmd

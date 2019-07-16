@@ -49,7 +49,7 @@ Data source: Global AIDS Monitoring 2018 and UNAIDS 2018 estimates,,,,,,,,,,,,,,
 "For more information on the data, visit data.unicef.org",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ```
 
-This is a mess---no, more than that, it is an affront to decency.
+This is a mess—no, more than that, it is an affront to decency.
 There are comments mixed with data,
 values' actual indices have to be synthesized by combining column headings from two rows
 (two thirds of which have to be carried forward from previous columns),
@@ -155,8 +155,8 @@ Since there is only one file,
 we can manually count the number of rows we are interested in
 (or rather, open the file with an editor or spreadsheet program, scroll down, and check the line number),
 and then slice there.
-This is a very bad idea if we're planning to use this script on other files---we should
-instead look for the first blank line or the entry for Zimbabwe or something like that---but
+This is a very bad idea if we're planning to use this script on other files—we should
+instead look for the first blank line or the entry for Zimbabwe or something like that—but
 let's revisit the problem once we have our data in place.
 
 ```{r read-slice-and-tail}
@@ -171,12 +171,12 @@ Notice that we're counting rows *not including* the two we're skipping,
 which means that the 192 in the call to `slice` above corresponds to row 195 of our original data:
 195, not 194, because we're using the first row of unskipped data as headers and yes,
 you are in fact making that faint whimpering sound you now hear.
-You will hear it often when dealing with real-world data...
+You will hear it often when dealing with real-world data…
 
 And notice also that we are slicing, *then* extracting the column containing the countries.
 We did, in a temporary version of this script,
 peel off the countries, slice those, and then wonder why our main data table still had unwanted data at the end.
-Vigilance, my friends---vigilance shall be our watchword,
+Vigilance, my friends—vigilance shall be our watchword,
 and in light of that,
 we shall first test our plan for converting our strings to numbers:
 
@@ -325,9 +325,9 @@ trimmed$hi
 ```
 
 Where are those empty strings coming from?
-Let's backtrack by examining the `hi` column of each of our intermediate variables interactively in the console...
+Let's backtrack by examining the `hi` column of each of our intermediate variables interactively in the console…
 
-...and there's our bug.
+…and there's our bug.
 We are creating a variable called `sliced` that has only the rows we care about,
 but then using the full table in `raw` to create `body`.
 It's a simple mistake,

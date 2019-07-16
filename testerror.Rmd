@@ -180,7 +180,7 @@ test_that("Testing two things", {
 ```
 
 A block of code is *not* the same thing as an [anonymous function](glossary.html#anonymous-function),
-which is why running this block of code does nothing---the "test" defines a function
+which is why running this block of code does nothing—the "test" defines a function
 but doesn't actually call it:
 
 ```{r anonymous-function}
@@ -398,7 +398,7 @@ All right.
 If we compare `c(1L, 2L)` to `NULL`, we expect `c(FALSE, FALSE)`,
 so it's reasonable to get a zero-length logical vector as a result
 when we compare `NULL` to an integer vector with no elements.
-The fact that `any` of an empty logical vector is `FALSE` isn't really surprising either---none of the elements are `TRUE`,
+The fact that `any` of an empty logical vector is `FALSE` isn't really surprising either—none of the elements are `TRUE`,
 so it would be hard to say that any of them are.
 `all` of an empty vector being `TRUE` is unexpected, though.
 The reasoning is apparently that none of the (nonexistent) elements are `FALSE`,

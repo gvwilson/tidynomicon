@@ -17,7 +17,7 @@ and we should clear this burden from our conscience before we go on to new topic
 
 Because [reasons][bryan-setwd].
 
-**But...**
+**But…**
 
 No.
 Use the [here package][here-package] instead to create paths that are relative to your current location:
@@ -52,8 +52,8 @@ This is useful, but brings with it some problems:
     since they don't belong to any of the categories offered.
 2.  On the computational side,
     some functions in R automatically convert strings to factors by default.
-    This makes sense when working with statistical data---in most cases,
-    a column in which the same strings are repeated many times is categorical---but
+    This makes sense when working with statistical data—in most cases,
+    a column in which the same strings are repeated many times is categorical—but
     it is usually not the right choice in other situations.
     This has surprised enough people the years that the tidyverse goes the other way
     and only creates factors when asked to.
@@ -199,6 +199,126 @@ We're better off using `rowid_to_column`:
 data %>%
   rowid_to_column()
 ```
+
+## I thought you said that R encouraged functional programming?
+
+I did.
+Here is a function that reads a file and returns one of its columns:
+
+```{r define-function, message=FALSE}
+col_from_file <- function(filename, colname) {
+  dat <- readr::read_csv(filename)
+  dat[colname]
+}
+
+person_filename <- here::here("data", "person.csv")
+col_from_file(person_filename, "family_name")
+```
+
+Note that the column name *must* be passed as a quoted string;
+Chapter \@ref(nse) will show us how to pass unquoted column names.
+
+We might occasionally want to allow the user to specify
+what values in the file are to be considered NAs.
+This small addition allows us to do that,
+while keeping the empty string and the string `"NA"` as defaults:
+
+```{r default-value, message=FALSE}
+col_from_file <- function(filename, colname, na = c("", "NA")) {
+  dat <- readr::read_csv(filename, na = na)
+  dat[colname]
+}
+
+col_from_file(person_filename, "family_name", c("Dyer"))
+```
+
+We can also allow the user to specify any number of columns
+by capturing "extra" parameters in `...`
+and passing that value directly to `dplyr::select`:
+
+```{r quote-multi-column, message=FALSE}
+cols_from_file <- function(filename, ..., na = c("", "NA")) {
+  readr::read_csv(filename, na = na) %>%
+    dplyr::select(...)
+}
+
+cols_from_file(person_filename, personal_name, family_name)
+```
+
+Now that we can create functions,
+we can use the tools in the `purrr` library to wield them.
+`purrr::map` applies a function to each value in a vector in turn
+and returns a list:
+
+```{r purrr-map}
+is_long_name <- function(name) {
+  stringr::str_length(name) > 4
+}
+
+person <- read_csv(here::here("data", "person.csv"))
+purrr::map(person$family_name, is_long_name)
+```
+
+For small calculations,
+we will define the function where it is used—this is sometimes called
+an [anonymous function](glossary.html#anonymous-function)
+since it isn't given a name.
+We will also use `purrr::map_lgl`
+so that the result of the call is a logical vector rather than a list.
+Similarly-named functions will give us numbers, character strings, and so on:
+
+```{r anonymous-function}
+purrr::map_lgl(person$family_name,
+               function(name) stringr::str_length(name) > 4)
+```
+
+Little functions like this are so common
+that `purrr` allows us to use write them as formulas using the `~ operator
+with `.x` as a shorthand for the value from the vector being processed:
+
+```{r}
+purrr::map_chr(person$family_name, ~ stringr::str_to_upper(.x))
+```
+
+Other functions in `purrr` let us work on two vectors at once:
+
+```{r}
+purrr::map2_chr(person$personal_name,
+                person$family_name,
+                ~ stringr::str_c(.y, .x, sep = '_'))
+```
+
+If we need to collapse the result to a single value
+(e.g., to use in `if`)
+we have `purrr::some` and `purrr::every`:
+
+```{r}
+purrr::every(person$personal_name, ~ .x > 'M')
+```
+
+### Modify specific elements of a list:
+
+```{r}
+purrr::modify_at(person$personal_name, c(2, 4), stringr::str_to_upper)
+```
+
+*Use `modify_if` to upper-case names that are greater than "M".*
+
+### Create an acronym:
+
+```{r}
+purrr::reduce(person$personal_name, ~stringr::str_c(.x, stringr::str_sub(.y, 1, 1)), .init = "")
+```
+
+*Explain why using `stringr::str_c(stringr::str_sub(.x, 1, 1), stringr::str_sub(.y, 1, 1))` doesn't work.*
+
+### Create intermediate values:
+
+```{r}
+purrr::accumulate(person$personal_name, ~stringr::str_c(.x, stringr::str_sub(.y, 1, 1)), .init = "")
+```
+
+*Modify this so that the initial empty string isn't in the final result.*
 
 ## How does R give the appearance of immutable data?
 
