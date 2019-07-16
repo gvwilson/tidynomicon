@@ -689,12 +689,12 @@ the signs of the numbers in a list:
 values = [-15, 0, 15]
 for v in values:
     if v < 0:
-        sign = -1
+        pos_neg = -1
     elif v == 0:
-        sign = 0
+        pos_neg = 0
     else:
-        sign = 1
-    print("The sign of", v, "is", sign)
+        pos_neg = 1
+    print("The pos_neg of", v, "is", pos_neg)
 print("The final value of v is", v)
 ```
 
@@ -704,15 +704,15 @@ Its direct translation into R is:
 values <- c(-15, 0, 15)
 for (v in values) {
   if (v < 0) {
-    sign <- -1
+    pos_neg <- -1
   }
   else if (v == 0) {
-    sign <- 0
+    pos_neg <- 0
   }
   else {
-    sign <- 1
+    pos_neg <- 1
   }
-  print(glue::glue("The sign of {v} is {sign}"))
+  print(glue::glue("The sign of {v} is {pos_neg}"))
 }
 print(glue::glue("The final value of v is {v}"))
 ```
@@ -731,15 +731,47 @@ There are a few things to note here:
     interpolates variables into strings in sensible ways.
     We will load this library and use plain old `glue` in the explanations that follow.
     (Note that R uses `::` to get functions out of packages rather than Python's `.`.)
-1.  By calling our temporary variable `sign`
-    we have accidentally overwritten the rather useful built-in R function with that name.
+1.  We have called our temporary variable `pos_neg` rather than `sign`
+    so that we don't accidentally overwrite the rather useful built-in R function
+    with the latter name.
     [Name collisions](glossary.html#name-collision) of this sort
     are just as easy in R as they are in Python.
-1.  This is *not* how we should write R:
-    everything in this snippet can and should be vectorized.
-    We will see how in Chapter \@ref(tidyverse).
 
-## How can I express a range of values in R?
+## How can I vectorize loops and conditionals?
+
+The example above is *not* how we should write R:
+everything in that snippet can and should be vectorized.
+The simplest way to do this is to use the aforementioned built-in function:
+
+```{r using-sign}
+print(sign(values))
+print(glue::glue("The sign of {values} is {sign(values)}"))
+```
+
+But what if the function we want doesn't exist
+(or if we don't know what it's called)?
+In that case,
+the easiest approach is often to create a new vector
+whose values are derived from those of the vector we had
+and trust R to match up corresponding elements:
+
+```{r using-case-when}
+pos_neg <- dplyr::case_when(
+  values <  0 ~ -1,
+  values == 0 ~ 0,
+  values >  0 ~ 1
+)
+
+print(glue::glue("The sign of {values} is {pos_neg}"))
+```
+
+This solution makes use of `case_when`,
+which is a vectorized analog of `if`/`else if`/`else`.
+Each branch uses the `~` operator to combine
+a Boolean test on the left with a result on the right.
+We will see other uses for `~` in subsequent chapters.
+
+## How can I express a range of values?
 
 `for` in R loops over the values in a vector, just as it does in Python.
 If we want to loop over the indices instead,

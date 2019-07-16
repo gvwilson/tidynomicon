@@ -144,14 +144,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.10" data-path="basics.html"><a href="basics.html#how-can-i-access-elements-by-name"><i class="fa fa-check"></i><b>2.10</b> How can I access elements by name?</a></li>
 <li class="chapter" data-level="2.11" data-path="basics.html"><a href="basics.html#how-can-i-create-and-index-a-matrix"><i class="fa fa-check"></i><b>2.11</b> How can I create and index a matrix?</a></li>
 <li class="chapter" data-level="2.12" data-path="basics.html"><a href="basics.html#how-do-i-choose-and-repeat-things"><i class="fa fa-check"></i><b>2.12</b> How do I choose and repeat things?</a></li>
-<li class="chapter" data-level="2.13" data-path="basics.html"><a href="basics.html#how-can-i-express-a-range-of-values-in-r"><i class="fa fa-check"></i><b>2.13</b> How can I express a range of values in R?</a></li>
-<li class="chapter" data-level="2.14" data-path="basics.html"><a href="basics.html#how-can-i-use-a-vector-in-a-conditional-statement"><i class="fa fa-check"></i><b>2.14</b> How can I use a vector in a conditional statement?</a></li>
-<li class="chapter" data-level="2.15" data-path="basics.html"><a href="basics.html#how-do-i-create-and-call-functions"><i class="fa fa-check"></i><b>2.15</b> How do I create and call functions?</a></li>
-<li class="chapter" data-level="2.16" data-path="basics.html"><a href="basics.html#how-can-i-write-a-function-that-takes-variable-arguments"><i class="fa fa-check"></i><b>2.16</b> How can I write a function that takes variable arguments?</a></li>
-<li class="chapter" data-level="2.17" data-path="basics.html"><a href="basics.html#how-can-i-provide-default-values-for-arguments"><i class="fa fa-check"></i><b>2.17</b> How can I provide default values for arguments?</a></li>
-<li class="chapter" data-level="2.18" data-path="basics.html"><a href="basics.html#how-can-i-hide-the-value-that-r-returns"><i class="fa fa-check"></i><b>2.18</b> How can I hide the value that R returns?</a></li>
-<li class="chapter" data-level="2.19" data-path="basics.html"><a href="basics.html#how-can-i-assign-to-a-global-variable-from-inside-a-function"><i class="fa fa-check"></i><b>2.19</b> How can I assign to a global variable from inside a function?</a></li>
-<li class="chapter" data-level="2.20" data-path="basics.html"><a href="basics.html#key-points"><i class="fa fa-check"></i><b>2.20</b> Key Points</a></li>
+<li class="chapter" data-level="2.13" data-path="basics.html"><a href="basics.html#how-can-i-vectorize-loops-and-conditionals"><i class="fa fa-check"></i><b>2.13</b> How can I vectorize loops and conditionals?</a></li>
+<li class="chapter" data-level="2.14" data-path="basics.html"><a href="basics.html#how-can-i-express-a-range-of-values"><i class="fa fa-check"></i><b>2.14</b> How can I express a range of values?</a></li>
+<li class="chapter" data-level="2.15" data-path="basics.html"><a href="basics.html#how-can-i-use-a-vector-in-a-conditional-statement"><i class="fa fa-check"></i><b>2.15</b> How can I use a vector in a conditional statement?</a></li>
+<li class="chapter" data-level="2.16" data-path="basics.html"><a href="basics.html#how-do-i-create-and-call-functions"><i class="fa fa-check"></i><b>2.16</b> How do I create and call functions?</a></li>
+<li class="chapter" data-level="2.17" data-path="basics.html"><a href="basics.html#how-can-i-write-a-function-that-takes-variable-arguments"><i class="fa fa-check"></i><b>2.17</b> How can I write a function that takes variable arguments?</a></li>
+<li class="chapter" data-level="2.18" data-path="basics.html"><a href="basics.html#how-can-i-provide-default-values-for-arguments"><i class="fa fa-check"></i><b>2.18</b> How can I provide default values for arguments?</a></li>
+<li class="chapter" data-level="2.19" data-path="basics.html"><a href="basics.html#how-can-i-hide-the-value-that-r-returns"><i class="fa fa-check"></i><b>2.19</b> How can I hide the value that R returns?</a></li>
+<li class="chapter" data-level="2.20" data-path="basics.html"><a href="basics.html#how-can-i-assign-to-a-global-variable-from-inside-a-function"><i class="fa fa-check"></i><b>2.20</b> How can I assign to a global variable from inside a function?</a></li>
+<li class="chapter" data-level="2.21" data-path="basics.html"><a href="basics.html#key-points"><i class="fa fa-check"></i><b>2.21</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>3</b> The Tidyverse</a><ul>
 <li class="chapter" data-level="3.1" data-path="tidyverse.html"><a href="tidyverse.html#learning-objectives-1"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
@@ -514,7 +515,7 @@ and displays the starting index of each line.
 These indices also show us that R counts from 1 as humans do,
 rather than from zero.
 (There are a great many myths about why programming languages do the latter.
-<a href="http://exple.tive.org/blarg/2013/10/22/citation-needed/">The truth is stranger than any fiction could be.</a>)</p>
+[The truth is stranger than any fiction could be.][hoye-zero])</p>
 </div>
 <div id="how-do-i-index-a-vector" class="section level2">
 <h2><span class="header-section-number">2.5</span> How do I index a vector?</h2>
@@ -871,30 +872,30 @@ the signs of the numbers in a list:</p>
 <pre class="sourceCode python"><code class="sourceCode python">values <span class="op">=</span> [<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>]
 <span class="cf">for</span> v <span class="kw">in</span> values:
     <span class="cf">if</span> v <span class="op">&lt;</span> <span class="dv">0</span>:
-        sign <span class="op">=</span> <span class="dv">-1</span>
+        pos_neg <span class="op">=</span> <span class="dv">-1</span>
     <span class="cf">elif</span> v <span class="op">==</span> <span class="dv">0</span>:
-        sign <span class="op">=</span> <span class="dv">0</span>
+        pos_neg <span class="op">=</span> <span class="dv">0</span>
     <span class="cf">else</span>:
-        sign <span class="op">=</span> <span class="dv">1</span>
-    <span class="bu">print</span>(<span class="st">&quot;The sign of&quot;</span>, v, <span class="st">&quot;is&quot;</span>, sign)</code></pre>
-<pre><code>The sign of -15 is -1
-The sign of 0 is 0
-The sign of 15 is 1</code></pre>
+        pos_neg <span class="op">=</span> <span class="dv">1</span>
+    <span class="bu">print</span>(<span class="st">&quot;The pos_neg of&quot;</span>, v, <span class="st">&quot;is&quot;</span>, pos_neg)</code></pre>
+<pre><code>The pos_neg of -15 is -1
+The pos_neg of 0 is 0
+The pos_neg of 15 is 1</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;The final value of v is&quot;</span>, v)</code></pre>
 <pre><code>The final value of v is 15</code></pre>
 <p>Its direct translation into R is:</p>
 <pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>)
 <span class="cf">for</span> (v <span class="cf">in</span> values) {
   <span class="cf">if</span> (v <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
-    sign &lt;-<span class="st"> </span><span class="dv">-1</span>
+    pos_neg &lt;-<span class="st"> </span><span class="dv">-1</span>
   }
   <span class="cf">else</span> <span class="cf">if</span> (v <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-    sign &lt;-<span class="st"> </span><span class="dv">0</span>
+    pos_neg &lt;-<span class="st"> </span><span class="dv">0</span>
   }
   <span class="cf">else</span> {
-    sign &lt;-<span class="st"> </span><span class="dv">1</span>
+    pos_neg &lt;-<span class="st"> </span><span class="dv">1</span>
   }
-  <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {v} is {sign}&quot;</span>))
+  <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {v} is {pos_neg}&quot;</span>))
 }</code></pre>
 <pre><code>The sign of -15 is -1
 The sign of 0 is 0
@@ -915,17 +916,48 @@ the loop variable <code>v</code> persists after the loop is over.</li>
 interpolates variables into strings in sensible ways.
 We will load this library and use plain old <code>glue</code> in the explanations that follow.
 (Note that R uses <code>::</code> to get functions out of packages rather than Python’s <code>.</code>.)</li>
-<li>By calling our temporary variable <code>sign</code>
-we have accidentally overwritten the rather useful built-in R function with that name.
+<li>We have called our temporary variable <code>pos_neg</code> rather than <code>sign</code>
+so that we don’t accidentally overwrite the rather useful built-in R function
+with the latter name.
 <a href="glossary.html#name-collision">Name collisions</a> of this sort
 are just as easy in R as they are in Python.</li>
-<li>This is <em>not</em> how we should write R:
-everything in this snippet can and should be vectorized.
-We will see how in Chapter <a href="tidyverse.html#tidyverse">3</a>.</li>
 </ol>
 </div>
-<div id="how-can-i-express-a-range-of-values-in-r" class="section level2">
-<h2><span class="header-section-number">2.13</span> How can I express a range of values in R?</h2>
+<div id="how-can-i-vectorize-loops-and-conditionals" class="section level2">
+<h2><span class="header-section-number">2.13</span> How can I vectorize loops and conditionals?</h2>
+<p>The example above is <em>not</em> how we should write R:
+everything in that snippet can and should be vectorized.
+The simplest way to do this is to use the aforementioned built-in function:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sign</span>(values))</code></pre>
+<pre><code>[1] -1  0  1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {values} is {sign(values)}&quot;</span>))</code></pre>
+<pre><code>The sign of -15 is -1
+The sign of 0 is 0
+The sign of 15 is 1</code></pre>
+<p>But what if the function we want doesn’t exist
+(or if we don’t know what it’s called)?
+In that case,
+the easiest approach is often to create a new vector
+whose values are derived from those of the vector we had
+and trust R to match up corresponding elements:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pos_neg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">case_when</span>(
+  values <span class="op">&lt;</span><span class="st">  </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">-1</span>,
+  values <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>,
+  values <span class="op">&gt;</span><span class="st">  </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>
+)
+
+<span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {values} is {pos_neg}&quot;</span>))</code></pre>
+<pre><code>The sign of -15 is -1
+The sign of 0 is 0
+The sign of 15 is 1</code></pre>
+<p>This solution makes use of <code>case_when</code>,
+which is a vectorized analog of <code>if</code>/<code>else if</code>/<code>else</code>.
+Each branch uses the <code>~</code> operator to combine
+a Boolean test on the left with a result on the right.
+We will see other uses for <code>~</code> in subsequent chapters.</p>
+</div>
+<div id="how-can-i-express-a-range-of-values" class="section level2">
+<h2><span class="header-section-number">2.14</span> How can I express a range of values?</h2>
 <p><code>for</code> in R loops over the values in a vector, just as it does in Python.
 If we want to loop over the indices instead,
 we can use the function <code>seq_along</code>:</p>
@@ -983,7 +1015,7 @@ it specifies how many times each item in the first vector is to be repeated:
 </blockquote>
 </div>
 <div id="how-can-i-use-a-vector-in-a-conditional-statement" class="section level2">
-<h2><span class="header-section-number">2.14</span> How can I use a vector in a conditional statement?</h2>
+<h2><span class="header-section-number">2.15</span> How can I use a vector in a conditional statement?</h2>
 <p>We cannot use a vector directly as a condition in an <code>if</code> statement:</p>
 <pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)
 <span class="cf">if</span> (numbers) {
@@ -1004,7 +1036,7 @@ We can use a corresponding function <code>any</code> to check if at least one va
 which corresponds to a logical “or” across the whole input.</p>
 </div>
 <div id="how-do-i-create-and-call-functions" class="section level2">
-<h2><span class="header-section-number">2.15</span> How do I create and call functions?</h2>
+<h2><span class="header-section-number">2.16</span> How do I create and call functions?</h2>
 <p>As we have already seen,
 we call functions in R much as we do in Python:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">min</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</code></pre>
@@ -1045,7 +1077,7 @@ result[<span class="dv">1</span>]               <span class="co"># But we can op
 <p>We will look at what we should do instead in Chapter <a href="testerror.html#testerror">8</a>.</p>
 </div>
 <div id="how-can-i-write-a-function-that-takes-variable-arguments" class="section level2">
-<h2><span class="header-section-number">2.16</span> How can I write a function that takes variable arguments?</h2>
+<h2><span class="header-section-number">2.17</span> How can I write a function that takes variable arguments?</h2>
 <p>If the number of arguments given to a function is not the number expected,
 R complains:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">swap</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)</code></pre>
@@ -1081,7 +1113,7 @@ we must explicitly convert <code>...</code> to a list:</p>
 <pre><code>[1] 16</code></pre>
 </div>
 <div id="how-can-i-provide-default-values-for-arguments" class="section level2">
-<h2><span class="header-section-number">2.17</span> How can I provide default values for arguments?</h2>
+<h2><span class="header-section-number">2.18</span> How can I provide default values for arguments?</h2>
 <p>Like Python and most other modern programming languages,
 R lets us define default values for arguments and then pass arguments by name:</p>
 <pre class="sourceCode r"><code class="sourceCode r">example &lt;-<span class="st"> </span><span class="cf">function</span>(first, <span class="dt">second =</span> <span class="st">&quot;second&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;third&quot;</span>) {
@@ -1111,7 +1143,7 @@ orange &lt;-<span class="st"> </span><span class="cf">function</span>() {
 <pre><code>[1] 110</code></pre>
 </div>
 <div id="how-can-i-hide-the-value-that-r-returns" class="section level2">
-<h2><span class="header-section-number">2.18</span> How can I hide the value that R returns?</h2>
+<h2><span class="header-section-number">2.19</span> How can I hide the value that R returns?</h2>
 <p>If the value returned by a function isn’t assigned to something,
 R displays it.
 Since this usually isn’t what we want in library functions,
@@ -1133,7 +1165,7 @@ we can convert:</p>
 but the output is suppressed.</p>
 </div>
 <div id="how-can-i-assign-to-a-global-variable-from-inside-a-function" class="section level2">
-<h2><span class="header-section-number">2.19</span> How can I assign to a global variable from inside a function?</h2>
+<h2><span class="header-section-number">2.20</span> How can I assign to a global variable from inside a function?</h2>
 <p>The assignment operator <code>&lt;&lt;-</code> means “assign to a variable outside the current scope”.
 As the example below shows,
 this means that what looks like creation of a new local variable
@@ -1153,7 +1185,7 @@ in which functions do not modify their input data,
 and <em>nobody</em> thinks that modifying global variables is a good idea any more.</p>
 </div>
 <div id="key-points" class="section level2">
-<h2><span class="header-section-number">2.20</span> Key Points</h2>
+<h2><span class="header-section-number">2.21</span> Key Points</h2>
 <ul>
 <li>Use <code>print(expression)</code> to print the value of a single expression.</li>
 <li>Variable names may include letters, digits, <code>.</code>, and <code>_</code>, but <code>.</code> should be avoided, as it sometimes has special meaning.</li>
