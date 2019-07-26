@@ -1,4 +1,4 @@
-This folder contains the raw data used in [The Tidynomicon: A Brief Introduction to R for Python Programmers](https://github.com/gvwilson/tidynomicon). This README is modelled on <https://github.com/the-pudding/data/blob/master/pockets/README.md>, which was created for an article in The Pudding titled [Women's Pockets Are Inferior](https://pudding.cool/2018/08/pockets/), and describes each of the data files. See the README in the `tidy/` directory for a description of the table format for each tidied dataset.
+This folder contains the raw data used in [The Tidynomicon: A Brief Introduction to R for People Who Count From Zero](https://github.com/gvwilson/tidynomicon). This README is modelled on <https://github.com/the-pudding/data/blob/master/pockets/README.md>, which was created for an article in The Pudding titled [Women's Pockets Are Inferior](https://pudding.cool/2018/08/pockets/), and describes each of the data files. See the README in the `tidy/` directory for a description of the table format for each tidied dataset.
 
 ## Infants born to women with HIV receiving an HIV test within two months of birth, 2009-2017
 

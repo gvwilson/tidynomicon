@@ -1,6 +1,6 @@
 <div align="center">
   <h1><em>The Tidynomicon</em></h1>
-  <h2><em>A Brief Introduction to R for Python Programmers</em></h2>
+  <h2><em>A Brief Introduction to R for People Who Count From Zero</em></h2>
   <img src="https://raw.githubusercontent.com/gvwilson/tidynomicon/master/figures/index/cthulhu.svg" width="300" />
   <p><em>"Speak not to me of madness, you who count from zero."</em></p>
 </div>

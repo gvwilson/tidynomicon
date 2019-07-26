@@ -2,7 +2,9 @@
 
 STEM=tidynomicon
 CONFIG=_bookdown.yml _output.yml
-SRC=${CONFIG} $(wildcard *.Rmd) $(wildcard *.md)
+FIXED=CITATION.md CONDUCT.md CONTRIBUTING.md LICENSE.md README.md
+TEMP=$(patsubst %.Rmd,%.md,$(wildcard *.Rmd))
+SRC=${CONFIG} ${FIXED} $(wildcard *.Rmd)
 OUT=_book
 EPUB=${OUT}/${STEM}.epub
 HTML=${OUT}/index.html
@@ -43,7 +45,7 @@ ${EPUB} : ${SRC}
 
 ## clean        : clean up generated files.
 clean :
-	@rm -rf ${OUT} ${STEM}.Rmd
+	@rm -rf ${OUT} ${STEM}.Rmd ${TEMP} *.utf8.md *.knit.md
 	@find . -name '*~' -exec rm {} \;
 
 ## check        : internal checks.
@@ -60,7 +62,9 @@ test :
 settings :
 	@echo STEM ${STEM}
 	@echo CONFIG ${CONFIG}
+	@echo FIXED ${FIXED}
 	@echo SRC ${SRC}
+	@echo TEMP ${TEMP}
 	@echo EPUB ${EPUB}
 	@echo HTML ${HTML}
 	@echo PDF ${PDF}

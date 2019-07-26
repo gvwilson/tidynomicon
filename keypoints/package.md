@@ -1,3 +1,11 @@
+- Develop data-cleaning scripts one step at a time, checking intermediate results carefully.
+- Use `read_csv` to read CSV-formatted tabular data into a tibble.
+- Use the `skip` and `na` parameters of `read_csv` to skip rows and interpret certain values as `NA`.
+- Use `str_replace` to replace portions of strings that match patterns with new strings.
+- Use `is.numeric` to test if a value is a number and `as.numeric` to convert it to a number.
+- Use `map` to apply a function to every element of a vector in turn.
+- Use `map_dfc` and `map_dfr` to map functions across the columns and rows of a tibble.
+- Pre-allocate storage in a list for each result from a loop and fill it in rather than repeatedly extending the list.
 - An R package can contain code, data, and documentation.
 - R code is distributed as compiled bytecode in packages, not as source.
 - R packages are almost always distributed through CRAN, the Comprehensive R Archive Network.

@@ -9,12 +9,11 @@ rmd_files:
   - index.Rmd
   - basics.Rmd
   - tidyverse.Rmd
-  - cleanup.Rmd
+  - package.Rmd
   - nse.Rmd
   - debt.Rmd
   - testerror.Rmd
   - oop.Rmd
-  - projects.Rmd
   - python.Rmd
   - shiny.Rmd
   - references.Rmd

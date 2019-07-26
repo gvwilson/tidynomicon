@@ -65,7 +65,7 @@ Padma
 You will learn as much or more from the exercise in this book as from the lessons themselves.
 To start,
 you can create an account on [rstudio.cloud][rstudio-cloud],
-clone [the tidynomicon project][cloud-project],
+clone [the tidynomicon project][tidynomicon-project],
 and work in that.
 If you prefer to work on your own computer,
 you must [install R][r-install] and then [install RStudio][rstudio-install].

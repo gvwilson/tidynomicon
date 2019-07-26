@@ -150,7 +150,7 @@ then that block will be executed,
 but will fail because `sys.argv` won't include anything.
 
 ## Key Points
-```{r, child="keypoints/reticulate.md"}
+```{r, child="keypoints/python.md"}
 ```
 
 ```{r, child="etc/links.md"}

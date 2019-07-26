@@ -13,3 +13,5 @@ docs/*.md
 figures/tidynomicon
 tidynomicon.Rmd
 tidynomicon.tex
+*.knit.md
+*.utf8.md

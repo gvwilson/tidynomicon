@@ -35,7 +35,7 @@ who received an HIV test themselves within two months of birth.
 The original data comes from the UNICEF site at <https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/>,
 and this file contains:
 
-```text
+```
 country,year,estimate,hi,lo
 AFG,2009,NA,NA,NA
 AFG,2010,NA,NA,NA

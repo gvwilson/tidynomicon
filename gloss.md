@@ -178,6 +178,9 @@
 **Pipe operator**<a id="pipe-operator"></a>
 :   the `%>%` used to make the output of one function the input of the next.
 
+**Prefix operator**<a id="prefix-operator"></a>
+:   FIXME
+
 **Promise**<a id="promise"></a>
 :   a data structure used to record an unevaluated expression for lazy evaluation.
 
@@ -221,10 +224,16 @@
 :   to re-use values from a shorter vector in order to generate
     a sequence of the same length as a longer one.
 
+**Regular expression**<a id="regular-expression"></a>
+:   FIXME
+
 **Relative row number**<a id="relative-row-number"></a>
 :   the index of a row in a displayed portion of a table,
     which may or may not be the same as the [absolut row number](glossary.html#absolute-row-number)
     within the table.
+
+**Repository**<a id="repository"></a>
+:   FIXME
 
 **S3**<a id="S3"></a>
 :   a framework for object-oriented programming in R.

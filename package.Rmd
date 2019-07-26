@@ -1,0 +1,1221 @@
+# Creating Packages {#package}
+
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
+Data is not born tidy.
+We must cleanse it to make it serve our needs.
+The previous chapter gave us the tools;
+here,
+we will see how to apply them
+and how to make our work usable by others.
+
+## Learning Objectives
+
+- Describe and use the `read_csv` function.
+- Describe and use the `str_replace` function.
+- Describe and use the `is.numeric` and `as.numeric` functions.
+- Describe and use the `map` function and its kin.
+- Describe and use pre-allocation to capture the results of loops.
+- Describe the three things an R package can contain.
+- Explain how R code in a package is distributed and one implication of this.
+- Explain the purpose of the `DESCRIPTION`, `NAMESPACE` and `.Rbuildignore` files in an R project.
+- Explain what should be put in the `R`, `data`, `man`, and `tests` directories of an R project.
+- Describe and use specially-formatted comments with roxygen2 to document a package.
+- Use `@export` and `@import` directives correctly in roxygen2 documentation.
+- Add a dataset to an R package.
+- Use functions from external libraries inside a package in a hygienic way.
+- Rewrite references to bare column names to satisfy R's packaging checks.
+- Correctly document the package as a whole and the datasets it contains.
+
+## What is our starting point?
+
+Here is a sample of data from the original data set `data/infant_hiv.csv`,
+where `...` shows values elided to make the segment readable:
+
+```
+"Early Infant Diagnosis: Percentage of infants born to women living with HIV...",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,2009,,,2010,,,2011,,,2012,,,2013,,,2014,,,2015,,,2016,,,2017,,,
+ISO3,Countries,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,...
+AFG,Afghanistan,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+ALB,Albania,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+DZA,Algeria,-,-,-,-,-,-,38%,42%,35%,23%,25%,21%,55%,60%,50%,27%,30%,25%,23%,25%,21%,33%,37%,31%,61%,68%,57%,
+AGO,Angola,-,-,-,3%,4%,2%,5%,7%,4%,6%,8%,5%,15%,20%,12%,10%,14%,8%,6%,8%,5%,1%,2%,1%,1%,2%,1%,
+... many more rows ...
+YEM,Yemen,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+ZMB,Zambia,59%,70%,53%,27%,32%,24%,70%,84%,63%,74%,88%,67%,64%,76%,57%,91%,>95%,81%,43%,52%,39%,43%,51%,39%,46%,54%,41%,
+ZWE,Zimbabwe,-,-,-,12%,15%,10%,23%,28%,20%,38%,47%,33%,57%,70%,49%,54%,67%,47%,59%,73%,51%,71%,88%,62%,65%,81%,57%,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,2009,,,2010,,,2011,,,2012,,,2013,,,2014,,,2015,,,2016,,,2017,,,
+,,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,Estimate,hi,lo,...
+Region,East Asia and the Pacific,25%,30%,22%,35%,42%,29%,30%,37%,26%,32%,38%,27%,28%,34%,24%,26%,31%,22%,31%,37%,27%,30%,35%,25%,28%,33%,24%,
+,Eastern and Southern Africa,23%,29%,20%,44%,57%,37%,48%,62%,40%,54%,69%,46%,51%,65%,43%,62%,80%,53%,62%,79%,52%,54%,68%,45%,62%,80%,53%,
+,Eastern Europe and Central Asia,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+... several more rows ...
+,Sub-Saharan Africa,16%,22%,13%,34%,46%,28%,37%,50%,30%,43%,57%,35%,41%,54%,33%,50%,66%,41%,50%,66%,41%,45%,60%,37%,52%,69%,42%,
+,Global,17%,23%,13%,33%,45%,27%,36%,49%,29%,41%,55%,34%,40%,53%,32%,48%,64%,39%,49%,64%,40%,44%,59%,36%,51%,67%,41%,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Indicator definition: Percentage of infants born to women living with HIV... ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Note: Data are not available if country did not submit data...,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Data source: Global AIDS Monitoring 2018 and UNAIDS 2018 estimates,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"For more information on this indicator, please visit the guidance:...",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"For more information on the data, visit data.unicef.org",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+```
+
+This is a mess—no, more than that, it is an affront to decency.
+There are comments mixed with data,
+values' actual indices have to be synthesized by combining column headings from two rows
+(two thirds of which have to be carried forward from previous columns),
+and so on.
+We want to create the tidy data found in `results/infant_hiv.csv`:
+
+```
+country,year,estimate,hi,lo
+AFG,2009,NA,NA,NA
+AFG,2010,NA,NA,NA
+AFG,2011,NA,NA,NA
+AFG,2012,NA,NA,NA
+...
+ZWE,2016,0.71,0.88,0.62
+ZWE,2017,0.65,0.81,0.57
+```
+
+## How do I convert values to numbers?
+
+We begin by reading the data into a tibble:
+
+```{r read-and-head}
+raw <- read_csv("data/infant_hiv.csv")
+head(raw)
+```
+
+All right:
+R isn't able to infer column names,
+so it uses the entire first comment string as a very long column name
+and then makes up names for the other columns.
+Looking at the file,
+the second row has years (spaced at three-column intervals)
+and the column after that has the [ISO3 country code](glossary.html#iso3-country-code),
+the country's name,
+and then "Estimate", "hi", and "lo" repeated for every year.
+We are going to have to combine what's in the second and third rows,
+so we're going to have to do some work no matter which we skip or keep.
+Since we want the ISO3 code and the country name,
+let's skip the first two rows.
+
+```{r read-skip-and-head}
+raw <- read_csv("data/infant_hiv.csv", skip = 2)
+head(raw)
+```
+
+That's a bit of an improvement,
+but why are all the columns `character` instead of numbers?
+This happens because:
+
+1.  our CSV file uses `-` (a single dash) to show missing data, and
+2.  all of our numbers end with `%`, which means those values actually *are* character strings.
+
+We will tackle the first problem by setting `na = c("-")` in our `read_csv` call
+(since we should never do ourselves what a library function will do for us):
+
+```{r read-skip-na-and-head}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+head(raw)
+```
+
+That's progress.
+We now need to strip the percentage signs and convert what's left to numeric values.
+To simplify our lives,
+let's get the `ISO3` and `Countries` columns out of the way.
+We will save the ISO3 values for later use
+(and because it will illustrate a point about data hygiene that we want to make later,
+but which we don't want to reveal just yet).
+Rather than typing out the names of all the columns we want to keep in the call to `filter`,
+we subtract the ones we want to discard:
+
+```{r read-and-filter-mistake, error=TRUE}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+countries <- raw$ISO3
+body <- raw %>%
+  filter(-ISO3, -Countries)
+```
+
+In the Hollywood version of this lesson,
+we would sigh heavily at this point as we realize that we should have called `select`, not `filter`.
+Once we make that change,
+we can move forward once again:
+
+```{r read-and-select}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+countries <- raw$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+head(body)
+```
+
+But wait.
+Weren't there some aggregate lines of data at the end of our input?
+What happened to them?
+
+```{r tail-raw-data}
+tail(countries, n = 25)
+```
+
+Once again the actor playing our part on screen sighs heavily.
+How are we to trim this?
+Since there is only one file,
+we can open the file with an editor or spreadsheet program,
+scroll down,
+check the line number,
+and slice there.
+This is a very bad idea if we're planning to use this script on other files—we should
+instead look for the first blank line or the entry for Zimbabwe or something like that—but
+let's revisit the problem once we have our data in place.
+
+```{r read-slice-and-tail}
+num_rows <- 192
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:num_rows)
+countries <- sliced$ISO3
+tail(countries, n = 5)
+```
+
+Notice that we're counting rows *not including* the two we're skipping,
+which means that the 192 in the call to `slice` above corresponds to row 195 of our original data:
+195, not 194, because we're using the first row of unskipped data as headers and yes,
+you are in fact making that faint whimpering sound you now hear.
+You will hear it often when dealing with real-world data…
+
+Notice also that we are slicing, *then* extracting the column containing the countries.
+In an earlier version of this lesson we peeled off the ISO3 country codes,
+sliced that vector,
+and then wondered why our main table still had unwanted data at the end.
+Vigilance, my friends—vigilance shall be our watchword,
+and in light of that,
+we shall first test our plan for converting our strings to numbers:
+
+```{r demonstrate-str-replace}
+fixture <- c(NA, "1%", "10%", "100%")
+result <- as.numeric(str_replace(fixture, "%", "")) / 100
+result
+```
+
+And as a further check:
+
+```{r check-numeric-result}
+is.numeric(result)
+```
+
+The function `is.numeric` is `TRUE` for both `NA` and actual numbers,
+so it is doing the right thing here,
+and so are we.
+Our updated conversion script is now:
+
+```{r str-replace-fail}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+numbers <- as.numeric(str_replace(body, "%", "")) / 100
+is.numeric(numbers)
+```
+
+Bother.
+It appears that `str_replace` expects an atomic vector rather than a tibble.
+It worked for our test case because that was a character vector,
+but tibbles have more structure than that.
+
+The second complaint is that `NA`s were introduced,
+which is troubling because we didn't get a complaint when we had actual `NA`s in our data.
+However,
+`is.numeric` tells us that all of our results are numbers.
+Let's take a closer look:
+
+```{r check-body-is-tibble}
+is_tibble(body)
+```
+
+```{r check-numbers-is-tibble}
+is_tibble(numbers)
+```
+
+Perdition.
+After browsing the data,
+we realize that some entries are `">95%"`,
+i.e.,
+there is a greater-than sign as well as a percentage in the text.
+We will need to regularize those before we do any conversions.
+
+Before that,
+however,
+let's see if we can get rid of the percent signs.
+The obvious way is is to use `str_replace(body, "%", "")`,
+but that doesn't work:
+`str_replace` works on vectors,
+but a tibble is a list of vectors.
+Instead,
+we can use a [higher-order function](glossary.html#higher-order-function) called `map`
+to apply the function `str_replace` to each column in turn to get rid of the percent signs:
+
+```{r read-and-trim-with-map, output.lines=40}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+trimmed <- map(body, str_replace, pattern = "%", replacement = "")
+head(trimmed)
+```
+
+Perdition once again.
+The problem now is that `map` produces a raw list as output.
+The function we want is `map_dfr`,
+which maps a function across the rows of a tibble and returns a tibble as a result.
+(There is a corresponding function `map_dfc` that maps a function across columns.)
+
+```{r read-and-trim-with-map-dfr}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+trimmed <- map_dfr(body, str_replace, pattern = "%", replacement = "")
+head(trimmed)
+```
+
+Now to tackle those `">95%"` values.
+It turns out that `str_replace` uses [regular expressions](glossary.html#regular-expression),
+not just direct string matches,
+so we can get rid of the `>` at the same time as we get rid of the `%`.
+We will check by looking at the first `Estimate` column,
+which earlier inspection informed us had at least one `">95%"` in it:
+
+```{r use-regexp, output.lines=NA}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
+trimmed$Estimate
+```
+
+Excellent.
+We can now use `map_dfr` to convert the columns to numeric percentages
+using an [anonymous function](glossary.html#anonymous-function) that we define inside the `map_dfr` call itself:
+
+```{r convert-to-percent, output.lines=NA}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
+percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
+head(percents)
+```
+
+27 warnings is rather a lot,
+so let's see what running `warnings()` produces right after the `as.numeric` call:
+
+```{r look-at-warnings, output.lines=20}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- raw %>%
+  select(-ISO3, -Countries)
+trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
+percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
+warnings()
+```
+
+Something is still not right.
+The first `Estimates` column looks all right,
+so let's have a look at the second column:
+
+```{r look-at-trimmed-hi}
+trimmed$hi
+```
+
+Where are the empty strings toward the end of `trimmed$hi` coming from?
+Let's backtrack by examining the `hi` column of each of our intermediate variables interactively in the console…
+
+…and there's our bug.
+We are creating a variable called `sliced` that has only the rows we care about,
+but then using the full table in `raw` to create `body`.
+It's a simple mistake,
+and one that could easily have slipped by us.
+Here is our revised script:
+
+```{r fixing-trim-bug}
+raw <- read_csv("data/infant_hiv.csv", skip = 2, na = c("-"))
+sliced <- slice(raw, 1:192)
+countries <- sliced$ISO3
+body <- sliced %>%
+  select(-ISO3, -Countries)
+trimmed <- map_dfr(body, str_replace, pattern = ">?(\\d+)%", replacement = "\\1")
+percents <- map_dfr(trimmed, function(col) as.numeric(col) / 100)
+```
+
+and here are the checks on the head:
+
+```{r head-of-percents}
+head(percents)
+```
+
+and tail:
+
+```{r tail-of-percents}
+tail(percents)
+```
+
+Comparing this to the raw data file convinces us that yes,
+we are now converting the percentages properly,
+which means we are halfway home.
+
+## How do I reorganize the columns?
+
+We now have numeric values in `percents` and corresponding ISO3 codes in `countries`.
+What we do *not* have is tidy data:
+countries are not associated with records,
+years are not recorded at all,
+and the column headers for `percents` have mostly been manufactured for us by R.
+We must now sew these parts together like Dr. Frankenstein's trusty assistant Igor
+(who, like so many lab assistants, did most of the actual work but was given only crumbs of credit).
+
+We could write a loop to grab three columns at a time and relabel them,
+but a more concise solution makes use of a pair of functions called `pivot_longer` and `separate`.
+`pivot_longer` takes multiple columns and collapses them into two,
+one of which holds a key and the other of which holds a value.
+To show how it works,
+let's create a small tibble by hand using the function `tribble`.
+The first few arguments use `~` as a [prefix operator](glossary.html#prefix-operator) to define columns names,
+and all of the other values are then put into a tibble with those columns:
+
+```{r demonstrate-tribble}
+small <- tribble(
+  ~ISO, ~est, ~hi, ~lo,
+  'ABC', 0.25, 0.3, 0.2,
+  'DEF', 0.55, 0.6, 0.5
+)
+small
+```
+
+and then rearrange the data in `est`, `hi`, and `lo`:
+
+```{r demonstrate-pivot-longer}
+small %>%
+  pivot_longer(cols = c(est, hi, lo), names_to = "kind", values_to = "reported")
+```
+
+The `cols` parameter tells `pivot_longer` which columns to rearrange.
+The new column `names_to` gets the old column titles (in our case, `est`, `hi`, and `lo`),
+while the new column `values_to` gets the values.
+The result is a table which is longer and narrower than the original,
+which is what inspired the function's name.
+(Previous versions of the tidyverse called this function `gather`,
+but users reported that they found the name confusing.)
+
+The other tool we need to rearrange our data is `separate`,
+which splits one column into two.
+For example,
+if we have the year and the heading type in a single column:
+
+```{r fixture-for-separate}
+single <- tribble(
+  ~combined, ~value,
+  '2009-est', 123,
+  '2009-hi',  456,
+  '2009-lo',  789,
+  '2010-est', 987,
+  '2010-hi',  654,
+  '2010-lo',  321
+)
+single
+```
+
+we can get the year and the heading into separate columns by separating on the `-` character:
+
+```{r demonstrate-separate}
+single %>%
+  separate(combined, sep = "-", c("year", "kind"))
+```
+
+Our strategy is therefore going to be:
+
+1.  Replace the double column headers in the existing data with a single header that combines the year with the kind.
+2.  Gather the data so that the year-kind values are in a single column.
+3.  Split that column.
+
+We've seen the tools we need for the second and third step;
+the first involves a little bit of list manipulation.
+Let's start by repeating `"est"`, `"hi"`, and `"lo"` as many times as we need them:
+
+```{r repeating-kind}
+num_years <- 1 + 2017 - 2009
+kinds <- rep(c("est", "hi", "lo"), num_years)
+kinds
+```
+
+As you can probably guess from its name,
+`rep` repeats things a specified number of times,
+and as noted previously,
+a vector of vectors is flattened into a single vector,
+so what an innocent might expect to be `c(c('est', 'hi', 'lo'), c('est', 'hi', 'lo))`
+automatically becomes `c('est', 'hi', 'lo', 'est', 'hi', 'lo)`.
+
+What about the years?
+We want to wind up with:
+
+```{r desired-output, eval=FALSE}
+c("2009", "2009" "2009", "2010", "2010", "2010", ...)
+```
+
+i.e., with each year repeated three times.
+`rep` won't do this,
+but we can get there with `map`:
+
+```{r repeating-years-nested}
+years <- map(2009:2017, rep, 3)
+years
+```
+
+That's almost right,
+but `map` hasn't flattened the list for us.
+Luckily,
+we can use `unlist` to do that:
+
+```{r repeating-years-flattened}
+years <- map(2009:2017, rep, 3) %>% unlist()
+years
+```
+
+We can now combine the years and kinds by pasting the two vectors together with `"-"` as a separator:
+
+```{r combined-headers}
+headers <- paste(years, kinds, sep = "-")
+headers
+```
+
+Remember,
+everything in R is a vector and most functions are vectorized,
+so if we give `paste` two vectors to combine,
+it will paste corresponding elements together and give us a vector result.
+
+Let's use this to relabel the columns of `percents`
+(which holds our data without the ISO country codes):
+
+```{r relabel-columns-extra}
+names(percents) <- headers
+percents
+```
+
+This example shows that `names(table)` doesn't just give us a list of column names:
+it gives us something we can assign to when we want to rename those columns.
+This example also shows us that `percents` has the wrong number of columns.
+Inspecting the tibble in the console,
+we see that the last column is full of NAs:
+
+```{r show-last-column}
+percents[, ncol(percents)]
+```
+
+```{r check-last-column-is-all-na}
+all(is.na(percents[,ncol(percents)]))
+```
+
+Let's relabel our data again and then drop the empty column.
+(There are other ways to do this, but I find steps easier to read after the fact this way.)
+
+```{r relabel-and-drop-empty}
+headers <- c(headers, "empty")
+names(percents) <- headers
+percents <- select(percents, -empty)
+percents
+```
+
+It's time to put the country codes back on the table,
+move the year and kind from column headers to a column with `pivot_longer`,
+and then split that column with `separate`:
+
+```{r create-final-table}
+final <- percents %>%
+  mutate(country = countries) %>%
+  pivot_longer(-country, names_to = "year_kind", values_to = "reported") %>%
+  separate(year_kind, c("year", "kind"), sep = "-")
+final
+```
+
+Here's everything in one function:
+
+```{r all-in-one}
+clean_infant_hiv <- function(filename, num_rows) {
+  # Read raw data.
+  raw <- read_csv(filename, skip = 2, na = c("-")) %>%
+    slice(1:num_rows)
+  
+  # Save the country names to reattach later.
+  countries <- raw$ISO3
+  
+  # Convert data values to percentages.
+  percents <- raw %>%
+    select(-ISO3, -Countries) %>%
+    slice(1:num_rows) %>%
+    map_dfr(str_replace, pattern = ">?(\\d+)%", replacement = "\\1") %>%
+    map_dfr(function(col) as.numeric(col) / 100)
+
+  # Change the headers on the percentages.
+  num_years <- 1 + 2017 - 2009
+  kinds <- rep(c("est", "hi", "lo"), num_years)
+  years <- map(2009:2017, rep, 3) %>% unlist()
+  headers <- c(paste(years, kinds, sep = "-"), "empty")
+  names(percents) <- headers
+  
+  # Stitch everything back together.
+  percents %>%
+    mutate(country = countries) %>%
+    pivot_longer(-country, names_to = "year_kind", values_to = "reported") %>%
+    separate(year_kind, c("year", "kind"), sep = "-")
+}
+
+clean_infant_hiv("data/infant_hiv.csv", 192)
+```
+
+We're done,
+and we have learned a lot of R,
+but what we have also learned is that we make mistakes,
+and that those mistakes can easily slip past us.
+It would be [hubris](glossary.html#hubris) to believe that we will not make more as we continue to clean this data.
+What will guide us safely through these dark caverns and back into the light of day?
+
+The answer is testing.
+We must test our assumptions, test our code, test our very *being* if we are to advance.
+R provides tools for this purpose,
+but in order to use them,
+we must venture into the greater realm of packaging in R.
+
+## How do I create a package?
+
+The more software you write,
+the more you realize that a programming language is mostly
+a way to build and combine software packages.
+Every widely-used language now has an online [repository](glossary.html#repository)
+from which people can download and install packages,
+and sharing ours is a great way to contribute to the community
+that has helped us on our journey.
+
+> ### CRAN and Alternatives
+>
+> [CRAN][cran],
+> the Comprehensive R Archive Network,
+> is the best place to find the packages you need.
+> CRAN's famously strict rules ensure that packages run for everyone,
+> but also makes package development a little more onerous than it might be.
+> You can also share packages directly from GitHub,
+> which many people do while packages are still in development.
+> We will explore this in more detail below.
+
+We cannot turn this tutorial into an R package because we're building it as a website,
+not as a package.
+Instead, we will create an R package called `unicefdata` to hold cleaned-up copies of
+[some HIV/AIDS data][unicef-hiv] and [maternal health data][unicef-maternal] from UNICEF.
+
+## How do I create a package? {#rse-r-package-create}
+
+An R package must contain the following files:
+
+-   The text file `DESCRIPTION` (with no suffix) describes what the package does,
+    who wrote it,
+    and what other packages it requires to run.
+    We will edit its contents as we go along.
+
+-   `NAMESPACE`,
+    (whose name also has no suffix)
+    contains the names of everything exported from the package
+    (i.e., everything that is visible to the outside world).
+    As we will see,
+    we should leave its management in the hands of RStudio
+    and the `devtools` package we will meet below.
+
+-   Just as `.gitignore` tells Git what files in a project to ignore,
+    `.Rbuildignore` tells R which files to include or not include in the package.
+
+-   All of the R source for our package must go in a directory called `R`;
+    sub-directories below this are not allowed.
+
+-   As you would expect from its name,
+    the optional `data` directory contains any data we have put in our package.
+    In order for it to be loadable as part of the package,
+    the data must be saved in R's custom `.rda` format.
+    We will see how to do this below.
+
+-   Manual pages go in the `man` directory.
+    The bad news is that they have to be in a sort-of-LaTeX format
+    that is only a bit less obscure than the runes inscribed on the ancient dagger
+    your colleague brought back from her latest archeological dig.
+    The good news is,
+    we can embed Markdown comments in our source code
+    and use a tool called `roxygen2`
+    to extract them and translate them into the format that R packages require.
+
+-   The `tests` directory holds the package's unit tests.
+    It should contain files with names like <code>test_<em>some_feature</em>.R</code>,
+    which should in turn contain functions named <code>test_<em>something_specific</em></code>.
+    We'll have a closer look at these in Chapter \@ref(testerror).
+
+We can type all of this in if we want,
+but R has a very useful package called `usethis` to help us create and maintain packages.
+To use it,
+we load `usethis` in the console with `library(usethis)`
+and use `usethis::create_package`
+with the path to the new package directory as an argument:
+
+```{r create-package, eval=FALSE}
+usethis::create_package('~/unicefdata')
+```
+
+```
+✔ Creating '/Users/gvwilson/unicefdata/'
+✔ Setting active project to '/Users/gvwilson/unicefdata'
+✔ Creating 'R/'
+✔ Writing 'DESCRIPTION'
+Package: unicefdata
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre] (<https://orcid.org/YOUR-ORCID-ID>)
+Description: What the package does (one paragraph).
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+✔ Writing 'NAMESPACE'
+✔ Writing 'unicefdata.Rproj'
+✔ Adding '.Rproj.user' to '.gitignore'
+✔ Adding '^unicefdata\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore'
+✔ Opening '/Users/gvwilson/unicefdata/' in new RStudio session
+✔ Setting active project to '<no active project>'
+```
+
+Every well-behaved package should have a README file,
+a license,
+and a Code of Conduct,
+so we will ask `usethis` to add those
+*in the RStudio session that just opened up*
+(rather than in the one in which this tutorial is being written,
+and yes,
+imprecations were uttered upon making that mistake for the second time):
+
+```{r package-boilerplate-readme, eval=FALSE}
+usethis::use_readme_md()
+```
+
+```
+✔ Setting active project to '/Users/gvwilson/unicefdata'
+✔ Writing 'README.md'
+● Modify 'README.md'
+```
+
+```{r package-boilerplate-license, eval=FALSE}
+usethis::use_mit_license(name="UNICEF Data")
+```
+
+```
+✔ Setting License field in DESCRIPTION to 'MIT + file LICENSE'
+✔ Writing 'LICENSE.md'
+✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+✔ Writing 'LICENSE'
+```
+
+`use_mit_license` creates two files: `LICENSE` and `LICENSE.md`.
+The rules for R packages require the former,
+but GitHub expects the latter.
+
+```{r package-boilerplate-conduct}
+usethis::use_code_of_conduct()
+```
+
+```
+✔ Writing 'CODE_OF_CONDUCT.md'
+✔ Adding '^CODE_OF_CONDUCT\\.md$' to '.Rbuildignore'
+● Don't forget to describe the code of conduct in your README:
+  Please note that the 'unicefdata' project is released with a
+  [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+  By contributing to this project, you agree to abide by its terms.
+  [Copied to clipboard]
+```
+
+We then edit `README.md` to be:
+
+```
+# unicefdata
+
+unicefdata is a small R data package created for tutorial purposes.
+See `data/README.md` for the provenance of the original data.
+
+## Installation
+
+You can install unicefdata from GitHub with `devtools::install_github("gvwilson/unicefdata)`
+```
+
+and similarly edit `DESCRIPTION` so that it contains:
+
+```
+Package: unicefdata
+Title: Small UNICEF Dataset for Tutorial Purposes
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Greg",
+           family = "Wilson",
+           role = c("aut", "cre"),
+           email = "gvwilson@third-bit.com",
+           comment = c(ORCID = "0000-0001-8659-8979"))
+Description: This package demonstrates how to share small datasets in R.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+```
+
+We can now go to the `Build` tab in RStudio and run `Check`
+to make sure our empty package is judged sane by our strict, yet impartial, machine.
+
+We can now put the function we wrote to clean up the infant HIV data
+in a file called `R/clean_infant_hiv.R`
+either by using `File...New` in RStudio
+or by running `usethis::use_r('clean_infant_hiv.R')`
+(which always creates the file in the `R` directory).
+We do *not* include the line that actually runs the function,
+since we don't want that to happen every time this file is loaded.
+We also fix the number of valid rows inside the function rather than passing it as a parameter,
+since it's highly unlikely that users will know or guess the value 192:
+
+```{r infant-hiv-script}
+clean_infant_hiv <- function(filename) {
+  # Indexes into the specific file.
+  header_rows <- 2
+  num_rows <- 192
+  first_year <- 2009
+  last_year <- 2017
+
+  # Read raw data.
+  raw <- read_csv(filename, skip = header_rows, na = c("-")) %>%
+    slice(1:num_rows)
+  
+  # Save the country names to reattach later.
+  countries <- raw$ISO3
+  
+  # Convert data values to percentages.
+  percents <- raw %>%
+    select(-ISO3, -Countries) %>%
+    slice(1:num_rows) %>%
+    map_dfr(str_replace, pattern = ">?(\\d+)%", replacement = "\\1") %>%
+    map_dfr(function(col) as.numeric(col) / 100)
+
+  # Change the headers on the percentages.
+  num_years <- 1 + last_year - first_year
+  kinds <- rep(c("est", "hi", "lo"), num_years)
+  years <- map(first_year:last_year, rep, 3) %>% unlist()
+  headers <- c(paste(years, kinds, sep = "-"), "empty")
+  names(percents) <- headers
+  
+  # Stitch everything back together.
+  percents %>%
+    mutate(country = countries) %>%
+    pivot_longer(-country, names_to = "year_kind", values_to = "reported") %>%
+    separate(year_kind, c("year", "kind"), sep = "-")
+}
+```
+
+## How can I document the contents of a package?
+
+`Build...Check` runs a lot more checks now
+because we have some actual code for it to look at.
+It also produces some warnings:
+
+```
+── R CMD check results ────────────────────────────── unicefdata 0.0.0.9000 ────
+Duration: 19.5s
+
+❯ checking for missing documentation entries ... WARNING
+  Undocumented code objects:
+    ‘infant_hiv’
+  All user-level objects in a package should have documentation entries.
+  See chapter ‘Writing R documentation files’ in the ‘Writing R
+  Extensions’ manual.
+
+❯ checking R code for possible problems ... NOTE
+  infant_hiv: no visible global function definition for ‘%>%’
+  infant_hiv: no visible global function definition for ‘read_csv’
+  infant_hiv: no visible global function definition for ‘slice’
+  infant_hiv: no visible global function definition for ‘select’
+  infant_hiv: no visible binding for global variable ‘ISO3’
+  infant_hiv: no visible binding for global variable ‘Countries’
+  infant_hiv: no visible global function definition for ‘map_dfr’
+  infant_hiv: no visible binding for global variable ‘str_replace’
+  infant_hiv: no visible global function definition for ‘map’
+  infant_hiv: no visible global function definition for ‘mutate’
+  infant_hiv: no visible global function definition for ‘gather’
+  infant_hiv: no visible binding for global variable ‘country’
+  infant_hiv: no visible global function definition for ‘separate’
+  infant_hiv: no visible binding for global variable ‘year_kind’
+  Undefined global functions or variables:
+    %>% Countries ISO3 country gather map map_dfr mutate read_csv select
+    separate slice str_replace year_kind
+
+0 errors ✔ | 1 warning ✖ | 1 note ✖
+Error: R CMD check found WARNINGs
+Execution halted
+```
+
+A little documentation seems like a fair request.
+For this,
+we turn to Hadley Wickham's *[R Packages][wickham-packages]*
+and Karl Broman's "[R package primer][broman-packages]"
+for advice on writing roxygen2 documentation.
+We then return to our source file and prefix our existing code with this:
+
+```{r doc-block, eval=FALSE}
+#' Tidy up the infant HIV data set.
+#'
+#' @param filename path to source file
+#'
+#' @return a tibble of tidy data
+#'
+#' @export
+
+infant_hiv <- function(filename) {
+  …all the code from before…
+}
+```
+
+roxygen2 processes comment lines that start with `#'` (hash followed by single quote).
+Putting a comment block right before a function associates that documentation with that function,
+so here we are saying that:
+
+-   the function has a single parameter called `filename`;
+-   it returns a tibble of tidy data; and
+-   we want it exported (i.e., we want it to be visible outside the package).
+
+Our function is now documented,
+but when we run `Check`,
+we still get a warning.
+After a bit more searching and experimentation,
+we discover that we need to load the `devtools` package
+and run `devtools::document()` in the console to regenerate documentation—it isn't done automatically.
+
+```{r run-devtools, eval=FALSE}
+devtools::document()
+```
+
+```
+Updating unicefdata documentation
+Updating roxygen version in /Users/gvwilson/unicefdata/DESCRIPTION
+Writing NAMESPACE
+Loading unicefdata
+Writing NAMESPACE
+Writing clean_infant_hiv.Rd
+```
+
+Another check confirms that our function is now documented.
+`NAMESPACE` now contains:
+
+```
+# Generated by roxygen2: do not edit by hand
+
+export(infant_hiv)
+```
+
+The `export` directive signals that we want `infant_hiv` to be visible outside the package,
+and the comment helpfully reminds us that we shouldn't edit this file ourselves,
+but should instead trust our tools to do the work for us.
+As for `man/clean_infant_hiv.Rd`,
+it shows us more clearly than mere words ever could why we want to use `roxygen2`:
+
+```
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clean_infant_hiv.R
+\name{infant_hiv}
+\alias{infant_hiv}
+\title{Tidy up the infant HIV data set.}
+\usage{
+infant_hiv(filename)
+}
+\arguments{
+\item{filename}{path to source file}
+}
+\value{
+a tibble of tidy data
+}
+\description{
+Tidy up the infant HIV data set.
+}
+```
+
+## How can my package import what it needs?
+
+Running the build again still gives us undefined function warnings for `read_csv`, `%>%`, and many others.
+The reason is that R packages are distributed as compiled bytecode,
+*not* as source code (which is how Python does it).
+When a package is built,
+R loads and checks the code,
+then saves the corresponding instructions.
+Our R files should therefore define functions,
+not run commands immediately,
+because if they do the latter,
+those commands will be executed every time the script loads,
+which is probably not what users will want.
+
+As a side effect,
+this means that if a package uses `load(something)`,
+then that `load` command is executed *while the package is being compiled*,
+and *not* while the compiled package is being loaded by a user after distribution.
+Thus,
+this simple and rather pointless "package":
+
+```{r package-eval-example, eval=FALSE}
+library(stringr)
+
+sr <- function(text, pattern, replacement) {
+  str_replace(text, pattern, replacement)
+}
+```
+
+probably won't work when it's loaded by a user,
+because `stringr` may not be in memory on the user's machine at the time `str_replace` is called.
+
+How then can our packages use libraries?
+One way is to add import directives to the documentation for our functions
+to tell R what we depend on:
+
+```{r explicit-magrittr-depend, eval=FALSE}
+#' @import dplyr
+#' @importFrom magrittr %>%
+```
+
+The safer way is to use [fully-qualified names](glossary.html#fully-qualified-name)
+such as `stringr::str_replace`
+every time we call a function defined somewhere outside our package,
+as in:
+
+```{r fully-qualified-names, eval=FALSE}
+  percents %>%
+    dplyr::mutate(country = countries) %>%
+    tidyr::pivot_longer(cols = c(est, hi, lo), names_to = "kind", values_to = "reported")
+    tidyr::separate(year_kind, c("year", "kind"))
+```
+
+This changes the error to one that is slightly more confusing:
+
+```
+── R CMD check results ────────────────────────────── unicefdata 0.0.0.9000 ────
+Duration: 21.3s
+
+❯ checking dependencies in R code ... WARNING
+  '::' or ':::' imports not declared from:
+    ‘dplyr’ ‘purrr’ ‘reader’ ‘stringr’ ‘tidyr’
+
+❯ checking R code for possible problems ... NOTE
+  infant_hiv: no visible global function definition for ‘%>%’
+  infant_hiv: no visible binding for global variable ‘ISO3’
+  infant_hiv: no visible binding for global variable ‘Countries’
+  infant_hiv: no visible binding for global variable ‘purrr’
+  infant_hiv: no visible global function definition for ‘map’
+  infant_hiv: no visible binding for global variable ‘country’
+  infant_hiv: no visible binding for global variable ‘year_kind’
+  Undefined global functions or variables:
+    %>% Countries ISO3 country map purrr year_kind
+```
+
+More searching,
+more experimentation,
+and finally we add this to the `DESCRIPTION` file:
+
+```
+Imports:
+    readr (>= 1.1.0),
+    dplyr (>= 0.7.0),
+    magrittr (>= 1.5.0),
+    purrr (>= 0.2.0),
+    rlang (>= 0.3.0),
+    stringr (>= 1.3.0),
+    tidyr (>= 0.8.3)
+```
+
+The `Imports` field in `DESCRIPTION` actually has nothing to do with importing functions;
+it just ensures that those packages are installed when this package is.
+As for the version numbers in parentheses,
+we got those by running `packageVersion("readr")` and similar commands inside RStudio
+and then rounding off.
+
+But that is still not enough,
+because the check still complains about `%>%`.
+Luckily,
+others have ventured into this poorly-lit basement before us
+and lived to tell the tale.
+`usethis::use_pipe()` at the console creates a file called `R/utils-pipe.R` containing:
+
+```{r use-pipe}
+#' Pipe operator
+#'
+#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL
+```
+
+which is all the documentation we need to satisfy the check.
+
+All right: are we done now?
+No, we are not:
+
+```
+checking R code for possible problems ... NOTE
+tidy_infant_hiv: no visible binding for global variable 'ISO3'
+tidy_infant_hiv: no visible binding for global variable 'Countries'
+tidy_infant_hiv: no visible binding for global variable 'country'
+tidy_infant_hiv: no visible binding for global variable 'year'
+```
+
+This is annoying but understandable.
+When the package builder is checking our code,
+it has no idea what columns are going to be in our data frames,
+so it has no way to know if `ISO3` or `Countries` will cause a problem.
+However,
+this is just a `NOTE`, not an `ERROR`,
+so we can try running "Build…Install and Restart"
+to build our package,
+re-start our R session (so that memory is clean),
+and load our newly-created package,
+and then run `infant_hiv("~/tidynomicon/data/infant_hiv.csv")`.
+
+Our data loads,
+so we return to the problem of "variables" that are actually column names.
+A bit more searching online tells us to add this to the documentation block for our function:
+
+```{r import-rlang-dot-data, eval=FALSE}
+#' @importFrom rlang .data
+```
+
+and then modify the calls that use naked column names to look like:
+
+```{r data-prefix-example, eval=FALSE}
+    dplyr::select(-.data$ISO3, -.data$Countries)
+```
+
+What is this `.data` that we have invoked?
+Typing `?rlang::.data` gives us the answer:
+it is a pronoun that allows us to be explicit when we refer to an object inside the data.
+Adding this—i.e.,
+being explicity that `country` is a column of `.data` rather than an undefined variable—finally
+(finally)
+gives us a clean build.
+
+## How can I add data to a package?
+
+But we are not done,
+because we are never *truly* done,
+any more than we are ever truly safe.
+We still need to add our cleaned-up data to our package
+and document the package as a whole.
+There are three steps to this.
+
+First,
+we put the raw data file into `inst/extdata/infant_hiv.csv`
+Data that *isn't* meant to be loaded directly into are should go in `inst/extdata`.
+The first part of the directory name, `inst`, is short for "install":
+when the package is installed,
+everything in this directory is bumped up a level and put in the installation directory.
+Thus,
+the installation directory will get a sub-directory called `extdata` (for "external data"),
+and that can hold whatever we want.
+
+Next,
+we use `clean_infant_hiv` to put a tidy version of this data in a variable called `infant_hiv`,
+then call `usethis::use_data(infant_hiv)` to store the tibble in `data/infant_hiv.rda`.
+We *must* save the data as `.rda`, not as (for example) `.rds` or `.csv`;
+only `.rda` will be automatically loaded as part of the project.
+(We can write this file using `save` if we want,
+but `usethis::use_data` automatically uses the right format and location.)
+
+We now create a file called `R/infant_hiv.R` to hold documentation about the dataset:
+
+```{r dataset-documentation, eval=FALSE}
+#' Tidied infant HIV data.
+#'
+#' This tidy data is derived from the `infant_hiv.csv` file, which in turn is
+#' derived from an Excel spreadsheet provided by UNICEF - see the README.md file
+#' in the raw data directory for details.
+#'
+#' @format A data frame
+#' \describe{
+#'   \item{country}{Country reporting (ISO3 code)}
+#'   \item{kind}{Type of report (low, estimate, high)}
+#'   \item{reported}{Value reported (may be NA)}
+#'   \item{year}{Year reported}
+#' }
+"infant_hiv"
+```
+
+Everything except the last line is a roxygen2 comment block
+that describes the data in plain language,
+then uses some tags and directives to document its format and fields.
+(Note that we have also documented our data in `inst/extdata/README.md`,
+but that focuses on the format and meaning of the raw data,
+not the cleaned-up version.)
+
+The last line is the string `"infant_hiv"`,
+i.e.,
+the name of the dataset.
+We will create one placeholder R file like this for each of our datasets,
+and each will have that dataset's name as the thing being documented.
+
+Let's run a check:
+
+```
+    Warning: package needs dependence on R (>= 2.10)
+```
+
+That's easy enough to fix—we just add another section to `DESCRIPTION`
+to specify the version of R we depend on:
+
+```
+Depends:
+    R (>= 2.10)
+```
+
+and voilà, a clean build.
+
+We use a similar trick to document the package as a whole:
+we create a file `R/unicefdata.R`
+(i.e., a file with exactly the same name as the package)
+and put this in it:
+
+```{r package-documentation, eval=FALSE}
+#' Clean up and share some data from UNICEF on infant HIV rates.
+#'
+#' @author Greg Wilson, \email{gvwilson@third-bit.com}
+#' @docType package
+#' @name unicefdata
+NULL
+```
+
+That's right:
+to document the entire package,
+we document `NULL`,
+which is one of the few times R uses call-by-value.
+(That's a fairly clumsy joke,
+but honestly,
+who among us is at our best at times like these?)
+
+## Key Points
+```{r keypoints, child="keypoints/package.md"}
+```
+
+```{r links, child="etc/links.md"}
+```
