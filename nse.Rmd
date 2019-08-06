@@ -6,7 +6,7 @@ source("etc/common.R")
 
 The biggest difference between R and Python is not where R starts counting,
 but its use of [lazy evaluation](glossary.html#lazy-evaluation).
-Nothing truly makes sense in R until we understand how this works.
+Nothing in R truly makes sense until we understand how this works.
 
 ## Learning Objectives
 
@@ -31,11 +31,11 @@ print(final)
 ```
 
 When we call `tens_func` we pass it `initial + " more"`;
-since `initial` has just been assigned `"start"`,
+since `initial` has just been assigned the value `"start"`,
 that's the same as calling `tens_func` with `"start more"`.
 `tens_func` then calls `ones_func` with `"start more tens"`,
 and `ones_func` returns `"start more tens ones"`.
-But there's a lot more going on here than first meets the eye.
+But there's more going on here than that two-sentence summary suggests.
 Let's spell out the steps:
 
 ```{python py-def-call-details}
@@ -90,7 +90,7 @@ Note that `tens_arg` points to the same thing in memory as `global_temp_1`,
 since Python passes everything by reference.
 
 Step 4: we ask Python to call `ones_func(tens_arg + " tens")`,
-so it creates another temporary:
+so it creates another temporary variable:
 
 ```{r py-step-4, echo=FALSE, fig.cap="Python Step 4"}
 if (knitr::is_latex_output()) {
@@ -100,7 +100,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Step 5: Python creates a new stack frame to hold the call to `ones_func`:
+Step 5: Python creates a new stack frame to manage the call to `ones_func`:
 
 ```{r py-step-5, echo=FALSE, fig.cap="Python Step 5"}
 if (knitr::is_latex_output()) {
@@ -110,7 +110,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Step 6: Python creates a temporary to hold `ones_arg + "ones"`:
+Step 6: Python creates a temporary variable to hold `ones_arg + "ones"`:
 
 ```{r py-step-6, echo=FALSE, fig.cap="Python Step 6"}
 if (knitr::is_latex_output()) {
@@ -132,7 +132,7 @@ if (knitr::is_latex_output()) {
 ```
 
 Step 8: Python returns from `tens_func`
-and puts its result in `final`:
+and puts that call's result in `final`:
 
 ```{r py-step-8, echo=FALSE, fig.cap="Python Step 8"}
 if (knitr::is_latex_output()) {
@@ -147,7 +147,7 @@ and passes the results of those evaluations to the functions.
 This is called [eager evaluation](glossary.html#eager-evaluation),
 and is what most widely-used programming languages do.
 
-## How does R evaluate the same kind of thing?
+## How does R evaluate function calls?
 
 In contrast,
 R uses [lazy evaluation](glossary.html#lazy-evaluation).
@@ -270,7 +270,7 @@ if (knitr::is_latex_output()) {
 
 Crucially,
 the promise in `tens_func` remembers that it was created in the [global environment](glossary.html#global-environment):
-it's eventually going to need a value for `initial`,
+it will eventually need a value for `initial`,
 so it needs to know where to look to find the right one.
 
 Step 4: since the very next thing we ask for is `paste(tens_arg, "tens")`,
@@ -359,13 +359,12 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-We got the same answer,
+We got the same answer as we did in Python,
 but in a significantly different way.
 Each time we passed something into a function,
 R created a promise to record what it was and where it came from,
 and then resolved the promise when the value was needed.
-R *always* does this:
-if we call:
+R *always* does this—if we call:
 
 ```{r call-sign, eval=FALSE}
 sign(2)
@@ -375,15 +374,13 @@ then behind the scenes,
 R is creating a promise and passing it to `sign`,
 where it is automatically resolved to get the number 2 when its value is needed.
 (If I wanted to be thorough,
-I would have shown the promises passed into `paste` at each stage of execution above,
-but that's a lot of typing.)
+I would have shown the promises passed into `paste` at each stage of execution above.)
 
 ## Why is lazy evaluation useful?
 
 R's lazy evaluation seems pointless
 if it always produces the same answer as Python's eager evaluation,
-but as you may already have guessed,
-it doesn't have to.
+but it doesn't have to.
 To see how powerful lazy evaluation can be,
 let's create an expression of our own:
 
@@ -429,7 +426,7 @@ what if we create something that has a value for `red`:
 color_data <- tribble(
   ~red, ~green,
      1,     10,
-    20,      2
+     2,     20
 )
 color_data
 ```
@@ -442,7 +439,7 @@ eval(my_expr, color_data)
 
 When we do this,
 `eval` looks for definitions of variables in the data structure we've given it—in this case,
-in the tibble `color_data`.
+the tibble `color_data`.
 Since that tibble has a column called `red`,
 `eval(my_expr, color_data)` gives us that column.
 
@@ -457,7 +454,7 @@ add_red_green <- expr(red + green)
 typeof(add_red_green)
 ```
 
-The type of `add_red_green` is `language` rather than `symbol` because it contains more than just a symbol,
+The type of `add_red_green` is `language` rather than `symbol` because it contains more than just a single symbol,
 but it's still an expression,
 so we can evaluate it in the context of our data frame:
 
@@ -479,15 +476,15 @@ run_many_checks <- function(data, ...) {
 }
 ```
 
-It takes a tibble and some logical expressions,
+`run_many_checks` takes a tibble and some logical expressions,
 evaluates each expression in turn,
-and returns a vector of results:
+and returns a list of results:
 
 ```{r call-many-checks}
 run_many_checks(color_data, expr(0 < red), expr(red < green))
 ```
 
-We can take it one step further and simply report whether the checks passed or not:
+We can take it one step further and simply report whether all the checks passed or not:
 
 ```{r report-run-all-checks}
 run_all_checks <- function(data, ...) {
@@ -508,7 +505,7 @@ since we know that arguments aren't evaluated before they're passed into functio
 Can we get rid of this and write something that does this?
 
 ```{r desired-check-call, eval=FALSE}
-check_all(color_data, 0 < red, red < green)
+run_all_checks(color_data, 0 < red, red < green)
 ```
 
 The answer is going to be "yes",
@@ -526,7 +523,7 @@ but it's going to take a bit of work.
 > ```
 >
 > What I did wrong was use `[` instead of `[[`,
-> which meant that `conditions[1]` was not an expression—it wa a list containing a single expression.
+> which meant that `conditions[1]` was not an expression—it was a list containing a single expression.
 > It turns out that evaluating a list containing an expression produces a list of expressions rather than an error,
 > which is so helpful that it only took me an hour to figure out my mistake.
 
@@ -555,8 +552,8 @@ When we try it, it fails:
 check_naive(color_data, red != green)
 ```
 
-This makes sense:
-by the time we get to the `eval` call,
+This actually makes sense:
+by the time we reach the call to `eval`,
 `test` refers to a promise that represents the value of `red != green` in the global environment.
 Promises are not expressions—each promise contains an expression,
 but it also contains an environment and a copy of the expression's value (if it has ever been calculated).
@@ -573,6 +570,7 @@ check_using_substitute <- function(data, test) {
   subst_test <- substitute(test)
   eval(subst_test, data)
 }
+
 check_using_substitute(color_data, red != green)
 ```
 
@@ -580,17 +578,16 @@ However,
 `substitute` is frowned upon because it does one thing when called interactively on the command line
 and something else when called inside a function.
 Instead,
-we should use a function called `enquo` from the rlang package.
+we can use a function called `enquo` from the rlang package.
 `enquo` returns an object called a [quosure](glossary.html#quosure)
-that contains only an unevaluated expression and an environment.
-Let's try using that:
-
+that contains only an unevaluated expression and an environment:
 
 ```{r check-with-enquo-fail}
 check_using_enquo <- function(data, test) {
   q_test <- enquo(test)
   eval(q_test, data)
 }
+
 check_using_enquo(color_data, red != green)
 ```
 
@@ -604,18 +601,88 @@ check_using_quo_get_expr <- function(data, test) {
   q_test <- enquo(test)
   eval(quo_get_expr(q_test), data)
 }
+
 check_using_quo_get_expr(list(left = 1, right = 2), left != right)
 ```
 
-All right:
-we're ready to write `check_all`.
-As a reminder,
-our test data looks like this:
+Enquoting and evaluating expressions is done so often in the tidyverse
+that rlang provides a shortcut called `{{..}}`:
 
-```{r show-my-data}
-color_data
+```{r}
+max_of_var <- function(data, the_var) {
+  data %>%
+    group_by({{ the_var }}) %>%
+    summarize(maximum = max({{ the_var }}))
+}
+
+max_of_var(color_data, red)
 ```
 
+We can use this to write a function `run_two_checks` that runs two checks on some data:
+
+```{r}
+run_two_checks <- function(data, first_check, second_check) {
+  first_result <- data %>%
+    transmute(temp = {{ first_check }}) %>%
+    pull(temp) %>%
+    all()
+  second_result <- data %>%
+    transmute(temp = {{ second_check }})%>%
+    pull(temp) %>% all()
+  first_result && second_result
+}
+
+run_two_checks(color_data, 0 < red, red < green)
+```
+
+That's much easier to follow than a bunch of `enquo` and `eval` calls,
+but what if we want to handle an arbitrary number of checks?
+Our first attempt is this:
+
+```{r error=TRUE}
+new_colors <- tribble(
+  ~yellow, ~violet,
+  1,       10,
+  2,       20
+)
+run_all_checks <- function(data, ...) {
+  conditions <- list(...)
+  result = TRUE
+  for (i in seq_along(conditions)) {
+    cond = conditions[[i]]
+    result <- result && data %>% transmute(temp = {{cond}}) %>% pull(temp) %>% all()
+  }
+  result
+}
+
+run_all_checks(new_colors, 0 < yellow, violet < yellow)
+```
+
+This code fails because the call to `list(...)` tries to evaluate the expressions in `...`
+when adding them to the list.
+What we need to use instead is `enquos`,
+which does what `enquo` does but on `...`:
+
+```{r}
+run_all_checks <- function(data, ...) {
+  conditions <- enquos(...)
+  result = TRUE
+  for (i in seq_along(conditions)) {
+    cond = conditions[[i]]
+    result <- result && data %>%
+      transmute(temp = {{ cond }}) %>%
+      pull(temp) %>%
+      all()
+  }
+  result
+}
+
+run_all_checks(new_colors, 0 < yellow, violet < yellow)
+```
+
+## What if I truly desire to venture into the depths?
+
+We will occasionally need to go one level deeper in tidy evaluation.
 Our first attempt (which only handles a single test) is going to fail on purpose
 to demonstrate a common mistake:
 
@@ -623,7 +690,7 @@ to demonstrate a common mistake:
 check_without_quoting_test <- function(data, test) {
   data %>% transmute(result = test) %>% pull(result) %>% all()
 }
-check_without_quoting_test(color_data, red < green)
+check_without_quoting_test(color_data, yellow < violet)
 ```
 
 That failed because we're not enquoting the test.
@@ -635,7 +702,7 @@ check_without_quoting_test <- function(data, test) {
   x_test <- quo_get_expr(q_test)
   data %>% transmute(result = x_test) %>% pull(result) %>% all()
 }
-check_without_quoting_test(color_data, red < green)
+check_without_quoting_test(new_colors, yellow < violet)
 ```
 
 Damn—we thought this one had a chance.
@@ -657,7 +724,7 @@ check_using_bangbang <- function(data, test) {
   q_test <- enquo(test)
   data %>% transmute(result = !!q_test) %>% pull(result) %>% all()
 }
-check_using_bangbang(color_data, red < green)
+check_using_bangbang(new_colors, yellow < violet)
 ```
 
 We are almost in a state of grace.
@@ -671,23 +738,26 @@ check_all <- function(data, ...) {
   tests <- enquos(...)
   result <- TRUE
   for (t in tests) {
-    result <- result && (data %>% transmute(result = !!t) %>% pull(result) %>% all())
+    result <- result && data %>%
+      transmute(result = !!t) %>%
+      pull(result) %>%
+      all()
   }
   result
 }
 
-check_all(color_data, 0 < red, red < green)
+check_all(new_colors, 0 < yellow, yellow < violet)
 ```
 
-And just to make sure that it succeeds when it's supposed to:
+And just to make sure that it fails when it's supposed to:
 
 ```{r check-all-pass}
-check_all(color_data, red != green)
+check_all(new_colors, yellow == violet)
 ```
 
 Backing up a bit,
 `!!` works because there are
-[two broad categories of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
+[two kinds of functions in R](https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions):
 [evaluating functions](glossary.html#evaluating-function) and
 [quoting functions](glossary.html#quoting-function).
 Evaluating functions take arguments as values—they're what most of us are used to working with.
@@ -722,9 +792,13 @@ Delayed evaluation and quoting are confusing for two reasons:
     It's rather like learning to drive an automatic transmission and then switching to a manual one—all of a sudden
     you have to worry about a gear shift and a clutch.
 2.  R's built-in tools don't behave as consistently as they could,
-    and the functions provided by the tidverse as alternatives use variations on a small number of names:
+    and the core functions provided by the tidverse as alternatives use variations on a small number of names:
     `quo`, `quote`, and `enquo` might all appear on the same page.
 
+That said,
+being able to pass column names to functions without wrapping them in strings is very useful,
+and many powerful tools (such as using formulas in models)
+rely on taking unevaluated expressions apart and rearranging them.
 If you would like to know more,
 or check that what you now think you understand is accurate,
 [this tutorial][lyttle-tutorial] is a good next step.

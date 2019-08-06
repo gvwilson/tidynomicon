@@ -622,8 +622,6 @@ not as a package.
 Instead, we will create an R package called `unicefdata` to hold cleaned-up copies of
 [some HIV/AIDS data][unicef-hiv] and [maternal health data][unicef-maternal] from UNICEF.
 
-## How do I create a package? {#rse-r-package-create}
-
 An R package must contain the following files:
 
 -   The text file `DESCRIPTION` (with no suffix) describes what the package does,

@@ -175,20 +175,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="package.html"><a href="package.html#how-do-i-convert-values-to-numbers"><i class="fa fa-check"></i><b>4.3</b> How do I convert values to numbers?</a></li>
 <li class="chapter" data-level="4.4" data-path="package.html"><a href="package.html#how-do-i-reorganize-the-columns"><i class="fa fa-check"></i><b>4.4</b> How do I reorganize the columns?</a></li>
 <li class="chapter" data-level="4.5" data-path="package.html"><a href="package.html#how-do-i-create-a-package"><i class="fa fa-check"></i><b>4.5</b> How do I create a package?</a></li>
-<li class="chapter" data-level="4.6" data-path="package.html"><a href="package.html#rse-r-package-create"><i class="fa fa-check"></i><b>4.6</b> How do I create a package?</a></li>
-<li class="chapter" data-level="4.7" data-path="package.html"><a href="package.html#how-can-i-document-the-contents-of-a-package"><i class="fa fa-check"></i><b>4.7</b> How can I document the contents of a package?</a></li>
-<li class="chapter" data-level="4.8" data-path="package.html"><a href="package.html#how-can-my-package-import-what-it-needs"><i class="fa fa-check"></i><b>4.8</b> How can my package import what it needs?</a></li>
-<li class="chapter" data-level="4.9" data-path="package.html"><a href="package.html#how-can-i-add-data-to-a-package"><i class="fa fa-check"></i><b>4.9</b> How can I add data to a package?</a></li>
-<li class="chapter" data-level="4.10" data-path="package.html"><a href="package.html#key-points-2"><i class="fa fa-check"></i><b>4.10</b> Key Points</a></li>
+<li class="chapter" data-level="4.6" data-path="package.html"><a href="package.html#how-can-i-document-the-contents-of-a-package"><i class="fa fa-check"></i><b>4.6</b> How can I document the contents of a package?</a></li>
+<li class="chapter" data-level="4.7" data-path="package.html"><a href="package.html#how-can-my-package-import-what-it-needs"><i class="fa fa-check"></i><b>4.7</b> How can my package import what it needs?</a></li>
+<li class="chapter" data-level="4.8" data-path="package.html"><a href="package.html#how-can-i-add-data-to-a-package"><i class="fa fa-check"></i><b>4.8</b> How can I add data to a package?</a></li>
+<li class="chapter" data-level="4.9" data-path="package.html"><a href="package.html#key-points-2"><i class="fa fa-check"></i><b>4.9</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>5</b> Non-Standard Evaluation</a><ul>
 <li class="chapter" data-level="5.1" data-path="nse.html"><a href="nse.html#learning-objectives-3"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="5.2" data-path="nse.html"><a href="nse.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>5.2</b> How does Python evaluate function calls?</a></li>
-<li class="chapter" data-level="5.3" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>5.3</b> How does R evaluate the same kind of thing?</a></li>
+<li class="chapter" data-level="5.3" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-function-calls"><i class="fa fa-check"></i><b>5.3</b> How does R evaluate function calls?</a></li>
 <li class="chapter" data-level="5.4" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>5.4</b> Why is lazy evaluation useful?</a></li>
 <li class="chapter" data-level="5.5" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>5.5</b> What is tidy evaluation?</a></li>
-<li class="chapter" data-level="5.6" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>5.6</b> Is it worth it?</a></li>
-<li class="chapter" data-level="5.7" data-path="nse.html"><a href="nse.html#key-points-3"><i class="fa fa-check"></i><b>5.7</b> Key Points</a></li>
+<li class="chapter" data-level="5.6" data-path="nse.html"><a href="nse.html#what-if-i-truly-desire-to-venture-into-the-depths"><i class="fa fa-check"></i><b>5.6</b> What if I truly desire to venture into the depths?</a></li>
+<li class="chapter" data-level="5.7" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>5.7</b> Is it worth it?</a></li>
+<li class="chapter" data-level="5.8" data-path="nse.html"><a href="nse.html#key-points-3"><i class="fa fa-check"></i><b>5.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="debt.html"><a href="debt.html"><i class="fa fa-check"></i><b>6</b> Intellectual Debt</a><ul>
 <li class="chapter" data-level="6.1" data-path="debt.html"><a href="debt.html#learning-objectives-4"><i class="fa fa-check"></i><b>6.1</b> Learning Objectives</a></li>
@@ -294,7 +294,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> Non-Standard Evaluation</h1>
 <p>The biggest difference between R and Python is not where R starts counting,
 but its use of <a href="glossary.html#lazy-evaluation">lazy evaluation</a>.
-Nothing truly makes sense in R until we understand how this works.</p>
+Nothing in R truly makes sense until we understand how this works.</p>
 <div id="learning-objectives-3" class="section level2">
 <h2><span class="header-section-number">5.1</span> Learning Objectives</h2>
 <ul>
@@ -317,11 +317,11 @@ final <span class="op">=</span> tens_func(initial <span class="op">+</span> <spa
 <span class="bu">print</span>(final)</code></pre>
 <pre><code>start more tens ones</code></pre>
 <p>When we call <code>tens_func</code> we pass it <code>initial + " more"</code>;
-since <code>initial</code> has just been assigned <code>"start"</code>,
+since <code>initial</code> has just been assigned the value <code>"start"</code>,
 that’s the same as calling <code>tens_func</code> with <code>"start more"</code>.
 <code>tens_func</code> then calls <code>ones_func</code> with <code>"start more tens"</code>,
 and <code>ones_func</code> returns <code>"start more tens ones"</code>.
-But there’s a lot more going on here than first meets the eye.
+But there’s more going on here than that two-sentence summary suggests.
 Let’s spell out the steps:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ones_func(ones_arg):
     ones_temp_1 <span class="op">=</span> ones_arg <span class="op">+</span> <span class="st">&quot; ones&quot;</span>
@@ -363,21 +363,21 @@ Figure 5.3: Python Step 3
 <p>Note that <code>tens_arg</code> points to the same thing in memory as <code>global_temp_1</code>,
 since Python passes everything by reference.</p>
 <p>Step 4: we ask Python to call <code>ones_func(tens_arg + " tens")</code>,
-so it creates another temporary:</p>
+so it creates another temporary variable:</p>
 <div class="figure"><span id="fig:py-step-4"></span>
 <img src="figures/nse/python-step-04.svg" alt="Python Step 4"  />
 <p class="caption">
 Figure 5.4: Python Step 4
 </p>
 </div>
-<p>Step 5: Python creates a new stack frame to hold the call to <code>ones_func</code>:</p>
+<p>Step 5: Python creates a new stack frame to manage the call to <code>ones_func</code>:</p>
 <div class="figure"><span id="fig:py-step-5"></span>
 <img src="figures/nse/python-step-05.svg" alt="Python Step 5"  />
 <p class="caption">
 Figure 5.5: Python Step 5
 </p>
 </div>
-<p>Step 6: Python creates a temporary to hold <code>ones_arg + "ones"</code>:</p>
+<p>Step 6: Python creates a temporary variable to hold <code>ones_arg + "ones"</code>:</p>
 <div class="figure"><span id="fig:py-step-6"></span>
 <img src="figures/nse/python-step-06.svg" alt="Python Step 6"  />
 <p class="caption">
@@ -393,7 +393,7 @@ Figure 5.7: Python Step 7
 </p>
 </div>
 <p>Step 8: Python returns from <code>tens_func</code>
-and puts its result in <code>final</code>:</p>
+and puts that call’s result in <code>final</code>:</p>
 <div class="figure"><span id="fig:py-step-8"></span>
 <img src="figures/nse/python-step-08.svg" alt="Python Step 8"  />
 <p class="caption">
@@ -405,8 +405,8 @@ and passes the results of those evaluations to the functions.
 This is called <a href="glossary.html#eager-evaluation">eager evaluation</a>,
 and is what most widely-used programming languages do.</p>
 </div>
-<div id="how-does-r-evaluate-the-same-kind-of-thing" class="section level2">
-<h2><span class="header-section-number">5.3</span> How does R evaluate the same kind of thing?</h2>
+<div id="how-does-r-evaluate-function-calls" class="section level2">
+<h2><span class="header-section-number">5.3</span> How does R evaluate function calls?</h2>
 <p>In contrast,
 R uses <a href="glossary.html#lazy-evaluation">lazy evaluation</a>.
 Here’s an R program that’s roughly equivalent to the Python shown above:</p>
@@ -506,7 +506,7 @@ Figure 5.11: R Step 3
 </div>
 <p>Crucially,
 the promise in <code>tens_func</code> remembers that it was created in the <a href="glossary.html#global-environment">global environment</a>:
-it’s eventually going to need a value for <code>initial</code>,
+it will eventually need a value for <code>initial</code>,
 so it needs to know where to look to find the right one.</p>
 <p>Step 4: since the very next thing we ask for is <code>paste(tens_arg, "tens")</code>,
 R needs a value for <code>tens_arg</code>.
@@ -572,27 +572,24 @@ Figure 5.16: R Step 9
 Figure 5.17: R Step 10
 </p>
 </div>
-<p>We got the same answer,
+<p>We got the same answer as we did in Python,
 but in a significantly different way.
 Each time we passed something into a function,
 R created a promise to record what it was and where it came from,
 and then resolved the promise when the value was needed.
-R <em>always</em> does this:
-if we call:</p>
+R <em>always</em> does this—if we call:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sign</span>(<span class="dv">2</span>)</code></pre>
 <p>then behind the scenes,
 R is creating a promise and passing it to <code>sign</code>,
 where it is automatically resolved to get the number 2 when its value is needed.
 (If I wanted to be thorough,
-I would have shown the promises passed into <code>paste</code> at each stage of execution above,
-but that’s a lot of typing.)</p>
+I would have shown the promises passed into <code>paste</code> at each stage of execution above.)</p>
 </div>
 <div id="why-is-lazy-evaluation-useful" class="section level2">
 <h2><span class="header-section-number">5.4</span> Why is lazy evaluation useful?</h2>
 <p>R’s lazy evaluation seems pointless
 if it always produces the same answer as Python’s eager evaluation,
-but as you may already have guessed,
-it doesn’t have to.
+but it doesn’t have to.
 To see how powerful lazy evaluation can be,
 let’s create an expression of our own:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_expr &lt;-<span class="st"> </span><span class="kw">expr</span>(red)</code></pre>
@@ -619,20 +616,20 @@ what if we create something that has a value for <code>red</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">color_data &lt;-<span class="st"> </span><span class="kw">tribble</span>(
   <span class="op">~</span>red, <span class="op">~</span>green,
      <span class="dv">1</span>,     <span class="dv">10</span>,
-    <span class="dv">20</span>,      <span class="dv">2</span>
+     <span class="dv">2</span>,     <span class="dv">20</span>
 )
 color_data</code></pre>
 <pre><code># A tibble: 2 x 2
     red green
   &lt;dbl&gt; &lt;dbl&gt;
 1     1    10
-2    20     2</code></pre>
+2     2    20</code></pre>
 <p>and then ask R to evaluate our expression in the <a href="glossary.html#context">context</a> of that tibble:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval</span>(my_expr, color_data)</code></pre>
-<pre><code>[1]  1 20</code></pre>
+<pre><code>[1] 1 2</code></pre>
 <p>When we do this,
 <code>eval</code> looks for definitions of variables in the data structure we’ve given it—in this case,
-in the tibble <code>color_data</code>.
+the tibble <code>color_data</code>.
 Since that tibble has a column called <code>red</code>,
 <code>eval(my_expr, color_data)</code> gives us that column.</p>
 <p>This may not seem life-changing yet,
@@ -643,7 +640,7 @@ let’s create another expression:</p>
 <pre class="sourceCode r"><code class="sourceCode r">add_red_green &lt;-<span class="st"> </span><span class="kw">expr</span>(red <span class="op">+</span><span class="st"> </span>green)
 <span class="kw">typeof</span>(add_red_green)</code></pre>
 <pre><code>[1] &quot;language&quot;</code></pre>
-<p>The type of <code>add_red_green</code> is <code>language</code> rather than <code>symbol</code> because it contains more than just a symbol,
+<p>The type of <code>add_red_green</code> is <code>language</code> rather than <code>symbol</code> because it contains more than just a single symbol,
 but it’s still an expression,
 so we can evaluate it in the context of our data frame:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval</span>(add_red_green, color_data)</code></pre>
@@ -658,16 +655,16 @@ Have a look at this function:</p>
   }
   checks
 }</code></pre>
-<p>It takes a tibble and some logical expressions,
+<p><code>run_many_checks</code> takes a tibble and some logical expressions,
 evaluates each expression in turn,
-and returns a vector of results:</p>
+and returns a list of results:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">run_many_checks</span>(color_data, <span class="kw">expr</span>(<span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>red), <span class="kw">expr</span>(red <span class="op">&lt;</span><span class="st"> </span>green))</code></pre>
 <pre><code>[[1]]
 [1] TRUE TRUE
 
 [[2]]
-[1]  TRUE FALSE</code></pre>
-<p>We can take it one step further and simply report whether the checks passed or not:</p>
+[1] TRUE TRUE</code></pre>
+<p>We can take it one step further and simply report whether all the checks passed or not:</p>
 <pre class="sourceCode r"><code class="sourceCode r">run_all_checks &lt;-<span class="st"> </span><span class="cf">function</span>(data, ...) {
   conditions &lt;-<span class="st"> </span><span class="kw">list</span>(...)
   checks &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;logical&quot;</span>, <span class="kw">length</span>(conditions))
@@ -678,12 +675,12 @@ and returns a vector of results:</p>
 }
 
 <span class="kw">run_all_checks</span>(color_data, <span class="kw">expr</span>(<span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>red), <span class="kw">expr</span>(red <span class="op">&lt;</span><span class="st"> </span>green))</code></pre>
-<pre><code>[1] FALSE</code></pre>
+<pre><code>[1] TRUE</code></pre>
 <p>This is cool, but typing <code>expr(...)</code> over and over is kind of clumsy.
 It also seems superfluous,
 since we know that arguments aren’t evaluated before they’re passed into functions.
 Can we get rid of this and write something that does this?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">check_all</span>(color_data, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>red, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">run_all_checks</span>(color_data, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>red, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
 <p>The answer is going to be “yes”,
 but it’s going to take a bit of work.</p>
 <blockquote>
@@ -694,7 +691,7 @@ The first version of <code>run_many_checks</code> essentially did this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">conditions &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">expr</span>(red <span class="op">&lt;</span><span class="st"> </span>green))
 <span class="kw">eval</span>(conditions[<span class="dv">1</span>], color_data)</code></pre>
 <p>What I did wrong was use <code>[</code> instead of <code>[[</code>,
-which meant that <code>conditions[1]</code> was not an expression—it wa a list containing a single expression.
+which meant that <code>conditions[1]</code> was not an expression—it was a list containing a single expression.
 It turns out that evaluating a list containing an expression produces a list of expressions rather than an error,
 which is so helpful that it only took me an hour to figure out my mistake.</p>
 </blockquote>
@@ -713,8 +710,8 @@ our first attempt only handles a single expression:</p>
 <p>When we try it, it fails:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">check_naive</span>(color_data, red <span class="op">!=</span><span class="st"> </span>green)</code></pre>
 <pre><code>Error in eval(test, data): object &#39;green&#39; not found</code></pre>
-<p>This makes sense:
-by the time we get to the <code>eval</code> call,
+<p>This actually makes sense:
+by the time we reach the call to <code>eval</code>,
 <code>test</code> refers to a promise that represents the value of <code>red != green</code> in the global environment.
 Promises are not expressions—each promise contains an expression,
 but it also contains an environment and a copy of the expression’s value (if it has ever been calculated).
@@ -728,20 +725,21 @@ One way is to use a function called <code>substitute</code>:</p>
   subst_test &lt;-<span class="st"> </span><span class="kw">substitute</span>(test)
   <span class="kw">eval</span>(subst_test, data)
 }
+
 <span class="kw">check_using_substitute</span>(color_data, red <span class="op">!=</span><span class="st"> </span>green)</code></pre>
 <pre><code>[1] TRUE TRUE</code></pre>
 <p>However,
 <code>substitute</code> is frowned upon because it does one thing when called interactively on the command line
 and something else when called inside a function.
 Instead,
-we should use a function called <code>enquo</code> from the rlang package.
+we can use a function called <code>enquo</code> from the rlang package.
 <code>enquo</code> returns an object called a <a href="glossary.html#quosure">quosure</a>
-that contains only an unevaluated expression and an environment.
-Let’s try using that:</p>
+that contains only an unevaluated expression and an environment:</p>
 <pre class="sourceCode r"><code class="sourceCode r">check_using_enquo &lt;-<span class="st"> </span><span class="cf">function</span>(data, test) {
   q_test &lt;-<span class="st"> </span><span class="kw">enquo</span>(test)
   <span class="kw">eval</span>(q_test, data)
 }
+
 <span class="kw">check_using_enquo</span>(color_data, red <span class="op">!=</span><span class="st"> </span>green)</code></pre>
 <pre><code>&lt;quosure&gt;
 expr: ^red != green
@@ -754,25 +752,87 @@ which we can get using <code>quo_get_expr</code>:</p>
   q_test &lt;-<span class="st"> </span><span class="kw">enquo</span>(test)
   <span class="kw">eval</span>(<span class="kw">quo_get_expr</span>(q_test), data)
 }
+
 <span class="kw">check_using_quo_get_expr</span>(<span class="kw">list</span>(<span class="dt">left =</span> <span class="dv">1</span>, <span class="dt">right =</span> <span class="dv">2</span>), left <span class="op">!=</span><span class="st"> </span>right)</code></pre>
 <pre><code>[1] TRUE</code></pre>
-<p>All right:
-we’re ready to write <code>check_all</code>.
-As a reminder,
-our test data looks like this:</p>
-<pre class="sourceCode r"><code class="sourceCode r">color_data</code></pre>
+<p>Enquoting and evaluating expressions is done so often in the tidyverse
+that rlang provides a shortcut called <code>{{..}}</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">max_of_var &lt;-<span class="st"> </span><span class="cf">function</span>(data, the_var) {
+  data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>({{ the_var }}) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarize</span>(<span class="dt">maximum =</span> <span class="kw">max</span>({{ the_var }}))
+}
+
+<span class="kw">max_of_var</span>(color_data, red)</code></pre>
 <pre><code># A tibble: 2 x 2
-    red green
-  &lt;dbl&gt; &lt;dbl&gt;
-1     1    10
-2    20     2</code></pre>
-<p>Our first attempt (which only handles a single test) is going to fail on purpose
+    red maximum
+  &lt;dbl&gt;   &lt;dbl&gt;
+1     1       1
+2     2       2</code></pre>
+<p>We can use this to write a function <code>run_two_checks</code> that runs two checks on some data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">run_two_checks &lt;-<span class="st"> </span><span class="cf">function</span>(data, first_check, second_check) {
+  first_result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">transmute</span>(<span class="dt">temp =</span> {{ first_check }}) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">pull</span>(temp) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">all</span>()
+  second_result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">transmute</span>(<span class="dt">temp =</span> {{ second_check }})<span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">pull</span>(temp) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
+  first_result <span class="op">&amp;&amp;</span><span class="st"> </span>second_result
+}
+
+<span class="kw">run_two_checks</span>(color_data, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>red, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<p>That’s much easier to follow than a bunch of <code>enquo</code> and <code>eval</code> calls,
+but what if we want to handle an arbitrary number of checks?
+Our first attempt is this:</p>
+<pre class="sourceCode r"><code class="sourceCode r">new_colors &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>yellow, <span class="op">~</span>violet,
+  <span class="dv">1</span>,       <span class="dv">10</span>,
+  <span class="dv">2</span>,       <span class="dv">20</span>
+)
+run_all_checks &lt;-<span class="st"> </span><span class="cf">function</span>(data, ...) {
+  conditions &lt;-<span class="st"> </span><span class="kw">list</span>(...)
+  result =<span class="st"> </span><span class="ot">TRUE</span>
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(conditions)) {
+    cond =<span class="st"> </span>conditions[[i]]
+    result &lt;-<span class="st"> </span>result <span class="op">&amp;&amp;</span><span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">temp =</span> {{cond}}) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(temp) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
+  }
+  result
+}
+
+<span class="kw">run_all_checks</span>(new_colors, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>yellow, violet <span class="op">&lt;</span><span class="st"> </span>yellow)</code></pre>
+<pre><code>Error in run_all_checks(new_colors, 0 &lt; yellow, violet &lt; yellow): object &#39;yellow&#39; not found</code></pre>
+<p>This code fails because the call to <code>list(...)</code> tries to evaluate the expressions in <code>...</code>
+when adding them to the list.
+What we need to use instead is <code>enquos</code>,
+which does what <code>enquo</code> does but on <code>...</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">run_all_checks &lt;-<span class="st"> </span><span class="cf">function</span>(data, ...) {
+  conditions &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)
+  result =<span class="st"> </span><span class="ot">TRUE</span>
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(conditions)) {
+    cond =<span class="st"> </span>conditions[[i]]
+    result &lt;-<span class="st"> </span>result <span class="op">&amp;&amp;</span><span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">transmute</span>(<span class="dt">temp =</span> {{ cond }}) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">pull</span>(temp) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">all</span>()
+  }
+  result
+}
+
+<span class="kw">run_all_checks</span>(new_colors, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>yellow, violet <span class="op">&lt;</span><span class="st"> </span>yellow)</code></pre>
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div id="what-if-i-truly-desire-to-venture-into-the-depths" class="section level2">
+<h2><span class="header-section-number">5.6</span> What if I truly desire to venture into the depths?</h2>
+<p>We will occasionally need to go one level deeper in tidy evaluation.
+Our first attempt (which only handles a single test) is going to fail on purpose
 to demonstrate a common mistake:</p>
 <pre class="sourceCode r"><code class="sourceCode r">check_without_quoting_test &lt;-<span class="st"> </span><span class="cf">function</span>(data, test) {
   data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">result =</span> test) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
 }
-<span class="kw">check_without_quoting_test</span>(color_data, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
-<pre><code>Error: object &#39;green&#39; not found</code></pre>
+<span class="kw">check_without_quoting_test</span>(color_data, yellow <span class="op">&lt;</span><span class="st"> </span>violet)</code></pre>
+<pre><code>Error: object &#39;yellow&#39; not found</code></pre>
 <p>That failed because we’re not enquoting the test.
 Let’s modify it the code to enquote and then pass in the expression:</p>
 <pre class="sourceCode r"><code class="sourceCode r">check_without_quoting_test &lt;-<span class="st"> </span><span class="cf">function</span>(data, test) {
@@ -780,7 +840,7 @@ Let’s modify it the code to enquote and then pass in the expression:</p>
   x_test &lt;-<span class="st"> </span><span class="kw">quo_get_expr</span>(q_test)
   data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">result =</span> x_test) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
 }
-<span class="kw">check_without_quoting_test</span>(color_data, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
+<span class="kw">check_without_quoting_test</span>(new_colors, yellow <span class="op">&lt;</span><span class="st"> </span>violet)</code></pre>
 <pre><code>Error: Column `result` is of unsupported type quoted call</code></pre>
 <p>Damn—we thought this one had a chance.
 The problem is that when we say <code>result = x_test</code>,
@@ -798,8 +858,8 @@ it does exactly what we want:</p>
   q_test &lt;-<span class="st"> </span><span class="kw">enquo</span>(test)
   data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">result =</span> <span class="op">!!</span>q_test) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>()
 }
-<span class="kw">check_using_bangbang</span>(color_data, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
-<pre><code>[1] FALSE</code></pre>
+<span class="kw">check_using_bangbang</span>(new_colors, yellow <span class="op">&lt;</span><span class="st"> </span>violet)</code></pre>
+<pre><code>[1] TRUE</code></pre>
 <p>We are almost in a state of grace.
 The two rules we must follow are:</p>
 <ol style="list-style-type: decimal">
@@ -810,19 +870,22 @@ The two rules we must follow are:</p>
   tests &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)
   result &lt;-<span class="st"> </span><span class="ot">TRUE</span>
   <span class="cf">for</span> (t <span class="cf">in</span> tests) {
-    result &lt;-<span class="st"> </span>result <span class="op">&amp;&amp;</span><span class="st"> </span>(data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">transmute</span>(<span class="dt">result =</span> <span class="op">!!</span>t) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">all</span>())
+    result &lt;-<span class="st"> </span>result <span class="op">&amp;&amp;</span><span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">transmute</span>(<span class="dt">result =</span> <span class="op">!!</span>t) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">pull</span>(result) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">all</span>()
   }
   result
 }
 
-<span class="kw">check_all</span>(color_data, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>red, red <span class="op">&lt;</span><span class="st"> </span>green)</code></pre>
-<pre><code>[1] FALSE</code></pre>
-<p>And just to make sure that it succeeds when it’s supposed to:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">check_all</span>(color_data, red <span class="op">!=</span><span class="st"> </span>green)</code></pre>
+<span class="kw">check_all</span>(new_colors, <span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>yellow, yellow <span class="op">&lt;</span><span class="st"> </span>violet)</code></pre>
 <pre><code>[1] TRUE</code></pre>
+<p>And just to make sure that it fails when it’s supposed to:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">check_all</span>(new_colors, yellow <span class="op">==</span><span class="st"> </span>violet)</code></pre>
+<pre><code>[1] FALSE</code></pre>
 <p>Backing up a bit,
 <code>!!</code> works because there are
-<a href="https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions">two broad categories of functions in R</a>:
+<a href="https://tidyeval.tidyverse.org/getting-up-to-speed.html#whats-special-about-quoting-functions">two kinds of functions in R</a>:
 <a href="glossary.html#evaluating-function">evaluating functions</a> and
 <a href="glossary.html#quoting-function">quoting functions</a>.
 Evaluating functions take arguments as values—they’re what most of us are used to working with.
@@ -841,28 +904,32 @@ so we can give them a variable containing a column name and get either a single-
     red
   &lt;dbl&gt;
 1     1
-2    20</code></pre>
+2     2</code></pre>
 <p>or a naked vector:</p>
 <pre class="sourceCode r"><code class="sourceCode r">color_data[[the_string_red]]   <span class="co"># double square brackets</span></code></pre>
-<pre><code>[1]  1 20</code></pre>
+<pre><code>[1] 1 2</code></pre>
 </div>
 <div id="is-it-worth-it" class="section level2">
-<h2><span class="header-section-number">5.6</span> Is it worth it?</h2>
+<h2><span class="header-section-number">5.7</span> Is it worth it?</h2>
 <p>Delayed evaluation and quoting are confusing for two reasons:</p>
 <ol style="list-style-type: decimal">
 <li>They expose machinery that most programmers have never had to deal with before (and might not even have known existed).
 It’s rather like learning to drive an automatic transmission and then switching to a manual one—all of a sudden
 you have to worry about a gear shift and a clutch.</li>
 <li>R’s built-in tools don’t behave as consistently as they could,
-and the functions provided by the tidverse as alternatives use variations on a small number of names:
+and the core functions provided by the tidverse as alternatives use variations on a small number of names:
 <code>quo</code>, <code>quote</code>, and <code>enquo</code> might all appear on the same page.</li>
 </ol>
-<p>If you would like to know more,
+<p>That said,
+being able to pass column names to functions without wrapping them in strings is very useful,
+and many powerful tools (such as using formulas in models)
+rely on taking unevaluated expressions apart and rearranging them.
+If you would like to know more,
 or check that what you now think you understand is accurate,
 <a href="https://ijlyttle.shinyapps.io/tidyeval/">this tutorial</a> is a good next step.</p>
 </div>
 <div id="key-points-3" class="section level2">
-<h2><span class="header-section-number">5.7</span> Key Points</h2>
+<h2><span class="header-section-number">5.8</span> Key Points</h2>
 <ul>
 <li>R uses lazy evaluation: expressions are evaluated when their values are needed, not before.</li>
 <li>Use <code>expr</code> to create an expression without evaluating it.</li>

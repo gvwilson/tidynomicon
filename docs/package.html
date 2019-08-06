@@ -175,20 +175,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="package.html"><a href="package.html#how-do-i-convert-values-to-numbers"><i class="fa fa-check"></i><b>4.3</b> How do I convert values to numbers?</a></li>
 <li class="chapter" data-level="4.4" data-path="package.html"><a href="package.html#how-do-i-reorganize-the-columns"><i class="fa fa-check"></i><b>4.4</b> How do I reorganize the columns?</a></li>
 <li class="chapter" data-level="4.5" data-path="package.html"><a href="package.html#how-do-i-create-a-package"><i class="fa fa-check"></i><b>4.5</b> How do I create a package?</a></li>
-<li class="chapter" data-level="4.6" data-path="package.html"><a href="package.html#rse-r-package-create"><i class="fa fa-check"></i><b>4.6</b> How do I create a package?</a></li>
-<li class="chapter" data-level="4.7" data-path="package.html"><a href="package.html#how-can-i-document-the-contents-of-a-package"><i class="fa fa-check"></i><b>4.7</b> How can I document the contents of a package?</a></li>
-<li class="chapter" data-level="4.8" data-path="package.html"><a href="package.html#how-can-my-package-import-what-it-needs"><i class="fa fa-check"></i><b>4.8</b> How can my package import what it needs?</a></li>
-<li class="chapter" data-level="4.9" data-path="package.html"><a href="package.html#how-can-i-add-data-to-a-package"><i class="fa fa-check"></i><b>4.9</b> How can I add data to a package?</a></li>
-<li class="chapter" data-level="4.10" data-path="package.html"><a href="package.html#key-points-2"><i class="fa fa-check"></i><b>4.10</b> Key Points</a></li>
+<li class="chapter" data-level="4.6" data-path="package.html"><a href="package.html#how-can-i-document-the-contents-of-a-package"><i class="fa fa-check"></i><b>4.6</b> How can I document the contents of a package?</a></li>
+<li class="chapter" data-level="4.7" data-path="package.html"><a href="package.html#how-can-my-package-import-what-it-needs"><i class="fa fa-check"></i><b>4.7</b> How can my package import what it needs?</a></li>
+<li class="chapter" data-level="4.8" data-path="package.html"><a href="package.html#how-can-i-add-data-to-a-package"><i class="fa fa-check"></i><b>4.8</b> How can I add data to a package?</a></li>
+<li class="chapter" data-level="4.9" data-path="package.html"><a href="package.html#key-points-2"><i class="fa fa-check"></i><b>4.9</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>5</b> Non-Standard Evaluation</a><ul>
 <li class="chapter" data-level="5.1" data-path="nse.html"><a href="nse.html#learning-objectives-3"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="5.2" data-path="nse.html"><a href="nse.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>5.2</b> How does Python evaluate function calls?</a></li>
-<li class="chapter" data-level="5.3" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>5.3</b> How does R evaluate the same kind of thing?</a></li>
+<li class="chapter" data-level="5.3" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-function-calls"><i class="fa fa-check"></i><b>5.3</b> How does R evaluate function calls?</a></li>
 <li class="chapter" data-level="5.4" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>5.4</b> Why is lazy evaluation useful?</a></li>
 <li class="chapter" data-level="5.5" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>5.5</b> What is tidy evaluation?</a></li>
-<li class="chapter" data-level="5.6" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>5.6</b> Is it worth it?</a></li>
-<li class="chapter" data-level="5.7" data-path="nse.html"><a href="nse.html#key-points-3"><i class="fa fa-check"></i><b>5.7</b> Key Points</a></li>
+<li class="chapter" data-level="5.6" data-path="nse.html"><a href="nse.html#what-if-i-truly-desire-to-venture-into-the-depths"><i class="fa fa-check"></i><b>5.6</b> What if I truly desire to venture into the depths?</a></li>
+<li class="chapter" data-level="5.7" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>5.7</b> Is it worth it?</a></li>
+<li class="chapter" data-level="5.8" data-path="nse.html"><a href="nse.html#key-points-3"><i class="fa fa-check"></i><b>5.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="debt.html"><a href="debt.html"><i class="fa fa-check"></i><b>6</b> Intellectual Debt</a><ul>
 <li class="chapter" data-level="6.1" data-path="debt.html"><a href="debt.html#learning-objectives-4"><i class="fa fa-check"></i><b>6.1</b> Learning Objectives</a></li>
@@ -1453,9 +1453,6 @@ We will explore this in more detail below.</p>
 not as a package.
 Instead, we will create an R package called <code>unicefdata</code> to hold cleaned-up copies of
 <a href="https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/">some HIV/AIDS data</a> and <a href="https://data.unicef.org/resources/dataset/maternal-health-data/">maternal health data</a> from UNICEF.</p>
-</div>
-<div id="rse-r-package-create" class="section level2">
-<h2><span class="header-section-number">4.6</span> How do I create a package?</h2>
 <p>An R package must contain the following files:</p>
 <ul>
 <li><p>The text file <code>DESCRIPTION</code> (with no suffix) describes what the package does,
@@ -1539,8 +1536,6 @@ The rules for R packages require the former,
 but GitHub expects the latter.</p>
 <pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">use_code_of_conduct</span>()</code></pre>
 <pre><code>✔ Setting active project to &#39;/Users/gvwilson/tidynomicon&#39;
-✔ Writing &#39;CODE_OF_CONDUCT.md&#39;
-✔ Adding &#39;^CODE_OF_CONDUCT\\.md$&#39; to &#39;.Rbuildignore&#39;
 ● Don&#39;t forget to describe the code of conduct in your README:
   Please note that the &#39;placeholder&#39; project is released with a
   [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
@@ -1622,7 +1617,7 @@ since it’s highly unlikely that users will know or guess the value 192:</p>
 }</code></pre>
 </div>
 <div id="how-can-i-document-the-contents-of-a-package" class="section level2">
-<h2><span class="header-section-number">4.7</span> How can I document the contents of a package?</h2>
+<h2><span class="header-section-number">4.6</span> How can I document the contents of a package?</h2>
 <p><code>Build...Check</code> runs a lot more checks now
 because we have some actual code for it to look at.
 It also produces some warnings:</p>
@@ -1725,7 +1720,7 @@ Tidy up the infant HIV data set.
 }</code></pre>
 </div>
 <div id="how-can-my-package-import-what-it-needs" class="section level2">
-<h2><span class="header-section-number">4.8</span> How can my package import what it needs?</h2>
+<h2><span class="header-section-number">4.7</span> How can my package import what it needs?</h2>
 <p>Running the build again still gives us undefined function warnings for <code>read_csv</code>, <code>%&gt;%</code>, and many others.
 The reason is that R packages are distributed as compiled bytecode,
 <em>not</em> as source code (which is how Python does it).
@@ -1849,7 +1844,7 @@ being explicity that <code>country</code> is a column of <code>.data</code> rath
 gives us a clean build.</p>
 </div>
 <div id="how-can-i-add-data-to-a-package" class="section level2">
-<h2><span class="header-section-number">4.9</span> How can I add data to a package?</h2>
+<h2><span class="header-section-number">4.8</span> How can I add data to a package?</h2>
 <p>But we are not done,
 because we are never <em>truly</em> done,
 any more than we are ever truly safe.
@@ -1924,7 +1919,7 @@ but honestly,
 who among us is at our best at times like these?)</p>
 </div>
 <div id="key-points-2" class="section level2">
-<h2><span class="header-section-number">4.10</span> Key Points</h2>
+<h2><span class="header-section-number">4.9</span> Key Points</h2>
 <ul>
 <li>Develop data-cleaning scripts one step at a time, checking intermediate results carefully.</li>
 <li>Use <code>read_csv</code> to read CSV-formatted tabular data into a tibble.</li>

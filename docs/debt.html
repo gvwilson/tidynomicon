@@ -175,20 +175,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="package.html"><a href="package.html#how-do-i-convert-values-to-numbers"><i class="fa fa-check"></i><b>4.3</b> How do I convert values to numbers?</a></li>
 <li class="chapter" data-level="4.4" data-path="package.html"><a href="package.html#how-do-i-reorganize-the-columns"><i class="fa fa-check"></i><b>4.4</b> How do I reorganize the columns?</a></li>
 <li class="chapter" data-level="4.5" data-path="package.html"><a href="package.html#how-do-i-create-a-package"><i class="fa fa-check"></i><b>4.5</b> How do I create a package?</a></li>
-<li class="chapter" data-level="4.6" data-path="package.html"><a href="package.html#rse-r-package-create"><i class="fa fa-check"></i><b>4.6</b> How do I create a package?</a></li>
-<li class="chapter" data-level="4.7" data-path="package.html"><a href="package.html#how-can-i-document-the-contents-of-a-package"><i class="fa fa-check"></i><b>4.7</b> How can I document the contents of a package?</a></li>
-<li class="chapter" data-level="4.8" data-path="package.html"><a href="package.html#how-can-my-package-import-what-it-needs"><i class="fa fa-check"></i><b>4.8</b> How can my package import what it needs?</a></li>
-<li class="chapter" data-level="4.9" data-path="package.html"><a href="package.html#how-can-i-add-data-to-a-package"><i class="fa fa-check"></i><b>4.9</b> How can I add data to a package?</a></li>
-<li class="chapter" data-level="4.10" data-path="package.html"><a href="package.html#key-points-2"><i class="fa fa-check"></i><b>4.10</b> Key Points</a></li>
+<li class="chapter" data-level="4.6" data-path="package.html"><a href="package.html#how-can-i-document-the-contents-of-a-package"><i class="fa fa-check"></i><b>4.6</b> How can I document the contents of a package?</a></li>
+<li class="chapter" data-level="4.7" data-path="package.html"><a href="package.html#how-can-my-package-import-what-it-needs"><i class="fa fa-check"></i><b>4.7</b> How can my package import what it needs?</a></li>
+<li class="chapter" data-level="4.8" data-path="package.html"><a href="package.html#how-can-i-add-data-to-a-package"><i class="fa fa-check"></i><b>4.8</b> How can I add data to a package?</a></li>
+<li class="chapter" data-level="4.9" data-path="package.html"><a href="package.html#key-points-2"><i class="fa fa-check"></i><b>4.9</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="nse.html"><a href="nse.html"><i class="fa fa-check"></i><b>5</b> Non-Standard Evaluation</a><ul>
 <li class="chapter" data-level="5.1" data-path="nse.html"><a href="nse.html#learning-objectives-3"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="5.2" data-path="nse.html"><a href="nse.html#how-does-python-evaluate-function-calls"><i class="fa fa-check"></i><b>5.2</b> How does Python evaluate function calls?</a></li>
-<li class="chapter" data-level="5.3" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-the-same-kind-of-thing"><i class="fa fa-check"></i><b>5.3</b> How does R evaluate the same kind of thing?</a></li>
+<li class="chapter" data-level="5.3" data-path="nse.html"><a href="nse.html#how-does-r-evaluate-function-calls"><i class="fa fa-check"></i><b>5.3</b> How does R evaluate function calls?</a></li>
 <li class="chapter" data-level="5.4" data-path="nse.html"><a href="nse.html#why-is-lazy-evaluation-useful"><i class="fa fa-check"></i><b>5.4</b> Why is lazy evaluation useful?</a></li>
 <li class="chapter" data-level="5.5" data-path="nse.html"><a href="nse.html#what-is-tidy-evaluation"><i class="fa fa-check"></i><b>5.5</b> What is tidy evaluation?</a></li>
-<li class="chapter" data-level="5.6" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>5.6</b> Is it worth it?</a></li>
-<li class="chapter" data-level="5.7" data-path="nse.html"><a href="nse.html#key-points-3"><i class="fa fa-check"></i><b>5.7</b> Key Points</a></li>
+<li class="chapter" data-level="5.6" data-path="nse.html"><a href="nse.html#what-if-i-truly-desire-to-venture-into-the-depths"><i class="fa fa-check"></i><b>5.6</b> What if I truly desire to venture into the depths?</a></li>
+<li class="chapter" data-level="5.7" data-path="nse.html"><a href="nse.html#is-it-worth-it"><i class="fa fa-check"></i><b>5.7</b> Is it worth it?</a></li>
+<li class="chapter" data-level="5.8" data-path="nse.html"><a href="nse.html#key-points-3"><i class="fa fa-check"></i><b>5.8</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="debt.html"><a href="debt.html"><i class="fa fa-check"></i><b>6</b> Intellectual Debt</a><ul>
 <li class="chapter" data-level="6.1" data-path="debt.html"><a href="debt.html#learning-objectives-4"><i class="fa fa-check"></i><b>6.1</b> Learning Objectives</a></li>
@@ -687,12 +687,12 @@ which shows us where objects live in the computer’s memory:</p>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7feda25e96c8&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7fd8360f4dc8&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7feda25e96c8 -&gt; 0x7feda2b46e48]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7feda2b46e48 -&gt; 0x7feda2b46f48]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7feda2b46f48 -&gt; 0x7feda2b47048]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7feda2b47048 -&gt; 0x7feda2b470c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7fd8360f4dc8 -&gt; 0x7fd8352f2608]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fd8352f2608 -&gt; 0x7fd8352f2748]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fd8352f2748 -&gt; 0x7fd8352f2848]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fd8352f2848 -&gt; 0x7fd8352f28c8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
@@ -703,13 +703,13 @@ We can accomplish something a little more readable using <code>pryr::address</co
 <pre><code>Registered S3 method overwritten by &#39;pryr&#39;:
   method      from
   print.bytes Rcpp</code></pre>
-<pre><code>left column is initially at 0x7feda2b46ec8</code></pre>
+<pre><code>left column is initially at 0x7fd8352f26c8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7feda2b46ec8</code></pre>
+<pre><code>after modification, the original column is still at 0x7fd8352f26c8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7fed9f05ec88</code></pre>
+<pre><code>but the first column is at 0x7fd835bcd588</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.
