@@ -1,6 +1,7 @@
 bookdown::gitbook:
   highlight: tango
   css: style.css
+  toc_depth: 2
   config:
     download: ["pdf", "epub"]
     toc:
