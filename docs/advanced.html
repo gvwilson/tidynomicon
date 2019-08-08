@@ -211,7 +211,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="advanced.html"><a href="advanced.html#learning-objectives-6"><i class="fa fa-check"></i><b>8.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced.html"><a href="advanced.html#how-can-i-use-python-with-r"><i class="fa fa-check"></i><b>8.2</b> How can I use Python with R?</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced.html"><a href="advanced.html#how-does-object-oriented-programming-work-in-r"><i class="fa fa-check"></i><b>8.3</b> How does object-oriented programming work in R?</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced.html"><a href="advanced.html#key-points-6"><i class="fa fa-check"></i><b>8.4</b> Key Points</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>8.4</b> How can I work with relational databases in R?</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced.html"><a href="advanced.html#key-points-6"><i class="fa fa-check"></i><b>8.5</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>9</b> Web Applications</a><ul>
 <li class="chapter" data-level="9.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-7"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
@@ -285,6 +286,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Explain what attributes R and correctly set and query objects’ attributes, class, and dimensions.</li>
 <li>Explain how to define a new method for a class.</li>
 <li>Describe and implement the three functions that should be written for any user-defined class.</li>
+<li>FIXME: databases</li>
 </ul>
 </div>
 <div id="how-can-i-use-python-with-r" class="section level2">
@@ -375,7 +377,7 @@ For example,
 we can use Python’s random number generator in R as follows:</p>
 <pre class="sourceCode r"><code class="sourceCode r">pyrand &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;random&quot;</span>)
 pyrand<span class="op">$</span><span class="kw">gauss</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
-<pre><code>[1] -0.7287828</code></pre>
+<pre><code>[1] -1.831542</code></pre>
 <p>(There’s no reason to do this—R’s random number generator is just as strong—but it illustrates the point.)</p>
 <p>We can also source Python scripts.
 For example,
@@ -670,8 +672,396 @@ we will almost always place all of the methods associated with a class in the sa
 The time has finally come for us to explore projects and packages.</p>
 </div>
 </div>
+<div id="how-can-i-work-with-relational-databases-in-r" class="section level2">
+<h2><span class="header-section-number">8.4</span> How can I work with relational databases in R?</h2>
+<p>Data frames and database tables go together as naturally as chocolate and the tears of our fallen foes.
+As in Python and other languages,
+there is a standard interface for connecting to and querying relational databases;
+each database is then supported by a package that implements that interface.
+This doesn’t completely hide the differences between databases—we must still worry about
+the quirks of various SQL dialects—but it does keep the R side of things simple.</p>
+<p>This tutorial uses the SQLite database and the RSQLite interface package.
+The former is included with the latter,
+so <code>install.packages("RSQLite")</code> will give you everything you need.
+We assume that you already speak enough SQL to get yourself into trouble;
+if you do not, <a href="https://swcarpentry.github.io/sql-novice-survey/">this tutorial</a> is a good place to start.</p>
+<div id="how-can-i-get-data-from-a-database" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> How can I get data from a database?</h3>
+<p>Suppose we have a small database in <code>data/example.db</code>
+containing survey data salvaged from a series of doomed expeditions to the Antarctic in the 1920s and 1930s.
+The database contains four tables:</p>
+<p><strong>Person</strong>: people who took readings.</p>
+<table>
+<thead>
+<tr class="header">
+<th>person_id</th>
+<th>personal</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dyer</td>
+<td>William</td>
+<td>Dyer</td>
+</tr>
+<tr class="even">
+<td>pb</td>
+<td>Frank</td>
+<td>Pabodie</td>
+</tr>
+<tr class="odd">
+<td>lake</td>
+<td>Anderson</td>
+<td>Lake</td>
+</tr>
+<tr class="even">
+<td>roe</td>
+<td>Valentina</td>
+<td>Roerich</td>
+</tr>
+<tr class="odd">
+<td>danforth</td>
+<td>Frank</td>
+<td>Danforth</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Site</strong>: locations where readings were taken.</p>
+<table>
+<thead>
+<tr class="header">
+<th>site_id</th>
+<th>lat</th>
+<th>long</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DR-1</td>
+<td>-49.85</td>
+<td>-128.57</td>
+</tr>
+<tr class="even">
+<td>DR-3</td>
+<td>-47.15</td>
+<td>-126.72</td>
+</tr>
+<tr class="odd">
+<td>MSK-4</td>
+<td>-48.87</td>
+<td>-123.4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Visited</strong>: when readings were taken at specific sites.</p>
+<table>
+<thead>
+<tr class="header">
+<th>visit_id</th>
+<th>site_id</th>
+<th>dated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>619</td>
+<td>DR-1</td>
+<td>1927-02-08</td>
+</tr>
+<tr class="even">
+<td>622</td>
+<td>DR-1</td>
+<td>1927-02-10</td>
+</tr>
+<tr class="odd">
+<td>734</td>
+<td>DR-3</td>
+<td>1930-01-07</td>
+</tr>
+<tr class="even">
+<td>735</td>
+<td>DR-3</td>
+<td>1930-01-12</td>
+</tr>
+<tr class="odd">
+<td>751</td>
+<td>DR-3</td>
+<td>1930-02-26</td>
+</tr>
+<tr class="even">
+<td>752</td>
+<td>DR-3</td>
+<td>-null-</td>
+</tr>
+<tr class="odd">
+<td>837</td>
+<td>MSK-4</td>
+<td>1932-01-14</td>
+</tr>
+<tr class="even">
+<td>844</td>
+<td>DR-1</td>
+<td>1932-03-22</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Measurements</strong>: the actual readings.</p>
+<table>
+<thead>
+<tr class="header">
+<th>visit_id</th>
+<th>visitor</th>
+<th>quantity</th>
+<th>reading</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>619</td>
+<td>dyer</td>
+<td>rad</td>
+<td>9.82</td>
+</tr>
+<tr class="even">
+<td>619</td>
+<td>dyer</td>
+<td>sal</td>
+<td>0.13</td>
+</tr>
+<tr class="odd">
+<td>622</td>
+<td>dyer</td>
+<td>rad</td>
+<td>7.8</td>
+</tr>
+<tr class="even">
+<td>622</td>
+<td>dyer</td>
+<td>sal</td>
+<td>0.09</td>
+</tr>
+<tr class="odd">
+<td>734</td>
+<td>pb</td>
+<td>rad</td>
+<td>8.41</td>
+</tr>
+<tr class="even">
+<td>734</td>
+<td>lake</td>
+<td>sal</td>
+<td>0.05</td>
+</tr>
+<tr class="odd">
+<td>734</td>
+<td>pb</td>
+<td>temp</td>
+<td>-21.5</td>
+</tr>
+<tr class="even">
+<td>735</td>
+<td>pb</td>
+<td>rad</td>
+<td>7.22</td>
+</tr>
+<tr class="odd">
+<td>735</td>
+<td>-null-</td>
+<td>sal</td>
+<td>0.06</td>
+</tr>
+<tr class="even">
+<td>735</td>
+<td>-null-</td>
+<td>temp</td>
+<td>-26.0</td>
+</tr>
+<tr class="odd">
+<td>751</td>
+<td>pb</td>
+<td>rad</td>
+<td>4.35</td>
+</tr>
+<tr class="even">
+<td>751</td>
+<td>pb</td>
+<td>temp</td>
+<td>-18.5</td>
+</tr>
+<tr class="odd">
+<td>751</td>
+<td>lake</td>
+<td>sal</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>752</td>
+<td>lake</td>
+<td>rad</td>
+<td>2.19</td>
+</tr>
+<tr class="odd">
+<td>752</td>
+<td>lake</td>
+<td>sal</td>
+<td>0.09</td>
+</tr>
+<tr class="even">
+<td>752</td>
+<td>lake</td>
+<td>temp</td>
+<td>-16.0</td>
+</tr>
+<tr class="odd">
+<td>752</td>
+<td>roe</td>
+<td>sal</td>
+<td>41.6</td>
+</tr>
+<tr class="even">
+<td>837</td>
+<td>lake</td>
+<td>rad</td>
+<td>1.46</td>
+</tr>
+<tr class="odd">
+<td>837</td>
+<td>lake</td>
+<td>sal</td>
+<td>0.21</td>
+</tr>
+<tr class="even">
+<td>837</td>
+<td>roe</td>
+<td>sal</td>
+<td>22.5</td>
+</tr>
+<tr class="odd">
+<td>844</td>
+<td>roe</td>
+<td>rad</td>
+<td>11.25</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s get the data about the people into a data frame:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DBI)
+db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;example.db&quot;</span>))
+<span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from Person;&quot;</span>)</code></pre>
+<pre><code>  person_id personal_name family_name
+1      dyer       William        Dyer
+2        pb         Frank     Pabodie
+3      lake      Anderson        Lake
+4       roe     Valentina     Roerich
+5  danforth         Frank    Danforth</code></pre>
+<p>That seems simple enough:
+the database connection is the first argument to <code>dbGetQuery</code>,
+the query itself is the second,
+and the result is a tibble whose column names correspond to the names of the fields in the database table.
+What if we want to parameterize our query?
+Inside the text of the query,
+we use <code>:name</code> as a placeholder for a query parameter,
+then pass a list of name-value pairs to specify what we actually want:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbGetQuery</span>(db,
+           <span class="st">&quot;select * from Measurements where quantity = :desired&quot;</span>,
+           <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">desired =</span> <span class="st">&quot;rad&quot;</span>))</code></pre>
+<pre><code>  visit_id person_id quantity reading
+1      619      dyer      rad    9.82
+2      622      dyer      rad    7.80
+3      734        pb      rad    8.41
+4      735        pb      rad    7.22
+5      751        pb      rad    4.35
+6      752      lake      rad    2.19
+7      837      lake      rad    1.46
+8      844       roe      rad   11.25</code></pre>
+<p>Do <em>not</em> use <code>glue</code> or some other kind of string interpolation to construct database queries,
+as this can leave you open to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection attacks</a>
+and other forms of digital damnation.</p>
+<p>If you expect a large set of results,
+it’s best to page through them:</p>
+<pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw">dbSendQuery</span>(db, <span class="st">&quot;select * from Measurements limit 15;&quot;</span>)
+<span class="cf">while</span> (<span class="op">!</span><span class="kw">dbHasCompleted</span>(results)) {
+  chunk &lt;-<span class="st"> </span><span class="kw">dbFetch</span>(results, <span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># artificially low for tutorial purposes</span>
+  <span class="kw">print</span>(chunk)
+}</code></pre>
+<pre><code>  visit_id person_id quantity reading
+1      619      dyer      rad    9.82
+2      619      dyer      sal    0.13
+3      622      dyer      rad    7.80
+  visit_id person_id quantity reading
+1      622      dyer      sal    0.09
+2      734        pb      rad    8.41
+3      734      lake      sal    0.05
+  visit_id person_id quantity reading
+1      734        pb     temp  -21.50
+2      735        pb      rad    7.22
+3      735      &lt;NA&gt;      sal    0.06
+  visit_id person_id quantity reading
+1      735      &lt;NA&gt;     temp  -26.00
+2      751        pb      rad    4.35
+3      751        pb     temp  -18.50</code></pre>
+<pre><code>Warning in result_fetch(res@ptr, n = n): Column `reading`: mixed type,
+first seen values of type real, coercing other values of type string</code></pre>
+<pre><code>  visit_id person_id quantity reading
+1      751      lake      sal    0.00
+2      752      lake      rad    2.19
+3      752      lake      sal    0.09</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbClearResult</span>(results)</code></pre>
+<p>FIXME: why the error?</p>
+</div>
+<div id="how-can-i-populate-databases-with-r" class="section level3">
+<h3><span class="header-section-number">8.4.2</span> How can I populate databases with R?</h3>
+<p>Data scientists spend most of their time reading data, but someone has to create it.
+RSQLite makes it easy to map a data frame directly to a database table;
+to show how it works,
+we will create an in-memory database:</p>
+<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>name, <span class="op">~</span>red, <span class="op">~</span>green, <span class="op">~</span>blue,
+  <span class="st">&#39;black&#39;</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+  <span class="st">&#39;yellow&#39;</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">0</span>,
+  <span class="st">&#39;aqua&#39;</span>, <span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">255</span>,
+  <span class="st">&#39;fuchsia&#39;</span>, <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>
+)
+db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&#39;:memory:&#39;</span>)
+<span class="kw">dbWriteTable</span>(db, <span class="st">&quot;colors&quot;</span>, colors)</code></pre>
+<p>Let’s see what the combination of R and SQLite has done with our data and the types thereof:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from colors;&quot;</span>)</code></pre>
+<pre><code>     name red green blue
+1   black   0     0    0
+2  yellow 255   255    0
+3    aqua   0   255  255
+4 fuchsia 255     0    0</code></pre>
+<p>Good: the types have been guessed correctly.</p>
+<p>But what about dates?</p>
+<pre class="sourceCode r"><code class="sourceCode r">appointments &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>who, <span class="op">~</span>when,
+  <span class="st">&#39;Dyer&#39;</span>, <span class="st">&#39;1927-03-01&#39;</span>,
+  <span class="st">&#39;Peabody&#39;</span>, <span class="st">&#39;1927-05-05&#39;</span>
+) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">when =</span> lubridate<span class="op">::</span><span class="kw">as_date</span>(when))
+<span class="kw">dbWriteTable</span>(db, <span class="st">&quot;appointments&quot;</span>, appointments)
+<span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from appointments;&quot;</span>)</code></pre>
+<pre><code>      who   when
+1    Dyer -15647
+2 Peabody -15582</code></pre>
+<p>What fresh hell is this?
+After considerable trial and error,
+we discover that our dates have been returned to us as
+the number of days since January 1, 1970:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(db,
+           <span class="st">&quot;insert into appointments values(&#39;Testing&#39;, :the_date);&quot;</span>,
+           <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">the_date =</span> lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&#39;1971-01-01&#39;</span>)))</code></pre>
+<pre><code>[1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from appointments where who = &#39;Testing&#39;;&quot;</span>)</code></pre>
+<pre><code>      who when
+1 Testing  365</code></pre>
+<p>There is no point screaming:
+those who might pity you cannot hear,
+and those who can hear will definitely not pity you.</p>
+</div>
+</div>
 <div id="key-points-6" class="section level2">
-<h2><span class="header-section-number">8.4</span> Key Points</h2>
+<h2><span class="header-section-number">8.5</span> Key Points</h2>
 <ul>
 <li>The <code>reticulate</code> library allows R programs to access data in Python programs and vice versa.</li>
 <li>Use <code>py.whatever</code> to access a top-level Python variable from R.</li>
@@ -686,6 +1076,13 @@ The time has finally come for us to explore projects and packages.</p>
 <li>When <code>F(X, ...)</code> is called, and <code>X</code> has class <code>C</code>, R looks for a function called <code>F.C</code> (the <code>.</code> is just a naming convention).</li>
 <li>If an object has multiple classes in its <code>class</code> attribute, R looks for a corresponding method for each in turn.</li>
 <li>Every user defined class <code>C</code> should have functions <code>new_C</code> (to create it), <code>validate_C</code> (to validate its integrity), and <code>C</code> (to create and validate).</li>
+<li>Use the <code>DBI</code> package to work with relational databases.</li>
+<li>Use <code>DBI::dbConnect(...)</code> with database-specific parameters to connect to a specific database.</li>
+<li>Use <code>dbGetQuery(connection, "query")</code> to send an SQL query string to a database and get a data frame of results.</li>
+<li>Parameterize queries using <code>:name</code> as a placeholder in the query and <code>params = list(name = value)</code> as a third parameter to <code>dbGetQuery</code> to specify actual values.</li>
+<li>Use <code>dbFetch</code> in a <code>while</code> loop to page results.</li>
+<li>Use <code>dbWriteTable</code> to write an entire data frame to a table, and <code>dbExecute</code> to execute a single insertion statement.</li>
+<li>Dates… why did it have to be dates?</li>
 </ul>
 
 </div>

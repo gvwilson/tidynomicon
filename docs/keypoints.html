@@ -211,7 +211,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="advanced.html"><a href="advanced.html#learning-objectives-6"><i class="fa fa-check"></i><b>8.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced.html"><a href="advanced.html#how-can-i-use-python-with-r"><i class="fa fa-check"></i><b>8.2</b> How can I use Python with R?</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced.html"><a href="advanced.html#how-does-object-oriented-programming-work-in-r"><i class="fa fa-check"></i><b>8.3</b> How does object-oriented programming work in R?</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced.html"><a href="advanced.html#key-points-6"><i class="fa fa-check"></i><b>8.4</b> Key Points</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>8.4</b> How can I work with relational databases in R?</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced.html"><a href="advanced.html#key-points-6"><i class="fa fa-check"></i><b>8.5</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>9</b> Web Applications</a><ul>
 <li class="chapter" data-level="9.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-7"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
@@ -429,6 +430,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>When <code>F(X, ...)</code> is called, and <code>X</code> has class <code>C</code>, R looks for a function called <code>F.C</code> (the <code>.</code> is just a naming convention).</li>
 <li>If an object has multiple classes in its <code>class</code> attribute, R looks for a corresponding method for each in turn.</li>
 <li>Every user defined class <code>C</code> should have functions <code>new_C</code> (to create it), <code>validate_C</code> (to validate its integrity), and <code>C</code> (to create and validate).</li>
+<li>Use the <code>DBI</code> package to work with relational databases.</li>
+<li>Use <code>DBI::dbConnect(...)</code> with database-specific parameters to connect to a specific database.</li>
+<li>Use <code>dbGetQuery(connection, "query")</code> to send an SQL query string to a database and get a data frame of results.</li>
+<li>Parameterize queries using <code>:name</code> as a placeholder in the query and <code>params = list(name = value)</code> as a third parameter to <code>dbGetQuery</code> to specify actual values.</li>
+<li>Use <code>dbFetch</code> in a <code>while</code> loop to page results.</li>
+<li>Use <code>dbWriteTable</code> to write an entire data frame to a table, and <code>dbExecute</code> to execute a single insertion statement.</li>
+<li>Dates… why did it have to be dates?</li>
 </ul>
 </div>
 <div id="web-applications-with-shiny" class="section level2">

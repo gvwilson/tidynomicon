@@ -211,7 +211,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="advanced.html"><a href="advanced.html#learning-objectives-6"><i class="fa fa-check"></i><b>8.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced.html"><a href="advanced.html#how-can-i-use-python-with-r"><i class="fa fa-check"></i><b>8.2</b> How can I use Python with R?</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced.html"><a href="advanced.html#how-does-object-oriented-programming-work-in-r"><i class="fa fa-check"></i><b>8.3</b> How does object-oriented programming work in R?</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced.html"><a href="advanced.html#key-points-6"><i class="fa fa-check"></i><b>8.4</b> Key Points</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>8.4</b> How can I work with relational databases in R?</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced.html"><a href="advanced.html#key-points-6"><i class="fa fa-check"></i><b>8.5</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>9</b> Web Applications</a><ul>
 <li class="chapter" data-level="9.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-7"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
@@ -385,24 +386,24 @@ Let’s load a slightly larger dataset:</p>
 <pre><code>Parsed with column specification:
 cols(
   visit_id = col_double(),
-  visitor = col_character(),
+  person_id = col_character(),
   quantity = col_character(),
   reading = col_double()
 )</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">measurements</code></pre>
 <pre><code># A tibble: 21 x 4
-   visit_id visitor quantity reading
-      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
- 1      619 dyer    rad         9.82
- 2      619 dyer    sal         0.13
- 3      622 dyer    rad         7.8 
- 4      622 dyer    sal         0.09
- 5      734 pb      rad         8.41
- 6      734 lake    sal         0.05
- 7      734 pb      temp      -21.5 
- 8      735 pb      rad         7.22
- 9      735 &lt;NA&gt;    sal         0.06
-10      735 &lt;NA&gt;    temp      -26   
+   visit_id person_id quantity reading
+      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+ 1      619 dyer      rad         9.82
+ 2      619 dyer      sal         0.13
+ 3      622 dyer      rad         7.8 
+ 4      622 dyer      sal         0.09
+ 5      734 pb        rad         8.41
+ 6      734 lake      sal         0.05
+ 7      734 pb        temp      -21.5 
+ 8      735 pb        rad         7.22
+ 9      735 &lt;NA&gt;      sal         0.06
+10      735 &lt;NA&gt;      temp      -26   
 # … with 11 more rows</code></pre>
 <p>If we want an overview of our data’s properties,
 we can use the aptly-named <code>summarize</code> function:</p>
@@ -412,28 +413,28 @@ we can use the aptly-named <code>summarize</code> function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">measurements <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(reading))</code></pre>
 <pre><code># A tibble: 20 x 4
-   visit_id visitor quantity reading
-      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
- 1      619 dyer    rad         9.82
- 2      619 dyer    sal         0.13
- 3      622 dyer    rad         7.8 
- 4      622 dyer    sal         0.09
- 5      734 pb      rad         8.41
- 6      734 lake    sal         0.05
- 7      734 pb      temp      -21.5 
- 8      735 pb      rad         7.22
- 9      735 &lt;NA&gt;    sal         0.06
-10      735 &lt;NA&gt;    temp      -26   
-11      751 pb      rad         4.35
-12      751 pb      temp      -18.5 
-13      752 lake    rad         2.19
-14      752 lake    sal         0.09
-15      752 lake    temp      -16   
-16      752 roe     sal        41.6 
-17      837 lake    rad         1.46
-18      837 lake    sal         0.21
-19      837 roe     sal        22.5 
-20      844 roe     rad        11.2 </code></pre>
+   visit_id person_id quantity reading
+      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+ 1      619 dyer      rad         9.82
+ 2      619 dyer      sal         0.13
+ 3      622 dyer      rad         7.8 
+ 4      622 dyer      sal         0.09
+ 5      734 pb        rad         8.41
+ 6      734 lake      sal         0.05
+ 7      734 pb        temp      -21.5 
+ 8      735 pb        rad         7.22
+ 9      735 &lt;NA&gt;      sal         0.06
+10      735 &lt;NA&gt;      temp      -26   
+11      751 pb        rad         4.35
+12      751 pb        temp      -18.5 
+13      752 lake      rad         2.19
+14      752 lake      sal         0.09
+15      752 lake      temp      -16   
+16      752 roe       sal        41.6 
+17      837 lake      rad         1.46
+18      837 lake      sal         0.21
+19      837 roe       sal        22.5 
+20      844 roe       rad        11.2 </code></pre>
 <p>Removing rows that contain <em>any</em> NAs is equally easy,
 though it may be statistically unsound:</p>
 <p>We can now group our data by the quantity measured
@@ -474,26 +475,26 @@ We therefore decide to normalize all salinity measurements greater than 1.0 usin
                                  reading))
 cleaned</code></pre>
 <pre><code># A tibble: 18 x 4
-   visit_id visitor quantity reading
-      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
- 1      619 dyer    rad        9.82 
- 2      619 dyer    sal        0.13 
- 3      622 dyer    rad        7.8  
- 4      622 dyer    sal        0.09 
- 5      734 pb      rad        8.41 
- 6      734 lake    sal        0.05 
- 7      734 pb      temp     -21.5  
- 8      735 pb      rad        7.22 
- 9      751 pb      rad        4.35 
-10      751 pb      temp     -18.5  
-11      752 lake    rad        2.19 
-12      752 lake    sal        0.09 
-13      752 lake    temp     -16    
-14      752 roe     sal        0.416
-15      837 lake    rad        1.46 
-16      837 lake    sal        0.21 
-17      837 roe     sal        0.225
-18      844 roe     rad       11.2  </code></pre>
+   visit_id person_id quantity reading
+      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+ 1      619 dyer      rad        9.82 
+ 2      619 dyer      sal        0.13 
+ 3      622 dyer      rad        7.8  
+ 4      622 dyer      sal        0.09 
+ 5      734 pb        rad        8.41 
+ 6      734 lake      sal        0.05 
+ 7      734 pb        temp     -21.5  
+ 8      735 pb        rad        7.22 
+ 9      751 pb        rad        4.35 
+10      751 pb        temp     -18.5  
+11      752 lake      rad        2.19 
+12      752 lake      sal        0.09 
+13      752 lake      temp     -16    
+14      752 roe       sal        0.416
+15      837 lake      rad        1.46 
+16      837 lake      sal        0.21 
+17      837 roe       sal        0.225
+18      844 roe       rad       11.2  </code></pre>
 <p>To answer our next set of questions,
 we need data about when each site was visited.
 Let’s read <code>visited.csv</code> and discard entries that are missing the visit date:</p>
@@ -531,11 +532,11 @@ dplyr also provides other kinds of joins should we need them.</p>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</code></pre>
 <pre><code># A tibble: 3 x 7
 # Groups:   site_id [3]
-  visit_id site_id visit_date visitor quantity reading max_rad
-     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-1      734 DR-3    1930-01-07 pb      rad         8.41    8.41
-2      837 MSK-4   1932-01-14 lake    rad         1.46    1.46
-3      844 DR-1    1932-03-22 roe     rad        11.2    11.2 </code></pre>
+  visit_id site_id visit_date person_id quantity reading max_rad
+     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+1      734 DR-3    1930-01-07 pb        rad         8.41    8.41
+2      837 MSK-4   1932-01-14 lake      rad         1.46    1.46
+3      844 DR-1    1932-03-22 roe       rad        11.2    11.2 </code></pre>
 <p>or:</p>
 <pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
@@ -559,15 +560,15 @@ between visits:</p>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(site_id, visit_date)</code></pre>
 <pre><code># A tibble: 7 x 7
 # Groups:   site_id [3]
-  visit_id site_id visit_date visitor quantity reading delta_rad
-     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
-1      619 DR-1    1927-02-08 dyer    rad         9.82     NA   
-2      622 DR-1    1927-02-10 dyer    rad         7.8      -2.02
-3      844 DR-1    1932-03-22 roe     rad        11.2       3.45
-4      734 DR-3    1930-01-07 pb      rad         8.41     NA   
-5      735 DR-3    1930-01-12 pb      rad         7.22     -1.19
-6      751 DR-3    1930-02-26 pb      rad         4.35     -2.87
-7      837 MSK-4   1932-01-14 lake    rad         1.46     NA   </code></pre>
+  visit_id site_id visit_date person_id quantity reading delta_rad
+     &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+1      619 DR-1    1927-02-08 dyer      rad         9.82     NA   
+2      622 DR-1    1927-02-10 dyer      rad         7.8      -2.02
+3      844 DR-1    1932-03-22 roe       rad        11.2       3.45
+4      734 DR-3    1930-01-07 pb        rad         8.41     NA   
+5      735 DR-3    1930-01-12 pb        rad         7.22     -1.19
+6      751 DR-3    1930-02-26 pb        rad         4.35     -2.87
+7      837 MSK-4   1932-01-14 lake      rad         1.46     NA   </code></pre>
 <p>Going one step further,
 we can create a list of sites at which radiation increased between any two visits:</p>
 <pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>

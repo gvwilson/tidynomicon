@@ -11,3 +11,10 @@
 - When `F(X, ...)` is called, and `X` has class `C`, R looks for a function called `F.C` (the `.` is just a naming convention).
 - If an object has multiple classes in its `class` attribute, R looks for a corresponding method for each in turn.
 - Every user defined class `C` should have functions `new_C` (to create it), `validate_C` (to validate its integrity), and `C` (to create and validate).
+- Use the `DBI` package to work with relational databases.
+- Use `DBI::dbConnect(...)` with database-specific parameters to connect to a specific database.
+- Use `dbGetQuery(connection, "query")` to send an SQL query string to a database and get a data frame of results.
+- Parameterize queries using `:name` as a placeholder in the query and `params = list(name = value)` as a third parameter to `dbGetQuery` to specify actual values.
+- Use `dbFetch` in a `while` loop to page results.
+- Use `dbWriteTable` to write an entire data frame to a table, and `dbExecute` to execute a single insertion statement.
+- Dates... why did it have to be dates?

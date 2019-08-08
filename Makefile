@@ -9,6 +9,7 @@ OUT=_book
 EPUB=${OUT}/${STEM}.epub
 HTML=${OUT}/index.html
 PDF=${OUT}/${STEM}.pdf
+DATABASE=data/example.db
 
 all : commands
 
@@ -53,6 +54,11 @@ check :
 	@bin/chunks.py ${SRC}
 	@bin/gloss.py ./gloss.md ${SRC}
 	@bin/links.py etc/links.md ${SRC}
+
+## database     : make example database for advanced topics chapter.
+database :
+	@rm -f ${DATABASE}
+	@sqlite3 ${DATABASE} < data/create_db.sql
 
 ## test         : tests on utilities.
 test :
