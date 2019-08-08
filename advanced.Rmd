@@ -1,8 +1,162 @@
-# Object-Oriented Programming {#oop}
+# Advanced Topics {#advanced}
 
 ```{r setup, include=FALSE}
 source("etc/common.R")
 ```
+
+FIXME
+
+## Learning Objectives
+
+- Use `reticulate` to share data between R and Python.
+- Use `reticulate` to call Python functions from R code and vice versa.
+- Run Python scripts directly from R programs.
+- Correctly identify the most commonly used object-oriented programming system in R.
+- Explain what attributes R and correctly set and query objects' attributes, class, and dimensions.
+- Explain how to define a new method for a class.
+- Describe and implement the three functions that should be written for any user-defined class.
+
+## How can I use Python with R?
+
+You can put Python code in R Markdown documents:
+
+```{python}
+print("Hello R")
+```
+
+but how can those chunks interact with your R and vice versa?
+The answer is a package called [reticulate][reticulate]
+that provides two-way communication between Python and R.
+To use it,
+run `install.packages("reticulate")`.
+By default,
+it uses the system-default Python:
+
+```{r}
+Sys.which("python")
+```
+
+but you can configure it to use different versions,
+or to use `virtualenv` or a Conda environment—see [the document][reticulate-configure] for details.
+
+> If you want to run the Pythonic bits of code we present as well as the R,
+> run `install.packages("reticulate")`
+> and then set the `RETICULATE_PYTHON` environment variable
+> to point at the version of Python you want to use
+> *before* you launch RStudio.
+> This is necessary because you may have a system-installed version somewhere like `/usr/bin/python`
+> and a conda-managed version in `~/anaconda3/bin/python`.
+
+```{r xkcd, echo=FALSE, fig.cap="XKCD on Python Environments (from https://xkcd.com/1987/)"}
+knitr::include_graphics("figures/advanced/python-environment.png")
+```
+
+### How can I access data across languages?
+
+The most common way to use reticulate is to do some calculations in Python and then use the results in R
+or vice versa.
+To show how this works,
+let's read our infant HIV data into a Pandas data frame:
+
+```{python}
+import pandas
+data = pandas.read_csv('results/infant_hiv.csv')
+print(data.head())
+```
+
+All of our Python variables are available in our R session as part of the `py` object,
+so `py$data` is our data frame inside a chunk of R code:
+
+```{r}
+library(reticulate)
+head(py$data)
+```
+
+reticulate handles type conversions automatically,
+though there are a few tricky cases:
+for example,
+the number `9` is a float in R,
+so if you want an integer in Python,
+you have to add the trailing `L` (for "long") and write it `9L`.
+
+On the other hand,
+reticulate translates between 0-based and 1-based indexing.
+Suppose we create a character vector in R:
+
+```{r}
+elements = c('hydrogen', 'helium', 'lithium', 'beryllium')
+```
+
+Hydrogen is in position 1 in R:
+
+```{r}
+elements[1]
+```
+
+but position 0 in Python:
+
+```{python}
+print(r.elements[0])
+```
+
+Note our use of the object `r` in our Python code:
+just `py$whatever` gives us access to Python objects in R,
+`r.whatever` gives us access to R objects in Python.
+
+### How can I call functions across languages?
+
+We don't have to run Python code,
+store values in a variable,
+and then access that variable from R:
+we can call the Python directly (or vice versa).
+For example,
+we can use Python's random number generator in R as follows:
+
+```{r}
+pyrand <- import("random")
+pyrand$gauss(0, 1)
+```
+
+(There's no reason to do this—R's random number generator is just as strong—but it illustrates the point.)
+
+We can also source Python scripts.
+For example,
+suppose that `countries.py` contains this function:
+
+```{python code=readLines('countries.py'), eval=FALSE}
+```
+
+We can run that script using `source_python`:
+
+```{r}
+source_python('countries.py')
+```
+
+There is no output because all the script did was define a function.
+By default,
+that function and all other top-level variables defined in the script are now available in R:
+
+```{r}
+get_countries('results/infant_hiv.csv')
+```
+
+There is one small pothole in this.
+When the script is run,
+the special Python variable `__name__` is set to `'__main__'"'`,
+i.e.,
+the script thinks it is being called from the command line.
+If it includes a conditional block to handle command-line arguments like this:
+
+```{python eval=FALSE}
+if __name__ == '__main__':
+    input_file, output_files = sys.argv[1], sys.argv[2:]
+    main(input_file, output_files)
+```
+
+then that block will be executed,
+but will fail because `sys.argv` won't include anything.
+
+## How does object-oriented programming work in R?
 
 Programmers spend a great deal of their time trying to create order out of chaos,
 and the rest of their time inventing new ways to create more chaos.
@@ -23,14 +177,7 @@ to process data identified by those attributes.
 Since attributes can be used in other ways as well,
 we will start by exploring them.
 
-## Learning Objectives
-
-- Correctly identify the most commonly used object-oriented programming system in R.
-- Explain what attributes R and correctly set and query objects' attributes, class, and dimensions.
-- Explain how to define a new method for a class.
-- Describe and implement the three functions that should be written for any user-defined class.
-
-## What are attributes?
+### What are attributes?
 
 Let's begin by creating a matrix containing the first few hundreds:
 
@@ -85,7 +232,7 @@ asking for the length of a tibble (which is the number of rows it contains):
 length(t)
 ```
 
-## How are classes represented?
+### How are classes represented?
 
 To show how classes and generic functions work together,
 let's customize the way that 2D coordinates are converted to strings.
@@ -213,7 +360,7 @@ there <- two_d(c(15.6, 16.7))
 toString(there)
 ```
 
-## How does inheritance work?
+### How does inheritance work?
 
 We said above that an object can have more than one class,
 and that S3 searches the classes in order when it wants to find a method to call.
@@ -276,8 +423,8 @@ we will almost always place all of the methods associated with a class in the sa
 The time has finally come for us to explore projects and packages.
 
 ## Key Points
-```{r keypoints, child="keypoints/oop.md"}
+```{r, child="keypoints/advanced.md"}
 ```
 
-```{r links, child="etc/links.md"}
+```{r, child="etc/links.md"}
 ```

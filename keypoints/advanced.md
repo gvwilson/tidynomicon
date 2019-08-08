@@ -1,3 +1,9 @@
+- The `reticulate` library allows R programs to access data in Python programs and vice versa.
+- Use `py.whatever` to access a top-level Python variable from R.
+- Use `r.whatever` to access a top-level R definition from Python.
+- R is always indexed from 1 (even in Python) and Python is always indexed from 0 (even in R).
+- Numbers in R are floating point by default, so use a trailing 'L' to force a value to be an integer.
+- A Python script run from an R session believes it is the main script, i.e., `__name__` is `'__main__'` inside the Python script.
 - S3 is the most commonly used object-oriented programming system in R.
 - Every object can store metadata about itself in attributes, which are set and queried with `attr`.
 - The `dim` attribute stores the dimensions of a matrix (which is physically stored as a vector).

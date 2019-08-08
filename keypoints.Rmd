@@ -28,12 +28,8 @@ source("etc/common.R")
 ```{r keypoints-testerror, child="keypoints/testerror.md"}
 ```
 
-## Object-Oriented Programming
-```{r keypoints-oop, child="keypoints/oop.md"}
-```
-
-## Reticulate
-```{r keypoints-python, child="keypoints/python.md"}
+## Advanced Topics
+```{r keypoints-advanced, child="keypoints/advanced.md"}
 ```
 
 ## Web Applications with Shiny
