@@ -9,7 +9,8 @@ ui <- fluidPage(
       fileInput("datafile", p("data file")),
       dateRangeInput("years", p("years"), format = "yyyy")
     ),
-    mainPanel(h1("Display"))
+    mainPanel(
+      h1("Display"))
   )
 )
 

@@ -44,8 +44,8 @@ These can all live in the same file,
 but most developers prefer to put the UI and server code in separate files.
 
 To start,
-we will reproduce the first example from the Shiny tutorials.
-The first step is to create a directory called `faithful_app`:
+we will reproduce the first example from [the Shiny tutorial](https://shiny.rstudio.com/tutorial/).
+The first step is to create a directory called `faithful`:
 we *must* do this because every Shiny application needs to be in its own directory.
 Inside that directory,
 create a file called `app.R`.
@@ -65,17 +65,18 @@ shinyApp(ui = ui, server = server)
 
 Our next tasks are to fill in the user interface and server.
 
-## How do I create a user interface?
+### Creating a user interface
 
 Our interface is a [fluid page](glossary.html#fluid-page),
 i.e., it resizes as needed based on the size of the browser.
 It uses a single sidebar layout with two elements, `sidebarPanel` and `mainPanel`.
 The sidebar contains a `sliderInput` object that (as you'd expect from the name) creates a slider;
 we must specify `label`, `min`, `max`, and `value` to set it up.
-We must also specify a value called `inputId`;
-this gives it a name that we can use to refer to it in the server.
+We must also specify a value for `inputId`;
+this gives the widget a name so that we can refer to it in the server code.
 
-Our interface also contains a `mainPanel` object that in turn contains a single `plotOutput`
+Finally,
+our interface's `mainPanel` contains a single `plotOutput`
 whose `outputId` attribute is used to refer to it.
 The whole thing looks like this:
 
@@ -89,18 +90,24 @@ ui <- fluidPage(
                   min = 1,
                   max = 50,
                   value = 30)),
-    mainPanel(plotOutput(outputId = "distPlot"))
+    mainPanel(
+      plotOutput(outputId = "distPlot"))
   )
 )
 ```
 
-## How do I create a server?
+(We could fit the `plotOutput` call on the same line as the call to `mainPanel`,
+but it's easier to see the structure of the interface
+if each level of logical nesting is reflected in the layout of the code.)
+
+### Creating a server
 
 In any interactive application,
 something has to react to changes in controls and update displays.
 Shiny watches for the former and takes care of the latter automatically,
-but we have to tell it what to watch, what to update, and how to make those updates.
-We do this by creating a function called `server` that Shiny calls when it needs to:
+but only once we tell it what to watch and how to make updates.
+We do this by creating a function called `server`
+that Shiny calls on our behalf whenever something in the interface changes:
 
 ```{r eval=FALSE}
 server <- function(input, output) {
@@ -116,35 +123,38 @@ server <- function(input, output) {
 
 When there is a change in one of the input elements,
 Shiny notices and calls our function,
-giving it inputs (i.e., our controls) and outputs (our displays).
+giving it a named list of inputs (i.e., our controls) and another of outputs (our displays).
 For example,
-`input$bins` matches the `bins` ID for the slider, 
-so the value of `input$bins` will be the value of the slider.
+since we gave our slider the ID `bins`,
+`input$bins` will be the value of the slider.
 Similarly,
-`output$distPlot` matches the `distPlot` ID of the plot,
+`output$distPlot` matches the ID of the plot,
 so we can use Shiny's `renderPlot` function to tell it what to plot.
 (We can't use ggplot2 calls directly, but the terminology is very similar.)
-In this case:
-the `x` axis is waiting times from the `faithful` data,
-`bins` is the bin labels (we use `input$bins` to get the value),
-and `hist` is the histogram we want plotted.
 
-## How do I run my application?
+### Running the application
 
 We can now run `app.R` from the command line or use:
 
 ```{r eval=FALSE}
-runApp("faithful_app")
+runApp("faithful")
 ```
 
-from inside RStudio.
+from the RStudio console.
 Once the application is running,
 we can narrow the window to see things automatically resize
 (the "fluid" part of the interface).
+The `x` axis is waiting times from the `faithful` data,
+the `y` axis shows the frequency of that waiting time,
+and the control in the upper left lets us change the sizes of the bins.
 
-## How can I improve my user interface?
+```{r}
+knitr::include_graphics("figures/shiny/faithful.png")
+```
 
-Let's trying building a tool for exploring the UNICEF data we tidied up in earlier lessons.
+## How can I build a more interesting interface?
+
+Let's trying building a tool for exploring the UNICEF data we tidied up in previous chapters.
 To start,
 we `mkdir unicef/skeleton` and create `app.R`:
 
@@ -160,7 +170,8 @@ ui <- fluidPage(
       img(src = "logo.png", width = 200),
       h2("Controls")
     ),
-    mainPanel(h1("Display"))
+    mainPanel(
+      h1("Display"))
   )
 )
 
@@ -171,21 +182,24 @@ server <- function(input, output){
 shinyApp(ui = ui, server = server)
 ```
 
+Running this with `runApp('unicef/skeleton')` gives us:
 
 ```{r}
 knitr::include_graphics("figures/shiny/unicef-skeleton.png")
 ```
 
-As the screenshot shows,
-this positions the controls on the right.
+This has a title panel,
+controls on the right,
+and some space for a display on the left.
 We use `h1`, `h2`, and similarly-named functions to create HTML elements
 and `img` to display a logo.
-The server is empty for now;
-when we run it,
-everything looks good except the image,
-because it turns out that static images must be in the application's `www` folder,
+The server is empty for now: we will fill that in below.
+
+When we run this for the first time everything looks good except the image,
+because it turns out that [static images](glossary.html#static-image) must be in the application's `www` folder,
 i.e.,
 in `unicef/skeleton/www`.
+Once we put `logo.png` there, everything looks as it should.
 
 It's now time to add interactive control elements, better known as [widgets](glossary.html#widget).
 Shiny provides:
@@ -205,7 +219,8 @@ we need to decide what we're going to visualize.
 One obvious choice is to allow people to choose a data file,
 and then select a data range based on the years in that file
 and see a line plot of the average estimate by year.
-This makes our interface:
+After replacing the `h2` element with a `fileInput` and `dateRangeInput` elements in `unicef/prototype/app.R`,
+our application looks like this:
 
 <!-- unicef/prototype/app.R -->
 ```{r eval=FALSE}
@@ -218,7 +233,8 @@ ui <- fluidPage(
       fileInput("datafile", p("data file")),
       dateRangeInput("years", p("years"), format = "yyyy")
     ),
-    mainPanel(h1("Display"))
+    mainPanel(
+      h1("Display"))
   )
 )
 ```
@@ -261,10 +277,8 @@ knitr::include_graphics("figures/shiny/unicef-filename-wrong-after.png")
 ```
 
 A quick browse of the documentation reveals that
-`input` is a named list-like object of everything set up in the interface.
-`input$datafile` picks out one element,
-but it turns out that's a data frame:
-what we actually want is `input$datafile$datapath`:
+`input$datafile` is actually a dataframe containing several values.
+What we actually want is `input$datafile$datapath`:
 
 <!-- unicef/filename_right/app.R -->
 ```{r eval=FALSE}
@@ -275,8 +289,22 @@ server <- function(input, output){
 }
 ```
 
-Some more experimentation reveals that we should display `name`,
-but use `datapath` when reading data.
+but this *still* looks wrong after upload:
+
+```{r}
+knitr::include_graphics("figures/shiny/unicef-filename-almost-right.png")
+```
+
+Some more digging reveals that we should display `name` but use `datapath` when reading data:
+
+```{r}
+knitr::include_graphics("figures/shiny/unicef-filename-right.png")
+```
+
+"It's still better than LaTeX," we mutter, and continue.
+
+### Enhancing the server
+
 Let's fill in the server a bit:
 
 <!-- unicef/server/app.R -->
@@ -298,15 +326,24 @@ server <- function(input, output){
 }
 ```
 
-This short server shows that there are three places we can put variables:
+### Which variables belong where
 
-1.  At the top of the script outside functions, they are run once when the app launches.
-2.  Inside `server`, they are run once for each user.
-3.  Inside a handler like `renderText`, they are run once on each change.
+This short program shows three places that we can put code:
 
-```{r}
-knitr::include_graphics("figures/shiny/unicef-filename-right.png")
-```
+1.  **Outside the calls to `ui` and `server`.**
+    Code placed here is run once when the application launches,
+    so this is a good place to (for example) set up a database connection.
+
+2.  **Inside `server`.**
+    Code placed here is run once *for each new [session](glossary.html#session)*.
+    Each time someone makes a fresh connection to the application,
+    Shiny starts a new server so that each user's work will be isolated from their peers.
+    If the application needs to store the current state of an analysis,
+    the dataframe used for that purpose should be created here.
+
+3.  **Inside a handler like `renderText`.**
+    Code placed here is re-run each time the handler is triggered by a change in the user interface,
+    so short-lived scratchpad variables should be declared here.
 
 ## How can I display the data in a file?
 

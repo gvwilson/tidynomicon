@@ -9,7 +9,8 @@ ui <- fluidPage(
                   min = 1,
                   max = 50,
                   value = 30)),
-    mainPanel(plotOutput(outputId = "distPlot"))
+    mainPanel(
+      plotOutput(outputId = "distPlot"))
   )
 )
 

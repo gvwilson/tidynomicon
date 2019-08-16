@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>F Glossary | The Tidynomicon</title>
-  <meta name="description" content="F Glossary | The Tidynomicon" />
+  <title>Chapter 4 Creating Reports with R Markdown | The Tidynomicon</title>
+  <meta name="description" content="Chapter 4 Creating Reports with R Markdown | The Tidynomicon" />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="F Glossary | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 4 Creating Reports with R Markdown | The Tidynomicon" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="F Glossary | The Tidynomicon" />
+  <meta property="og:description" content="Chapter 4 Creating Reports with R Markdown | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="F Glossary | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 4 Creating Reports with R Markdown | The Tidynomicon" />
   
-  <meta name="twitter:description" content="F Glossary | The Tidynomicon" />
+  <meta name="twitter:description" content="Chapter 4 Creating Reports with R Markdown | The Tidynomicon" />
   
 
 <meta name="author" content="Greg Wilson" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="practice.html">
-<link rel="next" href="keypoints.html">
+<link rel="prev" href="tidyverse.html">
+<link rel="next" href="package.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -274,326 +274,30 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="glossary" class="section level1">
-<h1><span class="header-section-number">F</span> Glossary</h1>
-<dl>
-<dt><strong>Absolute row number</strong><a id="absolute-row-number"></a></dt>
-<dd>the sequential index of a row in a table,
-regardless of what sections of the table is being displayed.
-</dd>
-<dt><strong>Aggregation</strong><a id="aggregation"></a></dt>
-<dd>to combine many values into one,
-e.g.,
-by summing a set of numbers or concatenating a set of strings.
-</dd>
-<dt><strong>Alias</strong><a id="alias"></a></dt>
-<dd>to have two (or more) references to the same physical data.
-</dd>
-<dt><strong>Anonymous function</strong><a id="anonymous-function"></a></dt>
-<dd>a function that has not been assigned a name.
-Anonymous functions are usually quite short,
-and are usually defined where they are used,
-e.g.,
-as callbacks.
-</dd>
-<dt><strong>Attribute</strong><a id="attribute"></a></dt>
-<dd>a name-value pair associated with an object,
-used to store metadata about the object
-such as an array’s dimensions.
-</dd>
-<dt><strong>Catch (exception)</strong><a id="catch-exception"></a></dt>
-<dd>to accept responsibility for handling an error
-or other unexpected event.
-R prefers “<a href="glossary.html#handle-condition">handling</a> a <a href="glossary.html#condition">condition</a>”
-to “catching an <a href="glossary.html#exception">exception</a>”.
-</dd>
-<dt><strong>Condition</strong><a id="condition"></a></dt>
-<dd>an error or other unexpected event that disrupts the normal flow of control.
-See also <a href="glossary.html#handle-condition">handle</a>.
-</dd>
-<dt><strong>Constructor (class)</strong><a id="constructor"></a></dt>
-<dd>a function that creates an object of a particular class.
-In the <a href="glossary.html#S3">S3</a> object system,
-constructors are a convention rather than a requirement.
-</dd>
-<dt><strong>Copy-on-modify</strong><a id="copy-on-modify"></a></dt>
-<dd>the practice of creating a new copy of <a href="glossary.html#alias">aliased</a> data
-whenever there is an attempt to modify it
-so that each reference will believe theirs is the only one.
-</dd>
-<dt><strong>Double square brackets</strong><a id="double-square-brackets"></a></dt>
-<dd>an index enclosed in <code>[[...]]</code>,
-used to return a single value of the underlying type.
-See also <a href="glossary.html#single-square-brackets">single square brackets</a>.
-</dd>
-<dt><strong>Eager evaluation</strong><a id="eager-evaluation"></a></dt>
-<dd>evaluating an expression as soon as it is formed.
-</dd>
-<dt><strong>Empty vector</strong><a id="empty-vector"></a></dt>
-<dd>a vector that contains no elements.
-Empty vectors have a type such as logical or character,
-and are <em>not</em> the same as <a href="glossary.html#null">null</a>.
-</dd>
-<dt><strong>Environment</strong><a id="environment"></a></dt>
-<dd>a structure that stores a set of variable names and the values they refer to.
-</dd>
-<dt><strong>Error</strong><a id="error"></a></dt>
-<dd>the most severe type of built-in <a href="glossary.html#condition">condition</a> in R.
-</dd>
-<dt><strong>Evaluating function</strong><a id="evaluating-function"></a></dt>
-<dd>a function that takes arguments as values.
-Most functions are evaluating functions.
-</dd>
-<dt><strong>Evaluation</strong><a id="evaluation"></a></dt>
-<dd>the process of taking a complex expression such as <code>1+2*3/4</code>
-and turning it into a single irreducible value.
-</dd>
-<dt><strong>Exception</strong><a id="exception"></a></dt>
-<dd>an object containing information about an error,
-or the condition that led to the error.
-R prefers “<a href="glossary.html#handle-condition">handling</a> a <a href="glossary.html#condition">condition</a>”
-to “<a href="glossary.html#catch-exception">catching</a> an <a href="glossary.html#exception">exception</a>”.
-</dd>
-<dt><strong>Filter</strong><a id="filter"></a></dt>
-<dd>to choose a set of records according to the values they contain.
-</dd>
-<dt><strong>Fully qualified name</strong><a id="fully-qualified-name"></a></dt>
-<dd>an unambiguous name of the form <code><em>package</em>::<em>thing</em></code>.
-</dd>
-<dt><strong>Functional programming</strong><a id="functional-programming"></a></dt>
-<dd>a style of programming in which functions transform data rather than modifying it.
-Functional programming relies heavily on <a href="glossary.html#higher-order-function">higher-order functions</a>.
-</dd>
-<dt><strong>Generic function</strong><a id="generic-function"></a></dt>
-<dd>a collection of functions with similar purpose,
-each operating on a different class of data.
-</dd>
-<dt><strong>Global environment</strong><a id="global-environment"></a></dt>
-<dd>the <a href="glossary.html#environment">environment</a> that holds top-level definitions in R,
-e.g.,
-those written directly in the interpreter.
-</dd>
-<dt><strong>Group</strong><a id="group"></a></dt>
-<dd>to divide data into subsets according to some criteria
-while leaving records in a single structure.
-</dd>
-<dt><strong>Handle (a condition)</strong><a id="handle-condition"></a></dt>
-<dd>to accept responsibility for handling an error
-or other unexpected event.
-R prefers “handling a <a href="glossary.html#condition">condition</a>”
-to “<a href="glossary.html#catch-exception">catching</a> an <a href="glossary.html#exception">exception</a>”.
-</dd>
-<dt><strong>Helper (class)</strong><a id="helper"></a></dt>
-<dd>in <a href="glossary.html#S3">S3</a>,
-a function that <a href="glossary.html#constructor">constructs</a> and <a href="glossary.html#validator">validates</a>
-an instance of a class.
-</dd>
-<dt><strong>Heterogeneous</strong><a id="heterogeneous"></a></dt>
-<dd>potentially containing data of different types.
-Most vectors in R are <a href="glossary.html#homogeneous">homogeneous</a>,
-but lists can be heterogeneous.
-</dd>
-<dt><strong>Higher-order function</strong><a id="higher-order-function"></a></dt>
-<dd>a function that takes one or more other functions as parameters.
-Higher-order functions such as <code>map</code> are commonly used in <a href="glossary.html#functional-programming">functional programming</a>.
-</dd>
-<dt><strong>Homogeneous</strong><a id="homogeneous"></a></dt>
-<dd>containing data of only a single type.
-Most vectors in R are homogeneous.
-</dd>
-<dt><strong>Hubris</strong><a id="hubris"></a></dt>
-<dd>excessive pride or self-confidence.
-See also <a href="glossary.html#unit-test">unit test</a> (lack of).
-</dd>
-<dt><strong>ISO3 country code</strong><a id="iso3-country-code"></a></dt>
-<dd>a three-letter code defined by ISO 3166-1 that identifies a specific country,
-dependent territory,
-or other geopolitical entity.
-</dd>
-<dt><strong>Lazy evaluation</strong><a id="lazy-evaluation"></a></dt>
-<dd>delaying evaluation of an expression until the value is actually needed
-(or at least until after the point where it is first encountered).
-</dd>
-<dt><strong>List</strong><a id="list"></a></dt>
-<dd>a vector that can contain values of many different types.
-</dd>
-<dt><strong>List comprehension</strong><a id="list-comprehension"></a></dt>
-<dd>an expression that generates a new list from an existing one via an implicit loop.
-</dd>
-<dt><strong>Logical indexing</strong><a id="logical-indexing"></a></dt>
-<dd>to index a vector or other structure with a vector of Booleans,
-keeping only the values that correspond to true values.
-</dd>
-<dt><strong>Message</strong><a id="message"></a></dt>
-<dd>the least severe type of built-in <a href="glossary.html#condition">condition</a> in R.
-</dd>
-<dt><strong>Method</strong><a id="method"></a></dt>
-<dd>an implementation of a <a href="glossary.html#generic-function">generic function</a>
-that handles objects of a specific class.
-</dd>
-<dt><strong>NA</strong><a id="NA"></a></dt>
-<dd>a special value used to represent data that is Not Available.
-</dd>
-<dt><strong>Name collision</strong><a id="name-collision"></a></dt>
-<dd>a situation in which the same name has been used in two different packages
-which are then used together,
-leading to ambiguity.
-</dd>
-<dt><strong>Negative selection</strong><a id="negative-selection"></a></dt>
-<dd>to specify the elements of a vector or other data structure that <em>aren’t</em> desired
-by negating their indices.
-</dd>
-<dt><strong>Null</strong><a id="null"></a></dt>
-<dd>a special value used to represent a missing object.
-<code>NULL</code> is not the same as <code>NA</code>,
-and neither is the same as an <a href="glossary.html#empty-vector">empty vector</a>.
-</dd>
-<dt><strong>Package</strong><a id="package"></a></dt>
-<dd>a collection of code, data, and documentation
-that can be distributed and re-used.
-</dd>
-<dt><strong>Pipe operator</strong><a id="pipe-operator"></a></dt>
-<dd>the <code>%&gt;%</code> used to make the output of one function the input of the next.
-</dd>
-<dt><strong>Prefix operator</strong><a id="prefix-operator"></a></dt>
-<dd>FIXME
-</dd>
-<dt><strong>Promise</strong><a id="promise"></a></dt>
-<dd>a data structure used to record an unevaluated expression for lazy evaluation.
-</dd>
-<dt><strong>Pull indexing</strong><a id="pull-indexing"></a></dt>
-<dd>vectorized indexing in which the value at location <em>i</em> in the index vector
-specifies which element of the source vector
-is being pulled into that location in the result vector,
-i.e., <code>result[i] = source[index[i]]</code>.
-See also <a href="glossary.html#push-indexing">push indexing</a>.
-</dd>
-<dt><strong>Push indexing</strong><a id="push-indexing"></a></dt>
-<dd>vectorized indexing in which the value at location <em>i</em> in the index vector
-specifies an element of the result vector that gets the corresponding element of the source vector,
-i.e., <code>result[index[i]] = source[i]</code>.
-Push indexing can easily produce gaps and collisions.
-See also <a href="glossary.html#pull-indexing">pull indexing</a>.
-</dd>
-<dt><strong>Quosure</strong><a id="quosure"></a></dt>
-<dd>a data structure containing an unevaluated expression and its environment.
-</dd>
-<dt><strong>Quoting function</strong><a id="quoting-function"></a></dt>
-<dd>a function that is passed expressions rather than the values of those expressions.
-</dd>
-<dt><strong>Raise (exception)</strong><a id="raise-exception"></a></dt>
-<dd>a way of indicating that something has gone wrong in a program,
-or that some other unexpected event has occurred.
-R prefers “<a href="glossary.html#signal-condition">signalling</a> a <a href="glossary.html#condition">condition</a>”
-to “raising an <a href="glossary.html#exception">exception</a>”.
-</dd>
-<dt><strong>Range expression</strong><a id="range-expression"></a></dt>
-<dd>an expression of the form <code><em>low</em>:<em>high</em></code>
-that is transformed a sequence of consecutive integers.
-</dd>
-<dt><strong>Reactive programming</strong><a id="reactive-programming"></a></dt>
-<dd>a style of programming in which actions are triggered by external events.
-</dd>
-<dt><strong>Reactive variable</strong><a id="reactive-variable"></a></dt>
-<dd>a variable whose value is automatically updated when some other value or values change.
-</dd>
-<dt><strong>Recycle</strong><a id="recycle"></a></dt>
-<dd>to re-use values from a shorter vector in order to generate
-a sequence of the same length as a longer one.
-</dd>
-<dt><strong>Regular expression</strong><a id="regular-expression"></a></dt>
-<dd>FIXME
-</dd>
-<dt><strong>Relative row number</strong><a id="relative-row-number"></a></dt>
-<dd>the index of a row in a displayed portion of a table,
-which may or may not be the same as the <a href="glossary.html#absolute-row-number">absolut row number</a>
-within the table.
-</dd>
-<dt><strong>Repository</strong><a id="repository"></a></dt>
-<dd>FIXME
-</dd>
-<dt><strong>S3</strong><a id="S3"></a></dt>
-<dd>a framework for object-oriented programming in R.
-</dd>
-<dt><strong>Scalar</strong><a id="scalar"></a></dt>
-<dd>a single value of a particular type, such as 1 or “a”.
-Scalars don’t really exist in R;
-values that appear to be scalars are actually vectors of unit length.
-</dd>
-<dt><strong>Select</strong><a id="select"></a></dt>
-<dd>to choose entire columns from a table by name or location.
-</dd>
-<dt><strong>Setup (testing)</strong><a id="testing-setup"></a></dt>
-<dd>code that is automatically run once before each <a href="glossary.html#unit-test">unit test</a>.
-</dd>
-<dt><strong>Signal (a condition)</strong><a id="signal-condition"></a></dt>
-<dd>a way of indicating that something has gone wrong in a program,
-or that some other unexpected event has occurred.
-R prefers “signalling a <a href="glossary.html#condition">condition</a>”
-to “<a href="glossary.html#raise-exception">raising</a> an <a href="glossary.html#exception">exception</a>”.
-</dd>
-<dt><strong>Single square brackets</strong><a id="single-square-brackets"></a></dt>
-<dd>an index enclosed in <code>[...]</code>,
-used to select a structure from another structure.
-See also <a href="glossary.html#double-square-brackets">double square brackets</a>.
-</dd>
-<dt><strong>Storage allocation</strong><a id="storage-allocation"></a></dt>
-<dd>setting aside a block of memory for future use.
-</dd>
-<dt><strong>Teardown (testing)</strong><a id="testing-teardown"></a></dt>
-<dd>code that is automatically run once after each <a href="glossary.html#unit-test">unit test</a>.
-</dd>
-<dt><strong>Test fixture</strong><a id="test-fixture"></a></dt>
-<dd>the data structures, files, or other artefacts on which a <a href="glossary.html#unit-test">unit test</a> operates.
-</dd>
-<dt><strong>Test runner</strong><a id="test-runner"></a></dt>
-<dd>a software tool that finds and runs <a href="glossary.html#unit-test">unit tests</a>.
-</dd>
-<dt><strong>Tibble</strong><a id="tibble"></a></dt>
-<dd>a modern replacement for R’s data frame,
-which stores tabular data in columns and rows,
-defined and used in the <a href="glossary.html#tidyverse">tidyverse</a>.
-</dd>
-<dt><strong>Tidyverse</strong><a id="tidyverse"></a></dt>
-<dd>a collection of R packages for operating on tabular data in consistent ways.
-</dd>
-<dt><strong>Unit test</strong><a id="unit-test"></a></dt>
-<dd>a function that tests one aspect or property of a piece of software.
-</dd>
-<dt><strong>Validator (class)</strong><a id="validator"></a></dt>
-<dd>a function that checks the consistency of an <a href="glossary.html#S3">S3</a> object.
-</dd>
-<dt><strong>Variable arguments</strong><a id="variable-arguments"></a></dt>
-<dd>in a function,
-the ability to take any number of arguments.
-R uses <code>...</code> to capture the “extra” arguments.
-</dd>
-<dt><strong>Vector</strong><a id="vector"></a></dt>
-<dd>a sequence of values,
-usually of <a href="glossary.html#homogeneous">homogeneous</a> type.
-Vectors are <em>the</em> fundamental data structure in R;
-<a href="glossary.html#scalar">scalars</a> are actually vectors of unit length.
-</dd>
-<dt><strong>Vectorize</strong><a id="vectorize"></a></dt>
-<dd>to write code so that operations are performed on entire vectors,
-rather than element-by-element within loops.
-</dd>
-<dt><strong>Warning</strong><a id="warning"></a></dt>
-<dd>a built-in <a href="glossary.html#condition">condition</a> in R of middling severity.
-</dd>
-<dt><strong>Widget</strong><a id="widget"></a></dt>
-<dd>an interactive control element in an user interface.
-</dd>
-</dl>
+<div id="rmarkdown" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Creating Reports with R Markdown</h1>
+<p>FIXME: intro</p>
+<div id="learning-objectives-2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Learning Objectives</h2>
+<ul>
+<li>FIXME: objectives</li>
+</ul>
+</div>
+<div id="key-points-2" class="section level2">
+<h2><span class="header-section-number">4.2</span> Key Points</h2>
+<ul>
+<li>FIXME: key points for R Markdown</li>
+</ul>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="practice.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="keypoints.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tidyverse.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -623,7 +327,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/gvwilson/tidynomicon/edit/master/gloss.md",
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/rmarkdown.Rmd",
 "text": "Edit"
 },
 "history": {

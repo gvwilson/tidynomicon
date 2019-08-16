@@ -1,0 +1,18 @@
+# Creating Reports {#rmarkdown}
+
+```{r setup, include=FALSE}
+source("etc/common.R")
+```
+
+FIXME: intro
+
+## Learning Objectives
+
+- FIXME: objectives
+
+## Key Points
+```{r keypoints, child="keypoints/rmarkdown.md"}
+```
+
+```{r links, child="etc/links.md"}
+```

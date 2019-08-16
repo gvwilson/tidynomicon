@@ -18,7 +18,7 @@ ui <- fluidPage(
 
 server <- function(input, output){
   output$filename <- renderText({
-    paste("input file:", input$datafile)
+    paste("input file:", input$datafile$datapath)
   })
 }
 

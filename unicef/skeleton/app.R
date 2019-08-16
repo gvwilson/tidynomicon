@@ -8,7 +8,8 @@ ui <- fluidPage(
       img(src = "logo.png", width = 200),
       h2("Controls")
     ),
-    mainPanel(h1("Display"))
+    mainPanel(
+      h1("Display"))
   )
 )
 

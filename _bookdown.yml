@@ -9,6 +9,7 @@ rmd_files:
   - index.Rmd
   - basics.Rmd
   - tidyverse.Rmd
+  - rmarkdown.Rmd
   - package.Rmd
   - nse.Rmd
   - debt.Rmd
