@@ -6,6 +6,8 @@ source("etc/common.R")
 
 FIXME: intro
 
+rmarkdown/01/litters.rmd
+
 ## Learning Objectives
 
 - FIXME: objectives
