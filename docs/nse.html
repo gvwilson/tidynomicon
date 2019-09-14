@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -167,7 +167,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10" data-path="tidyverse.html"><a href="tidyverse.html#do-i-need-more-practice-with-the-tidyverse"><i class="fa fa-check"></i><b>3.10</b> Do I need more practice with the tidyverse?</a></li>
 <li class="chapter" data-level="3.11" data-path="tidyverse.html"><a href="tidyverse.html#key-points-1"><i class="fa fa-check"></i><b>3.11</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports with R Markdown</a><ul>
+<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports</a><ul>
 <li class="chapter" data-level="4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#learning-objectives-2"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.2</b> Key Points</a></li>
 </ul></li>
@@ -218,15 +218,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.4</b> How can I work with relational databases in R?</a></li>
 <li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>10</b> Web Applications</a><ul>
-<li class="chapter" data-level="10.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-8"><i class="fa fa-check"></i><b>10.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="10.2" data-path="shiny.html"><a href="shiny.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>10.2</b> How do I set up a simple application?</a></li>
-<li class="chapter" data-level="10.3" data-path="shiny.html"><a href="shiny.html#how-can-i-build-a-more-interesting-interface"><i class="fa fa-check"></i><b>10.3</b> How can I build a more interesting interface?</a></li>
-<li class="chapter" data-level="10.4" data-path="shiny.html"><a href="shiny.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>10.4</b> How can I display the data in a file?</a></li>
-<li class="chapter" data-level="10.5" data-path="shiny.html"><a href="shiny.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>10.5</b> How can I break circular dependencies?</a></li>
-<li class="chapter" data-level="10.6" data-path="shiny.html"><a href="shiny.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>10.6</b> How can I control how the user interface is rendered?</a></li>
-<li class="chapter" data-level="10.7" data-path="shiny.html"><a href="shiny.html#key-points-8"><i class="fa fa-check"></i><b>10.7</b> Key Points</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
@@ -252,7 +243,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.5" data-path="keypoints.html"><a href="keypoints.html#intellectual-debt"><i class="fa fa-check"></i><b>G.5</b> Intellectual Debt</a></li>
 <li class="chapter" data-level="G.6" data-path="keypoints.html"><a href="keypoints.html#testing-and-error-handling"><i class="fa fa-check"></i><b>G.6</b> Testing and Error Handling</a></li>
 <li class="chapter" data-level="G.7" data-path="keypoints.html"><a href="keypoints.html#advanced-topics"><i class="fa fa-check"></i><b>G.7</b> Advanced Topics</a></li>
-<li class="chapter" data-level="G.8" data-path="keypoints.html"><a href="keypoints.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>G.8</b> Web Applications with Shiny</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -300,11 +290,11 @@ initial <span class="op">=</span> <span class="st">&quot;start&quot;</span>
 final <span class="op">=</span> tens_func(initial <span class="op">+</span> <span class="st">&quot; more&quot;</span>)
 <span class="bu">print</span>(final)</code></pre>
 <pre><code>start more tens ones</code></pre>
-<p>When we call <code>tens_func</code> we pass it <code>initial + " more"</code>;
-since <code>initial</code> has just been assigned the value <code>"start"</code>,
-that’s the same as calling <code>tens_func</code> with <code>"start more"</code>.
-<code>tens_func</code> then calls <code>ones_func</code> with <code>"start more tens"</code>,
-and <code>ones_func</code> returns <code>"start more tens ones"</code>.
+<p>When we call <code>tens_func</code> we pass it <code>initial + &quot; more&quot;</code>;
+since <code>initial</code> has just been assigned the value <code>&quot;start&quot;</code>,
+that’s the same as calling <code>tens_func</code> with <code>&quot;start more&quot;</code>.
+<code>tens_func</code> then calls <code>ones_func</code> with <code>&quot;start more tens&quot;</code>,
+and <code>ones_func</code> returns <code>&quot;start more tens ones&quot;</code>.
 But there’s more going on here than that two-sentence summary suggests.
 Let’s spell out the steps:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ones_func(ones_arg):
@@ -321,14 +311,14 @@ global_temp_1 <span class="op">=</span> initial <span class="op">+</span> <span 
 final <span class="op">=</span> tens_func(global_temp_1)
 <span class="bu">print</span>(final)</code></pre>
 <pre><code>start more tens ones</code></pre>
-<p>Step 1: we assign <code>"start"</code> to <code>initial</code> at the global level:</p>
+<p>Step 1: we assign <code>&quot;start&quot;</code> to <code>initial</code> at the global level:</p>
 <div class="figure"><span id="fig:py-step-1"></span>
 <img src="figures/nse/python-step-01.svg" alt="Python Step 1"  />
 <p class="caption">
 Figure 6.1: Python Step 1
 </p>
 </div>
-<p>Step 2: we ask Python to call <code>tens_func(initial + "more")</code>,
+<p>Step 2: we ask Python to call <code>tens_func(initial + &quot;more&quot;)</code>,
 so it creates a temporary variable to hold the result of the concatenation
 <em>before</em> calling <code>tens_func</code>:</p>
 <div class="figure"><span id="fig:py-step-2"></span>
@@ -346,7 +336,7 @@ Figure 6.3: Python Step 3
 </div>
 <p>Note that <code>tens_arg</code> points to the same thing in memory as <code>global_temp_1</code>,
 since Python passes everything by reference.</p>
-<p>Step 4: we ask Python to call <code>ones_func(tens_arg + " tens")</code>,
+<p>Step 4: we ask Python to call <code>ones_func(tens_arg + &quot; tens&quot;)</code>,
 so it creates another temporary variable:</p>
 <div class="figure"><span id="fig:py-step-4"></span>
 <img src="figures/nse/python-step-04.svg" alt="Python Step 4"  />
@@ -361,7 +351,7 @@ Figure 6.4: Python Step 4
 Figure 6.5: Python Step 5
 </p>
 </div>
-<p>Step 6: Python creates a temporary variable to hold <code>ones_arg + "ones"</code>:</p>
+<p>Step 6: Python creates a temporary variable to hold <code>ones_arg + &quot;ones&quot;</code>:</p>
 <div class="figure"><span id="fig:py-step-6"></span>
 <img src="figures/nse/python-step-06.svg" alt="Python Step 6"  />
 <p class="caption">
@@ -432,7 +422,7 @@ and hinges on the fact that
 <p><strong>What’s an Expression?</strong></p>
 <p>An expression is anything that has a value.
 The simplest expressions are literal values like the number 1,
-the string <code>"stuff"</code>, and the Boolean <code>TRUE</code>.
+the string <code>&quot;stuff&quot;</code>, and the Boolean <code>TRUE</code>.
 A variable like <code>least</code> is also an expression:
 its value is whatever the variable currently refers to.</p>
 <p>Complex expressions are built out of simpler expressions:
@@ -458,7 +448,7 @@ combined &lt;- paste(left, op, right)
 tree &lt;- parse(text = combined)</code></pre>
 <p>or by calling functions.
 The function-based approach is safer and more flexible;
-see <span class="citation">Wickham (<a href="#ref-Wick2019" role="doc-biblioref">2019</a>)</span> for details.</p>
+see <span class="citation">Wickham (<a href="#ref-Wick2019">2019</a>)</span> for details.</p>
 </blockquote>
 <p>Step 1: we assign “start” to <code>initial</code> in the <a href="glossary.html#global-environment">global environment</a>:</p>
 <div class="figure"><span id="fig:r-step-1"></span>
@@ -467,7 +457,7 @@ see <span class="citation">Wickham (<a href="#ref-Wick2019" role="doc-biblioref"
 Figure 6.9: R Step 1
 </p>
 </div>
-<p>Step 2: we ask R to call <code>tens_func(initial + "more")</code>,
+<p>Step 2: we ask R to call <code>tens_func(initial + &quot;more&quot;)</code>,
 so it creates a <a href="glossary.html#promise">promise</a> to hold:</p>
 <ul>
 <li>the <a href="glossary.html#environment">environment</a> we’re in (which I’m surrounding with <code>@</code>),</li>
@@ -492,7 +482,7 @@ Figure 6.11: R Step 3
 the promise in <code>tens_func</code> remembers that it was created in the <a href="glossary.html#global-environment">global environment</a>:
 it will eventually need a value for <code>initial</code>,
 so it needs to know where to look to find the right one.</p>
-<p>Step 4: since the very next thing we ask for is <code>paste(tens_arg, "tens")</code>,
+<p>Step 4: since the very next thing we ask for is <code>paste(tens_arg, &quot;tens&quot;)</code>,
 R needs a value for <code>tens_arg</code>.
 To get it,
 R evaluates the promise that <code>tens_arg</code> refers to:</p>
@@ -729,7 +719,7 @@ that contains only an unevaluated expression and an environment:</p>
 expr: ^red != green
 env:  global</code></pre>
 <p>Ah: a quosure is a structured object,
-so evaluating it just gives it back to us in the same way that evaluating <code>2</code> or <code>"hello"</code> would.
+so evaluating it just gives it back to us in the same way that evaluating <code>2</code> or <code>&quot;hello&quot;</code> would.
 What we want to <code>eval</code> is the expression inside the quosure,
 which we can get using <code>quo_get_expr</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">check_using_quo_get_expr &lt;-<span class="st"> </span><span class="cf">function</span>(data, test) {

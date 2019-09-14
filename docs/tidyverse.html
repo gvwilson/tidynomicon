@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -167,7 +167,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10" data-path="tidyverse.html"><a href="tidyverse.html#do-i-need-more-practice-with-the-tidyverse"><i class="fa fa-check"></i><b>3.10</b> Do I need more practice with the tidyverse?</a></li>
 <li class="chapter" data-level="3.11" data-path="tidyverse.html"><a href="tidyverse.html#key-points-1"><i class="fa fa-check"></i><b>3.11</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports with R Markdown</a><ul>
+<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports</a><ul>
 <li class="chapter" data-level="4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#learning-objectives-2"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.2</b> Key Points</a></li>
 </ul></li>
@@ -218,15 +218,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.4</b> How can I work with relational databases in R?</a></li>
 <li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>10</b> Web Applications</a><ul>
-<li class="chapter" data-level="10.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-8"><i class="fa fa-check"></i><b>10.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="10.2" data-path="shiny.html"><a href="shiny.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>10.2</b> How do I set up a simple application?</a></li>
-<li class="chapter" data-level="10.3" data-path="shiny.html"><a href="shiny.html#how-can-i-build-a-more-interesting-interface"><i class="fa fa-check"></i><b>10.3</b> How can I build a more interesting interface?</a></li>
-<li class="chapter" data-level="10.4" data-path="shiny.html"><a href="shiny.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>10.4</b> How can I display the data in a file?</a></li>
-<li class="chapter" data-level="10.5" data-path="shiny.html"><a href="shiny.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>10.5</b> How can I break circular dependencies?</a></li>
-<li class="chapter" data-level="10.6" data-path="shiny.html"><a href="shiny.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>10.6</b> How can I control how the user interface is rendered?</a></li>
-<li class="chapter" data-level="10.7" data-path="shiny.html"><a href="shiny.html#key-points-8"><i class="fa fa-check"></i><b>10.7</b> Key Points</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
@@ -252,7 +243,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.5" data-path="keypoints.html"><a href="keypoints.html#intellectual-debt"><i class="fa fa-check"></i><b>G.5</b> Intellectual Debt</a></li>
 <li class="chapter" data-level="G.6" data-path="keypoints.html"><a href="keypoints.html#testing-and-error-handling"><i class="fa fa-check"></i><b>G.6</b> Testing and Error Handling</a></li>
 <li class="chapter" data-level="G.7" data-path="keypoints.html"><a href="keypoints.html#advanced-topics"><i class="fa fa-check"></i><b>G.7</b> Advanced Topics</a></li>
-<li class="chapter" data-level="G.8" data-path="keypoints.html"><a href="keypoints.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>G.8</b> Web Applications with Shiny</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -892,9 +882,9 @@ and encourage use of patterns that make it easier for others to understand our p
  9 BLR      2011     0.95  0.95  0.91
 10 BLR      2012     0.95  0.95  0.95
 # … with 173 more rows</code></pre>
-<p>Notice that the expression is <code>lo &gt; 0.5</code> rather than <code>"lo" &gt; 0.5</code>.
+<p>Notice that the expression is <code>lo &gt; 0.5</code> rather than <code>&quot;lo&quot; &gt; 0.5</code>.
 The latter expression would return the entire table
-because the string <code>"lo"</code> is greater than the number 0.5 everywhere.</p>
+because the string <code>&quot;lo&quot;</code> is greater than the number 0.5 everywhere.</p>
 <p>But how is it that the name <code>lo</code> can be used on its own?
 It is the name of a column, but there is no variable called <code>lo</code>.
 The answer is that R uses <a href="glossary.html#lazy-evaluation">lazy evaluation</a>:
@@ -902,7 +892,7 @@ function arguments aren’t evaluated until they’re needed,
 so the function <code>filter</code> actually gets the expression <code>lo &gt; 0.5</code>,
 which allows it to check that there’s a column called <code>lo</code> and then use it appropriately.
 It may seem strange at first,
-but it is much tidier than <code>filter(data, data$lo &gt; 0.5)</code> or <code>filter(data, "lo &gt; 0.5")</code>.
+but it is much tidier than <code>filter(data, data$lo &gt; 0.5)</code> or <code>filter(data, &quot;lo &gt; 0.5&quot;)</code>.
 We will explore lazy evaluation further in Chapter <a href="nse.html#nse">6</a>.</p>
 <p>We can make data anlaysis code more readable by using the <a href="glossary.html#pipe-operator">pipe operator</a> <code>%&gt;%</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">infant_hiv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(lo <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)</code></pre>
@@ -1077,7 +1067,7 @@ We then group by year and aggregate, again using strings for column names:</p>
 data <span class="op">=</span> data.query(<span class="st">&#39;(estimate != 0.95) &amp; (lo &gt; 0.5) &amp; (hi &lt;= (lo + 0.2))&#39;</span>)
 data <span class="op">=</span> data.assign(difference <span class="op">=</span> (data.hi <span class="op">-</span> data.lo))
 grouped <span class="op">=</span> data.groupby(<span class="st">&#39;year&#39;</span>).agg({<span class="st">&#39;difference&#39;</span> : {<span class="st">&#39;ave_diff&#39;</span> : <span class="st">&#39;mean&#39;</span>, <span class="st">&#39;count&#39;</span> : <span class="st">&#39;count&#39;</span>}})</code></pre>
-<pre><code>/Users/gvwilson/anaconda3/lib/python3.6/site-packages/pandas/core/groupby/groupby.py:4658: FutureWarning: using a dict with renaming is deprecated and will be removed in a future version
+<pre><code>//anaconda3/lib/python3.7/site-packages/pandas/core/groupby/generic.py:1315: FutureWarning: using a dict with renaming is deprecated and will be removed in a future version
   return super(DataFrameGroupBy, self).aggregate(arg, *args, **kwargs)</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(grouped)</code></pre>
 <pre><code>     difference      
@@ -1164,7 +1154,7 @@ so that data can be passed to a function that expects it in a position other tha
 <p>Human being always want to see the previously unseen,
 though they are not always glad to have done so.
 The most popular tool for doing this in R is <code>ggplot2</code>,
-which implements and extends the patterns for creating charts described in <span class="citation">Wilkinson (<a href="#ref-Wilk2005" role="doc-biblioref">2005</a>)</span>.
+which implements and extends the patterns for creating charts described in <span class="citation">Wilkinson (<a href="#ref-Wilk2005">2005</a>)</span>.
 Every chart it creates has a <a href="glossary.html#geometry">geometry</a> that controls how data is displayed
 and a <a href="glossary.html#mapping">mapping</a> that controls how values are represented geometrically.
 For example,

@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -167,7 +167,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10" data-path="tidyverse.html"><a href="tidyverse.html#do-i-need-more-practice-with-the-tidyverse"><i class="fa fa-check"></i><b>3.10</b> Do I need more practice with the tidyverse?</a></li>
 <li class="chapter" data-level="3.11" data-path="tidyverse.html"><a href="tidyverse.html#key-points-1"><i class="fa fa-check"></i><b>3.11</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports with R Markdown</a><ul>
+<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports</a><ul>
 <li class="chapter" data-level="4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#learning-objectives-2"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.2</b> Key Points</a></li>
 </ul></li>
@@ -218,15 +218,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.4</b> How can I work with relational databases in R?</a></li>
 <li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>10</b> Web Applications</a><ul>
-<li class="chapter" data-level="10.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-8"><i class="fa fa-check"></i><b>10.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="10.2" data-path="shiny.html"><a href="shiny.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>10.2</b> How do I set up a simple application?</a></li>
-<li class="chapter" data-level="10.3" data-path="shiny.html"><a href="shiny.html#how-can-i-build-a-more-interesting-interface"><i class="fa fa-check"></i><b>10.3</b> How can I build a more interesting interface?</a></li>
-<li class="chapter" data-level="10.4" data-path="shiny.html"><a href="shiny.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>10.4</b> How can I display the data in a file?</a></li>
-<li class="chapter" data-level="10.5" data-path="shiny.html"><a href="shiny.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>10.5</b> How can I break circular dependencies?</a></li>
-<li class="chapter" data-level="10.6" data-path="shiny.html"><a href="shiny.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>10.6</b> How can I control how the user interface is rendered?</a></li>
-<li class="chapter" data-level="10.7" data-path="shiny.html"><a href="shiny.html#key-points-8"><i class="fa fa-check"></i><b>10.7</b> Key Points</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
@@ -252,7 +243,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.5" data-path="keypoints.html"><a href="keypoints.html#intellectual-debt"><i class="fa fa-check"></i><b>G.5</b> Intellectual Debt</a></li>
 <li class="chapter" data-level="G.6" data-path="keypoints.html"><a href="keypoints.html#testing-and-error-handling"><i class="fa fa-check"></i><b>G.6</b> Testing and Error Handling</a></li>
 <li class="chapter" data-level="G.7" data-path="keypoints.html"><a href="keypoints.html#advanced-topics"><i class="fa fa-check"></i><b>G.7</b> Advanced Topics</a></li>
-<li class="chapter" data-level="G.8" data-path="keypoints.html"><a href="keypoints.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>G.8</b> Web Applications with Shiny</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -674,7 +664,7 @@ and the third is again a vector of one element;
 the major indices are shown in <code>[[…]]</code>,
 while the indices of the contained elements are shown in <code>[…]</code>.
 (Again,
-remember that <code>"first"</code> and 3.3 are actually vectors of length 1.)</p>
+remember that <code>&quot;first&quot;</code> and 3.3 are actually vectors of length 1.)</p>
 <blockquote>
 <p>In keeping with R’s conventions,
 we will henceforth use <code>[[</code> and <code>[</code> to refer to the two kinds of indexing
@@ -723,24 +713,24 @@ v[<span class="dv">2</span>]</code></pre>
 <blockquote>
 <p><strong>Flattening and Recursive Indexing</strong></p>
 <p>If a list is just a vector of objects, why do we need the function <code>list</code>?
-Why can’t we create a list with <code>c("first", c(2, 20, 200), 30)</code>?
+Why can’t we create a list with <code>c(&quot;first&quot;, c(2, 20, 200), 30)</code>?
 The answer is that R flattens the arguments to <code>c</code>,
 so that <code>c(c(1, 2), c(3, 4))</code> produces <code>c(1, 2, 3, 4)</code>.
 It also does automatic type conversion:
-<code>c("first", c(2, 20, 200), 30)</code> produces a vector of character strings
-<code>c("first", "2", "20", "200", "30")</code>.
+<code>c(&quot;first&quot;, c(2, 20, 200), 30)</code> produces a vector of character strings
+<code>c(&quot;first&quot;, &quot;2&quot;, &quot;20&quot;, &quot;200&quot;, &quot;30&quot;)</code>.
 This is helpful once you get used to it
 (which once again is true of both quantum mechanics and necromancy).</p>
 <p>Another “helpful, ish” behavior is that using <code>[[</code> with a list subsets recursively:
 if <code>thing &lt;- list(a = list(b = list(c = list(d = 1))))</code>,
-then <code>thing[[c("a", "b", "c", "d")]]</code> selects the 1.</p>
+then <code>thing[[c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)]]</code> selects the 1.</p>
 </blockquote>
 </div>
 <div id="how-can-i-access-elements-by-name" class="section level2">
 <h2><span class="header-section-number">2.10</span> How can I access elements by name?</h2>
 <p>R allows us to name the elements in vectors and lists:
 if we assign <code>c(one = 1, two = 2, three = 3)</code> to <code>names</code>,
-then <code>names["two"]</code> is 2.
+then <code>names[&quot;two&quot;]</code> is 2.
 We can use this to create a lookup table:</p>
 <pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;nb&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>)
 lookup &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
@@ -750,7 +740,7 @@ lookup[values]</code></pre>
            m            m 
       &quot;Male&quot;       &quot;Male&quot; </code></pre>
 <p>If the structure in question is a list rather than an atomic vector of numbers, characters, or logicals,
-we can use the syntax <code>lookup$m</code> instead of <code>lookup["m"]</code>:</p>
+we can use the syntax <code>lookup$m</code> instead of <code>lookup[&quot;m&quot;]</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">lookup_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
 lookup_list<span class="op">$</span>m</code></pre>
 <pre><code>[1] &quot;Male&quot;</code></pre>
@@ -940,10 +930,10 @@ people claim that this is more natural
 and then cite some supportive anecdote as if it were proof.</p>
 <blockquote>
 <p><strong>Repeating Things</strong></p>
-<p>The function <code>rep</code> repeats things, so <code>rep("a", 3)</code> is <code>c("a", "a", "a")</code>.
+<p>The function <code>rep</code> repeats things, so <code>rep(&quot;a&quot;, 3)</code> is <code>c(&quot;a&quot;, &quot;a&quot;, &quot;a&quot;)</code>.
 If the second argument is a vector of the same length as the first,
 it specifies how many times each item in the first vector is to be repeated:
-<code>rep(c("a", "b"), c(2, 3))</code> is <code>c("a", "a", "b", "b", "b")</code>.</p>
+<code>rep(c(&quot;a&quot;, &quot;b&quot;), c(2, 3))</code> is <code>c(&quot;a&quot;, &quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;b&quot;)</code>.</p>
 </blockquote>
 </div>
 <div id="how-can-i-use-a-vector-in-a-conditional-statement" class="section level2">

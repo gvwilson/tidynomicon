@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -167,7 +167,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10" data-path="tidyverse.html"><a href="tidyverse.html#do-i-need-more-practice-with-the-tidyverse"><i class="fa fa-check"></i><b>3.10</b> Do I need more practice with the tidyverse?</a></li>
 <li class="chapter" data-level="3.11" data-path="tidyverse.html"><a href="tidyverse.html#key-points-1"><i class="fa fa-check"></i><b>3.11</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports with R Markdown</a><ul>
+<li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports</a><ul>
 <li class="chapter" data-level="4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#learning-objectives-2"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.2</b> Key Points</a></li>
 </ul></li>
@@ -218,15 +218,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.4</b> How can I work with relational databases in R?</a></li>
 <li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>10</b> Web Applications</a><ul>
-<li class="chapter" data-level="10.1" data-path="shiny.html"><a href="shiny.html#learning-objectives-8"><i class="fa fa-check"></i><b>10.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="10.2" data-path="shiny.html"><a href="shiny.html#how-do-i-set-up-a-simple-application"><i class="fa fa-check"></i><b>10.2</b> How do I set up a simple application?</a></li>
-<li class="chapter" data-level="10.3" data-path="shiny.html"><a href="shiny.html#how-can-i-build-a-more-interesting-interface"><i class="fa fa-check"></i><b>10.3</b> How can I build a more interesting interface?</a></li>
-<li class="chapter" data-level="10.4" data-path="shiny.html"><a href="shiny.html#how-can-i-display-the-data-in-a-file"><i class="fa fa-check"></i><b>10.4</b> How can I display the data in a file?</a></li>
-<li class="chapter" data-level="10.5" data-path="shiny.html"><a href="shiny.html#how-can-i-break-circular-dependencies"><i class="fa fa-check"></i><b>10.5</b> How can I break circular dependencies?</a></li>
-<li class="chapter" data-level="10.6" data-path="shiny.html"><a href="shiny.html#how-can-i-control-how-the-user-interface-is-rendered"><i class="fa fa-check"></i><b>10.6</b> How can I control how the user interface is rendered?</a></li>
-<li class="chapter" data-level="10.7" data-path="shiny.html"><a href="shiny.html#key-points-8"><i class="fa fa-check"></i><b>10.7</b> Key Points</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
@@ -252,7 +243,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.5" data-path="keypoints.html"><a href="keypoints.html#intellectual-debt"><i class="fa fa-check"></i><b>G.5</b> Intellectual Debt</a></li>
 <li class="chapter" data-level="G.6" data-path="keypoints.html"><a href="keypoints.html#testing-and-error-handling"><i class="fa fa-check"></i><b>G.6</b> Testing and Error Handling</a></li>
 <li class="chapter" data-level="G.7" data-path="keypoints.html"><a href="keypoints.html#advanced-topics"><i class="fa fa-check"></i><b>G.7</b> Advanced Topics</a></li>
-<li class="chapter" data-level="G.8" data-path="keypoints.html"><a href="keypoints.html#web-applications-with-shiny"><i class="fa fa-check"></i><b>G.8</b> Web Applications with Shiny</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -429,7 +419,7 @@ This happens because:</p>
 <li>our CSV file uses <code>-</code> (a single dash) to show missing data, and</li>
 <li>all of our numbers end with <code>%</code>, which means those values actually <em>are</em> character strings.</li>
 </ol>
-<p>We will tackle the first problem by setting <code>na = c("-")</code> in our <code>read_csv</code> call
+<p>We will tackle the first problem by setting <code>na = c(&quot;-&quot;)</code> in our <code>read_csv</code> call
 (since we should never do ourselves what a library function will do for us):</p>
 <pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/infant_hiv.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
 <pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
@@ -658,14 +648,14 @@ Let’s take a closer look:</p>
 <pre><code>[1] FALSE</code></pre>
 <p>Perdition.
 After browsing the data,
-we realize that some entries are <code>"&gt;95%"</code>,
+we realize that some entries are <code>&quot;&gt;95%&quot;</code>,
 i.e.,
 there is a greater-than sign as well as a percentage in the text.
 We will need to regularize those before we do any conversions.</p>
 <p>Before that,
 however,
 let’s see if we can get rid of the percent signs.
-The obvious way is is to use <code>str_replace(body, "%", "")</code>,
+The obvious way is is to use <code>str_replace(body, &quot;%&quot;, &quot;&quot;)</code>,
 but that doesn’t work:
 <code>str_replace</code> works on vectors,
 but a tibble is a list of vectors.
@@ -778,12 +768,12 @@ trimmed &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(body, str_
 #   hi_5 &lt;chr&gt;, lo_5 &lt;chr&gt;, Estimate_6 &lt;chr&gt;, hi_6 &lt;chr&gt;, lo_6 &lt;chr&gt;,
 #   Estimate_7 &lt;chr&gt;, hi_7 &lt;chr&gt;, lo_7 &lt;chr&gt;, Estimate_8 &lt;chr&gt;,
 #   hi_8 &lt;chr&gt;, lo_8 &lt;chr&gt;, X30 &lt;chr&gt;</code></pre>
-<p>Now to tackle those <code>"&gt;95%"</code> values.
+<p>Now to tackle those <code>&quot;&gt;95%&quot;</code> values.
 It turns out that <code>str_replace</code> uses <a href="glossary.html#regular-expression">regular expressions</a>,
 not just direct string matches,
 so we can get rid of the <code>&gt;</code> at the same time as we get rid of the <code>%</code>.
 We will check by looking at the first <code>Estimate</code> column,
-which earlier inspection informed us had at least one <code>"&gt;95%"</code> in it:</p>
+which earlier inspection informed us had at least one <code>&quot;&gt;95%&quot;</code> in it:</p>
 <pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/infant_hiv.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>))</code></pre>
 <pre><code>Warning: Missing column names filled in: &#39;X30&#39; [30]</code></pre>
 <pre><code>Warning: Duplicated column names deduplicated: &#39;Estimate&#39; =&gt;
@@ -1176,7 +1166,7 @@ single</code></pre>
 </ol>
 <p>We’ve seen the tools we need for the second and third step;
 the first involves a little bit of list manipulation.
-Let’s start by repeating <code>"est"</code>, <code>"hi"</code>, and <code>"lo"</code> as many times as we need them:</p>
+Let’s start by repeating <code>&quot;est&quot;</code>, <code>&quot;hi&quot;</code>, and <code>&quot;lo&quot;</code> as many times as we need them:</p>
 <pre class="sourceCode r"><code class="sourceCode r">num_years &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2017</span> <span class="op">-</span><span class="st"> </span><span class="dv">2009</span>
 kinds &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;hi&quot;</span>, <span class="st">&quot;lo&quot;</span>), num_years)
 kinds</code></pre>
@@ -1231,7 +1221,7 @@ we can use <code>unlist</code> to do that:</p>
 years</code></pre>
 <pre><code> [1] 2009 2009 2009 2010 2010 2010 2011 2011 2011 2012 2012 2012 2013 2013
 [15] 2013 2014 2014 2014 2015 2015 2015 2016 2016 2016 2017 2017 2017</code></pre>
-<p>We can now combine the years and kinds by pasting the two vectors together with <code>"-"</code> as a separator:</p>
+<p>We can now combine the years and kinds by pasting the two vectors together with <code>&quot;-&quot;</code> as a separator:</p>
 <pre class="sourceCode r"><code class="sourceCode r">headers &lt;-<span class="st"> </span><span class="kw">paste</span>(years, kinds, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)
 headers</code></pre>
 <pre><code> [1] &quot;2009-est&quot; &quot;2009-hi&quot;  &quot;2009-lo&quot;  &quot;2010-est&quot; &quot;2010-hi&quot;  &quot;2010-lo&quot; 
@@ -1774,7 +1764,7 @@ and finally we add this to the <code>DESCRIPTION</code> file:</p>
 <p>The <code>Imports</code> field in <code>DESCRIPTION</code> actually has nothing to do with importing functions;
 it just ensures that those packages are installed when this package is.
 As for the version numbers in parentheses,
-we got those by running <code>packageVersion("readr")</code> and similar commands inside RStudio
+we got those by running <code>packageVersion(&quot;readr&quot;)</code> and similar commands inside RStudio
 and then rounding off.</p>
 <p>But that is still not enough,
 because the check still complains about <code>%&gt;%</code>.
@@ -1812,7 +1802,7 @@ so we can try running “Build…Install and Restart”
 to build our package,
 re-start our R session (so that memory is clean),
 and load our newly-created package,
-and then run <code>infant_hiv("~/tidynomicon/data/infant_hiv.csv")</code>.</p>
+and then run <code>infant_hiv(&quot;~/tidynomicon/data/infant_hiv.csv&quot;)</code>.</p>
 <p>Our data loads,
 so we return to the problem of “variables” that are actually column names.
 A bit more searching online tells us to add this to the documentation block for our function:</p>
@@ -1872,7 +1862,7 @@ then uses some tags and directives to document its format and fields.
 (Note that we have also documented our data in <code>inst/extdata/README.md</code>,
 but that focuses on the format and meaning of the raw data,
 not the cleaned-up version.)</p>
-<p>The last line is the string <code>"infant_hiv"</code>,
+<p>The last line is the string <code>&quot;infant_hiv&quot;</code>,
 i.e.,
 the name of the dataset.
 We will create one placeholder R file like this for each of our datasets,

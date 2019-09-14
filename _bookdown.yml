@@ -15,7 +15,6 @@ rmd_files:
   - debt.Rmd
   - testerror.Rmd
   - advanced.Rmd
-  - shiny.Rmd
   - references.Rmd
   - appendix.Rmd
   - LICENSE.md

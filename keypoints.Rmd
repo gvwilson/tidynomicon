@@ -32,9 +32,5 @@ source("etc/common.R")
 ```{r keypoints-advanced, child="keypoints/advanced.md"}
 ```
 
-## Web Applications with Shiny
-```{r keypoints-shiny, child="keypoints/shiny.md"}
-```
-
 ```{r, child="etc/links.md"}
 ```
