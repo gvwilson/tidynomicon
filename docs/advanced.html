@@ -222,8 +222,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="advanced.html"><a href="advanced.html#learning-objectives-7"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="9.2" data-path="advanced.html"><a href="advanced.html#how-can-i-use-python-with-r"><i class="fa fa-check"></i><b>9.2</b> How can I use Python with R?</a></li>
 <li class="chapter" data-level="9.3" data-path="advanced.html"><a href="advanced.html#how-does-object-oriented-programming-work-in-r"><i class="fa fa-check"></i><b>9.3</b> How does object-oriented programming work in R?</a></li>
-<li class="chapter" data-level="9.4" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.4</b> How can I work with relational databases in R?</a></li>
-<li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.5</b> Key Points</a></li>
+<li class="chapter" data-level="9.4" data-path="advanced.html"><a href="advanced.html#how-can-i-write-web-applications-in-r"><i class="fa fa-check"></i><b>9.4</b> How can I write web applications in R?</a></li>
+<li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.5</b> How can I work with relational databases in R?</a></li>
+<li class="chapter" data-level="9.6" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.6</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -375,7 +376,7 @@ For example,
 we can use Python’s random number generator in R as follows:</p>
 <pre class="sourceCode r"><code class="sourceCode r">pyrand &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;random&quot;</span>)
 pyrand<span class="op">$</span><span class="kw">gauss</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
-<pre><code>[1] 0.6288617</code></pre>
+<pre><code>[1] 0.8552645</code></pre>
 <p>(There’s no reason to do this—R’s random number generator is just as strong—but it illustrates the point.)</p>
 <p>We can also source Python scripts.
 For example,
@@ -670,8 +671,15 @@ we will almost always place all of the methods associated with a class in the sa
 The time has finally come for us to explore projects and packages.</p>
 </div>
 </div>
+<div id="how-can-i-write-web-applications-in-r" class="section level2">
+<h2><span class="header-section-number">9.4</span> How can I write web applications in R?</h2>
+<p>R has this awesome gnarly web programming framework called Shiny.
+It uses <del>sympathetic magic</del> <del>quantum entanglement</del> reactive variables
+to update the application’s interface when data changes.
+You should, like, totally check it out.</p>
+</div>
 <div id="how-can-i-work-with-relational-databases-in-r" class="section level2">
-<h2><span class="header-section-number">9.4</span> How can I work with relational databases in R?</h2>
+<h2><span class="header-section-number">9.5</span> How can I work with relational databases in R?</h2>
 <p>Data frames and database tables go together as naturally as chocolate and the tears of our fallen foes.
 As in Python and other languages,
 there is a standard interface for connecting to and querying relational databases;
@@ -684,7 +692,7 @@ so <code>install.packages(&quot;RSQLite&quot;)</code> will give you everything y
 We assume that you already speak enough SQL to get yourself into trouble;
 if you do not, <a href="https://swcarpentry.github.io/sql-novice-survey/">this tutorial</a> is a good place to start.</p>
 <div id="how-can-i-get-data-from-a-database" class="section level3">
-<h3><span class="header-section-number">9.4.1</span> How can I get data from a database?</h3>
+<h3><span class="header-section-number">9.5.1</span> How can I get data from a database?</h3>
 <p>Suppose we have a small database in <code>data/example.db</code>
 containing survey data salvaged from a series of doomed expeditions to the Antarctic in the 1920s and 1930s.
 The database contains four tables:</p>
@@ -1009,7 +1017,7 @@ first seen values of type real, coercing other values of type string</code></pre
 <p>FIXME: why the error?</p>
 </div>
 <div id="how-can-i-populate-databases-with-r" class="section level3">
-<h3><span class="header-section-number">9.4.2</span> How can I populate databases with R?</h3>
+<h3><span class="header-section-number">9.5.2</span> How can I populate databases with R?</h3>
 <p>Data scientists spend most of their time reading data, but someone has to create it.
 RSQLite makes it easy to map a data frame directly to a database table;
 to show how it works,
@@ -1059,7 +1067,7 @@ and those who can hear will definitely not pity you.</p>
 </div>
 </div>
 <div id="key-points-7" class="section level2">
-<h2><span class="header-section-number">9.5</span> Key Points</h2>
+<h2><span class="header-section-number">9.6</span> Key Points</h2>
 <ul>
 <li>The <code>reticulate</code> library allows R programs to access data in Python programs and vice versa.</li>
 <li>Use <code>py.whatever</code> to access a top-level Python variable from R.</li>

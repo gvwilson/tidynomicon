@@ -423,6 +423,13 @@ In practice,
 we will almost always place all of the methods associated with a class in the same file as its constructor, validator, and helper.
 The time has finally come for us to explore projects and packages.
 
+## How can I write web applications in R?
+
+R has this awesome gnarly web programming framework called Shiny.
+It uses ~~sympathetic magic~~ ~~quantum entanglement~~ reactive variables
+to update the application's interface when data changes.
+You should, like, totally check it out.
+
 ## How can I work with relational databases in R?
 
 Data frames and database tables go together as naturally as chocolate and the tears of our fallen foes.
