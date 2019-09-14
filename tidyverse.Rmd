@@ -85,6 +85,14 @@ We must install the tidyverse
 install.packages("tidyverse")
 ```
 
+At any time,
+we can call `sessionInfo` to find out what versions of which packages we have loaded,
+along with the version of R we're using and some other useful information:
+
+```{r session-info}
+sessionInfo()
+```
+
 We then load the library once per program:
 
 ```{r unloading, echo=FALSE}
