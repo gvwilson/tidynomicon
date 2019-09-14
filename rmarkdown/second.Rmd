@@ -1,0 +1,6 @@
+Displaying the colors:
+
+```{r}
+colors <- c('red', 'green', 'blue')
+colors
+```

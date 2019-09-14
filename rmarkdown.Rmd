@@ -4,13 +4,274 @@
 source("etc/common.R")
 ```
 
-FIXME: intro
+Every serious scholar dreams of recording their knowledge in a leather-bound tome
+that will lie forgotten and dusty on the shelves of an out-of-the-way library
+at a small college with a dubious reputation
+until someone naïve enough to believe that they can control forces beyond mortal ken
+stumbles upon it and unleashes ravenous horrors to prey upon the sanity of the innocent.
+Sadly,
+in these diminished times we must settle for dry expositions of trivia
+typeset in two columns using a demure font and sequentially-numbered citations.
 
-rmarkdown/01/litters.rmd
+But there is yet hope.
+One of R's greatest strengths is a package called `knitr`
+that translates documents written in a format called R Markdown into HTML, PDF, and e-books.
+R Markdown files are a kind of programmable document;
+authors can interleave prose with chunks of R (or other languages)
+and `knitr` will run that code as it processes the document
+to create tables and diagrams.
+To aid this,
+the RStudio IDE includes tools to create new documents,
+insert and run code chunks,
+preview documents' structure and output,
+and much more.
+
+That's the good news.
+The bad news is that Markdown isn't a standard:
+it's more like a set of ad hoc implementations flying in loose formation.
+While basic elements like headings and links are more or less the same in R Markdown
+as they are in (for example) [GitHub Flavored Markdown](glossary.html#gfm),
+people who have used other dialects may trip over small differences.
+
+This chapter starts by introducing Markdown and publishing workflow,
+then shows how to embed code and customize reports.
+We close by showing how to publish reports on GitHub and Netlify,
+which both offer free hosting for small websites.
 
 ## Learning Objectives
 
-- FIXME: objectives
+- Create a Markdown file that includes headings, links, and external images.
+- Compile that file to produce an HTML page.
+- Customize the page via its YAML header.
+- Add R code chunks to a page.
+- Format tabular output programmatically.
+- Share common startup code between pages.
+- Create and customize parameterized documents.
+- Publish pages on GitHub by putting generated HTML in the `docs` directory.
+- Publish pages by copying them to Netlify.
+
+## How can I create and preview a simple page?
+
+To begin,
+create a file called `first.Rmd` and add the following text to it:
+
+<!-- rmarkdown/first.Rmd -->
+```markdown
+## Methods {-}
+
+Something *really important*.
+
+An [external link](https://tidynomicon.tech).
+
+[Another link][rstudio]
+
+<!-- link table below -->
+
+[rstudio]: https://rstudio.com
+```
+
+This shows several key features of Markdown:
+
+-   A level-1 heading (`h1` in HTML) is put on a line starting with `#`.
+    A level-2 heading (`h2`) uses two of these and so on.
+-   Putting `{-}` immediately after the heading title suppresses numbering.
+    Without this,
+    our examples would all be included in this book's table of contents,
+    which isn't what we want.
+    (This is one of R Markdown's extensions to Markdown.)
+-   Paragraphs are separated by blank lines.
+-   Text can be put in single asterisks for *italics*
+    or double asterisk for **bold**.
+-   To create a link,
+    put the visible text inside square brackets
+    and the URL inside parentheses immediately after it.
+    This is the reverse of HTML's order,
+    which puts the URL inside the opening `a` tag
+    *before* the contained text that is displayed.
+-   Links can also be written by putting text inside square brackets
+    and an identifier immediately after it,
+    also in square brackets.
+    Those identifiers can then be associated with links in a table at the bottom of the page.
+-   Comments are written as they are in HTML.
+
+Here's what the HTML corresponding to our simple Markdown document looks like:
+
+> ## Methods {-}
+> 
+> Something *really important*.
+> 
+> An [external link](https://tidynomicon.tech).
+> 
+> [Another link][rstudio]
+> 
+> <!-- link table below -->
+> 
+> [rstudio]: https://rstudio.com
+
+To preview it,
+go to the mini-toolbar at the top of your document in the RStudio IDE
+and click "knit":
+to call the appropriate function from `knitr`
+(or a function from one of the libraries built on top of it for generating books or slides).
+
+```{r knit-button, echo=FALSE, fig.cap="The 'knit' Button"}
+knitr::include_graphics("figures/rmarkdown/knit-button.png")
+```
+
+## How can I run code and include its output in a page?
+
+If this is all R Markdown could do,
+it would be nothing more than an idiosyncratic way to create HTML pages.
+What makes it powerful is the ability to include code chunks
+that are evaluated as the document is knit,
+and whose output is included in the final page.
+Put this in a file called `second.Rmd`:
+
+````markdown
+Displaying the colors:
+
+`r ''````{r}
+colors <- c('red', 'green', 'blue')
+colors
+```
+````
+
+The triple back-quotes mark the start and end of a block of code;
+putting `{r}` immediately after the back-quotes at the start
+tells `knitr` to run the code
+and include its output in the generated page,
+which therefore looks like this:
+
+<blockquote>
+<p>Displaying the colors:</p>
+<pre class="r"><code>colors &lt;- c('red', 'green', 'blue')
+colors</code></pre>
+<pre><code>## [1] &quot;red&quot;   &quot;green&quot; &quot;blue&quot;</code></pre>
+</blockquote>
+
+We can put any code we want inside code blocks.
+We don't have to execute it all at once:
+the `Code` pulldown in RStudio's main menu offers a variety of ways
+to run regions of code.
+The IDE also gives us a keyboard shortcut to insert a new code chunk,
+so there really is no excuse for not making notes as we go along.
+
+We can control execution and formatting by putting options inside the curly braces
+at the start of the code block:
+
+-   `{r label}` gives the chunk a label that we can cross-reference.
+    Labels must be unique within documents,
+    just like the `id` attributes of HTML elements.
+-   `{r include=FALSE}` tells `knitr` to run the code
+    but *not* to include either the code or its output in the finished document.
+    While the option name is confusing—the code is actually included in processing—this
+    is handy when we have setup code that loads libraries or does other things
+    that our readers probably don't care about.
+-   `{r eval=FALSE}` displays the code but doesn't run it,
+    and is often used for tutorials like this one.
+-   `{r echo=FALSE}` hides the code but includes the output.
+    This is most often used for displaying static images
+    as we will see below.
+
+These options can be combined by separating them with commas.
+In particular,
+it's good style to give every chunk a unique label,
+so a document might look like this:
+
+````markdown
+# My Thesis {-}
+
+`r ''````{r setup, include=FALSE}
+# Load tidyverse but don't display messages.
+library(tidyverse)
+```
+
+`r ''````{r read-data, message=FALSE}
+earthquakes <- read_csv('earthquakes.csv')
+```
+
+A profound quotation to set the scene.
+And then some analysis:
+
+`r ''````{r calculate-depth-by-magnitude}
+depth_by_magnitude <- earthquakes %>%
+  mutate(round_mag = round(Magnitude)) %>%
+  group_by(round_mag) %>%
+  summarize(depth = mean(Depth_Km))
+depth_by_magnitude
+```
+
+Now let's visualize that:
+
+`r ''````{r plot-depth-by-magnitude}
+depth_by_magnitude %>%
+  ggplot() +
+  geom_point(mapping = aes(x = round_mag, y = depth))
+```
+````
+
+In order:
+
+-   The document title is a level-1 header with suppressed numbering.
+-   The first code chunk is called `setup`
+    and neither it nor its output are included in the output page.
+-   The second chunk is called `read-data`.
+    It is shown in the output,
+    but its output is not.
+-   There is then a (very) short paragraph.
+-   The third code chunk calculates the mean depth by rounded magnitude.
+    Both the code and its output are included;
+    the output is just R's textual display of the `depth_by_magnitude` table.
+-   After an even shorter paragraph,
+    there is another named chunk whose output is a plot rather than text.
+    `knitr` runs `ggplot2` to create the plot and includes it in the page.
+
+When this page is knit,
+the result is:
+
+<blockquote>
+<h1>My Thesis</h1>
+<pre class="r"><code>earthquakes &lt;- read_csv('earthquakes.csv')</code></pre>
+<p>A profound quotation to set the scene. And then some analysis:</p>
+<pre class="r"><code>depth_by_magnitude &lt;- earthquakes %&gt;%
+  mutate(round_mag = round(Magnitude)) %&gt;%
+  group_by(round_mag) %&gt;%
+  summarize(depth = mean(Depth_Km))
+depth_by_magnitude</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##   round_mag depth
+##       &lt;dbl&gt; &lt;dbl&gt;
+## 1         2  9.85
+## 2         3  9.15
+## 3         4  8.64
+## 4         5  8   
+## 5         6  8.1</code></pre>
+<p>Now let’s visualize that:</p>
+<pre class="r"><code>depth_by_magnitude %&gt;%
+  ggplot() +
+  geom_point(mapping = aes(x = round_mag, y = depth))</code></pre>
+<p><img src="figures/rmarkdown/earthquakes.png"/></p>
+</blockquote>
+
+## How can I format tables in a page?
+
+FIXME
+
+## How can I share code between pages?
+
+FIXME
+
+## How can I parameterize documents?
+
+FIXME
+
+## How can I publish pages on GitHub?
+
+FIXME
+
+## How can I publish pages on Netlify?
+
+FIXME
 
 ## Key Points
 ```{r keypoints, child="keypoints/rmarkdown.md"}

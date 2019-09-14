@@ -1,0 +1,29 @@
+# My Thesis {-}
+
+```{r setup, include=FALSE}
+# Load tidyverse but don't display messages.
+library(tidyverse)
+```
+
+```{r read-data, message=FALSE}
+earthquakes <- read_csv('earthquakes.csv')
+```
+
+A profound quotation to set the scene.
+And then some analysis:
+
+```{r calculate-depth-by-magnitude}
+depth_by_magnitude <- earthquakes %>%
+  mutate(round_mag = round(Magnitude)) %>%
+  group_by(round_mag) %>%
+  summarize(depth = mean(Depth_Km))
+depth_by_magnitude
+```
+
+Now let's visualize that:
+
+```{r plot-depth-by-magnitude}
+depth_by_magnitude %>%
+  ggplot() +
+  geom_point(mapping = aes(x = round_mag, y = depth))
+```

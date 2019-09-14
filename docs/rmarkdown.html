@@ -169,7 +169,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports</a><ul>
 <li class="chapter" data-level="4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#learning-objectives-2"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.2</b> Key Points</a></li>
+<li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-create-and-preview-a-simple-page"><i class="fa fa-check"></i><b>4.2</b> How can I create and preview a simple page?</a></li>
+<li class="chapter" data-level="4.3" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-run-code-and-include-its-output-in-a-page"><i class="fa fa-check"></i><b>4.3</b> How can I run code and include its output in a page?</a></li>
+<li class="chapter" data-level="4.4" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-format-tables-in-a-page"><i class="fa fa-check"></i><b>4.4</b> How can I format tables in a page?</a></li>
+<li class="chapter" data-level="4.5" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-share-code-between-pages"><i class="fa fa-check"></i><b>4.5</b> How can I share code between pages?</a></li>
+<li class="chapter" data-level="4.6" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-parameterize-documents"><i class="fa fa-check"></i><b>4.6</b> How can I parameterize documents?</a></li>
+<li class="chapter" data-level="4.7" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-publish-pages-on-github"><i class="fa fa-check"></i><b>4.7</b> How can I publish pages on GitHub?</a></li>
+<li class="chapter" data-level="4.8" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-publish-pages-on-netlify"><i class="fa fa-check"></i><b>4.8</b> How can I publish pages on Netlify?</a></li>
+<li class="chapter" data-level="4.9" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.9</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>5</b> Creating Packages</a><ul>
 <li class="chapter" data-level="5.1" data-path="package.html"><a href="package.html#learning-objectives-3"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
@@ -266,16 +273,265 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="rmarkdown" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Creating Reports</h1>
-<p>FIXME: intro</p>
-<p>rmarkdown/01/litters.rmd</p>
+<p>Every serious scholar dreams of recording their knowledge in a leather-bound tome
+that will lie forgotten and dusty on the shelves of an out-of-the-way library
+at a small college with a dubious reputation
+until someone naïve enough to believe that they can control forces beyond mortal ken
+stumbles upon it and unleashes ravenous horrors to prey upon the sanity of the innocent.
+Sadly,
+in these diminished times we must settle for dry expositions of trivia
+typeset in two columns using a demure font and sequentially-numbered citations.</p>
+<p>But there is yet hope.
+One of R’s greatest strengths is a package called <code>knitr</code>
+that translates documents written in a format called R Markdown into HTML, PDF, and e-books.
+R Markdown files are a kind of programmable document;
+authors can interleave prose with chunks of R (or other languages)
+and <code>knitr</code> will run that code as it processes the document
+to create tables and diagrams.
+To aid this,
+the RStudio IDE includes tools to create new documents,
+insert and run code chunks,
+preview documents’ structure and output,
+and much more.</p>
+<p>That’s the good news.
+The bad news is that Markdown isn’t a standard:
+it’s more like a set of ad hoc implementations flying in loose formation.
+While basic elements like headings and links are more or less the same in R Markdown
+as they are in (for example) <a href="glossary.html#gfm">GitHub Flavored Markdown</a>,
+people who have used other dialects may trip over small differences.</p>
+<p>This chapter starts by introducing Markdown and publishing workflow,
+then shows how to embed code and customize reports.
+We close by showing how to publish reports on GitHub and Netlify,
+which both offer free hosting for small websites.</p>
 <div id="learning-objectives-2" class="section level2">
 <h2><span class="header-section-number">4.1</span> Learning Objectives</h2>
 <ul>
-<li>FIXME: objectives</li>
+<li>Create a Markdown file that includes headings, links, and external images.</li>
+<li>Compile that file to produce an HTML page.</li>
+<li>Customize the page via its YAML header.</li>
+<li>Add R code chunks to a page.</li>
+<li>Format tabular output programmatically.</li>
+<li>Share common startup code between pages.</li>
+<li>Create and customize parameterized documents.</li>
+<li>Publish pages on GitHub by putting generated HTML in the <code>docs</code> directory.</li>
+<li>Publish pages by copying them to Netlify.</li>
 </ul>
 </div>
+<div id="how-can-i-create-and-preview-a-simple-page" class="section level2">
+<h2><span class="header-section-number">4.2</span> How can I create and preview a simple page?</h2>
+<p>To begin,
+create a file called <code>first.Rmd</code> and add the following text to it:</p>
+<!-- rmarkdown/first.Rmd -->
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu">## Methods {-}</span>
+
+Something *really important*.
+
+An <span class="ot">[external link](https://tidynomicon.tech)</span>.
+
+<span class="ot">[Another link][rstudio]</span>
+
+&lt;!--<span class="co"> link table below --&gt;</span>
+
+<span class="ot">[rstudio]: https://rstudio.com</span></code></pre>
+<p>This shows several key features of Markdown:</p>
+<ul>
+<li>A level-1 heading (<code>h1</code> in HTML) is put on a line starting with <code>#</code>.
+A level-2 heading (<code>h2</code>) uses two of these and so on.</li>
+<li>Putting <code>{-}</code> immediately after the heading title suppresses numbering.
+Without this,
+our examples would all be included in this book’s table of contents,
+which isn’t what we want.
+(This is one of R Markdown’s extensions to Markdown.)</li>
+<li>Paragraphs are separated by blank lines.</li>
+<li>Text can be put in single asterisks for <em>italics</em>
+or double asterisk for <strong>bold</strong>.</li>
+<li>To create a link,
+put the visible text inside square brackets
+and the URL inside parentheses immediately after it.
+This is the reverse of HTML’s order,
+which puts the URL inside the opening <code>a</code> tag
+<em>before</em> the contained text that is displayed.</li>
+<li>Links can also be written by putting text inside square brackets
+and an identifier immediately after it,
+also in square brackets.
+Those identifiers can then be associated with links in a table at the bottom of the page.</li>
+<li>Comments are written as they are in HTML.</li>
+</ul>
+<p>Here’s what the HTML corresponding to our simple Markdown document looks like:</p>
+<blockquote>
+<h2 id="methods" class="unnumbered">Methods</h2>
+<p>Something <em>really important</em>.</p>
+<p>An <a href="https://tidynomicon.tech">external link</a>.</p>
+<p><a href="https://rstudio.com">Another link</a></p>
+<!-- link table below -->
+</blockquote>
+<p>To preview it,
+go to the mini-toolbar at the top of your document in the RStudio IDE
+and click “knit”:
+to call the appropriate function from <code>knitr</code>
+(or a function from one of the libraries built on top of it for generating books or slides).</p>
+<div class="figure"><span id="fig:knit-button"></span>
+<img src="figures/rmarkdown/knit-button.png" alt="The 'knit' Button" width="198" />
+<p class="caption">
+Figure 4.1: The ‘knit’ Button
+</p>
+</div>
+</div>
+<div id="how-can-i-run-code-and-include-its-output-in-a-page" class="section level2">
+<h2><span class="header-section-number">4.3</span> How can I run code and include its output in a page?</h2>
+<p>If this is all R Markdown could do,
+it would be nothing more than an idiosyncratic way to create HTML pages.
+What makes it powerful is the ability to include code chunks
+that are evaluated as the document is knit,
+and whose output is included in the final page.
+Put this in a file called <code>second.Rmd</code>:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">Displaying the colors:
+
+<span class="bn">```{r}</span>
+<span class="bn">colors &lt;- c(&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;)</span>
+<span class="bn">colors</span>
+<span class="bn">```</span></code></pre>
+<p>The triple back-quotes mark the start and end of a block of code;
+putting <code>{r}</code> immediately after the back-quotes at the start
+tells <code>knitr</code> to run the code
+and include its output in the generated page,
+which therefore looks like this:</p>
+<blockquote>
+<p>
+Displaying the colors:
+</p>
+<pre class="r"><code>colors &lt;- c('red', 'green', 'blue')
+colors</code></pre>
+<pre><code>## [1] &quot;red&quot;   &quot;green&quot; &quot;blue&quot;</code></pre>
+</blockquote>
+<p>We can put any code we want inside code blocks.
+We don’t have to execute it all at once:
+the <code>Code</code> pulldown in RStudio’s main menu offers a variety of ways
+to run regions of code.
+The IDE also gives us a keyboard shortcut to insert a new code chunk,
+so there really is no excuse for not making notes as we go along.</p>
+<p>We can control execution and formatting by putting options inside the curly braces
+at the start of the code block:</p>
+<ul>
+<li><code>{r label}</code> gives the chunk a label that we can cross-reference.
+Labels must be unique within documents,
+just like the <code>id</code> attributes of HTML elements.</li>
+<li><code>{r include=FALSE}</code> tells <code>knitr</code> to run the code
+but <em>not</em> to include either the code or its output in the finished document.
+While the option name is confusing—the code is actually included in processing—this
+is handy when we have setup code that loads libraries or does other things
+that our readers probably don’t care about.</li>
+<li><code>{r eval=FALSE}</code> displays the code but doesn’t run it,
+and is often used for tutorials like this one.</li>
+<li><code>{r echo=FALSE}</code> hides the code but includes the output.
+This is most often used for displaying static images
+as we will see below.</li>
+</ul>
+<p>These options can be combined by separating them with commas.
+In particular,
+it’s good style to give every chunk a unique label,
+so a document might look like this:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># My Thesis {-}</span>
+
+<span class="bn">```{r setup, include=FALSE}</span>
+<span class="bn"># Load tidyverse but don&#39;t display messages.</span>
+<span class="bn">library(tidyverse)</span>
+<span class="bn">```</span>
+
+<span class="bn">```{r read-data, message=FALSE}</span>
+<span class="bn">earthquakes &lt;- read_csv(&#39;earthquakes.csv&#39;)</span>
+<span class="bn">```</span>
+
+A profound quotation to set the scene.
+And then some analysis:
+
+<span class="bn">```{r calculate-depth-by-magnitude}</span>
+<span class="bn">depth_by_magnitude &lt;- earthquakes %&gt;%</span>
+<span class="bn">  mutate(round_mag = round(Magnitude)) %&gt;%</span>
+<span class="bn">  group_by(round_mag) %&gt;%</span>
+<span class="bn">  summarize(depth = mean(Depth_Km))</span>
+<span class="bn">depth_by_magnitude</span>
+<span class="bn">```</span>
+
+Now let&#39;s visualize that:
+
+<span class="bn">```{r plot-depth-by-magnitude}</span>
+<span class="bn">depth_by_magnitude %&gt;%</span>
+<span class="bn">  ggplot() +</span>
+<span class="bn">  geom_point(mapping = aes(x = round_mag, y = depth))</span>
+<span class="bn">```</span></code></pre>
+<p>In order:</p>
+<ul>
+<li>The document title is a level-1 header with suppressed numbering.</li>
+<li>The first code chunk is called <code>setup</code>
+and neither it nor its output are included in the output page.</li>
+<li>The second chunk is called <code>read-data</code>.
+It is shown in the output,
+but its output is not.</li>
+<li>There is then a (very) short paragraph.</li>
+<li>The third code chunk calculates the mean depth by rounded magnitude.
+Both the code and its output are included;
+the output is just R’s textual display of the <code>depth_by_magnitude</code> table.</li>
+<li>After an even shorter paragraph,
+there is another named chunk whose output is a plot rather than text.
+<code>knitr</code> runs <code>ggplot2</code> to create the plot and includes it in the page.</li>
+</ul>
+<p>When this page is knit,
+the result is:</p>
+<blockquote>
+<h1>
+My Thesis
+</h1>
+<pre class="r"><code>earthquakes &lt;- read_csv('earthquakes.csv')</code></pre>
+<p>
+A profound quotation to set the scene. And then some analysis:
+</p>
+<pre class="r"><code>depth_by_magnitude &lt;- earthquakes %&gt;%
+  mutate(round_mag = round(Magnitude)) %&gt;%
+  group_by(round_mag) %&gt;%
+  summarize(depth = mean(Depth_Km))
+depth_by_magnitude</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##   round_mag depth
+##       &lt;dbl&gt; &lt;dbl&gt;
+## 1         2  9.85
+## 2         3  9.15
+## 3         4  8.64
+## 4         5  8   
+## 5         6  8.1</code></pre>
+<p>
+Now let’s visualize that:
+</p>
+<pre class="r"><code>depth_by_magnitude %&gt;%
+  ggplot() +
+  geom_point(mapping = aes(x = round_mag, y = depth))</code></pre>
+<p>
+<img src="figures/rmarkdown/earthquakes.png"/>
+</p>
+</blockquote>
+</div>
+<div id="how-can-i-format-tables-in-a-page" class="section level2">
+<h2><span class="header-section-number">4.4</span> How can I format tables in a page?</h2>
+<p>FIXME</p>
+</div>
+<div id="how-can-i-share-code-between-pages" class="section level2">
+<h2><span class="header-section-number">4.5</span> How can I share code between pages?</h2>
+<p>FIXME</p>
+</div>
+<div id="how-can-i-parameterize-documents" class="section level2">
+<h2><span class="header-section-number">4.6</span> How can I parameterize documents?</h2>
+<p>FIXME</p>
+</div>
+<div id="how-can-i-publish-pages-on-github" class="section level2">
+<h2><span class="header-section-number">4.7</span> How can I publish pages on GitHub?</h2>
+<p>FIXME</p>
+</div>
+<div id="how-can-i-publish-pages-on-netlify" class="section level2">
+<h2><span class="header-section-number">4.8</span> How can I publish pages on Netlify?</h2>
+<p>FIXME</p>
+</div>
 <div id="key-points-2" class="section level2">
-<h2><span class="header-section-number">4.2</span> Key Points</h2>
+<h2><span class="header-section-number">4.9</span> Key Points</h2>
 <ul>
 <li>FIXME: key points for R Markdown</li>
 </ul>

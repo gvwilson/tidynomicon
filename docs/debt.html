@@ -169,7 +169,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Creating Reports</a><ul>
 <li class="chapter" data-level="4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#learning-objectives-2"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.2</b> Key Points</a></li>
+<li class="chapter" data-level="4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-create-and-preview-a-simple-page"><i class="fa fa-check"></i><b>4.2</b> How can I create and preview a simple page?</a></li>
+<li class="chapter" data-level="4.3" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-run-code-and-include-its-output-in-a-page"><i class="fa fa-check"></i><b>4.3</b> How can I run code and include its output in a page?</a></li>
+<li class="chapter" data-level="4.4" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-format-tables-in-a-page"><i class="fa fa-check"></i><b>4.4</b> How can I format tables in a page?</a></li>
+<li class="chapter" data-level="4.5" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-share-code-between-pages"><i class="fa fa-check"></i><b>4.5</b> How can I share code between pages?</a></li>
+<li class="chapter" data-level="4.6" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-parameterize-documents"><i class="fa fa-check"></i><b>4.6</b> How can I parameterize documents?</a></li>
+<li class="chapter" data-level="4.7" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-publish-pages-on-github"><i class="fa fa-check"></i><b>4.7</b> How can I publish pages on GitHub?</a></li>
+<li class="chapter" data-level="4.8" data-path="rmarkdown.html"><a href="rmarkdown.html#how-can-i-publish-pages-on-netlify"><i class="fa fa-check"></i><b>4.8</b> How can I publish pages on Netlify?</a></li>
+<li class="chapter" data-level="4.9" data-path="rmarkdown.html"><a href="rmarkdown.html#key-points-2"><i class="fa fa-check"></i><b>4.9</b> Key Points</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>5</b> Creating Packages</a><ul>
 <li class="chapter" data-level="5.1" data-path="package.html"><a href="package.html#learning-objectives-3"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
@@ -660,12 +667,12 @@ which shows us where objects live in the computer’s memory:</p>
   <span class="dv">303</span>,   <span class="dv">404</span>
 )
 <span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7fecdd141648&gt;&quot;</code></pre>
+<pre><code>[1] &quot;&lt;0x7fb4f680ee48&gt;&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7fecdd141648 -&gt; 0x7fecdd175a08]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fecdd175a08 -&gt; 0x7fecdd175a88]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fecdd175a88 -&gt; 0x7fecdd175b08]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7fecdd175b08 -&gt; 0x7fecdd175b48]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<pre><code>tracemem[0x7fb4f680ee48 -&gt; 0x7fb4f3fd3e08]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fb4f3fd3e08 -&gt; 0x7fb4f3fd3e88]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fb4f3fd3e88 -&gt; 0x7fb4f3fd3f08]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7fb4f3fd3f08 -&gt; 0x7fb4f3fd3f48]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
@@ -676,13 +683,13 @@ We can accomplish something a little more readable using <code>pryr::address</co
 <pre><code>Registered S3 method overwritten by &#39;pryr&#39;:
   method      from
   print.bytes Rcpp</code></pre>
-<pre><code>left column is initially at 0x7fecdd175a48</code></pre>
+<pre><code>left column is initially at 0x7fb4f3fd3e48</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7fecdd175a48</code></pre>
+<pre><code>after modification, the original column is still at 0x7fb4f3fd3e48</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
 <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7fecd86e2fc8</code></pre>
+<pre><code>but the first column is at 0x7fb4f6872848</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.
