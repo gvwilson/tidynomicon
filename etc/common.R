@@ -4,6 +4,8 @@ library(rlang)
 library(knitr)
 library(glue)
 library(here)
+library(kableExtra)
+library(gt)
 
 knitr::opts_chunk$set(comment = NA)
 knitr::opts_knit$set(width = 69)

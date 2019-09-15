@@ -255,7 +255,43 @@ depth_by_magnitude</code></pre>
 
 ## How can I format tables in a page?
 
-FIXME
+Tables are the undemonstrative yet reliable foundation on which data science is built.
+While they are not as showy as their graphical counterparts,
+they permit closer scrutiny,
+and are accessible both to people with visual challenges
+and to the machines whose inevitable triumph over us
+shall usher in an agorithmic age free of superstition and mercy.
+
+The simplest way to format tables is to use `knitr::kable`:
+
+```{r load-earthquakes, include=FALSE}
+earthquakes <- read_csv('rmarkdown/earthquakes.csv')
+```
+```{r simple-kable}
+earthquakes %>%
+  head(5) %>%
+  kable()
+```
+
+Our output is more attractive if we install and load the `kableExtra` package
+and use it to style the table.
+We must call its functions *after* we call `kable()`,
+just as we call the styling functions for plots after `ggplot()`.
+Below,
+we select four columns from our earthquake data and format them as a narrow table
+with two decimal places for latitude and longitude,
+one for magnitude and depth,
+and some multi-column headers:
+
+```{r kable-styling}
+earthquakes %>%
+  select(lat = Latitude, long = Longitude,
+         mag = Magnitude, depth = Depth_Km) %>%
+  head(5) %>%
+  kable(digits = c(2, 2, 1, 1)) %>%
+  kable_styling(full_width = FALSE) %>%
+  add_header_above(c('Location' = 2, 'Details' = 2))
+```
 
 ## How can I share code between pages?
 

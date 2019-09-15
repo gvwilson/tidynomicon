@@ -46,6 +46,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -513,7 +514,240 @@ Now let’s visualize that:
 </div>
 <div id="how-can-i-format-tables-in-a-page" class="section level2">
 <h2><span class="header-section-number">4.4</span> How can I format tables in a page?</h2>
-<p>FIXME</p>
+<p>Tables are the undemonstrative yet reliable foundation on which data science is built.
+While they are not as showy as their graphical counterparts,
+they permit closer scrutiny,
+and are accessible both to people with visual challenges
+and to the machines whose inevitable triumph over us
+shall usher in an agorithmic age free of superstition and mercy.</p>
+<p>The simplest way to format tables is to use <code>knitr::kable</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">earthquakes <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable</span>()</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:right;">
+Latitude
+</th>
+<th style="text-align:right;">
+Longitude
+</th>
+<th style="text-align:right;">
+Depth_Km
+</th>
+<th style="text-align:right;">
+Magnitude
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2016-08-24 03:36:32
+</td>
+<td style="text-align:right;">
+42.6983
+</td>
+<td style="text-align:right;">
+13.2335
+</td>
+<td style="text-align:right;">
+8.1
+</td>
+<td style="text-align:right;">
+6.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-08-24 03:37:26
+</td>
+<td style="text-align:right;">
+42.7123
+</td>
+<td style="text-align:right;">
+13.2533
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-08-24 03:40:46
+</td>
+<td style="text-align:right;">
+42.7647
+</td>
+<td style="text-align:right;">
+13.1723
+</td>
+<td style="text-align:right;">
+9.7
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-08-24 03:41:38
+</td>
+<td style="text-align:right;">
+42.7803
+</td>
+<td style="text-align:right;">
+13.1683
+</td>
+<td style="text-align:right;">
+9.7
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-08-24 03:42:07
+</td>
+<td style="text-align:right;">
+42.7798
+</td>
+<td style="text-align:right;">
+13.1575
+</td>
+<td style="text-align:right;">
+9.7
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+</tr>
+</tbody>
+</table>
+<p>Our output is more attractive if we install and load the <code>kableExtra</code> package
+and use it to style the table.
+We must call its functions <em>after</em> we call <code>kable()</code>,
+just as we call the styling functions for plots after <code>ggplot()</code>.
+Below,
+we select four columns from our earthquake data and format them as a narrow table
+with some multi-column headers:</p>
+<pre class="sourceCode r"><code class="sourceCode r">earthquakes <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">lat =</span> Latitude, <span class="dt">long =</span> Longitude,
+         <span class="dt">mag =</span> Magnitude, <span class="dt">depth =</span> Depth_Km) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">full_width =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&#39;Location&#39;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&#39;Details&#39;</span> =<span class="st"> </span><span class="dv">2</span>))</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Location
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Details
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+lat
+</th>
+<th style="text-align:right;">
+long
+</th>
+<th style="text-align:right;">
+mag
+</th>
+<th style="text-align:right;">
+depth
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+42.70
+</td>
+<td style="text-align:right;">
+13.23
+</td>
+<td style="text-align:right;">
+6.0
+</td>
+<td style="text-align:right;">
+8.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42.71
+</td>
+<td style="text-align:right;">
+13.25
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42.76
+</td>
+<td style="text-align:right;">
+13.17
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+9.7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42.78
+</td>
+<td style="text-align:right;">
+13.17
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+9.7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42.78
+</td>
+<td style="text-align:right;">
+13.16
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+9.7
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="how-can-i-share-code-between-pages" class="section level2">
 <h2><span class="header-section-number">4.5</span> How can I share code between pages?</h2>
