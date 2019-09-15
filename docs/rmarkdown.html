@@ -638,7 +638,9 @@ We must call its functions <em>after</em> we call <code>kable()</code>,
 just as we call the styling functions for plots after <code>ggplot()</code>.
 Below,
 we select four columns from our earthquake data and format them as a narrow table
-with some multi-column headers:</p>
+with two decimal places for latitude and longitude,
+one for magnitude and depth,
+and some multi-column headers:</p>
 <pre class="sourceCode r"><code class="sourceCode r">earthquakes <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(<span class="dt">lat =</span> Latitude, <span class="dt">long =</span> Longitude,
          <span class="dt">mag =</span> Magnitude, <span class="dt">depth =</span> Depth_Km) <span class="op">%&gt;%</span>

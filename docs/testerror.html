@@ -46,6 +46,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -487,7 +488,7 @@ We can now run this file from within RStudio:</p>
 
 ⠏ |   0       | Skipping rows correctly
 ✖ |   0 5     | Skipping rows correctly
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
 Lengths differ: 0 is not 1
@@ -505,14 +506,14 @@ test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; is
 
 test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
 `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Skipping rows correctly
 ✔ |   5       | Skipping rows correctly
 
 ⠏ |   0       | Demonstrating the testing library
 ✖ |   4 2     | Demonstrating the testing library
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_example.R:11: failure: Testing different numbers
 0 not equal to 1.
 1/1 mismatches
@@ -522,11 +523,11 @@ test_example.R:16: failure: Testing with a tolerance
 0 not equal to 0.01.
 1/1 mismatches
 [1] 0 - 0.01 == -0.01
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✖ |   1 2     | Finding empty rows
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
@@ -534,20 +535,20 @@ Types not compatible: integer is not NULL
 test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✔ |   3       | Finding empty rows
 
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1   1   | Testing properties of tibbles
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_tibble.R:6: warning: Tibble columns are given the name &#39;value&#39;
 `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
 This warning is displayed once per session.
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 Duration: 0.2 s
 
 OK:       14
@@ -583,7 +584,7 @@ Now let’s run all of our tests:</p>
 
 ⠏ |   0       | Skipping rows correctly
 ✖ |   0 5     | Skipping rows correctly
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
 Lengths differ: 0 is not 1
@@ -601,14 +602,14 @@ test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; is
 
 test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
 `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Skipping rows correctly
 ✔ |   5       | Skipping rows correctly
 
 ⠏ |   0       | Demonstrating the testing library
 ✖ |   4 2     | Demonstrating the testing library
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_example.R:11: failure: Testing different numbers
 0 not equal to 1.
 1/1 mismatches
@@ -618,11 +619,11 @@ test_example.R:16: failure: Testing with a tolerance
 0 not equal to 0.01.
 1/1 mismatches
 [1] 0 - 0.01 == -0.01
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✖ |   1 2     | Finding empty rows
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
@@ -630,7 +631,7 @@ Types not compatible: integer is not NULL
 test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✔ |   3       | Finding empty rows
@@ -638,7 +639,7 @@ Types not compatible: integer is not NULL
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1       | Testing properties of tibbles
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 Duration: 0.1 s
 
 OK:       14
@@ -659,7 +660,7 @@ Let’s try again:</p>
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1       | Testing properties of tibbles
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 OK:       1
 Failed:   0
 Warnings: 0
@@ -804,7 +805,7 @@ we have no easy way to give the sole column of our newly-constructed tibble a na
 
 ⠏ |   0       | Finding empty rows
 ✖ |   1 2     | Finding empty rows
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
@@ -812,9 +813,9 @@ Types not compatible: integer is not NULL
 test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 OK:       1
 Failed:   2
 Warnings: 0
@@ -877,11 +878,13 @@ not the code:</p>
 ⠏ |   0       | Finding empty rows
 ✔ |   3       | Finding empty rows
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 OK:       3
 Failed:   0
 Warnings: 0
-Skipped:  0</code></pre>
+Skipped:  0
+
+Woot!</code></pre>
 </div>
 <div id="how-can-i-check-data-transformation" class="section level2">
 <h2><span class="header-section-number">8.6</span> How can I check data transformation?</h2>
@@ -1051,7 +1054,7 @@ we can put these five tests in <code>tests/testthat/test_determine_skip_rows.R</
 
 ⠏ |   0       | Skipping rows correctly
 ✖ |   0 5     | Skipping rows correctly
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
 Lengths differ: 0 is not 1
@@ -1069,9 +1072,9 @@ test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; is
 
 test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
 `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
-───────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 OK:       0
 Failed:   5
 Warnings: 0
@@ -1111,7 +1114,7 @@ determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</spa
 ⠏ |   0       | Skipping rows correctly
 ✔ |   5       | Skipping rows correctly
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════
+══ Results ════════════════════════════════════════════════════════════════
 OK:       5
 Failed:   0
 Warnings: 0
