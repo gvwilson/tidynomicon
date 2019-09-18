@@ -295,11 +295,107 @@ earthquakes %>%
 
 ## How can I share code between pages?
 
-FIXME
+If you are working on several related reports,
+you may want to share some code between them.
+The best way to do this with R Markdown is to put that code in a separate `.R` file
+and then load that at the start of each document using the `source` function.
+For example,
+all of the chapters in this book begin with:
+
+````markdown
+`r ''````{r setup, include=FALSE}
+source('common.R')
+```
+````
+
+The chunk is named `setup`, and neither it nor its output are displayed.
+All the chunk does is load and run `common.R`,
+which contains the following lines:
+
+```{r common-R, eval=FALSE}
+library(tidyverse)
+library(reticulate)
+library(rlang)
+library(knitr)
+
+knitr::opts_knit$set(width = 69)
+```
+
+The first few load libraries that various chapters depend on;
+the last one tells `knitr` to set the line width option to 69 characters.
 
 ## How can I parameterize documents?
 
-FIXME
+`knitr` has many other options besides line width,
+and the tools built on top of it,
+like [Blogdown][blogdown] and [Bookdown][bookdown],
+have many (many) more.
+Rather than calling a function to set them,
+you can and should add a header to each document.
+If we use `File...New File...RMarkdown` to create a new R Markdown file,
+its header looks like this:
+
+```markdown
+---
+title: "fourth"
+author: "Greg Wilson"
+date: "18/09/2019"
+output: html_document
+---
+```
+
+1.  The header starts with exactly three dashes on a line of their own and ends the same way.
+    A common mistake is to forget the closing dashes;
+    another is to use too many or too few,
+    or to include whitespace in the line.
+2.  The content of the header is formatted using [YAML][yaml],
+    which stands for "Yet Another Markup Language".
+    In its simplest form it contains key-value pairs:
+    the keys are words,
+    the values can be numbers, quoted strings, or a variety of other things,
+    and the two are separated by a comma.
+
+This header tells `knitr` what the document's title is,
+who its author is,
+when it was created
+(which really ought to be written as an ISO-formatted date, but worse sins await us),
+and what output format we want by default.
+When we knit the document,
+`knitr` reads the header but does *not* include it in the output.
+Instead,
+its values control `knitr`'s operation (e.g., select HTML as the output format)
+or are inserted into the document itself (e.g., the title).
+
+Let's edit the YAML header so that it looks like this:
+
+```markdown
+---
+title: "fourth"
+author: "Greg Wilson"
+date: "2019-09-18"
+output:
+  html_document:
+    theme: united
+    toc: true
+---
+```
+
+1.  The date is now in an unambiguous, sortable format.
+    This doesn't impact our document,
+    but makes us feel better.
+2.  We have added two sub-keys under `html_document`
+    (which we have made a sub-key of `output` so that we can nest things beneath it).
+    The first tells `knitr` to use the `united` theme,
+    which gives us a different set of fonts and margins.
+    The second tells it to create a table of contents at the start of the document
+    with links to all of the section headers.
+
+YAML can quickly become quite complicated,
+and even [simple things can be tricky][norway].
+Luckily,
+a package called `ymlthis` is being developed to create and check files' headers.
+[Its documentation][ymlthis] and capabilities are both steadily growing,
+it's a great way to experiment with new or obscure options.
 
 ## How can I publish pages on GitHub?
 

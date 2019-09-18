@@ -3,6 +3,8 @@
 
 [advanced-r]: http://adv-r.had.co.nz/
 
+[blogdown]: https://bookdown.org/yihui/blogdown/
+[bookdown]: https://bookdown.org/
 [brew]: https://brew.sh/
 [broman-packages]: https://kbroman.org/pkg_primer/
 [bryan-setwd]: https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
@@ -22,6 +24,8 @@
 [lyttle-tutorial]: https://ijlyttle.shinyapps.io/tidyeval/
 
 [mit-license]: https://choosealicense.com/licenses/mit/
+
+[norway]: http://third-bit.com/2015/06/11/why-we-cant-have-nice-things.html
 
 [pratchett]: https://www.terrypratchettbooks.com/sir-terry/
 [primers]: https://rstudio.cloud/learn/primers
@@ -50,3 +54,6 @@
 [wikipedia-iso3]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
 
 [xunit]: https://en.wikipedia.org/wiki/XUnit
+
+[yaml]: https://yaml.org/
+[ymlthis]: https://ymlthis.r-lib.org/

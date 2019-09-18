@@ -227,7 +227,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.5</b> How can I work with relational databases in R?</a></li>
 <li class="chapter" data-level="9.6" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.6</b> Key Points</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
 <li class="chapter" data-level="B" data-path="code-of-conduct.html"><a href="code-of-conduct.html"><i class="fa fa-check"></i><b>B</b> Code of Conduct</a><ul>
@@ -753,11 +752,92 @@ depth
 </div>
 <div id="how-can-i-share-code-between-pages" class="section level2">
 <h2><span class="header-section-number">4.5</span> How can I share code between pages?</h2>
-<p>FIXME</p>
+<p>If you are working on several related reports,
+you may want to share some code between them.
+The best way to do this with R Markdown is to put that code in a separate <code>.R</code> file
+and then load that at the start of each document using the <code>source</code> function.
+For example,
+all of the chapters in this book begin with:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r setup, include=FALSE}</span>
+<span class="bn">source(&#39;common.R&#39;)</span>
+<span class="bn">```</span></code></pre>
+<p>The chunk is named <code>setup</code>, and neither it nor its output are displayed.
+All the chunk does is load and run <code>common.R</code>,
+which contains the following lines:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(reticulate)
+<span class="kw">library</span>(rlang)
+<span class="kw">library</span>(knitr)
+
+knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">width =</span> <span class="dv">69</span>)</code></pre>
+<p>The first few load libraries that various chapters depend on;
+the last one tells <code>knitr</code> to set the line width option to 69 characters.</p>
 </div>
 <div id="how-can-i-parameterize-documents" class="section level2">
 <h2><span class="header-section-number">4.6</span> How can I parameterize documents?</h2>
-<p>FIXME</p>
+<p><code>knitr</code> has many other options besides line width,
+and the tools built on top of it,
+like <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a> and <a href="https://bookdown.org/">Bookdown</a>,
+have many (many) more.
+Rather than calling a function to set them,
+you can and should add a header to each document.
+If we use <code>File...New File...RMarkdown</code> to create a new R Markdown file,
+its header looks like this:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">---
+title: &quot;fourth&quot;
+author: &quot;Greg Wilson&quot;
+date: &quot;18/09/2019&quot;
+output: html_document
+---</code></pre>
+<ol style="list-style-type: decimal">
+<li>The header starts with exactly three dashes on a line of their own and ends the same way.
+A common mistake is to forget the closing dashes;
+another is to use too many or too few,
+or to include whitespace in the line.</li>
+<li>The content of the header is formatted using <a href="https://yaml.org/">YAML</a>,
+which stands for “Yet Another Markup Language”.
+In its simplest form it contains key-value pairs:
+the keys are words,
+the values can be numbers, quoted strings, or a variety of other things,
+and the two are separated by a comma.</li>
+</ol>
+<p>This header tells <code>knitr</code> what the document’s title is,
+who its author is,
+when it was created
+(which really ought to be written as an ISO-formatted date, but worse sins await us),
+and what output format we want by default.
+When we knit the document,
+<code>knitr</code> reads the header but does <em>not</em> include it in the output.
+Instead,
+its values control <code>knitr</code>’s operation (e.g., select HTML as the output format)
+or are inserted into the document itself (e.g., the title).</p>
+<p>Let’s edit the YAML header so that it looks like this:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">---
+title: &quot;fourth&quot;
+author: &quot;Greg Wilson&quot;
+date: &quot;2019-09-18&quot;
+output:
+  html_document:
+<span class="bn">    theme: united</span>
+<span class="bn">    toc: true</span>
+---</code></pre>
+<ol style="list-style-type: decimal">
+<li>The date is now in an unambiguous, sortable format.
+This doesn’t impact our document,
+but makes us feel better.</li>
+<li>We have added two sub-keys under <code>html_document</code>
+(which we have made a sub-key of <code>output</code> so that we can nest things beneath it).
+The first tells <code>knitr</code> to use the <code>united</code> theme,
+which gives us a different set of fonts and margins.
+The second tells it to create a table of contents at the start of the document
+with links to all of the section headers.</li>
+</ol>
+<p>YAML can quickly become quite complicated,
+and even <a href="http://third-bit.com/2015/06/11/why-we-cant-have-nice-things.html">simple things can be tricky</a>.
+Luckily,
+a package called <code>ymlthis</code> is being developed to create and check files’ headers.
+<a href="https://ymlthis.r-lib.org/">Its documentation</a> and capabilities are both steadily growing,
+it’s a great way to experiment with new or obscure options.</p>
 </div>
 <div id="how-can-i-publish-pages-on-github" class="section level2">
 <h2><span class="header-section-number">4.7</span> How can I publish pages on GitHub?</h2>
