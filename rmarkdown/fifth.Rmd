@@ -1,0 +1,12 @@
+---
+title: "Fifth Report"
+params:
+  country: Canada
+---
+
+This report looks at defenstration rates in `r params$country`.
+
+```{r load-data}
+data <- read_csv(here::here('data', glue(params$country, '.csv')))
+```
+

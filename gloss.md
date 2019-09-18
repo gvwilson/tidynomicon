@@ -162,6 +162,9 @@
     which are then used together,
     leading to ambiguity.
 
+**Named list**<a id="named-list"></a>
+:   FIXME
+
 **Negative selection**<a id="negative-selection"></a>
 :   To specify the elements of a vector or other data structure that *aren't* desired
     by negating their indices.

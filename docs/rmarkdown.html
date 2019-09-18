@@ -227,6 +227,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.5" data-path="advanced.html"><a href="advanced.html#how-can-i-work-with-relational-databases-in-r"><i class="fa fa-check"></i><b>9.5</b> How can I work with relational databases in R?</a></li>
 <li class="chapter" data-level="9.6" data-path="advanced.html"><a href="advanced.html#key-points-7"><i class="fa fa-check"></i><b>9.6</b> Key Points</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i><b>A</b> License</a></li>
 <li class="chapter" data-level="B" data-path="code-of-conduct.html"><a href="code-of-conduct.html"><i class="fa fa-check"></i><b>B</b> Code of Conduct</a><ul>
@@ -832,12 +833,38 @@ which gives us a different set of fonts and margins.
 The second tells it to create a table of contents at the start of the document
 with links to all of the section headers.</li>
 </ol>
-<p>YAML can quickly become quite complicated,
-and even <a href="http://third-bit.com/2015/06/11/why-we-cant-have-nice-things.html">simple things can be tricky</a>.
+<p>YAML can <a href="http://third-bit.com/2015/06/11/why-we-cant-have-nice-things.html">be quite complicated to understand</a>.
 Luckily,
 a package called <code>ymlthis</code> is being developed to create and check files’ headers.
 <a href="https://ymlthis.r-lib.org/">Its documentation</a> and capabilities are both steadily growing,
 it’s a great way to experiment with new or obscure options.</p>
+<p>But YAML can do more than control the way <code>knitr</code> processes the document:
+we can also use it to create <a href="glossary.html#parameterized-report">parameterized reports</a>.</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">---
+title: &quot;Fifth Report&quot;
+params:
+  country: Canada
+---
+
+This report looks at defenstration rates in <span class="bn">`r params$country`</span>.
+
+<span class="bn">```{r load-data}</span>
+<span class="bn">data &lt;- read_csv(here::here(&#39;data&#39;, glue(params$country, &#39;.csv&#39;)))</span>
+<span class="bn">```</span></code></pre>
+<p>This document’s YAML header contains the key <code>params</code>,
+under which is a sub-key for each parameter we want to create.
+When the document is knit,
+these parameters are put in a <a href="glossary.html#named-list">named list</a> called <code>params</code>
+and can be referred to like any other variable.
+If we want to display it inline,
+we use a back-ticked code fragment that starts with the letter ‘r’;
+if we want to use it in a fenced code block,
+it’s no different from any other variable.</p>
+<p>Parameters don’t have to be single values:
+they can, for example, be lists of mysterious ailments whose inexorable spread you are vainly trying to halt.
+Parameters can also be provided on the command line:</p>
+<pre class="shell"><code>Rscript -e &quot;rmarkdown::render(&#39;fifth.Rmd&#39;, params=list(country=&#39;Lesotho&#39;))&quot;</code></pre>
+<p>will create a page called <code>fifth.html</code> that reports defenestration rates in Lesotho.</p>
 </div>
 <div id="how-can-i-publish-pages-on-github" class="section level2">
 <h2><span class="header-section-number">4.7</span> How can I publish pages on GitHub?</h2>

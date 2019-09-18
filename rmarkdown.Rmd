@@ -390,12 +390,48 @@ output:
     The second tells it to create a table of contents at the start of the document
     with links to all of the section headers.
 
-YAML can quickly become quite complicated,
-and even [simple things can be tricky][norway].
+YAML can [be quite complicated to understand][norway].
 Luckily,
 a package called `ymlthis` is being developed to create and check files' headers.
 [Its documentation][ymlthis] and capabilities are both steadily growing,
 it's a great way to experiment with new or obscure options.
+
+But YAML can do more than control the way `knitr` processes the document:
+we can also use it to create [parameterized reports](glossary.html#parameterized-report).
+
+````markdown
+---
+title: "Fifth Report"
+params:
+  country: Canada
+---
+
+This report looks at defenstration rates in `r knitr::inline_expr('params$country')`.
+
+`r ''````{r load-data}
+data <- read_csv(here::here('data', glue(params$country, '.csv')))
+```
+````
+
+This document's YAML header contains the key `params`,
+under which is a sub-key for each parameter we want to create.
+When the document is knit,
+these parameters are put in a [named list](glossary.html#named-list) called `params`
+and can be referred to like any other variable.
+If we want to display it inline,
+we use a back-ticked code fragment that starts with the letter 'r';
+if we want to use it in a fenced code block,
+it's no different from any other variable.
+
+Parameters don't have to be single values:
+they can, for example, be lists of mysterious ailments whose inexorable spread you are vainly trying to halt.
+Parameters can also be provided on the command line:
+
+```shell
+Rscript -e "rmarkdown::render('fifth.Rmd', params=list(country='Lesotho'))"
+```
+
+will create a page called `fifth.html` that reports defenestration rates in Lesotho.
 
 ## How can I publish pages on GitHub?
 

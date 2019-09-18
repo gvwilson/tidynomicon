@@ -397,9 +397,6 @@ and other <a href="glossary.html#unit-test">unit testing</a> libraries:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(testthat)</code></pre>
 <pre><code>
 Attaching package: &#39;testthat&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:gt&#39;:
-
-    matches</code></pre>
 <pre><code>The following objects are masked from &#39;package:rlang&#39;:
 
     is_false, is_null, is_true</code></pre>
@@ -549,7 +546,7 @@ This warning is displayed once per session.
 ───────────────────────────────────────────────────────────────────────────
 
 ══ Results ════════════════════════════════════════════════════════════════
-Duration: 0.2 s
+Duration: 0.3 s
 
 OK:       14
 Failed:   9
@@ -882,9 +879,7 @@ not the code:</p>
 OK:       3
 Failed:   0
 Warnings: 0
-Skipped:  0
-
-Woot!</code></pre>
+Skipped:  0</code></pre>
 </div>
 <div id="how-can-i-check-data-transformation" class="section level2">
 <h2><span class="header-section-number">8.6</span> How can I check data transformation?</h2>
@@ -1118,7 +1113,9 @@ determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</spa
 OK:       5
 Failed:   0
 Warnings: 0
-Skipped:  0</code></pre>
+Skipped:  0
+
+You rock!</code></pre>
 <p>Our tests still aren’t checking anything statistical,
 but without trustworthy data,
 our statistics will be meaningless.
