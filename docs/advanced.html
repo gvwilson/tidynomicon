@@ -274,7 +274,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="advanced" class="section level1">
 <h1><span class="header-section-number">Chapter 9</span> Advanced Topics</h1>
-<p>FIXME</p>
+<p>We have covered a lot of material in the previous chapters,
+but have only scratched the surface of what R can do <del>to</del> for us.
+To wrap up,
+we will look briefly at a few of its more advanced capabilities.</p>
 <div id="learning-objectives-7" class="section level2">
 <h2><span class="header-section-number">9.1</span> Learning Objectives</h2>
 <ul>
@@ -285,7 +288,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Explain what attributes R and correctly set and query objects’ attributes, class, and dimensions.</li>
 <li>Explain how to define a new method for a class.</li>
 <li>Describe and implement the three functions that should be written for any user-defined class.</li>
-<li>FIXME: databases</li>
+<li>Query a relational database from R.</li>
 </ul>
 </div>
 <div id="how-can-i-use-python-with-r" class="section level2">
@@ -376,7 +379,7 @@ For example,
 we can use Python’s random number generator in R as follows:</p>
 <pre class="sourceCode r"><code class="sourceCode r">pyrand &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;random&quot;</span>)
 pyrand<span class="op">$</span><span class="kw">gauss</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
-<pre><code>[1] -1.44709</code></pre>
+<pre><code>[1] 0.6404192</code></pre>
 <p>(There’s no reason to do this—R’s random number generator is just as strong—but it illustrates the point.)</p>
 <p>We can also source Python scripts.
 For example,
@@ -1014,7 +1017,6 @@ first seen values of type real, coercing other values of type string</code></pre
 2      752      lake      rad    2.19
 3      752      lake      sal    0.09</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbClearResult</span>(results)</code></pre>
-<p>FIXME: why the error?</p>
 </div>
 <div id="how-can-i-populate-databases-with-r" class="section level3">
 <h3><span class="header-section-number">9.5.2</span> How can I populate databases with R?</h3>

@@ -46,7 +46,7 @@ print("Hello, world!")
 ```
 
 ```{r console, echo=FALSE, fig.cap="RStudio Console"}
-knitr::include_graphics("figures/FIXME.jpg")
+knitr::include_graphics("figures/basics/console.png")
 ```
 
 Python prints what we asked for,

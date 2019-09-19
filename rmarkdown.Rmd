@@ -253,6 +253,28 @@ depth_by_magnitude</code></pre>
 <p><img src="figures/rmarkdown/earthquakes.png"/></p>
 </blockquote>
 
+Note that if we want to include a static image (such as a screenshot) in a report,
+we can use Markdown's own syntax:
+
+```markdown
+![Summoning Ritual](figures/summoning-ritual.jpg)
+```
+
+or create an R code chunk with a call to `knitr::include_graphics`:
+
+````markdown
+`r ''````{r summoning-ritual, echo=FALSE, fig.cap="Summoning Ritual"}
+knitr::include_graphics("figures/summoning-ritual.jpg")
+```
+````
+
+The options for the latter give the code chunk an ID,
+prevent it from being echoed in the final document,
+and most importantly,
+give the figure a caption.
+While it requires a bit of extra typing,
+it produces more predictable results across different output formats.
+
 ## How can I format tables in a page?
 
 Tables are the undemonstrative yet reliable foundation on which data science is built.

@@ -510,6 +510,19 @@ Now let’s visualize that:
 <img src="figures/rmarkdown/earthquakes.png"/>
 </p>
 </blockquote>
+<p>Note that if we want to include a static image (such as a screenshot) in a report,
+we can use Markdown’s own syntax:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="al">![Summoning Ritual](figures/summoning-ritual.jpg)</span></code></pre>
+<p>or create an R code chunk with a call to <code>knitr::include_graphics</code>:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r summoning-ritual, echo=FALSE, fig.cap=&quot;Summoning Ritual&quot;}</span>
+<span class="bn">knitr::include_graphics(&quot;figures/summoning-ritual.jpg&quot;)</span>
+<span class="bn">```</span></code></pre>
+<p>The options for the latter give the code chunk an ID,
+prevent it from being echoed in the final document,
+and most importantly,
+give the figure a caption.
+While it requires a bit of extra typing,
+it produces more predictable results across different output formats.</p>
 </div>
 <div id="how-can-i-format-tables-in-a-page" class="section level2">
 <h2><span class="header-section-number">4.4</span> How can I format tables in a page?</h2>

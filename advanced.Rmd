@@ -4,7 +4,10 @@
 source("etc/common.R")
 ```
 
-FIXME
+We have covered a lot of material in the previous chapters,
+but have only scratched the surface of what R can do ~~to~~ for us.
+To wrap up,
+we will look briefly at a few of its more advanced capabilities.
 
 ## Learning Objectives
 
@@ -15,7 +18,7 @@ FIXME
 - Explain what attributes R and correctly set and query objects' attributes, class, and dimensions.
 - Explain how to define a new method for a class.
 - Describe and implement the three functions that should be written for any user-defined class.
-- FIXME: databases
+- Query a relational database from R.
 
 ## How can I use Python with R?
 
@@ -546,8 +549,6 @@ while (!dbHasCompleted(results)) {
 }
 dbClearResult(results)
 ```
-
-FIXME: why the error?
 
 ### How can I populate databases with R?
 
