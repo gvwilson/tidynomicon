@@ -14,6 +14,8 @@
 [covenant]: https://www.contributor-covenant.org
 [cran]: https://cran.r-project.org/
 
+[github-pages]: https://pages.github.com/
+
 [here-package]: https://cran.r-project.org/web/packages/here/index.html
 [hopr]: https://rstudio-education.github.io/hopr/
 [hoye-zero]: http://exple.tive.org/blarg/2013/10/22/citation-needed/
@@ -23,10 +25,12 @@
 
 [lyttle-tutorial]: https://ijlyttle.shinyapps.io/tidyeval/
 
+[make]: https://www.gnu.org/software/make/
 [mit-license]: https://choosealicense.com/licenses/mit/
 
 [norway]: http://third-bit.com/2015/06/11/why-we-cant-have-nice-things.html
 
+[pandoc]: https://pandoc.org/
 [pratchett]: https://www.terrypratchettbooks.com/sir-terry/
 [primers]: https://rstudio.cloud/learn/primers
 [pypi]: https://pypi.org/
