@@ -47,7 +47,7 @@
 [shiny]: https://shiny.rstudio.com/
 
 [testthat]: https://github.com/r-lib/testthat
-[tidynomicon-project]: FIXME
+[tidynomicon-project]: https://github.com/gvwilson/tidynomicon/
 [tidyverse-style]: http://style.tidyverse.org/
 
 [unicef-hiv]: https://data.unicef.org/resources/dataset/hiv-aids-statistical-tables/
