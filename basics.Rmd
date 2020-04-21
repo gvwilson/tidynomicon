@@ -217,7 +217,7 @@ c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 
-In order to help us find out way in our data,
+In order to help us find our way in our data,
 R automatically breaks long lines
 and displays the starting index of each line.
 These indices also show us that R counts from 1 as humans do,
