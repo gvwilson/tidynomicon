@@ -1,6 +1,6 @@
 .PHONY : all check clean commands settings
 
-STEM=tidynomicon
+STEM=r4de
 CONFIG=_bookdown.yml _output.yml
 FIXED=CITATION.md CONDUCT.md CONTRIBUTING.md LICENSE.md README.md
 TEMP=$(patsubst %.Rmd,%.md,$(wildcard *.Rmd))
@@ -46,7 +46,7 @@ ${EPUB} : ${SRC}
 
 ## clean        : clean up generated files.
 clean :
-	@rm -rf ${OUT} ${STEM}.Rmd ${TEMP} *.utf8.md *.knit.md
+	@rm -rf ${OUT} ${STEM}.{log,Rmd,md,rds,tex} ${TEMP} *.utf8.md *.knit.md
 	@find . -name '*~' -exec rm {} \;
 
 ## check        : internal checks.

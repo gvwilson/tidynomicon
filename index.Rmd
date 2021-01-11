@@ -1,15 +1,19 @@
 --- 
-title: "The Tidynomicon"
+title: "R for Data Engineers"
+subtitle: "A Brief Introduction for People Who Count From Zero"
 author: "Greg Wilson"
-bibliography: book.bib
-description: The Tidynomicon
-documentclass: book
-github-repo: gvwilson/tidynomicon
+date: "`r Sys.Date()`"
+documentclass: krantz
+cover-image: "machu-picchu.jpg"
+citation-package: biblatex
+biblio-style: ieee
 link-citations: yes
+bibliography: book.bib
+github-repo: gvwilson/tidynomicon
 site: bookdown::bookdown_site
-subtitle: A Brief Introduction to R for People Who Count From Zero
-biblio-style: apalike
 ---
+
+\mainmatter
 
 # Introduction
 
@@ -36,10 +40,6 @@ these are not mad, just differently sane.
 Welcome, then, to a universe where the strange will become familiar,
 and everything familiar, strange.
 Welcome, thrice welcome, to R.
-
-```{r logo, echo=FALSE, out.width="80%", fig.align="center", fig.cap="Speak not of madness, oh you who count from zero."}
-knitr::include_graphics("figures/index/cthulhu-900x759.jpg")
-```
 
 ## Who are these lessons for? {#s:index-personas}
 

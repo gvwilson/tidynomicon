@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>E Practice Problems | The Tidynomicon</title>
-  <meta name="description" content="E Practice Problems | The Tidynomicon" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <title>E Practice Problems | R for Data Engineers</title>
+  <meta name="description" content="E Practice Problems | R for Data Engineers" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="E Practice Problems | The Tidynomicon" />
+  <meta property="og:title" content="E Practice Problems | R for Data Engineers" />
   <meta property="og:type" content="book" />
   
+  <meta property="og:image" content="machu-picchu.jpg" />
   
-  <meta property="og:description" content="E Practice Problems | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="E Practice Problems | The Tidynomicon" />
+  <meta name="twitter:title" content="E Practice Problems | R for Data Engineers" />
   
-  <meta name="twitter:description" content="E Practice Problems | The Tidynomicon" />
   
+  <meta name="twitter:image" content="machu-picchu.jpg" />
 
 <meta name="author" content="Greg Wilson" />
 
 
+<meta name="date" content="2021-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="contributing.html">
-<link rel="next" href="glossary.html">
+<link rel="prev" href="contributing.html"/>
+<link rel="next" href="glossary.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -55,7 +59,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -125,7 +128,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Tidynomicon</a></li>
+<li><a href="./">R for Data Engineers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
@@ -264,7 +267,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Engineers</a>
           </h1>
         </div>
 
@@ -278,12 +281,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 To begin,
 open a fresh file and begin by loading the tidyverse
 and the here package used to construct paths:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(here)</code></pre>
+<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb897-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb897-2" data-line-number="2"><span class="kw">library</span>(here)</a></code></pre></div>
 <p>Next,
 use <code>here::here</code> to construct a path to a file and <code>readr::read_csv</code> to read that file:</p>
-<pre class="sourceCode r"><code class="sourceCode r">path =<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)
-person &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(path)</code></pre>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb898-1" data-line-number="1">path =<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb898-2" data-line-number="2">person &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(path)</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   person_id = col_character(),
@@ -296,7 +299,7 @@ we will use them to make it easier to see what comes from where.</p>
 have a look at the tibble <code>person</code>,
 which contains some basic information about a group of foolhardy scientists
 who ventured into the Antarctic in the 1920s and 1930s in search of things best left undisturbed:</p>
-<pre class="sourceCode r"><code class="sourceCode r">person</code></pre>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb900-1" data-line-number="1">person</a></code></pre></div>
 <pre><code># A tibble: 5 x 3
   person_id personal_name family_name
   &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;      
@@ -306,26 +309,26 @@ who ventured into the Antarctic in the 1920s and 1930s in search of things best 
 4 roe       Valentina     Roerich    
 5 danforth  Frank         Danforth   </code></pre>
 <p>How many rows and columns does this tibble contain?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(person)</code></pre>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb902-1" data-line-number="1"><span class="kw">nrow</span>(person)</a></code></pre></div>
 <pre><code>[1] 5</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(person)</code></pre>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb904-1" data-line-number="1"><span class="kw">ncol</span>(person)</a></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <p>(These names don’t have a package prefix because they are built in.)
 Let’s show that information in a slightly nicer way
 using <code>glue</code> to insert values into a string
 and <code>print</code> to display the result:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person has {nrow(person)} rows and {ncol(person)} columns&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb906-1" data-line-number="1"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person has {nrow(person)} rows and {ncol(person)} columns&quot;</span>))</a></code></pre></div>
 <pre><code>person has 5 rows and 3 columns</code></pre>
 <p>If we want to display several values,
 we can use the function <code>paste</code> to combine the elements of a vector.
 <code>colnames</code> gives us the names of a tibble’s columns,
 and <code>paste</code>’s <code>collapse</code> argument tells the function
 to use a single space to separate concatenated values:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person columns are {paste(colnames(person), collapse = &#39; &#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb908-1" data-line-number="1"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;person columns are {paste(colnames(person), collapse = &#39; &#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>person columns are person_id personal_name family_name</code></pre>
 <p>Time for some data manipulation.
 Let’s get everyone’s family and personal names:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">select</span>(person, family_name, personal_name)</code></pre>
+<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb910-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">select</span>(person, family_name, personal_name)</a></code></pre></div>
 <pre><code># A tibble: 5 x 2
   family_name personal_name
   &lt;chr&gt;       &lt;chr&gt;        
@@ -335,8 +338,8 @@ Let’s get everyone’s family and personal names:</p>
 4 Roerich     Valentina    
 5 Danforth    Frank        </code></pre>
 <p>and then filter that list to keep only those that come in the first half of the alphabet:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">select</span>(person, family_name, personal_name) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(family_name <span class="op">&lt;</span><span class="st"> &quot;N&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb912-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">select</span>(person, family_name, personal_name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb912-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(family_name <span class="op">&lt;</span><span class="st"> &quot;N&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 3 x 2
   family_name personal_name
   &lt;chr&gt;       &lt;chr&gt;        
@@ -344,9 +347,9 @@ Let’s get everyone’s family and personal names:</p>
 2 Lake        Anderson     
 3 Danforth    Frank        </code></pre>
 <p>It would be more consistent to rewrite this as:</p>
-<pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(family_name, personal_name) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(family_name <span class="op">&lt;</span><span class="st"> &quot;N&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb914-1" data-line-number="1">person <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb914-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(family_name, personal_name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb914-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(family_name <span class="op">&lt;</span><span class="st"> &quot;N&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 3 x 2
   family_name personal_name
   &lt;chr&gt;       &lt;chr&gt;        
@@ -354,8 +357,8 @@ Let’s get everyone’s family and personal names:</p>
 2 Lake        Anderson     
 3 Danforth    Frank        </code></pre>
 <p>It’s easy to add a column that records the lengths of family names:</p>
-<pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name))</code></pre>
+<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb916-1" data-line-number="1">person <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb916-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name))</a></code></pre></div>
 <pre><code># A tibble: 5 x 4
   person_id personal_name family_name name_length
   &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;             &lt;int&gt;
@@ -365,9 +368,9 @@ Let’s get everyone’s family and personal names:</p>
 4 roe       Valentina     Roerich               7
 5 danforth  Frank         Danforth              8</code></pre>
 <p>and then arrange in descending order:</p>
-<pre class="sourceCode r"><code class="sourceCode r">person <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(dplyr<span class="op">::</span><span class="kw">desc</span>(name_length))</code></pre>
+<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb918-1" data-line-number="1">person <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb918-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">name_length =</span> stringr<span class="op">::</span><span class="kw">str_length</span>(family_name)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb918-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(dplyr<span class="op">::</span><span class="kw">desc</span>(name_length))</a></code></pre></div>
 <pre><code># A tibble: 5 x 4
   person_id personal_name family_name name_length
   &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;             &lt;int&gt;
@@ -381,7 +384,7 @@ Let’s get everyone’s family and personal names:</p>
 <p>Yes.
 Yes, you do.
 Let’s load a slightly larger dataset:</p>
-<pre class="sourceCode r"><code class="sourceCode r">measurements &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;measurements.csv&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb920-1" data-line-number="1">measurements &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;measurements.csv&quot;</span>))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   visit_id = col_double(),
@@ -389,7 +392,7 @@ cols(
   quantity = col_character(),
   reading = col_double()
 )</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">measurements</code></pre>
+<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb922-1" data-line-number="1">measurements</a></code></pre></div>
 <pre><code># A tibble: 21 x 4
    visit_id person_id quantity reading
       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
@@ -406,11 +409,11 @@ cols(
 # … with 11 more rows</code></pre>
 <p>If we want an overview of our data’s properties,
 we can use the aptly-named <code>summarize</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">summarize</span>(measurements)</code></pre>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb924-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">summarize</span>(measurements)</a></code></pre></div>
 <pre><code># A tibble: 1 x 0</code></pre>
 <p>Removing records with missing readings is straightforward:</p>
-<pre class="sourceCode r"><code class="sourceCode r">measurements <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(reading))</code></pre>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb926-1" data-line-number="1">measurements <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb926-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(reading))</a></code></pre></div>
 <pre><code># A tibble: 20 x 4
    visit_id person_id quantity reading
       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
@@ -438,9 +441,9 @@ we can use the aptly-named <code>summarize</code> function:</p>
 though it may be statistically unsound:</p>
 <p>We can now group our data by the quantity measured
 and count the number of each—the column is named <code>n</code> automatically:</p>
-<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>()</code></pre>
+<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb928-1" data-line-number="1">cleaned <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb928-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb928-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>()</a></code></pre></div>
 <pre><code># A tibble: 3 x 2
 # Groups:   quantity [3]
   quantity     n
@@ -449,11 +452,12 @@ and count the number of each—the column is named <code>n</code> automatically:
 2 sal          7
 3 temp         3</code></pre>
 <p>How are the readings of each type distributed?</p>
-<pre class="sourceCode r"><code class="sourceCode r">cleaned <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">low =</span> <span class="kw">min</span>(reading),
-                   <span class="dt">mid =</span> <span class="kw">mean</span>(reading),
-                   <span class="dt">high =</span> <span class="kw">max</span>(reading))</code></pre>
+<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb930-1" data-line-number="1">cleaned <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb930-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(quantity) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb930-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">low =</span> <span class="kw">min</span>(reading),</a>
+<a class="sourceLine" id="cb930-4" data-line-number="4">                   <span class="dt">mid =</span> <span class="kw">mean</span>(reading),</a>
+<a class="sourceLine" id="cb930-5" data-line-number="5">                   <span class="dt">high =</span> <span class="kw">max</span>(reading))</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 3 x 4
   quantity    low    mid  high
   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -468,11 +472,11 @@ the librarian who collected the battered notebooks from which the data was trans
 informs us that one of the explorers recorded percentages rather than actual values.
 We therefore decide to normalize all salinity measurements greater than 1.0 using <code>ifelse</code>
 (a two-branch analog of <code>case_when</code>):</p>
-<pre class="sourceCode r"><code class="sourceCode r">cleaned &lt;-<span class="st"> </span>cleaned <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">reading =</span> <span class="kw">ifelse</span>(quantity <span class="op">==</span><span class="st"> &#39;sal&#39;</span> <span class="op">&amp;</span><span class="st"> </span>reading <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.0</span>,
-                                 reading<span class="op">/</span><span class="dv">100</span>,
-                                 reading))
-cleaned</code></pre>
+<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb933-1" data-line-number="1">cleaned &lt;-<span class="st"> </span>cleaned <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb933-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">reading =</span> <span class="kw">ifelse</span>(quantity <span class="op">==</span><span class="st"> &#39;sal&#39;</span> <span class="op">&amp;</span><span class="st"> </span>reading <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.0</span>,</a>
+<a class="sourceLine" id="cb933-3" data-line-number="3">                                 reading<span class="op">/</span><span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb933-4" data-line-number="4">                                 reading))</a>
+<a class="sourceLine" id="cb933-5" data-line-number="5">cleaned</a></code></pre></div>
 <pre><code># A tibble: 18 x 4
    visit_id person_id quantity reading
       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
@@ -497,15 +501,15 @@ cleaned</code></pre>
 <p>To answer our next set of questions,
 we need data about when each site was visited.
 Let’s read <code>visited.csv</code> and discard entries that are missing the visit date:</p>
-<pre class="sourceCode r"><code class="sourceCode r">visited &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;visited.csv&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(visit_date))</code></pre>
+<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb935-1" data-line-number="1">visited &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;visited.csv&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb935-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(visit_date))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   visit_id = col_double(),
   site_id = col_character(),
   visit_date = col_date(format = &quot;&quot;)
 )</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">visited</code></pre>
+<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb937-1" data-line-number="1">visited</a></code></pre></div>
 <pre><code># A tibble: 7 x 3
   visit_id site_id visit_date
      &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;    
@@ -520,15 +524,15 @@ cols(
 We will use an <a href="glossary.html#inner-join">inner join</a>
 that matches records on the visit ID;
 dplyr also provides other kinds of joins should we need them.</p>
-<pre class="sourceCode r"><code class="sourceCode r">combined &lt;-<span class="st"> </span>visited <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">inner_join</span>(cleaned,
-                    <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;visit_id&quot;</span> =<span class="st"> &quot;visit_id&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb939-1" data-line-number="1">combined &lt;-<span class="st"> </span>visited <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb939-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">inner_join</span>(cleaned,</a>
+<a class="sourceLine" id="cb939-3" data-line-number="3">                    <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;visit_id&quot;</span> =<span class="st"> &quot;visit_id&quot;</span>))</a></code></pre></div>
 <p>We can now find the date of the highest radiation reading at each site:</p>
-<pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">max_rad =</span> <span class="kw">max</span>(reading)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</code></pre>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb940-1" data-line-number="1">combined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb940-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb940-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb940-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">max_rad =</span> <span class="kw">max</span>(reading)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb940-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(reading <span class="op">==</span><span class="st"> </span>max_rad)</a></code></pre></div>
 <pre><code># A tibble: 3 x 7
 # Groups:   site_id [3]
   visit_id site_id visit_date person_id quantity reading max_rad
@@ -537,11 +541,11 @@ dplyr also provides other kinds of joins should we need them.</p>
 2      837 MSK-4   1932-01-14 lake      rad         1.46    1.46
 3      844 DR-1    1932-03-22 roe       rad        11.2    11.2 </code></pre>
 <p>or:</p>
-<pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">top_n</span>(<span class="dv">1</span>, reading) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(site_id, visit_date, reading)</code></pre>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb942-1" data-line-number="1">combined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb942-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb942-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb942-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">top_n</span>(<span class="dv">1</span>, reading) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb942-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(site_id, visit_date, reading)</a></code></pre></div>
 <pre><code># A tibble: 3 x 3
 # Groups:   site_id [3]
   site_id visit_date reading
@@ -552,11 +556,11 @@ dplyr also provides other kinds of joins should we need them.</p>
 <p>The function <code>dplyr::lag</code> shifts the values in a column.
 We can use it to calculate the difference in radiation at each site
 between visits:</p>
-<pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">delta_rad =</span> reading <span class="op">-</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">lag</span>(reading)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(site_id, visit_date)</code></pre>
+<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb944-1" data-line-number="1">combined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb944-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb944-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb944-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">delta_rad =</span> reading <span class="op">-</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">lag</span>(reading)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb944-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(site_id, visit_date)</a></code></pre></div>
 <pre><code># A tibble: 7 x 7
 # Groups:   site_id [3]
   visit_id site_id visit_date person_id quantity reading delta_rad
@@ -570,13 +574,14 @@ between visits:</p>
 7      837 MSK-4   1932-01-14 lake      rad         1.46     NA   </code></pre>
 <p>Going one step further,
 we can create a list of sites at which radiation increased between any two visits:</p>
-<pre class="sourceCode r"><code class="sourceCode r">combined <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">delta_rad =</span> reading <span class="op">-</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">lag</span>(reading)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(delta_rad)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">any_increase =</span> <span class="kw">any</span>(delta_rad <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(any_increase)</code></pre>
+<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb946-1" data-line-number="1">combined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb946-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(quantity <span class="op">==</span><span class="st"> &quot;rad&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb946-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(site_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb946-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">delta_rad =</span> reading <span class="op">-</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">lag</span>(reading)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb946-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(delta_rad)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb946-6" data-line-number="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">any_increase =</span> <span class="kw">any</span>(delta_rad <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb946-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(any_increase)</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 1 x 2
   site_id any_increase
   &lt;chr&gt;   &lt;lgl&gt;       
@@ -590,7 +595,7 @@ We will use data on the mass and home range area (HRA) of various species from:<
 <p>Tamburello N, Côté IM, Dulvy NK (2015) Data from: Energy and the scaling of animal space use. Dryad Digital Repository.
 <a href="https://doi.org/10.5061/dryad.q5j65" class="uri">https://doi.org/10.5061/dryad.q5j65</a></p>
 </blockquote>
-<pre class="sourceCode r"><code class="sourceCode r">hra &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;home-range-database.csv&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb949-1" data-line-number="1">hra &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;home-range-database.csv&quot;</span>))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   .default = col_character(),
@@ -603,7 +608,7 @@ cols(
   PPMR = col_double()
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(hra)</code></pre>
+<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb952-1" data-line-number="1"><span class="kw">head</span>(hra)</a></code></pre></div>
 <pre><code># A tibble: 6 x 24
   taxon common.name class order family genus species primarymethod N    
   &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;
@@ -615,40 +620,39 @@ cols(
 6 rive… muskellunge acti… esoc… esoci… esox  masqui… telemetry     5    
 # … with 15 more variables: mean.mass.g &lt;dbl&gt;, log10.mass &lt;dbl&gt;,
 #   alternative.mass.reference &lt;chr&gt;, mean.hra.m2 &lt;dbl&gt;, log10.hra &lt;dbl&gt;,
-#   hra.reference &lt;chr&gt;, realm &lt;chr&gt;, thermoregulation &lt;chr&gt;,
-#   locomotion &lt;chr&gt;, trophic.guild &lt;chr&gt;, dimension &lt;chr&gt;,
-#   preymass &lt;dbl&gt;, log10.preymass &lt;dbl&gt;, PPMR &lt;dbl&gt;,
-#   prey.size.reference &lt;chr&gt;</code></pre>
+#   hra.reference &lt;chr&gt;, realm &lt;chr&gt;, thermoregulation &lt;chr&gt;, locomotion &lt;chr&gt;,
+#   trophic.guild &lt;chr&gt;, dimension &lt;chr&gt;, preymass &lt;dbl&gt;, log10.preymass &lt;dbl&gt;,
+#   PPMR &lt;dbl&gt;, prey.size.reference &lt;chr&gt;</code></pre>
 <p>A few keystrokes show us how the masses of these animals are distributed:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> mean.mass.g))</code></pre>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb954-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span></a>
+<a class="sourceLine" id="cb954-2" data-line-number="2"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> mean.mass.g))</a></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="practice_files/figure-html/chart-mass-1.png" width="672" /></p>
 <p>The distribution becomes much clearer if we plot the logarithms of the masses,
 which are helpfully precalculated in <code>log10.mass</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass))</code></pre>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb956-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span></a>
+<a class="sourceLine" id="cb956-2" data-line-number="2"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass))</a></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="practice_files/figure-html/chart-log-mass-1.png" width="672" /></p>
 <p>Let’s tidy that up a bit:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass), <span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;Frequency of Species Masses&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Log10 of Mass&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Number of Species&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</code></pre>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb958-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span></a>
+<a class="sourceLine" id="cb958-2" data-line-number="2"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass), <span class="dt">bins =</span> <span class="dv">100</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb958-3" data-line-number="3"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;Frequency of Species Masses&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb958-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Log10 of Mass&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb958-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Number of Species&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb958-6" data-line-number="6"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</a></code></pre></div>
 <p><img src="practice_files/figure-html/change-visual-1.png" width="672" /></p>
 <p>How are mass and home range area related?</p>
-<pre class="sourceCode r"><code class="sourceCode r">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra))</code></pre>
+<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb959-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw">ggplot</span>(hra) <span class="op">+</span></a>
+<a class="sourceLine" id="cb959-2" data-line-number="2"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra))</a></code></pre></div>
 <p><img src="practice_files/figure-html/scatterplot-1.png" width="672" /></p>
 <p>Does the relationship depend on the class of animal?
 (Here, we use the word “class” in the biological sense:
 the class “aves” is birds.)</p>
-<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct)) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb960-1" data-line-number="1">hra <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb960-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb960-3" data-line-number="3"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb960-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="practice_files/figure-html/colorize-scatterplot-1.png" width="672" /></p>
 <blockquote>
 <p>*What’s a Factor?</p>
@@ -658,46 +662,49 @@ Other languages call this an enumeration:
 we will discuss factors in more detail in Chapter <a href="debt.html#debt">7</a>.</p>
 </blockquote>
 <p>Our chart may be clearer if we display the <a href="glossary.html#facet">facets</a> separately:</p>
-<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct)) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>class_fct)</code></pre>
+<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb961-1" data-line-number="1">hra <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb961-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class_fct =</span> <span class="kw">as.factor</span>(class)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb961-3" data-line-number="3"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra, <span class="dt">color =</span> class_fct)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb961-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb961-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>class_fct)</a></code></pre></div>
 <p><img src="practice_files/figure-html/facet-plot-1.png" width="672" /></p>
 <p>If we want to look at the mass-area relationship more closely for birds,
 we can construct a regression line:</p>
-<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra)) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb962-1" data-line-number="1">hra <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb962-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb962-3" data-line-number="3"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb962-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb962-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</a></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="practice_files/figure-html/fit-line-1.png" width="672" /></p>
 <p>Drilling down even further,
 we can create a violin plot of mass by order for the birds
 (where “order” is the biological division below “class”):</p>
-<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct)) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>()</code></pre>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb964-1" data-line-number="1">hra <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb964-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb964-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb964-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb964-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>()</a></code></pre></div>
 <p><img src="practice_files/figure-html/violin-plot-1.png" width="672" /></p>
 <p>Changing just one line gives us a box plot instead:</p>
-<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct)) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>()</code></pre>
+<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb965-1" data-line-number="1">hra <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb965-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb965-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">order_fct =</span> <span class="kw">as.factor</span>(order)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb965-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> order_fct, <span class="dt">y =</span> log10.mass, <span class="dt">color =</span> order_fct)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb965-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="practice_files/figure-html/box-plot-1.png" width="672" /></p>
 <p>And if we want to save our chart to a file,
 that’s just one more call as well:</p>
-<pre class="sourceCode r"><code class="sourceCode r">hra <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra)) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb966-1" data-line-number="1">hra <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb966-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(class <span class="op">==</span><span class="st"> &quot;aves&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb966-3" data-line-number="3"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> log10.mass, <span class="dt">y =</span> log10.hra)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb966-4" data-line-number="4"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb966-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</a></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="practice_files/figure-html/save-file-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;/tmp/birds.png&quot;</span>)</code></pre>
-<pre><code>Saving 7 x 5 in image</code></pre>
+<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb968-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="st">&quot;/tmp/birds.png&quot;</span>)</a></code></pre></div>
+<pre><code>Saving 7 x 5 in image
+`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 
 </div>
 </div>
@@ -712,11 +719,13 @@ that’s just one more call as well:</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -724,12 +733,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -744,7 +752,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"view": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/practice.Rmd",
+"text": null
+},
+"download": ["r4de.pdf", "r4de.epub"],
 "toc": {
 "collapse": "section"
 }

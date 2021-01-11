@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Creating Reports | The Tidynomicon</title>
-  <meta name="description" content="Chapter 4 Creating Reports | The Tidynomicon" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <title>Chapter 4 Creating Reports | R for Data Engineers</title>
+  <meta name="description" content="Chapter 4 Creating Reports | R for Data Engineers" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Creating Reports | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 4 Creating Reports | R for Data Engineers" />
   <meta property="og:type" content="book" />
   
+  <meta property="og:image" content="machu-picchu.jpg" />
   
-  <meta property="og:description" content="Chapter 4 Creating Reports | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Creating Reports | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 4 Creating Reports | R for Data Engineers" />
   
-  <meta name="twitter:description" content="Chapter 4 Creating Reports | The Tidynomicon" />
   
+  <meta name="twitter:image" content="machu-picchu.jpg" />
 
 <meta name="author" content="Greg Wilson" />
 
 
+<meta name="date" content="2021-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tidyverse.html">
-<link rel="next" href="package.html">
+<link rel="prev" href="tidyverse.html"/>
+<link rel="next" href="package.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -55,7 +59,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -125,7 +128,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Tidynomicon</a></li>
+<li><a href="./">R for Data Engineers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
@@ -264,7 +267,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Engineers</a>
           </h1>
         </div>
 
@@ -323,17 +326,17 @@ which both offer free hosting for small websites.</p>
 <p>To begin,
 create a file called <code>first.Rmd</code> and add the following text to it:</p>
 <!-- rmarkdown/first.Rmd -->
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu">## Methods {-}</span>
-
-Something *really important*.
-
-An <span class="ot">[external link](https://tidynomicon.tech)</span>.
-
-<span class="ot">[Another link][rstudio]</span>
-
-&lt;!--<span class="co"> link table below --&gt;</span>
-
-<span class="ot">[rstudio]: https://rstudio.com</span></code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb374-1" data-line-number="1"><span class="fu">## Methods {-}</span></a>
+<a class="sourceLine" id="cb374-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb374-3" data-line-number="3">Something *really important*.</a>
+<a class="sourceLine" id="cb374-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb374-5" data-line-number="5">An <span class="ot">[external link](https://tidynomicon.tech)</span>.</a>
+<a class="sourceLine" id="cb374-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb374-7" data-line-number="7"><span class="ot">[Another link][rstudio]</span></a>
+<a class="sourceLine" id="cb374-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb374-9" data-line-number="9">&lt;!--<span class="co"> link table below --&gt;</span></a>
+<a class="sourceLine" id="cb374-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb374-11" data-line-number="11"><span class="ot">[rstudio]: https://rstudio.com</span></a></code></pre></div>
 <p>This shows several key features of Markdown:</p>
 <ul>
 <li>A level-1 heading (<code>h1</code> in HTML) is put on a line starting with <code>#</code>.
@@ -386,12 +389,12 @@ What makes it powerful is the ability to include code chunks
 that are evaluated as the document is knit,
 and whose output is included in the final page.
 Put this in a file called <code>second.Rmd</code>:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">Displaying the colors:
-
-<span class="bn">```{r}</span>
-<span class="bn">colors &lt;- c(&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;)</span>
-<span class="bn">colors</span>
-<span class="bn">```</span></code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb375-1" data-line-number="1">Displaying the colors:</a>
+<a class="sourceLine" id="cb375-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb375-3" data-line-number="3"><span class="bn">```{r}</span></a>
+<a class="sourceLine" id="cb375-4" data-line-number="4"><span class="bn">colors &lt;- c(&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;)</span></a>
+<a class="sourceLine" id="cb375-5" data-line-number="5"><span class="bn">colors</span></a>
+<a class="sourceLine" id="cb375-6" data-line-number="6"><span class="bn">```</span></a></code></pre></div>
 <p>The triple back-quotes mark the start and end of a block of code;
 putting <code>{r}</code> immediately after the back-quotes at the start
 tells <code>knitr</code> to run the code
@@ -432,35 +435,35 @@ as we will see below.</li>
 In particular,
 it’s good style to give every chunk a unique label,
 so a document might look like this:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># My Thesis {-}</span>
-
-<span class="bn">```{r setup, include=FALSE}</span>
-<span class="bn"># Load tidyverse but don&#39;t display messages.</span>
-<span class="bn">library(tidyverse)</span>
-<span class="bn">```</span>
-
-<span class="bn">```{r read-data, message=FALSE}</span>
-<span class="bn">earthquakes &lt;- read_csv(&#39;earthquakes.csv&#39;)</span>
-<span class="bn">```</span>
-
-A profound quotation to set the scene.
-And then some analysis:
-
-<span class="bn">```{r calculate-depth-by-magnitude}</span>
-<span class="bn">depth_by_magnitude &lt;- earthquakes %&gt;%</span>
-<span class="bn">  mutate(round_mag = round(Magnitude)) %&gt;%</span>
-<span class="bn">  group_by(round_mag) %&gt;%</span>
-<span class="bn">  summarize(depth = mean(Depth_Km))</span>
-<span class="bn">depth_by_magnitude</span>
-<span class="bn">```</span>
-
-Now let&#39;s visualize that:
-
-<span class="bn">```{r plot-depth-by-magnitude}</span>
-<span class="bn">depth_by_magnitude %&gt;%</span>
-<span class="bn">  ggplot() +</span>
-<span class="bn">  geom_point(mapping = aes(x = round_mag, y = depth))</span>
-<span class="bn">```</span></code></pre>
+<div class="sourceCode" id="cb376"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb376-1" data-line-number="1"><span class="fu"># My Thesis {-}</span></a>
+<a class="sourceLine" id="cb376-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb376-3" data-line-number="3"><span class="bn">```{r setup, include=FALSE}</span></a>
+<a class="sourceLine" id="cb376-4" data-line-number="4"><span class="bn"># Load tidyverse but don&#39;t display messages.</span></a>
+<a class="sourceLine" id="cb376-5" data-line-number="5"><span class="bn">library(tidyverse)</span></a>
+<a class="sourceLine" id="cb376-6" data-line-number="6"><span class="bn">```</span></a>
+<a class="sourceLine" id="cb376-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb376-8" data-line-number="8"><span class="bn">```{r read-data, message=FALSE}</span></a>
+<a class="sourceLine" id="cb376-9" data-line-number="9"><span class="bn">earthquakes &lt;- read_csv(&#39;earthquakes.csv&#39;)</span></a>
+<a class="sourceLine" id="cb376-10" data-line-number="10"><span class="bn">```</span></a>
+<a class="sourceLine" id="cb376-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb376-12" data-line-number="12">A profound quotation to set the scene.</a>
+<a class="sourceLine" id="cb376-13" data-line-number="13">And then some analysis:</a>
+<a class="sourceLine" id="cb376-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb376-15" data-line-number="15"><span class="bn">```{r calculate-depth-by-magnitude}</span></a>
+<a class="sourceLine" id="cb376-16" data-line-number="16"><span class="bn">depth_by_magnitude &lt;- earthquakes %&gt;%</span></a>
+<a class="sourceLine" id="cb376-17" data-line-number="17"><span class="bn">  mutate(round_mag = round(Magnitude)) %&gt;%</span></a>
+<a class="sourceLine" id="cb376-18" data-line-number="18"><span class="bn">  group_by(round_mag) %&gt;%</span></a>
+<a class="sourceLine" id="cb376-19" data-line-number="19"><span class="bn">  summarize(depth = mean(Depth_Km))</span></a>
+<a class="sourceLine" id="cb376-20" data-line-number="20"><span class="bn">depth_by_magnitude</span></a>
+<a class="sourceLine" id="cb376-21" data-line-number="21"><span class="bn">```</span></a>
+<a class="sourceLine" id="cb376-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb376-23" data-line-number="23">Now let&#39;s visualize that:</a>
+<a class="sourceLine" id="cb376-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb376-25" data-line-number="25"><span class="bn">```{r plot-depth-by-magnitude}</span></a>
+<a class="sourceLine" id="cb376-26" data-line-number="26"><span class="bn">depth_by_magnitude %&gt;%</span></a>
+<a class="sourceLine" id="cb376-27" data-line-number="27"><span class="bn">  ggplot() +</span></a>
+<a class="sourceLine" id="cb376-28" data-line-number="28"><span class="bn">  geom_point(mapping = aes(x = round_mag, y = depth))</span></a>
+<a class="sourceLine" id="cb376-29" data-line-number="29"><span class="bn">```</span></a></code></pre></div>
 <p>In order:</p>
 <ul>
 <li>The document title is a level-1 header with suppressed numbering.</li>
@@ -512,11 +515,11 @@ Now let’s visualize that:
 </blockquote>
 <p>Note that if we want to include a static image (such as a screenshot) in a report,
 we can use Markdown’s own syntax:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="al">![Summoning Ritual](figures/summoning-ritual.jpg)</span></code></pre>
+<div class="sourceCode" id="cb377"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb377-1" data-line-number="1"><span class="al">![Summoning Ritual](figures/summoning-ritual.jpg)</span></a></code></pre></div>
 <p>or create an R code chunk with a call to <code>knitr::include_graphics</code>:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r summoning-ritual, echo=FALSE, fig.cap=&quot;Summoning Ritual&quot;}</span>
-<span class="bn">knitr::include_graphics(&quot;figures/summoning-ritual.jpg&quot;)</span>
-<span class="bn">```</span></code></pre>
+<div class="sourceCode" id="cb378"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb378-1" data-line-number="1"><span class="bn">```{r summoning-ritual, echo=FALSE, fig.cap=&quot;Summoning Ritual&quot;}</span></a>
+<a class="sourceLine" id="cb378-2" data-line-number="2"><span class="bn">knitr::include_graphics(&quot;figures/summoning-ritual.jpg&quot;)</span></a>
+<a class="sourceLine" id="cb378-3" data-line-number="3"><span class="bn">```</span></a></code></pre></div>
 <p>The options for the latter give the code chunk an ID,
 prevent it from being echoed in the final document,
 and most importantly,
@@ -533,9 +536,9 @@ and are accessible both to people with visual challenges
 and to the machines whose inevitable triumph over us
 shall usher in an agorithmic age free of superstition and mercy.</p>
 <p>The simplest way to format tables is to use <code>knitr::kable</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">earthquakes <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>()</code></pre>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" data-line-number="1">earthquakes <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb379-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb379-3" data-line-number="3"><span class="st">  </span><span class="kw">kable</span>()</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -653,13 +656,13 @@ we select four columns from our earthquake data and format them as a narrow tabl
 with two decimal places for latitude and longitude,
 one for magnitude and depth,
 and some multi-column headers:</p>
-<pre class="sourceCode r"><code class="sourceCode r">earthquakes <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="dt">lat =</span> Latitude, <span class="dt">long =</span> Longitude,
-         <span class="dt">mag =</span> Magnitude, <span class="dt">depth =</span> Depth_Km) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">full_width =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&#39;Location&#39;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&#39;Details&#39;</span> =<span class="st"> </span><span class="dv">2</span>))</code></pre>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" data-line-number="1">earthquakes <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dt">lat =</span> Latitude, <span class="dt">long =</span> Longitude,</a>
+<a class="sourceLine" id="cb380-3" data-line-number="3">         <span class="dt">mag =</span> Magnitude, <span class="dt">depth =</span> Depth_Km) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-5" data-line-number="5"><span class="st">  </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-6" data-line-number="6"><span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">full_width =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-7" data-line-number="7"><span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&#39;Location&#39;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&#39;Details&#39;</span> =<span class="st"> </span><span class="dv">2</span>))</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -771,18 +774,18 @@ The best way to do this with R Markdown is to put that code in a separate <code
 and then load that at the start of each document using the <code>source</code> function.
 For example,
 all of the chapters in this book begin with:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r setup, include=FALSE}</span>
-<span class="bn">source(&#39;common.R&#39;)</span>
-<span class="bn">```</span></code></pre>
+<div class="sourceCode" id="cb381"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb381-1" data-line-number="1"><span class="bn">```{r setup, include=FALSE}</span></a>
+<a class="sourceLine" id="cb381-2" data-line-number="2"><span class="bn">source(&#39;common.R&#39;)</span></a>
+<a class="sourceLine" id="cb381-3" data-line-number="3"><span class="bn">```</span></a></code></pre></div>
 <p>The chunk is named <code>setup</code>, and neither it nor its output are displayed.
 All the chunk does is load and run <code>common.R</code>,
 which contains the following lines:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(reticulate)
-<span class="kw">library</span>(rlang)
-<span class="kw">library</span>(knitr)
-
-knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">width =</span> <span class="dv">69</span>)</code></pre>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb382-2" data-line-number="2"><span class="kw">library</span>(reticulate)</a>
+<a class="sourceLine" id="cb382-3" data-line-number="3"><span class="kw">library</span>(rlang)</a>
+<a class="sourceLine" id="cb382-4" data-line-number="4"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb382-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb382-6" data-line-number="6">knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">width =</span> <span class="dv">69</span>)</a></code></pre></div>
 <p>The first few load libraries that various chapters depend on;
 the last one tells <code>knitr</code> to set the line width option to 69 characters.</p>
 </div>
@@ -796,12 +799,12 @@ Rather than calling a function to set them,
 you can and should add a header to each document.
 If we use <code>File...New File...RMarkdown</code> to create a new R Markdown file,
 its header looks like this:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">---
-title: &quot;fourth&quot;
-author: &quot;Greg Wilson&quot;
-date: &quot;18/09/2019&quot;
-output: html_document
----</code></pre>
+<div class="sourceCode" id="cb383"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb383-1" data-line-number="1">---</a>
+<a class="sourceLine" id="cb383-2" data-line-number="2">title: &quot;fourth&quot;</a>
+<a class="sourceLine" id="cb383-3" data-line-number="3">author: &quot;Greg Wilson&quot;</a>
+<a class="sourceLine" id="cb383-4" data-line-number="4">date: &quot;18/09/2019&quot;</a>
+<a class="sourceLine" id="cb383-5" data-line-number="5">output: html_document</a>
+<a class="sourceLine" id="cb383-6" data-line-number="6">---</a></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>The header starts with exactly three dashes on a line of their own and ends the same way.
 A common mistake is to forget the closing dashes;
@@ -825,15 +828,15 @@ Instead,
 its values control <code>knitr</code>’s operation (e.g., select HTML as the output format)
 or are inserted into the document itself (e.g., the title).</p>
 <p>Let’s edit the YAML header so that it looks like this:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">---
-title: &quot;fourth&quot;
-author: &quot;Greg Wilson&quot;
-date: &quot;2019-09-18&quot;
-output:
-  html_document:
-<span class="bn">    theme: united</span>
-<span class="bn">    toc: true</span>
----</code></pre>
+<div class="sourceCode" id="cb384"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb384-1" data-line-number="1">---</a>
+<a class="sourceLine" id="cb384-2" data-line-number="2">title: &quot;fourth&quot;</a>
+<a class="sourceLine" id="cb384-3" data-line-number="3">author: &quot;Greg Wilson&quot;</a>
+<a class="sourceLine" id="cb384-4" data-line-number="4">date: &quot;2019-09-18&quot;</a>
+<a class="sourceLine" id="cb384-5" data-line-number="5">output:</a>
+<a class="sourceLine" id="cb384-6" data-line-number="6">  html_document:</a>
+<a class="sourceLine" id="cb384-7" data-line-number="7"><span class="bn">    theme: united</span></a>
+<a class="sourceLine" id="cb384-8" data-line-number="8"><span class="bn">    toc: true</span></a>
+<a class="sourceLine" id="cb384-9" data-line-number="9">---</a></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>The date is now in an unambiguous, sortable format.
 This doesn’t impact our document,
@@ -852,17 +855,17 @@ a package called <code>ymlthis</code> is being developed to create and check fil
 it’s a great way to experiment with new or obscure options.</p>
 <p>But YAML can do more than control the way <code>knitr</code> processes the document:
 we can also use it to create <a href="glossary.html#parameterized-report">parameterized reports</a>.</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">---
-title: &quot;Fifth Report&quot;
-params:
-  country: Canada
----
-
-This report looks at defenstration rates in <span class="bn">`r params$country`</span>.
-
-<span class="bn">```{r load-data}</span>
-<span class="bn">data &lt;- read_csv(here::here(&#39;data&#39;, glue(params$country, &#39;.csv&#39;)))</span>
-<span class="bn">```</span></code></pre>
+<div class="sourceCode" id="cb385"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb385-1" data-line-number="1">---</a>
+<a class="sourceLine" id="cb385-2" data-line-number="2">title: &quot;Fifth Report&quot;</a>
+<a class="sourceLine" id="cb385-3" data-line-number="3">params:</a>
+<a class="sourceLine" id="cb385-4" data-line-number="4">  country: Canada</a>
+<a class="sourceLine" id="cb385-5" data-line-number="5">---</a>
+<a class="sourceLine" id="cb385-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb385-7" data-line-number="7">This report looks at defenstration rates in <span class="bn">`r params$country`</span>.</a>
+<a class="sourceLine" id="cb385-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb385-9" data-line-number="9"><span class="bn">```{r load-data}</span></a>
+<a class="sourceLine" id="cb385-10" data-line-number="10"><span class="bn">data &lt;- read_csv(here::here(&#39;data&#39;, glue(params$country, &#39;.csv&#39;)))</span></a>
+<a class="sourceLine" id="cb385-11" data-line-number="11"><span class="bn">```</span></a></code></pre></div>
 <p>This document’s YAML header contains the key <code>params</code>,
 under which is a sub-key for each parameter we want to create.
 When the document is knit,
@@ -923,27 +926,27 @@ Jekyll simply copies it as-is.</li>
 so they are copied as-is.
 If we want to style those pages with our own CSS or add some JavaScript,
 we can tell <code>knitr</code> to include files of our choice during translation:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">---
-title: &quot;Defenestration By Country&quot;
-output:
-  html_document:
-<span class="bn">    includes:</span>
-<span class="bn">      in_header: extra-header.html</span>
-<span class="bn">      after_body: extra-footer.html</span>
----
-...content...</code></pre>
+<div class="sourceCode" id="cb387"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb387-1" data-line-number="1">---</a>
+<a class="sourceLine" id="cb387-2" data-line-number="2">title: &quot;Defenestration By Country&quot;</a>
+<a class="sourceLine" id="cb387-3" data-line-number="3">output:</a>
+<a class="sourceLine" id="cb387-4" data-line-number="4">  html_document:</a>
+<a class="sourceLine" id="cb387-5" data-line-number="5"><span class="bn">    includes:</span></a>
+<a class="sourceLine" id="cb387-6" data-line-number="6"><span class="bn">      in_header: extra-header.html</span></a>
+<a class="sourceLine" id="cb387-7" data-line-number="7"><span class="bn">      after_body: extra-footer.html</span></a>
+<a class="sourceLine" id="cb387-8" data-line-number="8">---</a>
+<a class="sourceLine" id="cb387-9" data-line-number="9">...content...</a></code></pre></div>
 <p>Behind the scenes,
 <code>knitr</code> translates our R Markdown into plain Markdown,
 which is then turned into HTML by yet another tool called <a href="https://pandoc.org/">Pandoc</a>.
 If we are brave,
 we can create an entirely new Pandoc HTML template and format our files with that:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">---
-title: &quot;Defenestration by Season&quot;
-output:
-  html_document:
-<span class="bn">    template: seasonal-report.html</span>
----
-...content...</code></pre>
+<div class="sourceCode" id="cb388"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb388-1" data-line-number="1">---</a>
+<a class="sourceLine" id="cb388-2" data-line-number="2">title: &quot;Defenestration by Season&quot;</a>
+<a class="sourceLine" id="cb388-3" data-line-number="3">output:</a>
+<a class="sourceLine" id="cb388-4" data-line-number="4">  html_document:</a>
+<a class="sourceLine" id="cb388-5" data-line-number="5"><span class="bn">    template: seasonal-report.html</span></a>
+<a class="sourceLine" id="cb388-6" data-line-number="6">---</a>
+<a class="sourceLine" id="cb388-7" data-line-number="7">...content...</a></code></pre></div>
 <p>This works,
 but having the generated HTML in our root directory is messy.
 Given that we can configure GitHub Pages to publish from the <code>docs</code> folder,
@@ -985,11 +988,13 @@ such as Bookdown,
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -997,12 +1002,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1017,7 +1021,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"view": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/rmarkdown.Rmd",
+"text": null
+},
+"download": ["r4de.pdf", "r4de.epub"],
 "toc": {
 "collapse": "section"
 }

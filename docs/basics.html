@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Simple Beginnings | The Tidynomicon</title>
-  <meta name="description" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <title>Chapter 2 Simple Beginnings | R for Data Engineers</title>
+  <meta name="description" content="Chapter 2 Simple Beginnings | R for Data Engineers" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 2 Simple Beginnings | R for Data Engineers" />
   <meta property="og:type" content="book" />
   
+  <meta property="og:image" content="machu-picchu.jpg" />
   
-  <meta property="og:description" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 2 Simple Beginnings | R for Data Engineers" />
   
-  <meta name="twitter:description" content="Chapter 2 Simple Beginnings | The Tidynomicon" />
   
+  <meta name="twitter:image" content="machu-picchu.jpg" />
 
 <meta name="author" content="Greg Wilson" />
 
 
+<meta name="date" content="2021-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="tidyverse.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="tidyverse.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -55,7 +59,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -125,7 +128,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Tidynomicon</a></li>
+<li><a href="./">R for Data Engineers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
@@ -264,7 +267,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Engineers</a>
           </h1>
         </div>
 
@@ -305,10 +308,10 @@ we provide short examples in Python.</p>
 <h2><span class="header-section-number">2.2</span> How do I say hello?</h2>
 <p>We begin with a traditional greeting.
 In Python, we write:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="bu">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</a></code></pre></div>
 <pre><code>Hello, world!</code></pre>
 <p>We can run the equivalent R in the RStudio Console (Figure <a href="basics.html#fig:console">2.1</a>):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;Hello, world!&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;Hello, world!&quot;</code></pre>
 <div class="figure"><span id="fig:console"></span>
 <img src="figures/basics/console.png" alt="RStudio Console" width="256" />
@@ -320,9 +323,9 @@ Figure 2.1: RStudio Console
 but what does the <code>[1]</code> in R’s output signify?
 Is it perhaps something akin to a line number?
 Let’s take a closer look by evaluating a couple of expressions without calling <code>print</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="st">&#39;This is in single quotes.&#39;</span></code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="st">&#39;This is in single quotes.&#39;</span></a></code></pre></div>
 <pre><code>[1] &quot;This is in single quotes.&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;This is in double quotes.&quot;</span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="st">&quot;This is in double quotes.&quot;</span></a></code></pre></div>
 <pre><code>[1] &quot;This is in double quotes.&quot;</code></pre>
 <p><code>[1]</code> doesn’t appear to be a line number;
 let’s ignore it for now and do a little more exploring.</p>
@@ -335,36 +338,36 @@ let’s ignore it for now and do a little more exploring.</p>
 <h2><span class="header-section-number">2.3</span> How do I add numbers?</h2>
 <p>In Python,
 we add numbers using <code>+</code>.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="bu">print</span>(<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>6</code></pre>
 <p>We can check the type of the result using <code>type</code>,
 which tells us that the result <code>6</code> is an integer:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">type</span>(<span class="dv">6</span>))</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="bu">print</span>(<span class="bu">type</span>(<span class="dv">6</span>))</a></code></pre></div>
 <pre><code>&lt;class &#39;int&#39;&gt;</code></pre>
 <p>What does R do?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 6</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="dv">6</span>)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">typeof</span>(<span class="dv">6</span>)</a></code></pre></div>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <p>R’s type inspection function is called <code>typeof</code> rather than <code>type</code>,
 and it returns the type’s name as a string.
 That’s all fine,
 but it seems odd for integer addition to produce a double-precision floating-point result.
 Let’s try an experiment:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="dv">6</span>)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">typeof</span>(<span class="dv">6</span>)</a></code></pre></div>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <p>Ah: by default,
 R represents numbers as floating-point values,
 even if they look like integers when written.
 We can force a literal value to be an integer by appending an upper-case <code>L</code>
 (which stands for “long integer”):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(6L)</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">typeof</span>(6L)</a></code></pre></div>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>Arithmetic on integers does produce integers:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(1L <span class="op">+</span><span class="st"> </span>2L <span class="op">+</span><span class="st"> </span>3L)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">typeof</span>(1L <span class="op">+</span><span class="st"> </span>2L <span class="op">+</span><span class="st"> </span>3L)</a></code></pre></div>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>and if we want to convert a floating-point number to an integer we can do so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">6</span>))</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">6</span>))</a></code></pre></div>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>But wait:
 what is that dot in <code>as.integer</code>’s name?
@@ -385,8 +388,8 @@ so that we too can create, manipulate, and dispose of multitudes with a single i
 We create lists using square brackets
 and assign a list to a variable using <code>=</code>.
 If the variable does not exist, it is created:</p>
-<pre class="sourceCode python"><code class="sourceCode python">primes <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>]
-<span class="bu">print</span>(primes)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" data-line-number="1">primes <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>]</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="bu">print</span>(primes)</a></code></pre></div>
 <pre><code>[3, 5, 7, 11]</code></pre>
 <p>Since assignment is a <a href="glossary.html#statement">statement</a>
 rather than an <a href="glossary.html#expression">expression</a>,
@@ -394,8 +397,8 @@ it has no result,
 so Python does not display anything when this command is run.</p>
 <p>The equivalent operation in R uses a function called <code>c</code>,
 which stands for “column” and which creates a <a href="glossary.html#vector">vector</a>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)
-primes</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">primes</a></code></pre></div>
 <pre><code>[1]  3  5  7 11</code></pre>
 <p>Assignment is done using a left-pointing arrow <code>&lt;-</code>
 (though other forms exist, which we will discuss later).
@@ -406,9 +409,9 @@ so we enter the name of the newly-created variable to get R to display its value
 we can explain the errant <code>[1]</code> in our previous examples.
 To start,
 let’s have a look at the lengths of various things in Python:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(primes, <span class="bu">len</span>(primes))</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="bu">print</span>(primes, <span class="bu">len</span>(primes))</a></code></pre></div>
 <pre><code>[3, 5, 7, 11] 4</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>(<span class="dv">4</span>))</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="bu">print</span>(<span class="bu">len</span>(<span class="dv">4</span>))</a></code></pre></div>
 <pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: object of type &#39;int&#39; has no len()
 
 Detailed traceback: 
@@ -418,14 +421,14 @@ the length of a list is the number of elements it contains,
 and since a <a href="glossary.html#scalar">scalar</a> like the integer 4 doesn’t contain elements,
 it has no length.
 What of R’s vectors?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(primes)</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">length</span>(primes)</a></code></pre></div>
 <pre><code>[1] 4</code></pre>
 <p>Good—and numbers?</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">length</span>(<span class="dv">4</span>)</a></code></pre></div>
 <pre><code>[1] 1</code></pre>
 <p>That’s surprising.
 Let’s have a closer look:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(primes)</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">typeof</span>(primes)</a></code></pre></div>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <p>That’s also unexpected:
 the type of the vector is the type of the elements it contains.
@@ -435,11 +438,11 @@ but rather a vector of length one containing the value 4.
 When we display its value,
 the <code>[1]</code> that R prints is the index of its first value.
 We can prove this by creating and displaying a longer vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>,
-  <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</code></pre>
-<pre><code> [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3
-[24]  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10</code></pre>
-<p>In order to help us find out way in our data,
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">  <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</a></code></pre></div>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5
+[26]  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>In order to help us find our way in our data,
 R automatically breaks long lines
 and displays the starting index of each line.
 These indices also show us that R counts from 1 as humans do,
@@ -453,26 +456,26 @@ rather than from zero.
 (a statement which is also true of quantum mechanics and necromancy).
 To avoid confusing indices with values,
 let’s create a list of color names and index that:</p>
-<pre class="sourceCode python"><code class="sourceCode python">colors <span class="op">=</span> [<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;wenge&quot;</span>]
-<span class="bu">print</span>(colors[<span class="dv">0</span>])</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" data-line-number="1">colors <span class="op">=</span> [<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;wenge&quot;</span>]</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="bu">print</span>(colors[<span class="dv">0</span>])</a></code></pre></div>
 <pre><code>eburnean</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(colors[<span class="dv">2</span>])</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="bu">print</span>(colors[<span class="dv">2</span>])</a></code></pre></div>
 <pre><code>wenge</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python">colors[<span class="dv">3</span>]</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" data-line-number="1">colors[<span class="dv">3</span>]</a></code></pre></div>
 <pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): IndexError: list index out of range
 
 Detailed traceback: 
   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(colors[<span class="op">-</span><span class="dv">1</span>])</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="bu">print</span>(colors[<span class="op">-</span><span class="dv">1</span>])</a></code></pre></div>
 <pre><code>wenge</code></pre>
 <p>Indexing the equivalent vector in R with the indices 1 to 3 produces unsurprising results:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)
-colors[<span class="dv">1</span>]</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">colors[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">3</span>]</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">colors[<span class="dv">3</span>]</a></code></pre></div>
 <pre><code>[1] &quot;wenge&quot;</code></pre>
 <p>What happens if we go off the end?</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">4</span>]</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">colors[<span class="dv">4</span>]</a></code></pre></div>
 <pre><code>[1] NA</code></pre>
 <p>R handles gaps in data using the special value <a href="glossary.html#NA"><code>NA</code></a> (short for “not available”),
 and returns this value when we ask for a nonexistent element of a vector.
@@ -481,22 +484,22 @@ In Python,
 a negative index counts backward from the end of a list.
 In R,
 we use a negative index to indicate a value that we don’t want:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="op">-</span><span class="dv">1</span>]</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">colors[<span class="op">-</span><span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] &quot;glaucous&quot; &quot;wenge&quot;   </code></pre>
 <p>But wait.
 If every value in R is a vector,
 then when we use 1 or -1 as an index,
 we’re actually using a vector to index another one.
 What happens if the index itself contains more than one value?</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">1</span>, <span class="dv">2</span>]</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">colors[<span class="dv">1</span>, <span class="dv">2</span>]</a></code></pre></div>
 <pre><code>Error in colors[1, 2]: incorrect number of dimensions</code></pre>
 <p>That didn’t work because R interprets <code>[i, j]</code> as being row and column indices,
 and our vector has only one dimension.
 What if we create a vector with <code>c(...)</code> and use that as a subscript?</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)]</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)]</a></code></pre></div>
 <pre><code>[1] &quot;wenge&quot;    &quot;eburnean&quot; &quot;glaucous&quot;</code></pre>
 <p>That works, and allows us to repeat elements:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)]</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)]</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot; &quot;eburnean&quot; &quot;eburnean&quot;</code></pre>
 <p>Note that this is <a href="glossary.html#pull-indexing">pull indexing</a>,
 i.e.,
@@ -509,19 +512,19 @@ Figure 2.2: Pull Indexing
 </p>
 </div>
 <p>We can also select out several elements:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-2</span>)]</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-2</span>)]</a></code></pre></div>
 <pre><code>[1] &quot;wenge&quot;</code></pre>
 <p>But we cannot simultaneously select elements in (with positive indices) and out (with negative ones):</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-1</span>)]</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-1</span>)]</a></code></pre></div>
 <pre><code>Error in colors[c(1, -1)]: only 0&#39;s may be mixed with negative subscripts</code></pre>
 <p>That error message is suggestive:
 what happens if we use 0 as an index?</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">0</span>]</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">colors[<span class="dv">0</span>]</a></code></pre></div>
 <pre><code>character(0)</code></pre>
 <p>In order to understand this rather cryptic response,
 we can try calling the function <code>character</code> ourselves
 with a positive argument:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">character</span>(<span class="dv">3</span>)</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">character</span>(<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>[1] &quot;&quot; &quot;&quot; &quot;&quot;</code></pre>
 <p>Ah:
 <code>character(N)</code> constructs a vector of empty strings of the specified length.
@@ -532,12 +535,12 @@ we conclude that the index 0 doesn’t correspond to any elements,
 so R gives us back something of the right type but with no content.
 As a check,
 let’s try indexing with 0 and 1 together:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)]</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)]</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot;</code></pre>
 <p>So when 0 is mixed with either positive or negative indices, it is ignored,
 which will undoubtedly lead to some puzzling bugs.
 What if in-bounds and out-of-bounds indices are mixed?</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot; NA        </code></pre>
 <p>That is consistent with the behavior of single indices.</p>
 </div>
@@ -547,65 +550,65 @@ What if in-bounds and out-of-bounds indices are mixed?</p>
 instead of loops,
 i.e.,
 to write:</p>
-<pre class="sourceCode python"><code class="sourceCode python">original <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>]
-doubled <span class="op">=</span> [<span class="dv">2</span> <span class="op">*</span> x <span class="cf">for</span> x <span class="kw">in</span> original]
-<span class="bu">print</span>(doubled)</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb75-1" data-line-number="1">original <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>]</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">doubled <span class="op">=</span> [<span class="dv">2</span> <span class="op">*</span> x <span class="cf">for</span> x <span class="kw">in</span> original]</a>
+<a class="sourceLine" id="cb75-3" data-line-number="3"><span class="bu">print</span>(doubled)</a></code></pre></div>
 <pre><code>[6, 10, 14, 18]</code></pre>
 <p>instead of:</p>
-<pre class="sourceCode python"><code class="sourceCode python">doubled <span class="op">=</span> []
-<span class="cf">for</span> x <span class="kw">in</span> original:
-  doubled.append(<span class="dv">2</span> <span class="op">*</span> x)
-<span class="bu">print</span>(doubled)</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb77-1" data-line-number="1">doubled <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="cf">for</span> x <span class="kw">in</span> original:</a>
+<a class="sourceLine" id="cb77-3" data-line-number="3">  doubled.append(<span class="dv">2</span> <span class="op">*</span> x)</a>
+<a class="sourceLine" id="cb77-4" data-line-number="4"><span class="bu">print</span>(doubled)</a></code></pre></div>
 <pre><code>[6, 10, 14, 18]</code></pre>
 <p>If <code>original</code> is a NumPy array, we can shorten this to <code>2 * original</code>.
 R provides this capability in the language itself:</p>
-<pre class="sourceCode r"><code class="sourceCode r">original &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)
-doubled &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>original
-doubled</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">original &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb79-2" data-line-number="2">doubled &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>original</a>
+<a class="sourceLine" id="cb79-3" data-line-number="3">doubled</a></code></pre></div>
 <pre><code>[1]  6 10 14 18</code></pre>
 <p>Modern R strongly encourages us to <a href="glossary.html#vectorize">vectorize</a> computations in this way,
 i.e.,
 to do operations on whole vectors at once rather than looping over their contents.
 To aid this,
 all arithmetic operations work element by element on vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">tens &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)
-hundreds &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>)
-tens <span class="op">+</span><span class="st"> </span>hundreds <span class="op">/</span><span class="st"> </span>(tens <span class="op">*</span><span class="st"> </span>hundreds)</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">tens &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb81-2" data-line-number="2">hundreds &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb81-3" data-line-number="3">tens <span class="op">+</span><span class="st"> </span>hundreds <span class="op">/</span><span class="st"> </span>(tens <span class="op">*</span><span class="st"> </span>hundreds)</a></code></pre></div>
 <pre><code>[1] 10.10000 20.05000 30.03333</code></pre>
 <p>If two vectors of unequal length are used together,
 the elements of the shorter are <a href="glossary.html#recycle">recycled</a>.
 This behaves sensibly if one of the vectors is a scalar—it is just re-used as many times as necessary:</p>
-<pre class="sourceCode r"><code class="sourceCode r">hundreds <span class="op">+</span><span class="st"> </span><span class="dv">5</span></code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">hundreds <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] 105 205 305</code></pre>
 <p>If both vectors have several elements,
 the shorter is repeated as often as necessary.
 This works,
 but is so likely to lead to hard-to-find bugs that R produces a warning message:</p>
-<pre class="sourceCode r"><code class="sourceCode r">thousands &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>)
-hundreds <span class="op">+</span><span class="st"> </span>thousands</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">thousands &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>)</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2">hundreds <span class="op">+</span><span class="st"> </span>thousands</a></code></pre></div>
 <pre><code>Warning in hundreds + thousands: longer object length is not a multiple of
 shorter object length</code></pre>
 <pre><code>[1] 1100 2200 1300</code></pre>
 <p>R also provides vectorized alternatives to <code>if</code>-<code>else</code> statements.
 If we use a vector containing the logical (or Boolean) values <code>TRUE</code> and <code>FALSE</code> as an index,
 it selects elements corresponding to <code>TRUE</code> values:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors <span class="co"># as a reminder</span></code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">colors <span class="co"># as a reminder</span></a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot; &quot;glaucous&quot; &quot;wenge&quot;   </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)]</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">colors[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)]</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot; &quot;wenge&quot;   </code></pre>
 <p>This is called <a href="glossary.html#logical-indexing">logical indexing</a>,
 though to the best of my knowledge illogical indexing is not provided as an alternative.
 The function <code>ifelse</code> uses this to do what its name suggests:
 select a value from one vector if a condition is <code>TRUE</code>,
 and a corresponding value from another vector if the condition is <code>FALSE</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">before_letter_m &lt;-<span class="st"> </span>colors <span class="op">&lt;</span><span class="st"> &quot;m&quot;</span>
-before_letter_m <span class="co"># to show the index</span></code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1">before_letter_m &lt;-<span class="st"> </span>colors <span class="op">&lt;</span><span class="st"> &quot;m&quot;</span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">before_letter_m <span class="co"># to show the index</span></a></code></pre></div>
 <pre><code>[1]  TRUE  TRUE FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ifelse</span>(before_letter_m, colors, <span class="kw">c</span>(<span class="st">&quot;comes&quot;</span>, <span class="st">&quot;after&quot;</span>, <span class="st">&quot;m&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">ifelse</span>(before_letter_m, colors, <span class="kw">c</span>(<span class="st">&quot;comes&quot;</span>, <span class="st">&quot;after&quot;</span>, <span class="st">&quot;m&quot;</span>))</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot; &quot;glaucous&quot; &quot;m&quot;       </code></pre>
 <p>All three vectors are of the same length,
 and the first (the condition) is usually constructed using the values of one or both of the other vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ifelse</span>(colors <span class="op">&lt;</span><span class="st"> &quot;m&quot;</span>, colors, <span class="kw">toupper</span>(colors))</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">ifelse</span>(colors <span class="op">&lt;</span><span class="st"> &quot;m&quot;</span>, colors, <span class="kw">toupper</span>(colors))</a></code></pre></div>
 <pre><code>[1] &quot;eburnean&quot; &quot;glaucous&quot; &quot;WENGE&quot;   </code></pre>
 <div class="figure"><span id="fig:ifelse-fig"></span>
 <img src="figures/basics/if-else.svg" alt="Vector Conditionals"  />
@@ -620,35 +623,35 @@ Figure 2.3: Vector Conditionals
 A different value, <a href="glossary.html#null"><code>NULL</code></a>, represents the absence of a vector.
 It is not the same as a vector of zero length,
 though testing that statement produces a rather odd result:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="ot">NULL</span> <span class="op">==</span><span class="st"> </span><span class="kw">integer</span>(<span class="dv">0</span>)</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="ot">NULL</span> <span class="op">==</span><span class="st"> </span><span class="kw">integer</span>(<span class="dv">0</span>)</a></code></pre></div>
 <pre><code>logical(0)</code></pre>
 <p>The safe way to test if something is <code>NULL</code> is to use the function <code>is.null</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.null</span>(<span class="ot">NULL</span>)</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">is.null</span>(<span class="ot">NULL</span>)</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Circling back,
 the safe way to test whether a value is <code>NA</code> is <em>not</em> to use direct comparison:</p>
-<pre class="sourceCode r"><code class="sourceCode r">threshold &lt;-<span class="st"> </span><span class="fl">1.75</span>
-threshold <span class="op">==</span><span class="st"> </span><span class="ot">NA</span></code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1">threshold &lt;-<span class="st"> </span><span class="fl">1.75</span></a>
+<a class="sourceLine" id="cb102-2" data-line-number="2">threshold <span class="op">==</span><span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
 <pre><code>[1] NA</code></pre>
 <p>The result is <code>NA</code> because if we don’t know what the value is,
 we can’t know if it’s equal to <code>threshold</code> or not.
 Instead,
 we should always use the function <code>is.na</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.na</span>(threshold)</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">is.na</span>(threshold)</a></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.na</span>(<span class="ot">NA</span>)</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="kw">is.na</span>(<span class="ot">NA</span>)</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 </div>
 <div id="how-can-i-store-a-mix-of-different-types-of-objects" class="section level2">
 <h2><span class="header-section-number">2.8</span> How can I store a mix of different types of objects?</h2>
 <p>One of the things that newcomers to R often trip over is the various ways in which structures can be indexed.
 All of the following are legal:</p>
-<pre class="sourceCode r"><code class="sourceCode r">thing[i]
-thing[i, j]
-thing[[i]]
-thing[[i, j]]
-thing<span class="op">$</span>name
-thing<span class="op">$</span><span class="st">&quot;name&quot;</span></code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">thing[i]</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">thing[i, j]</a>
+<a class="sourceLine" id="cb108-3" data-line-number="3">thing[[i]]</a>
+<a class="sourceLine" id="cb108-4" data-line-number="4">thing[[i, j]]</a>
+<a class="sourceLine" id="cb108-5" data-line-number="5">thing<span class="op">$</span>name</a>
+<a class="sourceLine" id="cb108-6" data-line-number="6">thing<span class="op">$</span><span class="st">&quot;name&quot;</span></a></code></pre></div>
 <p>but they can behave differently depending on what kind of thing <code>thing</code> is.
 To explain, we must first take a look at lists.</p>
 <p>A <a href="glossary.html#list">list</a> in R is a vector that can contain values of many different types.
@@ -656,8 +659,8 @@ To explain, we must first take a look at lists.</p>
 in contrast with a <a href="glossary.html#homogeneous">homogeneous</a> data structure
 that can only contain one type of value.)
 We’ll use this list in our examples:</p>
-<pre class="sourceCode r"><code class="sourceCode r">thing &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;first&quot;</span>, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">20</span>, <span class="dv">200</span>), <span class="fl">3.3</span>)
-thing</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1">thing &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;first&quot;</span>, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">20</span>, <span class="dv">200</span>), <span class="fl">3.3</span>)</a>
+<a class="sourceLine" id="cb109-2" data-line-number="2">thing</a></code></pre></div>
 <pre><code>[[1]]
 [1] &quot;first&quot;
 
@@ -682,41 +685,41 @@ rather than <code>[[…]]</code> and <code>[…]</code>.</p>
 <div id="what-is-the-difference-between-and" class="section level2">
 <h2><span class="header-section-number">2.9</span> What is the difference between <code>[</code> and <code>[[</code>?</h2>
 <p>The output above strongly suggests that we can get the elements of a list using <code>[[</code> (double square brackets):</p>
-<pre class="sourceCode r"><code class="sourceCode r">thing[[<span class="dv">1</span>]]</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">thing[[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>[1] &quot;first&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">thing[[<span class="dv">2</span>]]</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">thing[[<span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>[1]   2  20 200</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">thing[[<span class="dv">3</span>]]</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1">thing[[<span class="dv">3</span>]]</a></code></pre></div>
 <pre><code>[1] 3.3</code></pre>
 <p>Let’s have a look at the types of those three values:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[[<span class="dv">1</span>]])</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="kw">typeof</span>(thing[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[[<span class="dv">2</span>]])</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="kw">typeof</span>(thing[[<span class="dv">2</span>]])</a></code></pre></div>
 <pre><code>[1] &quot;double&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[[<span class="dv">3</span>]])</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="kw">typeof</span>(thing[[<span class="dv">3</span>]])</a></code></pre></div>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <p>That seems sensible.
 Now,
 what do we get if we index single square brackets <code>[…]</code>?</p>
-<pre class="sourceCode r"><code class="sourceCode r">thing[<span class="dv">1</span>]</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1">thing[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[[1]]
 [1] &quot;first&quot;</code></pre>
 <p>That looks like a list, not a vector—let’s check:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(thing[<span class="dv">1</span>])</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">typeof</span>(thing[<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>[1] &quot;list&quot;</code></pre>
 <p>This shows the difference between <code>[[</code> and <code>[</code>:
 the former peels away a layer of data structure, returning only the sub-structure,
 while the latter gives us back a structure of the same type as the thing being indexed.
 Since a “scalar” is just a vector of length 1,
 there is no difference between <code>[[</code> and <code>[</code> when they are applied to vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;first&quot;</span>, <span class="st">&quot;second&quot;</span>, <span class="st">&quot;third&quot;</span>)
-v[<span class="dv">2</span>]</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;first&quot;</span>, <span class="st">&quot;second&quot;</span>, <span class="st">&quot;third&quot;</span>)</a>
+<a class="sourceLine" id="cb127-2" data-line-number="2">v[<span class="dv">2</span>]</a></code></pre></div>
 <pre><code>[1] &quot;second&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(v[<span class="dv">2</span>])</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="kw">typeof</span>(v[<span class="dv">2</span>])</a></code></pre></div>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">v[[<span class="dv">2</span>]]</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1">v[[<span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>[1] &quot;second&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(v[[<span class="dv">2</span>]])</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1"><span class="kw">typeof</span>(v[[<span class="dv">2</span>]])</a></code></pre></div>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <blockquote>
 <p><strong>Flattening and Recursive Indexing</strong></p>
@@ -740,25 +743,25 @@ then <code>thing[[c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)]
 if we assign <code>c(one = 1, two = 2, three = 3)</code> to <code>names</code>,
 then <code>names[&quot;two&quot;]</code> is 2.
 We can use this to create a lookup table:</p>
-<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;nb&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>)
-lookup &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
-lookup[values]</code></pre>
-<pre><code>           m            f           nb            f            f 
-      &quot;Male&quot;     &quot;Female&quot; &quot;Non-binary&quot;     &quot;Female&quot;     &quot;Female&quot; 
-           m            m 
-      &quot;Male&quot;       &quot;Male&quot; </code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;nb&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>)</a>
+<a class="sourceLine" id="cb135-2" data-line-number="2">lookup &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)</a>
+<a class="sourceLine" id="cb135-3" data-line-number="3">lookup[values]</a></code></pre></div>
+<pre><code>           m            f           nb            f            f            m 
+      &quot;Male&quot;     &quot;Female&quot; &quot;Non-binary&quot;     &quot;Female&quot;     &quot;Female&quot;       &quot;Male&quot; 
+           m 
+      &quot;Male&quot; </code></pre>
 <p>If the structure in question is a list rather than an atomic vector of numbers, characters, or logicals,
 we can use the syntax <code>lookup$m</code> instead of <code>lookup[&quot;m&quot;]</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">lookup_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)
-lookup_list<span class="op">$</span>m</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">lookup_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> <span class="st">&quot;Male&quot;</span>, <span class="dt">f =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">nb =</span> <span class="st">&quot;Non-binary&quot;</span>)</a>
+<a class="sourceLine" id="cb137-2" data-line-number="2">lookup_list<span class="op">$</span>m</a></code></pre></div>
 <pre><code>[1] &quot;Male&quot;</code></pre>
 <p>We will explore this in more detail when we look at the tidyverse in Chapter <a href="tidyverse.html#tidyverse">3</a>,
 since that is where access-by-name is used most often.
 For now,
 simply note that if the name of an element isn’t a legal variable name,
 we have to put it in backward quotes to use it with <code>$</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">another_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;first field&quot;</span> =<span class="st"> &quot;F&quot;</span>, <span class="st">&quot;second field&quot;</span> =<span class="st"> &quot;S&quot;</span>)
-another_list<span class="op">$</span><span class="st">`</span><span class="dt">first field</span><span class="st">`</span></code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">another_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;first field&quot;</span> =<span class="st"> &quot;F&quot;</span>, <span class="st">&quot;second field&quot;</span> =<span class="st"> &quot;S&quot;</span>)</a>
+<a class="sourceLine" id="cb139-2" data-line-number="2">another_list<span class="op">$</span><span class="st">`</span><span class="dt">first field</span><span class="st">`</span></a></code></pre></div>
 <pre><code>[1] &quot;F&quot;</code></pre>
 <blockquote>
 <p>If you have control,
@@ -771,22 +774,22 @@ choose names such as <code>first_field</code> that don’t require back-quoting.
 <p>Matrices are frequently used in statistics, so R provides built-in support for them.
 After <code>a &lt;- matrix(1:9, nrow = 3)</code>,
 <code>a</code> is a 3x3 matrix containing the values 1 through 9:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)
-a</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb141-2" data-line-number="2">a</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
 <p>Behind the scenes,
 a matrix is a vector with an <a href="glossary.html#attribute">attribute</a> called <code>dim</code> that stores its dimensions:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(a)</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="kw">dim</span>(a)</a></code></pre></div>
 <pre><code>[1] 3 3</code></pre>
 <p><code>a[3, 3]</code> is a vector of length 1 containing the value 9 (again, “scalars” in R are actually vectors),
 while <code>a[1,]</code> is the vector <code>c(1, 4, 7)</code> (because we are selecting the first row of the matrix)
 and <code>a[,1]</code> is the vector <code>c(1, 2, 3)</code> (because we are selecting the first column of the matrix).
 Elements can still be accessed using a single index,
 which returns the value from that location in the underlying vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a[<span class="dv">8</span>]</code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">a[<span class="dv">8</span>]</a></code></pre></div>
 <pre><code>[1] 8</code></pre>
 </div>
 <div id="how-do-i-choose-and-repeat-things" class="section level2">
@@ -799,38 +802,38 @@ It’s no wonder they sometimes appear mad…)
 For example,
 here is a snippet of Python that uses <code>for</code> and <code>if</code> to display
 the signs of the numbers in a list:</p>
-<pre class="sourceCode python"><code class="sourceCode python">values <span class="op">=</span> [<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>]
-<span class="cf">for</span> v <span class="kw">in</span> values:
-    <span class="cf">if</span> v <span class="op">&lt;</span> <span class="dv">0</span>:
-        pos_neg <span class="op">=</span> <span class="dv">-1</span>
-    <span class="cf">elif</span> v <span class="op">==</span> <span class="dv">0</span>:
-        pos_neg <span class="op">=</span> <span class="dv">0</span>
-    <span class="cf">else</span>:
-        pos_neg <span class="op">=</span> <span class="dv">1</span>
-    <span class="bu">print</span>(<span class="st">&quot;The pos_neg of&quot;</span>, v, <span class="st">&quot;is&quot;</span>, pos_neg)</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb147-1" data-line-number="1">values <span class="op">=</span> [<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>]</a>
+<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="cf">for</span> v <span class="kw">in</span> values:</a>
+<a class="sourceLine" id="cb147-3" data-line-number="3">    <span class="cf">if</span> v <span class="op">&lt;</span> <span class="dv">0</span>:</a>
+<a class="sourceLine" id="cb147-4" data-line-number="4">        pos_neg <span class="op">=</span> <span class="dv">-1</span></a>
+<a class="sourceLine" id="cb147-5" data-line-number="5">    <span class="cf">elif</span> v <span class="op">==</span> <span class="dv">0</span>:</a>
+<a class="sourceLine" id="cb147-6" data-line-number="6">        pos_neg <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb147-7" data-line-number="7">    <span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb147-8" data-line-number="8">        pos_neg <span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb147-9" data-line-number="9">    <span class="bu">print</span>(<span class="st">&quot;The pos_neg of&quot;</span>, v, <span class="st">&quot;is&quot;</span>, pos_neg)</a></code></pre></div>
 <pre><code>The pos_neg of -15 is -1
 The pos_neg of 0 is 0
 The pos_neg of 15 is 1</code></pre>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;The final value of v is&quot;</span>, v)</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="bu">print</span>(<span class="st">&quot;The final value of v is&quot;</span>, v)</a></code></pre></div>
 <pre><code>The final value of v is 15</code></pre>
 <p>Its direct translation into R is:</p>
-<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>)
-<span class="cf">for</span> (v <span class="cf">in</span> values) {
-  <span class="cf">if</span> (v <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
-    pos_neg &lt;-<span class="st"> </span><span class="dv">-1</span>
-  }
-  <span class="cf">else</span> <span class="cf">if</span> (v <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-    pos_neg &lt;-<span class="st"> </span><span class="dv">0</span>
-  }
-  <span class="cf">else</span> {
-    pos_neg &lt;-<span class="st"> </span><span class="dv">1</span>
-  }
-  <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {v} is {pos_neg}&quot;</span>))
-}</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb151-2" data-line-number="2"><span class="cf">for</span> (v <span class="cf">in</span> values) {</a>
+<a class="sourceLine" id="cb151-3" data-line-number="3">  <span class="cf">if</span> (v <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb151-4" data-line-number="4">    pos_neg &lt;-<span class="st"> </span><span class="dv">-1</span></a>
+<a class="sourceLine" id="cb151-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb151-6" data-line-number="6">  <span class="cf">else</span> <span class="cf">if</span> (v <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb151-7" data-line-number="7">    pos_neg &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb151-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb151-9" data-line-number="9">  <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb151-10" data-line-number="10">    pos_neg &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb151-11" data-line-number="11">  }</a>
+<a class="sourceLine" id="cb151-12" data-line-number="12">  <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {v} is {pos_neg}&quot;</span>))</a>
+<a class="sourceLine" id="cb151-13" data-line-number="13">}</a></code></pre></div>
 <pre><code>The sign of -15 is -1
 The sign of 0 is 0
 The sign of 15 is 1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The final value of v is {v}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The final value of v is {v}&quot;</span>))</a></code></pre></div>
 <pre><code>The final value of v is 15</code></pre>
 <p>There are a few things to note here:</p>
 <ol style="list-style-type: decimal">
@@ -858,9 +861,9 @@ are just as easy in R as they are in Python.</li>
 <p>The example above is <em>not</em> how we should write R:
 everything in that snippet can and should be vectorized.
 The simplest way to do this is to use the aforementioned built-in function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sign</span>(values))</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">sign</span>(values))</a></code></pre></div>
 <pre><code>[1] -1  0  1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {values} is {sign(values)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {values} is {sign(values)}&quot;</span>))</a></code></pre></div>
 <pre><code>The sign of -15 is -1
 The sign of 0 is 0
 The sign of 15 is 1</code></pre>
@@ -870,13 +873,13 @@ In that case,
 the easiest approach is often to create a new vector
 whose values are derived from those of the vector we had
 and trust R to match up corresponding elements:</p>
-<pre class="sourceCode r"><code class="sourceCode r">pos_neg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">case_when</span>(
-  values <span class="op">&lt;</span><span class="st">  </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">-1</span>,
-  values <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>,
-  values <span class="op">&gt;</span><span class="st">  </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>
-)
-
-<span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {values} is {pos_neg}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1">pos_neg &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">case_when</span>(</a>
+<a class="sourceLine" id="cb159-2" data-line-number="2">  values <span class="op">&lt;</span><span class="st">  </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb159-3" data-line-number="3">  values <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb159-4" data-line-number="4">  values <span class="op">&gt;</span><span class="st">  </span><span class="dv">0</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb159-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb159-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb159-7" data-line-number="7"><span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;The sign of {values} is {pos_neg}&quot;</span>))</a></code></pre></div>
 <pre><code>The sign of -15 is -1
 The sign of 0 is 0
 The sign of 15 is 1</code></pre>
@@ -891,10 +894,10 @@ We will see other uses for <code>~</code> in subsequent chapters.</p>
 <p><code>for</code> in R loops over the values in a vector, just as it does in Python.
 If we want to loop over the indices instead,
 we can use the function <code>seq_along</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;squamous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {
-  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {length(colors[i])}&quot;</span>))
-}</code></pre>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;eburnean&quot;</span>, <span class="st">&quot;glaucous&quot;</span>, <span class="st">&quot;squamous&quot;</span>, <span class="st">&quot;wenge&quot;</span>)</a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {</a>
+<a class="sourceLine" id="cb161-3" data-line-number="3">  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {length(colors[i])}&quot;</span>))</a>
+<a class="sourceLine" id="cb161-4" data-line-number="4">}</a></code></pre></div>
 <pre><code>The length of color 1 is 1
 The length of color 2 is 1
 The length of color 3 is 1
@@ -904,31 +907,31 @@ and that <code>length</code> returns the length of a vector,
 so that <code>length(colors[0])</code> is telling us that <code>colors[0]</code> contains one element.
 If we want the number of characters in the strings,
 we can use R’s built-in <code>nchar</code> or the more modern function <code>stringr::str_length</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {
-  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {stringr::str_length(colors[i])}&quot;</span>))
-}</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(colors)) {</a>
+<a class="sourceLine" id="cb163-2" data-line-number="2">  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;The length of color {i} is {stringr::str_length(colors[i])}&quot;</span>))</a>
+<a class="sourceLine" id="cb163-3" data-line-number="3">}</a></code></pre></div>
 <pre><code>The length of color 1 is 8
 The length of color 2 is 8
 The length of color 3 is 8
 The length of color 4 is 5</code></pre>
 <p>As you may already have guessed,
 <code>seq_along</code> returns a vector containing a sequence of integers:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq_along</span>(colors)</code></pre>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">seq_along</span>(colors)</a></code></pre></div>
 <pre><code>[1] 1 2 3 4</code></pre>
 <p>Since sequences of this kind are used frequently,
 R lets us write them using <a href="glossary.html#range-expression">range expressions</a>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span><span class="op">:</span><span class="dv">10</span></code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="dv">5</span><span class="op">:</span><span class="dv">10</span></a></code></pre></div>
 <pre><code>[1]  5  6  7  8  9 10</code></pre>
 <p>Their most common use is as indices to vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">colors[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
 <pre><code>[1] &quot;glaucous&quot; &quot;squamous&quot;</code></pre>
 <p>We can similarly subtract a range of colors by index:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">2</span>]</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">colors[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">2</span>]</a></code></pre></div>
 <pre><code>[1] &quot;squamous&quot; &quot;wenge&quot;   </code></pre>
 <p>However, R does not allow tripartite expressions of the form <code>start:end:step</code>.
 For that,
 we must use <code>seq</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">3</span>)</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>[1]  1  4  7 10</code></pre>
 <p>This example also shows that ranges in R are inclusive at both ends,
 i.e.,
@@ -947,18 +950,18 @@ it specifies how many times each item in the first vector is to be repeated:
 <div id="how-can-i-use-a-vector-in-a-conditional-statement" class="section level2">
 <h2><span class="header-section-number">2.15</span> How can I use a vector in a conditional statement?</h2>
 <p>We cannot use a vector directly as a condition in an <code>if</code> statement:</p>
-<pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)
-<span class="cf">if</span> (numbers) {
-  <span class="kw">print</span>(<span class="st">&quot;This should not work.&quot;</span>)
-}</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb175-2" data-line-number="2"><span class="cf">if</span> (numbers) {</a>
+<a class="sourceLine" id="cb175-3" data-line-number="3">  <span class="kw">print</span>(<span class="st">&quot;This should not work.&quot;</span>)</a>
+<a class="sourceLine" id="cb175-4" data-line-number="4">}</a></code></pre></div>
 <pre><code>Warning in if (numbers) {: the condition has length &gt; 1 and only the first
 element will be used</code></pre>
 <p>Instead,
 we must collapse the vector into a single logical value:</p>
-<pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)
-<span class="cf">if</span> (<span class="kw">all</span>(numbers <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>)) {
-  <span class="kw">print</span>(<span class="st">&quot;This, on the other hand, should work.&quot;</span>)
-}</code></pre>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb177-2" data-line-number="2"><span class="cf">if</span> (<span class="kw">all</span>(numbers <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>)) {</a>
+<a class="sourceLine" id="cb177-3" data-line-number="3">  <span class="kw">print</span>(<span class="st">&quot;This, on the other hand, should work.&quot;</span>)</a>
+<a class="sourceLine" id="cb177-4" data-line-number="4">}</a></code></pre></div>
 <pre><code>[1] &quot;This, on the other hand, should work.&quot;</code></pre>
 <p>The function <code>all</code> returns <code>TRUE</code> if every element in its argument is <code>TRUE</code>;
 it corresponds to a logical “and” of all its inputs.
@@ -969,40 +972,40 @@ which corresponds to a logical “or” across the whole input.</p>
 <h2><span class="header-section-number">2.16</span> How do I create and call functions?</h2>
 <p>As we have already seen,
 we call functions in R much as we do in Python:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">min</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">max</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">min</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>[1] 6</code></pre>
 <p>We define a new function using the <code>function</code> keyword.
 This creates the function;
 to name it,
 we must assign the newly-created function to a variable:</p>
-<pre class="sourceCode r"><code class="sourceCode r">swap &lt;-<span class="st"> </span><span class="cf">function</span>(pair) {
-  <span class="kw">c</span>(pair[<span class="dv">2</span>], pair[<span class="dv">1</span>])
-}
-<span class="kw">swap</span>(<span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1">swap &lt;-<span class="st"> </span><span class="cf">function</span>(pair) {</a>
+<a class="sourceLine" id="cb181-2" data-line-number="2">  <span class="kw">c</span>(pair[<span class="dv">2</span>], pair[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb181-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb181-4" data-line-number="4"><span class="kw">swap</span>(<span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>))</a></code></pre></div>
 <pre><code>[1] &quot;right&quot; &quot;left&quot; </code></pre>
 <p>As this example shows,
 the result of a function is the value of the last expression evaluated within it.
 A function can return a value earlier using the <code>return</code> function;
 we can use <code>return</code> for the final value as well,
 but most R programmers do not.</p>
-<pre class="sourceCode r"><code class="sourceCode r">swap &lt;-<span class="st"> </span><span class="cf">function</span>(pair) {
-  <span class="cf">if</span> (<span class="kw">length</span>(pair) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {
-    <span class="kw">return</span>(<span class="ot">NULL</span>) <span class="co"># This is very bad practice.</span>
-  }
-  <span class="kw">c</span>(pair[<span class="dv">2</span>], pair[<span class="dv">1</span>])
-}
-<span class="kw">swap</span>(<span class="kw">c</span>(<span class="st">&quot;one&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">swap &lt;-<span class="st"> </span><span class="cf">function</span>(pair) {</a>
+<a class="sourceLine" id="cb183-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(pair) <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb183-3" data-line-number="3">    <span class="kw">return</span>(<span class="ot">NULL</span>) <span class="co"># This is very bad practice.</span></a>
+<a class="sourceLine" id="cb183-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb183-5" data-line-number="5">  <span class="kw">c</span>(pair[<span class="dv">2</span>], pair[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb183-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb183-7" data-line-number="7"><span class="kw">swap</span>(<span class="kw">c</span>(<span class="st">&quot;one&quot;</span>))</a></code></pre></div>
 <pre><code>NULL</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">swap</span>(<span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">swap</span>(<span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>))</a></code></pre></div>
 <pre><code>[1] &quot;right&quot; &quot;left&quot; </code></pre>
 <p>Returning <code>NULL</code> when our function’s inputs are invalid as we have done above is foolhardy,
 as doing so means that <code>swap</code> can fail without telling us that it has done so.
 Consider:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="ot">NULL</span>[<span class="dv">1</span>]                 <span class="co"># Try to access an element of the vector that does not exist.</span></code></pre>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="ot">NULL</span>[<span class="dv">1</span>]                 <span class="co"># Try to access an element of the vector that does not exist.</span></a></code></pre></div>
 <pre><code>NULL</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">:</span><span class="dv">10</span>          <span class="co"># More than two values.</span>
-result &lt;-<span class="st"> </span><span class="kw">swap</span>(values)  <span class="co"># Attempting to swap the values produces NULL.</span>
-result[<span class="dv">1</span>]               <span class="co"># But we can operate on the result without error.</span></code></pre>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1">values &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">:</span><span class="dv">10</span>          <span class="co"># More than two values.</span></a>
+<a class="sourceLine" id="cb189-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw">swap</span>(values)  <span class="co"># Attempting to swap the values produces NULL.</span></a>
+<a class="sourceLine" id="cb189-3" data-line-number="3">result[<span class="dv">1</span>]               <span class="co"># But we can operate on the result without error.</span></a></code></pre></div>
 <pre><code>NULL</code></pre>
 <p>We will look at what we should do instead in Chapter <a href="testerror.html#testerror">8</a>.</p>
 </div>
@@ -1010,18 +1013,18 @@ result[<span class="dv">1</span>]               <span class="co"># But we can op
 <h2><span class="header-section-number">2.17</span> How can I write a function that takes variable arguments?</h2>
 <p>If the number of arguments given to a function is not the number expected,
 R complains:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">swap</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">swap</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)</a></code></pre></div>
 <pre><code>Error in swap(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;): unused arguments (&quot;two&quot;, &quot;three&quot;)</code></pre>
 <p>(Note that we are passing three separate values here,
 not a single vector containing three values.)
 If we want a function to handle a <a href="glossary.html#variable-arguments">varying number of arguments</a>,
 we represent the “extra” arguments with an ellipsis <code>...</code> (three dots),
 which serves the same purpose as Python’s <code>*args</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">print_with_title &lt;-<span class="st"> </span><span class="cf">function</span>(title, ...) {
-  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;=={title}==&quot;</span>), <span class="kw">paste</span>(..., <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))
-}
-
-<span class="kw">print_with_title</span>(<span class="st">&quot;to-do&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1">print_with_title &lt;-<span class="st"> </span><span class="cf">function</span>(title, ...) {</a>
+<a class="sourceLine" id="cb193-2" data-line-number="2">  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;=={title}==&quot;</span>), <span class="kw">paste</span>(..., <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))</a>
+<a class="sourceLine" id="cb193-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb193-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb193-5" data-line-number="5"><span class="kw">print_with_title</span>(<span class="st">&quot;to-do&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>)</a></code></pre></div>
 <pre><code>==to-do==
 Monday
 Tuesday
@@ -1032,29 +1035,29 @@ Wednesday</code></pre>
 <p>R uses a special data structure to represent the extra arguments in <code>...</code>.
 If we want to work with those arguments one by one,
 we must explicitly convert <code>...</code> to a list:</p>
-<pre class="sourceCode r"><code class="sourceCode r">add &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
-  result &lt;-<span class="st"> </span><span class="dv">0</span>
-  <span class="cf">for</span> (value <span class="cf">in</span> <span class="kw">list</span>(...)) {
-    result &lt;-<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>value
-  }
-  result
-}
-<span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1">add &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb195-2" data-line-number="2">  result &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb195-3" data-line-number="3">  <span class="cf">for</span> (value <span class="cf">in</span> <span class="kw">list</span>(...)) {</a>
+<a class="sourceLine" id="cb195-4" data-line-number="4">    result &lt;-<span class="st"> </span>result <span class="op">+</span><span class="st"> </span>value</a>
+<a class="sourceLine" id="cb195-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb195-6" data-line-number="6">  result</a>
+<a class="sourceLine" id="cb195-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb195-8" data-line-number="8"><span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</a></code></pre></div>
 <pre><code>[1] 16</code></pre>
 </div>
 <div id="how-can-i-provide-default-values-for-arguments" class="section level2">
 <h2><span class="header-section-number">2.18</span> How can I provide default values for arguments?</h2>
 <p>Like Python and most other modern programming languages,
 R lets us define default values for arguments and then pass arguments by name:</p>
-<pre class="sourceCode r"><code class="sourceCode r">example &lt;-<span class="st"> </span><span class="cf">function</span>(first, <span class="dt">second =</span> <span class="st">&quot;second&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;third&quot;</span>) {
-  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;first=&#39;{first}&#39; second=&#39;{second}&#39; third=&#39;{third}&#39;&quot;</span>))
-}
-
-<span class="kw">example</span>(<span class="st">&quot;with just first&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1">example &lt;-<span class="st"> </span><span class="cf">function</span>(first, <span class="dt">second =</span> <span class="st">&quot;second&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;third&quot;</span>) {</a>
+<a class="sourceLine" id="cb197-2" data-line-number="2">  <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;first=&#39;{first}&#39; second=&#39;{second}&#39; third=&#39;{third}&#39;&quot;</span>))</a>
+<a class="sourceLine" id="cb197-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb197-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb197-5" data-line-number="5"><span class="kw">example</span>(<span class="st">&quot;with just first&quot;</span>)</a></code></pre></div>
 <pre><code>first=&#39;with just first&#39; second=&#39;second&#39; third=&#39;third&#39;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(<span class="st">&quot;with first and second by position&quot;</span>, <span class="st">&quot;positional&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">example</span>(<span class="st">&quot;with first and second by position&quot;</span>, <span class="st">&quot;positional&quot;</span>)</a></code></pre></div>
 <pre><code>first=&#39;with first and second by position&#39; second=&#39;positional&#39; third=&#39;third&#39;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(<span class="st">&quot;with first and third by name&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;by name&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">example</span>(<span class="st">&quot;with first and third by name&quot;</span>, <span class="dt">third =</span> <span class="st">&quot;by name&quot;</span>)</a></code></pre></div>
 <pre><code>first=&#39;with first and third by name&#39; second=&#39;second&#39; third=&#39;by name&#39;</code></pre>
 <p>One caution:
 when you use a name in a function call,
@@ -1064,12 +1067,12 @@ the call to <code>orange()</code> in the code below produces 110 rather than an 
 because <code>purple(purple)</code> is interpreted as
 “pass the value 10 into the globally-defined function <code>purple</code>”
 rather than “try to call a function <code>10(10)</code>”:</p>
-<pre class="sourceCode r"><code class="sourceCode r">purple &lt;-<span class="st"> </span><span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span><span class="dv">100</span>
-orange &lt;-<span class="st"> </span><span class="cf">function</span>() {
-  purple &lt;-<span class="st"> </span><span class="dv">10</span>
-  <span class="kw">purple</span>(purple)
-}
-<span class="kw">orange</span>()</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">purple &lt;-<span class="st"> </span><span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb203-2" data-line-number="2">orange &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb203-3" data-line-number="3">  purple &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb203-4" data-line-number="4">  <span class="kw">purple</span>(purple)</a>
+<a class="sourceLine" id="cb203-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb203-6" data-line-number="6"><span class="kw">orange</span>()</a></code></pre></div>
 <pre><code>[1] 110</code></pre>
 </div>
 <div id="how-can-i-hide-the-value-that-r-returns" class="section level2">
@@ -1081,16 +1084,16 @@ we can use the function <code>invisible</code> to mark a value as “not to be p
 (though the value can still be assigned).
 For example,
 we can convert:</p>
-<pre class="sourceCode r"><code class="sourceCode r">something &lt;-<span class="st"> </span><span class="cf">function</span>(value) {
-  <span class="dv">10</span> <span class="op">*</span><span class="st"> </span>value
-}
-<span class="kw">something</span>(<span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">something &lt;-<span class="st"> </span><span class="cf">function</span>(value) {</a>
+<a class="sourceLine" id="cb205-2" data-line-number="2">  <span class="dv">10</span> <span class="op">*</span><span class="st"> </span>value</a>
+<a class="sourceLine" id="cb205-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb205-4" data-line-number="4"><span class="kw">something</span>(<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>[1] 20</code></pre>
 <p>to this:</p>
-<pre class="sourceCode r"><code class="sourceCode r">something &lt;-<span class="st"> </span><span class="cf">function</span>(value) {
-  <span class="kw">invisible</span>(<span class="dv">10</span> <span class="op">*</span><span class="st"> </span>value)
-}
-<span class="kw">something</span>(<span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1">something &lt;-<span class="st"> </span><span class="cf">function</span>(value) {</a>
+<a class="sourceLine" id="cb207-2" data-line-number="2">  <span class="kw">invisible</span>(<span class="dv">10</span> <span class="op">*</span><span class="st"> </span>value)</a>
+<a class="sourceLine" id="cb207-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb207-4" data-line-number="4"><span class="kw">something</span>(<span class="dv">2</span>)</a></code></pre></div>
 <p>The calculation is still being done,
 but the output is suppressed.</p>
 </div>
@@ -1100,14 +1103,14 @@ but the output is suppressed.</p>
 As the example below shows,
 this means that what looks like creation of a new local variable
 can actually be modification of a global one:</p>
-<pre class="sourceCode r"><code class="sourceCode r">var &lt;-<span class="st"> &quot;original value&quot;</span>
-
-demonstrate &lt;-<span class="st"> </span><span class="cf">function</span>() {
-  var &lt;&lt;-<span class="st"> &quot;new value&quot;</span>
-}
-
-<span class="kw">demonstrate</span>()
-var</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1">var &lt;-<span class="st"> &quot;original value&quot;</span></a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb208-3" data-line-number="3">demonstrate &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb208-4" data-line-number="4">  var &lt;&lt;-<span class="st"> &quot;new value&quot;</span></a>
+<a class="sourceLine" id="cb208-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb208-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb208-7" data-line-number="7"><span class="kw">demonstrate</span>()</a>
+<a class="sourceLine" id="cb208-8" data-line-number="8">var</a></code></pre></div>
 <pre><code>[1] &quot;new value&quot;</code></pre>
 <p>This should only and always be done with care:
 modern R strongly encourages a <a href="glossary.html#functional-programming">functional</a> style of programming
@@ -1165,11 +1168,13 @@ and <em>nobody</em> thinks that modifying global variables is a good idea any mo
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1177,12 +1182,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1197,7 +1201,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"view": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/basics.Rmd",
+"text": null
+},
+"download": ["r4de.pdf", "r4de.epub"],
 "toc": {
 "collapse": "section"
 }

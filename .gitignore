@@ -1,5 +1,7 @@
+*.knit.md
 *.log
 *.rds
+*.utf8.md
 *~
 .DS_Store
 .Rhistory
@@ -11,7 +13,5 @@ _book
 _bookdown_files
 docs/*.md
 figures/tidynomicon
-tidynomicon.Rmd
-tidynomicon.tex
-*.knit.md
-*.utf8.md
+r4de.Rmd
+r4de.tex

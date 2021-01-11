@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Intellectual Debt | The Tidynomicon</title>
-  <meta name="description" content="Chapter 7 Intellectual Debt | The Tidynomicon" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <title>Chapter 7 Intellectual Debt | R for Data Engineers</title>
+  <meta name="description" content="Chapter 7 Intellectual Debt | R for Data Engineers" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Intellectual Debt | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 7 Intellectual Debt | R for Data Engineers" />
   <meta property="og:type" content="book" />
   
+  <meta property="og:image" content="machu-picchu.jpg" />
   
-  <meta property="og:description" content="Chapter 7 Intellectual Debt | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Intellectual Debt | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 7 Intellectual Debt | R for Data Engineers" />
   
-  <meta name="twitter:description" content="Chapter 7 Intellectual Debt | The Tidynomicon" />
   
+  <meta name="twitter:image" content="machu-picchu.jpg" />
 
 <meta name="author" content="Greg Wilson" />
 
 
+<meta name="date" content="2021-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="nse.html">
-<link rel="next" href="testerror.html">
+<link rel="prev" href="nse.html"/>
+<link rel="next" href="testerror.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -55,7 +59,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -125,7 +128,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Tidynomicon</a></li>
+<li><a href="./">R for Data Engineers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
@@ -264,7 +267,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Engineers</a>
           </h1>
         </div>
 
@@ -289,11 +292,11 @@ and we should clear this burden from our conscience before we go on to new topic
 <p>Because <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">reasons</a>.</p>
 <p><strong>But…</strong></p>
 <p>No. Use the <a href="https://cran.r-project.org/web/packages/here/index.html">here package</a> instead to create paths that are relative to your current location:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&#39;here by itself: {here()}&#39;</span>))</code></pre>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&#39;here by itself: {here()}&#39;</span>))</a></code></pre></div>
 <pre><code>here by itself: /Users/gvwilson/tidynomicon</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&#39;here(&quot;book.bib&quot;): {here(&quot;book.bib&quot;)}&#39;</span>))</code></pre>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&#39;here(&quot;book.bib&quot;): {here(&quot;book.bib&quot;)}&#39;</span>))</a></code></pre></div>
 <pre><code>here(&quot;book.bib&quot;): /Users/gvwilson/tidynomicon/book.bib</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&#39;here(&quot;etc&quot;, &quot;common.R&quot;): {here(&quot;etc&quot;, &quot;common.R&quot;)}&#39;</span>))</code></pre>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&#39;here(&quot;etc&quot;, &quot;common.R&quot;): {here(&quot;etc&quot;, &quot;common.R&quot;)}&#39;</span>))</a></code></pre></div>
 <pre><code>here(&quot;etc&quot;, &quot;common.R&quot;): /Users/gvwilson/tidynomicon/etc/common.R</code></pre>
 </div>
 <div id="what-the-hell-are-factors" class="section level2">
@@ -327,18 +330,18 @@ and only creates factors when asked to.</li>
 </ol>
 <p>Let’s work through a small example.
 Suppose we’ve read a CSV file and wound up with this table:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>person, <span class="op">~</span>flavor, <span class="op">~</span>ranking,
-  <span class="st">&quot;Lhawang&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="fl">1.7</span>,
-  <span class="st">&quot;Lhawang&quot;</span>, <span class="st">&quot;chocolate&quot;</span>,  <span class="fl">2.5</span>,
-  <span class="st">&quot;Lhawang&quot;</span>, <span class="st">&quot;mustard&quot;</span>,    <span class="fl">0.2</span>,
-  <span class="st">&quot;Khadee&quot;</span>,  <span class="st">&quot;strawberry&quot;</span>, <span class="fl">2.1</span>,
-  <span class="st">&quot;Khadee&quot;</span>, <span class="st">&quot;chocolate&quot;</span>,   <span class="fl">2.4</span>,
-  <span class="st">&quot;Khadee&quot;</span>, <span class="st">&quot;vanilla&quot;</span>,     <span class="fl">3.9</span>,
-  <span class="st">&quot;Haddad&quot;</span>, <span class="st">&quot;strawberry&quot;</span>,  <span class="fl">1.8</span>,
-  <span class="st">&quot;Haddad&quot;</span>, <span class="st">&quot;vanilla&quot;</span>,     <span class="fl">2.1</span>
-)
-raw</code></pre>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" data-line-number="1">raw &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb652-2" data-line-number="2">  <span class="op">~</span>person, <span class="op">~</span>flavor, <span class="op">~</span>ranking,</a>
+<a class="sourceLine" id="cb652-3" data-line-number="3">  <span class="st">&quot;Lhawang&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="fl">1.7</span>,</a>
+<a class="sourceLine" id="cb652-4" data-line-number="4">  <span class="st">&quot;Lhawang&quot;</span>, <span class="st">&quot;chocolate&quot;</span>,  <span class="fl">2.5</span>,</a>
+<a class="sourceLine" id="cb652-5" data-line-number="5">  <span class="st">&quot;Lhawang&quot;</span>, <span class="st">&quot;mustard&quot;</span>,    <span class="fl">0.2</span>,</a>
+<a class="sourceLine" id="cb652-6" data-line-number="6">  <span class="st">&quot;Khadee&quot;</span>,  <span class="st">&quot;strawberry&quot;</span>, <span class="fl">2.1</span>,</a>
+<a class="sourceLine" id="cb652-7" data-line-number="7">  <span class="st">&quot;Khadee&quot;</span>, <span class="st">&quot;chocolate&quot;</span>,   <span class="fl">2.4</span>,</a>
+<a class="sourceLine" id="cb652-8" data-line-number="8">  <span class="st">&quot;Khadee&quot;</span>, <span class="st">&quot;vanilla&quot;</span>,     <span class="fl">3.9</span>,</a>
+<a class="sourceLine" id="cb652-9" data-line-number="9">  <span class="st">&quot;Haddad&quot;</span>, <span class="st">&quot;strawberry&quot;</span>,  <span class="fl">1.8</span>,</a>
+<a class="sourceLine" id="cb652-10" data-line-number="10">  <span class="st">&quot;Haddad&quot;</span>, <span class="st">&quot;vanilla&quot;</span>,     <span class="fl">2.1</span></a>
+<a class="sourceLine" id="cb652-11" data-line-number="11">)</a>
+<a class="sourceLine" id="cb652-12" data-line-number="12">raw</a></code></pre></div>
 <pre><code># A tibble: 8 x 3
   person  flavor     ranking
   &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;
@@ -351,9 +354,10 @@ raw</code></pre>
 7 Haddad  strawberry     1.8
 8 Haddad  vanilla        2.1</code></pre>
 <p>Let’s aggregate using flavor values so that we can check our factor-based aggregating later:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking))</code></pre>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb654-1" data-line-number="1">raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb654-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb654-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking))</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 4 x 3
   flavor     number average
   &lt;chr&gt;       &lt;int&gt;   &lt;dbl&gt;
@@ -364,8 +368,8 @@ raw</code></pre>
 <p>It probably doesn’t make sense to turn <code>person</code> into factors,
 since names are actually character strings,
 but <code>flavor</code> is a good candidate:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span><span class="kw">mutate_at</span>(raw, <span class="kw">vars</span>(flavor), as.factor)
-raw</code></pre>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" data-line-number="1">raw &lt;-<span class="st"> </span><span class="kw">mutate_at</span>(raw, <span class="kw">vars</span>(flavor), as.factor)</a>
+<a class="sourceLine" id="cb657-2" data-line-number="2">raw</a></code></pre></div>
 <pre><code># A tibble: 8 x 3
   person  flavor     ranking
   &lt;chr&gt;   &lt;fct&gt;        &lt;dbl&gt;
@@ -378,9 +382,10 @@ raw</code></pre>
 7 Haddad  strawberry     1.8
 8 Haddad  vanilla        2.1</code></pre>
 <p>We can still aggregate as we did before:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking))</code></pre>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb659-1" data-line-number="1">raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb659-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb659-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking))</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 4 x 3
   flavor     number average
   &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
@@ -389,9 +394,9 @@ raw</code></pre>
 3 strawberry      3    1.87
 4 vanilla         2    3   </code></pre>
 <p>We can also impose an ordering on the factor’s elements:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">flavor =</span> <span class="kw">fct_relevel</span>(flavor, <span class="st">&quot;chocolate&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;vanilla&quot;</span>, <span class="st">&quot;mustard&quot;</span>))
-raw</code></pre>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb662-1" data-line-number="1">raw &lt;-<span class="st"> </span>raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb662-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">flavor =</span> <span class="kw">fct_relevel</span>(flavor, <span class="st">&quot;chocolate&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;vanilla&quot;</span>, <span class="st">&quot;mustard&quot;</span>))</a>
+<a class="sourceLine" id="cb662-3" data-line-number="3">raw</a></code></pre></div>
 <pre><code># A tibble: 8 x 3
   person  flavor     ranking
   &lt;chr&gt;   &lt;fct&gt;        &lt;dbl&gt;
@@ -404,9 +409,10 @@ raw</code></pre>
 7 Haddad  strawberry     1.8
 8 Haddad  vanilla        2.1</code></pre>
 <p>This changes the order in which they are displayed after grouping:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking))</code></pre>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb664-1" data-line-number="1">raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb664-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb664-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking))</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 4 x 3
   flavor     number average
   &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
@@ -415,11 +421,12 @@ raw</code></pre>
 3 vanilla         2    3   
 4 mustard         1    0.2 </code></pre>
 <p>And also changes the order of bars in a bar chart:</p>
-<pre class="sourceCode r"><code class="sourceCode r">raw <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> flavor, <span class="dt">y =</span> average)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_col</span>()</code></pre>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb667-1" data-line-number="1">raw <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb667-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(flavor) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb667-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">number =</span> <span class="kw">n</span>(), <span class="dt">average =</span> <span class="kw">mean</span>(ranking)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb667-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> flavor, <span class="dt">y =</span> average)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb667-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>()</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p><img src="debt_files/figure-html/simple_bar_chart-1.png" width="672" /></p>
 <p>To learn more about how factors work and how to use them when analyzing categorical data,
 please see <a href="https://peerj.com/preprints/3163/">this paper</a> by McNamara and Horton.</p>
@@ -433,22 +440,22 @@ This is fine when we want the incoming data to be the first argument,
 but what if we want it to be second? Or third?</p>
 <p>One possibility is to save the result so far in a temporary variable
 and then start a second pipe:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>left, <span class="op">~</span>right,
-  <span class="dv">1</span>,     <span class="ot">NA</span>,
-  <span class="dv">2</span>,     <span class="dv">20</span>
-)
-
-empties &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {
-    args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
-    <span class="kw">any</span>(<span class="kw">is.na</span>(args))
-  })
-
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(empties) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">pull</span>(id)</code></pre>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb669-2" data-line-number="2">  <span class="op">~</span>left, <span class="op">~</span>right,</a>
+<a class="sourceLine" id="cb669-3" data-line-number="3">  <span class="dv">1</span>,     <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb669-4" data-line-number="4">  <span class="dv">2</span>,     <span class="dv">20</span></a>
+<a class="sourceLine" id="cb669-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb669-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb669-7" data-line-number="7">empties &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb669-8" data-line-number="8"><span class="st">  </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb669-9" data-line-number="9">    args &lt;-<span class="st"> </span><span class="kw">list</span>(...)</a>
+<a class="sourceLine" id="cb669-10" data-line-number="10">    <span class="kw">any</span>(<span class="kw">is.na</span>(args))</a>
+<a class="sourceLine" id="cb669-11" data-line-number="11">  })</a>
+<a class="sourceLine" id="cb669-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb669-13" data-line-number="13">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb669-14" data-line-number="14"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb669-15" data-line-number="15"><span class="st">  </span><span class="kw">filter</span>(empties) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb669-16" data-line-number="16"><span class="st">  </span><span class="kw">pull</span>(id)</a></code></pre></div>
 <pre><code>[1] 1</code></pre>
 <p>This builds a logical vector <code>empties</code> with as many entries as <code>data</code> has rows,
 then filters data according to which of the entries in the vector are <code>TRUE</code>.</p>
@@ -458,15 +465,15 @@ In some functions (e.g., a two-argument function being used in <code>map</code>)
 we can also use <code>.x</code> and <code>.y</code> for the first and second arguments,
 and for more arguments,
 we can use <code>..1</code>, <code>..2</code>, and so on (with two dots at the front):</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {
-    args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
-    <span class="kw">any</span>(<span class="kw">is.na</span>(args))
-  }) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tibble</span>(<span class="dt">empty =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(empty) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">pull</span>(id)</code></pre>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" data-line-number="1">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb671-2" data-line-number="2"><span class="st">  </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb671-3" data-line-number="3">    args &lt;-<span class="st"> </span><span class="kw">list</span>(...)</a>
+<a class="sourceLine" id="cb671-4" data-line-number="4">    <span class="kw">any</span>(<span class="kw">is.na</span>(args))</a>
+<a class="sourceLine" id="cb671-5" data-line-number="5">  }) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb671-6" data-line-number="6"><span class="st">  </span><span class="kw">tibble</span>(<span class="dt">empty =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb671-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb671-8" data-line-number="8"><span class="st">  </span><span class="kw">filter</span>(empty) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb671-9" data-line-number="9"><span class="st">  </span><span class="kw">pull</span>(id)</a></code></pre></div>
 <pre><code>[1] 1</code></pre>
 <p>In this model,
 we create the logical vector,
@@ -479,8 +486,8 @@ and pull out the row numbers.</p>
 <p>And while we’re here:
 <code>row_number</code> doesn’t do what its name suggests.
 We’re better off using <code>rowid_to_column</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rowid_to_column</span>()</code></pre>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" data-line-number="1">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb673-2" data-line-number="2"><span class="st">  </span><span class="kw">rowid_to_column</span>()</a></code></pre></div>
 <pre><code># A tibble: 2 x 3
   rowid  left right
   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -491,13 +498,13 @@ We’re better off using <code>rowid_to_column</code>:</p>
 <h2><span class="header-section-number">7.5</span> I thought you said that R encouraged functional programming?</h2>
 <p>I did.
 Here is a function that reads a file and returns one of its columns:</p>
-<pre class="sourceCode r"><code class="sourceCode r">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname) {
-  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename)
-  dat[colname]
-}
-
-person_filename &lt;-<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)
-<span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" data-line-number="1">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname) {</a>
+<a class="sourceLine" id="cb675-2" data-line-number="2">  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename)</a>
+<a class="sourceLine" id="cb675-3" data-line-number="3">  dat[colname]</a>
+<a class="sourceLine" id="cb675-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb675-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb675-6" data-line-number="6">person_filename &lt;-<span class="st"> </span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb675-7" data-line-number="7"><span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 5 x 1
   family_name
   &lt;chr&gt;      
@@ -512,12 +519,12 @@ Chapter <a href="nse.html#nse">6</a> will show us how to pass unquoted column n
 what values in the file are to be considered NAs.
 This small addition allows us to do that,
 while keeping the empty string and the string <code>&quot;NA&quot;</code> as defaults:</p>
-<pre class="sourceCode r"><code class="sourceCode r">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
-  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na)
-  dat[colname]
-}
-
-<span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Dyer&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" data-line-number="1">col_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, colname, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {</a>
+<a class="sourceLine" id="cb677-2" data-line-number="2">  dat &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na)</a>
+<a class="sourceLine" id="cb677-3" data-line-number="3">  dat[colname]</a>
+<a class="sourceLine" id="cb677-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb677-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb677-6" data-line-number="6"><span class="kw">col_from_file</span>(person_filename, <span class="st">&quot;family_name&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Dyer&quot;</span>))</a></code></pre></div>
 <pre><code># A tibble: 5 x 1
   family_name
   &lt;chr&gt;      
@@ -529,12 +536,12 @@ while keeping the empty string and the string <code>&quot;NA&quot;</code> as def
 <p>We can also allow the user to specify any number of columns
 by capturing “extra” parameters in <code>...</code>
 and passing that value directly to <code>dplyr::select</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">cols_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, ..., <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {
-  readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na) <span class="op">%&gt;%</span>
-<span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(...)
-}
-
-<span class="kw">cols_from_file</span>(person_filename, personal_name, family_name)</code></pre>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb679-1" data-line-number="1">cols_from_file &lt;-<span class="st"> </span><span class="cf">function</span>(filename, ..., <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>)) {</a>
+<a class="sourceLine" id="cb679-2" data-line-number="2">  readr<span class="op">::</span><span class="kw">read_csv</span>(filename, <span class="dt">na =</span> na) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb679-3" data-line-number="3"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(...)</a>
+<a class="sourceLine" id="cb679-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb679-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb679-6" data-line-number="6"><span class="kw">cols_from_file</span>(person_filename, personal_name, family_name)</a></code></pre></div>
 <pre><code># A tibble: 5 x 2
   personal_name family_name
   &lt;chr&gt;         &lt;chr&gt;      
@@ -547,18 +554,18 @@ and passing that value directly to <code>dplyr::select</code>:</p>
 we can use the tools in the <code>purrr</code> library to wield them.
 <code>purrr::map</code> applies a function to each value in a vector in turn
 and returns a list:</p>
-<pre class="sourceCode r"><code class="sourceCode r">is_long_name &lt;-<span class="st"> </span><span class="cf">function</span>(name) {
-  stringr<span class="op">::</span><span class="kw">str_length</span>(name) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>
-}
-
-person &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb681-1" data-line-number="1">is_long_name &lt;-<span class="st"> </span><span class="cf">function</span>(name) {</a>
+<a class="sourceLine" id="cb681-2" data-line-number="2">  stringr<span class="op">::</span><span class="kw">str_length</span>(name) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb681-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb681-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb681-5" data-line-number="5">person &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;person.csv&quot;</span>))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   person_id = col_character(),
   personal_name = col_character(),
   family_name = col_character()
 )</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map</span>(person<span class="op">$</span>family_name, is_long_name)</code></pre>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb683-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">map</span>(person<span class="op">$</span>family_name, is_long_name)</a></code></pre></div>
 <pre><code>[[1]]
 [1] FALSE
 
@@ -580,39 +587,39 @@ since it isn’t given a name.
 We will also use <code>purrr::map_lgl</code>
 so that the result of the call is a logical vector rather than a list.
 Similarly-named functions will give us numbers, character strings, and so on:</p>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map_lgl</span>(person<span class="op">$</span>family_name,
-               <span class="cf">function</span>(name) stringr<span class="op">::</span><span class="kw">str_length</span>(name) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb685-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">map_lgl</span>(person<span class="op">$</span>family_name,</a>
+<a class="sourceLine" id="cb685-2" data-line-number="2">               <span class="cf">function</span>(name) stringr<span class="op">::</span><span class="kw">str_length</span>(name) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>)</a></code></pre></div>
 <pre><code>[1] FALSE  TRUE FALSE  TRUE  TRUE</code></pre>
 <p>Little functions like this are so common
 that <code>purrr</code> allows us to use write them as formulas using the <code>~ operator with</code>.x` as a shorthand for the value from the vector being processed:</p>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map_chr</span>(person<span class="op">$</span>family_name, <span class="op">~</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_to_upper</span>(.x))</code></pre>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">map_chr</span>(person<span class="op">$</span>family_name, <span class="op">~</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_to_upper</span>(.x))</a></code></pre></div>
 <pre><code>[1] &quot;DYER&quot;     &quot;PABODIE&quot;  &quot;LAKE&quot;     &quot;ROERICH&quot;  &quot;DANFORTH&quot;</code></pre>
 <p>Other functions in <code>purrr</code> let us work on two vectors at once:</p>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">map2_chr</span>(person<span class="op">$</span>personal_name,
-                person<span class="op">$</span>family_name,
-                <span class="op">~</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_c</span>(.y, .x, <span class="dt">sep =</span> <span class="st">&#39;_&#39;</span>))</code></pre>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">map2_chr</span>(person<span class="op">$</span>personal_name,</a>
+<a class="sourceLine" id="cb689-2" data-line-number="2">                person<span class="op">$</span>family_name,</a>
+<a class="sourceLine" id="cb689-3" data-line-number="3">                <span class="op">~</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_c</span>(.y, .x, <span class="dt">sep =</span> <span class="st">&#39;_&#39;</span>))</a></code></pre></div>
 <pre><code>[1] &quot;Dyer_William&quot;      &quot;Pabodie_Frank&quot;     &quot;Lake_Anderson&quot;    
 [4] &quot;Roerich_Valentina&quot; &quot;Danforth_Frank&quot;   </code></pre>
 <p>If we need to collapse the result to a single value
 (e.g., to use in <code>if</code>)
 we have <code>purrr::some</code> and <code>purrr::every</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">every</span>(person<span class="op">$</span>personal_name, <span class="op">~</span><span class="st"> </span>.x <span class="op">&gt;</span><span class="st"> &#39;M&#39;</span>)</code></pre>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">every</span>(person<span class="op">$</span>personal_name, <span class="op">~</span><span class="st"> </span>.x <span class="op">&gt;</span><span class="st"> &#39;M&#39;</span>)</a></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
 <div id="modify-specific-elements-of-a-list" class="section level3">
 <h3><span class="header-section-number">7.5.1</span> Modify specific elements of a list:</h3>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">modify_at</span>(person<span class="op">$</span>personal_name, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), stringr<span class="op">::</span>str_to_upper)</code></pre>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">modify_at</span>(person<span class="op">$</span>personal_name, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), stringr<span class="op">::</span>str_to_upper)</a></code></pre></div>
 <pre><code>[1] &quot;William&quot;   &quot;FRANK&quot;     &quot;Anderson&quot;  &quot;VALENTINA&quot; &quot;Frank&quot;    </code></pre>
 <p><em>Use <code>modify_if</code> to upper-case names that are greater than “M”.</em></p>
 </div>
 <div id="create-an-acronym" class="section level3">
 <h3><span class="header-section-number">7.5.2</span> Create an acronym:</h3>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">reduce</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.x, stringr<span class="op">::</span><span class="kw">str_sub</span>(.y, <span class="dv">1</span>, <span class="dv">1</span>)), <span class="dt">.init =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb695-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">reduce</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.x, stringr<span class="op">::</span><span class="kw">str_sub</span>(.y, <span class="dv">1</span>, <span class="dv">1</span>)), <span class="dt">.init =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;WFAVF&quot;</code></pre>
 <p><em>Explain why using <code>stringr::str_c(stringr::str_sub(.x, 1, 1), stringr::str_sub(.y, 1, 1))</code> doesn’t work.</em></p>
 </div>
 <div id="create-intermediate-values" class="section level3">
 <h3><span class="header-section-number">7.5.3</span> Create intermediate values:</h3>
-<pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span><span class="kw">accumulate</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.x, stringr<span class="op">::</span><span class="kw">str_sub</span>(.y, <span class="dv">1</span>, <span class="dv">1</span>)), <span class="dt">.init =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">accumulate</span>(person<span class="op">$</span>personal_name, <span class="op">~</span>stringr<span class="op">::</span><span class="kw">str_c</span>(.x, stringr<span class="op">::</span><span class="kw">str_sub</span>(.y, <span class="dv">1</span>, <span class="dv">1</span>)), <span class="dt">.init =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;&quot;      &quot;W&quot;     &quot;WF&quot;    &quot;WFA&quot;   &quot;WFAV&quot;  &quot;WFAVF&quot;</code></pre>
 <p><em>Modify this so that the initial empty string isn’t in the final result.</em></p>
 </div>
@@ -626,31 +633,31 @@ If two or more variables refer to the same data
 and that data is updated via one variable,
 R automatically makes a copy of the data so that the other variable’s value doesn’t change.
 Here’s a simple example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">first &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>)
-second &lt;-<span class="st"> </span>first
-<span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;before modification, first is {paste(first, collapse=&#39;-&#39;)} and second is {paste(second, collapse=&#39;-&#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb699-1" data-line-number="1">first &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb699-2" data-line-number="2">second &lt;-<span class="st"> </span>first</a>
+<a class="sourceLine" id="cb699-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;before modification, first is {paste(first, collapse=&#39;-&#39;)} and second is {paste(second, collapse=&#39;-&#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>before modification, first is red-green-blue and second is red-green-blue</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">first[[<span class="dv">1</span>]] &lt;-<span class="st"> &quot;sulphurous&quot;</span>
-<span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, first is {paste(first, collapse=&#39;-&#39;)} and second is {paste(second, collapse=&#39;-&#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb701-1" data-line-number="1">first[[<span class="dv">1</span>]] &lt;-<span class="st"> &quot;sulphurous&quot;</span></a>
+<a class="sourceLine" id="cb701-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, first is {paste(first, collapse=&#39;-&#39;)} and second is {paste(second, collapse=&#39;-&#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>after modification, first is sulphurous-green-blue and second is red-green-blue</code></pre>
 <p>This is true of nested structures as well:</p>
-<pre class="sourceCode r"><code class="sourceCode r">first &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>left, <span class="op">~</span>right,
-  <span class="dv">101</span>,   <span class="dv">202</span>,
-  <span class="dv">303</span>,   <span class="dv">404</span>)
-second &lt;-<span class="st"> </span>first
-first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span>
-<span class="kw">print</span>(<span class="st">&quot;first after modification&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" data-line-number="1">first &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb703-2" data-line-number="2">  <span class="op">~</span>left, <span class="op">~</span>right,</a>
+<a class="sourceLine" id="cb703-3" data-line-number="3">  <span class="dv">101</span>,   <span class="dv">202</span>,</a>
+<a class="sourceLine" id="cb703-4" data-line-number="4">  <span class="dv">303</span>,   <span class="dv">404</span>)</a>
+<a class="sourceLine" id="cb703-5" data-line-number="5">second &lt;-<span class="st"> </span>first</a>
+<a class="sourceLine" id="cb703-6" data-line-number="6">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></a>
+<a class="sourceLine" id="cb703-7" data-line-number="7"><span class="kw">print</span>(<span class="st">&quot;first after modification&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;first after modification&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">first</code></pre>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb705-1" data-line-number="1">first</a></code></pre></div>
 <pre><code># A tibble: 2 x 2
    left right
   &lt;dbl&gt; &lt;dbl&gt;
 1   999   202
 2   303   404</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;second after modification&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb707-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;second after modification&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;second after modification&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">second</code></pre>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb709-1" data-line-number="1">second</a></code></pre></div>
 <pre><code># A tibble: 2 x 2
    left right
   &lt;dbl&gt; &lt;dbl&gt;
@@ -662,35 +669,36 @@ tibbles (and data frames) are stored as lists of vectors,
 so changing any value in a column triggers construction of a new column vector.</p>
 <p>We can watch this happen using the <code>tracemem</code> function,
 which shows us where objects live in the computer’s memory:</p>
-<pre class="sourceCode r"><code class="sourceCode r">first &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>left, <span class="op">~</span>right,
-  <span class="dv">101</span>,   <span class="dv">202</span>,
-  <span class="dv">303</span>,   <span class="dv">404</span>
-)
-<span class="kw">tracemem</span>(first)</code></pre>
-<pre><code>[1] &quot;&lt;0x7f9b13b0a888&gt;&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></code></pre>
-<pre><code>tracemem[0x7f9b13b0a888 -&gt; 0x7f9b13b08dc8]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f9b13b08dc8 -&gt; 0x7f9b13b08e48]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f9b13b08e48 -&gt; 0x7f9b13b08ec8]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
-tracemem[0x7f9b13b08ec8 -&gt; 0x7f9b10b57008]: $&lt;-.data.frame $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">untracemem</span>(first)</code></pre>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb711-1" data-line-number="1">first &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb711-2" data-line-number="2">  <span class="op">~</span>left, <span class="op">~</span>right,</a>
+<a class="sourceLine" id="cb711-3" data-line-number="3">  <span class="dv">101</span>,   <span class="dv">202</span>,</a>
+<a class="sourceLine" id="cb711-4" data-line-number="4">  <span class="dv">303</span>,   <span class="dv">404</span></a>
+<a class="sourceLine" id="cb711-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb711-6" data-line-number="6"><span class="kw">tracemem</span>(first)</a></code></pre></div>
+<pre><code>[1] &quot;&lt;0x7ff59e4b7f88&gt;&quot;</code></pre>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb713-1" data-line-number="1">first<span class="op">$</span>left[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="dv">999</span></a></code></pre></div>
+<pre><code>tracemem[0x7ff59e4b7f88 -&gt; 0x7ff59d527b08]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff59d527b08 -&gt; 0x7ff59d50d788]: eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff59d50d788 -&gt; 0x7ff59d50e688]: tbl_subassign_col tbl_subassign $&lt;-.tbl_df $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff59d50e688 -&gt; 0x7ff59d50e8c8]: set_tibble_class tbl_subassign_col tbl_subassign $&lt;-.tbl_df $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local 
+tracemem[0x7ff59d50e8c8 -&gt; 0x7ff59d50e9c8]: vectbl_restore tbl_subassign $&lt;-.tbl_df $&lt;- eval eval withVisible withCallingHandlers handle timing_fn evaluate_call &lt;Anonymous&gt; evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file &lt;Anonymous&gt; &lt;Anonymous&gt; do.call eval eval eval eval eval.parent local </code></pre>
+<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb715-1" data-line-number="1"><span class="kw">untracemem</span>(first)</a></code></pre></div>
 <p>This rather cryptic output tell us the address of the tibble,
 then notifies us of changes to the tibble and its contents.
 We can accomplish something a little more readable using <code>pryr::address</code>
 (i.e., the <code>address</code> function from the pryr package):</p>
-<pre class="sourceCode r"><code class="sourceCode r">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span>
-<span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;left column is initially at {pryr::address(left)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" data-line-number="1">left &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># alias</span></a>
+<a class="sourceLine" id="cb716-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;left column is initially at {pryr::address(left)}&quot;</span>))</a></code></pre></div>
 <pre><code>Registered S3 method overwritten by &#39;pryr&#39;:
   method      from
   print.bytes Rcpp</code></pre>
-<pre><code>left column is initially at 0x7f9b13b08e08</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span>
-<span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</code></pre>
-<pre><code>after modification, the original column is still at 0x7f9b13b08e08</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span>
-<span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</code></pre>
-<pre><code>but the first column is at 0x7f9b1486ae88</code></pre>
+<pre><code>left column is initially at 0x7ff59d528188</code></pre>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb719-1" data-line-number="1">first<span class="op">$</span>left[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">888</span></a>
+<a class="sourceLine" id="cb719-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;after modification, the original column is still at {pryr::address(left)}&quot;</span>))</a></code></pre></div>
+<pre><code>after modification, the original column is still at 0x7ff59d528188</code></pre>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb721-1" data-line-number="1">temp &lt;-<span class="st"> </span>first<span class="op">$</span>left <span class="co"># another alias</span></a>
+<a class="sourceLine" id="cb721-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;but the first column is at {pryr::address(temp)}&quot;</span>))</a></code></pre></div>
+<pre><code>but the first column is at 0x7ff5a04f16c8</code></pre>
 <p>(We need to use the <a href="glossary.html#alias">alias</a> <code>temp</code> because <code>address(first$left)</code> doesn’t work:
 the argument to <code>address</code> needs to be a variable name.)</p>
 <p>R’s copy-on-modify semantics is particularly important when writing functions.
@@ -709,13 +717,13 @@ Here, then, are few of the hobgoblins I’ve encountered on my journey through R
 i.e.,
 <code>order(x)[i]</code> is the index in <code>x</code> of the element that belongs at location <code>i</code>.
 For example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">bases &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;g&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;a&quot;</span>)
-<span class="kw">order</span>(bases)</code></pre>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" data-line-number="1">bases &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;g&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;a&quot;</span>)</a>
+<a class="sourceLine" id="cb723-2" data-line-number="2"><span class="kw">order</span>(bases)</a></code></pre></div>
 <pre><code>[1] 4 2 1 3</code></pre>
 <p>shows that the value at location 4 (the <code>&quot;a&quot;</code>) belongs in the first spot of the vector;
 it does <em>not</em> mean that the value in the first location (the <code>&quot;g&quot;</code>) belongs in location 4.
 This convention means that <code>something[order(something)]</code> does the right thing:</p>
-<pre class="sourceCode r"><code class="sourceCode r">bases[<span class="kw">order</span>(bases)]</code></pre>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb725-1" data-line-number="1">bases[<span class="kw">order</span>(bases)]</a></code></pre></div>
 <pre><code>[1] &quot;a&quot; &quot;c&quot; &quot;g&quot; &quot;t&quot;</code></pre>
 </div>
 <div id="one-of-a-set-of-values" class="section level3">
@@ -729,16 +737,16 @@ collects data for the years 1999 and 2000.</p>
 <div id="and-are-not-the-same-as-and" class="section level3">
 <h3><span class="header-section-number">7.7.3</span> <code>|</code> and <code>&amp;</code> are not the same as <code>||</code> and <code>&amp;&amp;</code></h3>
 <p>Let’s try some experiments:</p>
-<pre class="sourceCode r"><code class="sourceCode r">TRUE_TRUE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>)
-TRUE_FALSE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
-FALSE_TRUE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)
-<span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;  TRUE_FALSE: {paste(TRUE_TRUE &amp;  TRUE_FALSE, collapse = &#39; &#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb727-1" data-line-number="1">TRUE_TRUE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb727-2" data-line-number="2">TRUE_FALSE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb727-3" data-line-number="3">FALSE_TRUE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb727-4" data-line-number="4"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;  TRUE_FALSE: {paste(TRUE_TRUE &amp;  TRUE_FALSE, collapse = &#39; &#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>TRUE_TRUE &amp;  TRUE_FALSE: TRUE FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;  FALSE_TRUE: {paste(TRUE_TRUE &amp;  FALSE_TRUE, collapse = &#39; &#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb729-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;  FALSE_TRUE: {paste(TRUE_TRUE &amp;  FALSE_TRUE, collapse = &#39; &#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>TRUE_TRUE &amp;  FALSE_TRUE: FALSE TRUE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;&amp; TRUE_FALSE: {paste(TRUE_TRUE &amp;&amp; TRUE_FALSE, collapse = &#39; &#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;&amp; TRUE_FALSE: {paste(TRUE_TRUE &amp;&amp; TRUE_FALSE, collapse = &#39; &#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>TRUE_TRUE &amp;&amp; TRUE_FALSE: TRUE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;&amp; FALSE_TRUE: {paste(TRUE_TRUE &amp;&amp; FALSE_TRUE, collapse = &#39; &#39;)}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;TRUE_TRUE &amp;&amp; FALSE_TRUE: {paste(TRUE_TRUE &amp;&amp; FALSE_TRUE, collapse = &#39; &#39;)}&quot;</span>))</a></code></pre></div>
 <pre><code>TRUE_TRUE &amp;&amp; FALSE_TRUE: FALSE</code></pre>
 <p>The difference is that <code>&amp;</code> always returns a vector result after doing element-by-element conjunction,
 while <code>&amp;&amp;</code> returns a scalar result.
@@ -749,17 +757,17 @@ This means that <code>&amp;</code> is almost always what we want to use when wor
 <p>There is a function called <code>n</code>.
 It’s not the same thing as a column called <code>n</code>.
 I only made this mistake a dozen times.</p>
-<pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>a, <span class="op">~</span>n,
-  <span class="dv">1</span>,  <span class="dv">10</span>,
-  <span class="dv">2</span>,  <span class="dv">20</span>
-)
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">total =</span> <span class="kw">sum</span>(n))</code></pre>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb735-2" data-line-number="2">  <span class="op">~</span>a, <span class="op">~</span>n,</a>
+<a class="sourceLine" id="cb735-3" data-line-number="3">  <span class="dv">1</span>,  <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb735-4" data-line-number="4">  <span class="dv">2</span>,  <span class="dv">20</span></a>
+<a class="sourceLine" id="cb735-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb735-6" data-line-number="6">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">total =</span> <span class="kw">sum</span>(n))</a></code></pre></div>
 <pre><code># A tibble: 1 x 1
   total
   &lt;dbl&gt;
 1    30</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">total =</span> <span class="kw">sum</span>(<span class="kw">n</span>()))</code></pre>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb737-1" data-line-number="1">data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">total =</span> <span class="kw">sum</span>(<span class="kw">n</span>()))</a></code></pre></div>
 <pre><code># A tibble: 1 x 1
   total
   &lt;int&gt;
@@ -790,11 +798,13 @@ data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sum
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -802,12 +812,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -822,7 +831,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"view": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/debt.Rmd",
+"text": null
+},
+"download": ["r4de.pdf", "r4de.epub"],
 "toc": {
 "collapse": "section"
 }

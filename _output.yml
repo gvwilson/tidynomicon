@@ -7,14 +7,20 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">The Tidynomicon</a></li>
+        <li><a href="./">R for Data Engineers</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://github.com/gvwilson/tidynomicon/edit/master/%s
+    view: https://github.com/gvwilson/tidynomicon/edit/master/%s
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
-  citation_package: natbib
+  citation_package: biblatex
   keep_tex: yes
+  template: null
+  pandoc_args: ['--top-level-division=chapter']
+  toc_depth: 2
+  toc_unnumbered: false
+  toc_appendix: true
 bookdown::epub_book: default

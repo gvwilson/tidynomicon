@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Testing and Error Handling | The Tidynomicon</title>
-  <meta name="description" content="Chapter 8 Testing and Error Handling | The Tidynomicon" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <title>Chapter 8 Testing and Error Handling | R for Data Engineers</title>
+  <meta name="description" content="Chapter 8 Testing and Error Handling | R for Data Engineers" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Testing and Error Handling | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 8 Testing and Error Handling | R for Data Engineers" />
   <meta property="og:type" content="book" />
   
+  <meta property="og:image" content="machu-picchu.jpg" />
   
-  <meta property="og:description" content="Chapter 8 Testing and Error Handling | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Testing and Error Handling | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 8 Testing and Error Handling | R for Data Engineers" />
   
-  <meta name="twitter:description" content="Chapter 8 Testing and Error Handling | The Tidynomicon" />
   
+  <meta name="twitter:image" content="machu-picchu.jpg" />
 
 <meta name="author" content="Greg Wilson" />
 
 
+<meta name="date" content="2021-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="debt.html">
-<link rel="next" href="advanced.html">
+<link rel="prev" href="debt.html"/>
+<link rel="next" href="advanced.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -55,7 +59,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -125,7 +128,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Tidynomicon</a></li>
+<li><a href="./">R for Data Engineers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
@@ -264,7 +267,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Engineers</a>
           </h1>
         </div>
 
@@ -291,15 +294,15 @@ This chapter looks at the tools R gives us for doing this.</p>
 <h2><span class="header-section-number">8.2</span> How does R handle errors?</h2>
 <p>Python programs handle errors
 by <a href="glossary.html#raise-exception">raising</a> and <a href="glossary.html#catch-exception">catching</a> <a href="glossary.html#exception">exceptions</a>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">values <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]
-<span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):
-    <span class="cf">try</span>:
-        reciprocal <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>values[i]
-        <span class="bu">print</span>(<span class="st">&quot;index </span><span class="sc">{}</span><span class="st"> value </span><span class="sc">{}</span><span class="st"> reciprocal </span><span class="sc">{}</span><span class="st">&quot;</span>.<span class="bu">format</span>(i, values[i], reciprocal))
-    <span class="cf">except</span> <span class="pp">ZeroDivisionError</span>:
-        <span class="bu">print</span>(<span class="st">&quot;index </span><span class="sc">{}</span><span class="st"> value </span><span class="sc">{}</span><span class="st"> ZeroDivisionError&quot;</span>.<span class="bu">format</span>(i, values[i]))
-    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:
-        <span class="bu">print</span>(<span class="st">&quot;index</span><span class="sc">{}</span><span class="st"> some other Exception: </span><span class="sc">{}</span><span class="st">&quot;</span>.<span class="bu">format</span>(i, e))</code></pre>
+<div class="sourceCode" id="cb739"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb739-1" data-line-number="1">values <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb739-2" data-line-number="2"><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):</a>
+<a class="sourceLine" id="cb739-3" data-line-number="3">    <span class="cf">try</span>:</a>
+<a class="sourceLine" id="cb739-4" data-line-number="4">        reciprocal <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>values[i]</a>
+<a class="sourceLine" id="cb739-5" data-line-number="5">        <span class="bu">print</span>(<span class="st">&quot;index </span><span class="sc">{}</span><span class="st"> value </span><span class="sc">{}</span><span class="st"> reciprocal </span><span class="sc">{}</span><span class="st">&quot;</span>.<span class="bu">format</span>(i, values[i], reciprocal))</a>
+<a class="sourceLine" id="cb739-6" data-line-number="6">    <span class="cf">except</span> <span class="pp">ZeroDivisionError</span>:</a>
+<a class="sourceLine" id="cb739-7" data-line-number="7">        <span class="bu">print</span>(<span class="st">&quot;index </span><span class="sc">{}</span><span class="st"> value </span><span class="sc">{}</span><span class="st"> ZeroDivisionError&quot;</span>.<span class="bu">format</span>(i, values[i]))</a>
+<a class="sourceLine" id="cb739-8" data-line-number="8">    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</a>
+<a class="sourceLine" id="cb739-9" data-line-number="9">        <span class="bu">print</span>(<span class="st">&quot;index</span><span class="sc">{}</span><span class="st"> some other Exception: </span><span class="sc">{}</span><span class="st">&quot;</span>.<span class="bu">format</span>(i, e))</a></code></pre></div>
 <pre><code>index 0 value -1 reciprocal -1.0
 index 1 value 0 ZeroDivisionError
 index 2 value 1 reciprocal 1.0
@@ -318,11 +321,11 @@ which are generated by the user pressing Ctrl-C to stop an operation,
 but we will ignore those for the sake of brevity.)
 We can signal conditions of these kinds using the functions <code>message</code>, <code>warning</code>, and <code>stop</code>,
 each of which takes an error message as a parameter:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">message</span>(<span class="st">&quot;This is a message.&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" data-line-number="1"><span class="kw">message</span>(<span class="st">&quot;This is a message.&quot;</span>)</a></code></pre></div>
 <pre><code>This is a message.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">warning</span>(<span class="st">&quot;This is a warning.</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" data-line-number="1"><span class="kw">warning</span>(<span class="st">&quot;This is a warning.</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
 <pre><code>Warning: This is a warning.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stop</span>(<span class="st">&quot;This is an error.&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" data-line-number="1"><span class="kw">stop</span>(<span class="st">&quot;This is an error.&quot;</span>)</a></code></pre></div>
 <pre><code>Error in eval(expr, envir, enclos): This is an error.</code></pre>
 <p>Note that we have to supply our own line ending for warnings
 but not for the other two cases.
@@ -334,46 +337,46 @@ If a statement is wrapped in the function <code>try</code>
 then errors that occur in it are still reported,
 but execution continues.
 Compare this:</p>
-<pre class="sourceCode r"><code class="sourceCode r">attemptWithoutTry &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){
-  temp &lt;-<span class="st"> </span>left <span class="op">+</span><span class="st"> </span>right
-  <span class="st">&quot;result&quot;</span> <span class="co"># returned</span>
-}
-result &lt;-<span class="st"> </span><span class="kw">attemptWithoutTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" data-line-number="1">attemptWithoutTry &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){</a>
+<a class="sourceLine" id="cb747-2" data-line-number="2">  temp &lt;-<span class="st"> </span>left <span class="op">+</span><span class="st"> </span>right</a>
+<a class="sourceLine" id="cb747-3" data-line-number="3">  <span class="st">&quot;result&quot;</span> <span class="co"># returned</span></a>
+<a class="sourceLine" id="cb747-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb747-5" data-line-number="5">result &lt;-<span class="st"> </span><span class="kw">attemptWithoutTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)</a></code></pre></div>
 <pre><code>Error in left + right: non-numeric argument to binary operator</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</code></pre>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</a></code></pre></div>
 <pre><code>Error in cat(&quot;result is&quot;, result): object &#39;result&#39; not found</code></pre>
 <p>with this:</p>
-<pre class="sourceCode r"><code class="sourceCode r">attemptUsingTry &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){
-  temp &lt;-<span class="st"> </span><span class="kw">try</span>(left <span class="op">+</span><span class="st"> </span>right)
-  <span class="st">&quot;value returned&quot;</span> <span class="co"># returned</span>
-}
-result &lt;-<span class="st"> </span><span class="kw">attemptUsingTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" data-line-number="1">attemptUsingTry &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){</a>
+<a class="sourceLine" id="cb751-2" data-line-number="2">  temp &lt;-<span class="st"> </span><span class="kw">try</span>(left <span class="op">+</span><span class="st"> </span>right)</a>
+<a class="sourceLine" id="cb751-3" data-line-number="3">  <span class="st">&quot;value returned&quot;</span> <span class="co"># returned</span></a>
+<a class="sourceLine" id="cb751-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb751-5" data-line-number="5">result &lt;-<span class="st"> </span><span class="kw">attemptUsingTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)</a></code></pre></div>
 <pre><code>Error in left + right : non-numeric argument to binary operator</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</code></pre>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</a></code></pre></div>
 <pre><code>result is value returned</code></pre>
 <p>We can suppress error messages from <code>try</code> by setting <code>silent</code> to <code>TRUE</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">attemptUsingTryQuietly &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){
-  temp &lt;-<span class="st"> </span><span class="kw">try</span>(left <span class="op">+</span><span class="st"> </span>right, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
-  <span class="st">&quot;result&quot;</span> <span class="co"># returned</span>
-}
-result &lt;-<span class="st"> </span><span class="kw">attemptUsingTryQuietly</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)
-<span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</code></pre>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" data-line-number="1">attemptUsingTryQuietly &lt;-<span class="st"> </span><span class="cf">function</span>(left, right){</a>
+<a class="sourceLine" id="cb755-2" data-line-number="2">  temp &lt;-<span class="st"> </span><span class="kw">try</span>(left <span class="op">+</span><span class="st"> </span>right, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb755-3" data-line-number="3">  <span class="st">&quot;result&quot;</span> <span class="co"># returned</span></a>
+<a class="sourceLine" id="cb755-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb755-5" data-line-number="5">result &lt;-<span class="st"> </span><span class="kw">attemptUsingTryQuietly</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>)</a>
+<a class="sourceLine" id="cb755-6" data-line-number="6"><span class="kw">cat</span>(<span class="st">&quot;result is&quot;</span>, result)</a></code></pre></div>
 <pre><code>result is result</code></pre>
 <p>Do not do this,
 lest you one day find yourself lost in a silent hellscape.</p>
 <p>Should you more sensibly wish to handle conditions rather than ignore them,
 you may invoke <code>tryCatch</code>.
 We begin by raising an error explicitly:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tryCatch</span>(
-  <span class="kw">stop</span>(<span class="st">&quot;our message&quot;</span>),
-  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;error object is {cnd}&quot;</span>))
-)</code></pre>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" data-line-number="1"><span class="kw">tryCatch</span>(</a>
+<a class="sourceLine" id="cb757-2" data-line-number="2">  <span class="kw">stop</span>(<span class="st">&quot;our message&quot;</span>),</a>
+<a class="sourceLine" id="cb757-3" data-line-number="3">  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;error object is {cnd}&quot;</span>))</a>
+<a class="sourceLine" id="cb757-4" data-line-number="4">)</a></code></pre></div>
 <pre><code>error object is Error in doTryCatch(return(expr), name, parentenv, handler): our message</code></pre>
 <p>We can now run a function that would otherwise blow up:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tryCatch</span>(
-  <span class="kw">attemptWithoutTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>),
-  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;error object is {cnd}&quot;</span>))
-)</code></pre>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" data-line-number="1"><span class="kw">tryCatch</span>(</a>
+<a class="sourceLine" id="cb759-2" data-line-number="2">  <span class="kw">attemptWithoutTry</span>(<span class="dv">1</span>, <span class="st">&quot;two&quot;</span>),</a>
+<a class="sourceLine" id="cb759-3" data-line-number="3">  <span class="dt">error =</span> <span class="cf">function</span>(cnd) <span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;error object is {cnd}&quot;</span>))</a>
+<a class="sourceLine" id="cb759-4" data-line-number="4">)</a></code></pre></div>
 <pre><code>error object is Error in left + right: non-numeric argument to binary operator</code></pre>
 <p>We can also handle non-fatal errors using <code>withCallingHandlers</code>,
 and define new types of conditions,
@@ -393,7 +396,7 @@ and other <a href="glossary.html#unit-test">unit testing</a> libraries:</p>
 <li>Shared <a href="glossary.html#testing-setup">setup</a> and <a href="glossary.html#testing-teardown">teardown</a> steps are put in functions of their own.</li>
 </ol>
 <p>Let’s load it and write our first test:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(testthat)</code></pre>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" data-line-number="1"><span class="kw">library</span>(testthat)</a></code></pre></div>
 <pre><code>
 Attaching package: &#39;testthat&#39;</code></pre>
 <pre><code>The following objects are masked from &#39;package:rlang&#39;:
@@ -408,15 +411,15 @@ Attaching package: &#39;testthat&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
     matches</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals itself&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)})</code></pre>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals itself&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)})</a></code></pre></div>
 <p>As is conventional with unit testing libraries,
 no news is good news:
 if a test passes,
 it doesn’t produce output because it doesn’t need our attention.
 Let’s try something that ought to fail:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals one&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)})</code></pre>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb768-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Zero equals one&quot;</span>, {<span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)})</a></code></pre></div>
 <pre><code>Error: Test failed: &#39;Zero equals one&#39;
-* 0 not equal to 1.
+* &lt;text&gt;:1: 0 not equal to 1.
 1/1 mismatches
 [1] 0 - 1 == -1</code></pre>
 <p>Good:
@@ -424,27 +427,27 @@ we can draw some comfort from the fact that Those Beyond have not yet changed th
 But what are the curly braces around <code>expect_equal</code> for?
 The answer is that they create a <a href="glossary.html#code-block">code block</a> for <code>test_that</code> to run.
 We can run <code>expect_equal</code> on its own:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" data-line-number="1"><span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>Error: 0 not equal to 1.
 1/1 mismatches
 [1] 0 - 1 == -1</code></pre>
 <p>but that doesn’t produce a summary of how many tests passed or failed.
 Passing a block of code to <code>test_that</code> also allows us to check several things in one test:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Testing two things&quot;</span>, {
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
-})</code></pre>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Testing two things&quot;</span>, {</a>
+<a class="sourceLine" id="cb772-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb772-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb772-4" data-line-number="4">})</a></code></pre></div>
 <pre><code>Error: Test failed: &#39;Testing two things&#39;
-* 0 not equal to 1.
+* &lt;text&gt;:3: 0 not equal to 1.
 1/1 mismatches
 [1] 0 - 1 == -1</code></pre>
 <p>A block of code is <em>not</em> the same thing as an <a href="glossary.html#anonymous-function">anonymous function</a>,
 which is why running this block of code does nothing—the “test” defines a function
 but doesn’t actually call it:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_that</span>(<span class="st">&quot;Using an anonymous function&quot;</span>, <span class="cf">function</span>() {
-  <span class="kw">print</span>(<span class="st">&quot;In our anonymous function&quot;</span>)
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
-})</code></pre>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Using an anonymous function&quot;</span>, <span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb774-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&quot;In our anonymous function&quot;</span>)</a>
+<a class="sourceLine" id="cb774-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb774-4" data-line-number="4">})</a></code></pre></div>
 </div>
 <div id="how-should-i-organize-my-tests" class="section level2">
 <h2><span class="header-section-number">8.4</span> How should I organize my tests?</h2>
@@ -455,23 +458,23 @@ and then put those files in a directory called <code>tests/testthat</code>.
 We can then run some or all of those tests with a single command.</p>
 <p>To start,
 let’s create <code>tests/testthat/test_example.R</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(testthat)
-<span class="kw">context</span>(<span class="st">&quot;Demonstrating the testing library&quot;</span>)
-
-<span class="kw">test_that</span>(<span class="st">&quot;Testing a number with itself&quot;</span>, {
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)
-  <span class="kw">expect_equal</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-1</span>)
-  <span class="kw">expect_equal</span>(<span class="ot">Inf</span>, <span class="ot">Inf</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;Testing different numbers&quot;</span>, {
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;Testing with a tolerance&quot;</span>, {
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="dt">tolerance =</span> <span class="fl">0.05</span>, <span class="dt">scale =</span> <span class="dv">1</span>)
-  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="dt">tolerance =</span> <span class="fl">0.005</span>, <span class="dt">scale =</span> <span class="dv">1</span>)
-})</code></pre>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" data-line-number="1"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb775-2" data-line-number="2"><span class="kw">context</span>(<span class="st">&quot;Demonstrating the testing library&quot;</span>)</a>
+<a class="sourceLine" id="cb775-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb775-4" data-line-number="4"><span class="kw">test_that</span>(<span class="st">&quot;Testing a number with itself&quot;</span>, {</a>
+<a class="sourceLine" id="cb775-5" data-line-number="5">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb775-6" data-line-number="6">  <span class="kw">expect_equal</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb775-7" data-line-number="7">  <span class="kw">expect_equal</span>(<span class="ot">Inf</span>, <span class="ot">Inf</span>)</a>
+<a class="sourceLine" id="cb775-8" data-line-number="8">})</a>
+<a class="sourceLine" id="cb775-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb775-10" data-line-number="10"><span class="kw">test_that</span>(<span class="st">&quot;Testing different numbers&quot;</span>, {</a>
+<a class="sourceLine" id="cb775-11" data-line-number="11">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb775-12" data-line-number="12">})</a>
+<a class="sourceLine" id="cb775-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb775-14" data-line-number="14"><span class="kw">test_that</span>(<span class="st">&quot;Testing with a tolerance&quot;</span>, {</a>
+<a class="sourceLine" id="cb775-15" data-line-number="15">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="dt">tolerance =</span> <span class="fl">0.05</span>, <span class="dt">scale =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb775-16" data-line-number="16">  <span class="kw">expect_equal</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="dt">tolerance =</span> <span class="fl">0.005</span>, <span class="dt">scale =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb775-17" data-line-number="17">})</a></code></pre></div>
 <p>The first line loads the testthat package,
 which gives us our tools.
 The call to <code>context</code> on the second line gives this set of tests a name for reporting purposes.
@@ -479,12 +482,13 @@ After that,
 we add as many calls to <code>test_that</code> as we want,
 each with a name and a block of code.
 We can now run this file from within RStudio:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Skipping rows correctly
-✖ |   0 5     | Skipping rows correctly
-───────────────────────────────────────────────────────────────────────────
+⠹ |   0 3     | Skipping rows correctly
+✖ |   0 5     | Skipping rows correctly [0.1 s]
+────────────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
 Lengths differ: 0 is not 1
@@ -502,14 +506,14 @@ test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; is
 
 test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
 `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Skipping rows correctly
 ✔ |   5       | Skipping rows correctly
 
 ⠏ |   0       | Demonstrating the testing library
 ✖ |   4 2     | Demonstrating the testing library
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_example.R:11: failure: Testing different numbers
 0 not equal to 1.
 1/1 mismatches
@@ -519,11 +523,11 @@ test_example.R:16: failure: Testing with a tolerance
 0 not equal to 0.01.
 1/1 mismatches
 [1] 0 - 0.01 == -0.01
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✖ |   1 2     | Finding empty rows
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
@@ -531,26 +535,31 @@ Types not compatible: integer is not NULL
 test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✔ |   3       | Finding empty rows
 
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1   1   | Testing properties of tibbles
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_tibble.R:6: warning: Tibble columns are given the name &#39;value&#39;
-`as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-This warning is displayed once per session.
-───────────────────────────────────────────────────────────────────────────
+`as.tibble()` is deprecated as of tibble 2.0.0.
+Please use `as_tibble()` instead.
+The signature and semantics have changed, see `?as_tibble`.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_warnings()` to see where this warning was generated.
+────────────────────────────────────────────────────────────────────────────────
 
-══ Results ════════════════════════════════════════════════════════════════
-Duration: 0.2 s
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 0.3 s
 
 OK:       14
 Failed:   9
 Warnings: 1
-Skipped:  0</code></pre>
+Skipped:  0
+
+Frustration is a natural part of programming :)</code></pre>
 <p>Care is needed when interpreting these results.
 There are four <code>test_that</code> calls,
 but eight actual checks,
@@ -561,26 +570,26 @@ Why not just use <code>expect_equal</code> and its kin,
 such as <code>expect_true</code>, <code>expect_false</code>, <code>expect_length</code>, and so on?
 The answer is that it allows us to do one operation and then check several things afterward.
 Let’s create another file called <code>tests/testthat/test_tibble.R</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(testthat)
-<span class="kw">context</span>(<span class="st">&quot;Testing properties of tibbles&quot;</span>)
-
-<span class="kw">test_that</span>(<span class="st">&quot;Tibble columns are given the name &#39;value&#39;&quot;</span>, {
-  t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.tibble</span>()
-  <span class="kw">expect_equal</span>(<span class="kw">names</span>(t), <span class="st">&quot;value&quot;</span>)
-})</code></pre>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb778-2" data-line-number="2"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb778-3" data-line-number="3"><span class="kw">context</span>(<span class="st">&quot;Testing properties of tibbles&quot;</span>)</a>
+<a class="sourceLine" id="cb778-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb778-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&quot;Tibble columns are given the name &#39;value&#39;&quot;</span>, {</a>
+<a class="sourceLine" id="cb778-6" data-line-number="6">  t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.tibble</span>()</a>
+<a class="sourceLine" id="cb778-7" data-line-number="7">  <span class="kw">expect_equal</span>(<span class="kw">names</span>(t), <span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb778-8" data-line-number="8">})</a></code></pre></div>
 <p>(We don’t actually have to call our test files <code>test_something.R</code>,
 but <code>test_dir</code> and the rest of R’s testing infrastructure expect us to.
 Similarly,
 we don’t have to put them in a <code>tests</code> directory,
 but gibbering incoherence will ensue if we do not.)
 Now let’s run all of our tests:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Skipping rows correctly
 ✖ |   0 5     | Skipping rows correctly
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
 Lengths differ: 0 is not 1
@@ -598,14 +607,14 @@ test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; is
 
 test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
 `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Skipping rows correctly
 ✔ |   5       | Skipping rows correctly
 
 ⠏ |   0       | Demonstrating the testing library
 ✖ |   4 2     | Demonstrating the testing library
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_example.R:11: failure: Testing different numbers
 0 not equal to 1.
 1/1 mismatches
@@ -615,11 +624,11 @@ test_example.R:16: failure: Testing with a tolerance
 0 not equal to 0.01.
 1/1 mismatches
 [1] 0 - 0.01 == -0.01
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✖ |   1 2     | Finding empty rows
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
@@ -627,7 +636,7 @@ Types not compatible: integer is not NULL
 test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
 ⠏ |   0       | Finding empty rows
 ✔ |   3       | Finding empty rows
@@ -635,8 +644,8 @@ Types not compatible: integer is not NULL
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1       | Testing properties of tibbles
 
-══ Results ════════════════════════════════════════════════════════════════
-Duration: 0.1 s
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 0.2 s
 
 OK:       14
 Failed:   9
@@ -645,18 +654,18 @@ Skipped:  0</code></pre>
 <p>That’s rather a lot of output.
 Happily,
 we can provide a <code>filter</code> argument to <code>test_dir</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="dt">filter =</span> <span class="st">&quot;test_tibble.R&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="dt">filter =</span> <span class="st">&quot;test_tibble.R&quot;</span>)</a></code></pre></div>
 <pre><code>Error in test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure, : No matching test file in dir</code></pre>
 <p>Ah.
 It turns out that <code>filter</code> is applied to filenames <em>after</em> the leading <code>test_</code> and the trailing <code>.R</code> have been removed.
 Let’s try again:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="dt">filter =</span> <span class="st">&quot;tibble&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="dt">filter =</span> <span class="st">&quot;tibble&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Testing properties of tibbles
 ✔ |   1       | Testing properties of tibbles
 
-══ Results ════════════════════════════════════════════════════════════════
+══ Results ═════════════════════════════════════════════════════════════════════
 OK:       1
 Failed:   0
 Warnings: 0
@@ -670,18 +679,18 @@ and it illustrates our earlier point about the importance of following conventio
 let’s create a file called <code>scripts/find_empty_01.R</code>
 containing a single function <code>find_empty_rows</code> to identy all the empty rows in a CSV file.
 Our first implementation is:</p>
-<pre class="sourceCode r"><code class="sourceCode r">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {
-  data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(source)
-  empty &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">pmap</span>(<span class="cf">function</span>(...) {
-      args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
-      <span class="kw">all</span>(<span class="kw">is.na</span>(args) <span class="op">|</span><span class="st"> </span>(args <span class="op">==</span><span class="st"> &quot;&quot;</span>))
-    })
-  data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">transmute</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(<span class="kw">as.logical</span>(empty)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">pull</span>(id)
-}</code></pre>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" data-line-number="1">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {</a>
+<a class="sourceLine" id="cb785-2" data-line-number="2">  data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(source)</a>
+<a class="sourceLine" id="cb785-3" data-line-number="3">  empty &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb785-4" data-line-number="4"><span class="st">    </span><span class="kw">pmap</span>(<span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb785-5" data-line-number="5">      args &lt;-<span class="st"> </span><span class="kw">list</span>(...)</a>
+<a class="sourceLine" id="cb785-6" data-line-number="6">      <span class="kw">all</span>(<span class="kw">is.na</span>(args) <span class="op">|</span><span class="st"> </span>(args <span class="op">==</span><span class="st"> &quot;&quot;</span>))</a>
+<a class="sourceLine" id="cb785-7" data-line-number="7">    })</a>
+<a class="sourceLine" id="cb785-8" data-line-number="8">  data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb785-9" data-line-number="9"><span class="st">    </span><span class="kw">transmute</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb785-10" data-line-number="10"><span class="st">    </span><span class="kw">filter</span>(<span class="kw">as.logical</span>(empty)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb785-11" data-line-number="11"><span class="st">    </span><span class="kw">pull</span>(id)</a>
+<a class="sourceLine" id="cb785-12" data-line-number="12">}</a></code></pre></div>
 <p>This is complex enough to merit line-by-line exegesis:</p>
 <ol style="list-style-type: decimal">
 <li>Define the function with one argument <code>source</code>, whence we shall read.</li>
@@ -712,8 +721,8 @@ particularly if you are new to R (as I am at the time of writing)
 and needed help to figure out that <code>pmap</code> is the function this problem wants.
 But now that we have it,
 we can do this:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;scripts/find_empty_01.R&quot;</span>)
-<span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;scripts/find_empty_01.R&quot;</span>)</a>
+<a class="sourceLine" id="cb786-2" data-line-number="2"><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)</a></code></pre></div>
 <p>The <code>source</code> function reads R code from the given source.
 Using this inside an R Markdown file is usually a bad idea,
 since the generated HTML or PDF won’t show readers what code we loaded and ran.
@@ -734,17 +743,17 @@ which experience shows is to understand and maintain
 than having test data in separate files.</p>
 <p>Our function seems to work,
 but we can make it more pipelinesque:</p>
-<pre class="sourceCode r"><code class="sourceCode r">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {
-  <span class="kw">read_csv</span>(source) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {
-      args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
-      <span class="kw">all</span>(<span class="kw">is.na</span>(args) <span class="op">|</span><span class="st"> </span>(args <span class="op">==</span><span class="st"> &quot;&quot;</span>))
-    }) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">tibble</span>(<span class="dt">empty =</span> .) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(empty) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">pull</span>(id)
-}</code></pre>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" data-line-number="1">find_empty_rows &lt;-<span class="st"> </span><span class="cf">function</span>(source) {</a>
+<a class="sourceLine" id="cb787-2" data-line-number="2">  <span class="kw">read_csv</span>(source) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb787-3" data-line-number="3"><span class="st">    </span><span class="kw">pmap_lgl</span>(<span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb787-4" data-line-number="4">      args &lt;-<span class="st"> </span><span class="kw">list</span>(...)</a>
+<a class="sourceLine" id="cb787-5" data-line-number="5">      <span class="kw">all</span>(<span class="kw">is.na</span>(args) <span class="op">|</span><span class="st"> </span>(args <span class="op">==</span><span class="st"> &quot;&quot;</span>))</a>
+<a class="sourceLine" id="cb787-6" data-line-number="6">    }) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb787-7" data-line-number="7"><span class="st">    </span><span class="kw">tibble</span>(<span class="dt">empty =</span> .) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb787-8" data-line-number="8"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb787-9" data-line-number="9"><span class="st">    </span><span class="kw">filter</span>(empty) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb787-10" data-line-number="10"><span class="st">    </span><span class="kw">pull</span>(id)</a>
+<a class="sourceLine" id="cb787-11" data-line-number="11">}</a></code></pre></div>
 <p>Going line by line once again:</p>
 <ol style="list-style-type: decimal">
 <li>Define a function with one argument called <code>source</code>, from which we shall once again read.</li>
@@ -775,33 +784,33 @@ Without this,
 we have no easy way to give the sole column of our newly-constructed tibble a name.</p>
 </blockquote>
 <p>Here’s our first batch of tests:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(testthat)
-<span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)
-
-<span class="kw">source</span>(<span class="st">&quot;../../scripts/find_empty_02.R&quot;</span>)
-
-<span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="ot">NULL</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;Half-empty rows are not mistakenly detected&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">,2&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="ot">NULL</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;An empty row in the middle is found&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="kw">c</span>(2L))
-})</code></pre>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb788-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb788-2" data-line-number="2"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb788-3" data-line-number="3"><span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)</a>
+<a class="sourceLine" id="cb788-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb788-5" data-line-number="5"><span class="kw">source</span>(<span class="st">&quot;../../scripts/find_empty_02.R&quot;</span>)</a>
+<a class="sourceLine" id="cb788-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb788-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {</a>
+<a class="sourceLine" id="cb788-8" data-line-number="8">  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)</a>
+<a class="sourceLine" id="cb788-9" data-line-number="9">  <span class="kw">expect_equal</span>(result, <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb788-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb788-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb788-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;Half-empty rows are not mistakenly detected&quot;</span>, {</a>
+<a class="sourceLine" id="cb788-13" data-line-number="13">  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">,2&quot;</span>)</a>
+<a class="sourceLine" id="cb788-14" data-line-number="14">  <span class="kw">expect_equal</span>(result, <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb788-15" data-line-number="15">})</a>
+<a class="sourceLine" id="cb788-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb788-17" data-line-number="17"><span class="kw">test_that</span>(<span class="st">&quot;An empty row in the middle is found&quot;</span>, {</a>
+<a class="sourceLine" id="cb788-18" data-line-number="18">  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)</a>
+<a class="sourceLine" id="cb788-19" data-line-number="19">  <span class="kw">expect_equal</span>(result, <span class="kw">c</span>(2L))</a>
+<a class="sourceLine" id="cb788-20" data-line-number="20">})</a></code></pre></div>
 <p>And here’s what happens when we run this file with <code>test_dir</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;find_empty_a&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;find_empty_a&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Finding empty rows
 ✖ |   1 2     | Finding empty rows
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_find_empty_a.R:9: failure: A single non-empty row is not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
@@ -809,29 +818,27 @@ Types not compatible: integer is not NULL
 test_find_empty_a.R:14: failure: Half-empty rows are not mistakenly detected
 `result` not equal to NULL.
 Types not compatible: integer is not NULL
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
-══ Results ════════════════════════════════════════════════════════════════
+══ Results ═════════════════════════════════════════════════════════════════════
 OK:       1
 Failed:   2
 Warnings: 0
-Skipped:  0
-
-No one gets it right on their first try</code></pre>
+Skipped:  0</code></pre>
 <p>This is perplexing:
 we expected that if there were no empty rows,
 our function would return <code>NULL</code>.
 Let’s look more closely:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" data-line-number="1"><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)</a></code></pre></div>
 <pre><code>integer(0)</code></pre>
 <p>Ah:
 our function is returning an integer vector of zero length rather than <code>NULL</code>.
 Let’s have a closer look at the properties of this strange beast:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;integer(0) equal to NULL? {is.null(integer(0))}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;integer(0) equal to NULL? {is.null(integer(0))}&quot;</span>))</a></code></pre></div>
 <pre><code>integer(0) equal to NULL? FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;any(logical(0))? {any(logical(0))}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;any(logical(0))? {any(logical(0))}&quot;</span>))</a></code></pre></div>
 <pre><code>any(logical(0))? FALSE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;all(logical(0))? {all(logical(0))}&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">glue</span>(<span class="st">&quot;all(logical(0))? {all(logical(0))}&quot;</span>))</a></code></pre></div>
 <pre><code>all(logical(0))? TRUE</code></pre>
 <p>All right.
 If we compare <code>c(1L, 2L)</code> to <code>NULL</code>, we expect <code>c(FALSE, FALSE)</code>,
@@ -849,34 +856,34 @@ After a bit of thought,
 we decide on the latter,
 which means it’s the tests that we need to rewrite,
 not the code:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(testthat)
-<span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)
-
-<span class="kw">source</span>(<span class="st">&quot;../../scripts/find_empty_02.R&quot;</span>)
-
-<span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="kw">integer</span>(<span class="dv">0</span>))
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;Half-empty rows are not mistakenly detected&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">,2&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="kw">integer</span>(<span class="dv">0</span>))
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;An empty row in the middle is found&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="kw">c</span>(2L))
-})</code></pre>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb799-2" data-line-number="2"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb799-3" data-line-number="3"><span class="kw">context</span>(<span class="st">&quot;Finding empty rows&quot;</span>)</a>
+<a class="sourceLine" id="cb799-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb799-5" data-line-number="5"><span class="kw">source</span>(<span class="st">&quot;../../scripts/find_empty_02.R&quot;</span>)</a>
+<a class="sourceLine" id="cb799-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb799-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;A single non-empty row is not mistakenly detected&quot;</span>, {</a>
+<a class="sourceLine" id="cb799-8" data-line-number="8">  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a</span><span class="ch">\n</span><span class="st">1&quot;</span>)</a>
+<a class="sourceLine" id="cb799-9" data-line-number="9">  <span class="kw">expect_equal</span>(result, <span class="kw">integer</span>(<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb799-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb799-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb799-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;Half-empty rows are not mistakenly detected&quot;</span>, {</a>
+<a class="sourceLine" id="cb799-13" data-line-number="13">  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">,2&quot;</span>)</a>
+<a class="sourceLine" id="cb799-14" data-line-number="14">  <span class="kw">expect_equal</span>(result, <span class="kw">integer</span>(<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb799-15" data-line-number="15">})</a>
+<a class="sourceLine" id="cb799-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb799-17" data-line-number="17"><span class="kw">test_that</span>(<span class="st">&quot;An empty row in the middle is found&quot;</span>, {</a>
+<a class="sourceLine" id="cb799-18" data-line-number="18">  result &lt;-<span class="st"> </span><span class="kw">find_empty_rows</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">5,6&quot;</span>)</a>
+<a class="sourceLine" id="cb799-19" data-line-number="19">  <span class="kw">expect_equal</span>(result, <span class="kw">c</span>(2L))</a>
+<a class="sourceLine" id="cb799-20" data-line-number="20">})</a></code></pre></div>
 <p>And here’s what happens when we run this file with <code>test_dir</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;find_empty_b&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb800-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;find_empty_b&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Finding empty rows
 ✔ |   3       | Finding empty rows
 
-══ Results ════════════════════════════════════════════════════════════════
+══ Results ═════════════════════════════════════════════════════════════════════
 OK:       3
 Failed:   0
 Warnings: 0
@@ -956,15 +963,15 @@ It’s inefficient,
 but for a dataset this size,
 simplicity beats performance.</p>
 <p>Here’s our first try:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;data/at_health_facilities.csv&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">first</span>()</code></pre>
-<pre><code>Warning: Missing column names filled in: &#39;X1&#39; [1], &#39;X2&#39; [2], &#39;X4&#39; [4],
-&#39;X5&#39; [5], &#39;X6&#39; [6], &#39;X7&#39; [7], &#39;X8&#39; [8], &#39;X9&#39; [9], &#39;X10&#39; [10], &#39;X11&#39; [11],
-&#39;X12&#39; [12], &#39;X13&#39; [13], &#39;X14&#39; [14], &#39;X15&#39; [15], &#39;X16&#39; [16]</code></pre>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb804-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;data/at_health_facilities.csv&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb804-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb804-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb804-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb804-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb804-6" data-line-number="6"><span class="st">  </span><span class="kw">first</span>()</a></code></pre></div>
+<pre><code>Warning: Missing column names filled in: &#39;X1&#39; [1], &#39;X2&#39; [2], &#39;X4&#39; [4], &#39;X5&#39; [5],
+&#39;X6&#39; [6], &#39;X7&#39; [7], &#39;X8&#39; [8], &#39;X9&#39; [9], &#39;X10&#39; [10], &#39;X11&#39; [11], &#39;X12&#39; [12],
+&#39;X13&#39; [13], &#39;X14&#39; [14], &#39;X15&#39; [15], &#39;X16&#39; [16]</code></pre>
 <pre><code>Parsed with column specification:
 cols(
   X1 = col_character(),
@@ -998,59 +1005,59 @@ we turn it into a function,
 tell that function to stop if it can’t find <code>iso3</code> in the data,
 and write some unit tests.
 The function is:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-
-determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
-  <span class="kw">read_csv</span>(src_path) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">first</span>()
-}</code></pre>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb808-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb808-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb808-3" data-line-number="3">determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {</a>
+<a class="sourceLine" id="cb808-4" data-line-number="4">  <span class="kw">read_csv</span>(src_path) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-5" data-line-number="5"><span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-7" data-line-number="7"><span class="st">    </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-8" data-line-number="8"><span class="st">    </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-9" data-line-number="9"><span class="st">    </span><span class="kw">first</span>()</a>
+<a class="sourceLine" id="cb808-10" data-line-number="10">}</a></code></pre></div>
 <p>We can then call <code>usethis::use_testthat()</code> to set up some testing infrastructure,
 including the directory <code>tests/testthat</code>
 and a script called <code>tests/testthat.R</code>
 that will run all our tests when we want to check the integrity of our project.
 Once we have done that
 we can put these five tests in <code>tests/testthat/test_determine_skip_rows.R</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(testthat)
-<span class="kw">context</span>(<span class="st">&quot;Skipping rows correctly&quot;</span>)
-
-<span class="kw">source</span>(<span class="st">&quot;../../scripts/determine_skip_rows_a.R&quot;</span>)
-
-<span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="dv">2</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows and blank lines&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="dv">3</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are no header rows to discard&quot;</span>, {
-  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;iso3,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  <span class="kw">expect_equal</span>(result, <span class="dv">0</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; isn&#39;t present&quot;</span>, {
-  <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b1</span><span class="ch">\n</span><span class="st">&quot;</span>),
-               <span class="st">&quot;No start row found&quot;</span>)
-})
-
-<span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; is in the wrong place&quot;</span>, {
-  <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;stuff,iso3</span><span class="ch">\n</span><span class="st">&quot;</span>),
-               <span class="st">&quot;No start row found&quot;</span>)
-})</code></pre>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb809-2" data-line-number="2"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb809-3" data-line-number="3"><span class="kw">context</span>(<span class="st">&quot;Skipping rows correctly&quot;</span>)</a>
+<a class="sourceLine" id="cb809-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb809-5" data-line-number="5"><span class="kw">source</span>(<span class="st">&quot;../../scripts/determine_skip_rows_a.R&quot;</span>)</a>
+<a class="sourceLine" id="cb809-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb809-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows&quot;</span>, {</a>
+<a class="sourceLine" id="cb809-8" data-line-number="8">  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb809-9" data-line-number="9">  <span class="kw">expect_equal</span>(result, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb809-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb809-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb809-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are header rows and blank lines&quot;</span>, {</a>
+<a class="sourceLine" id="cb809-13" data-line-number="13">  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">is03,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb809-14" data-line-number="14">  <span class="kw">expect_equal</span>(result, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb809-15" data-line-number="15">})</a>
+<a class="sourceLine" id="cb809-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb809-17" data-line-number="17"><span class="kw">test_that</span>(<span class="st">&quot;The right row is found when there are no header rows to discard&quot;</span>, {</a>
+<a class="sourceLine" id="cb809-18" data-line-number="18">  result &lt;-<span class="st"> </span><span class="kw">determine_skip_rows</span>(<span class="st">&quot;iso3,stuff</span><span class="ch">\n</span><span class="st">c1,c2</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb809-19" data-line-number="19">  <span class="kw">expect_equal</span>(result, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb809-20" data-line-number="20">})</a>
+<a class="sourceLine" id="cb809-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb809-22" data-line-number="22"><span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; isn&#39;t present&quot;</span>, {</a>
+<a class="sourceLine" id="cb809-23" data-line-number="23">  <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;a1,a2</span><span class="ch">\n</span><span class="st">b1,b1</span><span class="ch">\n</span><span class="st">&quot;</span>),</a>
+<a class="sourceLine" id="cb809-24" data-line-number="24">               <span class="st">&quot;No start row found&quot;</span>)</a>
+<a class="sourceLine" id="cb809-25" data-line-number="25">})</a>
+<a class="sourceLine" id="cb809-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb809-27" data-line-number="27"><span class="kw">test_that</span>(<span class="st">&quot;No row is found when &#39;iso3&#39; is in the wrong place&quot;</span>, {</a>
+<a class="sourceLine" id="cb809-28" data-line-number="28">  <span class="kw">expect_error</span>(<span class="kw">determine_skip_rows</span>(<span class="st">&quot;stuff,iso3</span><span class="ch">\n</span><span class="st">&quot;</span>),</a>
+<a class="sourceLine" id="cb809-29" data-line-number="29">               <span class="st">&quot;No start row found&quot;</span>)</a>
+<a class="sourceLine" id="cb809-30" data-line-number="30">})</a></code></pre></div>
 <p>and run it:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;determine_skip_rows_a&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;determine_skip_rows_a&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Skipping rows correctly
 ✖ |   0 5     | Skipping rows correctly
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 test_determine_skip_rows_a.R:9: failure: The right row is found when there are header rows
 `result` not equal to 2.
 Lengths differ: 0 is not 1
@@ -1068,9 +1075,9 @@ test_determine_skip_rows_a.R:23: failure: No row is found when &#39;iso3&#39; is
 
 test_determine_skip_rows_a.R:28: failure: No row is found when &#39;iso3&#39; is in the wrong place
 `determine_skip_rows(&quot;stuff,iso3\n&quot;)` did not throw an error.
-───────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 
-══ Results ════════════════════════════════════════════════════════════════
+══ Results ═════════════════════════════════════════════════════════════════════
 OK:       0
 Failed:   5
 Warnings: 0
@@ -1085,32 +1092,32 @@ because the row with <code>iso3</code> is being used as headers.</li>
 <li>When <code>iso3</code> isn’t found at all, the function is returning <code>integer(0)</code> rather than stopping.</li>
 </ol>
 <p>Here is a more robust version of the function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-
-determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {
-  data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(src_path)
-  <span class="cf">if</span> (<span class="kw">names</span>(data)[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) {
-    <span class="kw">return</span>(<span class="dv">0</span>)
-  }
-  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">first</span>()
-  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-    <span class="kw">stop</span>(<span class="st">&quot;No start row found in&quot;</span>, src_path)
-  }
-  result
-}</code></pre>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb812-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb812-3" data-line-number="3">determine_skip_rows &lt;-<span class="st"> </span><span class="cf">function</span>(src_path) {</a>
+<a class="sourceLine" id="cb812-4" data-line-number="4">  data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(src_path)</a>
+<a class="sourceLine" id="cb812-5" data-line-number="5">  <span class="cf">if</span> (<span class="kw">names</span>(data)[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) {</a>
+<a class="sourceLine" id="cb812-6" data-line-number="6">    <span class="kw">return</span>(<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb812-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb812-8" data-line-number="8">  result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb812-9" data-line-number="9"><span class="st">    </span><span class="kw">select</span>(<span class="dt">check =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb812-10" data-line-number="10"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb812-11" data-line-number="11"><span class="st">    </span><span class="kw">filter</span>(check <span class="op">==</span><span class="st"> &quot;iso3&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb812-12" data-line-number="12"><span class="st">    </span><span class="kw">select</span>(id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb812-13" data-line-number="13"><span class="st">    </span><span class="kw">first</span>()</a>
+<a class="sourceLine" id="cb812-14" data-line-number="14">  <span class="cf">if</span> (<span class="kw">length</span>(result) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb812-15" data-line-number="15">    <span class="kw">stop</span>(<span class="st">&quot;No start row found in&quot;</span>, src_path)</a>
+<a class="sourceLine" id="cb812-16" data-line-number="16">  }</a>
+<a class="sourceLine" id="cb812-17" data-line-number="17">  result</a>
+<a class="sourceLine" id="cb812-18" data-line-number="18">}</a></code></pre></div>
 <p>And here are the results:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;determine_skip_rows_b&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb813-1" data-line-number="1"><span class="kw">test_dir</span>(<span class="st">&quot;tests/testthat&quot;</span>, <span class="st">&quot;determine_skip_rows_b&quot;</span>)</a></code></pre></div>
 <pre><code>✔ |  OK F W S | Context
 
 ⠏ |   0       | Skipping rows correctly
 ✔ |   5       | Skipping rows correctly
 
-══ Results ════════════════════════════════════════════════════════════════
+══ Results ═════════════════════════════════════════════════════════════════════
 OK:       5
 Failed:   0
 Warnings: 0
@@ -1149,11 +1156,13 @@ Tests like these allow our future selves to focus on making new mistakes instead
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1161,12 +1170,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1181,7 +1189,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"view": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/testerror.Rmd",
+"text": null
+},
+"download": ["r4de.pdf", "r4de.epub"],
 "toc": {
 "collapse": "section"
 }

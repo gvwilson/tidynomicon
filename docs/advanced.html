@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Advanced Topics | The Tidynomicon</title>
-  <meta name="description" content="Chapter 9 Advanced Topics | The Tidynomicon" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <title>Chapter 9 Advanced Topics | R for Data Engineers</title>
+  <meta name="description" content="Chapter 9 Advanced Topics | R for Data Engineers" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Advanced Topics | The Tidynomicon" />
+  <meta property="og:title" content="Chapter 9 Advanced Topics | R for Data Engineers" />
   <meta property="og:type" content="book" />
   
+  <meta property="og:image" content="machu-picchu.jpg" />
   
-  <meta property="og:description" content="Chapter 9 Advanced Topics | The Tidynomicon" />
   <meta name="github-repo" content="gvwilson/tidynomicon" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Advanced Topics | The Tidynomicon" />
+  <meta name="twitter:title" content="Chapter 9 Advanced Topics | R for Data Engineers" />
   
-  <meta name="twitter:description" content="Chapter 9 Advanced Topics | The Tidynomicon" />
   
+  <meta name="twitter:image" content="machu-picchu.jpg" />
 
 <meta name="author" content="Greg Wilson" />
 
 
+<meta name="date" content="2021-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="testerror.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="testerror.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -55,7 +59,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -125,7 +128,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Tidynomicon</a></li>
+<li><a href="./">R for Data Engineers</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
@@ -264,7 +267,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidynomicon</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Engineers</a>
           </h1>
         </div>
 
@@ -294,7 +297,7 @@ we will look briefly at a few of its more advanced capabilities.</p>
 <div id="how-can-i-use-python-with-r" class="section level2">
 <h2><span class="header-section-number">9.2</span> How can I use Python with R?</h2>
 <p>You can put Python code in R Markdown documents:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&quot;Hello R&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb815"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb815-1" data-line-number="1"><span class="bu">print</span>(<span class="st">&quot;Hello R&quot;</span>)</a></code></pre></div>
 <pre><code>Hello R</code></pre>
 <p>but how can those chunks interact with your R and vice versa?
 The answer is a package called <a href="https://rstudio.github.io/reticulate/">reticulate</a>
@@ -303,7 +306,7 @@ To use it,
 run <code>install.packages(&quot;reticulate&quot;)</code>.
 By default,
 it uses the system-default Python:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.which</span>(<span class="st">&quot;python&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" data-line-number="1"><span class="kw">Sys.which</span>(<span class="st">&quot;python&quot;</span>)</a></code></pre></div>
 <pre><code>                 python 
 &quot;/anaconda3/bin/python&quot; </code></pre>
 <p>but you can configure it to use different versions,
@@ -329,9 +332,9 @@ Figure 9.1: XKCD on Python Environments (from <a href="https://xkcd.com/1987/" c
 or vice versa.
 To show how this works,
 let’s read our infant HIV data into a Pandas data frame:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas
-data <span class="op">=</span> pandas.read_csv(<span class="st">&#39;results/infant_hiv.csv&#39;</span>)
-<span class="bu">print</span>(data.head())</code></pre>
+<div class="sourceCode" id="cb819"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb819-1" data-line-number="1"><span class="im">import</span> pandas</a>
+<a class="sourceLine" id="cb819-2" data-line-number="2">data <span class="op">=</span> pandas.read_csv(<span class="st">&#39;results/infant_hiv.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb819-3" data-line-number="3"><span class="bu">print</span>(data.head())</a></code></pre></div>
 <pre><code>  country  year  estimate  hi  lo
 0     AFG  2009       NaN NaN NaN
 1     AFG  2010       NaN NaN NaN
@@ -340,8 +343,8 @@ data <span class="op">=</span> pandas.read_csv(<span class="st">&#39;results/inf
 4     AFG  2013       NaN NaN NaN</code></pre>
 <p>All of our Python variables are available in our R session as part of the <code>py</code> object,
 so <code>py$data</code> is our data frame inside a chunk of R code:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reticulate)
-<span class="kw">head</span>(py<span class="op">$</span>data)</code></pre>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb821-1" data-line-number="1"><span class="kw">library</span>(reticulate)</a>
+<a class="sourceLine" id="cb821-2" data-line-number="2"><span class="kw">head</span>(py<span class="op">$</span>data)</a></code></pre></div>
 <pre><code>  country year estimate  hi  lo
 1     AFG 2009      NaN NaN NaN
 2     AFG 2010      NaN NaN NaN
@@ -358,12 +361,12 @@ you have to add the trailing <code>L</code> (for “long”) and write it <code>
 <p>On the other hand,
 reticulate translates between 0-based and 1-based indexing.
 Suppose we create a character vector in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r">elements =<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hydrogen&#39;</span>, <span class="st">&#39;helium&#39;</span>, <span class="st">&#39;lithium&#39;</span>, <span class="st">&#39;beryllium&#39;</span>)</code></pre>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" data-line-number="1">elements =<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hydrogen&#39;</span>, <span class="st">&#39;helium&#39;</span>, <span class="st">&#39;lithium&#39;</span>, <span class="st">&#39;beryllium&#39;</span>)</a></code></pre></div>
 <p>Hydrogen is in position 1 in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r">elements[<span class="dv">1</span>]</code></pre>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb824-1" data-line-number="1">elements[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] &quot;hydrogen&quot;</code></pre>
 <p>but position 0 in Python:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(r.elements[<span class="dv">0</span>])</code></pre>
+<div class="sourceCode" id="cb826"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb826-1" data-line-number="1"><span class="bu">print</span>(r.elements[<span class="dv">0</span>])</a></code></pre></div>
 <pre><code>hydrogen</code></pre>
 <p>Note our use of the object <code>r</code> in our Python code:
 just <code>py$whatever</code> gives us access to Python objects in R,
@@ -377,53 +380,51 @@ and then access that variable from R:
 we can call the Python directly (or vice versa).
 For example,
 we can use Python’s random number generator in R as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r">pyrand &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;random&quot;</span>)
-pyrand<span class="op">$</span><span class="kw">gauss</span>(<span class="dv">0</span>, <span class="dv">1</span>)</code></pre>
-<pre><code>[1] -1.202424</code></pre>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb828-1" data-line-number="1">pyrand &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;random&quot;</span>)</a>
+<a class="sourceLine" id="cb828-2" data-line-number="2">pyrand<span class="op">$</span><span class="kw">gauss</span>(<span class="dv">0</span>, <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>[1] 0.3290297</code></pre>
 <p>(There’s no reason to do this—R’s random number generator is just as strong—but it illustrates the point.)</p>
 <p>We can also source Python scripts.
 For example,
 suppose that <code>countries.py</code> contains this function:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span>
-
-<span class="im">import</span> pandas <span class="im">as</span> pd
-
-<span class="kw">def</span> get_countries(filename):
-    data <span class="op">=</span> pd.read_csv(filename)
-    <span class="cf">return</span> data.country.unique()</code></pre>
+<div class="sourceCode" id="cb830"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb830-1" data-line-number="1"><span class="co">#!/usr/bin/env python</span></a>
+<a class="sourceLine" id="cb830-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb830-3" data-line-number="3"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
+<a class="sourceLine" id="cb830-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb830-5" data-line-number="5"><span class="kw">def</span> get_countries(filename):</a>
+<a class="sourceLine" id="cb830-6" data-line-number="6">    data <span class="op">=</span> pd.read_csv(filename)</a>
+<a class="sourceLine" id="cb830-7" data-line-number="7">    <span class="cf">return</span> data.country.unique()</a></code></pre></div>
 <p>We can run that script using <code>source_python</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source_python</span>(<span class="st">&#39;countries.py&#39;</span>)</code></pre>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb831-1" data-line-number="1"><span class="kw">source_python</span>(<span class="st">&#39;countries.py&#39;</span>)</a></code></pre></div>
 <p>There is no output because all the script did was define a function.
 By default,
 that function and all other top-level variables defined in the script are now available in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">get_countries</span>(<span class="st">&#39;results/infant_hiv.csv&#39;</span>)</code></pre>
-<pre><code>  [1] &quot;AFG&quot; &quot;AGO&quot; &quot;AIA&quot; &quot;ALB&quot; &quot;ARE&quot; &quot;ARG&quot; &quot;ARM&quot; &quot;ATG&quot; &quot;AUS&quot; &quot;AUT&quot; &quot;AZE&quot;
- [12] &quot;BDI&quot; &quot;BEL&quot; &quot;BEN&quot; &quot;BFA&quot; &quot;BGD&quot; &quot;BGR&quot; &quot;BHR&quot; &quot;BHS&quot; &quot;BIH&quot; &quot;BLR&quot; &quot;BLZ&quot;
- [23] &quot;BOL&quot; &quot;BRA&quot; &quot;BRB&quot; &quot;BRN&quot; &quot;BTN&quot; &quot;BWA&quot; &quot;CAF&quot; &quot;CAN&quot; &quot;CHE&quot; &quot;CHL&quot; &quot;CHN&quot;
- [34] &quot;CIV&quot; &quot;CMR&quot; &quot;COD&quot; &quot;COG&quot; &quot;COK&quot; &quot;COL&quot; &quot;COM&quot; &quot;CPV&quot; &quot;CRI&quot; &quot;CUB&quot; &quot;CYP&quot;
- [45] &quot;CZE&quot; &quot;DEU&quot; &quot;DJI&quot; &quot;DMA&quot; &quot;DNK&quot; &quot;DOM&quot; &quot;DZA&quot; &quot;ECU&quot; &quot;EGY&quot; &quot;ERI&quot; &quot;ESP&quot;
- [56] &quot;EST&quot; &quot;ETH&quot; &quot;FIN&quot; &quot;FJI&quot; &quot;FRA&quot; &quot;FSM&quot; &quot;GAB&quot; &quot;GBR&quot; &quot;GEO&quot; &quot;GHA&quot; &quot;GIN&quot;
- [67] &quot;GMB&quot; &quot;GNB&quot; &quot;GNQ&quot; &quot;GRC&quot; &quot;GRD&quot; &quot;GTM&quot; &quot;GUY&quot; &quot;HND&quot; &quot;HRV&quot; &quot;HTI&quot; &quot;HUN&quot;
- [78] &quot;IDN&quot; &quot;IND&quot; &quot;IRL&quot; &quot;IRN&quot; &quot;IRQ&quot; &quot;ISL&quot; &quot;ISR&quot; &quot;ITA&quot; &quot;JAM&quot; &quot;JOR&quot; &quot;JPN&quot;
- [89] &quot;KAZ&quot; &quot;KEN&quot; &quot;KGZ&quot; &quot;KHM&quot; &quot;KIR&quot; &quot;KNA&quot; &quot;KOR&quot; &quot;LAO&quot; &quot;LBN&quot; &quot;LBR&quot; &quot;LBY&quot;
-[100] &quot;LCA&quot; &quot;LKA&quot; &quot;LSO&quot; &quot;LTU&quot; &quot;LUX&quot; &quot;LVA&quot; &quot;MAR&quot; &quot;MDA&quot; &quot;MDG&quot; &quot;MDV&quot; &quot;MEX&quot;
-[111] &quot;MHL&quot; &quot;MKD&quot; &quot;MLI&quot; &quot;MLT&quot; &quot;MMR&quot; &quot;MNE&quot; &quot;MNG&quot; &quot;MOZ&quot; &quot;MRT&quot; &quot;MUS&quot; &quot;MWI&quot;
-[122] &quot;MYS&quot; &quot;NAM&quot; &quot;NER&quot; &quot;NGA&quot; &quot;NIC&quot; &quot;NIU&quot; &quot;NLD&quot; &quot;NOR&quot; &quot;NPL&quot; &quot;NRU&quot; &quot;NZL&quot;
-[133] &quot;OMN&quot; &quot;PAK&quot; &quot;PAN&quot; &quot;PER&quot; &quot;PHL&quot; &quot;PLW&quot; &quot;PNG&quot; &quot;POL&quot; &quot;PRK&quot; &quot;PRT&quot; &quot;PRY&quot;
-[144] &quot;PSE&quot; &quot;ROU&quot; &quot;RUS&quot; &quot;RWA&quot; &quot;SAU&quot; &quot;SDN&quot; &quot;SEN&quot; &quot;SGP&quot; &quot;SLB&quot; &quot;SLE&quot; &quot;SLV&quot;
-[155] &quot;SOM&quot; &quot;SRB&quot; &quot;SSD&quot; &quot;STP&quot; &quot;SUR&quot; &quot;SVK&quot; &quot;SVN&quot; &quot;SWE&quot; &quot;SWZ&quot; &quot;SYC&quot; &quot;SYR&quot;
-[166] &quot;TCD&quot; &quot;TGO&quot; &quot;THA&quot; &quot;TJK&quot; &quot;TKM&quot; &quot;TLS&quot; &quot;TON&quot; &quot;TTO&quot; &quot;TUN&quot; &quot;TUR&quot; &quot;TUV&quot;
-[177] &quot;TZA&quot; &quot;UGA&quot; &quot;UKR&quot; &quot;UNK&quot; &quot;URY&quot; &quot;USA&quot; &quot;UZB&quot; &quot;VCT&quot; &quot;VEN&quot; &quot;VNM&quot; &quot;VUT&quot;
-[188] &quot;WSM&quot; &quot;YEM&quot; &quot;ZAF&quot; &quot;ZMB&quot; &quot;ZWE&quot;</code></pre>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb832-1" data-line-number="1"><span class="kw">get_countries</span>(<span class="st">&#39;results/infant_hiv.csv&#39;</span>)</a></code></pre></div>
+<pre><code>  [1] &quot;AFG&quot; &quot;AGO&quot; &quot;AIA&quot; &quot;ALB&quot; &quot;ARE&quot; &quot;ARG&quot; &quot;ARM&quot; &quot;ATG&quot; &quot;AUS&quot; &quot;AUT&quot; &quot;AZE&quot; &quot;BDI&quot;
+ [13] &quot;BEL&quot; &quot;BEN&quot; &quot;BFA&quot; &quot;BGD&quot; &quot;BGR&quot; &quot;BHR&quot; &quot;BHS&quot; &quot;BIH&quot; &quot;BLR&quot; &quot;BLZ&quot; &quot;BOL&quot; &quot;BRA&quot;
+ [25] &quot;BRB&quot; &quot;BRN&quot; &quot;BTN&quot; &quot;BWA&quot; &quot;CAF&quot; &quot;CAN&quot; &quot;CHE&quot; &quot;CHL&quot; &quot;CHN&quot; &quot;CIV&quot; &quot;CMR&quot; &quot;COD&quot;
+ [37] &quot;COG&quot; &quot;COK&quot; &quot;COL&quot; &quot;COM&quot; &quot;CPV&quot; &quot;CRI&quot; &quot;CUB&quot; &quot;CYP&quot; &quot;CZE&quot; &quot;DEU&quot; &quot;DJI&quot; &quot;DMA&quot;
+ [49] &quot;DNK&quot; &quot;DOM&quot; &quot;DZA&quot; &quot;ECU&quot; &quot;EGY&quot; &quot;ERI&quot; &quot;ESP&quot; &quot;EST&quot; &quot;ETH&quot; &quot;FIN&quot; &quot;FJI&quot; &quot;FRA&quot;
+ [61] &quot;FSM&quot; &quot;GAB&quot; &quot;GBR&quot; &quot;GEO&quot; &quot;GHA&quot; &quot;GIN&quot; &quot;GMB&quot; &quot;GNB&quot; &quot;GNQ&quot; &quot;GRC&quot; &quot;GRD&quot; &quot;GTM&quot;
+ [73] &quot;GUY&quot; &quot;HND&quot; &quot;HRV&quot; &quot;HTI&quot; &quot;HUN&quot; &quot;IDN&quot; &quot;IND&quot; &quot;IRL&quot; &quot;IRN&quot; &quot;IRQ&quot; &quot;ISL&quot; &quot;ISR&quot;
+ [85] &quot;ITA&quot; &quot;JAM&quot; &quot;JOR&quot; &quot;JPN&quot; &quot;KAZ&quot; &quot;KEN&quot; &quot;KGZ&quot; &quot;KHM&quot; &quot;KIR&quot; &quot;KNA&quot; &quot;KOR&quot; &quot;LAO&quot;
+ [97] &quot;LBN&quot; &quot;LBR&quot; &quot;LBY&quot; &quot;LCA&quot; &quot;LKA&quot; &quot;LSO&quot; &quot;LTU&quot; &quot;LUX&quot; &quot;LVA&quot; &quot;MAR&quot; &quot;MDA&quot; &quot;MDG&quot;
+[109] &quot;MDV&quot; &quot;MEX&quot; &quot;MHL&quot; &quot;MKD&quot; &quot;MLI&quot; &quot;MLT&quot; &quot;MMR&quot; &quot;MNE&quot; &quot;MNG&quot; &quot;MOZ&quot; &quot;MRT&quot; &quot;MUS&quot;
+[121] &quot;MWI&quot; &quot;MYS&quot; &quot;NAM&quot; &quot;NER&quot; &quot;NGA&quot; &quot;NIC&quot; &quot;NIU&quot; &quot;NLD&quot; &quot;NOR&quot; &quot;NPL&quot; &quot;NRU&quot; &quot;NZL&quot;
+[133] &quot;OMN&quot; &quot;PAK&quot; &quot;PAN&quot; &quot;PER&quot; &quot;PHL&quot; &quot;PLW&quot; &quot;PNG&quot; &quot;POL&quot; &quot;PRK&quot; &quot;PRT&quot; &quot;PRY&quot; &quot;PSE&quot;
+[145] &quot;ROU&quot; &quot;RUS&quot; &quot;RWA&quot; &quot;SAU&quot; &quot;SDN&quot; &quot;SEN&quot; &quot;SGP&quot; &quot;SLB&quot; &quot;SLE&quot; &quot;SLV&quot; &quot;SOM&quot; &quot;SRB&quot;
+[157] &quot;SSD&quot; &quot;STP&quot; &quot;SUR&quot; &quot;SVK&quot; &quot;SVN&quot; &quot;SWE&quot; &quot;SWZ&quot; &quot;SYC&quot; &quot;SYR&quot; &quot;TCD&quot; &quot;TGO&quot; &quot;THA&quot;
+[169] &quot;TJK&quot; &quot;TKM&quot; &quot;TLS&quot; &quot;TON&quot; &quot;TTO&quot; &quot;TUN&quot; &quot;TUR&quot; &quot;TUV&quot; &quot;TZA&quot; &quot;UGA&quot; &quot;UKR&quot; &quot;UNK&quot;
+[181] &quot;URY&quot; &quot;USA&quot; &quot;UZB&quot; &quot;VCT&quot; &quot;VEN&quot; &quot;VNM&quot; &quot;VUT&quot; &quot;WSM&quot; &quot;YEM&quot; &quot;ZAF&quot; &quot;ZMB&quot; &quot;ZWE&quot;</code></pre>
 <p>There is one small pothole in this.
 When the script is run,
 the special Python variable <code>__name__</code> is set to <code>'__main__'&quot;'</code>,
 i.e.,
 the script thinks it is being called from the command line.
 If it includes a conditional block to handle command-line arguments like this:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
-    input_file, output_files <span class="op">=</span> sys.argv[<span class="dv">1</span>], sys.argv[<span class="dv">2</span>:]
-    main(input_file, output_files)</code></pre>
+<div class="sourceCode" id="cb834"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb834-1" data-line-number="1"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
+<a class="sourceLine" id="cb834-2" data-line-number="2">    input_file, output_files <span class="op">=</span> sys.argv[<span class="dv">1</span>], sys.argv[<span class="dv">2</span>:]</a>
+<a class="sourceLine" id="cb834-3" data-line-number="3">    main(input_file, output_files)</a></code></pre></div>
 <p>then that block will be executed,
 but will fail because <code>sys.argv</code> won’t include anything.</p>
 </div>
@@ -450,9 +451,9 @@ we will start by exploring them.</p>
 <div id="what-are-attributes" class="section level3">
 <h3><span class="header-section-number">9.3.1</span> What are attributes?</h3>
 <p>Let’s begin by creating a matrix containing the first few hundreds:</p>
-<pre class="sourceCode r"><code class="sourceCode r">values &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span> <span class="co"># creates c(100, 200, ..., 900)</span>
-m &lt;-<span class="st"> </span><span class="kw">matrix</span>(values, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)
-m</code></pre>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb835-1" data-line-number="1">values &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span> <span class="co"># creates c(100, 200, ..., 900)</span></a>
+<a class="sourceLine" id="cb835-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(values, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb835-3" data-line-number="3">m</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]  100  400  700
 [2,]  200  500  800
@@ -461,28 +462,28 @@ m</code></pre>
 R continues to store our nine values as a vector.
 However,
 it adds an attribute called <code>class</code> to the vector to identify it as a matrix:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(m)</code></pre>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb837-1" data-line-number="1"><span class="kw">class</span>(m)</a></code></pre></div>
 <pre><code>[1] &quot;matrix&quot;</code></pre>
 <p>and another attribute called <code>dim</code> to store its dimensions as a 2-element vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(m)</code></pre>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb839-1" data-line-number="1"><span class="kw">dim</span>(m)</a></code></pre></div>
 <pre><code>[1] 3 3</code></pre>
 <p>An object’s attributes are simply a set of name-value pairs.
 We can find out what attributes are present using <code>attributes</code> and show or set individual attributes using <code>attr</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attr</span>(m, <span class="st">&quot;prospects&quot;</span>) &lt;-<span class="st"> &quot;dismal&quot;</span>
-<span class="kw">attributes</span>(m)</code></pre>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb841-1" data-line-number="1"><span class="kw">attr</span>(m, <span class="st">&quot;prospects&quot;</span>) &lt;-<span class="st"> &quot;dismal&quot;</span></a>
+<a class="sourceLine" id="cb841-2" data-line-number="2"><span class="kw">attributes</span>(m)</a></code></pre></div>
 <pre><code>$dim
 [1] 3 3
 
 $prospects
 [1] &quot;dismal&quot;</code></pre>
 <p>What are the type and attributes of a tibble?</p>
-<pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>a, <span class="op">~</span>b,
-  <span class="dv">1</span>, <span class="dv">2</span>,
-  <span class="dv">3</span>, <span class="dv">4</span>)
-<span class="kw">typeof</span>(t)</code></pre>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb843-1" data-line-number="1">t &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb843-2" data-line-number="2">  <span class="op">~</span>a, <span class="op">~</span>b,</a>
+<a class="sourceLine" id="cb843-3" data-line-number="3">  <span class="dv">1</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb843-4" data-line-number="4">  <span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb843-5" data-line-number="5"><span class="kw">typeof</span>(t)</a></code></pre></div>
 <pre><code>[1] &quot;list&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(t)</code></pre>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb845-1" data-line-number="1"><span class="kw">attributes</span>(t)</a></code></pre></div>
 <pre><code>$names
 [1] &quot;a&quot; &quot;b&quot;
 
@@ -497,7 +498,7 @@ another called <code>row.names</code> that stores the names of its rows (a featu
 and three classes.
 These classes tell R what functions to search for when we are (for example)
 asking for the length of a tibble (which is the number of rows it contains):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(t)</code></pre>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" data-line-number="1"><span class="kw">length</span>(t)</a></code></pre></div>
 <pre><code>[1] 2</code></pre>
 </div>
 <div id="how-are-classes-represented" class="section level3">
@@ -506,25 +507,25 @@ asking for the length of a tibble (which is the number of rows it contains):</p>
 let’s customize the way that 2D coordinates are converted to strings.
 First,
 we create two coordinate vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">first &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.7</span>)
-<span class="kw">class</span>(first) &lt;-<span class="st"> &quot;two_d&quot;</span>
-<span class="kw">print</span>(first)</code></pre>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb849-1" data-line-number="1">first &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.7</span>)</a>
+<a class="sourceLine" id="cb849-2" data-line-number="2"><span class="kw">class</span>(first) &lt;-<span class="st"> &quot;two_d&quot;</span></a>
+<a class="sourceLine" id="cb849-3" data-line-number="3"><span class="kw">print</span>(first)</a></code></pre></div>
 <pre><code>[1] 0.5 0.7
 attr(,&quot;class&quot;)
 [1] &quot;two_d&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">second &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">3.1</span>)
-<span class="kw">class</span>(second) &lt;-<span class="st"> &quot;two_d&quot;</span>
-<span class="kw">print</span>(second)</code></pre>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb851-1" data-line-number="1">second &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">3.1</span>)</a>
+<a class="sourceLine" id="cb851-2" data-line-number="2"><span class="kw">class</span>(second) &lt;-<span class="st"> &quot;two_d&quot;</span></a>
+<a class="sourceLine" id="cb851-3" data-line-number="3"><span class="kw">print</span>(second)</a></code></pre></div>
 <pre><code>[1] 1.3 3.1
 attr(,&quot;class&quot;)
 [1] &quot;two_d&quot;</code></pre>
 <p>Separately, we define the behavior of <code>toString</code> for such objects:</p>
-<pre class="sourceCode r"><code class="sourceCode r">toString.two_d &lt;-<span class="st"> </span><span class="cf">function</span>(obj){
-  <span class="kw">paste0</span>(<span class="st">&quot;&lt;&quot;</span>, obj[<span class="dv">1</span>], <span class="st">&quot;, &quot;</span>, obj[<span class="dv">2</span>], <span class="st">&quot;&gt;&quot;</span>)
-}
-<span class="kw">toString</span>(first)</code></pre>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb853-1" data-line-number="1">toString.two_d &lt;-<span class="st"> </span><span class="cf">function</span>(obj){</a>
+<a class="sourceLine" id="cb853-2" data-line-number="2">  <span class="kw">paste0</span>(<span class="st">&quot;&lt;&quot;</span>, obj[<span class="dv">1</span>], <span class="st">&quot;, &quot;</span>, obj[<span class="dv">2</span>], <span class="st">&quot;&gt;&quot;</span>)</a>
+<a class="sourceLine" id="cb853-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb853-4" data-line-number="4"><span class="kw">toString</span>(first)</a></code></pre></div>
 <pre><code>[1] &quot;&lt;0.5, 0.7&gt;&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">toString</span>(second)</code></pre>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb855-1" data-line-number="1"><span class="kw">toString</span>(second)</a></code></pre></div>
 <pre><code>[1] &quot;&lt;1.3, 3.1&gt;&quot;</code></pre>
 <p>S3’s protocol is simple:
 given a function F and an object of class C,
@@ -534,12 +535,12 @@ it looks at the object’s next class (assuming it has more than one);
 once its user-assigned classes are exhausted,
 it uses whatever function the system has defined for its base type (in this case, character vector).
 We can trace this process by importing the sloop package and calling <code>s3_dispatch</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sloop)
-<span class="kw">s3_dispatch</span>(<span class="kw">toString</span>(first))</code></pre>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb857-1" data-line-number="1"><span class="kw">library</span>(sloop)</a>
+<a class="sourceLine" id="cb857-2" data-line-number="2"><span class="kw">s3_dispatch</span>(<span class="kw">toString</span>(first))</a></code></pre></div>
 <pre><code>=&gt; toString.two_d
  * toString.default</code></pre>
 <p>Compare this with calling <code>toString</code> on a plain old character vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">s3_dispatch</span>(<span class="kw">toString</span>(<span class="kw">c</span>(<span class="fl">7.1</span>, <span class="fl">7.2</span>)))</code></pre>
+<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb859-1" data-line-number="1"><span class="kw">s3_dispatch</span>(<span class="kw">toString</span>(<span class="kw">c</span>(<span class="fl">7.1</span>, <span class="fl">7.2</span>)))</a></code></pre></div>
 <pre><code>   toString.double
    toString.numeric
 =&gt; toString.default</code></pre>
@@ -564,14 +565,14 @@ It should also have one argument for each attribute the object is to have, if an
 Unlike matrices, our 2D points don’t have any extra arguments, so our constructor needs no extra arguments.
 Crucially,
 the constructor checks the type of its arguments to ensure that the object has at least some chance of being valid.</p>
-<pre class="sourceCode r"><code class="sourceCode r">new_two_d &lt;-<span class="st"> </span><span class="cf">function</span>(coordinates){
-  <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(coordinates))
-  <span class="kw">class</span>(coordinates) &lt;-<span class="st"> &quot;two_d&quot;</span>
-  coordinates
-}
-
-example &lt;-<span class="st"> </span><span class="kw">new_two_d</span>(<span class="kw">c</span>(<span class="fl">4.4</span>, <span class="fl">-2.2</span>))
-<span class="kw">toString</span>(example)</code></pre>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb861-1" data-line-number="1">new_two_d &lt;-<span class="st"> </span><span class="cf">function</span>(coordinates){</a>
+<a class="sourceLine" id="cb861-2" data-line-number="2">  <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(coordinates))</a>
+<a class="sourceLine" id="cb861-3" data-line-number="3">  <span class="kw">class</span>(coordinates) &lt;-<span class="st"> &quot;two_d&quot;</span></a>
+<a class="sourceLine" id="cb861-4" data-line-number="4">  coordinates</a>
+<a class="sourceLine" id="cb861-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb861-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb861-7" data-line-number="7">example &lt;-<span class="st"> </span><span class="kw">new_two_d</span>(<span class="kw">c</span>(<span class="fl">4.4</span>, <span class="fl">-2.2</span>))</a>
+<a class="sourceLine" id="cb861-8" data-line-number="8"><span class="kw">toString</span>(example)</a></code></pre></div>
 <pre><code>[1] &quot;&lt;4.4, -2.2&gt;&quot;</code></pre>
 <p>Validators are only needed when checks on data correctness and consistency are expensive.
 For example,
@@ -581,15 +582,15 @@ To illustrate this,
 we will check that we have exactly two coordinates;
 in real code,
 we would probably include this (inexpensive) check in the constructor.</p>
-<pre class="sourceCode r"><code class="sourceCode r">validate_two_d &lt;-<span class="st"> </span><span class="cf">function</span>(coordinates) {
-  <span class="kw">stopifnot</span>(<span class="kw">length</span>(coordinates) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)
-  <span class="kw">stopifnot</span>(<span class="kw">class</span>(coordinates) <span class="op">==</span><span class="st"> &quot;two_d&quot;</span>)
-}
-
-<span class="kw">validate_two_d</span>(example)    <span class="co"># should succeed silently</span>
-<span class="kw">validate_two_d</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))    <span class="co"># should fail</span></code></pre>
+<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb863-1" data-line-number="1">validate_two_d &lt;-<span class="st"> </span><span class="cf">function</span>(coordinates) {</a>
+<a class="sourceLine" id="cb863-2" data-line-number="2">  <span class="kw">stopifnot</span>(<span class="kw">length</span>(coordinates) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb863-3" data-line-number="3">  <span class="kw">stopifnot</span>(<span class="kw">class</span>(coordinates) <span class="op">==</span><span class="st"> &quot;two_d&quot;</span>)</a>
+<a class="sourceLine" id="cb863-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb863-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb863-6" data-line-number="6"><span class="kw">validate_two_d</span>(example)    <span class="co"># should succeed silently</span></a>
+<a class="sourceLine" id="cb863-7" data-line-number="7"><span class="kw">validate_two_d</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))    <span class="co"># should fail</span></a></code></pre></div>
 <pre><code>Error in validate_two_d(c(1, 3)): class(coordinates) == &quot;two_d&quot; is not TRUE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">validate_two_d</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># should also fail</span></code></pre>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb865-1" data-line-number="1"><span class="kw">validate_two_d</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># should also fail</span></a></code></pre></div>
 <pre><code>Error in validate_two_d(c(2, 2, 2)): length(coordinates) == 2 is not TRUE</code></pre>
 <p>The third and final function in our trio provides a user-friendly way to construct objects of our new class.
 It should call the constructor and the validator (if one exists),
@@ -599,24 +600,24 @@ and so on.
 To illustrate this,
 we shall allow the user to provide either one argument (which must be a two-element vector)
 or two (which must each be numeric):</p>
-<pre class="sourceCode r"><code class="sourceCode r">two_d &lt;-<span class="st"> </span><span class="cf">function</span>(...){
-  args &lt;-<span class="st"> </span><span class="kw">list</span>(...)
-  <span class="cf">if</span> (<span class="kw">length</span>(args) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {
-    args &lt;-<span class="st"> </span>args[[<span class="dv">1</span>]]    <span class="co"># extract original value</span>
-  }
-  <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">length</span>(args) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) {
-    args &lt;-<span class="st"> </span><span class="kw">unlist</span>(args) <span class="co"># convert list to vector</span>
-  }
-  result &lt;-<span class="st"> </span><span class="kw">new_two_d</span>(args)
-  <span class="kw">validate_two_d</span>(result)
-  result
-}
-
-here &lt;-<span class="st"> </span><span class="kw">two_d</span>(<span class="fl">10.1</span>, <span class="fl">11.2</span>)
-<span class="kw">toString</span>(here)</code></pre>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb867-1" data-line-number="1">two_d &lt;-<span class="st"> </span><span class="cf">function</span>(...){</a>
+<a class="sourceLine" id="cb867-2" data-line-number="2">  args &lt;-<span class="st"> </span><span class="kw">list</span>(...)</a>
+<a class="sourceLine" id="cb867-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(args) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb867-4" data-line-number="4">    args &lt;-<span class="st"> </span>args[[<span class="dv">1</span>]]    <span class="co"># extract original value</span></a>
+<a class="sourceLine" id="cb867-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb867-6" data-line-number="6">  <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">length</span>(args) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb867-7" data-line-number="7">    args &lt;-<span class="st"> </span><span class="kw">unlist</span>(args) <span class="co"># convert list to vector</span></a>
+<a class="sourceLine" id="cb867-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb867-9" data-line-number="9">  result &lt;-<span class="st"> </span><span class="kw">new_two_d</span>(args)</a>
+<a class="sourceLine" id="cb867-10" data-line-number="10">  <span class="kw">validate_two_d</span>(result)</a>
+<a class="sourceLine" id="cb867-11" data-line-number="11">  result</a>
+<a class="sourceLine" id="cb867-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb867-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb867-14" data-line-number="14">here &lt;-<span class="st"> </span><span class="kw">two_d</span>(<span class="fl">10.1</span>, <span class="fl">11.2</span>)</a>
+<a class="sourceLine" id="cb867-15" data-line-number="15"><span class="kw">toString</span>(here)</a></code></pre></div>
 <pre><code>[1] &quot;&lt;10.1, 11.2&gt;&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">there &lt;-<span class="st"> </span><span class="kw">two_d</span>(<span class="kw">c</span>(<span class="fl">15.6</span>, <span class="fl">16.7</span>))
-<span class="kw">toString</span>(there)</code></pre>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb869-1" data-line-number="1">there &lt;-<span class="st"> </span><span class="kw">two_d</span>(<span class="kw">c</span>(<span class="fl">15.6</span>, <span class="fl">16.7</span>))</a>
+<a class="sourceLine" id="cb869-2" data-line-number="2"><span class="kw">toString</span>(there)</a></code></pre></div>
 <pre><code>[1] &quot;&lt;15.6, 16.7&gt;&quot;</code></pre>
 </div>
 <div id="how-does-inheritance-work" class="section level3">
@@ -632,42 +633,42 @@ we shall look at that classic of object-oriented design: shapes.
 of course,
 not those whose non-Euclidean angles have placed such intolerable stress on the minds of so many of our colleagues over the years.)
 We start by defining a <code>polygon</code> class:</p>
-<pre class="sourceCode r"><code class="sourceCode r">new_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(coords, name) {
-  points &lt;-<span class="st"> </span><span class="kw">map</span>(coords, two_d)
-  <span class="kw">class</span>(points) &lt;-<span class="st"> &quot;polygon&quot;</span>
-  <span class="kw">attr</span>(points, <span class="st">&quot;name&quot;</span>) &lt;-<span class="st"> </span>name
-  points
-}
-
-toString.polygon &lt;-<span class="st"> </span><span class="cf">function</span>(poly) {
-  <span class="kw">paste0</span>(<span class="kw">attr</span>(poly, <span class="st">&quot;name&quot;</span>), <span class="st">&quot;: &quot;</span>, <span class="kw">paste0</span>(<span class="kw">map</span>(poly, toString), <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>))
-}
-
-right &lt;-<span class="st"> </span><span class="kw">new_polygon</span>(<span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="st">&quot;triangle&quot;</span>)
-<span class="kw">toString</span>(right)</code></pre>
+<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb871-1" data-line-number="1">new_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(coords, name) {</a>
+<a class="sourceLine" id="cb871-2" data-line-number="2">  points &lt;-<span class="st"> </span><span class="kw">map</span>(coords, two_d)</a>
+<a class="sourceLine" id="cb871-3" data-line-number="3">  <span class="kw">class</span>(points) &lt;-<span class="st"> &quot;polygon&quot;</span></a>
+<a class="sourceLine" id="cb871-4" data-line-number="4">  <span class="kw">attr</span>(points, <span class="st">&quot;name&quot;</span>) &lt;-<span class="st"> </span>name</a>
+<a class="sourceLine" id="cb871-5" data-line-number="5">  points</a>
+<a class="sourceLine" id="cb871-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb871-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb871-8" data-line-number="8">toString.polygon &lt;-<span class="st"> </span><span class="cf">function</span>(poly) {</a>
+<a class="sourceLine" id="cb871-9" data-line-number="9">  <span class="kw">paste0</span>(<span class="kw">attr</span>(poly, <span class="st">&quot;name&quot;</span>), <span class="st">&quot;: &quot;</span>, <span class="kw">paste0</span>(<span class="kw">map</span>(poly, toString), <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>))</a>
+<a class="sourceLine" id="cb871-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb871-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb871-12" data-line-number="12">right &lt;-<span class="st"> </span><span class="kw">new_polygon</span>(<span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="st">&quot;triangle&quot;</span>)</a>
+<a class="sourceLine" id="cb871-13" data-line-number="13"><span class="kw">toString</span>(right)</a></code></pre></div>
 <pre><code>[1] &quot;triangle: &lt;0, 0&gt;, &lt;1, 0&gt;, &lt;0, 1&gt;&quot;</code></pre>
 <p>Now we will add colored shapes:</p>
-<pre class="sourceCode r"><code class="sourceCode r">new_colored_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(coords, name, color) {
-  object &lt;-<span class="st"> </span><span class="kw">new_polygon</span>(coords, name)
-  <span class="kw">attr</span>(object, <span class="st">&quot;color&quot;</span>) &lt;-<span class="st"> </span>color
-  <span class="kw">class</span>(object) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;colored_polygon&quot;</span>, <span class="kw">class</span>(object))
-  object
-}
-
-pinkish &lt;-<span class="st"> </span><span class="kw">new_colored_polygon</span>(<span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)), <span class="st">&quot;triangle&quot;</span>, <span class="st">&quot;roseate&quot;</span>)
-<span class="kw">class</span>(pinkish)</code></pre>
+<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb873-1" data-line-number="1">new_colored_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(coords, name, color) {</a>
+<a class="sourceLine" id="cb873-2" data-line-number="2">  object &lt;-<span class="st"> </span><span class="kw">new_polygon</span>(coords, name)</a>
+<a class="sourceLine" id="cb873-3" data-line-number="3">  <span class="kw">attr</span>(object, <span class="st">&quot;color&quot;</span>) &lt;-<span class="st"> </span>color</a>
+<a class="sourceLine" id="cb873-4" data-line-number="4">  <span class="kw">class</span>(object) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;colored_polygon&quot;</span>, <span class="kw">class</span>(object))</a>
+<a class="sourceLine" id="cb873-5" data-line-number="5">  object</a>
+<a class="sourceLine" id="cb873-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb873-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb873-8" data-line-number="8">pinkish &lt;-<span class="st"> </span><span class="kw">new_colored_polygon</span>(<span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)), <span class="st">&quot;triangle&quot;</span>, <span class="st">&quot;roseate&quot;</span>)</a>
+<a class="sourceLine" id="cb873-9" data-line-number="9"><span class="kw">class</span>(pinkish)</a></code></pre></div>
 <pre><code>[1] &quot;colored_polygon&quot; &quot;polygon&quot;        </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">toString</span>(pinkish)</code></pre>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb875-1" data-line-number="1"><span class="kw">toString</span>(pinkish)</a></code></pre></div>
 <pre><code>[1] &quot;triangle: &lt;0, 0&gt;, &lt;1, 0&gt;, &lt;1, 1&gt;&quot;</code></pre>
 <p>So far so good:
 since we have not defined a method to handle colored polygons specifically,
 we get the behavior for a regular polygon.
 Let’s add another method that supplements the behavior of the existing method:</p>
-<pre class="sourceCode r"><code class="sourceCode r">toString.colored_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(poly) {
-  <span class="kw">paste0</span>(<span class="kw">toString.polygon</span>(poly), <span class="st">&quot;+ color = &quot;</span>, <span class="kw">attr</span>(poly, <span class="st">&quot;color&quot;</span>))
-}
-
-<span class="kw">toString</span>(pinkish)</code></pre>
+<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb877-1" data-line-number="1">toString.colored_polygon &lt;-<span class="st"> </span><span class="cf">function</span>(poly) {</a>
+<a class="sourceLine" id="cb877-2" data-line-number="2">  <span class="kw">paste0</span>(<span class="kw">toString.polygon</span>(poly), <span class="st">&quot;+ color = &quot;</span>, <span class="kw">attr</span>(poly, <span class="st">&quot;color&quot;</span>))</a>
+<a class="sourceLine" id="cb877-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb877-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb877-5" data-line-number="5"><span class="kw">toString</span>(pinkish)</a></code></pre></div>
 <pre><code>[1] &quot;triangle: &lt;0, 0&gt;, &lt;1, 0&gt;, &lt;1, 1&gt;+ color = roseate&quot;</code></pre>
 <p>In practice,
 we will almost always place all of the methods associated with a class in the same file as its constructor, validator, and helper.
@@ -955,9 +956,9 @@ The database contains four tables:</p>
 </tbody>
 </table>
 <p>Let’s get the data about the people into a data frame:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DBI)
-db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;example.db&quot;</span>))
-<span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from Person;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb879-1" data-line-number="1"><span class="kw">library</span>(DBI)</a>
+<a class="sourceLine" id="cb879-2" data-line-number="2">db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;example.db&quot;</span>))</a>
+<a class="sourceLine" id="cb879-3" data-line-number="3"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from Person;&quot;</span>)</a></code></pre></div>
 <pre><code>  person_id personal_name family_name
 1      dyer       William        Dyer
 2        pb         Frank     Pabodie
@@ -972,9 +973,9 @@ What if we want to parameterize our query?
 Inside the text of the query,
 we use <code>:name</code> as a placeholder for a query parameter,
 then pass a list of name-value pairs to specify what we actually want:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbGetQuery</span>(db,
-           <span class="st">&quot;select * from Measurements where quantity = :desired&quot;</span>,
-           <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">desired =</span> <span class="st">&quot;rad&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb881-1" data-line-number="1"><span class="kw">dbGetQuery</span>(db,</a>
+<a class="sourceLine" id="cb881-2" data-line-number="2">           <span class="st">&quot;select * from Measurements where quantity = :desired&quot;</span>,</a>
+<a class="sourceLine" id="cb881-3" data-line-number="3">           <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">desired =</span> <span class="st">&quot;rad&quot;</span>))</a></code></pre></div>
 <pre><code>  visit_id person_id quantity reading
 1      619      dyer      rad    9.82
 2      622      dyer      rad    7.80
@@ -989,11 +990,11 @@ as this can leave you open to <a href="https://en.wikipedia.org/wiki/SQL_injecti
 and other forms of digital damnation.</p>
 <p>If you expect a large set of results,
 it’s best to page through them:</p>
-<pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw">dbSendQuery</span>(db, <span class="st">&quot;select * from Measurements limit 15;&quot;</span>)
-<span class="cf">while</span> (<span class="op">!</span><span class="kw">dbHasCompleted</span>(results)) {
-  chunk &lt;-<span class="st"> </span><span class="kw">dbFetch</span>(results, <span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># artificially low for tutorial purposes</span>
-  <span class="kw">print</span>(chunk)
-}</code></pre>
+<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" data-line-number="1">results &lt;-<span class="st"> </span><span class="kw">dbSendQuery</span>(db, <span class="st">&quot;select * from Measurements limit 15;&quot;</span>)</a>
+<a class="sourceLine" id="cb883-2" data-line-number="2"><span class="cf">while</span> (<span class="op">!</span><span class="kw">dbHasCompleted</span>(results)) {</a>
+<a class="sourceLine" id="cb883-3" data-line-number="3">  chunk &lt;-<span class="st"> </span><span class="kw">dbFetch</span>(results, <span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># artificially low for tutorial purposes</span></a>
+<a class="sourceLine" id="cb883-4" data-line-number="4">  <span class="kw">print</span>(chunk)</a>
+<a class="sourceLine" id="cb883-5" data-line-number="5">}</a></code></pre></div>
 <pre><code>  visit_id person_id quantity reading
 1      619      dyer      rad    9.82
 2      619      dyer      sal    0.13
@@ -1010,13 +1011,13 @@ it’s best to page through them:</p>
 1      735      &lt;NA&gt;     temp  -26.00
 2      751        pb      rad    4.35
 3      751        pb     temp  -18.50</code></pre>
-<pre><code>Warning in result_fetch(res@ptr, n = n): Column `reading`: mixed type,
-first seen values of type real, coercing other values of type string</code></pre>
+<pre><code>Warning in result_fetch(res@ptr, n = n): Column `reading`: mixed type, first
+seen values of type real, coercing other values of type string</code></pre>
 <pre><code>  visit_id person_id quantity reading
 1      751      lake      sal    0.00
 2      752      lake      rad    2.19
 3      752      lake      sal    0.09</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbClearResult</span>(results)</code></pre>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" data-line-number="1"><span class="kw">dbClearResult</span>(results)</a></code></pre></div>
 </div>
 <div id="how-can-i-populate-databases-with-r" class="section level3">
 <h3><span class="header-section-number">9.5.2</span> How can I populate databases with R?</h3>
@@ -1024,17 +1025,17 @@ first seen values of type real, coercing other values of type string</code></pre
 RSQLite makes it easy to map a data frame directly to a database table;
 to show how it works,
 we will create an in-memory database:</p>
-<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>name, <span class="op">~</span>red, <span class="op">~</span>green, <span class="op">~</span>blue,
-  <span class="st">&#39;black&#39;</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
-  <span class="st">&#39;yellow&#39;</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">0</span>,
-  <span class="st">&#39;aqua&#39;</span>, <span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">255</span>,
-  <span class="st">&#39;fuchsia&#39;</span>, <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span>
-)
-db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&#39;:memory:&#39;</span>)
-<span class="kw">dbWriteTable</span>(db, <span class="st">&quot;colors&quot;</span>, colors)</code></pre>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb888-1" data-line-number="1">colors &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb888-2" data-line-number="2">  <span class="op">~</span>name, <span class="op">~</span>red, <span class="op">~</span>green, <span class="op">~</span>blue,</a>
+<a class="sourceLine" id="cb888-3" data-line-number="3">  <span class="st">&#39;black&#39;</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb888-4" data-line-number="4">  <span class="st">&#39;yellow&#39;</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb888-5" data-line-number="5">  <span class="st">&#39;aqua&#39;</span>, <span class="dv">0</span>, <span class="dv">255</span>, <span class="dv">255</span>,</a>
+<a class="sourceLine" id="cb888-6" data-line-number="6">  <span class="st">&#39;fuchsia&#39;</span>, <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span></a>
+<a class="sourceLine" id="cb888-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb888-8" data-line-number="8">db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&#39;:memory:&#39;</span>)</a>
+<a class="sourceLine" id="cb888-9" data-line-number="9"><span class="kw">dbWriteTable</span>(db, <span class="st">&quot;colors&quot;</span>, colors)</a></code></pre></div>
 <p>Let’s see what the combination of R and SQLite has done with our data and the types thereof:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from colors;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" data-line-number="1"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from colors;&quot;</span>)</a></code></pre></div>
 <pre><code>     name red green blue
 1   black   0     0    0
 2  yellow 255   255    0
@@ -1042,13 +1043,13 @@ db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span 
 4 fuchsia 255     0    0</code></pre>
 <p>Good: the types have been guessed correctly.</p>
 <p>But what about dates?</p>
-<pre class="sourceCode r"><code class="sourceCode r">appointments &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  <span class="op">~</span>who, <span class="op">~</span>when,
-  <span class="st">&#39;Dyer&#39;</span>, <span class="st">&#39;1927-03-01&#39;</span>,
-  <span class="st">&#39;Peabody&#39;</span>, <span class="st">&#39;1927-05-05&#39;</span>
-) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">when =</span> lubridate<span class="op">::</span><span class="kw">as_date</span>(when))
-<span class="kw">dbWriteTable</span>(db, <span class="st">&quot;appointments&quot;</span>, appointments)
-<span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from appointments;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb891-1" data-line-number="1">appointments &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb891-2" data-line-number="2">  <span class="op">~</span>who, <span class="op">~</span>when,</a>
+<a class="sourceLine" id="cb891-3" data-line-number="3">  <span class="st">&#39;Dyer&#39;</span>, <span class="st">&#39;1927-03-01&#39;</span>,</a>
+<a class="sourceLine" id="cb891-4" data-line-number="4">  <span class="st">&#39;Peabody&#39;</span>, <span class="st">&#39;1927-05-05&#39;</span></a>
+<a class="sourceLine" id="cb891-5" data-line-number="5">) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">when =</span> lubridate<span class="op">::</span><span class="kw">as_date</span>(when))</a>
+<a class="sourceLine" id="cb891-6" data-line-number="6"><span class="kw">dbWriteTable</span>(db, <span class="st">&quot;appointments&quot;</span>, appointments)</a>
+<a class="sourceLine" id="cb891-7" data-line-number="7"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from appointments;&quot;</span>)</a></code></pre></div>
 <pre><code>      who   when
 1    Dyer -15647
 2 Peabody -15582</code></pre>
@@ -1056,11 +1057,11 @@ db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span 
 After considerable trial and error,
 we discover that our dates have been returned to us as
 the number of days since January 1, 1970:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(db,
-           <span class="st">&quot;insert into appointments values(&#39;Testing&#39;, :the_date);&quot;</span>,
-           <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">the_date =</span> lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&#39;1971-01-01&#39;</span>)))</code></pre>
+<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb893-1" data-line-number="1"><span class="kw">dbExecute</span>(db,</a>
+<a class="sourceLine" id="cb893-2" data-line-number="2">           <span class="st">&quot;insert into appointments values(&#39;Testing&#39;, :the_date);&quot;</span>,</a>
+<a class="sourceLine" id="cb893-3" data-line-number="3">           <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">the_date =</span> lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&#39;1971-01-01&#39;</span>)))</a></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from appointments where who = &#39;Testing&#39;;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb895-1" data-line-number="1"><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from appointments where who = &#39;Testing&#39;;&quot;</span>)</a></code></pre></div>
 <pre><code>      who when
 1 Testing  365</code></pre>
 <p>There is no point screaming:
@@ -1106,11 +1107,13 @@ and those who can hear will definitely not pity you.</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1118,12 +1121,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1138,7 +1140,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["tidynomicon.pdf", "tidynomicon.epub"],
+"view": {
+"link": "https://github.com/gvwilson/tidynomicon/edit/master/advanced.Rmd",
+"text": null
+},
+"download": ["r4de.pdf", "r4de.epub"],
 "toc": {
 "collapse": "section"
 }

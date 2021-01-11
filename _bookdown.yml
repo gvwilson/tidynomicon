@@ -1,9 +1,12 @@
-book_filename: "tidynomicon"
+book_filename: "r4de"
 language:
+  label:
+    fig: "Figure "
+    tab: "Table "
   ui:
     chapter_name: "Chapter "
 output_dir: "docs"
-delete_merged_file: true
+delete_merged_file: false
 new_session: true
 rmd_files:
   - index.Rmd
